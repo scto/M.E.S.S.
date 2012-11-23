@@ -1,0 +1,191 @@
+package vaisseaux.ennemis;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import vaisseaux.Vaisseaux;
+import vaisseaux.XP;
+import vaisseaux.ennemis.particuliers.EnnemiDeBase;
+import vaisseaux.ennemis.particuliers.EnnemiDeBaseQuiTir;
+import vaisseaux.ennemis.particuliers.EnnemiZigZag;
+
+
+import menu.CSG;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pool.Poolable;
+import com.badlogic.gdx.utils.Pools;
+
+
+public abstract class Ennemis extends Vaisseaux implements Poolable{
+	
+	// voir à quelle taille l'initialiser
+	public static List<Ennemis> liste = new ArrayList<Ennemis>(30);
+	//public static List<Ennemis> liste = new LinkedList<Ennemis>();
+	private static long derniereApparition = 0;
+	public boolean mort = false;
+	// voir à quelle taille l'initialiser
+	private static List<TypesEnnemis> ennemisAApparaitre = new ArrayList<TypesEnnemis>();
+	//private static List<TypesEnnemis> ennemisAApparaitre = new LinkedList<TypesEnnemis>();
+	protected Rectangle collision = new Rectangle();
+	protected int pv;
+	// ** ** variables utilitaires
+
+	private float clignotement = 0;
+	
+	
+	/**
+	 * Initialise l'ennemi
+	 * @param posX
+	 * @param posY
+	 * @param direction
+	 * @param pv 
+	 */
+	protected Ennemis(float posX, float posY, float dirX, float dirY, int pv) {
+		position = new Vector2(posX, posY);
+		direction = new Vector2(dirX, dirY);
+		this.pv = pv;
+	}
+	
+	/**
+	 * Parcourt la liste une fois invoquant la methode mouvement et la methode afficher
+	 * Les fait également tirer
+	 * @param batch
+	 */
+	public static void affichageEtMouvement(SpriteBatch batch) {
+		for (int a = 0; a < liste.size(); a++) {
+			if(liste.get(a).clignotement <= 0 | liste.get(a).mort){
+				liste.get(a).afficher(batch);
+			} else {
+				liste.get(a).clignotement -= Gdx.graphics.getDeltaTime();
+			}
+			// On le fait tirer
+			liste.get(a).tir();
+			// On le vire si hors de l'écran
+			if(liste.get(a).mouvementEtVerif() == false)
+				liste.remove(a);	
+		}
+	}
+	
+	/**
+	 * Méthode de tir, si elle n'est pas redefinie l'ennemi ne tir pas
+	 */
+	protected void tir() {
+		
+	}
+
+	/**
+	 * Se contente d'afficher simplement les objets
+	 * @param batch
+	 */
+	public static void affichage(SpriteBatch batch) {
+		for (int a = 0; a < liste.size(); a++) liste.get(a).afficher(batch);
+	}
+	
+	/**
+	 * Methode servant à afficher les balles
+	 * @param batch : batch principal
+	 */
+	abstract public void afficher(SpriteBatch batch);
+	
+	/**
+	 * Fait bouger les objets et les enlèves si ils ne sont plus à l'écran
+	 * On les enlève également si ils sont morts et que l'animation est finie
+	 * @param batch
+	 */
+	abstract public boolean mouvementEtVerif();
+	
+	/**
+	 * fait apparaitre les ennemis si il faut.
+	 * Il les fait apparaitre suivant la difficulté
+	 * @param tempsEcoule
+	 */
+	public static void possibleApparition(long tempsEcoule){
+		if (Progression.getFrequenceApparition(tempsEcoule)	+ derniereApparition < System.currentTimeMillis()) {
+			// Si on met l'invocation de la methode directement dans le for on aura que des ennemis de base qui pop alors que
+			// pourtant si on affiche les types tous sont là logiquement, bizarre bizarre
+			ennemisAApparaitre = Progression.getListeEnnemis();
+			for (TypesEnnemis type : ennemisAApparaitre) {			
+				switch (type) {
+				case EnnemiDeBaseQuiTir:
+					liste.add(EnnemiDeBaseQuiTir.pool.obtain());
+					break;
+				case EnnemiZigZag:
+					liste.add(EnnemiZigZag.pool.obtain());
+					break;
+				case EnnemiDeBase:
+					liste.add(EnnemiDeBase.pool.obtain());
+					break;
+				}
+			}
+			derniereApparition = System.currentTimeMillis();
+		}
+	}
+	/**
+	 * Renvoie le rectangle de collision de l'objet
+	 * @return
+	 */
+	abstract public Rectangle getRectangleCollision();
+
+	/**
+	 * On decremente les pvs de la force de l'arme. Si c'est 0 ou moins on le condamne à mort
+	 * @param force
+	 * @return return true si vivant.
+	 */
+	public boolean touche(int force) {
+		pv -= force;
+		if(pv <= 0 & !mort){
+			mort = true;
+			XP.ajoutXp(position, getXp());
+		}
+		clignotement = .08f;
+		return !mort;
+	}
+
+	/**
+	 * renvoie la valeur en xp de l'ennemi
+	 * @return
+	 */
+	public abstract int getXp();
+
+//	/**
+//	 * A reimplementer si il y a des caractéristiques qui ne sont pas communes
+//	 */
+//	public Ennemis reinitialiser(float posX, float posY, float dirX, float dirY, int pv) {
+//			position = new Vector2(posX, posY);
+//			direction = new Vector2(dirX, dirY);
+//			etatTpsAnimationExplosion = 0;
+//			mort = false;
+//			this.pv = pv;
+//			return this;
+//	}
+//	public void initialiser(float posX, float posY, float dirX, float dirY, int pv){
+//		position.x = posX;
+//		position.y = posY;
+//		direction.x = dirX;
+//		direction.y = dirY;
+//		this.pv = pv;
+//	}
+//	
+//	@Override
+//	public void reset() {
+//		mort = false;
+//		etatTpsAnimationExplosion = 0;
+//	}
+	
+	/**
+	 * Je n'ai pas trouvé comment me passer des getters si je veux pouvoir étendre une classe d'ennemi sans devoir tout réimplementer
+	 * tout en pouvant malgré tout changer ses caractéristiques
+	 * @return
+	 */
+	public abstract int getHauteur();
+	public abstract int getLargeur();
+	public abstract int getDemiHauteur();
+	public abstract int getDemiLargeur();
+	public abstract int getVitesse();
+}
