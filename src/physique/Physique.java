@@ -156,10 +156,9 @@ public class Physique {
 			}
 		}
 		// ** On regarde si le joueur se fait toucher
-		for(int a = 0; a < Armes.listeTirsDesEnnemis.size(); a++){
+		for(Armes a : Armes.listeTirsDesEnnemis){
 			if(pointDansRectangle(vaisseau.position.x + VaisseauType1.DEMI_LARGEUR, vaisseau.position.y + VaisseauType1.DEMI_HAUTEUR,
-					Armes.listeTirsDesEnnemis.get(a).position.x, Armes.listeTirsDesEnnemis.get(a).position.y,
-					Armes.listeTirsDesEnnemis.get(a).getLargeur(), Armes.listeTirsDesEnnemis.get(a).getHauteur())){
+					a.position.x, a.position.y,	a.getLargeur(), a.getHauteur())){
 //				vaisseau.perdu();
 //				return true;
 			}
@@ -173,7 +172,7 @@ public class Physique {
 //				return true;
 			}
 			for (Armes a : Armes.liste) {
-				if (rectangleDansRectangle(a.getRectangleCollision(),	ennemi.getRectangleCollision())) {
+				if (rectangleDansRectangle(a.getRectangleCollision(), ennemi.getRectangleCollision())) {
 					if (ennemi.touche(a.getForce())) {
 						a.free();
 						Armes.liste.removeValue(a, true);

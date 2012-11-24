@@ -1,23 +1,19 @@
 package vaisseaux.armes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import vaisseaux.Vaisseaux;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 
 public abstract class Armes extends Vaisseaux{
 	
 	protected Vector2 direction;
 	protected Rectangle collision = new Rectangle();
 	//public static List<Armes> liste = new ArrayList<Armes>(30);
-	public static Array<Armes> liste = new Array<Armes>(30);
-	public static List<Armes> listeTirsDesEnnemis = new ArrayList<Armes>(30);
+	public static Array<Armes> liste = new Array<Armes>(false, 30);
+	public static Array<Armes> listeTirsDesEnnemis = new Array<Armes>(false, 30);
 	
 	
 	/** on positionne la balle et on lui donne sa vitesse et sa direction. La vitesse est gerée en interne avec un vecteur qui va etre multiplié par
@@ -80,9 +76,10 @@ public abstract class Armes extends Vaisseaux{
 			if(a.mouvementEtVerif() == false)
 				liste.removeValue(a, true);
 		}
-		for (int e = 0; e < listeTirsDesEnnemis.size(); e++) {
-			listeTirsDesEnnemis.get(e).afficher(batch);
-			if(listeTirsDesEnnemis.get(e).mouvementEtVerif() == false) listeTirsDesEnnemis.remove(e);
+		for(Armes a : listeTirsDesEnnemis){
+			a.afficher(batch);
+			if(a.mouvementEtVerif() == false)
+				listeTirsDesEnnemis.removeValue(a, true);
 		}
 	}
 
@@ -110,7 +107,8 @@ public abstract class Armes extends Vaisseaux{
 	public static void affichage(SpriteBatch batch) {
 		//for (int a = 0; a < liste.size(); a++) liste.get(a).afficher(batch);
 		for(Armes a : liste) a.afficher(batch);
-		for (int a = 0; a < listeTirsDesEnnemis.size(); a++) listeTirsDesEnnemis.get(a).afficher(batch);
+		for(Armes a : listeTirsDesEnnemis) a.afficher(batch);
+		//for (int a = 0; a < listeTirsDesEnnemis.size(); a++) listeTirsDesEnnemis.get(a).afficher(batch);
 	}
 	/**
 	 * Retourne la force de l'arme

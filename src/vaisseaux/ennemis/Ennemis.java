@@ -23,7 +23,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	public boolean mort = false;
 	// voir à quelle taille l'initialiser
 	//private static List<TypesEnnemis> ennemisAApparaitre = new ArrayList<TypesEnnemis>();
-	private static Array<TypesEnnemis> ennemisAApparaitre = new Array<TypesEnnemis>();
+	private static Array<TypesEnnemis> ennemisAApparaitre = new Array<TypesEnnemis>(false, 30);
 	protected Rectangle collision = new Rectangle();
 	protected int pv;
 	// ** ** variables utilitaires
