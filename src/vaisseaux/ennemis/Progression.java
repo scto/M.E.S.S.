@@ -39,15 +39,15 @@ public class Progression {
 				// si on a assez de points pour payer l'ennemi on l'ajoute à la liste de ceux à invoquer
 				while(type.COUT <= pointsDispos){
 					// fait pas mal d'allocations visiblement
-					liste.add(type);
-					liste.add(type);
-					liste.add(type);
-					liste.add(type);
-					liste.add(type);
-					liste.add(type);
-					liste.add(type);
-					liste.add(type);
-					liste.add(type);
+//					liste.add(type);
+//					liste.add(type);
+//					liste.add(type);
+//					liste.add(type);
+//					liste.add(type);
+//					liste.add(type);
+//					liste.add(type);
+//					liste.add(type);
+//					liste.add(type);
 					liste.add(type);
 					pointsDispos -= type.COUT;
 				}
