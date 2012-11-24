@@ -1,7 +1,6 @@
 package vaisseaux.ennemis;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.badlogic.gdx.utils.Array;
 
 public class Progression {
 
@@ -9,7 +8,8 @@ public class Progression {
 	private static int niveau = 1;
 	/// Nombre de secondes au bout des quelles la difficulté augmente
 	private static final int PALIER = 1;
-	static List<TypesEnnemis> liste = new ArrayList<TypesEnnemis>(30);
+	//static List<TypesEnnemis> liste = new ArrayList<TypesEnnemis>(30);
+	static Array<TypesEnnemis> liste = new Array<TypesEnnemis>(30);
 
 	/**
 	 * Retourne la frequence d'apparition et calcul en même temps le niveau qui augmente de 1 toutes les 10 secondes. 
@@ -29,7 +29,7 @@ public class Progression {
 		return (int) (niveau * 1.5f);
 	}
 
-	public static List<TypesEnnemis> getListeEnnemis() {
+	public static Array<TypesEnnemis> getListeEnnemis() {
 		liste.clear();
 		int pointsDispos = niveau * 2;
 		// tant qu'on a encore des points à dépenser

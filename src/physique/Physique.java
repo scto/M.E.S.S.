@@ -172,13 +172,11 @@ public class Physique {
 //				vaisseau.perdu();
 //				return true;
 			}
-			// On parcourt la liste des balles pour tester les collisions avec les ennemis
-			for(int a = 0; a < Armes.liste.size(); a++){
-				if(rectangleDansRectangle(Armes.liste.get(a).getRectangleCollision(), ennemi.getRectangleCollision())){
-					// Return false si l'ennemi est vivant, sinon il arrete les balles
-					if(ennemi.touche(Armes.liste.get(a).getForce())){
-						Armes.liste.get(a).free();
-						Armes.liste.remove(a);
+			for (Armes a : Armes.liste) {
+				if (rectangleDansRectangle(a.getRectangleCollision(),	ennemi.getRectangleCollision())) {
+					if (ennemi.touche(a.getForce())) {
+						a.free();
+						Armes.liste.removeValue(a, true);
 					}
 				}
 			}

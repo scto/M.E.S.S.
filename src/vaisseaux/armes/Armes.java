@@ -8,13 +8,15 @@ import vaisseaux.Vaisseaux;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 
 public abstract class Armes extends Vaisseaux{
 	
 	protected Vector2 direction;
 	protected Rectangle collision = new Rectangle();
-	public static List<Armes> liste = new ArrayList<Armes>(30);
+	//public static List<Armes> liste = new ArrayList<Armes>(30);
+	public static Array<Armes> liste = new Array<Armes>(30);
 	public static List<Armes> listeTirsDesEnnemis = new ArrayList<Armes>(30);
 	
 	
@@ -69,9 +71,14 @@ public abstract class Armes extends Vaisseaux{
 	 * @param batch
 	 */
 	public static void affichageEtMouvement(SpriteBatch batch) {
-		for (int a = 0; a < liste.size(); a++) {
-			liste.get(a).afficher(batch);
-			if(liste.get(a).mouvementEtVerif() == false) liste.remove(a);
+//		for (int a = 0; a < liste.size(); a++) {
+//			liste.get(a).afficher(batch);
+//			if(liste.get(a).mouvementEtVerif() == false) liste.remove(a);
+//		}
+		for(Armes a : liste){
+			a.afficher(batch);
+			if(a.mouvementEtVerif() == false)
+				liste.removeValue(a, true);
 		}
 		for (int e = 0; e < listeTirsDesEnnemis.size(); e++) {
 			listeTirsDesEnnemis.get(e).afficher(batch);
@@ -101,7 +108,8 @@ public abstract class Armes extends Vaisseaux{
 	 * @param batch
 	 */
 	public static void affichage(SpriteBatch batch) {
-		for (int a = 0; a < liste.size(); a++) liste.get(a).afficher(batch);
+		//for (int a = 0; a < liste.size(); a++) liste.get(a).afficher(batch);
+		for(Armes a : liste) a.afficher(batch);
 		for (int a = 0; a < listeTirsDesEnnemis.size(); a++) listeTirsDesEnnemis.get(a).afficher(batch);
 	}
 	/**

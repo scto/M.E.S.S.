@@ -1,8 +1,5 @@
 package vaisseaux.ennemis;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import vaisseaux.Vaisseaux;
 import vaisseaux.XP;
 import vaisseaux.ennemis.particuliers.EnnemiDeBase;
@@ -21,13 +18,12 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 public abstract class Ennemis extends Vaisseaux implements Poolable{
 	
 	// voir à quelle taille l'initialiser
-	//public static List<Ennemis> liste = new ArrayList<Ennemis>(30);
 	public static Array<Ennemis> liste = new Array<Ennemis>(30);
 	private static long derniereApparition = 0;
 	public boolean mort = false;
 	// voir à quelle taille l'initialiser
-	private static List<TypesEnnemis> ennemisAApparaitre = new ArrayList<TypesEnnemis>();
-	//private static List<TypesEnnemis> ennemisAApparaitre = new LinkedList<TypesEnnemis>();
+	//private static List<TypesEnnemis> ennemisAApparaitre = new ArrayList<TypesEnnemis>();
+	private static Array<TypesEnnemis> ennemisAApparaitre = new Array<TypesEnnemis>();
 	protected Rectangle collision = new Rectangle();
 	protected int pv;
 	// ** ** variables utilitaires
@@ -64,20 +60,8 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 			e.tir();
 			// On le vire si hors de l'écran
 			if(e.mouvementEtVerif() == false)
-				liste.removeIndex(liste.indexOf(e, true));
+				liste.removeValue(e, true);
 		}
-//		for (int a = 0; a < liste.size(); a++) {
-//			if(liste.get(a).clignotement <= 0 | liste.get(a).mort){
-//				liste.get(a).afficher(batch);
-//			} else {
-//				liste.get(a).clignotement -= Gdx.graphics.getDeltaTime();
-//			}
-//			// On le fait tirer
-//			liste.get(a).tir();
-//			// On le vire si hors de l'écran
-//			if(liste.get(a).mouvementEtVerif() == false)
-//				liste.remove(a);	
-//		}
 	}
 	
 	/**
@@ -94,7 +78,6 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	public static void affichage(SpriteBatch batch) {
 		for(Ennemis e : liste)
 			e.afficher(batch);
-		//for (int a = 0; a < liste.size(); a++) liste.get(a).afficher(batch);
 	}
 	
 	/**
