@@ -61,8 +61,10 @@ public class Endless implements Screen {
         gl = Gdx.graphics.getGL20();
 		gl.glViewport(0, 0, CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);
 
-		// On vide au cas ou il y en aurait à cause du menu arme custom
+		//Reset
 		Armes.liste.clear();
+		Armes.listeTirsDesEnnemis.clear();
+		Ennemis.liste.clear();
         chrono = new Chrono(2000);
         chrono.demarrer(this);
 //        collision = new CollisionTester(vaisseau);
@@ -76,7 +78,7 @@ public class Endless implements Screen {
 		// ** ** clear screen
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		rbg.render(Gdx.graphics.getDeltaTime());
+		rbg.render(delta);
 
 		batch.begin();
 		XP.affichage(batch);
