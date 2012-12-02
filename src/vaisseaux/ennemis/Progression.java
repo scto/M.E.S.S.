@@ -8,7 +8,6 @@ public class Progression {
 	private static int niveau = 1;
 	/// Nombre de secondes au bout des quelles la difficulté augmente
 	private static final int PALIER = 1;
-	//static List<TypesEnnemis> liste = new ArrayList<TypesEnnemis>(30);
 	static Array<TypesEnnemis> liste = new Array<TypesEnnemis>(30);
 
 	/**
@@ -54,5 +53,11 @@ public class Progression {
 			}
 		}
 		return liste;
+	}
+
+	public static void reset() {
+		frequenceApparition = 2000;
+		niveau = 1;
+		liste.clear();
 	}
 }

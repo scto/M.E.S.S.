@@ -21,14 +21,12 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	public static Array<Ennemis> liste = new Array<Ennemis>(30);
 	private static long derniereApparition = 0;
 	public boolean mort = false;
-	// voir à quelle taille l'initialiser
-	//private static List<TypesEnnemis> ennemisAApparaitre = new ArrayList<TypesEnnemis>();
 	private static Array<TypesEnnemis> ennemisAApparaitre = new Array<TypesEnnemis>(false, 30);
 	protected Rectangle collision = new Rectangle();
 	protected int pv;
 	// ** ** variables utilitaires
 
-	private float clignotement = 0;
+	//private float clignotement = 0;
 	
 	
 	/**
@@ -51,11 +49,11 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	 */
 	public static void affichageEtMouvement(SpriteBatch batch) {
 		for(Ennemis e : liste){
-			if(e.clignotement <= 0 | e.mort){
+			//if(e.clignotement <= 0 | e.mort){
 				e.afficher(batch);
-			} else {
-				e.clignotement -= Gdx.graphics.getDeltaTime();
-			}
+			//} else {
+			//	e.clignotement -= Gdx.graphics.getDeltaTime();
+			//}
 			// On le fait tirer
 			e.tir();
 			// On le vire si hors de l'écran
@@ -136,7 +134,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 			mort = true;
 			XP.ajoutXp(position, getXp());
 		}
-		clignotement = .08f;
+		//clignotement = .08f;
 		return !mort;
 	}
 

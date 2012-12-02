@@ -6,6 +6,7 @@ import physique.Physique;
 import vaisseaux.XP;
 import vaisseaux.armes.Armes;
 import vaisseaux.ennemis.Ennemis;
+import vaisseaux.ennemis.Progression;
 import vaisseaux.joueur.VaisseauType1;
 import affichage.ParallaxBackground;
 import affichage.ParallaxLayer;
@@ -67,6 +68,8 @@ public class Endless implements Screen {
 		Ennemis.liste.clear();
         chrono = new Chrono(2000);
         chrono.demarrer(this);
+        XP.liste.clear();
+        Progression.reset();
 //        collision = new CollisionTester(vaisseau);
 //        collision.demarrer();
         Gdx.graphics.setVSync(false);
