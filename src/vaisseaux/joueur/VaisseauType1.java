@@ -139,12 +139,6 @@ public class VaisseauType1 extends Vaisseaux {
 					dernierTir = System.currentTimeMillis();
 				}
 				break;
-//			case ArmeTriple:
-//				if (System.currentTimeMillis() > dernierTir	+ ArmesTriple.CADENCETIR + modifCadenceTir) {
-//					new ArmesTriple(position.x + DEMI_LARGEUR - ArmesTriple.DEMI_LARGEUR, position.y + HAUTEUR, DIRECTION_TIR, 3);//, listeTir);
-//					dernierTir = System.currentTimeMillis();
-//				}
-//				break;
 			case ArmeBalayage:
 				if (System.currentTimeMillis() > dernierTir	+ ArmesBalayage.CADENCETIR + modifCadenceTir) {
 					//new ArmesBalayage(position.x + DEMI_LARGEUR - ArmesBalayage.DEMI_LARGEUR, position.y + HAUTEUR, 0, 1, false);

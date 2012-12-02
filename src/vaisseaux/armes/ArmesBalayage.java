@@ -28,9 +28,7 @@ public class ArmesBalayage extends Armes implements Poolable{
 	public static final long CADENCETIR = 220;
 	private static final int FORCE = 2;
 	public static Pool<ArmesBalayage> pool = Pools.get(ArmesBalayage.class);
-	//private AnimationDeBase anim;
 	private static AnimationTirBleu anim = new AnimationTirBleu();
-	//private static AnimationTirFeu anim = new AnimationTirFeu();
 	private float tpsAnim = 0;
 	// ** ** variable utilitaire
 	private float angle;

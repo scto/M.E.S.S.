@@ -1,9 +1,5 @@
 package jeu;
 
-import vaisseaux.XP;
-import vaisseaux.armes.Armes;
-import vaisseaux.ennemis.Ennemis;
-
 import com.badlogic.gdx.Gdx;
 
 public class Chrono implements Runnable {

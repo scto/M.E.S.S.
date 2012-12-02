@@ -11,18 +11,8 @@ public abstract class Armes extends Vaisseaux{
 	
 	protected Vector2 direction;
 	protected Rectangle collision = new Rectangle();
-	//public static List<Armes> liste = new ArrayList<Armes>(30);
 	public static Array<Armes> liste = new Array<Armes>(false, 30);
 	public static Array<Armes> listeTirsDesEnnemis = new Array<Armes>(false, 30);
-	
-	
-	/** on positionne la balle et on lui donne sa vitesse et sa direction. La vitesse est gerée en interne avec un vecteur qui va etre multiplié par
-	 * celui de la direction pour tout gérer en un seul vecteur. Le boolean sert a dire si c'est en haut ou en bas (donc joueur ou ennemi)
-	 * @param position2 ne jamais croiser les effluves
-	 * @param directionDeLaBalle Entre 0 ET 1 !!
-	 * @param hautTrue
-	 */
-	//abstract public void ajouterBalle(Vector2 position2, Vector2 directionDeLaBalle);
 	
 	/**
 	 * On donne la balle sa position et direction initiale. 
@@ -60,17 +50,11 @@ public abstract class Armes extends Vaisseaux{
 		else liste.add(this);
 	}
 
-
-	// OLD public static void affichageEtMouvement(List<Armes> listeTirs, SpriteBatch batch) {
 	/**
 	 * Parcourt la liste une fois invoquant la methode mouvement et la methode afficher
 	 * @param batch
 	 */
 	public static void affichageEtMouvement(SpriteBatch batch) {
-//		for (int a = 0; a < liste.size(); a++) {
-//			liste.get(a).afficher(batch);
-//			if(liste.get(a).mouvementEtVerif() == false) liste.remove(a);
-//		}
 		for(Armes a : liste){
 			a.afficher(batch);
 			if(a.mouvementEtVerif() == false)
@@ -105,10 +89,8 @@ public abstract class Armes extends Vaisseaux{
 	 * @param batch
 	 */
 	public static void affichage(SpriteBatch batch) {
-		//for (int a = 0; a < liste.size(); a++) liste.get(a).afficher(batch);
 		for(Armes a : liste) a.afficher(batch);
 		for(Armes a : listeTirsDesEnnemis) a.afficher(batch);
-		//for (int a = 0; a < listeTirsDesEnnemis.size(); a++) listeTirsDesEnnemis.get(a).afficher(batch);
 	}
 	/**
 	 * Retourne la force de l'arme

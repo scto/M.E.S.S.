@@ -37,8 +37,6 @@ public class Menu implements Screen {
 	public Menu(final Game game) {
 		// bricolé pour avoir un style par défaut j'espère
 		Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
-
-
 		
 		TexMan.loadGame();
         // -- autre
@@ -119,10 +117,14 @@ public class Menu implements Screen {
 
 	@Override
 	public void show() {
+		Gdx.app.log("Show menu","");
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
 	public void hide() {
+		Gdx.app.log("Hide menu","");
+		Gdx.input.setInputProcessor(null);
 	}
 
 	@Override

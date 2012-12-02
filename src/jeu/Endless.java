@@ -1,6 +1,7 @@
 package jeu;
 
 import menu.CSG;
+import menu.Menu;
 import physique.Physique;
 import vaisseaux.XP;
 import vaisseaux.armes.Armes;
@@ -9,6 +10,7 @@ import vaisseaux.joueur.VaisseauType1;
 import affichage.ParallaxBackground;
 import affichage.ParallaxLayer;
 import affichage.TexMan;
+import affichage.Ui;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -39,6 +41,7 @@ public class Endless implements Screen {
 	private boolean pause = true;
 	private ParallaxBackground rbg;
 	private Chrono chrono;
+	//private CollisionTester collision;
 	private boolean alterner = true;
 	private boolean alternerApparition = true;
 	private boolean perdu = false;
@@ -62,6 +65,8 @@ public class Endless implements Screen {
 		Armes.liste.clear();
         chrono = new Chrono(2000);
         chrono.demarrer(this);
+//        collision = new CollisionTester(vaisseau);
+//        collision.demarrer();
         Gdx.graphics.setVSync(false);
 	}
 
@@ -80,15 +85,13 @@ public class Endless implements Screen {
 			Ennemis.affichageEtMouvement(batch);
 			vaisseau.draw(batch);
 			Armes.affichageEtMouvement(batch);
-			// ** ** update
-			update();
 		} else {
 			Ennemis.affichage(batch);
 			Armes.affichage(batch);
 			vaisseau.draw(batch);
 		}
-		
-		//UI.affichage(draw);
+		// ** ** update
+		update();
 		// FAIRE CLASSE UI POUR PAR EXEMPLE STOCKER -5
 		font.draw(batch,champChrono,0,CSG.HAUTEUR_ECRAN-5);
 		font.draw(batch, String.valueOf(Gdx.graphics.getFramesPerSecond()), 300, 300);
@@ -98,21 +101,28 @@ public class Endless implements Screen {
 
 	private void update() {
 		// ** ** partie mouvement joueur
-		if(Gdx.input.isTouched()){
-			if(!pause) vaisseau.mouvements();
-			else pause = false;
+		if (!perdu) {
+			if (Gdx.input.isTouched()) {
+				if (!pause)			vaisseau.mouvements();
+				else				pause = false;
+			} else {
+				affichage.ParallaxBackground.changerOrientation(0);
+			}
+			if (alterner) {
+				if (alternerApparition)
+					Ennemis.possibleApparition(chrono.getTempsEcoule());
+				perdu = Physique.testCollisions(vaisseau);
+				// ** ** tir joueur
+				vaisseau.tir();
+				alternerApparition = !alternerApparition;
+			}
+			alterner = !alterner;
 		} else {
-			affichage.ParallaxBackground.changerOrientation(0);
+			if(Gdx.input.justTouched()){
+				Menu menu = new Menu(game);
+				game.setScreen(menu);
+			}
 		}
-		
-		if(alterner){
-			if(alternerApparition) Ennemis.possibleApparition(chrono.getTempsEcoule());
-			perdu = Physique.testCollisions(vaisseau);
-			// ** ** tir joueur
-			vaisseau.tir();
-			alternerApparition = !alternerApparition;
-		}
-		alterner = !alterner;
 	}
 
 	@Override

@@ -59,10 +59,6 @@ public class Physique {
 	 * @param VITESSE_MAX
 	 */
 	private static void deplacementBase(Vector2 direction, Vector2 position, final int VITESSE) {
-//		Vector2 directionCourante = new Vector2(direction);
-//		directionCourante.mul((Gdx.graphics.getDeltaTime() * VITESSE));
-//		position.add(directionCourante);
-		
 		position.x += direction.x * Gdx.graphics.getDeltaTime() * VITESSE;
 		position.y += direction.y * Gdx.graphics.getDeltaTime() * VITESSE;	
 	}
@@ -75,8 +71,8 @@ public class Physique {
 	 * @return True = toujours affiché
 	 */
 	public static boolean toujoursAfficher(Vector2 position, int hauteur, int largeur) {
-		if (position.y + hauteur < -5 | position.x + largeur + largeur < 5 |
-				position.x > CSG.LARGEUR_ECRAN + largeur + 0 | position.y > CSG.HAUTEUR_ECRAN + hauteur)
+		if (position.y + hauteur < 0 | position.x + largeur + largeur < 0 |
+				position.x > CSG.LARGEUR_ECRAN + largeur | position.y > CSG.HAUTEUR_ECRAN + hauteur)
 			return false;
 		else return true;
 	}
@@ -159,8 +155,8 @@ public class Physique {
 		for(Armes a : Armes.listeTirsDesEnnemis){
 			if(pointDansRectangle(vaisseau.position.x + VaisseauType1.DEMI_LARGEUR, vaisseau.position.y + VaisseauType1.DEMI_HAUTEUR,
 					a.position.x, a.position.y,	a.getLargeur(), a.getHauteur())){
-//				vaisseau.perdu();
-//				return true;
+				vaisseau.perdu();
+				return true;
 			}
 		}
 		// On parcourt la liste des ennemis
@@ -168,8 +164,8 @@ public class Physique {
 			// Si le centre du vaisseau est dans un ennemi
 			if(!ennemi.mort &
 					pointDansRectangle(vaisseau.position.x + VaisseauType1.DEMI_LARGEUR, vaisseau.position.y + VaisseauType1.DEMI_HAUTEUR, ennemi.getRectangleCollision())){
-//				vaisseau.perdu();
-//				return true;
+				vaisseau.perdu();
+				return true;
 			}
 			for (Armes a : Armes.liste) {
 				if (rectangleDansRectangle(a.getRectangleCollision(), ennemi.getRectangleCollision())) {
@@ -193,11 +189,11 @@ public class Physique {
 	 * @param rectHaut
 	 * @return
 	 */
-	private static boolean pointDansRectangle(float x, float y, float rectX, float rectY, float rectLarg, float rectHaut) {
+	public static boolean pointDansRectangle(float x, float y, float rectX, float rectY, float rectLarg, float rectHaut) {
 		 return rectX <= x & rectX + rectLarg >= x & rectY <= y & rectY + rectHaut >= y;
 	}
 	
-	 private static boolean pointDansRectangle(float x, float y, Rectangle r) {
+	 public static boolean pointDansRectangle(float x, float y, Rectangle r) {
 		 return r.x <= x & r.x + r.width >= x & r.y <= y & r.y + r.height >= y;
 	}
 

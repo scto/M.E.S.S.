@@ -83,6 +83,7 @@ public class ArmesDeBase extends Armes implements Poolable{
 
 	@Override
 	public void free() {
+		Gdx.app.log("Free", "");
 		pool.free(this);
 	}
 	
