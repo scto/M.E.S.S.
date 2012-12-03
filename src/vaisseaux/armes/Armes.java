@@ -53,16 +53,17 @@ public abstract class Armes extends Vaisseaux{
 	/**
 	 * Parcourt la liste une fois invoquant la methode mouvement et la methode afficher
 	 * @param batch
+	 * @param delta 
 	 */
-	public static void affichageEtMouvement(SpriteBatch batch) {
+	public static void affichageEtMouvement(SpriteBatch batch, float delta) {
 		for(Armes a : liste){
-			a.afficher(batch);
-			if(a.mouvementEtVerif() == false)
+			a.afficher(batch, delta);
+			if(a.mouvementEtVerif(delta) == false)
 				liste.removeValue(a, true);
 		}
 		for(Armes a : listeTirsDesEnnemis){
-			a.afficher(batch);
-			if(a.mouvementEtVerif() == false)
+			a.afficher(batch, delta);
+			if(a.mouvementEtVerif(delta) == false)
 				listeTirsDesEnnemis.removeValue(a, true);
 		}
 	}
@@ -70,14 +71,16 @@ public abstract class Armes extends Vaisseaux{
 	/**
 	 * Methode servant à afficher les balles
 	 * @param batch : batch principal
+	 * @param delta 
 	 */
-	abstract public void afficher(SpriteBatch batch);
+	abstract public void afficher(SpriteBatch batch, float delta);
 	
 	/**
 	 * Fait bouger les objets et les enlèves si ils ne sont plus à l'écran
+	 * @param delta 
 	 * @param batch
 	 */
-	abstract public boolean mouvementEtVerif();
+	abstract public boolean mouvementEtVerif(float delta);
 	
 	/**
 	 * Renvoie le rectangle de collision de l'objet
@@ -88,9 +91,9 @@ public abstract class Armes extends Vaisseaux{
 	 * Se contente d'afficher simplement les objets
 	 * @param batch
 	 */
-	public static void affichage(SpriteBatch batch) {
-		for(Armes a : liste) a.afficher(batch);
-		for(Armes a : listeTirsDesEnnemis) a.afficher(batch);
+	public static void affichage(SpriteBatch batch, float delta) {
+		for(Armes a : liste) a.afficher(batch, delta);
+		for(Armes a : listeTirsDesEnnemis) a.afficher(batch, delta);
 	}
 	/**
 	 * Retourne la force de l'arme

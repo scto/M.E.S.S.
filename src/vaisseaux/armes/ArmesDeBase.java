@@ -2,10 +2,8 @@ package vaisseaux.armes;
 
 import menu.CSG;
 import physique.Physique;
-import vaisseaux.ennemis.particuliers.EnnemiDeBase;
 import affichage.animation.AnimationTirFeu;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
@@ -25,7 +23,7 @@ public class ArmesDeBase extends Armes implements Poolable{
 	public static final int HAUTEUR = (int) (LARGEUR * 1.5);
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	private static final int VITESSE_MAX = 300;
-	public static final long CADENCETIR = 800;
+	public static final float CADENCETIR = .5f;
 	private final int FORCE = 8;
 	public static Pool<ArmesDeBase> pool = Pools.get(ArmesDeBase.class);
 	//private AnimationDeBase animation;
@@ -45,15 +43,15 @@ public class ArmesDeBase extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch){
-		tpsAnimation += Gdx.graphics.getDeltaTime();
+	public void afficher(SpriteBatch batch, float delta){
+		tpsAnimation += delta;
 		batch.draw(animation.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
 	}
 
 	
 	@Override
-	public boolean mouvementEtVerif() {
-		if(Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR) == false){
+	public boolean mouvementEtVerif(float delta) {
+		if(Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta) == false){
 			pool.free(this);
 			return false;
 		}
@@ -83,7 +81,6 @@ public class ArmesDeBase extends Armes implements Poolable{
 
 	@Override
 	public void free() {
-		Gdx.app.log("Free", "");
 		pool.free(this);
 	}
 	

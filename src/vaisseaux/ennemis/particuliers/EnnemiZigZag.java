@@ -7,7 +7,6 @@ import menu.CSG;
 import affichage.animation.AnimationExplosion1;
 import affichage.animation.AnimationRouli;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
@@ -71,21 +70,21 @@ public class EnnemiZigZag extends Ennemis{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch, float delta) {
 		if(mort){
 			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += Gdx.graphics.getDeltaTime();
+			tpsAnimationExplosion += delta;
 		}
 		else batch.draw(animation.getTexture(), position.x, position.y, LARGEUR, HAUTEUR);
 	}
 
 	@Override
-	public boolean mouvementEtVerif() {	
+	public boolean mouvementEtVerif(float delta) {	
 		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1){
 			pool.free(this);
 			return false;
 		}
-		sens = Physique.goToZigZagCentre(position, direction, DEMI_LARGEUR, sens, AMPLITUDE_HORIZONTALE, VITESSE_MAX, HAUTEUR, LARGEUR, mort);
+		sens = Physique.goToZigZagCentre(position, direction, DEMI_LARGEUR, sens, AMPLITUDE_HORIZONTALE, VITESSE_MAX, HAUTEUR, LARGEUR, mort, delta);
 		if(!Physique.toujoursAfficher(position, HAUTEUR, LARGEUR)){
 			pool.free(this);
 			return false;

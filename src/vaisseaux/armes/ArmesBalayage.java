@@ -25,7 +25,7 @@ public class ArmesBalayage extends Armes implements Poolable{
 	private static final int HAUTEUR = LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	private static final int VITESSE_MAX = 200;
-	public static final long CADENCETIR = 220;
+	public static final float CADENCETIR = .1f;
 	private static final int FORCE = 2;
 	public static Pool<ArmesBalayage> pool = Pools.get(ArmesBalayage.class);
 	private static AnimationTirBleu anim = new AnimationTirBleu();
@@ -59,8 +59,8 @@ public class ArmesBalayage extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch) {
-		tpsAnim += Gdx.graphics.getDeltaTime();
+	public void afficher(SpriteBatch batch, float delta) {
+		tpsAnim += delta;
 		batch.draw(anim.getTexture(tpsAnim), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		DEMI_LARGEUR,DEMI_HAUTEUR,
@@ -75,8 +75,8 @@ public class ArmesBalayage extends Armes implements Poolable{
 	}
 
 	@Override
-	public boolean mouvementEtVerif() {
-		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR);
+	public boolean mouvementEtVerif(float delta) {
+		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta);
 	}
 
 	@Override

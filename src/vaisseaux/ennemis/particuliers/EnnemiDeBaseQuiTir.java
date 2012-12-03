@@ -6,7 +6,6 @@ import vaisseaux.armes.ArmesDeBase;
 import vaisseaux.ennemis.TypesEnnemis;
 import affichage.animation.AnimationExplosion1;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -20,10 +19,11 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	public static final int HAUTEUR = LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	private static final int VITESSE_MAX = 100;
-	public static final long CADENCETIR = 800;
+	public static final float CADENCETIR = .8f;
 	public static final int PVMAX = 12;
 	// ** ** caracteristiques variables.
-	private long dernierTir = System.currentTimeMillis();
+	private float dernierTir = 0;
+	private float maintenant = 0;
 	public static Pool<EnnemiDeBaseQuiTir> pool = Pools.get(EnnemiDeBaseQuiTir.class);
 	
 	@Override
@@ -54,9 +54,9 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerif() {
+	public boolean mouvementEtVerif(float delta) {
 		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
-				| Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR) == false){
+				| Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta) == false){
 			pool.free(this);
 			return false;
 		}
@@ -68,21 +68,22 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public void afficher(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch, float delta) {
+		maintenant += delta;
 		if(mort){
 			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += Gdx.graphics.getDeltaTime();
+			tpsAnimationExplosion += delta;
 		}
 		else{
 			batch.draw(animation.getTexture(tpsAnimation), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimation += Gdx.graphics.getDeltaTime();
+			tpsAnimation += delta;
 		}
 	}
 	
 	
 	@Override
 	protected void tir() {
-		if (!mort & System.currentTimeMillis() > dernierTir	+ ArmesDeBase.CADENCETIR + CADENCETIR) {
+		if (!mort & maintenant > dernierTir	+ ArmesDeBase.CADENCETIR + CADENCETIR) {
 			ArmesDeBase e = ArmesDeBase.pool.obtain();
 			e.init(position.x + DEMI_LARGEUR - ArmesDeBase.DEMI_LARGEUR, position.y - ArmesDeBase.HAUTEUR, 0, -1, true);
 			dernierTir = System.currentTimeMillis();

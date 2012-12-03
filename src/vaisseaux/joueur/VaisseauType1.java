@@ -42,8 +42,9 @@ public class VaisseauType1 extends Vaisseaux {
 	private TypesArmes typeArme = CSG.profil.getArmeSelectionnee();
 	private TypesArmes[] typeArmePossible = TypesArmes.LISTE_ARME_JOUEUR;
 	// ** ** variable utilitaires
-	private long dernierTir = 0;
+	private float dernierTir = 0;
 	private static float tmpCalculDeplacement = 0;
+	private float maintenant = 0;
 
 	/**
 	 * initialise le vaisseau avec les parametres par défaut
@@ -64,9 +65,10 @@ public class VaisseauType1 extends Vaisseaux {
 	/**
 	 * affiche le vaisseau à l'endroit prévu avec la taille standardt
 	 * @param batch
+	 * @param delta 
 	 */
-	public void draw(SpriteBatch batch) {
-		animation.afficher(batch);
+	public void draw(SpriteBatch batch, float delta) {
+		animation.afficher(batch, delta);
 		// obligé de faire l'update ici car le mouvement n'est updaté que quand on clique.
 		oldPosition.x = position.x;
 	}
@@ -74,13 +76,13 @@ public class VaisseauType1 extends Vaisseaux {
 	 * Fait aller le vaisseau à l'endroit cliqué.
 	 * Si il peut se teleporter il y va directement -- Sinon il se déplace suivant sa vitesse max
 	 */
-	public void mouvements() {
+	public void mouvements(float delta) {
 		int x = Gdx.input.getX() - DEMI_LARGEUR;
 		int y = CSG.HAUTEUR_ECRAN - (Gdx.input.getY() + DEMI_HAUTEUR);
 		if(peutSeTeleporter){
 			mvtTeleport(x, y);
 		} else {
-			mvtLimiteVitesse(x, y);
+			mvtLimiteVitesse(x, y, delta);
 		}
 		limites();
 	}
@@ -90,14 +92,14 @@ public class VaisseauType1 extends Vaisseaux {
 	 * @param x
 	 * @param y
 	 */
-	private void mvtLimiteVitesse(int x, int y) {
+	private void mvtLimiteVitesse(int x, int y, float delta) {
 		// haut gauche : +x -y
 		Vector2 deplacement = new Vector2(x - position.x, y - position.y);
 		// Testé avec normalisation sur le vecteur : 3x plus lent. nor() prend à lui seul les 4/5 du temps
 		tmpCalculDeplacement = deplacement.len();	
 		if (tmpCalculDeplacement > DEGRE_PRECISION_DEPLACEMENT) {
 			deplacement.div(tmpCalculDeplacement);
-			tmpCalculDeplacement = vitesseMax * Gdx.graphics.getDeltaTime();
+			tmpCalculDeplacement = vitesseMax * delta;
 			affichage.ParallaxBackground.changerOrientation(deplacement.x * tmpCalculDeplacement);
 			deplacement.mul(tmpCalculDeplacement);
 			position.add(deplacement);
@@ -128,22 +130,22 @@ public class VaisseauType1 extends Vaisseaux {
 	 * vérifie si le vaisseau peut tirer ou pas. Tir au cas ou
 	 * @param listeTir
 	 */
-	public void tir(){
+	public void tir(float delta){
+		maintenant += delta;
 		// current time millis prend apparement 5 à 6 cycles contre parfois 100 pour nanotime mais c'est moins précis. JE N'AI PAS VERIFIE
 		// -- -- Bon c'est naze la il doit y avoir un meilleur moyen de faire
 		switch (typeArme) {
 			case ArmeDeBase:
-				if (System.currentTimeMillis() > dernierTir	+ ArmesDeBase.CADENCETIR + modifCadenceTir) {
+				if (maintenant > dernierTir	+ ArmesDeBase.CADENCETIR + modifCadenceTir) {
 					ArmesDeBase e = ArmesDeBase.pool.obtain();
 					e.init(position.x + DEMI_LARGEUR	- ArmesDeBase.DEMI_LARGEUR, position.y + HAUTEUR, 0, 1, false);
-					dernierTir = System.currentTimeMillis();
+					dernierTir = maintenant;
 				}
 				break;
 			case ArmeBalayage:
-				if (System.currentTimeMillis() > dernierTir	+ ArmesBalayage.CADENCETIR + modifCadenceTir) {
-					//new ArmesBalayage(position.x + DEMI_LARGEUR - ArmesBalayage.DEMI_LARGEUR, position.y + HAUTEUR, 0, 1, false);
+				if (maintenant > dernierTir	+ ArmesBalayage.CADENCETIR + modifCadenceTir) {
 					ManagerArmeBalayage.init(position.x + DEMI_LARGEUR - ArmesBalayage.DEMI_LARGEUR, position.y + HAUTEUR, 0, 1, false);
-					dernierTir = System.currentTimeMillis();
+					dernierTir = maintenant;
 				}
 				break;
 		}

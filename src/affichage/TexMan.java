@@ -36,6 +36,8 @@ public class TexMan {
 	public static Texture explosionNv1;
 	//** XP
 	public static TextureRegion XP;
+	//** UI
+	public static Texture boutonRouge;
 
 	public static void loadMenu() {
 		// ** The play button
@@ -59,6 +61,8 @@ public class TexMan {
 		balleFeu = new Texture(Gdx.files.internal("jeu/balles/ballefeu16sur27et3frames.png"));
 		// ** explosion
 		explosionNv1 = new Texture(Gdx.files.internal("jeu/explosions/explosions12sur14et13frames.png"));
+		// ** Bouton rouge
+		boutonRouge = new Texture(Gdx.files.internal("jeu/bouton_23_large_22_haut.png"));
 	}
 	
 

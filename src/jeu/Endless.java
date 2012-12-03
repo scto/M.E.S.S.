@@ -15,6 +15,7 @@ import affichage.Ui;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
@@ -77,26 +78,30 @@ public class Endless implements Screen {
 
 	@Override
 	public void render(float delta) {
-
+		// bullet time !
+		if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+			delta /= 6;
+		}
+		// ** ** update
+		update(delta);
+		
 		// ** ** clear screen
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		rbg.render(delta);
 
 		batch.begin();
-		XP.affichage(batch);
+		XP.affichage(batch, delta);
 		if(!perdu){
 			// ** ** batch
-			Ennemis.affichageEtMouvement(batch);
-			vaisseau.draw(batch);
-			Armes.affichageEtMouvement(batch);
+			Ennemis.affichageEtMouvement(batch, delta);
+			vaisseau.draw(batch, delta);
+			Armes.affichageEtMouvement(batch, delta);
 		} else {
-			Ennemis.affichage(batch);
-			Armes.affichage(batch);
-			vaisseau.draw(batch);
+			Ennemis.affichage(batch, delta);
+			Armes.affichage(batch, delta);
+			vaisseau.draw(batch, delta);
 		}
-		// ** ** update
-		update();
 		// FAIRE CLASSE UI POUR PAR EXEMPLE STOCKER -5
 		font.draw(batch,champChrono,0,CSG.HAUTEUR_ECRAN-5);
 		font.draw(batch, String.valueOf(Gdx.graphics.getFramesPerSecond()), 300, 300);
@@ -104,11 +109,11 @@ public class Endless implements Screen {
 		batch.end();
 	}
 
-	private void update() {
+	private void update(float delta) {
 		// ** ** partie mouvement joueur
 		if (!perdu) {
 			if (Gdx.input.isTouched()) {
-				if (!pause)			vaisseau.mouvements();
+				if (!pause)			vaisseau.mouvements(delta);
 				else				pause = false;
 			} else {
 				affichage.ParallaxBackground.changerOrientation(0);
@@ -118,7 +123,7 @@ public class Endless implements Screen {
 					Ennemis.possibleApparition(chrono.getTempsEcoule());
 				perdu = Physique.testCollisions(vaisseau);
 				// ** ** tir joueur
-				vaisseau.tir();
+				vaisseau.tir(delta);
 				alternerApparition = !alternerApparition;
 			}
 			alterner = !alterner;

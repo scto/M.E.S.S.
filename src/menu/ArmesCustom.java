@@ -61,9 +61,9 @@ public class ArmesCustom implements Screen {
 		// ** ** batch
 		batch.begin();
 		// -- PREVIEW ARME
-		vaisseau.draw(batch);
-		vaisseau.tir();
-		Armes.affichageEtMouvement(batch);
+		vaisseau.draw(batch, delta);
+		vaisseau.tir(delta);
+		Armes.affichageEtMouvement(batch, delta);
 		// -- partie armes
 		font.draw(batch, txtArmeNouv, X_GENERAL, Y_ARME_NOUV);
 		// -- partie vitesse

@@ -7,7 +7,6 @@ import vaisseaux.ennemis.particuliers.EnnemiDeBaseQuiTir;
 import vaisseaux.ennemis.particuliers.EnnemiZigZag;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -46,18 +45,19 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	 * Parcourt la liste une fois invoquant la methode mouvement et la methode afficher
 	 * Les fait également tirer
 	 * @param batch
+	 * @param delta 
 	 */
-	public static void affichageEtMouvement(SpriteBatch batch) {
+	public static void affichageEtMouvement(SpriteBatch batch, float delta) {
 		for(Ennemis e : liste){
 			//if(e.clignotement <= 0 | e.mort){
-				e.afficher(batch);
+				e.afficher(batch, delta);
 			//} else {
 			//	e.clignotement -= Gdx.graphics.getDeltaTime();
 			//}
 			// On le fait tirer
 			e.tir();
 			// On le vire si hors de l'écran
-			if(e.mouvementEtVerif() == false)
+			if(e.mouvementEtVerif(delta) == false)
 				liste.removeValue(e, true);
 		}
 	}
@@ -73,23 +73,25 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	 * Se contente d'afficher simplement les objets
 	 * @param batch
 	 */
-	public static void affichage(SpriteBatch batch) {
+	public static void affichage(SpriteBatch batch, float delta) {
 		for(Ennemis e : liste)
-			e.afficher(batch);
+			e.afficher(batch, delta);
 	}
 	
 	/**
 	 * Methode servant à afficher les balles
 	 * @param batch : batch principal
+	 * @param delta 
 	 */
-	abstract public void afficher(SpriteBatch batch);
+	abstract public void afficher(SpriteBatch batch, float delta);
 	
 	/**
 	 * Fait bouger les objets et les enlèves si ils ne sont plus à l'écran
 	 * On les enlève également si ils sont morts et que l'animation est finie
+	 * @param delta 
 	 * @param batch
 	 */
-	abstract public boolean mouvementEtVerif();
+	abstract public boolean mouvementEtVerif(float delta);
 	
 	/**
 	 * fait apparaitre les ennemis si il faut.
@@ -133,6 +135,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 		if(pv <= 0 & !mort){
 			mort = true;
 			XP.ajoutXp(position, getXp());
+			BonusTemps.ajoutBonus(position, getXp());
 		}
 		//clignotement = .08f;
 		return !mort;

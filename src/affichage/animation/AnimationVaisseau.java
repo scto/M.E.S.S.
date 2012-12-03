@@ -52,8 +52,10 @@ public class AnimationVaisseau{
 	/**
 	 * Affiche le vaisseau
 	 * @param batch
+	 * @param delta 
 	 */
-	public void afficher(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch, float delta) {
+		tps += delta;
 		batch.draw(getTexture(), v.position.x, v.position.y, v.getLargeur(), v.getHauteur());
 	}
 
@@ -62,7 +64,6 @@ public class AnimationVaisseau{
 	 * @return
 	 */
 	private TextureRegion getTexture() {
-		tps += Gdx.graphics.getDeltaTime();
 		// Si on va tout droit
 		if(v.position.x == v.oldPosition.x){
 			// et qu'avant on allait pas tout droit on remet le temps à 0 une seule fois.

@@ -46,21 +46,23 @@ public class Physique {
 	 * @param VITESSE
 	 * @param largeur 
 	 * @param hauteur 
+	 * @param delta 
 	 * @return True si encore a l'ecran
 	 */
-	public static boolean mouvementDeBase(Vector2 direction, Vector2 position, final int VITESSE, int hauteur, int largeur) { 
-		deplacementBase(direction, position, VITESSE);
+	public static boolean mouvementDeBase(Vector2 direction, Vector2 position, final int VITESSE, int hauteur, int largeur, float delta) { 
+		deplacementBase(direction, position, VITESSE, delta);
 		return toujoursAfficher(position, hauteur, largeur);
 	}
 	/**
 	 * ATTENTION voir si il vaut mieux créer un vecteur ou alors faire les calculs sur x et y sans en créer un
 	 * @param direction
 	 * @param position
+	 * @param delta 
 	 * @param VITESSE_MAX
 	 */
-	private static void deplacementBase(Vector2 direction, Vector2 position, final int VITESSE) {
-		position.x += direction.x * Gdx.graphics.getDeltaTime() * VITESSE;
-		position.y += direction.y * Gdx.graphics.getDeltaTime() * VITESSE;	
+	private static void deplacementBase(Vector2 direction, Vector2 position, final int VITESSE, float delta) {
+		position.x += direction.x * delta * VITESSE;
+		position.y += direction.y * delta * VITESSE;	
 	}
 	
 	/**
@@ -89,7 +91,7 @@ public class Physique {
 	 * @param axeDeBase 
 	 * @return
 	 */
-	public static boolean goToZigZag(Vector2 position, Vector2 direction,int demiLargeur, boolean sens, final float AMPLITUDE, final int VITESSE, final int hauteur, final int largeur, boolean mort, float axeDeBase){
+	public static boolean goToZigZag(Vector2 position, Vector2 direction,int demiLargeur, boolean sens, final float AMPLITUDE, final int VITESSE, final int hauteur, final int largeur, boolean mort, float axeDeBase, float delta){
 		// Seulement si il n'est pas en train d'exploser
 		if (!mort) {
 			if (position.x + demiLargeur < axeDeBase) {
@@ -98,12 +100,12 @@ public class Physique {
 				sens = true;
 			}
 			if (sens)
-				direction.x -= AMPLITUDE * Gdx.graphics.getDeltaTime();
+				direction.x -= AMPLITUDE * delta;
 			else
-				direction.x += AMPLITUDE * Gdx.graphics.getDeltaTime();
+				direction.x += AMPLITUDE * delta;
 		}
 		
-		deplacementBase(direction, position, VITESSE);
+		deplacementBase(direction, position, VITESSE, delta);
 
 		return sens;
 	}
@@ -119,7 +121,7 @@ public class Physique {
 	 * @param mort 
 	 * @return
 	 */
-	public static boolean goToZigZagCentre(Vector2 position, Vector2 direction,int demiLargeur, boolean sens, final float AMPLITUDE, final int VITESSE, final int hauteur, final int largeur, boolean mort){
+	public static boolean goToZigZagCentre(Vector2 position, Vector2 direction,int demiLargeur, boolean sens, final float AMPLITUDE, final int VITESSE, final int hauteur, final int largeur, boolean mort, float delta){
 		// Seulement si il n'est pas en train d'exploser
 		if (!mort) {
 			if (position.x + demiLargeur < CSG.LARGEUR_ECRAN / 2) {
@@ -133,7 +135,7 @@ public class Physique {
 				direction.x += AMPLITUDE * Gdx.graphics.getDeltaTime();
 		}
 		
-		deplacementBase(direction, position, VITESSE);
+		deplacementBase(direction, position, VITESSE, delta);
 
 		return sens;
 	}
@@ -214,8 +216,8 @@ public class Physique {
         else
             return false;
     }
-	public static float rotation(float angleRotation, float vitesseRotation) {
-		return angleRotation + (Gdx.graphics.getDeltaTime() * vitesseRotation);
+	public static float rotation(float angleRotation, float vitesseRotation, float delta) {
+		return angleRotation + (delta * vitesseRotation);
 	}
 
 }

@@ -79,21 +79,21 @@ public class EnnemiDeBase extends Ennemis{
 
 
 	@Override
-	public void afficher(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch, float delta) {
 		if(mort){
 			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += Gdx.graphics.getDeltaTime();
+			tpsAnimationExplosion += delta;
 		}
 		else{
 			batch.draw(animation.getTexture(tpsAnimation), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimation += Gdx.graphics.getDeltaTime();
+			tpsAnimation += delta;
 		}
 	}
 
 	@Override
-	public boolean mouvementEtVerif() {
+	public boolean mouvementEtVerif(float delta) {
 		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
-				| Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR) == false){
+				| Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta) == false){
 			pool.free(this);
 			return false;
 		}
