@@ -1,7 +1,7 @@
 package physique;
 
-import vaisseaux.XP;
 import vaisseaux.armes.Armes;
+import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.joueur.VaisseauType1;
 import menu.CSG;
@@ -53,6 +53,7 @@ public class Physique {
 		deplacementBase(direction, position, VITESSE, delta);
 		return toujoursAfficher(position, hauteur, largeur);
 	}
+	
 	/**
 	 * ATTENTION voir si il vaut mieux créer un vecteur ou alors faire les calculs sur x et y sans en créer un
 	 * @param direction
@@ -146,11 +147,14 @@ public class Physique {
 	 * @return True si le vaisseau est touché.
 	 */
 	public static boolean testCollisions(VaisseauType1 vaisseau) {
-		// ** On regarde si on prend de l'xp
-		for(int xp = 0; xp < XP.liste.size(); xp++){
-			if(pointDansRectangle(vaisseau.position.x + VaisseauType1.DEMI_LARGEUR, vaisseau.position.y + VaisseauType1.DEMI_HAUTEUR, XP.liste.get(xp).posX - XP.DEMI_LARGEUR_COLLISION, XP.liste.get(xp).posY - XP.DEMI_HAUTEUR_COLLISION, XP.LARGEUR_COLLISION, XP.HAUTEUR_COLLISION)){
-				CSG.profil.addXp(XP.liste.get(xp).valeur);
-				XP.liste.remove(xp);
+		// ** On regarde si on prend un bonus
+		for(Bonus b : Bonus.liste){
+			//(pointDansRectangle(vaisseau.position.x + VaisseauType1.DEMI_LARGEUR, vaisseau.position.y + VaisseauType1.DEMI_HAUTEUR,
+			//XP.liste.get(xp).posX - XP.DEMI_LARGEUR_COLLISION, XP.liste.get(xp).posY - XP.DEMI_HAUTEUR_COLLISION, XP.LARGEUR_COLLISION, XP.HAUTEUR_COLLISION))
+			if(pointDansRectangle(vaisseau.position.x + VaisseauType1.DEMI_LARGEUR, vaisseau.position.y + VaisseauType1.DEMI_HAUTEUR,
+					b.posX - b.getDemiLargeurColl(), b.posY - b.getDemiHauteurColl(), b.getLargeurColl(), b.getHauteurColl() )){
+				b.pris();
+				Bonus.liste.removeValue(b, true);
 			}
 		}
 		// ** On regarde si le joueur se fait toucher

@@ -1,7 +1,8 @@
 package vaisseaux.ennemis;
 
 import vaisseaux.Vaisseaux;
-import vaisseaux.XP;
+import vaisseaux.bonus.BonusTemps;
+import vaisseaux.bonus.XP;
 import vaisseaux.ennemis.particuliers.EnnemiDeBase;
 import vaisseaux.ennemis.particuliers.EnnemiDeBaseQuiTir;
 import vaisseaux.ennemis.particuliers.EnnemiZigZag;
@@ -37,7 +38,6 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	 */
 	protected Ennemis(float posX, float posY, float dirX, float dirY, int pv) {
 		position = new Vector2(posX, posY);
-		direction = new Vector2(dirX, dirY);
 		this.pv = pv;
 	}
 	
@@ -99,10 +99,10 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	 * @param tempsEcoule
 	 */
 	public static void possibleApparition(long tempsEcoule){
-		if (Progression.getFrequenceApparition(tempsEcoule)	+ derniereApparition < System.currentTimeMillis()) {
+		if (Progression.frequenceApparition	+ derniereApparition < System.currentTimeMillis()) {
 			// Si on met l'invocation de la methode directement dans le for on aura que des ennemis de base qui pop alors que
 			// pourtant si on affiche les types tous sont là logiquement, bizarre bizarre
-			ennemisAApparaitre = Progression.getListeEnnemis();
+			ennemisAApparaitre = Progression.getListeEnnemis(tempsEcoule);
 			for (TypesEnnemis type : ennemisAApparaitre) {			
 				switch (type) {
 				case EnnemiDeBaseQuiTir:
@@ -134,8 +134,8 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 		pv -= force;
 		if(pv <= 0 & !mort){
 			mort = true;
-			XP.ajoutXp(position, getXp());
-			BonusTemps.ajoutBonus(position, getXp());
+			new XP(position.x, position.y, getXp());
+			BonusTemps.ajoutBonus(position.x, position.y, getXp());
 		}
 		//clignotement = .08f;
 		return !mort;
@@ -147,31 +147,6 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	 */
 	public abstract int getXp();
 
-//	/**
-//	 * A reimplementer si il y a des caractéristiques qui ne sont pas communes
-//	 */
-//	public Ennemis reinitialiser(float posX, float posY, float dirX, float dirY, int pv) {
-//			position = new Vector2(posX, posY);
-//			direction = new Vector2(dirX, dirY);
-//			etatTpsAnimationExplosion = 0;
-//			mort = false;
-//			this.pv = pv;
-//			return this;
-//	}
-//	public void initialiser(float posX, float posY, float dirX, float dirY, int pv){
-//		position.x = posX;
-//		position.y = posY;
-//		direction.x = dirX;
-//		direction.y = dirY;
-//		this.pv = pv;
-//	}
-//	
-//	@Override
-//	public void reset() {
-//		mort = false;
-//		etatTpsAnimationExplosion = 0;
-//	}
-	
 	/**
 	 * Je n'ai pas trouvé comment me passer des getters si je veux pouvoir étendre une classe d'ennemi sans devoir tout réimplementer
 	 * tout en pouvant malgré tout changer ses caractéristiques

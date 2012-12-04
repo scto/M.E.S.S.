@@ -18,11 +18,11 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	private static final int VITESSE_MAX = 100;
-	public static final float CADENCETIR = .8f;
+	private static final int VITESSE_MAX = -100;
+	public static final float CADENCETIR = 1.2f;
 	public static final int PVMAX = 12;
 	// ** ** caracteristiques variables.
-	private float dernierTir = 0;
+	private float dernierTir = .1f;
 	private float maintenant = 0;
 	public static Pool<EnnemiDeBaseQuiTir> pool = Pools.get(EnnemiDeBaseQuiTir.class);
 	
@@ -33,7 +33,7 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 		mort = false;
 		tpsAnimationExplosion = 0;
 		pv = PVMAX;
-		dernierTir = System.currentTimeMillis();
+		dernierTir = .2f;
 	}
 
 	public EnnemiDeBaseQuiTir() {
@@ -56,11 +56,11 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	@Override
 	public boolean mouvementEtVerif(float delta) {
 		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
-				| Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta) == false){
+				| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;
 		}
-		
+		position.y += (VITESSE_MAX * delta);
 		return true;
 	}
 
@@ -86,7 +86,7 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 		if (!mort & maintenant > dernierTir	+ ArmesDeBase.CADENCETIR + CADENCETIR) {
 			ArmesDeBase e = ArmesDeBase.pool.obtain();
 			e.init(position.x + DEMI_LARGEUR - ArmesDeBase.DEMI_LARGEUR, position.y - ArmesDeBase.HAUTEUR, 0, -1, true);
-			dernierTir = System.currentTimeMillis();
+			dernierTir = maintenant;
 		}
 	}
 

@@ -1,6 +1,7 @@
 package affichage.animation;
 
 import vaisseaux.Vaisseaux;
+import vaisseaux.joueur.VaisseauType1;
 import affichage.TexMan;
 
 import com.badlogic.gdx.Gdx;
@@ -10,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationVaisseau{
 	
-	private final Vaisseaux v;
+	private final VaisseauType1 v;
 	private static final float TPS_ANIM = .15f;
 	private Animation centreVersGauche;
 	private Animation centreVersDroite;
@@ -23,7 +24,7 @@ public class AnimationVaisseau{
 	 * @param v
 	 * @param i Le numero de la ligne de la texture
 	 */
-	public AnimationVaisseau(Vaisseaux v, int i) {
+	public AnimationVaisseau(VaisseauType1 v, int i) {
 		super();
 		this.v = v;
 		initAnimationVaisseau(i);
@@ -65,7 +66,7 @@ public class AnimationVaisseau{
 	 */
 	private TextureRegion getTexture() {
 		// Si on va tout droit
-		if(v.position.x == v.oldPosition.x){
+		if(v.position.x == v.oldPosition){
 			// et qu'avant on allait pas tout droit on remet le temps à 0 une seule fois.
 			if(remettreDroit){
 				tps = 0;
@@ -87,7 +88,7 @@ public class AnimationVaisseau{
 		}
 		remettreDroit = true;
 		// si on va vers la gauche
-		if(v.oldPosition.x > v.position.x){
+		if(v.oldPosition > v.position.x){
 			//onAllaitVersGauche = true;
 			onAllaitVersDroite = false;
 			return centreVersGauche.getKeyFrame(tps, false); 

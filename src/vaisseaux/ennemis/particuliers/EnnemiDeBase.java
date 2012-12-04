@@ -7,7 +7,6 @@ import menu.CSG;
 import affichage.animation.AnimationEnnemiDeBase;
 import affichage.animation.AnimationExplosion1;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
@@ -25,7 +24,7 @@ public class EnnemiDeBase extends Ennemis{
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	private static final int VITESSE_MAX = 150;
+	private static final int VITESSE_MAX = -150;
 	public static final int PVMAX = 6;
 	static final double chancePowerUp = 0.01;
 	public static Pool<EnnemiDeBase> pool = Pools.get(EnnemiDeBase.class);
@@ -93,11 +92,11 @@ public class EnnemiDeBase extends Ennemis{
 	@Override
 	public boolean mouvementEtVerif(float delta) {
 		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
-				| Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta) == false){
+				| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;
 		}
-		
+		position.y += (VITESSE_MAX * delta);
 		return true;
 	}
 

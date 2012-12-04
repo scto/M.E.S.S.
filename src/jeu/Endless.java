@@ -3,15 +3,15 @@ package jeu;
 import menu.CSG;
 import menu.Menu;
 import physique.Physique;
-import vaisseaux.XP;
 import vaisseaux.armes.Armes;
+import vaisseaux.bonus.Bonus;
+import vaisseaux.bonus.XP;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.Progression;
 import vaisseaux.joueur.VaisseauType1;
 import affichage.ParallaxBackground;
 import affichage.ParallaxLayer;
 import affichage.TexMan;
-import affichage.Ui;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -73,7 +73,7 @@ public class Endless implements Screen {
         Progression.reset();
 //        collision = new CollisionTester(vaisseau);
 //        collision.demarrer();
-        Gdx.graphics.setVSync(false);
+       // Gdx.graphics.setVSync(false);
 	}
 
 	@Override
@@ -91,9 +91,9 @@ public class Endless implements Screen {
 		rbg.render(delta);
 
 		batch.begin();
-		XP.affichage(batch, delta);
 		if(!perdu){
 			// ** ** batch
+			Bonus.affichageEtMouvement(batch, delta);
 			Ennemis.affichageEtMouvement(batch, delta);
 			vaisseau.draw(batch, delta);
 			Armes.affichageEtMouvement(batch, delta);

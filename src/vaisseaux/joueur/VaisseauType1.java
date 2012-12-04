@@ -1,15 +1,11 @@
 package vaisseaux.joueur;
 
-import jeu.Profil;
 import menu.CSG;
 import vaisseaux.TypesArmes;
 import vaisseaux.Vaisseaux;
-import vaisseaux.XP;
-import vaisseaux.armes.Armes;
 import vaisseaux.armes.ArmesBalayage;
 import vaisseaux.armes.ArmesDeBase;
 import vaisseaux.armes.ManagerArmeBalayage;
-
 import affichage.animation.AnimationVaisseau;
 
 import com.badlogic.gdx.Gdx;
@@ -45,6 +41,7 @@ public class VaisseauType1 extends Vaisseaux {
 	private float dernierTir = 0;
 	private static float tmpCalculDeplacement = 0;
 	private float maintenant = 0;
+	public float oldPosition = 0;
 
 	/**
 	 * initialise le vaisseau avec les parametres par défaut
@@ -70,7 +67,7 @@ public class VaisseauType1 extends Vaisseaux {
 	public void draw(SpriteBatch batch, float delta) {
 		animation.afficher(batch, delta);
 		// obligé de faire l'update ici car le mouvement n'est updaté que quand on clique.
-		oldPosition.x = position.x;
+		oldPosition = position.x;
 	}
 	/**
 	 * Fait aller le vaisseau à l'endroit cliqué.

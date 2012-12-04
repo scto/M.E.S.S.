@@ -9,6 +9,7 @@ import affichage.animation.AnimationRouli;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
@@ -25,6 +26,7 @@ public class EnnemiZigZag extends Ennemis{
 	private static final float AMPLITUDE_HORIZONTALE = 8f;
 	public static final int PVMAX = 7;
 	static final double chancePowerUp = 0.02;
+	private Vector2 direction;
 	private AnimationRouli animation;
 	private AnimationExplosion1 animationExplosion;
 	protected float tpsAnimationExplosion;
@@ -64,6 +66,7 @@ public class EnnemiZigZag extends Ennemis{
 	}
 
 	private void init() {
+		direction = new Vector2(0, -1);
 		animation = new AnimationRouli();
 		animation.setV(this);
 		animationExplosion = new AnimationExplosion1();
