@@ -24,9 +24,6 @@ public class Menu implements Screen {
 	
 	// ---- champs rendu ----
 	private SpriteBatch batch;
-	// ---- autre ----
-	private Game game;
-	private BitmapFont font;
 	// ---- Layout
 	private Stage stage;
 	private Table table;
@@ -41,7 +38,6 @@ public class Menu implements Screen {
 		TexMan.loadGame();
         // -- autre
 		batch = new SpriteBatch();
-		this.game = game;
 		//stage = new Stage();
 		stage = new Stage(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN, false);
 		Gdx.input.setInputProcessor(stage);
