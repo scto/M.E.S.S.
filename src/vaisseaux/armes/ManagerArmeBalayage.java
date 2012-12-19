@@ -11,6 +11,7 @@ public class ManagerArmeBalayage {
 	private static int placeBalle = 0;
 	private static boolean versDroite;
 	private static int rotation = 0;
+	private static Vector2 tmpVector = new Vector2();
 	
 	public static void init(float posX, float posY, float dirX, float dirY, boolean ennemi){
 		Vector2 dir = new Vector2(dirX, dirY);
@@ -42,7 +43,7 @@ public class ManagerArmeBalayage {
 
 	private static void nv6(float posX, float posY, Vector2 dir, boolean ennemi) {
 		nv5(posX, posY, dir, ennemi);
-		Vector2 direction2 = new Vector2(dir);
+		tmpVector = new Vector2(dir);
 		direction2.rotate(- (rotation + rotation + rotation + rotation + rotation + rotation));
 		creerArme(posX, posY, direction2, ennemi);
 	}
