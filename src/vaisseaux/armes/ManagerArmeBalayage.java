@@ -2,6 +2,7 @@ package vaisseaux.armes;
 
 import menu.CSG;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 
@@ -22,9 +23,49 @@ public class ManagerArmeBalayage {
 			case 2:
 				nv2(posX, posY, dir, ennemi);
 				break;
+			case 3:
+				nv3(posX, posY, dir, ennemi);
+				break;
+			case 4:
+				nv4(posX, posY, dir, ennemi);
+				break;
+			case 5:
+				nv5(posX, posY, dir, ennemi);
+				break;
+			default:
+				nv6(posX, posY, dir, ennemi);
+				break;
 			}
 		} else nv1(posX, posY, dir, ennemi);
 		changerAngle();
+	}
+
+	private static void nv6(float posX, float posY, Vector2 dir, boolean ennemi) {
+		nv5(posX, posY, dir, ennemi);
+		Vector2 direction2 = new Vector2(dir);
+		direction2.rotate(- (rotation + rotation + rotation + rotation + rotation + rotation));
+		creerArme(posX, posY, direction2, ennemi);
+	}
+
+	private static void nv5(float posX, float posY, Vector2 dir, boolean ennemi) {
+		nv4(posX, posY, dir, ennemi);
+		Vector2 direction2 = new Vector2(dir);
+		direction2.rotate((rotation + rotation + rotation + rotation));
+		creerArme(posX, posY, direction2, ennemi);
+	}
+
+	private static void nv4(float posX, float posY, Vector2 dir, boolean ennemi) {
+		nv3(posX, posY, dir, ennemi);
+		Vector2 direction2 = new Vector2(dir);
+		direction2.rotate(-(rotation + rotation + rotation + rotation));
+		creerArme(posX, posY, direction2, ennemi);
+	}
+
+	private static void nv3(float posX, float posY, Vector2 dir, boolean ennemi) {
+		nv2(posX, posY, dir, ennemi);
+		Vector2 direction2 = new Vector2(dir);
+		direction2.rotate(rotation+rotation);
+		creerArme(posX, posY, direction2, ennemi);
 	}
 
 	private static void nv2(float posX, float posY, Vector2 dir, boolean ennemi) {
