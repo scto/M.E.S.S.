@@ -49,6 +49,7 @@ public class Endless implements Screen {
 	private boolean perdu = false;
 	//private long temps = 0;
 	private String champChrono = "Top départ !";
+	private static float chronoRalentir = 0;
 
 	public Endless(Game game) {
 		super();
@@ -79,7 +80,8 @@ public class Endless implements Screen {
 	@Override
 	public void render(float delta) {
 		// bullet time !
-		if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+		if (chronoRalentir > 0) {
+			chronoRalentir -= delta;
 			delta /= 6;
 		}
 		// ** ** update
@@ -173,6 +175,10 @@ public class Endless implements Screen {
 	 */
 	public void updateTemps(long nbSecondes) {
 		champChrono = "Temps : " + nbSecondes + "s";
+	}
+
+	public static void ralentir(float i) {
+		chronoRalentir += i;
 	}
 
 }

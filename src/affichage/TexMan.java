@@ -34,8 +34,9 @@ public class TexMan {
 	//** Ennemis
 	//** Explosions ---- explosion 1
 	public static Texture explosionNv1;
-	//** XP
+	//** XP et autre
 	public static TextureRegion XP;
+	public static Texture triangleRond;
 	//** UI
 	public static Texture boutonRouge;
 
@@ -55,6 +56,7 @@ public class TexMan {
 		// ** XP
 		Texture tmp = new Texture(Gdx.files.internal("jeu/items/items.png"));
 		XP = new TextureRegion(tmp, 5, 5);
+		triangleRond = new Texture(Gdx.files.internal("jeu/triangle21large22haut.png"));
 		// ** Balles
 		//tmp = new Texture(Gdx.files.internal("jeu/balles/balles12sur12et13frames.png"));
 		balleDeBase = new Texture(Gdx.files.internal("jeu/balles/balles12sur12et13frames.png"));

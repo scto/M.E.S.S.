@@ -29,8 +29,8 @@ public class EnnemiDeBase extends Ennemis{
 	static final double chancePowerUp = 0.01;
 	public static Pool<EnnemiDeBase> pool = Pools.get(EnnemiDeBase.class);
 	// ** ** animations
-	protected AnimationEnnemiDeBase animation; 
-	protected AnimationExplosion1 animationExplosion;
+	protected static AnimationEnnemiDeBase animation; 
+	protected static AnimationExplosion1 animationExplosion;
 	protected float tpsAnimation;
 	protected float tpsAnimationExplosion;
 	// ** ** caracteristiques variables.
