@@ -10,7 +10,6 @@ public abstract class Vaisseaux {
 	 */
 	public Vaisseaux() {
 		super();
-		//oldPosition = new Vector2();
 	}
 
 	abstract public int getLargeur();

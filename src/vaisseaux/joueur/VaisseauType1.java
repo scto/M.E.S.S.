@@ -124,7 +124,8 @@ public class VaisseauType1 extends Vaisseaux {
 	}
 
 	/**
-	 * vérifie si le vaisseau peut tirer ou pas. Tir au cas ou
+	 * vérifie si le vaisseau peut tirer ou pas. Tir au cas ou.
+	 * Vu qu'on appele tir une frame sur deux adapter la cadence en conséquence
 	 * @param listeTir
 	 */
 	public void tir(float delta){

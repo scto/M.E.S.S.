@@ -105,7 +105,7 @@ public class Endless implements Screen {
 			vaisseau.draw(batch, delta);
 		}
 		// FAIRE CLASSE UI POUR PAR EXEMPLE STOCKER -5
-		font.draw(batch,champChrono,0,CSG.HAUTEUR_ECRAN-5);
+		font.draw(batch, champChrono, 0, CSG.HAUTEUR_ECRAN - 5);
 		font.draw(batch, String.valueOf(Gdx.graphics.getFramesPerSecond()), 300, 300);
 		font.draw(batch, CSG.profil.champXp, CSG.LARGEUR_ECRAN - CSG.DEMI_LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);
 		batch.end();

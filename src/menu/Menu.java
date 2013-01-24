@@ -38,7 +38,6 @@ public class Menu implements Screen {
 		TexMan.loadGame();
         // -- autre
 		batch = new SpriteBatch();
-		//stage = new Stage();
 		stage = new Stage(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN, false);
 		Gdx.input.setInputProcessor(stage);
 
@@ -108,7 +107,6 @@ public class Menu implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		Gdx.app.log("resize","");
 	}
 
 	@Override

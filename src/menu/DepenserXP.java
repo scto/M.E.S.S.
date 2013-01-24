@@ -1,7 +1,5 @@
 package menu;
 
-import physique.Physique;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,90 +7,110 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 
 public class DepenserXP implements Screen {
 	
-	private Game game;
-	private BitmapFont font;
-	private BitmapFont fontXpDispo;
-	// -- -- coordonnées
-	private final int X_GENERAL = CSG.DIXIEME_LARGEUR;
-	private final int X_XP_DISPO = CSG.DIXIEME_LARGEUR * 7;
-	private final int Y_ARME = (int) (CSG.DIXIEME_HAUTEUR * 8.5);
-	private final int Y_VITESSE = (int) (CSG.DIXIEME_HAUTEUR * 9.5);
-	private final int Y_RETOUR = CSG.DIXIEME_HAUTEUR * 1;
-	private final int DECALAGE_Y = CSG.DIXIEME_HAUTEUR  / 2;
-	// -- -- Texte
-	private final String txtVitesse = "Speed Up";
-	private final String txtArme = "+Weapon";
-	private final String txtRetour = "-Back";
-	private final String txtXpDispo = "XP : ";
-	// -- -- autre
-	private SpriteBatch batch;
-	private int ratioPolice = 2;
 	private final int policeGrandeLargeur = CSG.LARGEUR_ECRAN / 200;
 	private final int policeGrandeHauteur = CSG.HAUTEUR_ECRAN / 200;
-
-	public DepenserXP(Game game) {
-		this.game = game;
-		// -- font
-		font = new BitmapFont();
-        font.setColor(Color.GREEN);
-        font.setScale(policeGrandeLargeur, policeGrandeHauteur);
-        
-        fontXpDispo = new BitmapFont();
+	private final int X_XP_DISPO = CSG.DIXIEME_LARGEUR * 7;
+	private final String txtXpDispo = "XP : ";
+	private int ratioPolice = 2;
+	private Game game;
+	// ---- champs rendu ----
+	private SpriteBatch batch;
+	// ---- Layout
+	private Stage stage;
+	private Table table;
+	private BitmapFont fontXpDispo;
+	
+	
+	public DepenserXP(final Game game) {
+	    fontXpDispo = new BitmapFont();
         fontXpDispo.setColor(Color.LIGHT_GRAY);
         fontXpDispo.setScale(policeGrandeLargeur / ratioPolice, policeGrandeHauteur / ratioPolice);
-        // -- autre
+    
+		this.game = game;
+		// bricolé pour avoir un style par défaut j'espère
+		Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
+		
 		batch = new SpriteBatch();
+		//stage = new Stage();
+		stage = new Stage(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN, false);
+		Gdx.input.setInputProcessor(stage);
+		
+		// creates the table actor
+		table = new Table(skin);
+		table.defaults().size(CSG.LARGEUR_ECRAN/1.2f, CSG.HAUTEUR_ECRAN/10f);
+		// add the welcome message with a margin-bottom of 50 units
+		Label titre = new Label("Custom", skin);
+		titre.setFontScale(CSG.LARGEUR_ECRAN/100);
+		table.add(titre).expandX().top().uniform().pad(10).fill();
+		// move to the next row
+		table.row();
+		// register the button "start game"
+        TextButton weaponGameButton = new TextButton( "Weapon", skin);
+		// add the start-game button sized 300x60 with a margin-bottom of 10 units
+		table.add( weaponGameButton ).uniform().spaceBottom( 10 ).pad(10);
+//		// move to the next row
+		table.row();
+		final TextButton speedBouton = new TextButton( "Speed++    (Cost : " + CSG.profil.getCoutVitesse() + ")", skin);
+		// add the options button in a cell similiar to the start-game button's cell
+		table.add( speedBouton ).uniform().fill().spaceBottom( 10 );
+		
+		table.row();
+		TextButton backButton = new TextButton( "Back", skin);
+		// add the options button in a cell similiar to the start-game button's cell
+		table.add( backButton ).uniform().fill().spaceBottom( 10 );
+		
+		table.setFillParent(true);
+		
+		stage.addActor(table);
+		
+        weaponGameButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				ArmesCustom armes = new ArmesCustom(game);
+				game.setScreen(armes);
+			}
+        } );
+        speedBouton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if(CSG.profil.getCoutVitesse() <= CSG.profil.xpDispo)
+					CSG.profil.upVitesse();
+				speedBouton.setText("Speed++    (Cost : " + CSG.profil.getCoutVitesse() + ")");
+			}
+        });
+        backButton.addListener(new ClickListener(){
+        	@Override
+			public void clicked(InputEvent event, float x, float y) {
+        		Menu menu = new Menu(game);
+				game.setScreen(menu);
+			}
+        });
+
 	}
 
 	@Override
 	public void render(float delta) {
-		// ** ** clear screen
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		// ** ** batch
-		batch.begin();
-		// -- partie armes
-		font.draw(batch, txtArme, X_GENERAL, Y_ARME);
-		// -- partie vitesse
-		font.draw(batch, txtVitesse, X_GENERAL, Y_VITESSE );
-		fontXpDispo.draw(batch, "Cost : " + CSG.profil.getCoutVitesse(),
-				CSG.LARGEUR_ECRAN - fontXpDispo.getBounds("Cost : " + CSG.profil.getCoutVitesse()).width - X_GENERAL, Y_VITESSE - (font.getBounds(txtVitesse).height / 2) );
-		// -- partie retour
-		font.draw(batch, txtRetour, X_GENERAL, Y_RETOUR );
+		stage.act(delta);
+		stage.draw();
 		// -- xp dispo
-		fontXpDispo.draw(batch, txtXpDispo+CSG.profil.xpDispo ,X_XP_DISPO, CSG.HAUTEUR_ECRAN);
+		batch.begin();
+		fontXpDispo.draw(batch, txtXpDispo+CSG.profil.xpDispo ,X_XP_DISPO, CSG.HAUTEUR_ECRAN - 10);
 		batch.end();
-		// ** ** update
-		update();
 	}
 
-	/*
-	 * Sert à tester quel menu a été choisi et lancé l'écran correspondant si jamais. Appelée à chaque frame
-	 */
-	private void update() {
-		if (Gdx.input.justTouched()) {
-			// ** ** prend les coordonnées
-			int touchX = Gdx.input.getX();
-			int touchY = CSG.HAUTEUR_ECRAN - Gdx.input.getY();
-			// ** ** test les menus
-			if(Physique.pointIn(font.getBounds(txtArme), X_GENERAL, Y_ARME, touchX, touchY)){
-				ArmesCustom armes = new ArmesCustom(game);
-				game.setScreen(armes);
-			}
-			if(Physique.pointIn(font.getBounds(txtVitesse), X_GENERAL, Y_VITESSE, touchX, touchY)){
-				if(CSG.profil.getCoutVitesse() <= CSG.profil.xpDispo)
-					CSG.profil.upVitesse();
-			}
-			if(Physique.pointIn(font.getBounds(txtRetour), X_GENERAL, Y_RETOUR, touchX, touchY)){
-				Menu menu = new Menu(game);
-				game.setScreen(menu);
-			}
-		}
-	}
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
@@ -101,14 +119,14 @@ public class DepenserXP implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		Gdx.app.log("Show xp","");
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-		
+		Gdx.app.log("Hide xp","");
+		Gdx.input.setInputProcessor(null);
 	}
 
 	@Override
