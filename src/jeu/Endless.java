@@ -64,16 +64,11 @@ public class Endless implements Screen {
         gl = Gdx.graphics.getGL20();
 		gl.glViewport(0, 0, CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);
 
-		//Reset
-		Armes.liste.clear();
-		Armes.listeTirsDesEnnemis.clear();
-		Ennemis.liste.clear();
+		CSG.resetLists();
+        
         chrono = new Chrono(2000);
         chrono.demarrer(this);
-        XP.liste.clear();
-        Progression.reset();
-//        collision = new CollisionTester(vaisseau);
-//        collision.demarrer();
+
        // Gdx.graphics.setVSync(false);
 	}
 

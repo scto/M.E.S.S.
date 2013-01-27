@@ -1,5 +1,10 @@
 package menu;
 
+import vaisseaux.armes.Armes;
+import vaisseaux.bonus.Bonus;
+import vaisseaux.bonus.XP;
+import vaisseaux.ennemis.Ennemis;
+import vaisseaux.ennemis.Progression;
 import jeu.Profil;
 import jeu.ProfilManager;
 import com.badlogic.gdx.ApplicationListener;
@@ -46,5 +51,14 @@ public class CSG extends Game implements ApplicationListener {
 //		setScreen(menu);
 		Menu menu = new Menu(this);
 		setScreen(menu);
+	}
+	
+	public static void resetLists(){
+		Armes.liste.clear();
+		Armes.listeTirsDesEnnemis.clear();
+		Ennemis.liste.clear();
+        XP.liste.clear();
+        Progression.reset();
+        Bonus.liste.clear();
 	}
 }

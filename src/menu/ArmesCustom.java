@@ -39,6 +39,9 @@ public class ArmesCustom implements Screen {
 	private boolean alterner = true;
 
 	public ArmesCustom(Game game) {
+		
+		CSG.resetLists();
+		
 		this.game = game;
 		// -- font
 		font = new BitmapFont();
