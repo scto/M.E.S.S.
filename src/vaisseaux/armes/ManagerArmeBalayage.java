@@ -2,6 +2,8 @@ package vaisseaux.armes;
 
 import menu.CSG;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -15,8 +17,10 @@ public class ManagerArmeBalayage {
 	private static int rotation = 0;
 	private static int demiRotation = 0;
 	private static int doubleRotation = 0;
+	private static Sound son = Gdx.audio.newSound(Gdx.files.internal("sons/146725__fins__laser.wav"));
 	
 	public static void init(float posX, float posY, float dirX, float dirY, boolean ennemi){
+		son.play();
 		Vector2 dir = new Vector2(dirX, dirY);
 		// On ne tient compte du niveau que si c'est un joueur qui tire
 		if(!ennemi){

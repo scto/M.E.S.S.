@@ -4,6 +4,8 @@ import menu.CSG;
 import physique.Physique;
 import affichage.animation.AnimationTirBleu;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
