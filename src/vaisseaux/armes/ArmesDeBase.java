@@ -23,7 +23,7 @@ public class ArmesDeBase extends Armes implements Poolable{
 	public static final int HAUTEUR = (int) (LARGEUR * 1.5);
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	private static final int VITESSE_MAX = 300;
-	public static final float CADENCETIR = .5f;
+	public static final float CADENCETIR = .22f;
 	private final int FORCE = 8;
 	public static Pool<ArmesDeBase> pool = Pools.get(ArmesDeBase.class);
 	//private AnimationDeBase animation;
@@ -35,6 +35,7 @@ public class ArmesDeBase extends Armes implements Poolable{
 	@Override
 	public void reset() {
 	}
+	
 	/**
 	 * Crée l'objet, il faut appeler la méthode init après
 	 */
@@ -51,7 +52,7 @@ public class ArmesDeBase extends Armes implements Poolable{
 	
 	@Override
 	public boolean mouvementEtVerif(float delta) {
-		if(Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta) == false){
+		if (Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta) == false){
 			pool.free(this);
 			return false;
 		}

@@ -24,8 +24,10 @@ public abstract class Armes extends Vaisseaux{
 		super();
 		this.position = new Vector2(posX, posY);
 		this.direction = new Vector2(dirX, dirY);
-		if(ennemis) listeTirsDesEnnemis.add(this);
-		else liste.add(this);
+		if (ennemis)
+			listeTirsDesEnnemis.add(this);
+		else
+			liste.add(this);
 	}
 	
 	/**
@@ -46,8 +48,10 @@ public abstract class Armes extends Vaisseaux{
 	public Armes(float posX, float posY, Vector2 dir, boolean ennemi) {
 		position = new Vector2(posX, posY);
 		direction = dir;
-		if(ennemi) listeTirsDesEnnemis.add(this);
-		else liste.add(this);
+		if (ennemi)
+			listeTirsDesEnnemis.add(this);
+		else
+			liste.add(this);
 	}
 
 	/**
@@ -56,14 +60,14 @@ public abstract class Armes extends Vaisseaux{
 	 * @param delta 
 	 */
 	public static void affichageEtMouvement(SpriteBatch batch, float delta) {
-		for(Armes a : liste){
+		for (Armes a : liste) {
 			a.afficher(batch, delta);
-			if(a.mouvementEtVerif(delta) == false)
+			if (a.mouvementEtVerif(delta) == false)
 				liste.removeValue(a, true);
 		}
-		for(Armes a : listeTirsDesEnnemis){
+		for (Armes a : listeTirsDesEnnemis) {
 			a.afficher(batch, delta);
-			if(a.mouvementEtVerif(delta) == false)
+			if (a.mouvementEtVerif(delta) == false)
 				listeTirsDesEnnemis.removeValue(a, true);
 		}
 	}
@@ -92,8 +96,10 @@ public abstract class Armes extends Vaisseaux{
 	 * @param batch
 	 */
 	public static void affichage(SpriteBatch batch, float delta) {
-		for(Armes a : liste) a.afficher(batch, delta);
-		for(Armes a : listeTirsDesEnnemis) a.afficher(batch, delta);
+		for (Armes a : liste)
+			a.afficher(batch, delta);
+		for (Armes a : listeTirsDesEnnemis)
+			a.afficher(batch, delta);
 	}
 	/**
 	 * Retourne la force de l'arme
