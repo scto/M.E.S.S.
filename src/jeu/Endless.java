@@ -22,6 +22,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -50,6 +51,8 @@ public class Endless implements Screen {
 	//private long temps = 0;
 	private String champChrono = "Top départ !";
 	private static float chronoRalentir = 0;
+	private boolean activerRalentissement = false;
+	private long vientDEtreTouche = 0;
 
 	public Endless(Game game) {
 		super();
@@ -72,21 +75,22 @@ public class Endless implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// bullet time !
-		if (chronoRalentir > 0) {
-			chronoRalentir -= delta;
-			delta /= 6;
-		}
-		// ** ** update
-		update(delta);
-		
 		// ** ** clear screen
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		rbg.render(delta);
-
+		
 		batch.begin();
 		if(!perdu){
+			// bullet time !
+			if (activerRalentissement) {
+				chronoRalentir -= delta;
+				delta /= 3;
+				if(chronoRalentir < 0){
+					activerRalentissement = false;
+					chronoRalentir = 0;
+				}
+			}
 			// ** ** batch
 			Bonus.affichageEtMouvement(batch, delta);
 			Ennemis.affichageEtMouvement(batch, delta);
@@ -100,13 +104,23 @@ public class Endless implements Screen {
 		// FAIRE CLASSE UI POUR PAR EXEMPLE STOCKER -5
 		font.draw(batch, champChrono, 0, CSG.HAUTEUR_ECRAN - 5);
 		font.draw(batch, String.valueOf(Gdx.graphics.getFramesPerSecond()), 300, 300);
-		font.draw(batch, CSG.profil.champXp, CSG.LARGEUR_ECRAN - CSG.DEMI_LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);
+		font.draw(batch, CSG.profil.champXp, CSG.LARGEUR_ECRAN - CSG.DEMI_LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN - 5);
+		font.draw(batch, chronoRalentir + "s", CSG.LARGEUR_ECRAN - CSG.DIXIEME_LARGEUR, CSG.HAUTEUR_ECRAN - 5);
 		batch.end();
+		// ** ** update
+		update(delta);
 	}
 
 	private void update(float delta) {
 		// ** ** partie mouvement joueur
 		if (!perdu) {
+			if(Gdx.input.justTouched()) {
+				// Si oui c'est un double tap
+				if (System.currentTimeMillis() - vientDEtreTouche < 500) {
+					activerRalentissement = true;
+				}
+				vientDEtreTouche = System.currentTimeMillis();
+			}
 			if (Gdx.input.isTouched()) {
 				if (!pause)			vaisseau.mouvements(delta);
 				else				pause = false;

@@ -2,6 +2,7 @@ package vaisseaux.armes;
 
 import menu.CSG;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -13,7 +14,7 @@ public class ManagerArmeDeBase {
 	public static void init(float posX, float posY, boolean ennemi){
 		// On ne tient compte du niveau que si c'est un joueur qui tire
 		if(!ennemi){
-			switch (CSG.profil.NvArmeBalayage) {
+			switch (CSG.profil.NvArmeDeBase) {
 			case 1:
 				nv1(posX, posY, ennemi);
 				break;
