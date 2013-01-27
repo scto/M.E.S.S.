@@ -126,7 +126,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	abstract public Rectangle getRectangleCollision();
 
 	/**
-	 * On decremente les pvs de la force de l'arme. Si c'est 0 ou moins on le condamne à mort
+	 * On decremente les pvs de la force de l'arme. Si c'est 0 ou moins on le condamne à mort. Ca ajoute les bonus eventuellement
 	 * @param force
 	 * @return return true si vivant.
 	 */

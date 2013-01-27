@@ -51,6 +51,7 @@ public class Endless implements Screen {
 	//private long temps = 0;
 	private String champChrono = "Top départ !";
 	private static float chronoRalentir = 0;
+	private static String champChronoRalentir = "zZz ";
 	private boolean activerRalentissement = false;
 	private long vientDEtreTouche = 0;
 
@@ -86,9 +87,12 @@ public class Endless implements Screen {
 			if (activerRalentissement) {
 				chronoRalentir -= delta;
 				delta /= 3;
+				champChronoRalentir = chronoRalentir + "s";
 				if(chronoRalentir < 0){
 					activerRalentissement = false;
 					chronoRalentir = 0;
+					// pour mettre champ txt à jour
+					ralentir(0);
 				}
 			}
 			// ** ** batch
@@ -105,7 +109,7 @@ public class Endless implements Screen {
 		font.draw(batch, champChrono, 0, CSG.HAUTEUR_ECRAN - 5);
 		font.draw(batch, String.valueOf(Gdx.graphics.getFramesPerSecond()), 300, 300);
 		font.draw(batch, CSG.profil.champXp, CSG.LARGEUR_ECRAN - CSG.DEMI_LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN - 5);
-		font.draw(batch, chronoRalentir + "s", CSG.LARGEUR_ECRAN - CSG.DIXIEME_LARGEUR, CSG.HAUTEUR_ECRAN - 5);
+		font.draw(batch, champChronoRalentir, CSG.LARGEUR_ECRAN - CSG.CINQUIEME_ECRAN, CSG.HAUTEUR_ECRAN - 5);
 		batch.end();
 		// ** ** update
 		update(delta);
@@ -181,11 +185,12 @@ public class Endless implements Screen {
 	 * @param nbSecondes
 	 */
 	public void updateTemps(long nbSecondes) {
-		champChrono = "Temps : " + nbSecondes + "s";
+		champChrono = "Time : " + nbSecondes + "s";
 	}
 
 	public static void ralentir(float i) {
 		chronoRalentir += i;
+		champChronoRalentir = "zZz " + chronoRalentir + "s";
 	}
 
 }

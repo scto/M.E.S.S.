@@ -11,6 +11,7 @@ import menu.CSG;
 import affichage.TexMan;
 import affichage.animation.AnimationTriangleRond;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -27,6 +28,8 @@ public class BonusTemps extends Bonus {
 	// voir à quelle taille l'initialiser	
 	public static List<BonusTemps> liste = new ArrayList<BonusTemps>(30);
 	private float tps = 0;
+	private static int cptBonus = 0;
+	private static int nbBonusLache = 0;
 	
 	
 	public BonusTemps(float x, float y) {
@@ -45,8 +48,19 @@ public class BonusTemps extends Bonus {
 		}
 	}
 
+	/**
+	 * Se base sur le nombre de bonus temps déjà lache et l'xp apportée pour savoir si il doit apparaitre ou non
+	 * @param x
+	 * @param y
+	 * @param xp
+	 */
 	public static void ajoutBonus(float x, float y, int xp) {
-		new BonusTemps(x, y);
+		cptBonus += xp;
+		if(cptBonus > 5 * nbBonusLache){
+			new BonusTemps(x, y);
+			nbBonusLache++;
+			cptBonus = 0;
+		}
 	}
 
 	@Override
