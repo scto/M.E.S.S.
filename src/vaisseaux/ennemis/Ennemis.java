@@ -1,5 +1,7 @@
 package vaisseaux.ennemis;
 
+import menu.CSG;
+import sons.SoundMan;
 import vaisseaux.Vaisseaux;
 import vaisseaux.bonus.BonusTemps;
 import vaisseaux.bonus.XP;
@@ -133,6 +135,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	public boolean touche(int force) {
 		pv -= force;
 		if(pv <= 0 & !mort){
+			SoundMan.explosionGrosse.play(CSG.VOLUME_SON);
 			mort = true;
 			new XP(position.x, position.y, getXp());
 			BonusTemps.ajoutBonus(position.x, position.y, getXp());

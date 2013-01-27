@@ -18,6 +18,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class CSG extends Game implements ApplicationListener {
 
+	public static final float VOLUME_SON = 1;
+	public static final float VOLUME_SON_ARME = 0.2f;
 	//public static final String STOCKAGE_XP = "xp.lvl";
 	// ---- champs globaux ---- Je ne trouve pas comment mettre final car Gdx n'est pas encore initialisé
 	public static int DEMI_LARGEUR_ECRAN = 0;
