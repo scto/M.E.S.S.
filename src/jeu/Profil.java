@@ -70,8 +70,9 @@ public class Profil implements Serializable{
 	 * @return le cout
 	 */
 	public int getCoutVitesse() {
-		return (int)((bonusVitesse+20) * 1.5);
+		return (int)(bonusVitesse * bonusVitesse/50);
 	}
+	
 	/**
 	 * Renvoie l'arme actuellement selectionnée. Va lire ca dans le fichier stocké
 	 * @return
@@ -120,7 +121,7 @@ public class Profil implements Serializable{
 	 * @return <code>TypesArmes</code>
 	 */
 	private static TypesArmes convertArme(String arme){
-		if(arme.equals(TypesArmes.ArmeDeBase.toString()))	return TypesArmes.ArmeDeBase;
+		if (arme.equals(TypesArmes.ArmeDeBase.toString()))	return TypesArmes.ArmeDeBase;
 		return TypesArmes.ArmeBalayage;
 	}
 }

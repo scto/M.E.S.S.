@@ -23,7 +23,6 @@ public class DepenserXP implements Screen {
 	private final int X_XP_DISPO = CSG.DIXIEME_LARGEUR * 7;
 	private final String txtXpDispo = "XP : ";
 	private int ratioPolice = 2;
-	private Game game;
 	// ---- champs rendu ----
 	private SpriteBatch batch;
 	// ---- Layout
@@ -36,9 +35,8 @@ public class DepenserXP implements Screen {
 	    fontXpDispo = new BitmapFont();
         fontXpDispo.setColor(Color.LIGHT_GRAY);
         fontXpDispo.setScale(policeGrandeLargeur / ratioPolice, policeGrandeHauteur / ratioPolice);
-    
-		this.game = game;
-		// bricolé pour avoir un style par défaut j'espère
+   
+        // bricolé pour avoir un style par défaut j'espère
 		Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
 		
 		batch = new SpriteBatch();
@@ -74,28 +72,28 @@ public class DepenserXP implements Screen {
 		
 		stage.addActor(table);
 		
-        weaponGameButton.addListener(new ClickListener() {
+		weaponGameButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				ArmesCustom armes = new ArmesCustom(game);
 				game.setScreen(armes);
 			}
-        } );
-        speedBouton.addListener(new ClickListener(){
+		});
+		speedBouton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if(CSG.profil.getCoutVitesse() <= CSG.profil.xpDispo)
+				if (CSG.profil.getCoutVitesse() <= CSG.profil.xpDispo)
 					CSG.profil.upVitesse();
 				speedBouton.setText("Speed++    (Cost : " + CSG.profil.getCoutVitesse() + ")");
 			}
-        });
-        backButton.addListener(new ClickListener(){
-        	@Override
+		});
+		backButton.addListener(new ClickListener() {
+			@Override
 			public void clicked(InputEvent event, float x, float y) {
-        		Menu menu = new Menu(game);
+				Menu menu = new Menu(game);
 				game.setScreen(menu);
 			}
-        });
+		});
 
 	}
 
