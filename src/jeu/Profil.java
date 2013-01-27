@@ -97,8 +97,10 @@ public class Profil implements Serializable{
 	 */
 	public int getCoutUpArme() {
 		int nv = 0;	
-		if(convertArme(armeSelectionnee).equals(TypesArmes.ArmeBalayage)) nv = NvArmeDeBase;
-		if(convertArme(armeSelectionnee).equals(TypesArmes.ArmeDeBase)) nv = NvArmeDeBase;
+		if (convertArme(armeSelectionnee).equals(TypesArmes.ArmeBalayage))
+			nv = NvArmeBalayage;
+		if (convertArme(armeSelectionnee).equals(TypesArmes.ArmeDeBase))
+			nv = NvArmeDeBase;
 		return nv*nv*100;
 	}
 
