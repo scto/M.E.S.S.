@@ -62,8 +62,8 @@ public class Physique {
 	 * @param VITESSE_MAX
 	 */
 	private static void deplacementBase(Vector2 direction, Vector2 position, final int VITESSE, float delta) {
-		position.x += direction.x * delta * VITESSE;
-		position.y += direction.y * delta * VITESSE;	
+		position.x += (direction.x * delta * VITESSE);
+		position.y += (direction.y * delta * VITESSE);	
 	}
 	
 	/**

@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Json;
 public class ProfilManager {
 	
 	// the location of the profile data file
-    private static final String PROFIL_FILE = "data/profil-v1.json";
+    private static final String PROFIL_FILE = "data/profil-v3.json";
  // the loaded profile (may be null)
     private Profil profil;
     

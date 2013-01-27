@@ -4,6 +4,7 @@ import menu.CSG;
 import physique.Physique;
 import affichage.animation.AnimationTirFeu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
@@ -21,9 +22,9 @@ public class ArmesDeBase extends Armes implements Poolable{
 	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 20;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = (int) (LARGEUR * 1.5);
-	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
+	public static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	private static final int VITESSE_MAX = 300;
-	public static final float CADENCETIR = .22f;
+	public static final float CADENCETIR = .25f;
 	private final int FORCE = 8;
 	public static Pool<ArmesDeBase> pool = Pools.get(ArmesDeBase.class);
 	//private AnimationDeBase animation;
@@ -34,6 +35,7 @@ public class ArmesDeBase extends Armes implements Poolable{
 	
 	@Override
 	public void reset() {
+		tpsAnimation = 0;
 	}
 	
 	/**
@@ -85,14 +87,20 @@ public class ArmesDeBase extends Armes implements Poolable{
 		pool.free(this);
 	}
 	
-	
+	/**
+	 * ATTENTION ici le init s'occupe d'ajouter à la bonne liste
+	 */
+	@Override
 	public void init(float posX, float posY, int dirX, int dirY, boolean ennemi) {
 		position.x = posX;
 		position.y = posY;
-		direction.x = dirX;
-		direction.y = dirY;
-		if(ennemi) listeTirsDesEnnemis.add(this);
-		else liste.add(this);
+		if (ennemi) {
+			listeTirsDesEnnemis.add(this);
+			direction.y = -1;
+		} else {
+			direction.y = 1;
+			liste.add(this);
+		}
 	}
 
 }

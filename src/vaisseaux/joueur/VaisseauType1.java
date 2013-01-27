@@ -6,6 +6,7 @@ import vaisseaux.Vaisseaux;
 import vaisseaux.armes.ArmesBalayage;
 import vaisseaux.armes.ArmesDeBase;
 import vaisseaux.armes.ManagerArmeBalayage;
+import vaisseaux.armes.ManagerArmeDeBase;
 import affichage.animation.AnimationVaisseau;
 
 import com.badlogic.gdx.Gdx;
@@ -135,8 +136,7 @@ public class VaisseauType1 extends Vaisseaux {
 		switch (typeArme) {
 			case ArmeDeBase:
 				if (maintenant > dernierTir	+ ArmesDeBase.CADENCETIR + modifCadenceTir) {
-					ArmesDeBase e = ArmesDeBase.pool.obtain();
-					e.init(position.x + DEMI_LARGEUR	- ArmesDeBase.DEMI_LARGEUR, position.y + HAUTEUR, 0, 1, false);
+					ManagerArmeDeBase.init(position.x + DEMI_LARGEUR - ArmesDeBase.DEMI_LARGEUR, position.y + HAUTEUR, false);
 					dernierTir = maintenant;
 				}
 				break;
