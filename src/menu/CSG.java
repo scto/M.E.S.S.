@@ -7,9 +7,14 @@ import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.Progression;
 import jeu.Profil;
 import jeu.ProfilManager;
+import affichage.ParallaxBackground;
+import affichage.ParallaxLayer;
+import affichage.TexMan;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 
 public class CSG extends Game implements ApplicationListener {
 
@@ -28,6 +33,7 @@ public class CSG extends Game implements ApplicationListener {
 	public static int QUATRE_CINQUIEME_ECRAN;
 	public static ProfilManager profilManager;
 	public static Profil profil;
+	private static ParallaxBackground rbg;
 	
 	@Override
 	public void create() {
@@ -49,8 +55,22 @@ public class CSG extends Game implements ApplicationListener {
 //		setScreen(splash);
 //		Menu menu = new Menu(this);
 //		setScreen(menu);
+		TexMan.loadGame();
+		rbg = new ParallaxBackground(new ParallaxLayer[]{new ParallaxLayer(TexMan.trFond1,new Vector2(),new Vector2(0, 0)), new ParallaxLayer(TexMan.trFond2,new Vector2(0.1f,0.1f),new Vector2(0,0)),
+	      }, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),new Vector2(0,150));
+		
 		Menu menu = new Menu(this);
 		setScreen(menu);
+		
+		
+	}
+	
+	public static void renderBackground(float delta){
+		rbg.render(delta);
+	}
+	
+	public static ParallaxBackground getBackground(){
+		return rbg;
 	}
 	
 	public static void resetLists(){

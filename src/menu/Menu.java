@@ -2,6 +2,8 @@ package menu;
 
 
 import jeu.Endless;
+import affichage.ParallaxBackground;
+import affichage.ParallaxLayer;
 import affichage.TexMan;
 
 import com.badlogic.gdx.Game;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -34,8 +37,7 @@ public class Menu implements Screen {
 	public Menu(final Game game) {
 		// bricolé pour avoir un style par défaut j'espère
 		Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
-		
-		TexMan.loadGame();
+	
         // -- autre
 		batch = new SpriteBatch();
 		stage = new Stage(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN, false);
@@ -70,8 +72,6 @@ public class Menu implements Screen {
 		// add the high-scores button in a cell similiar to the start-game button's cell
 		table.add( highScoresButton ).uniform().fill();
 		table.setFillParent(true);
-
-		
 		
 		stage.addActor(table);
 		
@@ -100,6 +100,7 @@ public class Menu implements Screen {
 		// ** ** clear screen
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		CSG.renderBackground(delta);
 		stage.act(delta);
 		stage.draw();
 	}

@@ -3,6 +3,7 @@ package menu;
 import physique.Physique;
 import vaisseaux.armes.Armes;
 import vaisseaux.joueur.VaisseauType1;
+import affichage.ParallaxBackground;
 import affichage.TexMan;
 
 import com.badlogic.gdx.Game;
@@ -63,6 +64,7 @@ public class ArmesCustom implements Screen {
 		// ** ** clear screen
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		CSG.renderBackground(delta);
 		// ** ** batch
 		batch.begin();
 		// -- PREVIEW ARME

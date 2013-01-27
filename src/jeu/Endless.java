@@ -41,7 +41,7 @@ public class Endless implements Screen {
 	private VaisseauType1 vaisseau = new VaisseauType1();
 	// OLD private List<Armes> listeTirs = new ArrayList<Armes>();
 	private boolean pause = true;
-	private ParallaxBackground rbg;
+	private ParallaxBackground rbg = CSG.getBackground();
 	private Chrono chrono;
 	//private CollisionTester collision;
 	private boolean alterner = true;
@@ -58,8 +58,6 @@ public class Endless implements Screen {
 		debut = System.currentTimeMillis();
 		font = new BitmapFont();
         font.setColor(Color.GREEN);
-		rbg = new ParallaxBackground(new ParallaxLayer[]{new ParallaxLayer(TexMan.trFond1,new Vector2(),new Vector2(0, 0)), new ParallaxLayer(TexMan.trFond2,new Vector2(0.1f,0.1f),new Vector2(0,0)),
-	      }, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),new Vector2(0,150));
 
         gl = Gdx.graphics.getGL20();
 		gl.glViewport(0, 0, CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);
