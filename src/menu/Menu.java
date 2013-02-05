@@ -37,21 +37,18 @@ public class Menu implements Screen {
 	public Menu(final Game game) {
 		// bricolé pour avoir un style par défaut j'espère
 		Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
-	
         // -- autre
 		batch = new SpriteBatch();
 		stage = new Stage(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN, false);
 		Gdx.input.setInputProcessor(stage);
-
 		// creates the table actor
 		table = new Table(skin);
 		table.defaults().size(CSG.LARGEUR_ECRAN/1.2f, CSG.HAUTEUR_ECRAN/10f);
-		// add the welcome message with a margin-bottom of 50 units
-		Label titre = new Label("MyShooter", skin);
-		titre.setFontScale(CSG.LARGEUR_ECRAN/100);
-		table.add(titre).expandX().top().uniform().pad(10).fill();
-		// move to the next row
-		table.row();
+		// TITRE
+//		Label titre = new Label("MyShooter", skin);
+//		titre.setFontScale(CSG.LARGEUR_ECRAN/100);
+//		table.add(titre).expandX().top().uniform().pad(10).fill();
+//		table.row();
 		// register the button "start game"
         TextButton startGameButton = new TextButton( "Start game", skin);
 		// add the start-game button sized 300x60 with a margin-bottom of 10 units
@@ -84,6 +81,7 @@ public class Menu implements Screen {
 				super.clicked(event, x, y);
 			}
         } );
+        
         xpBouton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -92,7 +90,15 @@ public class Menu implements Screen {
 				super.clicked(event, x, y);
 			}
         });
-
+        
+        optionsButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				MenuOptions options = new MenuOptions(game);
+				game.setScreen(options);
+				super.clicked(event, x, y);
+			}
+        });
 	}
 
 	@Override

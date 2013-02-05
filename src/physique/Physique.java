@@ -10,6 +10,7 @@ import menu.CSG;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -151,7 +152,7 @@ public class Physique {
 		for(Bonus b : Bonus.liste){
 			//(pointDansRectangle(vaisseau.position.x + VaisseauType1.DEMI_LARGEUR, vaisseau.position.y + VaisseauType1.DEMI_HAUTEUR,
 			//XP.liste.get(xp).posX - XP.DEMI_LARGEUR_COLLISION, XP.liste.get(xp).posY - XP.DEMI_HAUTEUR_COLLISION, XP.LARGEUR_COLLISION, XP.HAUTEUR_COLLISION))
-			if(pointDansRectangle(vaisseau.position.x + VaisseauType1.DEMI_LARGEUR, vaisseau.position.y + VaisseauType1.DEMI_HAUTEUR,
+			if(pointDansRectangle(VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR, VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR,
 					b.posX - b.getDemiLargeurColl(), b.posY - b.getDemiHauteurColl(), b.getLargeurColl(), b.getHauteurColl() )){
 				b.pris();
 				Bonus.liste.removeValue(b, true);
@@ -159,7 +160,7 @@ public class Physique {
 		}
 		// ** On regarde si le joueur se fait toucher
 		for(Armes a : Armes.listeTirsDesEnnemis){
-			if(pointDansRectangle(vaisseau.position.x + VaisseauType1.DEMI_LARGEUR, vaisseau.position.y + VaisseauType1.DEMI_HAUTEUR,
+			if(pointDansRectangle(VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR, VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR,
 					a.position.x, a.position.y,	a.getLargeur(), a.getHauteur())){
 				vaisseau.perdu();
 				return true;
@@ -169,7 +170,7 @@ public class Physique {
 		for(Ennemis ennemi : Ennemis.liste){
 			// Si le centre du vaisseau est dans un ennemi
 			if(!ennemi.mort &
-					pointDansRectangle(vaisseau.position.x + VaisseauType1.DEMI_LARGEUR, vaisseau.position.y + VaisseauType1.DEMI_HAUTEUR, ennemi.getRectangleCollision())){
+					pointDansRectangle(VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR, VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR, ennemi.getRectangleCollision())){
 				vaisseau.perdu();
 				return true;
 			}
@@ -223,5 +224,40 @@ public class Physique {
 	public static float rotation(float angleRotation, float vitesseRotation, float delta) {
 		return angleRotation + (delta * vitesseRotation);
 	}
+	
+	private static float futurEcartX;
+	private static float futurEcartY;
+	private static Vector2 test = new Vector2();
+	private static float tmp;
+	private static float tmp2;
+	
+	public static void mouvementTeteChercheuse(Vector2 direction, Vector2 position, int vitesseMax, int hauteur, int largeur, float delta) {
+//		futurEcartX = (direction.x + position.x) - VaisseauType1.position.x;
+//		futurEcartY = (direction.y + position.y) - VaisseauType1.position.y;
+//		if((position.x - VaisseauType1.position.x) < futurEcartX){
+//			
+//		}
+		test.x = VaisseauType1.position.x - position.x;
+		test.y = VaisseauType1.position.y - position.y;
+		System.out.println("Angle test : " + angle(test.x, test.y));
+		System.out.println("Angle direction : " + angle(direction.x, direction.y));
+		if(angle(direction.x, direction.y) > angle(test.x, test.y) ){
+			System.out.println(" ====== Positif ======");
+			direction.rotate(3);
+		}
+		else {
+			System.out.println(" ====== Negatif ======");
+			direction.rotate(-3);
+		}
+		mouvementDeBase(direction, position, vitesseMax, hauteur, largeur, delta);
+	}
+	
+	/** @return the angle in degrees of this vector (point) relative to the x-axis. Angles are counter-clockwise and between 0 and
+	 *         360. */
+	public static float angle (float x, float y) {
+		float angle = (float)Math.atan2(y, x) * MathUtils.radiansToDegrees;
+		return angle;
+	}
+
 
 }

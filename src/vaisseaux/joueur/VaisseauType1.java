@@ -31,18 +31,24 @@ public class VaisseauType1 extends Vaisseaux {
 	private static final int LIMITE_X_DROITE = CSG.LARGEUR_ECRAN - DEMI_LARGEUR;
 	private static final int LIMITE_Y_GAUCHE = 0 - DEMI_HAUTEUR;
 	private static final int LIMITE_Y_DROITE = CSG.HAUTEUR_ECRAN - DEMI_HAUTEUR;
-	private static final int DEGRE_PRECISION_DEPLACEMENT = 3;
+	private static final int DEGRE_PRECISION_DEPLACEMENT = 4;
 	// ** ** parametres pouvant etre modifiés par des bonus
-	private boolean peutSeTeleporter = false;
-	private int vitesseMax = 200;
-	private long modifCadenceTir = 0;
-	private TypesArmes typeArme = CSG.profil.getArmeSelectionnee();
-	private TypesArmes[] typeArmePossible = TypesArmes.LISTE_ARME_JOUEUR;
+	private static boolean peutSeTeleporter = false;
+	private static int vitesseMax = 1000;
+	private static long modifCadenceTir = 0;
+	private static TypesArmes typeArme = CSG.profil.getArmeSelectionnee();
+	private static TypesArmes[] typeArmePossible = TypesArmes.LISTE_ARME_JOUEUR;
 	// ** ** variable utilitaires
-	private float dernierTir = 0;
+	private static float dernierTir = 0;
+	private static float maintenant = 0;
+	public static float oldPosition = 0;
+	public static Vector2 position = new Vector2();
+	public static float prevX;
+	public static float prevY;
+	public static float destX;
+	public static float destY;
+	private static float vitesseFoisDelta = 0;
 	private static float tmpCalculDeplacement = 0;
-	private float maintenant = 0;
-	public float oldPosition = 0;
 
 	/**
 	 * initialise le vaisseau avec les parametres par défaut
@@ -59,6 +65,8 @@ public class VaisseauType1 extends Vaisseaux {
 	private void initialiser() {
 		position = new Vector2(CSG.DEMI_LARGEUR_ECRAN - DEMI_LARGEUR, HAUTEUR/2);
 		vitesseMax += CSG.profil.bonusVitesse;
+		prevX = position.x;
+		prevY = position.y;
 	}
 	/**
 	 * affiche le vaisseau à l'endroit prévu avec la taille standardt
@@ -75,13 +83,29 @@ public class VaisseauType1 extends Vaisseaux {
 	 * Si il peut se teleporter il y va directement -- Sinon il se déplace suivant sa vitesse max
 	 */
 	public void mouvements(float delta) {
-		int x = Gdx.input.getX() - DEMI_LARGEUR;
-		int y = CSG.HAUTEUR_ECRAN - (Gdx.input.getY() + DEMI_HAUTEUR);
-		if(peutSeTeleporter){
-			mvtTeleport(x, y);
-		} else {
-			mvtLimiteVitesse(x, y, delta);
+		switch (CSG.profil.typeControle) {
+		case CSG.CONTROLE_TOUCH_NON_RELATIVE:
+			destX = (Gdx.input.getX() - DEMI_LARGEUR) - position.x;
+			if (destX < DEGRE_PRECISION_DEPLACEMENT & destX > -DEGRE_PRECISION_DEPLACEMENT)
+				destX = 0;
+			else
+				destX *= 10;
+			destY = (CSG.HAUTEUR_ECRAN - (Gdx.input.getY() + DEMI_HAUTEUR))	- position.y;
+			if (destY < DEGRE_PRECISION_DEPLACEMENT	& destY > -DEGRE_PRECISION_DEPLACEMENT)
+				destY = 0;
+			else
+				destY *= 10;
+			break;
+		case CSG.CONTROLE_TOUCH_RELATIVE:
+			if (Gdx.input.justTouched()) {
+				prevX = Gdx.input.getX();
+				prevY = Gdx.input.getY();
+			}
+			destX = Gdx.input.getX() - prevX;
+			destY = -(Gdx.input.getY() - prevY);
+			break;
 		}
+		mvtLimiteVitesse(destX, destY, delta);
 		limites();
 	}
 
@@ -90,18 +114,19 @@ public class VaisseauType1 extends Vaisseaux {
 	 * @param x
 	 * @param y
 	 */
-	private void mvtLimiteVitesse(int x, int y, float delta) {
+	private void mvtLimiteVitesse(float x, float y, float delta) {
 		// haut gauche : +x -y
-		Vector2 deplacement = new Vector2(x - position.x, y - position.y);
-		// Testé avec normalisation sur le vecteur : 3x plus lent. nor() prend à lui seul les 4/5 du temps
-		tmpCalculDeplacement = deplacement.len();	
-		if (tmpCalculDeplacement > DEGRE_PRECISION_DEPLACEMENT) {
-			deplacement.div(tmpCalculDeplacement);
-			tmpCalculDeplacement = vitesseMax * delta;
-			affichage.ParallaxBackground.changerOrientation(deplacement.x * tmpCalculDeplacement);
-			deplacement.mul(tmpCalculDeplacement);
-			position.add(deplacement);
-		}
+		tmpCalculDeplacement = ((x * x) + (y * y)) * delta;
+		if(tmpCalculDeplacement < DEGRE_PRECISION_DEPLACEMENT) return;
+		tmpCalculDeplacement = (float) Math.sqrt(tmpCalculDeplacement);
+		vitesseFoisDelta = vitesseMax * delta;
+		// Si on va trop vite
+		if (tmpCalculDeplacement > vitesseFoisDelta) {
+			x = x * (vitesseFoisDelta / tmpCalculDeplacement);
+			y = y * (vitesseFoisDelta / tmpCalculDeplacement);
+		} 
+		position.x += (x * delta);
+		position.y += (y * delta);
 	}
 
 	/**
@@ -168,4 +193,6 @@ public class VaisseauType1 extends Vaisseaux {
 	public int getHauteur() {
 		return HAUTEUR;
 	}
+	
+	
 }

@@ -37,7 +37,7 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	}
 
 	public EnnemiDeBaseQuiTir() {
-		super(getRandX(), CSG.HAUTEUR_ECRAN + HAUTEUR, 0, -1, PVMAX);
+		super(getRandX(), CSG.HAUTEUR_ECRAN + HAUTEUR, PVMAX);
 	}
 
 	private static float getRandX() {
@@ -45,11 +45,6 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	}
 
 
-	public EnnemiDeBaseQuiTir(float posX, float posY, float dirX, float dirY){
-		super(posX, posY, dirX, dirY, PVMAX);
-	}
-	
-	
 	/**
 	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
 	 */

@@ -11,6 +11,9 @@ public abstract class Vaisseaux {
 	public Vaisseaux() {
 		super();
 	}
+	
+	
+
 
 	abstract public int getLargeur();
 	abstract public int getHauteur();

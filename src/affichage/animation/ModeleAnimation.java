@@ -17,6 +17,14 @@ public abstract class ModeleAnimation {
 	 * @return
 	 */
 	protected abstract TextureRegion getTexture(float tps);
+	
+	protected static TextureRegion[] getTextureRegion(int COLONNES, int LIGNES, Texture t, int largeur, int hauteur){
+		TextureRegion[][] sheet = TextureRegion.split(t, largeur, hauteur);
+		TextureRegion[] tr = new TextureRegion[COLONNES];
+	    for(int i = 0; i < COLONNES; i++)
+	      	tr[i] = sheet[LIGNES][i];
+	    return tr;
+	}
 
 	/**
 	 * Crée une animation et la retourne

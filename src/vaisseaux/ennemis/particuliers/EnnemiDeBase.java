@@ -43,8 +43,8 @@ public class EnnemiDeBase extends Ennemis{
 	 * @param dirY
 	 * @param pv
 	 */
-	public EnnemiDeBase(float posX, float posY, float dirX, float dirY, int pv) {
-		super(posX, posY, dirX, dirY, pv);
+	public EnnemiDeBase(float posX, float posY, int pv) {
+		super(posX, posY, pv);
 		init();
 	}
 
@@ -53,7 +53,7 @@ public class EnnemiDeBase extends Ennemis{
 	 * Contructeur sans argument, appelé par le pool
 	 */
 	public EnnemiDeBase() {
-		super((float) (Math.random() * CSG.LARGEUR_ECRAN - DEMI_LARGEUR),	CSG.HAUTEUR_ECRAN + HAUTEUR, 0, -1, PVMAX);
+		super((float) (Math.random() * CSG.LARGEUR_ECRAN - DEMI_LARGEUR),	CSG.HAUTEUR_ECRAN + HAUTEUR, PVMAX);
 		init();
 	}
 	

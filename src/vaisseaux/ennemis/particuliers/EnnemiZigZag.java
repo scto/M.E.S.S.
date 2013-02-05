@@ -49,7 +49,7 @@ public class EnnemiZigZag extends Ennemis{
 	}
 	
 	public EnnemiZigZag() {
-		super(getRandX(), CSG.HAUTEUR_ECRAN + EnnemiZigZag.HAUTEUR, 0,-1, PVMAX);
+		super(getRandX(), CSG.HAUTEUR_ECRAN + EnnemiZigZag.HAUTEUR, PVMAX);
 		init();
 	}
 
@@ -60,10 +60,7 @@ public class EnnemiZigZag extends Ennemis{
 		return DEMI_LARGEUR;
 	}
 
-	public EnnemiZigZag(float posX, float posY, float dirX, float dirY){
-		super(posX, posY, dirX, dirY, PVMAX);
-		init();
-	}
+	
 
 	private void init() {
 		direction = new Vector2(0, -1);

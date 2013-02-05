@@ -2,11 +2,11 @@ package vaisseaux.armes;
 
 import menu.CSG;
 import physique.Physique;
+import sons.SoundMan;
 import affichage.animation.AnimationTirFeu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
@@ -21,7 +21,7 @@ import com.badlogic.gdx.utils.Pools;
 public class ArmesDeBase extends Armes implements Poolable{
 	
 	// ** ** caracteristiques générales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 20;
+	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 28;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = (int) (LARGEUR * 1.5);
 	public static final int DEMI_HAUTEUR = HAUTEUR / 2; 
@@ -95,7 +95,7 @@ public class ArmesDeBase extends Armes implements Poolable{
 	 */
 	@Override
 	public void init(float posX, float posY, int dirX, int dirY, boolean ennemi) {
-		son.play(CSG.VOLUME_SON_ARME);
+		son.play(CSG.profil.volumeArme);
 		position.x = posX;
 		position.y = posY;
 		if (ennemi) {

@@ -20,7 +20,7 @@ public class ManagerArmeBalayage {
 	private static Sound son = Gdx.audio.newSound(Gdx.files.internal("sons/164102__bmaczero__laser.wav"));
 	
 	public static void init(float posX, float posY, float dirX, float dirY, boolean ennemi){
-		son.play(CSG.VOLUME_SON_ARME);
+		son.play(CSG.profil.volumeArme);
 		Vector2 dir = new Vector2(dirX, dirY);
 		// On ne tient compte du niveau que si c'est un joueur qui tire
 		if(!ennemi){

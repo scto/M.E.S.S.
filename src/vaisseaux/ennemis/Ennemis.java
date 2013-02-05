@@ -1,14 +1,15 @@
 package vaisseaux.ennemis;
 
-import menu.CSG;
 import sons.SoundMan;
 import vaisseaux.Vaisseaux;
 import vaisseaux.bonus.BonusTemps;
 import vaisseaux.bonus.XP;
+import vaisseaux.ennemis.particuliers.EnnemiAilesDeployees;
+import vaisseaux.ennemis.particuliers.EnnemiBouleQuiSArrete;
 import vaisseaux.ennemis.particuliers.EnnemiDeBase;
 import vaisseaux.ennemis.particuliers.EnnemiDeBaseQuiTir;
+import vaisseaux.ennemis.particuliers.EnnemiPorteNef;
 import vaisseaux.ennemis.particuliers.EnnemiZigZag;
-
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -38,7 +39,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	 * @param direction
 	 * @param pv 
 	 */
-	protected Ennemis(float posX, float posY, float dirX, float dirY, int pv) {
+	protected Ennemis(float posX, float posY, int pv) {
 		position = new Vector2(posX, posY);
 		this.pv = pv;
 	}
@@ -105,18 +106,24 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 			// Si on met l'invocation de la methode directement dans le for on aura que des ennemis de base qui pop alors que
 			// pourtant si on affiche les types tous sont là logiquement, bizarre bizarre
 			ennemisAApparaitre = Progression.getListeEnnemis(tempsEcoule);
-			for (TypesEnnemis type : ennemisAApparaitre) {			
-				switch (type) {
-				case EnnemiDeBaseQuiTir:
-					liste.add(EnnemiDeBaseQuiTir.pool.obtain());
-					break;
-				case EnnemiZigZag:
-					liste.add(EnnemiZigZag.pool.obtain());
-					break;
-				case EnnemiDeBase:
-					liste.add(EnnemiDeBase.pool.obtain());
-					break;
-				}
+			for (TypesEnnemis type : ennemisAApparaitre) {
+//				switch (type) {
+//				case EnnemiPorteNef:
+//					liste.add(EnnemiPorteNef.pool.obtain());
+//					break;
+//				case EnnemiBouleQuiSArrete:
+//					liste.add(EnnemiBouleQuiSArrete.pool.obtain());
+//					break;
+//				case EnnemiDeBaseQuiTir:
+//					liste.add(EnnemiDeBaseQuiTir.pool.obtain());
+//					break;
+//				case EnnemiZigZag:
+//					liste.add(EnnemiZigZag.pool.obtain());
+//					break;
+//				case EnnemiDeBase:
+//					liste.add(EnnemiDeBase.pool.obtain());
+//					break;
+//				}
 			}
 			derniereApparition = System.currentTimeMillis();
 		}
@@ -135,7 +142,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	public boolean touche(int force) {
 		pv -= force;
 		if(pv <= 0 & !mort){
-			SoundMan.explosionGrosse.play(CSG.VOLUME_SON);
+			SoundMan.playBruitage(SoundMan.explosionGrosse);
 			mort = true;
 			new XP(position.x, position.y, getXp());
 			BonusTemps.ajoutBonus(position.x, position.y, getXp());

@@ -31,7 +31,12 @@ public class TexMan {
 	//** Balles
 	public static Texture balleDeBase;
 	public static Texture balleFeu;
+	public static Texture bouleBleu;
 	//** Ennemis
+	public static Texture ennemiTourne;
+	public static Texture vaisseauxAileDeployee;
+	public static Texture bouleBleuRouge;
+	public static Texture porteNef;
 	//** Explosions ---- explosion 1
 	public static Texture explosionNv1;
 	//** XP et autre
@@ -47,7 +52,7 @@ public class TexMan {
 
 	public static void loadGame() {
 		lesVaisseaux = new Texture(Gdx.files.internal("jeu/vaisseaux24sur28.png"));
-
+		vaisseauxAileDeployee = new Texture(Gdx.files.internal("jeu/ennemiailes21sur21et3frames.png"));
 		// ** background étoiles
 		Texture tFond = new Texture(Gdx.files.internal("jeu/etoiles.png"));
 		trFond1 = new TextureRegion(tFond);
@@ -61,10 +66,14 @@ public class TexMan {
 		//tmp = new Texture(Gdx.files.internal("jeu/balles/balles12sur12et13frames.png"));
 		balleDeBase = new Texture(Gdx.files.internal("jeu/balles/balles12sur12et13frames.png"));
 		balleFeu = new Texture(Gdx.files.internal("jeu/balles/ballefeu16sur27et3frames.png"));
+		bouleBleu = new Texture(Gdx.files.internal("jeu/balles/boulebleu20sur20et2frames.png"));
 		// ** explosion
 		explosionNv1 = new Texture(Gdx.files.internal("jeu/explosions/explosions12sur14et13frames.png"));
 		// ** Bouton rouge
 		boutonRouge = new Texture(Gdx.files.internal("jeu/bouton_23_large_22_haut.png"));
+		ennemiTourne = new Texture(Gdx.files.internal("jeu/ennemitourne21sur21et8frames.png"));
+		bouleBleuRouge = new Texture(Gdx.files.internal("jeu/boulebleurouge18large17haut3frames.png"));
+		porteNef = new Texture(Gdx.files.internal("jeu/portenef68large55haut2frames.png"));
 	}
 	
 

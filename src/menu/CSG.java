@@ -18,8 +18,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class CSG extends Game implements ApplicationListener {
 
-	public static final float VOLUME_SON = 1;
-	public static final float VOLUME_SON_ARME = 0.2f;
 	//public static final String STOCKAGE_XP = "xp.lvl";
 	// ---- champs globaux ---- Je ne trouve pas comment mettre final car Gdx n'est pas encore initialisé
 	public static int DEMI_LARGEUR_ECRAN = 0;
@@ -33,6 +31,12 @@ public class CSG extends Game implements ApplicationListener {
 	public static int DEUX_CINQUIEME_ECRAN;
 	public static int TROIS_CINQUIEME_ECRAN;
 	public static int QUATRE_CINQUIEME_ECRAN;
+	public static int HAUTEUR_ECRAN_PALLIER_1;
+	public static int HAUTEUR_ECRAN_PALLIER_2;
+	public static int HAUTEUR_ECRAN_PALLIER_3;
+	public static final int CONTROLE_TOUCH_NON_RELATIVE = 0;
+	public static final int CONTROLE_TOUCH_RELATIVE = 1;
+	public static final int CONTROLE_MAX = 1;
 	public static ProfilManager profilManager;
 	public static Profil profil;
 	private static ParallaxBackground rbg;
@@ -50,6 +54,9 @@ public class CSG extends Game implements ApplicationListener {
 		DEUX_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 2;
 		TROIS_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 3;
 		QUATRE_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 4;
+		HAUTEUR_ECRAN_PALLIER_1 = HAUTEUR_ECRAN - DIXIEME_HAUTEUR;
+		HAUTEUR_ECRAN_PALLIER_2 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 2);
+		HAUTEUR_ECRAN_PALLIER_3 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 3);
 		profilManager = new ProfilManager();
 		profil = profilManager.retrieveProfile();
 		
