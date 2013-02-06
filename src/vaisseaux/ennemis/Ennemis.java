@@ -107,23 +107,23 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 			// pourtant si on affiche les types tous sont là logiquement, bizarre bizarre
 			ennemisAApparaitre = Progression.getListeEnnemis(tempsEcoule);
 			for (TypesEnnemis type : ennemisAApparaitre) {
-//				switch (type) {
-//				case EnnemiPorteNef:
-//					liste.add(EnnemiPorteNef.pool.obtain());
-//					break;
-//				case EnnemiBouleQuiSArrete:
-//					liste.add(EnnemiBouleQuiSArrete.pool.obtain());
-//					break;
-//				case EnnemiDeBaseQuiTir:
-//					liste.add(EnnemiDeBaseQuiTir.pool.obtain());
-//					break;
-//				case EnnemiZigZag:
-//					liste.add(EnnemiZigZag.pool.obtain());
-//					break;
-//				case EnnemiDeBase:
-//					liste.add(EnnemiDeBase.pool.obtain());
-//					break;
-//				}
+				switch (type) {
+				case EnnemiPorteNef:
+					liste.add(EnnemiPorteNef.pool.obtain());
+					break;
+				case EnnemiBouleQuiSArrete:
+					liste.add(EnnemiBouleQuiSArrete.pool.obtain());
+					break;
+				case EnnemiDeBaseQuiTir:
+					liste.add(EnnemiDeBaseQuiTir.pool.obtain());
+					break;
+				case EnnemiZigZag:
+					liste.add(EnnemiZigZag.pool.obtain());
+					break;
+				case EnnemiDeBase:
+					liste.add(EnnemiDeBase.pool.obtain());
+					break;
+				}
 			}
 			derniereApparition = System.currentTimeMillis();
 		}

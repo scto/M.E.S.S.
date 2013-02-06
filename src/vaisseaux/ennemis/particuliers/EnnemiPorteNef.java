@@ -101,46 +101,46 @@ public class EnnemiPorteNef extends Ennemis{
 				nbLance++;
 			}
 			break;
-//		case 1:
-//			if(maintenant > 6){
-//				EnnemiAilesDeployees deuxieme = EnnemiAilesDeployees.pool.obtain();
-//				deuxieme.setPosition(position.x + X_DEUXIEME, position.y + Y_DEUXIEME);
-//				deuxieme.setAngle(ANGLE_DEUXIEME);
-//				deuxieme.lancer(-0.76604444f, 0.6427876f);
-//				liste.add(deuxieme);
-//				nbLance++;
-//			}
-//			break;
-//		case 2:
-//			if(maintenant > 8){
-//				EnnemiAilesDeployees troisieme = EnnemiAilesDeployees.pool.obtain();
-//				troisieme.setPosition(position.x + X_TROISIEME, position.y + Y_TROISIEME);
-//				troisieme.setAngle(ANGLE_TROISIEME);
-//				troisieme.lancer(0, 1);
-//				liste.add(troisieme);
-//				nbLance++;
-//			}
-//			break;
-//		case 3:
-//			if(maintenant > 10){
-//				EnnemiAilesDeployees quatrieme = EnnemiAilesDeployees.pool.obtain();
-//				quatrieme.setPosition(position.x + X_QUATRIEME, position.y + Y_QUATRIEME);
-//				quatrieme.setAngle(ANGLE_QUATRIEME);
-//				quatrieme.lancer(0.76604444f, 0.6427876f);
-//				liste.add(quatrieme);
-//				nbLance++;
-//			}
-//			break;
-//		case 4:
-//			if(maintenant > 12){
-//				EnnemiAilesDeployees cinquieme = EnnemiAilesDeployees.pool.obtain();
-//				cinquieme.setPosition(position.x + X_CINQUIEME, position.y + Y_CINQUIEME);
-//				cinquieme.setAngle(ANGLE_CINQUIEME);
-//				cinquieme.lancer(1, 0);
-//				liste.add(cinquieme);
-//				nbLance++;
-//			}
-//			break;
+		case 1:
+			if(maintenant > 6){
+				EnnemiAilesDeployees deuxieme = EnnemiAilesDeployees.pool.obtain();
+				deuxieme.setPosition(position.x + X_DEUXIEME, position.y + Y_DEUXIEME);
+				deuxieme.setAngle(ANGLE_DEUXIEME);
+				deuxieme.lancer(-0.76604444f, 0.6427876f);
+				liste.add(deuxieme);
+				nbLance++;
+			}
+			break;
+		case 2:
+			if(maintenant > 8){
+				EnnemiAilesDeployees troisieme = EnnemiAilesDeployees.pool.obtain();
+				troisieme.setPosition(position.x + X_TROISIEME, position.y + Y_TROISIEME);
+				troisieme.setAngle(ANGLE_TROISIEME);
+				troisieme.lancer(0, 1);
+				liste.add(troisieme);
+				nbLance++;
+			}
+			break;
+		case 3:
+			if(maintenant > 10){
+				EnnemiAilesDeployees quatrieme = EnnemiAilesDeployees.pool.obtain();
+				quatrieme.setPosition(position.x + X_QUATRIEME, position.y + Y_QUATRIEME);
+				quatrieme.setAngle(ANGLE_QUATRIEME);
+				quatrieme.lancer(0.76604444f, 0.6427876f);
+				liste.add(quatrieme);
+				nbLance++;
+			}
+			break;
+		case 4:
+			if(maintenant > 12){
+				EnnemiAilesDeployees cinquieme = EnnemiAilesDeployees.pool.obtain();
+				cinquieme.setPosition(position.x + X_CINQUIEME, position.y + Y_CINQUIEME);
+				cinquieme.setAngle(ANGLE_CINQUIEME);
+				cinquieme.lancer(1, 0);
+				liste.add(cinquieme);
+				nbLance++;
+			}
+			break;
 		}
 		return true;
 	}

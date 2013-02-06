@@ -2,11 +2,9 @@ package vaisseaux.ennemis.particuliers;
 
 import menu.CSG;
 import physique.Physique;
-import vaisseaux.armes.ArmesBouleBleu;
+import vaisseaux.armes.ArmesBouleVerte;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
-import vaisseaux.joueur.VaisseauType1;
-import affichage.animation.AnimationBouleBleuRouge;
 import affichage.animation.AnimationEnnemiAileDeployee;
 import affichage.animation.AnimationExplosion1;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,11 +22,12 @@ public class EnnemiAilesDeployees extends Ennemis{
 	public static final int HAUTEUR = LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	private static final int VITESSE_MAX = 100;
-	private static final int ROTATION = 100;
 	public static final float CADENCETIR = 1.0f;
+	public static final float CADENCETIR_SUR_3 = CADENCETIR/3;
 	public static final int PVMAX = 20;
+	public static final int VITESSE_ANGULAIRE = 100;
 	// ** ** caracteristiques variables.
-	private float dernierTir = .1f;
+	private boolean doubleTir = false;
 	private float maintenant = 0;
 	public static Pool<EnnemiAilesDeployees> pool = Pools.get(EnnemiAilesDeployees.class);
 	private boolean lance = false;
@@ -47,8 +46,8 @@ public class EnnemiAilesDeployees extends Ennemis{
 		mort = false;
 		tpsAnimationExplosion = 0;
 		pv = PVMAX;
-		dernierTir = .2f;
 		lance = false;
+		trigger = CADENCETIR;
 	}
 
 	
@@ -66,19 +65,15 @@ public class EnnemiAilesDeployees extends Ennemis{
 		init();
 	}
 
-	/**
-	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
-	 */
 	@Override
 	public boolean mouvementEtVerif(float delta) {
-		// Gros bout de code moche
-		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		} else { // Si on a passé le deuxième pallier les ailes sont repliées
-			if(lance){
-				Physique.mouvementTeteChercheuse(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta);
+		if (mort) {
+			if (tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1	| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false) {
+				pool.free(this);
+				return false;
 			}
+		} else {
+			if (lance) angle = Physique.mouvementTeteChercheuse(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta, VITESSE_ANGULAIRE);
 		}
 		return true;
 	}
@@ -94,7 +89,7 @@ public class EnnemiAilesDeployees extends Ennemis{
 			tpsAnimationExplosion += delta;
 		}
 		else {
-			batch.draw(animation.getTexture(0), position.x, position.y,
+			batch.draw(animation.getTexture(tpsAnim), position.x, position.y,
 					// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 					DEMI_LARGEUR,DEMI_HAUTEUR,
 					// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
@@ -109,13 +104,26 @@ public class EnnemiAilesDeployees extends Ennemis{
 		}
 	}
 	
-	
+	private float trigger = CADENCETIR;
 	@Override
 	protected void tir() {
-		if (!mort & maintenant > dernierTir	+ ArmesBouleBleu.CADENCETIR + CADENCETIR & lance) {
-			ArmesBouleBleu milieu = ArmesBouleBleu.pool.obtain();
-			milieu.init(position.x + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, 0, position.y + DEMI_HAUTEUR - ArmesBouleBleu.DEMI_LARGEUR, -(ArmesBouleBleu.HAUTEUR+DEMI_HAUTEUR), angle);
-			dernierTir = maintenant;
+//		if (!mort &
+//				((maintenant > dernierTir + CADENCETIR))&
+//				lance) {
+//			ArmesBouleVerte milieu = ArmesBouleVerte.pool.obtain();
+//			milieu.init(position.x + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR, 0, position.y + DEMI_HAUTEUR - ArmesBouleVerte.DEMI_LARGEUR, -(ArmesBouleVerte.HAUTEUR+DEMI_HAUTEUR), angle);
+//			dernierTir = maintenant;
+//		}
+		if (!mort & lance) {
+			if (trigger < maintenant) {
+				ArmesBouleVerte milieu = ArmesBouleVerte.pool.obtain();
+				milieu.init(position.x + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR, 0, position.y + DEMI_HAUTEUR - ArmesBouleVerte.DEMI_LARGEUR, -(ArmesBouleVerte.HAUTEUR+DEMI_HAUTEUR), angle);
+				if (!doubleTir)
+					trigger += CADENCETIR_SUR_3;
+				else
+					trigger += CADENCETIR;
+				doubleTir = !doubleTir;
+			}
 		}
 	}
 

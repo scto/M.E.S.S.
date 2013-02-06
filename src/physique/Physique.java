@@ -225,31 +225,34 @@ public class Physique {
 		return angleRotation + (delta * vitesseRotation);
 	}
 	
-	private static float futurEcartX;
-	private static float futurEcartY;
-	private static Vector2 test = new Vector2();
-	private static float tmp;
-	private static float tmp2;
-	
-	public static void mouvementTeteChercheuse(Vector2 direction, Vector2 position, int vitesseMax, int hauteur, int largeur, float delta) {
-//		futurEcartX = (direction.x + position.x) - VaisseauType1.position.x;
-//		futurEcartY = (direction.y + position.y) - VaisseauType1.position.y;
-//		if((position.x - VaisseauType1.position.x) < futurEcartX){
-//			
-//		}
-		test.x = VaisseauType1.position.x - position.x;
-		test.y = VaisseauType1.position.y - position.y;
-		System.out.println("Angle test : " + angle(test.x, test.y));
-		System.out.println("Angle direction : " + angle(direction.x, direction.y));
-		if(angle(direction.x, direction.y) > angle(test.x, test.y) ){
-			System.out.println(" ====== Positif ======");
-			direction.rotate(3);
-		}
+	// ATTENTION 
+	private static Vector2 cibleTMP = new Vector2();
+	private static float angleCible;
+	private static float angleDirection;
+
+	// Pas compris en relisant ? Normal, déjà pas compris en écrivant, enfin si mais en tout cas c'est surement pas top
+	public static float mouvementTeteChercheuse(Vector2 direction, Vector2 position, int vitesseMax, int hauteur, int largeur, float delta, float vitesseAngulaire) {
+		// Init variable
+		cibleTMP.x = (VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR) - position.x;
+		cibleTMP.y = (VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR) - position.y;
+		angleCible = cibleTMP.angle();
+		angleDirection = direction.angle();
+		// cas particulier
+		if ((angleCible > 350) & ( (angleDirection < 5) | (angleDirection > 355)) )
+			direction.rotate(-vitesseAngulaire * delta * 10);
 		else {
-			System.out.println(" ====== Negatif ======");
-			direction.rotate(-3);
+			if (angleDirection < angleCible & angleCible - angleDirection < 180) {
+				direction.rotate(vitesseAngulaire * delta);
+			} else {
+				if (Math.abs(angleCible - angleDirection) < 180)
+					direction.rotate(-vitesseAngulaire * delta);
+				else
+					direction.rotate(vitesseAngulaire * delta);
+			}
 		}
+		
 		mouvementDeBase(direction, position, vitesseMax, hauteur, largeur, delta);
+		return angleDirection;
 	}
 	
 	/** @return the angle in degrees of this vector (point) relative to the x-axis. Angles are counter-clockwise and between 0 and

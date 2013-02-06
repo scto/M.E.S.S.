@@ -67,7 +67,7 @@ public class Endless implements Screen {
         chrono = new Chrono(2000);
         chrono.demarrer(this);
 
-       // Gdx.graphics.setVSync(false);
+//        Gdx.graphics.setVSync(false);
 	}
 
 	@Override
@@ -120,7 +120,6 @@ public class Endless implements Screen {
 		// ** ** partie mouvement joueur
 		if (!perdu) {
 			if(Gdx.input.justTouched()) {
-				Ennemis.liste.add(EnnemiPorteNef.pool.obtain());
 				// Si oui c'est un double tap
 				if (System.currentTimeMillis() - vientDEtreTouche < 500) {
 					activerRalentissement = true;

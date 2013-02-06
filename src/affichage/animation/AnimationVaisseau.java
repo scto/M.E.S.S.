@@ -57,7 +57,7 @@ public class AnimationVaisseau{
 	 */
 	public void afficher(SpriteBatch batch, float delta) {
 		tps += delta;
-		batch.draw(getTexture(), v.position.x, v.position.y, v.getLargeur(), v.getHauteur());
+		batch.draw(getTexture(), VaisseauType1.position.x, VaisseauType1.position.y, v.getLargeur(), v.getHauteur());
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class AnimationVaisseau{
 	 */
 	private TextureRegion getTexture() {
 		// Si on va tout droit
-		if(v.position.x == v.oldPosition){
+		if(VaisseauType1.position.x == VaisseauType1.oldPosition){
 			// et qu'avant on allait pas tout droit on remet le temps à 0 une seule fois.
 			if(remettreDroit){
 				tps = 0;
@@ -88,7 +88,7 @@ public class AnimationVaisseau{
 		}
 		remettreDroit = true;
 		// si on va vers la gauche
-		if(v.oldPosition > v.position.x){
+		if(VaisseauType1.oldPosition > VaisseauType1.position.x){
 			//onAllaitVersGauche = true;
 			onAllaitVersDroite = false;
 			return centreVersGauche.getKeyFrame(tps, false); 

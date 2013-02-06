@@ -33,8 +33,9 @@ public class VaisseauType1 extends Vaisseaux {
 	private static final int LIMITE_Y_DROITE = CSG.HAUTEUR_ECRAN - DEMI_HAUTEUR;
 	private static final int DEGRE_PRECISION_DEPLACEMENT = 4;
 	// ** ** parametres pouvant etre modifiés par des bonus
+	@SuppressWarnings("unused")
 	private static boolean peutSeTeleporter = false;
-	private static int vitesseMax = 1000;
+	private static int vitesseMax = 100;
 	private static long modifCadenceTir = 0;
 	private static TypesArmes typeArme = CSG.profil.getArmeSelectionnee();
 	private static TypesArmes[] typeArmePossible = TypesArmes.LISTE_ARME_JOUEUR;
@@ -116,7 +117,7 @@ public class VaisseauType1 extends Vaisseaux {
 	 */
 	private void mvtLimiteVitesse(float x, float y, float delta) {
 		// haut gauche : +x -y
-		tmpCalculDeplacement = ((x * x) + (y * y)) * delta;
+		tmpCalculDeplacement = ((x * x) + (y * y)) * delta * delta;
 		if(tmpCalculDeplacement < DEGRE_PRECISION_DEPLACEMENT) return;
 		tmpCalculDeplacement = (float) Math.sqrt(tmpCalculDeplacement);
 		vitesseFoisDelta = vitesseMax * delta;
