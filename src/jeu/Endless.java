@@ -1,12 +1,13 @@
 package jeu;
-
+/**
+ */
 import menu.CSG;
 import menu.Menu;
 import physique.Physique;
+import sons.SoundMan;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.particuliers.EnnemiPorteNef;
 import vaisseaux.joueur.VaisseauType1;
 import affichage.ParallaxBackground;
 import bloom.Bloom;
@@ -15,7 +16,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,17 +27,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class Endless implements Screen {
 	
-	private Game game;
 	public static long debut;
+	private Game game;
 	// ** ** affichage
 	private BitmapFont font;
 	private SpriteBatch batch;
 	private GL20 gl;
-	// ** ** vaisseaux et armes
-	private VaisseauType1 vaisseau = new VaisseauType1();
-	// OLD private List<Armes> listeTirs = new ArrayList<Armes>();
-	private boolean pause = true;
 	private ParallaxBackground rbg = CSG.getBackground();
+	private VaisseauType1 vaisseau = new VaisseauType1();
 	private Chrono chrono;
 	//private CollisionTester collision;
 	private boolean alterner = true;
@@ -50,6 +47,7 @@ public class Endless implements Screen {
 	private boolean activerRalentissement = false;
 	private long vientDEtreTouche = 0;
 	private Bloom bloom = new Bloom();
+	private static final int X_CHRONO = CSG.HAUTEUR_ECRAN - (CSG.HAUTEUR_ECRAN/30);
 
 	public Endless(Game game) {
 		super();
@@ -61,81 +59,72 @@ public class Endless implements Screen {
 
         gl = Gdx.graphics.getGL20();
 		gl.glViewport(0, 0, CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);
-		pause = true;
 		CSG.resetLists();
         
         chrono = new Chrono(2000);
         chrono.demarrer(this);
 
-//        Gdx.graphics.setVSync(false);
+        Gdx.graphics.setVSync(false);
+        
+        SoundMan.playMusic();
 	}
 
 	@Override
 	public void render(float delta) {
 		// ** ** clear screen
-		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		bloom.capture();
 		rbg.render(delta);
-		if(!pause){
-			batch.begin();
-			if(!perdu){
-				// bullet time !
-				if (activerRalentissement) {
-					chronoRalentir -= delta;
-					delta /= 3;
-					champChronoRalentir = chronoRalentir + "s";
-					if(chronoRalentir < 0){
-						activerRalentissement = false;
-						chronoRalentir = 0;
-						// pour mettre champ txt à jour
-						ralentir(0);
-					}
+		batch.begin();
+		if(!perdu){
+			// bullet time !
+			if (activerRalentissement) {
+				chronoRalentir -= delta;
+				delta /= 3;
+				champChronoRalentir = chronoRalentir + "s";
+				if(chronoRalentir < 0){
+					activerRalentissement = false;
+					chronoRalentir = 0;
+					// pour mettre champ txt à jour
+					ralentir(0);
 				}
-				// ** ** batch
-				Bonus.affichageEtMouvement(batch, delta);
-				Ennemis.affichageEtMouvement(batch, delta);
-				vaisseau.draw(batch, delta);
-				Armes.affichageEtMouvement(batch, delta);
-			} else {
-				Ennemis.affichage(batch, delta);
-				Armes.affichage(batch, delta);
-				vaisseau.draw(batch, delta);
-			}		
-			font.draw(batch, champChrono, 0, CSG.HAUTEUR_ECRAN - 5);
-			font.draw(batch, String.valueOf(Gdx.graphics.getFramesPerSecond()), 300, 300);
-			font.draw(batch, CSG.profil.champXp, CSG.LARGEUR_ECRAN - CSG.DEMI_LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN - 5);
-			font.draw(batch, champChronoRalentir, CSG.LARGEUR_ECRAN - CSG.CINQUIEME_ECRAN, CSG.HAUTEUR_ECRAN - 5);
-			batch.end();
-			// FAIRE CLASSE UI POUR PAR EXEMPLE STOCKER -5
-			// ** ** update
-			update(delta);
-		} else { // C'est en pause
-			if (Gdx.input.justTouched())
-				pause = false;
-		}
+			}
+			// ** ** batch
+			Bonus.affichageEtMouvement(batch, delta);
+			Ennemis.affichageEtMouvement(batch, delta);
+			vaisseau.draw(batch, delta);
+			Armes.affichageEtMouvement(batch, delta);
+		} else {
+			Ennemis.affichage(batch, delta);
+			Armes.affichage(batch, delta);
+			vaisseau.draw(batch, delta);
+		}		
+		font.draw(batch, champChrono, 0, X_CHRONO);
+		font.draw(batch, String.valueOf(Gdx.graphics.getFramesPerSecond()), 300, 300);
+		font.draw(batch, CSG.profil.champXp, CSG.LARGEUR_ECRAN - CSG.DEMI_LARGEUR_ECRAN, X_CHRONO);
+		font.draw(batch, champChronoRalentir, CSG.LARGEUR_ECRAN - CSG.CINQUIEME_ECRAN, X_CHRONO);
+		batch.end();
 		bloom.render();
-	}
-
-	private void update(float delta) {
-		// ** ** partie mouvement joueur
+		// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** 
+		// ** ** UPDATE inliné. Gain en moyenne : + 2.5fps sur 450 (test sur 8 fois sur 5 min)
+		// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** 
 		if (!perdu) {
 			if(Gdx.input.justTouched()) {
 				// Si oui c'est un double tap
-				if (System.currentTimeMillis() - vientDEtreTouche < 500) {
-					activerRalentissement = true;
-				}
+				if (System.currentTimeMillis() - vientDEtreTouche < 500) activerRalentissement = true;
 				vientDEtreTouche = System.currentTimeMillis();
 			}
 			if (Gdx.input.isTouched()) {
-				if (!pause)			vaisseau.mouvements(delta);
-				else				pause = false;
-			} else {
-				affichage.ParallaxBackground.changerOrientation(0);
+				vaisseau.mouvements(delta);
 			}
+//			else {
+//				affichage.ParallaxBackground.changerOrientation(0);
+//			}
 			if (alterner) {
 				if (alternerApparition)
 					Ennemis.possibleApparition(chrono.getTempsEcoule());
-				perdu = Physique.testCollisions(vaisseau);
+//					perdu = 
+						Physique.testCollisions(vaisseau);
 				// ** ** tir joueur
 				vaisseau.tir(delta);
 				alternerApparition = !alternerApparition;
@@ -163,7 +152,6 @@ public class Endless implements Screen {
 
 	@Override
 	public void pause() {
-		//Profil.sauver();
 		CSG.profilManager.persist();
 	}
 
@@ -186,12 +174,12 @@ public class Endless implements Screen {
 	 * @param nbSecondes
 	 */
 	public void updateTemps(long nbSecondes) {
-		champChrono = "Time : " + nbSecondes + "s";
+		champChrono = "Time : " + nbSecondes;
 	}
 
 	public static void ralentir(float i) {
 		chronoRalentir += i;
-		champChronoRalentir = "zZz " + chronoRalentir + "s";
+		champChronoRalentir = "zZz " + chronoRalentir;
 	}
 
 }

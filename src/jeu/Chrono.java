@@ -1,10 +1,5 @@
 package jeu;
 
-import vaisseaux.armes.Armes;
-import vaisseaux.bonus.Bonus;
-import vaisseaux.bonus.XP;
-import vaisseaux.ennemis.Ennemis;
-
 import com.badlogic.gdx.Gdx;
 
 public class Chrono implements Runnable {
@@ -44,7 +39,7 @@ public class Chrono implements Runnable {
 	/* Suspend le deroulement du temps ; ce deroulement pourra etre repris 
 	 * dans l'etat ou il se trouvait par la methode reprendre */
 	public void suspendre() {     
-		if (enFonctionnement()  && continuer) {
+		if (enFonctionnement() & continuer) {
 			momentSuspension = System.currentTimeMillis();
 			continuer = false;
 		}
@@ -81,12 +76,12 @@ public class Chrono implements Runnable {
 			//  Si le joueur a perdu on arrete le chrono. C'est mis ici pour le checker le moins souvent possible
 			if(parent.getPerdu()) arreter();
 			parent.updateTemps(nbSecondes);
-			Gdx.app.log(nbSecondes+"," + Gdx.graphics.getFramesPerSecond(), "Unités "+ (Armes.liste.size + Armes.listeTirsDesEnnemis.size + Ennemis.liste.size + XP.liste.size() + Bonus.liste.size));
+			Gdx.app.log(nbSecondes+"," + Gdx.graphics.getFramesPerSecond(), "");
 			try {
 				Thread.sleep(1000);
-				synchronized(this) {
-					while (!continuer & !finir) wait();
-				}
+//				synchronized(this) {
+//					while (!continuer & !finir) wait();
+//				}
 			}
 			catch(InterruptedException e){
 				e.printStackTrace();

@@ -1,6 +1,7 @@
 package menu;
 
 
+import sons.SoundMan;
 import jeu.Endless;
 import affichage.ParallaxBackground;
 import affichage.ParallaxLayer;
@@ -99,6 +100,8 @@ public class Menu implements Screen {
 				super.clicked(event, x, y);
 			}
         });
+        
+        SoundMan.stopMusic();
 	}
 
 	@Override

@@ -48,6 +48,7 @@ public class EnnemiAilesDeployees extends Ennemis{
 		pv = PVMAX;
 		lance = false;
 		trigger = CADENCETIR;
+		tpsAnim = 0;
 	}
 
 	
@@ -180,6 +181,5 @@ public class EnnemiAilesDeployees extends Ennemis{
 		lance = true;
 		direction.x = f;
 		direction.y = g;
-		System.out.println("Angle direction : " + direction.angle());
 	}
 }
