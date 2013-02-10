@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /*
@@ -36,14 +38,11 @@ public class TexMan {
 	public static Texture ennemiTourne;
 	public static Texture vaisseauxAileDeployee;
 	public static Texture bouleBleuRouge;
-	public static Texture porteNef;
 	//** Explosions ---- explosion 1
-	public static Texture explosionNv1;
 	//** XP et autre
-	public static TextureRegion XP;
-	public static Texture triangleRond;
-	//** UI
-	public static Texture boutonRouge;
+	
+	public static TextureAtlas atlas;
+	public static AtlasRegion XP;
 
 	public static void loadMenu() {
 		// ** The play button
@@ -60,20 +59,22 @@ public class TexMan {
 		trFond2 = new TextureRegion(tFond);
 		// ** XP
 		Texture tmp = new Texture(Gdx.files.internal("jeu/items/items.png"));
-		XP = new TextureRegion(tmp, 5, 5);
-		triangleRond = new Texture(Gdx.files.internal("jeu/triangle21large22haut.png"));
+//		XP = new TextureRegion(tmp, 5, 5);
+//		triangleRond = new Texture(Gdx.files.internal("jeu/triangle21large22haut.png"));
 		// ** Balles
 		//tmp = new Texture(Gdx.files.internal("jeu/balles/balles12sur12et13frames.png"));
 		balleDeBase = new Texture(Gdx.files.internal("jeu/balles/balles12sur12et13frames.png"));
 		balleFeu = new Texture(Gdx.files.internal("jeu/balles/ballefeu16sur27et3frames.png"));
 		bouleBleu = new Texture(Gdx.files.internal("jeu/balles/boulebleu20sur20et2frames.png"));
 		// ** explosion
-		explosionNv1 = new Texture(Gdx.files.internal("jeu/explosions/explosions12sur14et13frames.png"));
-		// ** Bouton rouge
-		boutonRouge = new Texture(Gdx.files.internal("jeu/bouton_23_large_22_haut.png"));
+//		explosionNv1 = new Texture(Gdx.files.internal("jeu/explosions/explosions12sur14et13frames.png"));
+
 		ennemiTourne = new Texture(Gdx.files.internal("jeu/ennemitourne21sur21et8frames.png"));
 		bouleBleuRouge = new Texture(Gdx.files.internal("jeu/boulebleurouge18large17haut3frames.png"));
-		porteNef = new Texture(Gdx.files.internal("jeu/portenef68large55haut2frames.png"));
+		
+		
+		atlas = new TextureAtlas(Gdx.files.internal("textures.atlas"));
+		XP = atlas.findRegion("xp");
 	}
 	
 

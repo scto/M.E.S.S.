@@ -64,7 +64,7 @@ public class Endless implements Screen {
         chrono = new Chrono(2000);
         chrono.demarrer(this);
 
-        Gdx.graphics.setVSync(false);
+//        Gdx.graphics.setVSync(false);
         
         SoundMan.playMusic();
 	}
