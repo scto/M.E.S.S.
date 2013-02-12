@@ -109,7 +109,7 @@ public class Menu implements Screen {
 		// ** ** clear screen
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		CSG.renderBackground(delta);
+		CSG.renderBackground();
 		stage.act(delta);
 		stage.draw();
 	}

@@ -1,5 +1,6 @@
 package vaisseaux.ennemis.particuliers;
 
+import jeu.Endless;
 import physique.Physique;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
@@ -67,22 +68,22 @@ public class EnnemiZigZag extends Ennemis{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch, float delta) {
+	public void afficher(SpriteBatch batch) {
 		if(mort){
 			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += delta;
+			tpsAnimationExplosion += Endless.delta;
 		}
 		else
 			batch.draw(AnimationRouli.getTexture(position.x + DEMI_LARGEUR), position.x, position.y, LARGEUR, HAUTEUR);
 	}
 
 	@Override
-	public boolean mouvementEtVerif(float delta) {	
+	public boolean mouvementEtVerif() {	
 		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1){
 			pool.free(this);
 			return false;
 		}
-		sens = Physique.goToZigZagCentre(position, direction, DEMI_LARGEUR, sens, AMPLITUDE_HORIZONTALE, VITESSE_MAX, HAUTEUR, LARGEUR, mort, delta);
+		sens = Physique.goToZigZagCentre(position, direction, DEMI_LARGEUR, sens, AMPLITUDE_HORIZONTALE, VITESSE_MAX, HAUTEUR, LARGEUR, mort);
 		if(!Physique.toujoursAfficher(position, HAUTEUR, LARGEUR)){
 			pool.free(this);
 			return false;

@@ -74,8 +74,8 @@ public class CSG extends Game implements ApplicationListener {
 		
 	}
 	
-	public static void renderBackground(float delta){
-		rbg.render(delta);
+	public static void renderBackground(){
+		rbg.render();
 	}
 	
 	public static ParallaxBackground getBackground(){

@@ -1,5 +1,6 @@
 package vaisseaux.ennemis.particuliers;
 
+import jeu.Endless;
 import menu.CSG;
 import physique.Physique;
 import vaisseaux.armes.ArmesDeBase;
@@ -49,13 +50,13 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerif(float delta) {
+	public boolean mouvementEtVerif() {
 		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
 				| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;
 		}
-		position.y += (VITESSE_MAX * delta);
+		position.y += (VITESSE_MAX * Endless.delta);
 		return true;
 	}
 
@@ -63,15 +64,15 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public void afficher(SpriteBatch batch, float delta) {
-		maintenant += delta;
+	public void afficher(SpriteBatch batch) {
+		maintenant += Endless.delta;
 		if(mort){
 			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += delta;
+			tpsAnimationExplosion += Endless.delta;
 		}
 		else{
 			batch.draw(animation.getTexture(tpsAnimation), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimation += delta;
+			tpsAnimation += Endless.delta;
 		}
 	}
 	

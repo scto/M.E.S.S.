@@ -1,5 +1,6 @@
 package vaisseaux.ennemis.particuliers;
 
+import jeu.Endless;
 import menu.CSG;
 import physique.Physique;
 import vaisseaux.armes.ArmesDeBase;
@@ -82,13 +83,13 @@ public class EnnemiPorteNef extends Ennemis{
 	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerif(float delta) {
+	public boolean mouvementEtVerif() {
 		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
 				| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;
 		}
-		position.x += dirX * delta * VITESSE_MAX;
+		position.x += dirX * Endless.delta * VITESSE_MAX;
 		// == == Partie ennemis à lancer
 		switch(nbLance){
 		case 0:
@@ -150,11 +151,11 @@ public class EnnemiPorteNef extends Ennemis{
 	 * Il rotationne du double du delta
 	 */
 	@Override
-	public void afficher(SpriteBatch batch, float delta) {
-		maintenant += delta;
+	public void afficher(SpriteBatch batch) {
+		maintenant += Endless.delta;
 		if(mort){
 			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += delta;
+			tpsAnimationExplosion += Endless.delta;
 		}
 		else{
 			batch.draw(animation.getTexture(pv), position.x, position.y,

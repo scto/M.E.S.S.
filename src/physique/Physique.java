@@ -1,5 +1,6 @@
 package physique;
 
+import jeu.Endless;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
@@ -7,7 +8,6 @@ import vaisseaux.joueur.VaisseauType1;
 import menu.CSG;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
@@ -47,11 +47,11 @@ public class Physique {
 	 * @param VITESSE
 	 * @param largeur 
 	 * @param hauteur 
-	 * @param delta 
+	 * @param Endless.delta 
 	 * @return True si encore a l'ecran
 	 */
-	public static boolean mouvementDeBase(Vector2 direction, Vector2 position, final int VITESSE, int hauteur, int largeur, float delta) { 
-		deplacementBase(direction, position, VITESSE, delta);
+	public static boolean mouvementDeBase(Vector2 direction, Vector2 position, final int VITESSE, int hauteur, int largeur) { 
+		deplacementBase(direction, position, VITESSE);
 		return toujoursAfficher(position, hauteur, largeur);
 	}
 	
@@ -59,12 +59,12 @@ public class Physique {
 	 * ATTENTION voir si il vaut mieux créer un vecteur ou alors faire les calculs sur x et y sans en créer un
 	 * @param direction
 	 * @param position
-	 * @param delta 
+	 * @param Endless.delta 
 	 * @param VITESSE_MAX
 	 */
-	private static void deplacementBase(Vector2 direction, Vector2 position, final int VITESSE, float delta) {
-		position.x += (direction.x * delta * VITESSE);
-		position.y += (direction.y * delta * VITESSE);	
+	private static void deplacementBase(Vector2 direction, Vector2 position, final int VITESSE) {
+		position.x += (direction.x * Endless.delta * VITESSE);
+		position.y += (direction.y * Endless.delta * VITESSE);	
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public class Physique {
 	 * @param axeDeBase 
 	 * @return
 	 */
-	public static boolean goToZigZag(Vector2 position, Vector2 direction,int demiLargeur, boolean sens, final float AMPLITUDE, final int VITESSE, final int hauteur, final int largeur, boolean mort, float axeDeBase, float delta){
+	public static boolean goToZigZag(Vector2 position, Vector2 direction,int demiLargeur, boolean sens, final float AMPLITUDE, final int VITESSE, final int hauteur, final int largeur, boolean mort, float axeDeBase){
 		// Seulement si il n'est pas en train d'exploser
 		if (!mort) {
 			if (position.x + demiLargeur < axeDeBase) {
@@ -102,12 +102,12 @@ public class Physique {
 				sens = true;
 			}
 			if (sens)
-				direction.x -= AMPLITUDE * delta;
+				direction.x -= AMPLITUDE * Endless.delta;
 			else
-				direction.x += AMPLITUDE * delta;
+				direction.x += AMPLITUDE * Endless.delta;
 		}
 		
-		deplacementBase(direction, position, VITESSE, delta);
+		deplacementBase(direction, position, VITESSE);
 
 		return sens;
 	}
@@ -123,7 +123,7 @@ public class Physique {
 	 * @param mort 
 	 * @return
 	 */
-	public static boolean goToZigZagCentre(Vector2 position, Vector2 direction,int demiLargeur, boolean sens, final float AMPLITUDE, final int VITESSE, final int hauteur, final int largeur, boolean mort, float delta){
+	public static boolean goToZigZagCentre(Vector2 position, Vector2 direction,int demiLargeur, boolean sens, final float AMPLITUDE, final int VITESSE, final int hauteur, final int largeur, boolean mort){
 		// Seulement si il n'est pas en train d'exploser
 		if (!mort) {
 			if (position.x + demiLargeur < CSG.LARGEUR_ECRAN / 2) {
@@ -132,12 +132,12 @@ public class Physique {
 				sens = true;
 			}
 			if (sens)
-				direction.x -= AMPLITUDE * Gdx.graphics.getDeltaTime();
+				direction.x -= AMPLITUDE * Endless.delta;
 			else
-				direction.x += AMPLITUDE * Gdx.graphics.getDeltaTime();
+				direction.x += AMPLITUDE * Endless.delta;
 		}
 		
-		deplacementBase(direction, position, VITESSE, delta);
+		deplacementBase(direction, position, VITESSE);
 
 		return sens;
 	}
@@ -221,8 +221,8 @@ public class Physique {
         else
             return false;
     }
-	public static float rotation(float angleRotation, float vitesseRotation, float delta) {
-		return angleRotation + (delta * vitesseRotation);
+	public static float rotation(float angleRotation, float vitesseRotation) {
+		return angleRotation + (Endless.delta * vitesseRotation);
 	}
 	
 	// ATTENTION 
@@ -231,7 +231,7 @@ public class Physique {
 	private static float angleDirection;
 
 	// Pas compris en relisant ? Normal, déjà pas compris en écrivant, enfin si mais en tout cas c'est surement pas top
-	public static float mouvementTeteChercheuse(Vector2 direction, Vector2 position, int vitesseMax, int hauteur, int largeur, float delta, float vitesseAngulaire) {
+	public static float mouvementTeteChercheuse(Vector2 direction, Vector2 position, int vitesseMax, int hauteur, int largeur, float vitesseAngulaire) {
 		// Init variable
 		cibleTMP.x = (VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR) - position.x;
 		cibleTMP.y = (VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR) - position.y;
@@ -239,19 +239,19 @@ public class Physique {
 		angleDirection = direction.angle();
 		// cas particulier
 		if ((angleCible > 350) & ( (angleDirection < 5) | (angleDirection > 355)) )
-			direction.rotate(-vitesseAngulaire * delta * 10);
+			direction.rotate(-vitesseAngulaire * Endless.delta * 10);
 		else {
 			if (angleDirection < angleCible & angleCible - angleDirection < 180) {
-				direction.rotate(vitesseAngulaire * delta);
+				direction.rotate(vitesseAngulaire * Endless.delta);
 			} else {
 				if (Math.abs(angleCible - angleDirection) < 180)
-					direction.rotate(-vitesseAngulaire * delta);
+					direction.rotate(-vitesseAngulaire * Endless.delta);
 				else
-					direction.rotate(vitesseAngulaire * delta);
+					direction.rotate(vitesseAngulaire * Endless.delta);
 			}
 		}
 		
-		mouvementDeBase(direction, position, vitesseMax, hauteur, largeur, delta);
+		mouvementDeBase(direction, position, vitesseMax, hauteur, largeur);
 		return angleDirection;
 	}
 	

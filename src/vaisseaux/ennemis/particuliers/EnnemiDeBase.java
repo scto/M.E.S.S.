@@ -1,5 +1,6 @@
 package vaisseaux.ennemis.particuliers;
 
+import jeu.Endless;
 import physique.Physique;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
@@ -78,25 +79,25 @@ public class EnnemiDeBase extends Ennemis{
 
 
 	@Override
-	public void afficher(SpriteBatch batch, float delta) {
+	public void afficher(SpriteBatch batch) {
 		if(mort){
 			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += delta;
+			tpsAnimationExplosion += Endless.delta;
 		}
 		else{
 			batch.draw(animation.getTexture(tpsAnimation), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimation += delta;
+			tpsAnimation += Endless.delta;
 		}
 	}
 
 	@Override
-	public boolean mouvementEtVerif(float delta) {
+	public boolean mouvementEtVerif() {
 		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
 				| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;
 		}
-		position.y += (VITESSE_MAX * delta);
+		position.y += (VITESSE_MAX * Endless.delta);
 		return true;
 	}
 

@@ -49,6 +49,9 @@ public class Endless implements Screen {
 	private long vientDEtreTouche = 0;
 	private Bloom bloom = new Bloom();
 	private static final int X_CHRONO = CSG.HAUTEUR_ECRAN - (CSG.HAUTEUR_ECRAN/30);
+	
+	// Attention au delta
+	public static float delta = 0;
 
 	public Endless(Game game) {
 		super();
@@ -75,13 +78,14 @@ public class Endless implements Screen {
 		// ** ** clear screen
 		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		bloom.capture();
-		rbg.render(delta);
+		rbg.render();
 		batch.begin();
+		Endless.delta = delta;
 		if(!perdu){
 			// bullet time !
 			if (activerRalentissement) {
-				chronoRalentir -= delta;
-				delta /= 3;
+				chronoRalentir -= delta/3;
+				Endless.delta /= 3;
 				champChronoRalentir = chronoRalentir + "s";
 				if(chronoRalentir < 0){
 					activerRalentissement = false;
@@ -91,14 +95,14 @@ public class Endless implements Screen {
 				}
 			}
 			// ** ** batch
-			Bonus.affichageEtMouvement(batch, delta);
-			Ennemis.affichageEtMouvement(batch, delta);
-			vaisseau.draw(batch, delta);
-			Armes.affichageEtMouvement(batch, delta);
+			Bonus.affichageEtMouvement(batch);
+			Ennemis.affichageEtMouvement(batch);
+			vaisseau.draw(batch);
+			Armes.affichageEtMouvement(batch);
 		} else {
-			Ennemis.affichage(batch, delta);
-			Armes.affichage(batch, delta);
-			vaisseau.draw(batch, delta);
+			Ennemis.affichage(batch);
+			Armes.affichage(batch);
+			vaisseau.draw(batch);
 		}		
 		font.draw(batch, champChrono, 0, X_CHRONO);
 		font.draw(batch, String.valueOf(Gdx.graphics.getFramesPerSecond()), 300, 300);
@@ -116,9 +120,9 @@ public class Endless implements Screen {
 				vientDEtreTouche = System.currentTimeMillis();
 			}
 			if (Gdx.input.isTouched()) {
-				vaisseau.mouvements(delta);
+				vaisseau.mouvements();
 			} else {
-				AnimationVaisseau.droit(delta);
+				AnimationVaisseau.droit();
 			}
 //			else {
 //				affichage.ParallaxBackground.changerOrientation(0);
@@ -129,7 +133,7 @@ public class Endless implements Screen {
 //					perdu = 
 						Physique.testCollisions(vaisseau);
 				// ** ** tir joueur
-				vaisseau.tir(delta);
+				vaisseau.tir();
 				alternerApparition = !alternerApparition;
 			}
 			alterner = !alterner;

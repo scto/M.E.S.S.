@@ -1,5 +1,7 @@
 package menu;
 
+import jeu.Endless;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -96,7 +98,8 @@ public class DepenserXP implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		CSG.renderBackground(delta);
+		CSG.renderBackground();
+		Endless.delta = delta;
 		stage.act(delta);
 		stage.draw();
 		// -- xp dispo

@@ -41,9 +41,9 @@ public class BonusTemps extends Bonus {
 	 * @param batch
 	 * @param delta 
 	 */
-	public static void affichage(SpriteBatch batch, float delta) {
+	public static void affichage(SpriteBatch batch) {
 		for(BonusTemps b : liste){
-			b.tps += delta;
+			b.tps += Endless.delta;
 			batch.draw(anim.getTexture(b.tps), b.posX, b.posY,	LARGEUR, HAUTEUR);
 		}
 	}
@@ -64,16 +64,16 @@ public class BonusTemps extends Bonus {
 	}
 
 	@Override
-	void afficherEtMvt(SpriteBatch batch, float delta) {
-		tps += delta;
+	void afficherEtMvt(SpriteBatch batch) {
+		tps += Endless.delta;
 		batch.draw(anim.getTexture(tps), posX, posY, LARGEUR, HAUTEUR);
 		// Le fait descendre
-		posY += VITESSE * delta;
+		posY += VITESSE * Endless.delta;
 		// le fait aller à gauche ou à droite de plus en plus suivant le temps écoulé
 		if(posX < CSG.DEMI_LARGEUR_ECRAN)
-			posX -= ( (tps*tps) * delta);
+			posX -= ( (tps*tps) * Endless.delta);
 		else
-			posX += ( (tps*tps) * delta);
+			posX += ( (tps*tps) * Endless.delta);
 	}
 
 	@Override

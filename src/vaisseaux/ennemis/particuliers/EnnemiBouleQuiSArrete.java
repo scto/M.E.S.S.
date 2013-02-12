@@ -1,5 +1,6 @@
 package vaisseaux.ennemis.particuliers;
 
+import jeu.Endless;
 import menu.CSG;
 import physique.Physique;
 import vaisseaux.armes.ArmesBouleBleu;
@@ -72,7 +73,7 @@ public class EnnemiBouleQuiSArrete extends Ennemis{
 	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerif(float delta) {
+	public boolean mouvementEtVerif() {
 		// Gros bout de code moche
 		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
@@ -82,11 +83,11 @@ public class EnnemiBouleQuiSArrete extends Ennemis{
 				if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
 					// On ralentit
 					if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
-						position.y += (-50 * delta);
+						position.y += (-50 * Endless.delta);
 					else
-						tpsArret += delta;
+						tpsArret += Endless.delta;
 				} else {
-					position.y += (VITESSE_MAX * delta);
+					position.y += (VITESSE_MAX * Endless.delta);
 				}
 			}
 			tmpVecteur.x = VaisseauType1.position.x;
@@ -100,15 +101,15 @@ public class EnnemiBouleQuiSArrete extends Ennemis{
 	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public void afficher(SpriteBatch batch, float delta) {
-		maintenant += delta;
+	public void afficher(SpriteBatch batch) {
+		maintenant += Endless.delta;
 		if(mort){
 			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += delta;
+			tpsAnimationExplosion += Endless.delta;
 		}
 		else {
 			batch.draw(animation.getTexture(tpsAnim), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnim += delta;
+			tpsAnim += Endless.delta;
 		}
 	}
 	

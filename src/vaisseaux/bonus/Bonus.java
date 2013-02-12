@@ -25,15 +25,14 @@ public static Array<Bonus> liste = new Array<Bonus>(30);
 	/**
 	 * Affiche l'xp et la fait tourner
 	 * @param batch
-	 * @param delta 
 	 */
-	public static void affichageEtMouvement(SpriteBatch batch, float delta) {
+	public static void affichageEtMouvement(SpriteBatch batch) {
 		for(Bonus b : liste)
-			b.afficherEtMvt(batch, delta);
+			b.afficherEtMvt(batch);
 	}
 
 
-	abstract void afficherEtMvt(SpriteBatch batch, float delta);
+	abstract void afficherEtMvt(SpriteBatch batch);
 
 	public abstract float getDemiLargeurColl();
 

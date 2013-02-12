@@ -1,11 +1,10 @@
 package vaisseaux.armes;
 
+import jeu.Endless;
 import menu.CSG;
 import physique.Physique;
 import affichage.animation.AnimationTirBleu;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
@@ -60,8 +59,8 @@ public class ArmesBalayage extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch, float delta) {
-		tpsAnim += delta;
+	public void afficher(SpriteBatch batch) {
+		tpsAnim += Endless.delta;
 		batch.draw(anim.getTexture(tpsAnim), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		DEMI_LARGEUR,DEMI_HAUTEUR,
@@ -75,9 +74,10 @@ public class ArmesBalayage extends Armes implements Poolable{
 		false);
 	}
 
+
 	@Override
-	public boolean mouvementEtVerif(float delta) {
-		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta);
+	public boolean mouvementEtVerif() {
+		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR);
 	}
 
 	@Override

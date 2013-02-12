@@ -1,5 +1,6 @@
 package menu;
 
+import jeu.Endless;
 import vaisseaux.armes.Armes;
 import vaisseaux.joueur.VaisseauType1;
 
@@ -10,18 +11,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 
 public class MenuArmes implements Screen {
@@ -126,18 +122,18 @@ public class MenuArmes implements Screen {
 		alterner = !alterner;
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		CSG.renderBackground(delta);
+		CSG.renderBackground();
 		stage.act(delta);
 		stage.draw();
-		
+		Endless.delta = delta;
 		
 		batch.begin();
 		// -- PREVIEW ARME
-		vaisseau.draw(batch, delta);
+		vaisseau.draw(batch);
 		if (alterner) {
-			vaisseau.tir(delta);
+			vaisseau.tir();
 		}
-		Armes.affichageEtMouvement(batch, delta);
+		Armes.affichageEtMouvement(batch);
 		// -- xp dispo
 		fontXpDispo.draw(batch, txtXpDispo + CSG.profil.xpDispo, X_XP_DISPO, CSG.HAUTEUR_ECRAN);
 		

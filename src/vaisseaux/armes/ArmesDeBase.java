@@ -1,8 +1,8 @@
 package vaisseaux.armes;
 
+import jeu.Endless;
 import menu.CSG;
 import physique.Physique;
-import sons.SoundMan;
 import affichage.animation.AnimationTirFeu;
 
 import com.badlogic.gdx.Gdx;
@@ -49,15 +49,15 @@ public class ArmesDeBase extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch, float delta){
-		tpsAnimation += delta;
+	public void afficher(SpriteBatch batch){
+		tpsAnimation += Endless.delta;
 		batch.draw(animation.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
 	}
 
 	
 	@Override
-	public boolean mouvementEtVerif(float delta) {
-		if (Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta) == false){
+	public boolean mouvementEtVerif() {
+		if (Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;
 		}

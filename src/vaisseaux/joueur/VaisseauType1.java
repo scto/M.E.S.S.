@@ -1,5 +1,6 @@
 package vaisseaux.joueur;
 
+import jeu.Endless;
 import menu.CSG;
 import vaisseaux.TypesArmes;
 import vaisseaux.Vaisseaux;
@@ -42,13 +43,12 @@ public class VaisseauType1 extends Vaisseaux {
 	// ** ** variable utilitaires
 	private static float dernierTir = 0;
 	private static float maintenant = 0;
-	public static float oldPosition = 0;
 	public static Vector2 position = new Vector2();
 	public static float prevX;
 	public static float prevY;
 	public static float destX;
 	public static float destY;
-	private static float vitesseFoisDelta = 0;
+	private static float vitesseFoisdelta = 0;
 	private static float tmpCalculDeplacement = 0;
 
 	/**
@@ -56,7 +56,6 @@ public class VaisseauType1 extends Vaisseaux {
 	 */
 	public VaisseauType1() {
 		super();
-//		animation = new AnimationVaisseau(this, 3);
 		initialiser();
 	}
 
@@ -72,19 +71,15 @@ public class VaisseauType1 extends Vaisseaux {
 	/**
 	 * affiche le vaisseau à l'endroit prévu avec la taille standardt
 	 * @param batch
-	 * @param delta 
 	 */
-	public void draw(SpriteBatch batch, float delta) {
-//		animation.afficher(batch, delta);
+	public void draw(SpriteBatch batch) {
 		batch.draw(AnimationVaisseau.getTexture(), position.x, position.y, LARGEUR, HAUTEUR);
-		// obligé de faire l'update ici car le mouvement n'est updaté que quand on clique.
-		oldPosition = position.x;
 	}
 	/**
 	 * Fait aller le vaisseau à l'endroit cliqué.
 	 * Si il peut se teleporter il y va directement -- Sinon il se déplace suivant sa vitesse max
 	 */
-	public void mouvements(float delta) {
+	public void mouvements() {
 		switch (CSG.profil.typeControle) {
 		case CSG.CONTROLE_TOUCH_NON_RELATIVE:
 			destX = (Gdx.input.getX() - DEMI_LARGEUR) - position.x;
@@ -107,7 +102,7 @@ public class VaisseauType1 extends Vaisseaux {
 			destY = -(Gdx.input.getY() - prevY);
 			break;
 		}
-		mvtLimiteVitesse(destX, destY, delta);
+		mvtLimiteVitesse(destX, destY);
 		limites();
 	}
 
@@ -116,26 +111,26 @@ public class VaisseauType1 extends Vaisseaux {
 	 * @param x
 	 * @param y
 	 */
-	private void mvtLimiteVitesse(float x, float y, float delta) {
+	private void mvtLimiteVitesse(float x, float y) {
 		// haut gauche : +x -y
-		tmpCalculDeplacement = ((x * x) + (y * y)) * delta * delta;
+		tmpCalculDeplacement = ((x * x) + (y * y)) * Endless.delta * Endless.delta;
 		if(tmpCalculDeplacement < DEGRE_PRECISION_DEPLACEMENT){
-			AnimationVaisseau.droit(delta);
+			AnimationVaisseau.droit();
 			return;
 		}
 		tmpCalculDeplacement = (float) Math.sqrt(tmpCalculDeplacement);
-		vitesseFoisDelta = vitesseMax * delta;
+		vitesseFoisdelta = vitesseMax * Endless.delta;
 		// Si on va trop vite
-		if (tmpCalculDeplacement > vitesseFoisDelta) {
-			x = x * (vitesseFoisDelta / tmpCalculDeplacement);
-			y = y * (vitesseFoisDelta / tmpCalculDeplacement);
+		if (tmpCalculDeplacement > vitesseFoisdelta) {
+			x = x * (vitesseFoisdelta / tmpCalculDeplacement);
+			y = y * (vitesseFoisdelta / tmpCalculDeplacement);
 		} 
 		if(x < 0)
-			AnimationVaisseau.versDroite(delta);
+			AnimationVaisseau.versDroite();
 		else
-			AnimationVaisseau.versGauche(delta);
-		position.x += (x * delta);
-		position.y += (y * delta);
+			AnimationVaisseau.versGauche();
+		position.x += (x * Endless.delta);
+		position.y += (y * Endless.delta);
 	}
 
 	/**
@@ -163,8 +158,8 @@ public class VaisseauType1 extends Vaisseaux {
 	 * Vu qu'on appele tir une frame sur deux adapter la cadence en conséquence
 	 * @param listeTir
 	 */
-	public void tir(float delta){
-		maintenant += delta;
+	public void tir(){
+		maintenant += Endless.delta;
 		// current time millis prend apparement 5 à 6 cycles contre parfois 100 pour nanotime mais c'est moins précis. JE N'AI PAS VERIFIE
 		// -- -- Bon c'est naze la il doit y avoir un meilleur moyen de faire
 		switch (typeArme) {
@@ -201,6 +196,30 @@ public class VaisseauType1 extends Vaisseaux {
 	@Override
 	public int getHauteur() {
 		return HAUTEUR;
+	}
+
+	public void draw(SpriteBatch batch, float delta) {
+		batch.draw(AnimationVaisseau.getTexture(), position.x, position.y, LARGEUR, HAUTEUR);
+	}
+
+	public void tir(float delta) {
+		maintenant += delta;
+		// current time millis prend apparement 5 à 6 cycles contre parfois 100 pour nanotime mais c'est moins précis. JE N'AI PAS VERIFIE
+		// -- -- Bon c'est naze la il doit y avoir un meilleur moyen de faire
+		switch (typeArme) {
+			case ArmeDeBase:
+				if (maintenant > dernierTir	+ ArmesDeBase.CADENCETIR + modifCadenceTir) {
+					ManagerArmeDeBase.init(position.x + DEMI_LARGEUR - ArmesDeBase.DEMI_LARGEUR, position.y + HAUTEUR, false);
+					dernierTir = maintenant;
+				}
+				break;
+			case ArmeBalayage:
+				if (maintenant > dernierTir	+ ArmesBalayage.CADENCETIR + modifCadenceTir) {
+					ManagerArmeBalayage.init(position.x + DEMI_LARGEUR - ArmesBalayage.DEMI_LARGEUR, position.y + HAUTEUR, 0, 1, false);
+					dernierTir = maintenant;
+				}
+				break;
+		}
 	}
 	
 	

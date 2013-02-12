@@ -36,7 +36,7 @@ public class XP extends Bonus{
 
 
 	@Override
-	void afficherEtMvt(SpriteBatch batch, float delta) {
+	void afficherEtMvt(SpriteBatch batch) {
 		batch.draw(TexMan.XP, posX, posY,
 				// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 				DEMI_LARGEUR,DEMI_HAUTEUR,
@@ -48,7 +48,7 @@ public class XP extends Bonus{
 				angleRotation,
 				//FLIP OU PAS
 				false);
-		angleRotation = physique.Physique.rotation(angleRotation, VITESSE_ROTATION, delta);
+		angleRotation = physique.Physique.rotation(angleRotation, VITESSE_ROTATION);
 	}
 
 

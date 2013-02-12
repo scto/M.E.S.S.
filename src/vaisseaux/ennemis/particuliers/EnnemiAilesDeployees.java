@@ -1,5 +1,6 @@
 package vaisseaux.ennemis.particuliers;
 
+import jeu.Endless;
 import menu.CSG;
 import physique.Physique;
 import vaisseaux.armes.ArmesBouleVerte;
@@ -67,14 +68,14 @@ public class EnnemiAilesDeployees extends Ennemis{
 	}
 
 	@Override
-	public boolean mouvementEtVerif(float delta) {
+	public boolean mouvementEtVerif() {
 		if (mort) {
 			if (tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1	| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false) {
 				pool.free(this);
 				return false;
 			}
 		} else {
-			if (lance) angle = Physique.mouvementTeteChercheuse(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta, VITESSE_ANGULAIRE);
+			if (lance) angle = Physique.mouvementTeteChercheuse(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, VITESSE_ANGULAIRE);
 		}
 		return true;
 	}
@@ -83,11 +84,11 @@ public class EnnemiAilesDeployees extends Ennemis{
 	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public void afficher(SpriteBatch batch, float delta) {
-		maintenant += delta;
+	public void afficher(SpriteBatch batch) {
+		maintenant += Endless.delta;
 		if(mort){
 			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += delta;
+			tpsAnimationExplosion += Endless.delta;
 		}
 		else {
 			batch.draw(animation.getTexture(tpsAnim), position.x, position.y,
@@ -101,7 +102,7 @@ public class EnnemiAilesDeployees extends Ennemis{
 					angle,
 					//FLIP OU PAS
 					false);
-			tpsAnim += delta;
+			tpsAnim += Endless.delta;
 		}
 	}
 	

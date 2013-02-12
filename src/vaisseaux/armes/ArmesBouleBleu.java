@@ -1,7 +1,6 @@
 package vaisseaux.armes;
 
-import java.util.Vector;
-
+import jeu.Endless;
 import menu.CSG;
 import physique.Physique;
 import affichage.animation.AnimationBouleBleu;
@@ -12,8 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.badlogic.gdx.utils.Pools;
 
 public class ArmesBouleBleu extends Armes implements Poolable{
 	
@@ -64,8 +63,8 @@ public class ArmesBouleBleu extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch, float delta) {
-		tpsAnim += delta;
+	public void afficher(SpriteBatch batch) {
+		tpsAnim += Endless.delta;
 		batch.draw(anim.getTexture(tpsAnim), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		DEMI_LARGEUR,DEMI_HAUTEUR,
@@ -80,8 +79,8 @@ public class ArmesBouleBleu extends Armes implements Poolable{
 	}
 
 	@Override
-	public boolean mouvementEtVerif(float delta) {
-		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta);
+	public boolean mouvementEtVerif() {
+		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package vaisseaux.armes;
 
-import java.util.Vector;
+import jeu.Endless;
 
 import menu.CSG;
 import physique.Physique;
@@ -65,8 +65,8 @@ public class ArmesBouleVerte extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch, float delta) {
-		tpsAnim += delta;
+	public void afficher(SpriteBatch batch) {
+		tpsAnim += Endless.delta;
 		batch.setColor(.7f, 1, .7f, 1);
 		batch.draw(anim.getTexture(tpsAnim), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
@@ -83,8 +83,8 @@ public class ArmesBouleVerte extends Armes implements Poolable{
 	}
 
 	@Override
-	public boolean mouvementEtVerif(float delta) {
-		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, delta);
+	public boolean mouvementEtVerif() {
+		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR);
 	}
 
 	@Override

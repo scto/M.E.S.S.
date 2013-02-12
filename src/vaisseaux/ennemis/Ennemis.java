@@ -1,10 +1,10 @@
 package vaisseaux.ennemis;
 
+import jeu.Endless;
 import sons.SoundMan;
 import vaisseaux.Vaisseaux;
 import vaisseaux.bonus.BonusTemps;
 import vaisseaux.bonus.XP;
-import vaisseaux.ennemis.particuliers.EnnemiAilesDeployees;
 import vaisseaux.ennemis.particuliers.EnnemiBouleQuiSArrete;
 import vaisseaux.ennemis.particuliers.EnnemiDeBase;
 import vaisseaux.ennemis.particuliers.EnnemiDeBaseQuiTir;
@@ -48,19 +48,18 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	 * Parcourt la liste une fois invoquant la methode mouvement et la methode afficher
 	 * Les fait également tirer
 	 * @param batch
-	 * @param delta 
 	 */
-	public static void affichageEtMouvement(SpriteBatch batch, float delta) {
+	public static void affichageEtMouvement(SpriteBatch batch) {
 		for(Ennemis e : liste){
 			//if(e.clignotement <= 0 | e.mort){
-				e.afficher(batch, delta);
+				e.afficher(batch);
 			//} else {
 			//	e.clignotement -= Gdx.graphics.getDeltaTime();
 			//}
 			// On le fait tirer
 			e.tir();
 			// On le vire si hors de l'écran
-			if(e.mouvementEtVerif(delta) == false)
+			if(e.mouvementEtVerif() == false)
 				liste.removeValue(e, true);
 		}
 	}
@@ -76,17 +75,16 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	 * Se contente d'afficher simplement les objets
 	 * @param batch
 	 */
-	public static void affichage(SpriteBatch batch, float delta) {
+	public static void affichage(SpriteBatch batch) {
 		for(Ennemis e : liste)
-			e.afficher(batch, delta);
+			e.afficher(batch);
 	}
 	
 	/**
 	 * Methode servant à afficher les balles
 	 * @param batch : batch principal
-	 * @param delta 
 	 */
-	abstract public void afficher(SpriteBatch batch, float delta);
+	abstract public void afficher(SpriteBatch batch);
 	
 	/**
 	 * Fait bouger les objets et les enlèves si ils ne sont plus à l'écran
@@ -94,7 +92,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	 * @param delta 
 	 * @param batch
 	 */
-	abstract public boolean mouvementEtVerif(float delta);
+	abstract public boolean mouvementEtVerif();
 	
 	/**
 	 * fait apparaitre les ennemis si il faut.
