@@ -14,9 +14,9 @@ import com.badlogic.gdx.utils.Pools;
 public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	
 	// ** ** caracteristiques générales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 7;
+	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 8;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = LARGEUR;
+	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR/2;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	private static final int VITESSE_MAX = -100;
 	public static final float CADENCETIR = 1.2f;

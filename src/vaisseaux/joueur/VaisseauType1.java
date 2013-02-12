@@ -25,7 +25,7 @@ public class VaisseauType1 extends Vaisseaux {
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = CSG.HAUTEUR_ECRAN / 12;
 	public static final int DEMI_HAUTEUR = HAUTEUR / 2;
-	private final AnimationVaisseau animation;
+//	private final AnimationVaisseau animation;
 	// ** ** limites dans l'espace
 	private static final int LIMITE_X_GAUCHE = 0 - DEMI_LARGEUR;
 	private static final int LIMITE_X_DROITE = CSG.LARGEUR_ECRAN - DEMI_LARGEUR;
@@ -56,7 +56,7 @@ public class VaisseauType1 extends Vaisseaux {
 	 */
 	public VaisseauType1() {
 		super();
-		animation = new AnimationVaisseau(this, 3);
+//		animation = new AnimationVaisseau(this, 3);
 		initialiser();
 	}
 
@@ -75,7 +75,8 @@ public class VaisseauType1 extends Vaisseaux {
 	 * @param delta 
 	 */
 	public void draw(SpriteBatch batch, float delta) {
-		animation.afficher(batch, delta);
+//		animation.afficher(batch, delta);
+		batch.draw(AnimationVaisseau.getTexture(), position.x, position.y, LARGEUR, HAUTEUR);
 		// obligé de faire l'update ici car le mouvement n'est updaté que quand on clique.
 		oldPosition = position.x;
 	}
@@ -118,7 +119,10 @@ public class VaisseauType1 extends Vaisseaux {
 	private void mvtLimiteVitesse(float x, float y, float delta) {
 		// haut gauche : +x -y
 		tmpCalculDeplacement = ((x * x) + (y * y)) * delta * delta;
-		if(tmpCalculDeplacement < DEGRE_PRECISION_DEPLACEMENT) return;
+		if(tmpCalculDeplacement < DEGRE_PRECISION_DEPLACEMENT){
+			AnimationVaisseau.droit(delta);
+			return;
+		}
 		tmpCalculDeplacement = (float) Math.sqrt(tmpCalculDeplacement);
 		vitesseFoisDelta = vitesseMax * delta;
 		// Si on va trop vite
@@ -126,6 +130,10 @@ public class VaisseauType1 extends Vaisseaux {
 			x = x * (vitesseFoisDelta / tmpCalculDeplacement);
 			y = y * (vitesseFoisDelta / tmpCalculDeplacement);
 		} 
+		if(x < 0)
+			AnimationVaisseau.versDroite(delta);
+		else
+			AnimationVaisseau.versGauche(delta);
 		position.x += (x * delta);
 		position.y += (y * delta);
 	}

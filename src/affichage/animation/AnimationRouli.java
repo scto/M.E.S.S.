@@ -1,10 +1,9 @@
 package affichage.animation;
 
-import vaisseaux.Vaisseaux;
 import menu.CSG;
 import affichage.TexMan;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -14,32 +13,28 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class AnimationRouli {
 	
-	private Vaisseaux v;
-	private static final TextureRegion[][] vaisseaux = TextureRegion.split(TexMan.lesVaisseaux, 24, 28);
-	private static final int LIGNE = 5;
+	private static TextureRegion[] tr = initAnimation();
 	
-	public AnimationRouli() {
-	}
-	
-	public void setV(Vaisseaux v) {
-		this.v = v;
-	}
-	
-
-	public void afficher(SpriteBatch batch) {
-		batch.draw(getTexture(), v.position.x, v.position.y, v.getLargeur(), v.getHauteur());
-	}
+	protected static TextureRegion[] initAnimation() {
+		tr = new TextureRegion[5];
+		tr[0] = TexMan.atlas.findRegion("ennemizigzag1");
+		tr[1] = TexMan.atlas.findRegion("ennemizigzag2");
+		tr[2] = TexMan.atlas.findRegion("ennemizigzag3");
+		tr[3] = TexMan.atlas.findRegion("ennemizigzag4");
+		tr[4] = TexMan.atlas.findRegion("ennemizigzag5");
+		return tr;
+	}	
 
 	/**
 	 * La methode s'occupe de calculer la frame à afficher suivant la position en x si on va vers la gauche, la droite ou si on vient de se remettre droit
 	 * @return
 	 */
-	public TextureRegion getTexture() {
-		if(v.position.x < CSG.CINQUIEME_ECRAN) return vaisseaux[LIGNE][4];
-		if(v.position.x < CSG.DEUX_CINQUIEME_ECRAN) return vaisseaux[LIGNE][3];
-		if(v.position.x < CSG.TROIS_CINQUIEME_ECRAN) return vaisseaux[LIGNE][2];
-		if(v.position.x < CSG.QUATRE_CINQUIEME_ECRAN) return vaisseaux[LIGNE][1];
-		return vaisseaux[LIGNE][0];
+	public static TextureRegion getTexture(float x) {
+		if(x < CSG.CINQUIEME_ECRAN) return tr[0];
+		if(x < CSG.DEUX_CINQUIEME_ECRAN) return tr[1];
+		if(x < CSG.TROIS_CINQUIEME_ECRAN) return tr[2];
+		if(x < CSG.QUATRE_CINQUIEME_ECRAN) return tr[3];
+		return tr[4];
 	}
 
 }

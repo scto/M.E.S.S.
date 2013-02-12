@@ -10,6 +10,7 @@ import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.joueur.VaisseauType1;
 import affichage.ParallaxBackground;
+import affichage.animation.AnimationVaisseau;
 import bloom.Bloom;
 
 import com.badlogic.gdx.Game;
@@ -64,7 +65,7 @@ public class Endless implements Screen {
         chrono = new Chrono(2000);
         chrono.demarrer(this);
 
-//        Gdx.graphics.setVSync(false);
+        Gdx.graphics.setVSync(false);
         
         SoundMan.playMusic();
 	}
@@ -116,6 +117,8 @@ public class Endless implements Screen {
 			}
 			if (Gdx.input.isTouched()) {
 				vaisseau.mouvements(delta);
+			} else {
+				AnimationVaisseau.droit(delta);
 			}
 //			else {
 //				affichage.ParallaxBackground.changerOrientation(0);

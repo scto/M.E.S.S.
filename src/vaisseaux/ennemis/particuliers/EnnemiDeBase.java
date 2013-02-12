@@ -20,9 +20,9 @@ import com.badlogic.gdx.utils.Pools;
 public class EnnemiDeBase extends Ennemis{
 	
 	// ** ** caracteristiques générales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 12;
+	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 15;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = LARGEUR;
+	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR/2;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	private static final int VITESSE_MAX = -150;
 	public static final int PVMAX = 6;

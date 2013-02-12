@@ -27,7 +27,6 @@ public class EnnemiZigZag extends Ennemis{
 	public static final int PVMAX = 7;
 	static final double chancePowerUp = 0.02;
 	private Vector2 direction;
-	private AnimationRouli animation;
 	private AnimationExplosion1 animationExplosion;
 	protected float tpsAnimationExplosion;
 	//private static final int VALEUR = 1;
@@ -64,8 +63,6 @@ public class EnnemiZigZag extends Ennemis{
 
 	private void init() {
 		direction = new Vector2(0, -1);
-		animation = new AnimationRouli();
-		animation.setV(this);
 		animationExplosion = new AnimationExplosion1();
 	}
 
@@ -75,7 +72,8 @@ public class EnnemiZigZag extends Ennemis{
 			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
 			tpsAnimationExplosion += delta;
 		}
-		else batch.draw(animation.getTexture(), position.x, position.y, LARGEUR, HAUTEUR);
+		else
+			batch.draw(AnimationRouli.getTexture(position.x + DEMI_LARGEUR), position.x, position.y, LARGEUR, HAUTEUR);
 	}
 
 	@Override

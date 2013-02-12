@@ -1,100 +1,77 @@
 package affichage.animation;
 
-import vaisseaux.Vaisseaux;
 import vaisseaux.joueur.VaisseauType1;
 import affichage.TexMan;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationVaisseau{
 	
-	private final VaisseauType1 v;
-	private static final float TPS_ANIM = .15f;
-	private Animation centreVersGauche;
-	private Animation centreVersDroite;
-	private float tps;
-	private static final TextureRegion[][] vaisseaux = TextureRegion.split(TexMan.lesVaisseaux, 24, 28);
-	private boolean onAllaitVersDroite = false, remettreDroit = false, onAllaitToutDroit = true;
-	
-	/**
-	 * Initialise l'animation
-	 * @param v
-	 * @param i Le numero de la ligne de la texture
-	 */
-	public AnimationVaisseau(VaisseauType1 v, int i) {
-		super();
-		this.v = v;
-		initAnimationVaisseau(i);
-	}
-	
-	/**
-	 * initalise les differentes animations
-	 * @param LIGNES
-	 */
-	private void initAnimationVaisseau(int LIGNES) {
-		// le nombre de colonnes pour une animation
-		int COLONNES = 3;
+//	private final VaisseauType1 v;
+//	private static final float TPS_ANIM = .15f;
+//	private Animation centreVersGauche = initAnimationCentreVersGauche();
+//	private Animation centreVersDroite = initAnimationCentreVersDroite();
+	private static float tpsDroite;
+	private static float tpsGauche;
+//	private static final TextureRegion[][] vaisseaux = TextureRegion.split(TexMan.lesVaisseaux, 24, 28);
+//	private boolean onAllaitVersDroite = false, remettreDroit = false, onAllaitToutDroit = true;
+//	private static boolean versDroite = false, versGauche = false, toutDroit = true;
+	private static TextureRegion[] tr = initAnimation();
+	private static int etat = 0;
+	private static final float TPS_ANIM = .15f; 
 
-        TextureRegion[] tr = new TextureRegion[COLONNES];
-        int index = 0;
-        for(int i = COLONNES-1; i >= 0; i--) tr[index++] = vaisseaux[LIGNES][i];
-        centreVersGauche = new Animation(TPS_ANIM, tr);
-        index = 0;
-        
-        // obligé de récreer une texture région sinon il va modifier celle existante
-        TextureRegion[] tr2 = new TextureRegion[COLONNES];
-        for(int i = COLONNES-1; i+1 < COLONNES*2; i++) tr2[index++] = vaisseaux[LIGNES][i];
-        centreVersDroite = new Animation(TPS_ANIM, tr2);
+	protected static TextureRegion[] initAnimation() {
+		tr = new TextureRegion[5];
+		tr[0] = TexMan.atlas.findRegion("joueur1");
+		tr[1] = TexMan.atlas.findRegion("joueur2");
+		tr[2] = TexMan.atlas.findRegion("joueur3");
+		tr[3] = TexMan.atlas.findRegion("joueur4");
+		tr[4] = TexMan.atlas.findRegion("joueur5");
+		return tr;
+	}
+
+	public static TextureRegion getTexture() {
+		return tr[etat];
 	}
 
 	/**
-	 * Affiche le vaisseau
-	 * @param batch
-	 * @param delta 
+	 * A appeler quand on va vers la droite
+	 * @param delta
 	 */
-	public void afficher(SpriteBatch batch, float delta) {
-		tps += delta;
-		batch.draw(getTexture(), VaisseauType1.position.x, VaisseauType1.position.y, v.getLargeur(), v.getHauteur());
+	public static void versDroite(float delta) {
+		if (tpsDroite > TPS_ANIM)		// Si on va vers la droite depuis un moment 
+			etat = 0;
+		else {
+			tpsDroite += delta;			// Sinon on commence seulement l'anim est pas la même
+			etat = 1;
+			tpsGauche = 0;
+		}
 	}
 
-	/**
-	 * La methode s'occupe de calculer la frame à afficher suivant la position en x si on va vers la gauche, la droite ou si on vient de se remettre droit
-	 * @return
-	 */
-	private TextureRegion getTexture() {
-		// Si on va tout droit
-		if(VaisseauType1.position.x == VaisseauType1.oldPosition){
-			// et qu'avant on allait pas tout droit on remet le temps à 0 une seule fois.
-			if(remettreDroit){
-				tps = 0;
-				remettreDroit = false;
-				onAllaitToutDroit = true;
-				centreVersGauche.setPlayMode(Animation.REVERSED);
-				centreVersDroite.setPlayMode(Animation.REVERSED);
+	public static void versGauche(float delta) {
+		if (tpsGauche > TPS_ANIM)
+			etat = 4;
+		else {
+			etat = 3;
+			tpsGauche += delta;
+			tpsDroite = 0;
+		}
+	}
+
+	public static void droit(float delta) {
+		if (tpsDroite > 0) {		// si on allait à droite avant
+			etat = 1;
+			tpsDroite -= delta;
+		} else {
+			if (tpsGauche > 0) {	// si on allait à gauche avat
+				etat = 3;
+				tpsGauche -= delta;
+			} else {
+				etat = 2;
 			}
-			// si avant on allait vers la droite
-			if (onAllaitVersDroite) return centreVersDroite.getKeyFrame(tps, false);
-			return centreVersGauche.getKeyFrame(tps, false);
 		}
-		// si avait on allait tout droit on remet le temps à 0 et tout dans l'ordre
-		if(onAllaitToutDroit){
-			tps = 0;
-			onAllaitToutDroit = false;
-			centreVersDroite.setPlayMode(Animation.NORMAL);
-			centreVersGauche.setPlayMode(Animation.NORMAL);
-		}
-		remettreDroit = true;
-		// si on va vers la gauche
-		if(VaisseauType1.oldPosition > VaisseauType1.position.x){
-			//onAllaitVersGauche = true;
-			onAllaitVersDroite = false;
-			return centreVersGauche.getKeyFrame(tps, false); 
-		}// sinon on va vers la droite
-		//onAllaitVersGauche = false;
-		onAllaitVersDroite = true;
-		return centreVersDroite.getKeyFrame(tps, false);
 	}
 }
