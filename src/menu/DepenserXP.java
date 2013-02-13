@@ -98,14 +98,14 @@ public class DepenserXP implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		CSG.renderBackground();
 		Endless.delta = delta;
 		stage.act(delta);
-		stage.draw();
 		// -- xp dispo
 		batch.begin();
+		CSG.renderBackground(batch);
 		fontXpDispo.draw(batch, txtXpDispo+CSG.profil.xpDispo ,X_XP_DISPO, CSG.HAUTEUR_ECRAN - 10);
 		batch.end();
+		stage.draw();
 	}
 
 	@Override

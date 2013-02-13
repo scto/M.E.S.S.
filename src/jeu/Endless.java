@@ -35,6 +35,7 @@ public class Endless implements Screen {
 	private SpriteBatch batch;
 	private GL20 gl;
 	private ParallaxBackground rbg = CSG.getBackground();
+//	private Background background = new Background();
 	private VaisseauType1 vaisseau = new VaisseauType1();
 	private Chrono chrono;
 	//private CollisionTester collision;
@@ -76,10 +77,12 @@ public class Endless implements Screen {
 	@Override
 	public void render(float delta) {
 		// ** ** clear screen
-		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		gl.glClear(GL20.GL_COLOR_BUFFER_BIT); +10% de perfs !!. Si pas de bloom il faut le mettre
 		bloom.capture();
-		rbg.render();
+		
 		batch.begin();
+		rbg.render(batch);
+//		background.draw(batch);
 		Endless.delta = delta;
 		if(!perdu){
 			// bullet time !

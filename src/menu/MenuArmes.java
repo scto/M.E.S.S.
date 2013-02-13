@@ -122,7 +122,9 @@ public class MenuArmes implements Screen {
 		alterner = !alterner;
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		CSG.renderBackground();
+		batch.begin();
+		CSG.renderBackground(batch);
+		batch.end();
 		stage.act(delta);
 		stage.draw();
 		Endless.delta = delta;

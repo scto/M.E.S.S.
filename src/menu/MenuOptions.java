@@ -17,8 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
-
 
 public class MenuOptions implements Screen {
 	
@@ -127,7 +125,9 @@ public class MenuOptions implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		CSG.renderBackground();
+		batch.begin();
+		CSG.renderBackground(batch);
+		batch.end();
 		stage.act(delta);
 		stage.draw();
 		// -- xp dispo

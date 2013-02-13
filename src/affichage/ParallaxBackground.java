@@ -10,7 +10,6 @@ public class ParallaxBackground {
 	   
 	   private ParallaxLayer[] layers;
 	   private Camera camera;
-	   private SpriteBatch batch;
 	   private static Vector2 speed = new Vector2();
 	   
 	   /**
@@ -24,56 +23,37 @@ public class ParallaxBackground {
 	      this.layers = layers;
 	      speed.set(speedX);
 	      camera = new OrthographicCamera(width, height);
-	      batch = new SpriteBatch();
 	   }
 	   
 	   public static void changerOrientation(float i){
 		   speed.x = i;
 	   }
 	   
-	   public void render(){
-		   this.camera.position.add(speed.x*Endless.delta,speed.y*Endless.delta, 0);
-	      for(ParallaxLayer layer:layers){
-	         batch.setProjectionMatrix(camera.projection);
-	         batch.begin();
-	         float currentX = - camera.position.x*layer.parallaxRatio.x % ( layer.region.getRegionWidth() + layer.padding.x) ;
-	         
-	         if( speed.x < 0 )currentX += -( layer.region.getRegionWidth() + layer.padding.x);
-	         do{
-	            float currentY = - camera.position.y*layer.parallaxRatio.y % ( layer.region.getRegionHeight() + layer.padding.y) ;
-	            if( speed.y < 0 )currentY += - (layer.region.getRegionHeight()+layer.padding.y);
-	            do{
-	               batch.draw(layer.region, -this.camera.viewportWidth/2+currentX + layer.startPosition.x ,
-	                     -this.camera.viewportHeight/2 + currentY +layer.startPosition.y);
-	               currentY += ( layer.region.getRegionHeight() + layer.padding.y );
-	            }while( currentY < camera.viewportHeight);
-	            currentX += ( layer.region.getRegionWidth()+ layer.padding.x);
-	         }while( currentX < camera.viewportWidth);
-	         batch.end();
-	        // batch.dispose();
-	      }
-	   }
-	   
-	   public void render(float delta){
-		   this.camera.position.add(speed.x*delta,speed.y*delta, 0);
-	      for(ParallaxLayer layer:layers){
-	         batch.setProjectionMatrix(camera.projection);
-	         batch.begin();
-	         float currentX = - camera.position.x*layer.parallaxRatio.x % ( layer.region.getRegionWidth() + layer.padding.x) ;
-	         
-	         if( speed.x < 0 )currentX += -( layer.region.getRegionWidth() + layer.padding.x);
-	         do{
-	            float currentY = - camera.position.y*layer.parallaxRatio.y % ( layer.region.getRegionHeight() + layer.padding.y) ;
-	            if( speed.y < 0 )currentY += - (layer.region.getRegionHeight()+layer.padding.y);
-	            do{
-	               batch.draw(layer.region, -this.camera.viewportWidth/2+currentX + layer.startPosition.x ,
-	                     -this.camera.viewportHeight/2 + currentY +layer.startPosition.y);
-	               currentY += ( layer.region.getRegionHeight() + layer.padding.y );
-	            }while( currentY < camera.viewportHeight);
-	            currentX += ( layer.region.getRegionWidth()+ layer.padding.x);
-	         }while( currentX < camera.viewportWidth);
-	         batch.end();
-	        // batch.dispose();
-	      }
+//	   public void render(SpriteBatch batch){
+//		   for (ParallaxLayer layer : layers) {
+//			   batch.draw(layer.region, layer.region.getRegionWidth() + layer.padding.x, 0);
+//		   }
+//	   }
+	   public void render(SpriteBatch batch){
+		this.camera.position.add(speed.x * Endless.delta, speed.y * Endless.delta, 0);
+		for (ParallaxLayer layer : layers) {
+			float currentX = -camera.position.x * layer.parallaxRatio.x	% (layer.region.getRegionWidth() + layer.padding.x);
+
+			if (speed.x < 0)
+				currentX += -(layer.region.getRegionWidth() + layer.padding.x);
+			do {
+				float currentY = -camera.position.y * layer.parallaxRatio.y	% (layer.region.getRegionHeight() + layer.padding.y);
+				if (speed.y < 0)
+					currentY += -(layer.region.getRegionHeight() + layer.padding.y);
+				do {
+					batch.draw(layer.region, currentX,//-this.camera.viewportWidth / 2	+ currentX + layer.startPosition.x,
+							currentY);//-this.camera.viewportHeight / 2 + currentY + layer.startPosition.y);
+					currentY += (layer.region.getRegionHeight() + layer.padding.y);
+				} 
+				while (currentY < camera.viewportHeight);
+				currentX += (layer.region.getRegionWidth() + layer.padding.x);
+			} while (currentX < camera.viewportWidth);
+
+		}
 	   }
 	}

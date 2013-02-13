@@ -14,6 +14,7 @@ import affichage.TexMan;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class CSG extends Game implements ApplicationListener {
@@ -65,7 +66,8 @@ public class CSG extends Game implements ApplicationListener {
 //		Menu menu = new Menu(this);
 //		setScreen(menu);
 		TexMan.loadGame();
-		rbg = new ParallaxBackground(new ParallaxLayer[]{new ParallaxLayer(TexMan.trFond1,new Vector2(),new Vector2(0, 0)), new ParallaxLayer(TexMan.trFond2,new Vector2(0.1f,0.1f),new Vector2(0,0)),
+		rbg = new ParallaxBackground(new ParallaxLayer[]{new ParallaxLayer(TexMan.atlas.findRegion("etoilesnew1"),new Vector2(),new Vector2(0, 0)),
+				new ParallaxLayer(TexMan.atlas.findRegion("etoilesnew2"),new Vector2(0.1f,0.1f),new Vector2(0,0)),
 	      }, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),new Vector2(0,150));
 		
 		Menu menu = new Menu(this);
@@ -74,8 +76,8 @@ public class CSG extends Game implements ApplicationListener {
 		
 	}
 	
-	public static void renderBackground(){
-		rbg.render();
+	public static void renderBackground(SpriteBatch batch){
+		rbg.render(batch);
 	}
 	
 	public static ParallaxBackground getBackground(){

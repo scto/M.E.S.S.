@@ -24,7 +24,7 @@ public class ArmesBalayage extends Armes implements Poolable{
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	private static final int HAUTEUR = LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	private static final int VITESSE_MAX = 200;
+	private static final int VITESSE_MAX = 200;//1000
 	public static final float CADENCETIR = .1f;
 	private static final int FORCE = 2;
 	public static Pool<ArmesBalayage> pool = Pools.get(ArmesBalayage.class);

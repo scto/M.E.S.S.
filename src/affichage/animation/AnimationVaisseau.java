@@ -1,6 +1,7 @@
 package affichage.animation;
 
 import jeu.Endless;
+import affichage.ParallaxBackground;
 import affichage.TexMan;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -39,6 +40,7 @@ public class AnimationVaisseau{
 			etat = 1;
 			tpsGauche = 0;
 		}
+		ParallaxBackground.changerOrientation(-100);
 	}
 
 	public static void versGauche() {
@@ -49,9 +51,11 @@ public class AnimationVaisseau{
 			tpsGauche += Endless.delta;
 			tpsDroite = 0;
 		}
+		ParallaxBackground.changerOrientation(100);
 	}
 
 	public static void droit() {
+		ParallaxBackground.changerOrientation(0);
 		if (tpsDroite > 0) {		// si on allait à droite avant
 			etat = 1;
 			tpsDroite -= Endless.delta;
