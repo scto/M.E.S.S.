@@ -3,14 +3,13 @@ package vaisseaux.armes;
 import vaisseaux.Vaisseaux;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public abstract class Armes extends Vaisseaux{
 	
 	protected Vector2 direction;
-	protected Rectangle collision = new Rectangle();
+//	protected Rectangle collision = new Rectangle();
 	public static Array<Armes> liste = new Array<Armes>(false, 30);
 	public static Array<Armes> listeTirsDesEnnemis = new Array<Armes>(false, 30);
 	
@@ -85,11 +84,6 @@ public abstract class Armes extends Vaisseaux{
 	 */
 	abstract public boolean mouvementEtVerif();
 
-	/**
-	 * Renvoie le rectangle de collision de l'objet
-	 * @return
-	 */
-	abstract public Rectangle getRectangleCollision();
 	/**
 	 * Se contente d'afficher simplement les objets
 	 * @param batch

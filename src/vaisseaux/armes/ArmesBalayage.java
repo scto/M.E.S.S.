@@ -8,7 +8,6 @@ import affichage.animation.AnimationTirBleu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -84,13 +83,8 @@ public class ArmesBalayage extends Armes implements Poolable{
 
 	@Override
 	public boolean mouvementEtVerif() {
-		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR);
-	}
-
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
+		// 0 pour que l'effet ne disparaisse pas trop vite au lieu de HAUTEUR
+		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, 0, LARGEUR);
 	}
 	
 	@Override

@@ -9,7 +9,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -35,7 +34,7 @@ public class ArmesDeBase extends Armes implements Poolable{
 	private float tpsAnimation = 0;
 	private static Sound son = Gdx.audio.newSound(Gdx.files.internal("sons/156895__halgrimm__shot-2-0.wav"));
 	// ** ** particules
-//	public ParticleEffect particleEffect;
+	public ParticleEffect particleEffect = new ParticleEffect();
 	
 	/**
 	 * ATTENTION ici le init s'occupe d'ajouter à la bonne liste
@@ -52,14 +51,12 @@ public class ArmesDeBase extends Armes implements Poolable{
 			direction.y = 1;
 			liste.add(this);
 		}
-//		particleEffect = new ParticleEffect();
-//	    particleEffect.load(Gdx.files.internal("particules/boulefeu.p"), Gdx.files.internal("particules"));
-//	    particleEffect.start();
+	    particleEffect.load(Gdx.files.internal("particules/boulefeu.p"), Gdx.files.internal("particules"));
+	    particleEffect.start();
 	}
 	
 	@Override
 	public void reset() {
-		tpsAnimation = 0;
 	}
 	
 	/**
@@ -72,10 +69,9 @@ public class ArmesDeBase extends Armes implements Poolable{
 	@Override
 	public void afficher(SpriteBatch batch){
 		tpsAnimation += Endless.delta;
-		batch.draw(animation.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
-//		particleEffect.setPosition(position.x, position.y);
-//		particleEffect.draw(batch, Endless.delta);
-
+//		batch.draw(animation.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
+		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
+		particleEffect.draw(batch, Endless.delta);
 	}
 
 	
@@ -86,11 +82,6 @@ public class ArmesDeBase extends Armes implements Poolable{
 			return false;
 		}
 		return true;
-	}
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
 	}
 
 	@Override

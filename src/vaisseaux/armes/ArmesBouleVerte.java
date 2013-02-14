@@ -10,7 +10,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -42,6 +41,7 @@ public class ArmesBouleVerte extends Armes implements Poolable{
 	 * @param translationY
 	 * @param angle
 	 */
+	// Appelée par l'ennmi qui la lance après le pool.obtain()
 	public void init(float centreX, float translationX, float centreY, float translationY, float angle) {
 		this.angle = angle + 90;
 		direction.x = 1;
@@ -58,7 +58,6 @@ public class ArmesBouleVerte extends Armes implements Poolable{
 	
 	@Override
 	public void reset() {
-		tpsAnim = 0;
 	}
 	
 	public ArmesBouleVerte() {
@@ -84,15 +83,12 @@ public class ArmesBouleVerte extends Armes implements Poolable{
 
 	@Override
 	public boolean mouvementEtVerif() {
-		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR);
+		if(Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR))
+			return true;
+		pool.free(this);
+		return false;
 	}
 
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
-	}
-	
 	@Override
 	public int getForce() {
 		return FORCE + CSG.profil.NvArmeBalayage;

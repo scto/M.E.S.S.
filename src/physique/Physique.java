@@ -175,7 +175,7 @@ public class Physique {
 				return true;
 			}
 			for (Armes a : Armes.liste) {
-				if (rectangleDansRectangle(a.getRectangleCollision(), ennemi.getRectangleCollision())) {
+				if (rectangleDansRectangle(a.position.x, a.position.y, a.getLargeur(), a.getHauteur(), ennemi.getRectangleCollision())) {
 					if (ennemi.touche(a.getForce())) {
 						a.free();
 						Armes.liste.removeValue(a, true);
@@ -186,6 +186,12 @@ public class Physique {
 		return false;
 	}
 	
+	private static boolean rectangleDansRectangle(float x, float y,	int largeur, int hauteur, Rectangle r2) {
+		  if(x < r2.x + r2.width & x + largeur > r2.x & y < r2.y + r2.height & y + hauteur > r2.y)
+	            return true;
+	        else
+	            return false;
+	}
 	/**
 	 * On lui passe le point en bas à gauche du rectangle, return true si oui
 	 * @param x

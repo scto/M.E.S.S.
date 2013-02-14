@@ -11,6 +11,7 @@ import vaisseaux.armes.ManagerArmeDeBase;
 import affichage.animation.AnimationVaisseau;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -50,6 +51,8 @@ public class VaisseauType1 extends Vaisseaux {
 	public static float destY;
 	private static float vitesseFoisdelta = 0;
 	private static float tmpCalculDeplacement = 0;
+	// ** ** particules
+	public ParticleEffect particleEffect = new ParticleEffect();
 
 	/**
 	 * initialise le vaisseau avec les parametres par défaut
@@ -67,13 +70,17 @@ public class VaisseauType1 extends Vaisseaux {
 		vitesseMax += CSG.profil.bonusVitesse;
 		prevX = position.x;
 		prevY = position.y;
+	    particleEffect.load(Gdx.files.internal("particules/feu.p"), Gdx.files.internal("particules"));
+	    particleEffect.start();
 	}
 	/**
 	 * affiche le vaisseau à l'endroit prévu avec la taille standardt
 	 * @param batch
 	 */
 	public void draw(SpriteBatch batch) {
-		batch.draw(AnimationVaisseau.getTexture(), position.x, position.y, LARGEUR, HAUTEUR);
+		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y);
+		particleEffect.draw(batch, Endless.delta);
+		batch.draw(AnimationVaisseau.getTexture(), position.x, position.y, LARGEUR, HAUTEUR); // Vaisseau dessiné au dessus
 	}
 	/**
 	 * Fait aller le vaisseau à l'endroit cliqué.
@@ -197,30 +204,4 @@ public class VaisseauType1 extends Vaisseaux {
 	public int getHauteur() {
 		return HAUTEUR;
 	}
-
-	public void draw(SpriteBatch batch, float delta) {
-		batch.draw(AnimationVaisseau.getTexture(), position.x, position.y, LARGEUR, HAUTEUR);
-	}
-
-	public void tir(float delta) {
-		maintenant += delta;
-		// current time millis prend apparement 5 à 6 cycles contre parfois 100 pour nanotime mais c'est moins précis. JE N'AI PAS VERIFIE
-		// -- -- Bon c'est naze la il doit y avoir un meilleur moyen de faire
-		switch (typeArme) {
-			case ArmeDeBase:
-				if (maintenant > dernierTir	+ ArmesDeBase.CADENCETIR + modifCadenceTir) {
-					ManagerArmeDeBase.init(position.x + DEMI_LARGEUR - ArmesDeBase.DEMI_LARGEUR, position.y + HAUTEUR, false);
-					dernierTir = maintenant;
-				}
-				break;
-			case ArmeBalayage:
-				if (maintenant > dernierTir	+ ArmesBalayage.CADENCETIR + modifCadenceTir) {
-					ManagerArmeBalayage.init(position.x + DEMI_LARGEUR - ArmesBalayage.DEMI_LARGEUR, position.y + HAUTEUR, 0, 1, false);
-					dernierTir = maintenant;
-				}
-				break;
-		}
-	}
-	
-	
 }
