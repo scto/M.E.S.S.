@@ -19,6 +19,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -70,7 +71,6 @@ public class Endless implements Screen {
         chrono.demarrer(this);
 
         Gdx.graphics.setVSync(false);
-        
         SoundMan.playMusic();
 	}
 
@@ -79,7 +79,6 @@ public class Endless implements Screen {
 		// ** ** clear screen
 //		gl.glClear(GL20.GL_COLOR_BUFFER_BIT); +10% de perfs !!. Si pas de bloom il faut le mettre
 		bloom.capture();
-		
 		batch.begin();
 		rbg.render(batch);
 //		background.draw(batch);
@@ -113,8 +112,9 @@ public class Endless implements Screen {
 		font.draw(batch, champChronoRalentir, CSG.LARGEUR_ECRAN - CSG.CINQUIEME_ECRAN, X_CHRONO);
 		batch.end();
 		bloom.render();
+		
 		// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** 
-		// ** ** UPDATE inliné. Gain en moyenne : + 2.5fps sur 450 (test sur 8 fois sur 5 min)
+		// ** ** UPDATE inliné. Gain en moyenne : + 2.5fps sur 450 (test sur 8 fois sur 5 min), en gros rien de mesurable
 		// ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** 
 		if (!perdu) {
 			if(Gdx.input.justTouched()) {

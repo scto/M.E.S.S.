@@ -144,9 +144,15 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 			mort = true;
 			new XP(position.x, position.y, getXp());
 			BonusTemps.ajoutBonus(position.x, position.y, getXp());
+			this.mort();
 		}
 		//clignotement = .08f;
 		return !mort;
+	}
+
+	protected void mort() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**

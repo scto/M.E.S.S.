@@ -3,7 +3,6 @@ package affichage.animation;
 import menu.CSG;
 import affichage.TexMan;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**

@@ -7,6 +7,8 @@ import vaisseaux.armes.ArmesDeBase;
 import vaisseaux.ennemis.TypesEnnemis;
 import affichage.animation.AnimationExplosion1;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -26,6 +28,7 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 	private float dernierTir = .1f;
 	private float maintenant = 0;
 	public static Pool<EnnemiDeBaseQuiTir> pool = Pools.get(EnnemiDeBaseQuiTir.class);
+//	private ParticleEffect particleEffect = new ParticleEffect();
 	
 	@Override
 	public void reset() {
@@ -39,6 +42,7 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 
 	public EnnemiDeBaseQuiTir() {
 		super(getRandX(), CSG.HAUTEUR_ECRAN + HAUTEUR, PVMAX);
+//		particleEffect.load(Gdx.files.internal("particules/b.p"), Gdx.files.internal("particules"));
 	}
 
 	private static float getRandX() {
@@ -59,6 +63,16 @@ public class EnnemiDeBaseQuiTir extends EnnemiDeBase{
 		position.y += (VITESSE_MAX * Endless.delta);
 		return true;
 	}
+	
+//	float a = MathUtils.atan2(-v.y, -v.x) * MathUtils.radiansToDegrees;
+//	Array<ParticleEmitter> emitters = effect.getEmitters();        
+//	for (int i = 0; i < emitters.size; i++) {                          
+//	   ScaledNumericValue val = emitters.get(i).getAngle();           
+//	   float h1 = a + 90f;                                            
+//	   float h2 = a - 90f;                                            
+//	   val.setHigh(h1, h2);                                           
+//	   val.setLow(a);       
+//	} 
 
 	/**
 	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...

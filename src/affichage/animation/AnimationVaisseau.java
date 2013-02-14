@@ -11,7 +11,7 @@ public class AnimationVaisseau{
 	private static float tpsDroite;
 	private static float tpsGauche;
 	private static TextureRegion[] tr = initAnimation();
-	private static int etat = 0;
+	private static int etat = 2;
 	private static final float TPS_ANIM = .15f; 
 
 	protected static TextureRegion[] initAnimation() {

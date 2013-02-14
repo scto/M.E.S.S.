@@ -7,6 +7,7 @@ import affichage.animation.AnimationTirFeu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
@@ -21,20 +22,40 @@ import com.badlogic.gdx.utils.Pools;
 public class ArmesDeBase extends Armes implements Poolable{
 	
 	// ** ** caracteristiques générales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 28;
+	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 27;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = (int) (LARGEUR * 1.5);
 	public static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	private static final int VITESSE_MAX = 300;
-	public static final float CADENCETIR = .25f;
+	private static final int VITESSE_MAX = 600;
+	public static final float CADENCETIR = .12f;
 	private final int FORCE = 8;
 	public static Pool<ArmesDeBase> pool = Pools.get(ArmesDeBase.class);
 	//private AnimationDeBase animation;
 	private static AnimationTirFeu animation = new AnimationTirFeu();
 	private float tpsAnimation = 0;
 	private static Sound son = Gdx.audio.newSound(Gdx.files.internal("sons/156895__halgrimm__shot-2-0.wav"));
-	// ** ** caracteristiques variables. 
-
+	// ** ** particules
+//	public ParticleEffect particleEffect;
+	
+	/**
+	 * ATTENTION ici le init s'occupe d'ajouter à la bonne liste
+	 */
+	@Override
+	public void init(float posX, float posY, int dirX, int dirY, boolean ennemi) {
+		son.play(CSG.profil.volumeArme);
+		position.x = posX;
+		position.y = posY;
+		if (ennemi) {
+			listeTirsDesEnnemis.add(this);
+			direction.y = -1;
+		} else {
+			direction.y = 1;
+			liste.add(this);
+		}
+//		particleEffect = new ParticleEffect();
+//	    particleEffect.load(Gdx.files.internal("particules/boulefeu.p"), Gdx.files.internal("particules"));
+//	    particleEffect.start();
+	}
 	
 	@Override
 	public void reset() {
@@ -52,6 +73,9 @@ public class ArmesDeBase extends Armes implements Poolable{
 	public void afficher(SpriteBatch batch){
 		tpsAnimation += Endless.delta;
 		batch.draw(animation.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
+//		particleEffect.setPosition(position.x, position.y);
+//		particleEffect.draw(batch, Endless.delta);
+
 	}
 
 	
@@ -89,22 +113,4 @@ public class ArmesDeBase extends Armes implements Poolable{
 	public void free() {
 		pool.free(this);
 	}
-	
-	/**
-	 * ATTENTION ici le init s'occupe d'ajouter à la bonne liste
-	 */
-	@Override
-	public void init(float posX, float posY, int dirX, int dirY, boolean ennemi) {
-		son.play(CSG.profil.volumeArme);
-		position.x = posX;
-		position.y = posY;
-		if (ennemi) {
-			listeTirsDesEnnemis.add(this);
-			direction.y = -1;
-		} else {
-			direction.y = 1;
-			liste.add(this);
-		}
-	}
-
 }

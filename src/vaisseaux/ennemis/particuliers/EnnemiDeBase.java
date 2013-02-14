@@ -8,6 +8,8 @@ import menu.CSG;
 import affichage.animation.AnimationEnnemiDeBase;
 import affichage.animation.AnimationExplosion1;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
@@ -34,6 +36,7 @@ public class EnnemiDeBase extends Ennemis{
 	protected static AnimationExplosion1 animationExplosion;
 	protected float tpsAnimation;
 	protected float tpsAnimationExplosion;
+	private ParticleEffect explosion = new ParticleEffect();
 	// ** ** caracteristiques variables.
 
 	/** 
@@ -66,6 +69,7 @@ public class EnnemiDeBase extends Ennemis{
 		animation = new AnimationEnnemiDeBase();
 		tpsAnimation = 0;
 		tpsAnimationExplosion = 0;
+		explosion.load(Gdx.files.internal("particules/explosion.p"), Gdx.files.internal("particules"));
 	}
 
 	@Override
@@ -74,15 +78,25 @@ public class EnnemiDeBase extends Ennemis{
 		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
 		mort = false;
 		tpsAnimationExplosion = 0;
+		explosion.reset();
 		pv = PVMAX;
+	}
+
+	
+
+	@Override
+	protected void mort() {
+		explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
+		explosion.start();
 	}
 
 
 	@Override
 	public void afficher(SpriteBatch batch) {
 		if(mort){
-			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += Endless.delta;
+			explosion.draw(batch, Endless.delta);
+//			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
+//			tpsAnimationExplosion += Endless.delta;
 		}
 		else{
 			batch.draw(animation.getTexture(tpsAnimation), position.x, position.y, LARGEUR, HAUTEUR);
@@ -92,7 +106,8 @@ public class EnnemiDeBase extends Ennemis{
 
 	@Override
 	public boolean mouvementEtVerif() {
-		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
+//		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
+		if(mort & explosion.isComplete()
 				| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;

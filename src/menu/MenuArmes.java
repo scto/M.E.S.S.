@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Interpolation.BounceOut;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -39,7 +40,9 @@ public class MenuArmes implements Screen {
 	// --- VAISSEAU
 	private VaisseauType1 vaisseau = new VaisseauType1();
 	private boolean alterner = true;
-	
+	private int prevXp = CSG.profil.xpDispo;
+	private int prevNvArmeDeBase = CSG.profil.NvArmeDeBase;
+	private int prevNvArmeBalayage = CSG.profil.NvArmeBalayage;
 	
 	public MenuArmes(final Game game) {
 		CSG.resetLists();
@@ -76,6 +79,11 @@ public class MenuArmes implements Screen {
 		final TextButton upgradeButton = new TextButton( " Upgrade (" + CSG.profil.getCoutUpArme() + ")", skin);
 		table.add(upgradeButton);
 		
+		table.row();
+		// BOUTON UNDO
+		TextButton boutonUndo = new TextButton( "    Undo    ", skin);
+		table.add(boutonUndo).pad(10);
+		
 		table.setFillParent(true);
 		
 		stage.addActor(table);
@@ -108,6 +116,7 @@ public class MenuArmes implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(CSG.profil.getCoutUpArme() < CSG.profil.xpDispo){
+					save();
 					CSG.profil.xpDispo -= CSG.profil.getCoutUpArme();
 					CSG.profil.upArme();
 					upgradeButton.setText(" Upgrade (" + CSG.profil.getCoutUpArme() + ")");
@@ -115,6 +124,25 @@ public class MenuArmes implements Screen {
 				}
 			}
 		});
+		boutonUndo.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				undo();
+				upgradeButton.setText(" Upgrade (" + CSG.profil.getCoutUpArme() + ")");
+			}
+		});
+	}
+
+	protected void save() {
+		prevXp = CSG.profil.xpDispo;
+		prevNvArmeDeBase = CSG.profil.NvArmeDeBase;
+		prevNvArmeBalayage = CSG.profil.NvArmeBalayage;
+	}
+
+	protected void undo() {
+		CSG.profil.NvArmeDeBase = prevNvArmeDeBase;
+		CSG.profil.NvArmeBalayage = prevNvArmeBalayage;
+		CSG.profil.xpDispo = prevXp;
 	}
 
 	@Override

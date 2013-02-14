@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationTirBleu{
 	
-	private static final float TPS_ANIM = .12f; //0.02
+	private static final float TPS_ANIM = 0.02f;
 	public static Animation animation = initAnimation(TPS_ANIM, Animation.NORMAL);
 
 	public TextureRegion getTexture(float tps) {

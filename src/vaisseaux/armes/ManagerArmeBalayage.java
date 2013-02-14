@@ -95,15 +95,15 @@ public class ManagerArmeBalayage {
 	 */
 	private static void nv1(float posX, float posY, Vector2 dir, boolean ennemi) {
 		switch (placeBalle) {
-		case (-4):			rotation = -10; doubleRotation = -20; demiRotation = -5;		break;
-		case (-3):			rotation = -9;	doubleRotation = -18; demiRotation = -4;		break;
-		case (-2):			rotation = -7;	doubleRotation = -14; demiRotation = -3;		break;
-		case (-1):			rotation = -4;	doubleRotation = -8;  demiRotation = -2;		break;
-		case (1):			rotation = 4;	doubleRotation = 8;	  demiRotation = 2;			break;
-		case (2):			rotation = 7;	doubleRotation = 14;  demiRotation = 3;			break;
-		case (3):			rotation = 9;	doubleRotation = 18;  demiRotation = 4;			break;
-		case (4):			rotation = 10;	doubleRotation = 20;  demiRotation = 5;		break;
-		default:			rotation = 0;	doubleRotation = 0;   demiRotation = 0;			break;
+		case (-4):			rotation = -7; 	doubleRotation = -14; 	demiRotation = -4;			break;
+		case (-3):			rotation = -6;	doubleRotation = -12; 	demiRotation = -3;			break;
+		case (-2):			rotation = -4;	doubleRotation = -8; 	demiRotation = -2;			break;
+		case (-1):			rotation = -1;	doubleRotation = -2;  	demiRotation = -1;			break;
+		case (1):			rotation = 1;	doubleRotation = 2;	  	demiRotation = 1;			break;
+		case (2):			rotation = 4;	doubleRotation = 8;  	demiRotation = 2;			break;
+		case (3):			rotation = 6;	doubleRotation = 12;  	demiRotation = 3;			break;
+		case (4):			rotation = 7;	doubleRotation = 14;  	demiRotation = 4;			break;
+		default:			rotation = 0;	doubleRotation = 0;   	demiRotation = 0;			break;
 		}
 		dir.rotate(rotation);
 		creerArme(posX, posY, dir, ennemi);
