@@ -1,13 +1,19 @@
 package vaisseaux.ennemis.particuliers;
 
 import jeu.Endless;
+import jeu.Physique;
+import jeu.Stats;
 import menu.CSG;
-import physique.Physique;
+import vaisseaux.armes.Armes;
 import vaisseaux.armes.ArmesBouleVerte;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
-import affichage.animation.AnimationEnnemiAileDeployee;
-import affichage.animation.AnimationExplosion1;
+import vaisseaux.tirs.Tirs;
+import assets.SoundMan;
+import assets.animation.AnimationEnnemiAileDeployee;
+import assets.animation.AnimationExplosion1;
+import assets.particules.ParticulesExplosionPetite;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -15,154 +21,119 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 
-public class EnnemiAilesDeployees extends Ennemis{
+public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	
-	// ** ** caracteristiques générales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 16;
-	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = LARGEUR;
-	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	private static final int VITESSE_MAX = 100;
-	public static final float CADENCETIR = 1.0f;
-	public static final float CADENCETIR_SUR_3 = CADENCETIR/3;
-	public static final int PVMAX = 20;
-	public static final int VITESSE_ANGULAIRE = 100;
+	// ** ** caracteristiques gï¿½nï¿½rales
+	public static final float LARGEUR= CSG.LARGEUR_ECRAN / 16;
+	public static final float DEMI_LARGEUR = LARGEUR/2;
+	public static final float CADENCETIR = 3.0f;
+	public static final float VITESSE_ANGULAIRE = 100;
+	public static final float CADENCE = 1.2f;
+	public static final Tirs tir = new Tirs(CADENCE);
 	// ** ** caracteristiques variables.
-	private boolean doubleTir = false;
 	private float maintenant = 0;
+	private float prochainTir = 0;
 	public static Pool<EnnemiAilesDeployees> pool = Pools.get(EnnemiAilesDeployees.class);
-	private boolean lance = false;
-	// ** ** animations
-	protected static AnimationEnnemiAileDeployee animation; 
-	protected static AnimationExplosion1 animationExplosion;
-	protected float tpsAnimationExplosion;
+	// ** ** animations 
+	protected float tpsAnimationExplosion = 0;
 	private float tpsAnim;
 	// ** ** autre
 	private float angle;
 	private Vector2 direction = new Vector2(-1,0);
+	// ** ** particules
+	private ParticulesExplosionPetite explosion;
 	
-
+	@Override
+	protected void mort() {
+		SoundMan.playBruitage(SoundMan.explosionpetittetechercheuse);
+		if(CSG.profil.particules){
+			explosion = ParticulesExplosionPetite.pool.obtain();
+			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
+			explosion.start();
+		} else {
+			tpsAnimationExplosion = 0;
+		}
+	}
+	
 	@Override
 	public void reset() {
 		mort = false;
-		tpsAnimationExplosion = 0;
-		pv = PVMAX;
-		lance = false;
-		trigger = CADENCETIR;
+		pv = Stats.PVMAX_AILES_DEPLOYEE;
 		tpsAnim = 0;
 	}
 
-	
-	/**
-	 * Initialise l'ennemi
-	 */
-	private void init() {
-		animationExplosion = new AnimationExplosion1();
-		animation = new AnimationEnnemiAileDeployee();
-		tpsAnimationExplosion = 0;
+	@Override
+	public void init() {
+		if (CSG.profil.particules & explosion == null)	explosion = ParticulesExplosionPetite.pool.obtain();
 	}
-
+	
 	public EnnemiAilesDeployees() {
-		super((float) (Math.random() * CSG.LARGEUR_ECRAN - DEMI_LARGEUR),	CSG.HAUTEUR_ECRAN + HAUTEUR, PVMAX);
-		init();
+		super((float) (Math.random() * CSG.LARGEUR_ECRAN - DEMI_LARGEUR), CSG.HAUTEUR_ECRAN + LARGEUR, Stats.PVMAX_AILES_DEPLOYEE);
 	}
 
 	@Override
-	public boolean mouvementEtVerif() {
-		if (mort) {
-			if (tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1	| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false) {
-				pool.free(this);
-				return false;
-			}
+	public boolean mouvementEtVerifSansParticules() {
+		if ( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, (int)LARGEUR, (int)LARGEUR) == false) {
+			pool.free(this);
+			return false;
 		} else {
-			if (lance) angle = Physique.mouvementTeteChercheuse(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR, VITESSE_ANGULAIRE);
+			angle = Physique.mouvementTeteChercheuse(direction, position, Stats.VITESSE_MAX_AILES_DEPLOYEE, (int)LARGEUR, VITESSE_ANGULAIRE, (int)DEMI_LARGEUR);
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean mouvementEtVerif() {
+		if( (mort && explosion.isComplete()) | Physique.toujoursAfficher(position, (int)LARGEUR, (int)LARGEUR) == false) {
+			pool.free(this);
+			if (explosion != null) explosion.free();
+			return false;
+		} else {
+			angle = Physique.mouvementTeteChercheuse(direction, position, Stats.VITESSE_MAX_AILES_DEPLOYEE,(int) LARGEUR, VITESSE_ANGULAIRE, (int)DEMI_LARGEUR);
 		}
 		return true;
 	}
 
 	/**
-	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
+	 * Exactement la mï¿½me que dans la super classe mais ï¿½a ï¿½vite de faire des getter largeur hauteur...
 	 */
 	@Override
 	public void afficher(SpriteBatch batch) {
 		maintenant += Endless.delta;
 		if(mort){
-			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += Endless.delta;
+			explosion.draw(batch, Endless.delta);
+			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
+		} else {
+			batch.draw(AnimationEnnemiAileDeployee.getTexture(tpsAnim), position.x, position.y,	DEMI_LARGEUR,DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1, angle, false);
+			tpsAnim += Endless.delta;
 		}
-		else {
-			batch.draw(animation.getTexture(tpsAnim), position.x, position.y,
-					// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
-					DEMI_LARGEUR,DEMI_HAUTEUR,
-					// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
-					LARGEUR, HAUTEUR,
-					//scaleX the scale of the rectangle around originX/originY in x ET Y
-					1,1,
-					// L'ANGLE DE ROTATION
-					angle,
-					//FLIP OU PAS
-					false);
+	}
+	/**
+	 * Exactement la meme que dans la super classe mais ca evite de faire des getter largeur hauteur...
+	 */
+	@Override
+	public void afficherSansParticules(SpriteBatch batch) {
+		maintenant += Endless.delta;
+		if (mort) {
+			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
+			tpsAnimationExplosion += Endless.delta;
+		} else {
+			batch.draw(AnimationEnnemiAileDeployee.getTexture(tpsAnim), position.x, position.y,	DEMI_LARGEUR,DEMI_LARGEUR,	LARGEUR, LARGEUR, 1,1, angle, false);
 			tpsAnim += Endless.delta;
 		}
 	}
 	
-	private float trigger = CADENCETIR;
 	@Override
 	protected void tir() {
-//		if (!mort &
-//				((maintenant > dernierTir + CADENCETIR))&
-//				lance) {
-//			ArmesBouleVerte milieu = ArmesBouleVerte.pool.obtain();
-//			milieu.init(position.x + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR, 0, position.y + DEMI_HAUTEUR - ArmesBouleVerte.DEMI_LARGEUR, -(ArmesBouleVerte.HAUTEUR+DEMI_HAUTEUR), angle);
-//			dernierTir = maintenant;
-//		}
-		if (!mort & lance) {
-			if (trigger < maintenant) {
-				ArmesBouleVerte milieu = ArmesBouleVerte.pool.obtain();
-				milieu.init(position.x + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR, 0, position.y + DEMI_HAUTEUR - ArmesBouleVerte.DEMI_LARGEUR, -(ArmesBouleVerte.HAUTEUR+DEMI_HAUTEUR), angle);
-				if (!doubleTir)
-					trigger += CADENCETIR_SUR_3;
-				else
-					trigger += CADENCETIR;
-				doubleTir = !doubleTir;
-			}
-		}
+		tir.tirToutDroit(this, mort, maintenant, prochainTir);
 	}
-
 
 	@Override
-	public int getXp() {
-		return TypesEnnemis.EnnemiDeBaseQuiTir.COUT;
-	}
+	public int getXp() {		return TypesEnnemis.EnnemiAilesDeployee.COUT;	}
 	
-	@Override
-	public int getHauteur() {
-		return HAUTEUR;
-	}
-
-	@Override
-	public int getLargeur() {
-		return LARGEUR;
-	}
-
-	@Override
-	public int getVitesse() {
-		return VITESSE_MAX;
-	}
-	
-	@Override
-	public int getDemiHauteur() {
-		return DEMI_HAUTEUR;
-	}
-
-	@Override
-	public int getDemiLargeur() {
-		return DEMI_LARGEUR;
-	}
-
 	@Override
 	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
+		collision.set(position.x, position.y, LARGEUR, LARGEUR);
 		return collision;
 	}
 
@@ -173,14 +144,47 @@ public class EnnemiAilesDeployees extends Ennemis{
 	}
 
 
-	public void setAngle(int i) {
-		this.angle = i;
-	}
+	public void setAngle(int i) {		this.angle = i;	}
 
 
 	public void lancer(float f, float g) {
-		lance = true;
 		direction.x = f;
 		direction.y = g;
+	}
+	
+	@Override
+	public int getHauteur() {			return (int)LARGEUR;	}
+
+	@Override
+	public int getLargeur() {			return (int)LARGEUR;	}
+
+	@Override
+	public int getDemiHauteur() {		return (int)DEMI_LARGEUR;	}
+
+	@Override
+	public int getDemiLargeur() {		return (int)DEMI_LARGEUR;	}
+
+	@Override
+	public Armes getArme() {			return ArmesBouleVerte.pool.obtain();	}
+
+	@Override
+	public void setProchainTir(float f) {		prochainTir = f;	}
+
+	@Override
+	public float getModifVitesse() {	return 1;	}
+
+	@Override
+	public float getAngleTir() {			return angle;	}
+	
+	@Override
+	public Vector2 getDirectionTir() {
+		return direction;
+	}
+	
+	@Override
+	public Vector2 getPositionDuTir(int numeroTir) {
+		tmpPos.x = (position.x + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR) + (direction.x * 16);
+		tmpPos.y = (position.y + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR)+ (direction.y * 16);
+		return tmpPos;
 	}
 }

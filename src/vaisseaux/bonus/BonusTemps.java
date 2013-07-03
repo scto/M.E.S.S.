@@ -1,103 +1,51 @@
 package vaisseaux.bonus;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jeu.Endless;
-
-import physique.Physique;
+import jeu.Stats;
 
 import menu.CSG;
-import affichage.TexMan;
-import affichage.animation.AnimationTriangleRond;
-
-import com.badlogic.gdx.Gdx;
+import assets.AssetMan;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
+import com.badlogic.gdx.utils.Pool.Poolable;
 
-public class BonusTemps extends Bonus {
+public class BonusTemps extends Bonus implements Poolable{
 
-	public static final int LARGEUR = CSG.LARGEUR_ECRAN / 25;
-	public static final int HAUTEUR = LARGEUR;
-	public static final float HAUTEUR_COLLISION = HAUTEUR * 4;
-	public static final float LARGEUR_COLLISION = LARGEUR * 4;
-	public static final float DEMI_LARGEUR_COLLISION = LARGEUR_COLLISION/2;
-	public static final float DEMI_HAUTEUR_COLLISION = HAUTEUR_COLLISION/2;
-	private static final int VITESSE = -75;
-	public static AnimationTriangleRond anim = new AnimationTriangleRond();
-	// voir à quelle taille l'initialiser	
-	public static List<BonusTemps> liste = new ArrayList<BonusTemps>(30);
 	private float tps = 0;
-	private static int cptBonus = 0;
-	private static int nbBonusLache = 0;
-	
-	
-	public BonusTemps(float x, float y) {
-		super(x,y);
-	}
+	public static Pool<BonusTemps> pool = Pools.get(BonusTemps.class);
 
-	/**
-	 * Affiche l'xp et la fait tourner
-	 * @param batch
-	 * @param delta 
-	 */
-	public static void affichage(SpriteBatch batch) {
-		for(BonusTemps b : liste){
-			b.tps += Endless.delta;
-			batch.draw(anim.getTexture(b.tps), b.posX, b.posY,	LARGEUR, HAUTEUR);
-		}
-	}
-
-	/**
-	 * Se base sur le nombre de bonus temps déjà lache et l'xp apportée pour savoir si il doit apparaitre ou non
-	 * @param x
-	 * @param y
-	 * @param xp
-	 */
-	public static void ajoutBonus(float x, float y, int xp) {
-		cptBonus += xp;
-		if(cptBonus > 5 * nbBonusLache){
-			new BonusTemps(x, y);
-			nbBonusLache++;
-			cptBonus = 0;
-		}
+	void init(float x, float y) {
+		posX = x;
+		posY = y;
+		liste.add(this);
 	}
 
 	@Override
-	void afficherEtMvt(SpriteBatch batch) {
+	boolean afficherEtMvt(SpriteBatch batch) {
 		tps += Endless.delta;
-		batch.draw(anim.getTexture(tps), posX, posY, LARGEUR, HAUTEUR);
+		batch.draw(AssetMan.temps, posX, posY, LARGEUR, LARGEUR);
 		// Le fait descendre
-		posY += VITESSE * Endless.delta;
-		// le fait aller à gauche ou à droite de plus en plus suivant le temps écoulé
-		if(posX < CSG.DEMI_LARGEUR_ECRAN)
-			posX -= ( (tps*tps) * Endless.delta);
-		else
-			posX += ( (tps*tps) * Endless.delta);
+		posY += -Stats.VITESSE_BONUS * Endless.delta;
+		// le fait aller ï¿½ gauche ou ï¿½ droite de plus en plus suivant le temps ï¿½coulï¿½
+		if (posX < CSG.DEMI_LARGEUR_ZONE_JEU)	posX -= ( (tps*tps) * Endless.delta);
+		else								posX += ( (tps*tps) * Endless.delta);
+		return true;
 	}
 
 	@Override
-	public float getDemiLargeurColl() {
-		return DEMI_LARGEUR_COLLISION;
-	}
-
-	@Override
-	public float getDemiHauteurColl() {
-		return DEMI_HAUTEUR_COLLISION;
-	}
-
-	@Override
-	public float getLargeurColl() {
-		return LARGEUR_COLLISION;
-	}
-
-	@Override
-	public float getHauteurColl() {
-		return HAUTEUR_COLLISION;
-	}
-
-	@Override
-	public void pris() {
+	public void prisEtFree() {
 		Endless.ralentir(1);
+		pool.free(this);
+	}
+	@Override
+	public void reset() {
+		tps = 0;
+	}
+
+
+	@Override
+	public void free() {
+		pool.free(this);
 	}
 }

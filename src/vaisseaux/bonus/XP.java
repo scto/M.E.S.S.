@@ -1,83 +1,61 @@
-package vaisseaux.bonus;
+ package vaisseaux.bonus;
 
-import java.util.ArrayList;
-import java.util.List;
+import jeu.Endless;
+import jeu.Stats;
 
 import menu.CSG;
-import affichage.TexMan;
-
+import assets.AssetMan;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
+import com.badlogic.gdx.utils.Pool.Poolable;
 
-public class XP extends Bonus{
-	public static final int LARGEUR = CSG.LARGEUR_ECRAN / 30;
-	public static final int HAUTEUR = LARGEUR;
-	private static final int DEMI_LARGEUR = LARGEUR/2;
-	private static final int DEMI_HAUTEUR = HAUTEUR/2;
-	public static final float HAUTEUR_COLLISION = HAUTEUR * 6;
-	public static final float LARGEUR_COLLISION = LARGEUR * 6;
-	public static final float DEMI_LARGEUR_COLLISION = LARGEUR_COLLISION/2;
-	public static final float DEMI_HAUTEUR_COLLISION = HAUTEUR_COLLISION/2;
-	private static final float VITESSE_ROTATION = 60f;
-	private float angleRotation = 0;
+public class XP extends Bonus implements Poolable{
 	public int valeur;
-	// voir à quelle taille l'initialiser
-	public static List<XP> liste = new ArrayList<XP>(30);
+	private float tps = 0;
+	private boolean gauche;
+	public static Pool<XP> pool = Pools.get(XP.class);
 	
-	/**
-	 * Ajoute automatiquement l'item à la liste
-	 * @param x
-	 * @param y
-	 * @param xp
-	 */
-	public XP(float x, float y, int xp) {
-		super(x, y);
+	public void init(float x, float y, int xp){
 		valeur = xp;
+		posX = x;
+		posY = y;
+		if(posX < CSG.DEMI_LARGEUR_ZONE_JEU) gauche = false;
+		else gauche = true;
+		liste.add(this);
 	}
 
 
 	@Override
-	void afficherEtMvt(SpriteBatch batch) {
-		batch.draw(TexMan.XP, posX, posY,
-				// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
-				DEMI_LARGEUR,DEMI_HAUTEUR,
-				// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
-				LARGEUR, HAUTEUR,
-				//scaleX the scale of the rectangle around originX/originY in x ET Y
-				1,1,
-				// L'ANGLE DE ROTATION
-				angleRotation,
-				//FLIP OU PAS
-				false);
-		angleRotation = physique.Physique.rotation(angleRotation, VITESSE_ROTATION);
+	boolean afficherEtMvt(SpriteBatch batch) {
+		if (valeur < 49) batch.draw(AssetMan.XP, posX, posY,	LARGEUR, LARGEUR);
+		else batch.draw(AssetMan.XP2, posX, posY,	LARGEUR, LARGEUR);
+		tps += Endless.delta;
+		// Le fait descendre
+		posY -= Stats.VITESSE_BONUS * Endless.delta;
+		// le fait aller ï¿½ gauche ou ï¿½ droite de plus en plus suivant le temps ï¿½coulï¿½
+		if (gauche)		posX -= ( (tps*tps) * Endless.delta);
+		else			posX += ( (tps*tps) * Endless.delta);
+		
+		return true;
+	}
+
+	@Override
+	public void prisEtFree() {
+		Endless.score += valeur;
+//		CSG.profil.addXp(valeur);
+		pool.free(this);
 	}
 
 
 	@Override
-	public float getDemiLargeurColl() {
-		return DEMI_LARGEUR_COLLISION;
+	public void reset() {
+		tps = 0;
 	}
 
 
 	@Override
-	public float getDemiHauteurColl() {
-		return DEMI_HAUTEUR_COLLISION;
-	}
-
-
-	@Override
-	public float getLargeurColl() {
-		return LARGEUR_COLLISION;
-	}
-
-
-	@Override
-	public float getHauteurColl() {
-		return HAUTEUR_COLLISION;
-	}
-
-
-	@Override
-	public void pris() {
-		CSG.profil.addXp(valeur);
+	public void free() {
+		pool.free(this);
 	}
 }

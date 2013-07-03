@@ -1,14 +1,21 @@
 package vaisseaux.ennemis.particuliers;
 
 import jeu.Endless;
+import jeu.Physique;
+import jeu.Stats;
 import menu.CSG;
-import physique.Physique;
+import vaisseaux.armes.Armes;
 import vaisseaux.armes.ArmesBouleBleu;
+import vaisseaux.armes.ArmesBouleVerte;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
 import vaisseaux.joueur.VaisseauType1;
-import affichage.animation.AnimationBouleBleuRouge;
-import affichage.animation.AnimationExplosion1;
+import vaisseaux.tirs.Tirs;
+import assets.SoundMan;
+import assets.animation.AnimationBouleBleuRouge;
+import assets.animation.AnimationExplosion1;
+import assets.particules.ParticulesExplosionPetite;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -16,147 +23,172 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 
-public class EnnemiBouleQuiSArrete extends Ennemis{
+public class EnnemiBouleQuiSArrete extends Ennemis implements Tireur {
 	
-	// ** ** caracteristiques générales
+	// ** ** caracteristiques gï¿½nï¿½rales
 	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 17;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = LARGEUR;
-	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	private static final int VITESSE_MAX = -100;
-	public static final float CADENCETIR = 1.0f;
-	public static final int PVMAX = 20;
+	public static final float CADENCETIR = 1.6f;
+	public static final Tirs tir = new Tirs(CADENCETIR);
 	// ** ** caracteristiques variables.
-	private float dernierTir = .1f;
-	private float maintenant = 0;
+	private float prochainTir = .1f;
 	public static Pool<EnnemiBouleQuiSArrete> pool = Pools.get(EnnemiBouleQuiSArrete.class);
-	// ** ** animations
-	protected static AnimationBouleBleuRouge animation; 
-	protected static AnimationExplosion1 animationExplosion;
-	protected float tpsAnimationExplosion;
-	private float tpsArret = 0;
-	private float angle = 270;
-	private float tpsAnim = 0;
+	// ** ** animations 
+	protected float tpsAnimationExplosion = 0;
+	private float maintenant = 0;
 	private Vector2 tmpVecteur = new Vector2();
+	private ParticulesExplosionPetite explosion;
+	private boolean reset = false;
 	
 	@Override
 	public void reset() {
-		position.x = getRandX();
-		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
+		position.x = Physique.getEmplacementX(DEMI_LARGEUR);
+		position.y = CSG.HAUTEUR_ECRAN + LARGEUR;
 		mort = false;
-		tpsAnimationExplosion = 0;
-		pv = PVMAX;
-		dernierTir = .2f;
-		angle = 270;
+		pv = Stats.PVMAX_BOULE_QUI_SARRETE;
+		prochainTir = .2f;
+		reset = true;
+		maintenant = 0;
 	}
-
 	
-	/**
-	 * Initialise l'ennemi
-	 */
-	private void init() {
-		animationExplosion = new AnimationExplosion1();
-		animation = new AnimationBouleBleuRouge();
-		tpsAnimationExplosion = 0;
+	@Override
+	protected void mort() {
+		SoundMan.playBruitage(SoundMan.explosionboule);
+		if(CSG.profil.particules){
+			explosion = ParticulesExplosionPetite.pool.obtain();
+			explosion.start();
+			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
+		} else {
+			tpsAnimationExplosion = 0;
+		}
 	}
 
 	public EnnemiBouleQuiSArrete() {
-		super((float) (Math.random() * CSG.LARGEUR_ECRAN - DEMI_LARGEUR),	CSG.HAUTEUR_ECRAN + HAUTEUR, PVMAX);
-		init();
+		super(Physique.getEmplacementX(DEMI_LARGEUR), CSG.HAUTEUR_ECRAN + LARGEUR, Stats.PVMAX_BOULE_QUI_SARRETE);
 	}
 
-	private static float getRandX() {
-		return (float) (Math.random() * CSG.LARGEUR_ECRAN - DEMI_LARGEUR);
+	public void init() {
+		if(CSG.profil.particules & explosion == null)	explosion = ParticulesExplosionPetite.pool.obtain();
 	}
 	
 	/**
-	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
+	 * Exactement la mï¿½me que dans la super classe mais ï¿½a ï¿½vite de faire des getter largeur hauteur...
 	 */
 	@Override
 	public boolean mouvementEtVerif() {
 		// Gros bout de code moche
-		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
+		if( (mort && explosion.isComplete()) | Physique.toujoursAfficher(position, LARGEUR) == false){
 			pool.free(this);
+			if (explosion != null) explosion.free();
 			return false;
-		} else { // Si on a passé le deuxième pallier les ailes sont repliées
-			{
-				if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
-					// On ralentit
-					if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
-						position.y += (-50 * Endless.delta);
-					else
-						tpsArret += Endless.delta;
+		} else { // Si on a passï¿½ le deuxiï¿½me pallier les ailes sont repliï¿½es
+			if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
+				// On ralentit
+				if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)	position.y += (-50 * Endless.delta);
+			} else {
+				position.y += (Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta);
+			}
+			if(maintenant > 10) {
+				if(reset){
+					position.y -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
+					position.x -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
 				} else {
-					position.y += (VITESSE_MAX * Endless.delta);
+					position.y -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
+					position.x += Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
 				}
 			}
-			tmpVecteur.x = VaisseauType1.position.x;
-			tmpVecteur.y = VaisseauType1.position.y;
-			angle = tmpVecteur.sub(position).angle();
+		}
+		return true;
+	}
+	@Override
+	public boolean mouvementEtVerifSansParticules() {
+		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, LARGEUR) == false){
+			pool.free(this);
+			return false;
+		} else { // Si on a passï¿½ le deuxiï¿½me pallier les ailes sont repliï¿½es
+			if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
+				// On ralentit
+				if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)	position.y += (-50 * Endless.delta);
+			} else {
+				position.y += (Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta);
+			}
+			if(maintenant > 10) {
+				if(reset){
+					position.y -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
+					position.x -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
+				} else {
+					position.y -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
+					position.x += Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
+				}
+			}
 		}
 		return true;
 	}
 
 	/**
-	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
+	 * Exactement la mï¿½me que dans la super classe mais ï¿½a ï¿½vite de faire des getter largeur hauteur...
 	 */
 	@Override
 	public void afficher(SpriteBatch batch) {
-		maintenant += Endless.delta;
 		if(mort){
-			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnimationExplosion += Endless.delta;
-		}
-		else {
-			batch.draw(animation.getTexture(tpsAnim), position.x, position.y, LARGEUR, HAUTEUR);
-			tpsAnim += Endless.delta;
+			explosion.draw(batch, Endless.delta);
+		} else {
+			batch.draw(AnimationBouleBleuRouge.getTexture(maintenant), position.x, position.y, LARGEUR, LARGEUR);
+			maintenant += Endless.delta;
 		}
 	}
-	
+
+	@Override
+	public void afficherSansParticules(SpriteBatch batch) {
+		if(mort){
+			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
+			tpsAnimationExplosion += Endless.delta;
+		} else {
+			batch.draw(AnimationBouleBleuRouge.getTexture(maintenant), position.x, position.y, LARGEUR, LARGEUR);
+			maintenant += Endless.delta;
+		}
+	}
 	
 	@Override
 	protected void tir() {
-		if (!mort & maintenant > dernierTir	+ ArmesBouleBleu.CADENCETIR + CADENCETIR & tpsArret > 0) {
-			ArmesBouleBleu milieu = ArmesBouleBleu.pool.obtain();
-			milieu.init(position.x + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, 0, position.y + DEMI_HAUTEUR - ArmesBouleBleu.DEMI_LARGEUR, -(ArmesBouleBleu.HAUTEUR+DEMI_HAUTEUR), angle);
-			dernierTir = maintenant;
-		}
+		tir.tirVersJoueur(this, mort, maintenant, prochainTir);
 	}
-
 
 	@Override
-	public int getXp() {
-		return TypesEnnemis.EnnemiDeBaseQuiTir.COUT;
-	}
+	public int getXp() {		return TypesEnnemis.EnnemiBouleQuiSArrete.COUT;	}
 	
 	@Override
-	public int getHauteur() {
-		return HAUTEUR;
-	}
+	public int getHauteur() {		return LARGEUR;	}
 
 	@Override
-	public int getLargeur() {
-		return LARGEUR;
-	}
+	public int getLargeur() {		return LARGEUR;	}
 
 	@Override
-	public int getVitesse() {
-		return VITESSE_MAX;
-	}
-	
-	@Override
-	public int getDemiHauteur() {
-		return DEMI_HAUTEUR;
-	}
+	public int getDemiHauteur() {		return DEMI_LARGEUR;	}
 
 	@Override
-	public int getDemiLargeur() {
-		return DEMI_LARGEUR;
-	}
+	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
 
 	@Override
 	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
+		collision.set(position.x, position.y, LARGEUR, LARGEUR);
 		return collision;
 	}
+	
+	@Override
+	public Armes getArme() {			return ArmesBouleBleu.pool.obtain();	}
+
+	@Override
+	public void setProchainTir(float f) {		prochainTir = f;	}
+
+	@Override
+	public float getModifVitesse() {	return 1;	}
+
+	@Override
+	public Vector2 getPositionDuTir(int numeroTir) {
+		tmpPos.x = (position.x + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR);
+		tmpPos.y = (position.y + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR);
+		return tmpPos;
+	}
+
 }

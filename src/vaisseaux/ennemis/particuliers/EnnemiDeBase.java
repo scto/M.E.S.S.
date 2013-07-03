@@ -1,120 +1,138 @@
 package vaisseaux.ennemis.particuliers;
 
 import jeu.Endless;
-import physique.Physique;
+import jeu.Physique;
+import jeu.Stats;
+import menu.CSG;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
-import menu.CSG;
-import affichage.animation.AnimationEnnemiDeBase;
-import affichage.animation.AnimationExplosion1;
+import assets.SoundMan;
+import assets.animation.AnimationEnnemiDeBase;
+import assets.animation.AnimationExplosion1;
+import assets.particules.ParticulesExplosionPetite;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 /**
- * Ennemi de base, gère son pool, va tout droit et ni tire pas.
+ * Ennemi de base, gï¿½re son pool, va tout droit et ni tire pas.
  * @author Julien
  *
  */
 public class EnnemiDeBase extends Ennemis{
 	
-	// ** ** caracteristiques générales
+	// ** ** caracteristiques gï¿½nï¿½rales
 	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 15;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR/2;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	private static final int VITESSE_MAX = -150;
-	public static final int PVMAX = 6;
-	static final double chancePowerUp = 0.01;
 	public static Pool<EnnemiDeBase> pool = Pools.get(EnnemiDeBase.class);
 	// ** ** animations
-	protected static AnimationEnnemiDeBase animation; 
-	protected static AnimationExplosion1 animationExplosion;
 	protected float tpsAnimation;
 	protected float tpsAnimationExplosion;
-	private ParticleEffect explosion = new ParticleEffect();
-	// ** ** caracteristiques variables.
-
-	/** 
-	 * Appelé par les sous classes
-	 * @param posX
-	 * @param posY
-	 * @param dirX
-	 * @param dirY
-	 * @param pv
-	 */
-	public EnnemiDeBase(float posX, float posY, int pv) {
-		super(posX, posY, pv);
-		init();
+	private ParticulesExplosionPetite explosion;
+	// ** ** moins alï¿½atoire
+	private static int nbEnnemisAvant = 0;
+	private static float posXInitiale;
+	
+	@Override
+	protected void mort() {
+		SoundMan.playBruitage(SoundMan.explosiontoupie);
+		if(CSG.profil.particules){
+			explosion = ParticulesExplosionPetite.pool.obtain();
+			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
+			explosion.start();
+		} else {
+			tpsAnimationExplosion = 0;
+		}
 	}
 
-	
 	/**
-	 * Contructeur sans argument, appelé par le pool
+	 * Contructeur sans argument, appelï¿½ par le pool
 	 */
 	public EnnemiDeBase() {
-		super((float) (Math.random() * CSG.LARGEUR_ECRAN - DEMI_LARGEUR),	CSG.HAUTEUR_ECRAN + HAUTEUR, PVMAX);
-		init();
+		super(CSG.LARGEUR_BORD,	CSG.HAUTEUR_ECRAN + HAUTEUR, Stats.PVMAX_DE_BASE);
+//		position.x = (float) (Math.random() * CSG.LARGEUR_ZONE_JEU - DEMI_LARGEUR);
+		setPosX();
+	}
+
+	private void setPosX() {
+		if (nbEnnemisAvant == 0) {
+			posXInitiale = Physique.getEmplacementX(DEMI_LARGEUR);
+			position.x = posXInitiale;
+		}
+		else
+			if (posXInitiale + DEMI_LARGEUR > CSG.DEMI_LARGEUR_ZONE_JEU)	position.x = posXInitiale - LARGEUR * nbEnnemisAvant;
+			else															position.x = posXInitiale + LARGEUR * nbEnnemisAvant;
+		nbEnnemisAvant++;
+		if (nbEnnemisAvant > 4) nbEnnemisAvant = 0;
 	}
 	
+	public EnnemiDeBase(float emplacementX, int i, int pvmaxAvion) {
+		super(emplacementX, i, pvmaxAvion);
+	}
+
 	/**
 	 * Initialise l'ennemi
 	 */
-	private void init() {
-		animationExplosion = new AnimationExplosion1();
-		animation = new AnimationEnnemiDeBase();
-		tpsAnimation = 0;
+	public void init() {
 		tpsAnimationExplosion = 0;
-		explosion.load(Gdx.files.internal("particules/explosion.p"), Gdx.files.internal("particules"));
+		if(CSG.profil.particules & explosion == null)	explosion = ParticulesExplosionPetite.pool.obtain();
 	}
 
 	@Override
 	public void reset() {
-		position.x = (float) (Math.random() * CSG.LARGEUR_ECRAN - DEMI_LARGEUR);
+		setPosX();
 		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
 		mort = false;
-		tpsAnimationExplosion = 0;
-		explosion.reset();
-		pv = PVMAX;
+		if (!CSG.profil.particules)		tpsAnimationExplosion = 0;
+		pv = Stats.PVMAX_DE_BASE;
 	}
-
-	
-
-	@Override
-	protected void mort() {
-		explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-		explosion.start();
-	}
-
 
 	@Override
 	public void afficher(SpriteBatch batch) {
 		if(mort){
 			explosion.draw(batch, Endless.delta);
-//			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
-//			tpsAnimationExplosion += Endless.delta;
 		}
 		else{
-			batch.draw(animation.getTexture(tpsAnimation), position.x, position.y, LARGEUR, HAUTEUR);
+			batch.draw(AnimationEnnemiDeBase.getTexture(tpsAnimation), position.x, position.y, LARGEUR, HAUTEUR);
+			tpsAnimation += Endless.delta;
+		}
+	}
+	@Override
+	public void afficherSansParticules(SpriteBatch batch) {
+		if(mort){
+			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
+			tpsAnimationExplosion += Endless.delta;
+		}
+		else{
+			batch.draw(AnimationEnnemiDeBase.getTexture(tpsAnimation), position.x, position.y, LARGEUR, HAUTEUR);
 			tpsAnimation += Endless.delta;
 		}
 	}
 
 	@Override
 	public boolean mouvementEtVerif() {
-//		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
-		if(mort & explosion.isComplete()
-				| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
+		if( (mort && explosion.isComplete()) | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
+			pool.free(this);
+			if (explosion != null) explosion.free();
+			return false;
+		}
+		position.y -= (Stats.VITESSE_MAX_DE_BASE * Endless.delta);
+		return true;
+	}
+	@Override
+	public boolean mouvementEtVerifSansParticules() {
+		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;
 		}
-		position.y += (VITESSE_MAX * Endless.delta);
+		position.y -= (Stats.VITESSE_MAX_DE_BASE * Endless.delta);
 		return true;
 	}
+
 
 	@Override
 	public Rectangle getRectangleCollision() {
@@ -136,12 +154,7 @@ public class EnnemiDeBase extends Ennemis{
 	public int getLargeur() {
 		return LARGEUR;
 	}
-
-	@Override
-	public int getVitesse() {
-		return VITESSE_MAX;
-	}
-
+	
 	@Override
 	public int getDemiHauteur() {
 		return DEMI_HAUTEUR;

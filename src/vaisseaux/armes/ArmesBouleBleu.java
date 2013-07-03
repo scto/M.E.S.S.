@@ -1,12 +1,11 @@
 package vaisseaux.armes;
 
 import jeu.Endless;
+import jeu.Physique;
+import jeu.Stats;
 import menu.CSG;
-import physique.Physique;
-import affichage.animation.AnimationBouleBleu;
+import assets.animation.AnimationBouleBleu;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
@@ -15,22 +14,16 @@ import com.badlogic.gdx.utils.Pools;
 
 public class ArmesBouleBleu extends Armes implements Poolable{
 	
-	// ** ** caracteristiques générales
+	// ** ** caracteristiques gï¿½nï¿½rales
 	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 30;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = LARGEUR;
-	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	private static final int VITESSE_MAX = 100;
+	public static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	public static final float CADENCETIR = .1f;
 	private static final int FORCE = 2;
 	public static Pool<ArmesBouleBleu> pool = Pools.get(ArmesBouleBleu.class);
-	private static AnimationBouleBleu anim = new AnimationBouleBleu();
 	private float tpsAnim = 0;
 	// ** ** variable utilitaire
-	private float angle;
-	private Vector2 translation = new Vector2(0, 0);
-	private static Sound son = Gdx.audio.newSound(Gdx.files.internal("sons/144887__willfitch1__energy-weapon.wav"));
-	
 	/**
 	 * Ca tir dans le bon angle
 	 * @param centreX
@@ -39,23 +32,30 @@ public class ArmesBouleBleu extends Armes implements Poolable{
 	 * @param translationY
 	 * @param angle
 	 */
-	public void init(float centreX, float translationX, float centreY, float translationY, float angle) {
-		this.angle = angle + 90;
-		direction.x = 1;
-		direction.y = 0;
-		direction.rotate(angle);
-		translation.x = translationX;
-		translation.y = translationY;
-		translation.rotate(this.angle);
-		position.x = centreX + translation.x;
-		position.y = centreY + translation.y;
-		Armes.listeTirsDesEnnemis.add(this);
-		son.play(CSG.profil.volumeArme);
+//	public void init(float centreX, float centreY, float angle) {
+//		direction.x = 1;
+//		direction.y = 0;
+//		direction.rotate(angle);
+//		position.x = centreX;
+//		position.y = centreY;
+//		// dï¿½calage du centre :
+//		position.x += direction.x * 25;
+//		position.y += direction.y * 25;
+//
+//		Armes.listeTirsDesEnnemis.add(this);
+//	}
+	
+	@Override
+	public void reset() {		tpsAnim = 0;	}
+	
+	@Override
+	public boolean testCollisionVaisseau() {
+		return Physique.pointDansVaisseau(position, LARGEUR, HAUTEUR);
 	}
 	
 	@Override
-	public void reset() {
-		tpsAnim = 0;
+	public boolean testCollsionAdds() {
+		return Physique.testCollisionAdds(position, LARGEUR, HAUTEUR);
 	}
 	
 	public ArmesBouleBleu() {
@@ -64,7 +64,22 @@ public class ArmesBouleBleu extends Armes implements Poolable{
 	@Override
 	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
-		batch.draw(anim.getTexture(tpsAnim), position.x, position.y,
+		batch.draw(AnimationBouleBleu.getTexture(tpsAnim), position.x, position.y,
+		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
+		DEMI_LARGEUR,DEMI_HAUTEUR,
+		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
+		LARGEUR, HAUTEUR,
+		//scaleX the scale of the rectangle around originX/originY in x ET Y
+		1,1,
+		// L'ANGLE DE ROTATION
+		angle,
+		//FLIP OU PAS
+		false);
+	}
+	@Override
+	public void afficherSansParticules(SpriteBatch batch) {
+		tpsAnim += Endless.delta;
+		batch.draw(AnimationBouleBleu.getTexture(tpsAnim), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		DEMI_LARGEUR,DEMI_HAUTEUR,
 		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
@@ -79,7 +94,9 @@ public class ArmesBouleBleu extends Armes implements Poolable{
 
 	@Override
 	public boolean mouvementEtVerif() {
-		return Physique.mouvementDeBase(direction, position, VITESSE_MAX, HAUTEUR, LARGEUR);
+		if(Physique.mouvementDeBase(direction, position, Stats.VITESSE_MAX_ARME_BOULE_BLEU, HAUTEUR, LARGEUR)) return true;
+		pool.free(this);
+		return false;
 	}
 	
 	@Override
@@ -97,21 +114,18 @@ public class ArmesBouleBleu extends Armes implements Poolable{
 		return HAUTEUR;
 	}
 
-	/**
-	 * A voir si il faut pas la virer
-	 * @param posX
-	 * @param posY
-	 * @param dirX
-	 * @param dirY
-	 * @param ennemi
-	 */
 	@Override
-	public void init(float posX, float posY, int dirX, int dirY, boolean ennemi) {
+	public void initGraphismes() {
+		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void free() {
 		pool.free(this);
+	}
+	
+	@Override
+	public Vector2 getDirection(){
+		return direction;
 	}
 }

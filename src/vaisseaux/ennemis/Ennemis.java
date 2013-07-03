@@ -1,16 +1,19 @@
 package vaisseaux.ennemis;
 
 import jeu.Endless;
-import sons.SoundMan;
 import vaisseaux.Vaisseaux;
-import vaisseaux.bonus.BonusTemps;
-import vaisseaux.bonus.XP;
+import vaisseaux.bonus.Bonus;
+import vaisseaux.ennemis.particuliers.EnnemiBossQuad;
 import vaisseaux.ennemis.particuliers.EnnemiBouleQuiSArrete;
+import vaisseaux.ennemis.particuliers.EnnemiCylon;
 import vaisseaux.ennemis.particuliers.EnnemiDeBase;
-import vaisseaux.ennemis.particuliers.EnnemiDeBaseQuiTir;
+import vaisseaux.ennemis.particuliers.EnnemiQuiTir;
+import vaisseaux.ennemis.particuliers.EnnemiKinder;
 import vaisseaux.ennemis.particuliers.EnnemiPorteNef;
+import vaisseaux.ennemis.particuliers.EnnemiPorteRaisin;
+import vaisseaux.ennemis.particuliers.EnnemiQuiTourne;
+import vaisseaux.ennemis.particuliers.EnnemiToupie;
 import vaisseaux.ennemis.particuliers.EnnemiZigZag;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -20,17 +23,14 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 public abstract class Ennemis extends Vaisseaux implements Poolable{
 	
-	// voir à quelle taille l'initialiser
+	// voir a quelle taille l'initialiser
 	public static Array<Ennemis> liste = new Array<Ennemis>(30);
-	private static long derniereApparition = 0;
+	protected static final Vector2 tmpPos = new Vector2();
+	protected static final Vector2 tmpDir = new Vector2();
+	public static float derniereApparition = 0;
 	public boolean mort = false;
-	private static Array<TypesEnnemis> ennemisAApparaitre = new Array<TypesEnnemis>(false, 30);
-	protected Rectangle collision = new Rectangle();
+	protected static Rectangle collision = new Rectangle();
 	protected int pv;
-	// ** ** variables utilitaires
-
-	//private float clignotement = 0;
-	
 	
 	/**
 	 * Initialise l'ennemi
@@ -46,26 +46,29 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	
 	/**
 	 * Parcourt la liste une fois invoquant la methode mouvement et la methode afficher
-	 * Les fait également tirer
+	 * Les fait egalement tirer
 	 * @param batch
 	 */
 	public static void affichageEtMouvement(SpriteBatch batch) {
-		for(Ennemis e : liste){
-			//if(e.clignotement <= 0 | e.mort){
-				e.afficher(batch);
-			//} else {
-			//	e.clignotement -= Gdx.graphics.getDeltaTime();
-			//}
-			// On le fait tirer
+		for (Ennemis e : liste){
+			e.afficher(batch);
 			e.tir();
-			// On le vire si hors de l'écran
-			if(e.mouvementEtVerif() == false)
-				liste.removeValue(e, true);
+			// On le vire si hors de l'ecran
+			if (e.mouvementEtVerif() == false)		liste.removeValue(e, true);
 		}
 	}
 	
+	public static void affichageEtMouvementSansParticules(SpriteBatch batch) {
+		for (Ennemis e : liste){
+			e.afficherSansParticules(batch);
+			e.tir();
+			if (e.mouvementEtVerifSansParticules() == false) 	liste.removeValue(e, true);
+		}
+	}
+	abstract public void afficherSansParticules(SpriteBatch batch);
+
 	/**
-	 * Méthode de tir, si elle n'est pas redefinie l'ennemi ne tir pas
+	 * Methode de tir, si elle n'est pas redefinie l'ennemi ne tir pas
 	 */
 	protected void tir() {
 		
@@ -79,51 +82,39 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 		for(Ennemis e : liste)
 			e.afficher(batch);
 	}
-	
+	public static void affichageSansParticules(SpriteBatch batch) {
+		for(Ennemis e : liste)
+			e.afficherSansParticules(batch);
+	}
 	/**
-	 * Methode servant à afficher les balles
+	 * Methode servant a afficher les balles
 	 * @param batch : batch principal
 	 */
 	abstract public void afficher(SpriteBatch batch);
 	
 	/**
-	 * Fait bouger les objets et les enlèves si ils ne sont plus à l'écran
-	 * On les enlève également si ils sont morts et que l'animation est finie
+	 * Fait bouger les objets et les enlï¿½ves si ils ne sont plus ï¿½ l'ï¿½cran
+	 * On les enlï¿½ve ï¿½galement si ils sont morts et que l'animation est finie
 	 * @param delta 
 	 * @param batch
 	 */
 	abstract public boolean mouvementEtVerif();
 	
+	static int cpt = 0;
 	/**
 	 * fait apparaitre les ennemis si il faut.
-	 * Il les fait apparaitre suivant la difficulté
+	 * Il les fait apparaitre suivant la difficultï¿½
+	 * voir pour virer le system.currentTime
 	 * @param tempsEcoule
 	 */
-	public static void possibleApparition(long tempsEcoule){
-		if (Progression.frequenceApparition	+ derniereApparition < System.currentTimeMillis()) {
-			// Si on met l'invocation de la methode directement dans le for on aura que des ennemis de base qui pop alors que
-			// pourtant si on affiche les types tous sont là logiquement, bizarre bizarre
-			ennemisAApparaitre = Progression.getListeEnnemis(tempsEcoule);
-			for (TypesEnnemis type : ennemisAApparaitre) {
-				switch (type) {
-				case EnnemiPorteNef:
-					liste.add(EnnemiPorteNef.pool.obtain());
-					break;
-				case EnnemiBouleQuiSArrete:
-					liste.add(EnnemiBouleQuiSArrete.pool.obtain());
-					break;
-				case EnnemiDeBaseQuiTir:
-					liste.add(EnnemiDeBaseQuiTir.pool.obtain());
-					break;
-				case EnnemiZigZag:
-					liste.add(EnnemiZigZag.pool.obtain());
-					break;
-				case EnnemiDeBase:
-					liste.add(EnnemiDeBase.pool.obtain());
-					break;
-				}
+	public static void possibleApparitionEtUpdateScore(){
+		if (Progression.frequenceApparition	+ derniereApparition < Endless.maintenant) {
+			switch (Endless.level) {
+			case 1:		Progression.listeEnnemisNv1();		break;
+			case 2:		Progression.listeEnnemisNv2();		break;
+			case 3:		Progression.listeEnnemisNv3();		break;
 			}
-			derniereApparition = System.currentTimeMillis();
+			derniereApparition = Endless.maintenant;
 		}
 	}
 	/**
@@ -133,25 +124,31 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	abstract public Rectangle getRectangleCollision();
 
 	/**
-	 * On decremente les pvs de la force de l'arme. Si c'est 0 ou moins on le condamne à mort. Ca ajoute les bonus eventuellement
+	 * On decremente les pvs de la force de l'arme. Si c'est 0 ou moins on le condamne ï¿½ mort. Ca ajoute les bonus eventuellement
 	 * @param force
 	 * @return return true si vivant.
 	 */
 	public boolean touche(int force) {
 		pv -= force;
-		if(pv <= 0 & !mort){
-			SoundMan.playBruitage(SoundMan.explosionGrosse);
-			mort = true;
-			new XP(position.x, position.y, getXp());
-			BonusTemps.ajoutBonus(position.x, position.y, getXp());
-			this.mort();
-		}
-		//clignotement = .08f;
+		if (pv <= 0 & !mort) {			mourrir();		}
 		return !mort;
 	}
 
+	/**
+	 * Joue l'explosion (bruit)
+	 * met l'xp
+	 * initialise les bonus
+	 * appele mort()
+	 */
+	public void mourrir() {
+//		SoundMan.playBruitage(SoundMan.explosionGrosse);
+		mort = true;
+		Bonus.ajoutBonus(position.x + getDemiLargeur(), position.y + getDemiHauteur(), getXp());
+//		Endless.score += getXp();
+		this.mort();
+	}
+
 	protected void mort() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -162,13 +159,57 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	public abstract int getXp();
 
 	/**
-	 * Je n'ai pas trouvé comment me passer des getters si je veux pouvoir étendre une classe d'ennemi sans devoir tout réimplementer
-	 * tout en pouvant malgré tout changer ses caractéristiques
+	 * Je n'ai pas trouvï¿½ comment me passer des getters si je veux pouvoir ï¿½tendre une classe d'ennemi sans devoir tout rï¿½implementer
+	 * tout en pouvant malgrï¿½ tout changer ses caractï¿½ristiques
 	 * @return
 	 */
 	public abstract int getHauteur();
 	public abstract int getLargeur();
 	public abstract int getDemiHauteur();
 	public abstract int getDemiLargeur();
-	public abstract int getVitesse();
+
+	public static void randomApparition() {
+		double f = Math.random();
+		if (f < 0.1){
+			liste.add(EnnemiPorteNef.pool.obtain());
+		} else if (f < .2){
+			liste.add(EnnemiBouleQuiSArrete.pool.obtain());
+		} else if (f < .3){
+			liste.add(EnnemiQuiTir.pool.obtain());
+		} else if (f < .4){
+			liste.add(EnnemiZigZag.pool.obtain());
+		} else if (f < .5){
+			liste.add(EnnemiKinder.pool.obtain());
+		} else if (f < .6){
+			liste.add(EnnemiDeBase.pool.obtain());
+		} else if (f < .7){
+			liste.add(EnnemiQuiTourne.pool.obtain());
+		} else if (f < .8){
+			liste.add(EnnemiToupie.pool.obtain());
+		} else if (f < .9){
+			liste.add(EnnemiCylon.pool.obtain());
+		} else if (f < .95){
+				liste.add(EnnemiPorteRaisin.pool.obtain());
+		}
+	}
+
+	abstract public boolean mouvementEtVerifSansParticules();
+
+	public static void switchParticules(){
+		for(Ennemis e : liste)			e.init();
+	}
+
+	abstract public void init();
+
+	public static void bombe() {
+		for (Ennemis e : liste)
+			if (e.mort == false)
+				e.mourrir();
+		Endless.effetBloom();
+	}
+
+	public static void initLevelBoss(int level) {
+		EnnemiBossQuad.setLevel(level);
+	}
+
 }

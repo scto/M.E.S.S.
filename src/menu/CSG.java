@@ -1,54 +1,98 @@
 package menu;
 
+import jeu.Profil;
+import jeu.ProfilManager;
+import vaisseaux.RestesEnnemis;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.bonus.XP;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.Progression;
-import jeu.Profil;
-import jeu.ProfilManager;
-import affichage.ParallaxBackground;
-import affichage.ParallaxLayer;
-import affichage.TexMan;
+import Data.DataMan;
+import assets.AssetMan;
+import assets.background.ParallaxBackground;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 public class CSG extends Game implements ApplicationListener {
 
-	//public static final String STOCKAGE_XP = "xp.lvl";
-	// ---- champs globaux ---- Je ne trouve pas comment mettre final car Gdx n'est pas encore initialisé
-	public static int DEMI_LARGEUR_ECRAN = 0;
-	public static int DEMI_HAUTEUR_ECRAN;
-	public static int LARGEUR_ECRAN;
-	public static int HAUTEUR_ECRAN;
-	public static float RATIO;
-	public static int DIXIEME_LARGEUR;
-	public static int DIXIEME_HAUTEUR;
-	public static int CINQUIEME_ECRAN;
-	public static int DEUX_CINQUIEME_ECRAN;
-	public static int TROIS_CINQUIEME_ECRAN;
-	public static int QUATRE_CINQUIEME_ECRAN;
-	public static int HAUTEUR_ECRAN_PALLIER_1;
-	public static int HAUTEUR_ECRAN_PALLIER_2;
-	public static int HAUTEUR_ECRAN_PALLIER_3;
-	public static final int CONTROLE_TOUCH_NON_RELATIVE = 0;
-	public static final int CONTROLE_TOUCH_RELATIVE = 1;
-	public static final int CONTROLE_MAX = 1;
+	public static IActivityRequestHandler myRequestHandler;
+	// ---- champs globaux ---- Je ne trouve pas comment mettre final car Gdx n'est pas encore initialise
+	public static int DEMI_LARGEUR_ECRAN = 0, TIER_LARGEUR_ECRAN, DEMI_LARGEUR_ZONE_JEU, DEMI_HAUTEUR_ECRAN, LARGEUR_ECRAN, LARGEUR_ZONE_JEU, LARGEUR_BORD;
+	public static int DEMI_CAMERA, LARGEUR_ZONE_MOINS_LARGEUR_BORD, LARGEUR_ZONE_MOINS_LARGEUR_BORD_MUL2, HAUTEUR_ECRAN, DIXIEME_LARGEUR, DIXIEME_HAUTEUR;
+	public static int CINQUIEME_ECRAN, DEUX_CINQUIEME_ECRAN, TROIS_CINQUIEME_ECRAN, QUATRE_CINQUIEME_ECRAN;
+	// ********  P A L I E R S  P O U R   E N N E M I S  ***********
+	public static int HAUTEUR_ECRAN_PALLIER_1, HAUTEUR_ECRAN_PALLIER_2, HAUTEUR_ECRAN_PALLIER_3, HAUTEUR_ECRAN_PALLIER_7;
+	// ********  C O N T R O L E S  ********
+	public static final int CONTROLE_TOUCH_NON_RELATIVE = 0, CONTROLE_DPAD = 1, CONTROLE_ACCELEROMETRE = 2, CONTROLE_TOUCH_RELATIVE = 3, CONTROLE_MAX = 3;
+	// ********  A U T R E S  *********
 	public static ProfilManager profilManager;
 	public static Profil profil;
-	private static ParallaxBackground rbg;
+	public static ParallaxBackground rbg;
+	public static BitmapFont menuFont, menuFontPetite;
+	public static DataMan dataMan;
+	public static AssetMan assetMan;
+	public static SpriteBatch batch;
 	
+	public CSG(IActivityRequestHandler handler) {
+		myRequestHandler = handler;
+	}
+
+	public CSG() { // Constructeur desktop
+	}
+
 	@Override
 	public void create() {
-		DEMI_LARGEUR_ECRAN = Gdx.graphics.getWidth() /2;
-		DEMI_HAUTEUR_ECRAN = Gdx.graphics.getHeight()/2;
+		batch = new SpriteBatch();
+		assetMan = new AssetMan();
+		// **************  V A R I A B L E S   C O N S T A N T E S  :) ********************
+		if (Gdx.app.getVersion() != 0)		CSG.myRequestHandler.showAds(true);
+		dimensions();
+		// ***********************  P R O F I L  ****************************
+		profilManager = new ProfilManager();
+		profil = profilManager.retrieveProfile();
+		menuFont = new BitmapFont();
+		// ************************ P O L I C E S ****************************
+		menuFont = new BitmapFont(Gdx.files.internal("default.fnt"), false);
+		float x = LARGEUR_ECRAN / 250;
+		float y = HAUTEUR_ECRAN / 500;
+		if (x < 1)	x = 1.0f;
+		if (y < 1)	y = 1.0f;
+		menuFont.setScale(x, y);
+		menuFont.setColor(.99f, .85f, 0f, 1);
+		menuFontPetite = new BitmapFont();
+		x = LARGEUR_ECRAN / 440;
+		y = HAUTEUR_ECRAN / 480;
+		if (x < 1)	x = 1.0f;
+		if (y < 1)	y = 1.0f;
+		menuFontPetite = new BitmapFont(Gdx.files.internal("petite.fnt"), false);
+		menuFontPetite.setScale(x, y);
+		menuFontPetite.setColor(.99f, .85f, 0f, 1);
+		// ***** Une fois que toutes les variables globales sont chargees on lance le loading pour charger les assets
+		Loading loading = new Loading(this);
+		setScreen(loading);
+		if (Gdx.app.getVersion() == 0) {
+			dataMan = new DataMan();
+			dataMan.recupProfil();
+		}
+	}
+
+	private void dimensions() {
+		DEMI_LARGEUR_ECRAN = Gdx.graphics.getWidth() / 2;
+		DEMI_HAUTEUR_ECRAN = Gdx.graphics.getHeight() / 2;
 		LARGEUR_ECRAN = Gdx.graphics.getWidth();
 		HAUTEUR_ECRAN = Gdx.graphics.getHeight();
-		RATIO = HAUTEUR_ECRAN/LARGEUR_ECRAN;
+		LARGEUR_ZONE_JEU = (int) (LARGEUR_ECRAN * 1.5f);
+		LARGEUR_BORD = LARGEUR_ECRAN / 3;
+		TIER_LARGEUR_ECRAN = LARGEUR_ECRAN / 3;
+		LARGEUR_ZONE_MOINS_LARGEUR_BORD = LARGEUR_ZONE_JEU - LARGEUR_BORD;
+		LARGEUR_ZONE_MOINS_LARGEUR_BORD_MUL2 = LARGEUR_ZONE_JEU - (LARGEUR_BORD*2);
+		DEMI_LARGEUR_ZONE_JEU = LARGEUR_ZONE_JEU / 2;
+		DEMI_CAMERA = (CSG.LARGEUR_ZONE_JEU - CSG.LARGEUR_ECRAN) * 2;
 		DIXIEME_LARGEUR = LARGEUR_ECRAN / 10;
 		DIXIEME_HAUTEUR = HAUTEUR_ECRAN / 10;
 		CINQUIEME_ECRAN = DIXIEME_LARGEUR * 2;
@@ -58,38 +102,25 @@ public class CSG extends Game implements ApplicationListener {
 		HAUTEUR_ECRAN_PALLIER_1 = HAUTEUR_ECRAN - DIXIEME_HAUTEUR;
 		HAUTEUR_ECRAN_PALLIER_2 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 2);
 		HAUTEUR_ECRAN_PALLIER_3 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 3);
-		profilManager = new ProfilManager();
-		profil = profilManager.retrieveProfile();
-		
-//		Splashscreen splash = new Splashscreen(this);
-//		setScreen(splash);
-//		Menu menu = new Menu(this);
-//		setScreen(menu);
-		TexMan.loadGame();
-		rbg = new ParallaxBackground(new ParallaxLayer[]{new ParallaxLayer(TexMan.atlas.findRegion("etoilesnew1"),new Vector2(),new Vector2(0, 0)),
-				new ParallaxLayer(TexMan.atlas.findRegion("etoilesnew2"),new Vector2(0.1f,0.1f),new Vector2(0,0)),
-	      }, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),new Vector2(0,150));
-		
-		Menu menu = new Menu(this);
-		setScreen(menu);
-		
-		
+		HAUTEUR_ECRAN_PALLIER_7 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 7);
 	}
 	
 	public static void renderBackground(SpriteBatch batch){
 		rbg.render(batch);
 	}
-	
-	public static ParallaxBackground getBackground(){
-		return rbg;
-	}
-	
+
 	public static void resetLists(){
-		Armes.liste.clear();
+		ParallaxBackground.resetEtoiles();
 		Armes.listeTirsDesEnnemis.clear();
+        RestesEnnemis.restes.clear();
 		Ennemis.liste.clear();
-        XP.liste.clear();
+		Armes.liste.clear();
         Progression.reset();
-        Bonus.liste.clear();
+        Bonus.resetTout();
+        XP.liste.clear();
+	}
+
+	public static AssetMan getAssetMan() {
+		return assetMan;
 	}
 }

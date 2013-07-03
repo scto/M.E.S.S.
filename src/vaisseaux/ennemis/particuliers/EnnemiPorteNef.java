@@ -1,206 +1,282 @@
 package vaisseaux.ennemis.particuliers;
 
 import jeu.Endless;
+import jeu.Physique;
+import jeu.Stats;
 import menu.CSG;
-import physique.Physique;
-import vaisseaux.armes.ArmesDeBase;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
-import affichage.animation.AnimationEnnemiDeBase;
-import affichage.animation.AnimationExplosion1;
-import affichage.animation.AnimationPorteNef;
+import assets.AssetMan;
+import assets.SoundMan;
+import assets.animation.AnimationExplosion1;
+import assets.animation.AnimationPorteNef;
 
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 
 public class EnnemiPorteNef extends Ennemis{
 	
-	// ** ** caracteristiques générales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 3;
+	// ** ** caracteristiques gï¿½nï¿½rales
+	public static final int LARGEUR= (int) (CSG.LARGEUR_ECRAN / 2.5f);
 	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = LARGEUR;
-	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
-	private static final int Y_PREMIER = (HAUTEUR / 40) * 17;
-	private static final int Y_DEUXIEME = (HAUTEUR / 40) * 29;
+	private static final int Y_PREMIER = (LARGEUR / 40) * 17;
+	private static final int Y_DEUXIEME = (LARGEUR / 40) * 29;
 	private static final int X_DEUXIEME = (LARGEUR / 13);
 	private static final int ANGLE_DEUXIEME = 140;
-	private static final int Y_TROISIEME = (HAUTEUR) - EnnemiAilesDeployees.HAUTEUR;
-	private static final int X_TROISIEME = (LARGEUR / 2) - EnnemiAilesDeployees.DEMI_LARGEUR;
+	private static final int Y_TROISIEME = (LARGEUR) - (int)EnnemiAilesDeployees.LARGEUR;
+	private static final int X_TROISIEME = (LARGEUR / 2) - (int)EnnemiAilesDeployees.DEMI_LARGEUR;
 	private static final int ANGLE_TROISIEME = 90;
 	private static final int Y_QUATRIEME = Y_DEUXIEME;
-	private static final int X_QUATRIEME = LARGEUR - X_DEUXIEME - EnnemiAilesDeployees.LARGEUR;
+	private static final int X_QUATRIEME = (int) (LARGEUR - X_DEUXIEME - EnnemiAilesDeployees.LARGEUR);
 	private static final int ANGLE_QUATRIEME = 40;
 	private static final int Y_CINQUIEME = Y_PREMIER;
-	private static final int X_CINQUIEME = LARGEUR - EnnemiAilesDeployees.LARGEUR;
+	private static final int X_CINQUIEME = (int) (LARGEUR - EnnemiAilesDeployees.LARGEUR);
 	private static final int ANGLE_CINQUIEME = 0;
-	private static final int VITESSE_MAX = 30;
-	public static final int PVMAX = 70;
-	public static final int DEMI_PVMAX = PVMAX/2;
 	// ** ** caracteristiques variables.
-	private float maintenant = 0;
-	private Rectangle collision = new Rectangle(position.x, position.y, LARGEUR, HAUTEUR);
+//	private float maintenant = 0;
+	private Rectangle collision = new Rectangle(position.x, position.y, LARGEUR, LARGEUR);
 	public static Pool<EnnemiPorteNef> pool = Pools.get(EnnemiPorteNef.class);
-	protected static AnimationExplosion1 animationExplosion;
-	private static AnimationPorteNef animation;
-	protected float tpsAnimationExplosion;
-	private float angle = -180;
+	protected float tpsAnimationExplosion = 0;
 	private int nbLance = 0;
 	private int dirX = -1;
+	// ** ** particules
+	private ParticleEffect explosion;
+	
+	@Override
+	protected void mort() {
+		mort = true;
+		SoundMan.playBruitage(SoundMan.explosionGrosse);
+		if(CSG.profil.particules){
+			if (explosion == null) explosion = new ParticleEffect(AssetMan.explosionPorteNef);
+			else explosion.reset();
+			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
+			explosion.start();
+		}
+	}
 	
 	/**
 	 * Initialise l'ennemi
 	 */
 	public void init() {
-		animationExplosion = new AnimationExplosion1();
-		animation = new AnimationPorteNef();
-		tpsAnimationExplosion = 0;
+		if(CSG.profil.particules & explosion == null) explosion = new ParticleEffect(AssetMan.explosionPorteNef);
 	}
 
 	/**
-	 * Le reset sert à faire le random du côté depuis le quel il apparait, à voir à l'usage mais pourquoi pas.
+	 * Le reset sert ï¿½ faire le random du cï¿½tï¿½ depuis le quel il apparait, ï¿½ voir ï¿½ l'usage mais pourquoi pas.
 	 */
 	@Override
 	public void reset() {
-		position.x = -LARGEUR;
-		position.y = CSG.HAUTEUR_ECRAN_PALLIER_3 - DEMI_HAUTEUR;
+		position.x = CSG.LARGEUR_ZONE_JEU;
+		position.y = CSG.HAUTEUR_ECRAN_PALLIER_3 - DEMI_LARGEUR;
 		mort = false;
 		tpsAnimationExplosion = 0;
-		pv = PVMAX;
-		dirX = 1;
-		angle = 0;
+		pv = Stats.PVMAX_PORTE_NEF + (CSG.profil.getCoutUpArme() / 35);
+		dirX = -1;
+		nbLance = 0;
 	}
 
 	public EnnemiPorteNef() {
-		super(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN_PALLIER_2 - HAUTEUR, PVMAX);
-		init();
+		super(CSG.LARGEUR_ZONE_JEU, CSG.HAUTEUR_ECRAN_PALLIER_2 - LARGEUR, Stats.PVMAX_PORTE_NEF + (CSG.profil.getCoutUpArme() / 35));
 	}
 	
 	/**
-	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
+	 * Exactement la mï¿½me que dans la super classe mais ï¿½a ï¿½vite de faire des getter largeur hauteur...
 	 */
 	@Override
 	public boolean mouvementEtVerif() {
-		if(mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 
-				| Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
+		if( (mort && explosion.isComplete()) | Physique.toujoursAfficher(position, LARGEUR) == false){
 			pool.free(this);
 			return false;
 		}
-		position.x += dirX * Endless.delta * VITESSE_MAX;
-		// == == Partie ennemis à lancer
-		switch(nbLance){
-		case 0:
-			if(maintenant > 4){
-				EnnemiAilesDeployees premier = EnnemiAilesDeployees.pool.obtain();
-				premier.setPosition(position.x, position.y + Y_PREMIER);
-				premier.setAngle(180);
-				premier.lancer(-1, 0);
-				liste.add(premier);
-				nbLance++;
-			}
-			break;
-		case 1:
-			if(maintenant > 6){
-				EnnemiAilesDeployees deuxieme = EnnemiAilesDeployees.pool.obtain();
-				deuxieme.setPosition(position.x + X_DEUXIEME, position.y + Y_DEUXIEME);
-				deuxieme.setAngle(ANGLE_DEUXIEME);
-				deuxieme.lancer(-0.76604444f, 0.6427876f);
-				liste.add(deuxieme);
-				nbLance++;
-			}
-			break;
-		case 2:
-			if(maintenant > 8){
+		position.x += dirX * Endless.delta * Stats.VITESSE_MAX_PORTE_NEF;
+		// == == Partie ennemis ï¿½ lancer
+		if(!mort)		lancerEnnemi();
+		return true;
+	}
+	/**
+	 * Exactement la mï¿½me que dans la super classe mais ï¿½a ï¿½vite de faire des getter largeur hauteur...
+	 */
+	@Override
+	public boolean mouvementEtVerifSansParticules() {
+		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, LARGEUR) == false){
+			pool.free(this);
+			return false;
+		}
+		position.x += dirX * Endless.delta * Stats.VITESSE_MAX_PORTE_NEF;
+		if(!mort)			lancerEnnemi();
+		return true;
+	}
+	private void lancerEnnemi() {
+//		maintenant += Endless.delta;
+		if (position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - DEMI_LARGEUR && (nbLance == 0)){
+			EnnemiAilesDeployees premier = EnnemiAilesDeployees.pool.obtain();
+			premier.setPosition(position.x, position.y + Y_PREMIER);
+			premier.setAngle(180);
+			premier.lancer(-1, 0);
+			liste.add(premier);
+			EnnemiAilesDeployees deuxieme = EnnemiAilesDeployees.pool.obtain();
+			deuxieme.setPosition(position.x + X_DEUXIEME, position.y + Y_DEUXIEME);
+			deuxieme.setAngle(ANGLE_DEUXIEME);
+			deuxieme.lancer(-0.76604444f, 0.6427876f);
+			liste.add(deuxieme);
+			if (Endless.level > 1) {
 				EnnemiAilesDeployees troisieme = EnnemiAilesDeployees.pool.obtain();
 				troisieme.setPosition(position.x + X_TROISIEME, position.y + Y_TROISIEME);
 				troisieme.setAngle(ANGLE_TROISIEME);
 				troisieme.lancer(0, 1);
 				liste.add(troisieme);
-				nbLance++;
 			}
-			break;
-		case 3:
-			if(maintenant > 10){
+			nbLance++;
+		}
+		if (position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - LARGEUR && (nbLance == 1)){
+			EnnemiAilesDeployees premier = EnnemiAilesDeployees.pool.obtain();
+			premier.setPosition(position.x, position.y + Y_PREMIER);
+			premier.setAngle(180);
+			premier.lancer(-1, 0);
+			liste.add(premier);
+			EnnemiAilesDeployees deuxieme = EnnemiAilesDeployees.pool.obtain();
+			deuxieme.setPosition(position.x + X_DEUXIEME, position.y + Y_DEUXIEME);
+			deuxieme.setAngle(ANGLE_DEUXIEME);
+			deuxieme.lancer(-0.76604444f, 0.6427876f);
+			liste.add(deuxieme);
+			if (Endless.level > 1) {
+				EnnemiAilesDeployees troisieme = EnnemiAilesDeployees.pool.obtain();
+				troisieme.setPosition(position.x + X_TROISIEME, position.y + Y_TROISIEME);
+				troisieme.setAngle(ANGLE_TROISIEME);
+				troisieme.lancer(0, 1);
+				liste.add(troisieme);
+				
 				EnnemiAilesDeployees quatrieme = EnnemiAilesDeployees.pool.obtain();
 				quatrieme.setPosition(position.x + X_QUATRIEME, position.y + Y_QUATRIEME);
 				quatrieme.setAngle(ANGLE_QUATRIEME);
 				quatrieme.lancer(0.76604444f, 0.6427876f);
 				liste.add(quatrieme);
-				nbLance++;
 			}
-			break;
-		case 4:
-			if(maintenant > 12){
-				EnnemiAilesDeployees cinquieme = EnnemiAilesDeployees.pool.obtain();
-				cinquieme.setPosition(position.x + X_CINQUIEME, position.y + Y_CINQUIEME);
-				cinquieme.setAngle(ANGLE_CINQUIEME);
-				cinquieme.lancer(1, 0);
-				liste.add(cinquieme);
-				nbLance++;
-			}
-			break;
+			nbLance++;
 		}
-		return true;
+		if(position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - (LARGEUR + DEMI_LARGEUR) && (nbLance == 2)){
+			EnnemiAilesDeployees troisieme = EnnemiAilesDeployees.pool.obtain();
+			troisieme.setPosition(position.x + X_TROISIEME, position.y + Y_TROISIEME);
+			troisieme.setAngle(ANGLE_TROISIEME);
+			troisieme.lancer(0, 1);
+			liste.add(troisieme);
+			
+			if (Endless.level > 1) {				
+				EnnemiAilesDeployees quatrieme = EnnemiAilesDeployees.pool.obtain();
+				quatrieme.setPosition(position.x + X_QUATRIEME, position.y + Y_QUATRIEME);
+				quatrieme.setAngle(ANGLE_QUATRIEME);
+				quatrieme.lancer(0.76604444f, 0.6427876f);
+				liste.add(quatrieme);
+				
+				EnnemiAilesDeployees premier = EnnemiAilesDeployees.pool.obtain();
+				premier.setPosition(position.x, position.y + Y_PREMIER);
+				premier.setAngle(180);
+				premier.lancer(-1, 0);
+				liste.add(premier);
+				
+				EnnemiAilesDeployees deuxieme = EnnemiAilesDeployees.pool.obtain();
+				deuxieme.setPosition(position.x + X_DEUXIEME, position.y + Y_DEUXIEME);
+				deuxieme.setAngle(ANGLE_DEUXIEME);
+				deuxieme.lancer(-0.76604444f, 0.6427876f);
+				liste.add(deuxieme);
+			}
+			
+			nbLance++;
+		}
+		if(position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - DEMI_LARGEUR && (nbLance == 3)){
+			EnnemiAilesDeployees quatrieme = EnnemiAilesDeployees.pool.obtain();
+			quatrieme.setPosition(position.x + X_QUATRIEME, position.y + Y_QUATRIEME);
+			quatrieme.setAngle(ANGLE_QUATRIEME);
+			quatrieme.lancer(0.76604444f, 0.6427876f);
+			liste.add(quatrieme);
+			
+			if (Endless.level > 1) {
+				EnnemiAilesDeployees troisieme = EnnemiAilesDeployees.pool.obtain();
+				troisieme.setPosition(position.x + X_TROISIEME, position.y + Y_TROISIEME);
+				troisieme.setAngle(ANGLE_TROISIEME);
+				troisieme.lancer(0, 1);
+				liste.add(troisieme);
+				
+				EnnemiAilesDeployees premier = EnnemiAilesDeployees.pool.obtain();
+				premier.setPosition(position.x, position.y + Y_PREMIER);
+				premier.setAngle(180);
+				premier.lancer(-1, 0);
+				liste.add(premier);
+				
+				EnnemiAilesDeployees deuxieme = EnnemiAilesDeployees.pool.obtain();
+				deuxieme.setPosition(position.x + X_DEUXIEME, position.y + Y_DEUXIEME);
+				deuxieme.setAngle(ANGLE_DEUXIEME);
+				deuxieme.lancer(-0.76604444f, 0.6427876f);
+				liste.add(deuxieme);
+			}
+			nbLance++;
+		}
+		if (position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - LARGEUR && (nbLance == 4)){
+			EnnemiAilesDeployees cinquieme = EnnemiAilesDeployees.pool.obtain();
+			cinquieme.setPosition(position.x + X_CINQUIEME, position.y + Y_CINQUIEME);
+			cinquieme.setAngle(ANGLE_CINQUIEME);
+			cinquieme.lancer(1, 0);
+			liste.add(cinquieme);
+			
+			if (Endless.level > 1) {
+				EnnemiAilesDeployees troisieme = EnnemiAilesDeployees.pool.obtain();
+				troisieme.setPosition(position.x + X_TROISIEME, position.y + Y_TROISIEME);
+				troisieme.setAngle(ANGLE_TROISIEME);
+				troisieme.lancer(0, 1);
+				liste.add(troisieme);
+				
+				EnnemiAilesDeployees quatrieme = EnnemiAilesDeployees.pool.obtain();
+				quatrieme.setPosition(position.x + X_QUATRIEME, position.y + Y_QUATRIEME);
+				quatrieme.setAngle(ANGLE_QUATRIEME);
+				quatrieme.lancer(0.76604444f, 0.6427876f);
+				liste.add(quatrieme);
+			}
+			nbLance++;
+		}
 	}
 
 	/**
-	 * Exactement la même que dans la super classe mais ça évite de faire des getter largeur hauteur...
+	 * Exactement la mï¿½me que dans la super classe mais ï¿½a ï¿½vite de faire des getter largeur hauteur...
 	 * Il rotationne du double du delta
 	 */
 	@Override
 	public void afficher(SpriteBatch batch) {
-		maintenant += Endless.delta;
-		if(mort){
-			batch.draw(animationExplosion.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, HAUTEUR);
+		if (mort){
+			explosion.draw(batch, Endless.delta);
+			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
+		} else {
+			batch.draw(AnimationPorteNef.getTexture(pv), position.x, position.y, LARGEUR, LARGEUR);
+		}
+	}
+	@Override
+	public void afficherSansParticules(SpriteBatch batch) {
+		if (mort){
+			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
 			tpsAnimationExplosion += Endless.delta;
-		}
-		else{
-			batch.draw(animation.getTexture(pv), position.x, position.y,
-					// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
-					DEMI_LARGEUR,DEMI_HAUTEUR,
-					// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
-					LARGEUR, HAUTEUR,
-					//scaleX the scale of the rectangle around originX/originY in x ET Y
-					1,1,
-					// L'ANGLE DE ROTATION
-					angle,
-					//FLIP OU PAS
-					false);
+		} else {
+			batch.draw(AnimationPorteNef.getTexture(pv), position.x, position.y, LARGEUR, LARGEUR);
 		}
 	}
 
+
 	@Override
-	public int getXp() {
-		return TypesEnnemis.EnnemiPorteNef.COUT;
-	}
+	public int getXp() {		return TypesEnnemis.EnnemiPorteNef.COUT;	}
 	
 	@Override
-	public int getHauteur() {
-		return HAUTEUR;
-	}
+	public int getHauteur() {		return LARGEUR;	}
 
 	@Override
-	public int getLargeur() {
-		return LARGEUR;
-	}
-
-	@Override
-	public int getVitesse() {
-		return VITESSE_MAX;
-	}
+	public int getLargeur() {		return LARGEUR;	}
 	
 	@Override
-	public int getDemiHauteur() {
-		return DEMI_HAUTEUR;
-	}
+	public int getDemiHauteur() {		return DEMI_LARGEUR;	}
 
 	@Override
-	public int getDemiLargeur() {
-		return DEMI_LARGEUR;
-	}
+	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
 
 	@Override
 	public Rectangle getRectangleCollision() {

@@ -7,14 +7,9 @@ import com.badlogic.gdx.utils.Json;
 
 public class ProfilManager {
 	
-	// the location of the profile data file
-    private static final String PROFIL_FILE = "data/profil-v7.json";
- // the loaded profile (may be null)
+    private static final String PROFIL_FILE = "data/csg2.json";
     private Profil profil;
     
-    /**
-     * Creates the profile manager.
-     */
     public ProfilManager() {
     }
 
@@ -23,16 +18,13 @@ public class ProfilManager {
      */
     public Profil retrieveProfile()
     {
-        // create the handle for the profile data file
         FileHandle profileDataFile = Gdx.files.local( PROFIL_FILE );
 
         // if the profile is already loaded, just return it
         if( profil != null ) return profil;
 
-        // create the JSON utility object
         Json json = new Json();
 
-        // check if the profile data file exists
         if( profileDataFile.exists() ) {
             // load the profile from the data file
             try {

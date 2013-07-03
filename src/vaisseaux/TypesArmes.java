@@ -4,19 +4,15 @@ package vaisseaux;
  * @author Julien
  */
 public enum TypesArmes {
-	ArmeDeBase(true),
-	ArmeTriple(true),
-	ArmeBalayage(true);
+	ArmeDeBase,
+	ArmeBalayage,
+	ArmeTrois,
+	ArmeHantee;
 	
-	public final boolean JOUEUR;
 	
-	private TypesArmes(boolean joueur) {
-		JOUEUR = joueur;
-	}
+	public static TypesArmes[] typeArmePossible = {ArmeDeBase, ArmeBalayage, ArmeTrois, ArmeHantee};
 	
-	public static final TypesArmes[] LISTE_ARME_JOUEUR = {ArmeDeBase, ArmeBalayage};
-
-	public static TypesArmes changerArme(TypesArmes[] typeArmePossible, TypesArmes typeArme) {
+	public static TypesArmes changerArme(TypesArmes typeArme) {
 		int indexCourant = typeArme.ordinal();
 		if(++indexCourant < typeArmePossible.length){
 			return typeArmePossible[indexCourant];
@@ -25,8 +21,9 @@ public enum TypesArmes {
 	}
 
 	public static TypesArmes determinerArme(String arme) {
-		if(arme.equals(ArmeDeBase.toString())) return ArmeDeBase;
-		if(arme.equals(ArmeBalayage.toString())) return ArmeBalayage;
-		return null;
+		if (arme.equals(ArmeDeBase.toString())) return ArmeDeBase;
+		if (arme.equals(ArmeBalayage.toString())) return ArmeBalayage;
+		if (arme.equals(ArmeTrois.toString())) return ArmeTrois;
+		return ArmeHantee;
 	}
 }
