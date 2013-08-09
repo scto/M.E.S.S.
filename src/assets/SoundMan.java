@@ -2,6 +2,7 @@ package assets;
 
 import menu.CSG;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
@@ -16,6 +17,7 @@ public class SoundMan {
 	}
 
 	public static void playBruitage(Sound s) {
+		
 		if (CSG.profil.volumeBruitages > 0.05)
 			s.play(CSG.profil.volumeBruitages);
 	}

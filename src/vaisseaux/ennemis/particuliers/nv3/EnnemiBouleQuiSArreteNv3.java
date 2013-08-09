@@ -6,7 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmesBouleBleu;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.joueur.VaisseauType1;
 import assets.SoundMan;
 import assets.animation.AnimationBouleBleuRouge;
@@ -163,7 +163,7 @@ public class EnnemiBouleQuiSArreteNv3 extends Ennemis{
 	}
 
 	@Override
-	public int getXp() {		return TypesEnnemis.EnnemiBouleQuiSArreteNv3.COUT;	}
+	public int getXp() {		return CoutsEnnemis.EnnemiBouleQuiSArreteNv3.COUT;	}
 	
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
@@ -183,4 +183,8 @@ public class EnnemiBouleQuiSArreteNv3 extends Ennemis{
 		return collision;
 	}
 
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
+	}
 }

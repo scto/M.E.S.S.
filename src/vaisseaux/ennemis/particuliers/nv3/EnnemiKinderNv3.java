@@ -6,7 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeKinder;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationKinder;
@@ -200,7 +200,7 @@ public class EnnemiKinderNv3 extends Ennemis{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiKinderNv3.COUT;
+		return CoutsEnnemis.EnnemiKinderNv3.COUT;
 	}
 	
 	@Override
@@ -228,5 +228,8 @@ public class EnnemiKinderNv3 extends Ennemis{
 		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
 		return collision;
 	}
+	
+	@Override
+	public void invoquer() {		liste.add(pool.obtain());	}
 }
 

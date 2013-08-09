@@ -5,7 +5,7 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationRouli;
@@ -121,7 +121,7 @@ public class EnnemiZigZagNv3 extends Ennemis{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiZigZagNv3.COUT;
+		return CoutsEnnemis.EnnemiZigZagNv3.COUT;
 	}
 	
 	@Override
@@ -143,4 +143,7 @@ public class EnnemiZigZagNv3 extends Ennemis{
 	public int getDemiLargeur() {
 		return DEMI_LARGEUR;
 	}
+	
+	@Override
+	public void invoquer() {		liste.add(pool.obtain());	}
 }

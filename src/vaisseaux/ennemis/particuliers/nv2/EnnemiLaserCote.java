@@ -6,7 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeEnnemiLaserCote;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationBouleBleuRouge;
 import assets.animation.AnimationExplosion1;
@@ -162,7 +162,7 @@ public class EnnemiLaserCote extends Ennemis{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiLaserCoteNv2.COUT;
+		return CoutsEnnemis.EnnemiLaserCoteNv2.COUT;
 	}
 
 	@Override
@@ -184,5 +184,8 @@ public class EnnemiLaserCote extends Ennemis{
 	public int getDemiLargeur() {
 		return DEMI_LARGEUR;
 	}
-	
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
+	}
 }

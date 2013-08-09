@@ -34,7 +34,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	protected static final Vector2 tmpDir = new Vector2();
 	public static final Invocable[] LISTE_LV1 = {EnnemiDeBase.pool.obtain(), EnnemiZigZag.pool.obtain(), EnnemiQuiTir.pool.obtain(), EnnemiBouleQuiSArrete.pool.obtain()
 		,EnnemiQuiTourne.pool.obtain(), EnnemiToupie.pool.obtain(), EnnemiCylon.pool.obtain(), EnnemiKinder.pool.obtain(), EnnemiQuiTir2.pool.obtain(), EnnemiAvion.pool.obtain(),
-		EnnemiPorteRaisin.pool.obtain(), EnnemiLaser.pool.obtain(), EnnemiInsecte.pool.obtain()};
+		EnnemiPorteRaisin.pool.obtain(), EnnemiLaser.pool.obtain(), new EnnemiInsecte()};//EnnemiInsecte.pool.obtain()};
 	public static float derniereApparition = 0;
 	public boolean mort = false;
 	protected static Rectangle collision = new Rectangle();
@@ -115,14 +115,18 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 * voir pour virer le system.currentTime
 	 * @param tempsEcoule
 	 */
-	public static void possibleApparitionEtUpdateScore(){
-		if (Progression.frequenceApparition	+ derniereApparition < Endless.maintenant) {
+	public static void possibleApparitionEtUpdateScore() {
+		if (Progression.frequenceApparition + derniereApparition < Endless.maintenant) {
+			long debut = System.currentTimeMillis();
 			switch (Endless.level) {
-			case 1:		Progression.listeEnnemisNv1();		break;
-			case 2:		Progression.listeEnnemisNv2();		break;
-			case 3:		Progression.listeEnnemisNv3();		break;
+			case 1:				Progression.listeEnnemisNv1();				break;
+			case 2:				Progression.listeEnnemisNv2();				break;
+			case 3:				Progression.listeEnnemisNv3();				break;
 			}
 			derniereApparition = Endless.maintenant;
+			System.out.println(System.currentTimeMillis() - debut);
+			for (Ennemis e : liste)
+				e.mourrir();
 		}
 	}
 	/**

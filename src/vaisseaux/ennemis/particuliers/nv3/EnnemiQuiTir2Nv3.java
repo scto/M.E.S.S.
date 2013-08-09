@@ -7,7 +7,7 @@ import menu.CSG;
 import vaisseaux.armes.ArmeBossQuad;
 import vaisseaux.armes.ArmeFusee;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir2;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
@@ -148,7 +148,7 @@ public class EnnemiQuiTir2Nv3 extends Ennemis{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiQuiTir2Nv3.COUT;
+		return CoutsEnnemis.EnnemiQuiTir2Nv3.COUT;
 	}
 	
 	@Override
@@ -170,4 +170,7 @@ public class EnnemiQuiTir2Nv3 extends Ennemis{
 	public int getDemiLargeur() {
 		return DEMI_LARGEUR;
 	}
+	
+	@Override
+	public void invoquer() {		liste.add(pool.obtain());	}
 }

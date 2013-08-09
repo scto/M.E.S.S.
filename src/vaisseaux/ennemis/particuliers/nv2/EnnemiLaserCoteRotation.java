@@ -6,7 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeEnnemiLaserCoteRotation;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationBouleBleuRouge;
 import assets.animation.AnimationExplosion1;
@@ -159,7 +159,7 @@ public class EnnemiLaserCoteRotation extends Ennemis{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiLaserCoteRotationNv2.COUT;
+		return CoutsEnnemis.EnnemiLaserCoteRotationNv2.COUT;
 	}
 
 	@Override
@@ -180,6 +180,11 @@ public class EnnemiLaserCoteRotation extends Ennemis{
 	@Override
 	public int getDemiLargeur() {
 		return DEMI_LARGEUR;
+	}
+	
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
 	}
 	
 }

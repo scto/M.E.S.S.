@@ -9,7 +9,7 @@ import vaisseaux.armes.ArmesBouleVerte;
 import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiAileDeployee;
 import assets.animation.AnimationExplosion1;
@@ -130,7 +130,7 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	}
 
 	@Override
-	public int getXp() {		return TypesEnnemis.EnnemiAilesDeployee.COUT;	}
+	public int getXp() {		return CoutsEnnemis.EnnemiAilesDeployee.COUT;	}
 	
 	@Override
 	public Rectangle getRectangleCollision() {
@@ -187,5 +187,10 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 		tmpPos.x = (position.x + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR) + (direction.x * 16);
 		tmpPos.y = (position.y + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR)+ (direction.y * 16);
 		return tmpPos;
+	}
+	
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
 	}
 }

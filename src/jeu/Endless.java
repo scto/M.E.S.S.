@@ -128,7 +128,7 @@ public class Endless implements Screen {
 				}
 			}
 		});
-		t.start();
+//		t.start();
 	}
 
 	@Override
@@ -355,7 +355,7 @@ public class Endless implements Screen {
 			}	
 			if (CSG.profil.typeControle == CSG.CONTROLE_ACCELEROMETRE & !afficherMenuRadial) vaisseau.accelerometre();
 
-			if (alterner) {		
+			if (alterner) {	
 				Ennemis.possibleApparitionEtUpdateScore();
 				if (!activerStop) 			Physique.testCollisions();
 				if (!afficherMenuRadial)	vaisseau.tir();

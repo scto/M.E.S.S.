@@ -171,14 +171,10 @@ public class Progression {
 		}
 		pointsDispos++;
 
-//		try {
-//			Class.forName("EnnemiDeBase");
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
-		for (TypesEnnemis type : TypesEnnemis.LISTE_ENNEMIS_NV2) {
+
+		for (CoutsEnnemis type : CoutsEnnemis.LISTE_ENNEMIS_NV2) {
 			if (pointsDispos >= type.COUT) {
-				if (type == TypesEnnemis.EnnemiDeBase) {
+				if (type == CoutsEnnemis.EnnemiDeBase) {
 					Ennemis.liste.add(EnnemiDeBase.pool.obtain());
 					Ennemis.liste.add(EnnemiDeBase.pool.obtain());
 					Ennemis.liste.add(EnnemiDeBase.pool.obtain());
@@ -190,7 +186,7 @@ public class Progression {
 		}
 	}
 	
-	private static void ajoutNv2(TypesEnnemis type) {
+	private static void ajoutNv2(CoutsEnnemis type) {
 		switch (type) {
 			case EnnemiLaser:				Ennemis.liste.add(EnnemiLaser.pool.obtain());					break;
 			case ROCHER:					Ennemis.liste.add(Rocher.pool.obtain());						break;
@@ -243,7 +239,7 @@ public class Progression {
 		}
 		pointsDispos++;
 
-		for (TypesEnnemis type : TypesEnnemis.LISTE_ENNEMIS_NV3) {
+		for (CoutsEnnemis type : CoutsEnnemis.LISTE_ENNEMIS_NV3) {
 			if (pointsDispos >= type.COUT) {
 				ajoutNv3(type);
 //				EnnemiDeBase.class.
@@ -253,7 +249,7 @@ public class Progression {
 		}
 	}
 	
-	private static void ajoutNv3(TypesEnnemis type) {
+	private static void ajoutNv3(CoutsEnnemis type) {
 		switch(type) {
 			case EnnemiBouleQuiSArreteNv3:	Ennemis.liste.add(EnnemiBouleQuiSArreteNv3.pool.obtain());		break;
 			case EnnemiZigZagNv3:			Ennemis.liste.add(EnnemiZigZagNv3.pool.obtain());				break;
@@ -284,9 +280,9 @@ public class Progression {
 
 		switch (nbBoss) {
 		case 0:
-			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());
+			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());		// 1 porte nef
 			break;
-		case 1:
+		case 1:														// 2 portes nefs
 			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());
 			EnnemiPorteNef e = EnnemiPorteNef.pool.obtain();
 			e.position.x += EnnemiPorteNef.LARGEUR;

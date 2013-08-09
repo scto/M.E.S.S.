@@ -5,7 +5,7 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeAvion;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.particuliers.nv1.EnnemiDeBase;
 import assets.SoundMan;
 import assets.animation.AnimationAvion;
@@ -142,7 +142,7 @@ public class EnnemiAvionNv3 extends EnnemiDeBase{
 
 
 	@Override
-	public int getXp() {		return TypesEnnemis.EnnemiAvionNv3.COUT;	}
+	public int getXp() {		return CoutsEnnemis.EnnemiAvionNv3.COUT;	}
 	
 	@Override
 	public int getHauteur() {		return HAUTEUR;	}

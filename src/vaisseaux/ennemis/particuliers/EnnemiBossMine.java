@@ -12,7 +12,7 @@ import vaisseaux.armes.Armes;
 import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationBossMine;
@@ -221,7 +221,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiBossMine.COUT;
+		return CoutsEnnemis.EnnemiBossMine.COUT;
 	}
 	
 	@Override
@@ -285,6 +285,10 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 		else tmpPos.x = (position.x + DEMI_LARGEUR - ArmeMine.DEMI_LARGEUR);
 		tmpPos.y = position.y;
 		return tmpPos;
+	}
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
 	}
 }
 

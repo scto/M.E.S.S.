@@ -9,7 +9,7 @@ import vaisseaux.armes.Armes;
 import vaisseaux.armes.typeTir.Tireur;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationBossQuad;
@@ -235,7 +235,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiBossQuad.COUT;
+		return CoutsEnnemis.EnnemiBossQuad.COUT;
 	}
 	
 	@Override
@@ -301,6 +301,11 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 			break;
 		}
 		return tmpPos;
+	}
+	
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
 	}
 }
 

@@ -6,7 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeKinder;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationKinder;
@@ -205,7 +205,7 @@ public class EnnemiKinderDoubleTir extends Ennemis{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiKinderDoubleNv2.COUT;
+		return CoutsEnnemis.EnnemiKinderDoubleNv2.COUT;
 	}
 	
 	@Override
@@ -232,6 +232,11 @@ public class EnnemiKinderDoubleTir extends Ennemis{
 	public Rectangle getRectangleCollision() {
 		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
 		return collision;
+	}
+	
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
 	}
 }
 

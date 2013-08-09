@@ -7,7 +7,7 @@ import menu.CSG;
 import vaisseaux.armes.ArmeBalayageEnnemiQuiTourne;
 import vaisseaux.armes.Armes;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiTourne;
 import assets.animation.AnimationExplosion1;
@@ -159,7 +159,7 @@ public class EnnemiQuiTourneNv3 extends Ennemis{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiQuiTourne.COUT;
+		return CoutsEnnemis.EnnemiQuiTourne.COUT;
 	}
 
 	@Override
@@ -182,4 +182,6 @@ public class EnnemiQuiTourneNv3 extends Ennemis{
 		return DEMI_LARGEUR;
 	}
 	
+	@Override
+	public void invoquer() {		liste.add(pool.obtain());	}
 }

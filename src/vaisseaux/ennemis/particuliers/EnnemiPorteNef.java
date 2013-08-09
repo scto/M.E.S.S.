@@ -5,7 +5,7 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
@@ -264,7 +264,7 @@ public class EnnemiPorteNef extends Ennemis{
 
 
 	@Override
-	public int getXp() {		return TypesEnnemis.EnnemiPorteNef.COUT;	}
+	public int getXp() {		return CoutsEnnemis.EnnemiPorteNef.COUT;	}
 	
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
@@ -283,5 +283,9 @@ public class EnnemiPorteNef extends Ennemis{
 		collision.x = position.x;
 		collision.y = position.y;
 		return collision;
+	}
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
 	}
 }

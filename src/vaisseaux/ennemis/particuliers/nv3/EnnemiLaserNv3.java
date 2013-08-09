@@ -6,7 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeLaser;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiAileDeployee;
 import assets.animation.AnimationExplosion1;
@@ -173,7 +173,7 @@ public class EnnemiLaserNv3 extends Ennemis{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiLaserNv3.COUT;
+		return CoutsEnnemis.EnnemiLaserNv3.COUT;
 	}
 	
 	@Override
@@ -195,4 +195,7 @@ public class EnnemiLaserNv3 extends Ennemis{
 	public int getDemiLargeur() {
 		return DEMI_LARGEUR;
 	}
+	
+	@Override
+	public void invoquer() {		liste.add(pool.obtain());	}
 }

@@ -6,7 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmesFragmentation;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationCylon;
 import assets.animation.AnimationCylonCasse;
@@ -145,7 +145,7 @@ public class EnnemiCylonNv3 extends Ennemis{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiCylonNv3.COUT;
+		return CoutsEnnemis.EnnemiCylonNv3.COUT;
 	}
 
 	@Override
@@ -159,4 +159,7 @@ public class EnnemiCylonNv3 extends Ennemis{
 
 	@Override
 	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
+	
+	@Override
+	public void invoquer() {		liste.add(pool.obtain());	}
 }

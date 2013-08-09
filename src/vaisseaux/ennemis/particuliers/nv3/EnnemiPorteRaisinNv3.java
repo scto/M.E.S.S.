@@ -6,7 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeBouleEnergie;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.TypesEnnemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
@@ -163,7 +163,7 @@ public class EnnemiPorteRaisinNv3 extends Ennemis{
 
 	@Override
 	public int getXp() {
-		return TypesEnnemis.EnnemiPorteRaisin.COUT;
+		return CoutsEnnemis.EnnemiPorteRaisin.COUT;
 	}
 
 	@Override
@@ -185,5 +185,8 @@ public class EnnemiPorteRaisinNv3 extends Ennemis{
 	public int getDemiLargeur() {
 		return DEMI_LARGEUR;
 	}
+	
+	@Override
+	public void invoquer() {		liste.add(pool.obtain());	}
 	
 }
