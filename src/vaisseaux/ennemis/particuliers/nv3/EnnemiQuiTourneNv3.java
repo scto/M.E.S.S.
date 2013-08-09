@@ -137,7 +137,7 @@ public class EnnemiQuiTourneNv3 extends Ennemis{
 		if (tpsAnimation > qdEnnemiATire + CADENCE_TIR || (tpsAnimation > (qdEnnemiATire - .1f) + CADENCE_TIR && tir1PasEncoreFait) ||
 				(tpsAnimation > (qdEnnemiATire - .2f) + CADENCE_TIR && tir2PasEncoreFait)) { 
 			ArmeBalayageEnnemiQuiTourne a = ArmeBalayageEnnemiQuiTourne.pool.obtain();
-			a.init(position.x, position.y, direction.x, direction.y, true, direction.angle());
+//			a.init(position.x, position.y, direction.x, direction.y, true, direction.angle());
 			Armes.listeTirsDesEnnemis.add(a);
 			if((tpsAnimation > (qdEnnemiATire - .1f) + CADENCE_TIR))
 				tir1PasEncoreFait = false;

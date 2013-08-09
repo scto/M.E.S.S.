@@ -153,12 +153,12 @@ public class EnnemiBouleQuiSArreteNv3 extends Ennemis{
 			tmpVecteur.y = (VaisseauType1.position.y + VaisseauType1.DEMI_LARGEUR) - ArmesBouleBleu.DEMI_LARGEUR;
 			ArmesBouleBleu milieu = ArmesBouleBleu.pool.obtain();
 			tmpAngle = tmpVecteur.sub(position).angle();
-			milieu.init(position.x + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, position.y + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, tmpAngle);
+//			milieu.init(position.x + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, position.y + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, tmpAngle);
 			dernierTir = tpsAnim;
 			ArmesBouleBleu moinsDix = ArmesBouleBleu.pool.obtain();
-			moinsDix.init(position.x + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, position.y + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, tmpAngle - 10);
+//			moinsDix.init(position.x + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, position.y + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, tmpAngle - 10);
 			ArmesBouleBleu plusDix = ArmesBouleBleu.pool.obtain();
-			plusDix.init(position.x + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, position.y + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, tmpAngle + 10);
+//			plusDix.init(position.x + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, position.y + DEMI_LARGEUR - ArmesBouleBleu.DEMI_LARGEUR, tmpAngle + 10);
 		}
 	}
 

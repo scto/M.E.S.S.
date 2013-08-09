@@ -160,7 +160,7 @@ public class EnnemiLaserNv3 extends Ennemis{
 	protected void tir() {
 		if (!mort && maintenant > dernierTir + ArmeLaser.CADENCETIR) {
 			ArmeLaser e = ArmeLaser.pool.obtain();
-			e.init(position.x + DEMI_LARGEUR - ArmeLaser.DEMI_LARGEUR, position.y + DEMI_HAUTEUR, angle+90, direction.x, direction.y);
+//			e.init(position.x + DEMI_LARGEUR - ArmeLaser.DEMI_LARGEUR, position.y + DEMI_HAUTEUR, angle+90, direction.x, direction.y);
 			dernierTir = maintenant;
 		}
 	}

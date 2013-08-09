@@ -7,9 +7,9 @@ import menu.CSG;
 import vaisseaux.armes.ArmeKinder;
 import vaisseaux.armes.Armes;
 import vaisseaux.armes.ArmesBouleVerte;
+import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
-import vaisseaux.tirs.Tirs;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationKinder;
@@ -225,9 +225,8 @@ public class EnnemiKinder extends Ennemis implements TireurAngle {
 
 	@Override
 	public void setProchainTir(float f) {
-		if (maintenant > 11.6 && maintenant < 12.4) {// On se prépare à bouger
+		if (maintenant > 11.6 && maintenant < 12.4) {// On se prï¿½pare ï¿½ bouger
 			angle = direction.angle();
-//			angle
 		}
 		prochainTir = f;
 	}

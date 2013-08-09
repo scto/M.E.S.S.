@@ -37,7 +37,8 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 			a.afficher(batch);
 			if (testCollision) {
 				if (a.testCollisionVaisseau() == true) {
-					if (Endless.perdu == false) { // Si on a perdu faut pas la virer sinon on la voit plus à l'écran
+					// Si on a perdu faut pas la virer sinon on la voit plus à l'écran
+					if (Endless.aPerdu() == false) { 
 						listeTirsDesEnnemis.removeValue(a, true);
 						a.free();
 					}

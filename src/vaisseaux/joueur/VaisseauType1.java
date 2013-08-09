@@ -426,7 +426,7 @@ public class VaisseauType1 extends Vaisseaux {
 
 	public static void perdu() {
 		if (Endless.konamiCode) return;
-		if (!bouclier) Endless.perdu = true;
+		if (!bouclier) Endless.perdu();
 		else bouclier = false;
 	}
 

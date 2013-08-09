@@ -159,7 +159,7 @@ public class Physique {
 		for(Ennemis ennemi : Ennemis.liste){
 			// Si le centre du vaisseau est dans un ennemi
 			if( !ennemi.mort &&	pointDansRectangle(VaisseauType1.centreX, VaisseauType1.centreY, ennemi.getRectangleCollision())){
-				Endless.perdu = true;
+//				Endless.perdu = true;
 			}
 			for (Armes a : Armes.liste) {
 				// Le tir touche l'ennemie

@@ -37,9 +37,6 @@ import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiToupieNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiZigZagNv3;
 
-import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pools;
-
 /**
  * Les switchs sont degueux, voir comment faire autrement. 
  * Garder une reference de chaque type ? Mais ca encombre
@@ -49,7 +46,7 @@ import com.badlogic.gdx.utils.Pools;
  */
 public class Progression {
 
-	private static final int NV_DE_BASE = 2;
+	private static final int NV_DE_BASE = 20000;
 	private static int niveau = NV_DE_BASE;
 	private static final int PALIER = 15;
 	private static int pointsDispos = 0;

@@ -134,11 +134,11 @@ public class EnnemiPorteRaisinNv3 extends Ennemis{
 				|| (tpsAnimation > (dernierTir - .4f) + ArmeBouleEnergie.CADENCETIR && tir2PasEncoreFait)) {
 			
 			ArmeBouleEnergie gauche = new ArmeBouleEnergie();
-			gauche.init(position.x + DEMI_LARGEUR - ArmeBouleEnergie.DEMI_LARGEUR, position.y, true, numeroTir);
+//			gauche.init(position.x + DEMI_LARGEUR - ArmeBouleEnergie.DEMI_LARGEUR, position.y, true, numeroTir);
 			if (sens) numeroTir += 3;
 			else numeroTir -= 3;
 			ArmeBouleEnergie a = new ArmeBouleEnergie();
-			a.init(position.x + DEMI_LARGEUR - ArmeBouleEnergie.DEMI_LARGEUR, position.y, false, numeroTir);
+//			a.init(position.x + DEMI_LARGEUR - ArmeBouleEnergie.DEMI_LARGEUR, position.y, false, numeroTir);
 			if (sens) numeroTir += 3;
 			else numeroTir -= 3;
 			if ((tpsAnimation > (dernierTir - .2f) + ArmeBouleEnergie.CADENCETIR))

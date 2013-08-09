@@ -6,9 +6,9 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeBossQuad;
 import vaisseaux.armes.Armes;
+import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
-import vaisseaux.tirs.Tirs;
 import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationBossQuad;
@@ -205,7 +205,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	
 	@Override
 	public boolean touche(int force) {
-		// si mes pvs sont inférieurs à ça je suis en phase 2 ou 3
+		// si mes pvs sont infï¿½rieurs ï¿½ ï¿½a je suis en phase 2 ou 3
 		if (pv < PV_MAX_PHASE2 ) { 
 			if (pv > PV_MIN_PHASE2) {
 				if (explosionTourellesCentre == false) {

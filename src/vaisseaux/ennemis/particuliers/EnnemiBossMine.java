@@ -10,13 +10,14 @@ import vaisseaux.armes.ArmeBossMine;
 import vaisseaux.armes.ArmeMine;
 import vaisseaux.armes.Armes;
 import vaisseaux.armes.ArmesBouleVerte;
+import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
-import vaisseaux.tirs.Tirs;
 import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationBossMine;
 import assets.animation.AnimationExplosion1;
+
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;

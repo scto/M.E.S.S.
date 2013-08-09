@@ -69,7 +69,7 @@ public class Endless implements Screen {
 	private boolean alterner = true, alternerUpdateScore = true;
 	// E T A T S
 	private boolean activerRalentissement = false, pause = false, scoreEnvoye = false, activerStop = false;
-	public static boolean perdu = false;
+	private static boolean perdu = false;
 	
 	public static final int MAX_STOP_BONUS = 2; 
 	private VaisseauType1 vaisseau = new VaisseauType1();
@@ -134,7 +134,7 @@ public class Endless implements Screen {
 			bloom = new Bloom();
 			bloom.setBloomIntesity(CSG.profil.intensiteBloom);
 		}
-//        Gdx.graphics.setVSync(false);
+        Gdx.graphics.setVSync(false);
         SoundMan.playMusic();
 		rougefonce = CSG.getAssetMan().getAtlas().findRegion("rougefonce");
 		pause = false;
@@ -145,27 +145,41 @@ public class Endless implements Screen {
 		nbBonusStop = 0;
 		activerStop = false;
 		nbBombes = 0;
+		
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (true) {
+					System.out.println((int)maintenant + ";" + Gdx.graphics.getFramesPerSecond());
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		t.start();
 	}
 
 	@Override
 	public void render(float delta) {
 		
-		if (Gdx.input.isKeyPressed(Keys.A))
-			Ennemis.liste.add(new EnnemiKinder());
-		if (Gdx.input.isKeyPressed(Keys.Z))
-			Ennemis.liste.add(new EnnemiAvion());
-		if (Gdx.input.isKeyPressed(Keys.E))
-			Ennemis.liste.add(new EnnemiAilesDeployees());
-		if (Gdx.input.isKeyPressed(Keys.R))
-			Ennemis.liste.add(new EnnemiCylon());
-		if (Gdx.input.isKeyPressed(Keys.T))
-			Ennemis.liste.add(new EnnemiBossMine());
-		if (Gdx.input.justTouched()) 
+//		if (Gdx.input.isKeyPressed(Keys.A))
+//			Ennemis.liste.add(new EnnemiKinder());
+//		if (Gdx.input.isKeyPressed(Keys.Z))
+//			Ennemis.liste.add(new EnnemiAvion());
+//		if (Gdx.input.isKeyPressed(Keys.E))
+//			Ennemis.liste.add(new EnnemiAilesDeployees());
+//		if (Gdx.input.isKeyPressed(Keys.R))
+//			Ennemis.liste.add(new EnnemiCylon());
+//		if (Gdx.input.isKeyPressed(Keys.T))
+//			Ennemis.liste.add(new EnnemiBossMine());
+//		if (Gdx.input.justTouched()) 
 //			Ennemis.liste.add(new EnnemiBossQuad());
 //			Ennemis.liste.add(new EnnemiBouleQuiSArrete());
 //			Ennemis.liste.add(new EnnemiInsecte());
 //			Ennemis.liste.add(new EnnemiZigZag());
-		
 		preRendu();
 		CSG.renderBackground(batch);
 		if (!pause) {
@@ -358,7 +372,7 @@ public class Endless implements Screen {
 	}
 
 	private void update() {
-		perdu = false;
+//		perdu = false;
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.POWER) || Gdx.input.isKeyPressed(Keys.HOME)) {
 			vientDEtreTouche = maintenant;
 			mettrePause();
@@ -373,13 +387,17 @@ public class Endless implements Screen {
 			if (CSG.profil.typeControle == CSG.CONTROLE_ACCELEROMETRE & !afficherMenuRadial) vaisseau.accelerometre();
 
 			if (alterner) {		
-				Ennemis.possibleApparitionEtUpdateScore();
+//				Ennemis.possibleApparitionEtUpdateScore();
 				if (!activerStop) 			Physique.testCollisions();
 				if (!afficherMenuRadial)	vaisseau.tir();
 				if (alternerUpdateScore) {
 					strScore = df.format(score);
 					// Roue des couleurs
-					if (color > .99f) sensCouleurGlobale = false;
+					if (color > .99f) {
+						sensCouleurGlobale = false;
+						Ennemis.liste.add(EnnemiKinder.pool.obtain());
+						Ennemis.liste.add(EnnemiKinder.pool.obtain());
+					}
 					else if (color < .01f) sensCouleurGlobale = true;
 					if (sensCouleurGlobale) color += .02f;
 					else color -= 0.02f;
@@ -409,7 +427,7 @@ public class Endless implements Screen {
 			else batch.draw(AssetMan.bombeGris, (menuX + Bonus.AFFICHAGE) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauType1.DEMI_LARGEUR, menuY, Bonus.AFFICHAGE,Bonus.AFFICHAGE);
 		}
 		else if (!onAchoisis) {
-			afficherMenuRadial = true;
+//			afficherMenuRadial = true;
 			menuX = Gdx.input.getX();
 			menuY = CSG.HAUTEUR_ECRAN - Gdx.input.getY();
 		}
@@ -514,5 +532,13 @@ public class Endless implements Screen {
 
 	private void afficherConseil(String s) {
 		CSG.menuFontPetite.draw(batch, s, ((cam.position.x-CSG.DEMI_LARGEUR_ECRAN)) + ((CSG.DEMI_LARGEUR_ECRAN - CSG.menuFontPetite.getBounds(s).width/2)),	CSG.DEMI_HAUTEUR_ECRAN - CSG.menuFontPetite.getBounds(s).height * 4);
+	}
+
+	public static void perdu() {
+		// perdu = true;
+	}
+
+	public static boolean aPerdu() {
+		return perdu;
 	}
 }

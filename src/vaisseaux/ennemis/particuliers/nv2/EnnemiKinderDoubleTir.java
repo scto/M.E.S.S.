@@ -189,13 +189,13 @@ public class EnnemiKinderDoubleTir extends Ennemis{
 		if (!mort && tpsAnimation > dernierTir + ArmeKinder.CADENCETIR && tpsAnimation > AnimationKinder.TPS_ANIM_OUVERT) {
 			ArmeKinder milieu = ArmeKinder.pool.obtain();
 			if (tpsAnimation < 12) {
-				milieu.init(position.x + DEMI_LARGEUR - ArmeKinder.DEMI_LARGEUR, position.y + DEMI_HAUTEUR - ArmeKinder.DEMI_LARGEUR, direction.x, direction.y, angle+10);
+//				milieu.init(position.x + DEMI_LARGEUR - ArmeKinder.DEMI_LARGEUR, position.y + DEMI_HAUTEUR - ArmeKinder.DEMI_LARGEUR, direction.x, direction.y, angle+10);
 				direction.setAngle(angle);
 				dernierTir = tpsAnimation + .1f;
 				ArmeKinder deuxieme = ArmeKinder.pool.obtain();
-				deuxieme.init(position.x + DEMI_LARGEUR - ArmeKinder.DEMI_LARGEUR, position.y + DEMI_HAUTEUR - ArmeKinder.DEMI_LARGEUR, direction.x, direction.y, angle-10);
+//				deuxieme.init(position.x + DEMI_LARGEUR - ArmeKinder.DEMI_LARGEUR, position.y + DEMI_HAUTEUR - ArmeKinder.DEMI_LARGEUR, direction.x, direction.y, angle-10);
 			} else { // Si il est en train de se barrer
-				milieu.init(position.x + DEMI_LARGEUR - ArmeKinder.DEMI_LARGEUR, position.y + DEMI_HAUTEUR - ArmeKinder.DEMI_LARGEUR, -direction.x, -direction.y, angle+10);
+//				milieu.init(position.x + DEMI_LARGEUR - ArmeKinder.DEMI_LARGEUR, position.y + DEMI_HAUTEUR - ArmeKinder.DEMI_LARGEUR, -direction.x, -direction.y, angle+10);
 				direction.setAngle(angle);
 				dernierTir = tpsAnimation + .5f;
 			}

@@ -162,13 +162,13 @@ public class EnnemiToupieNv3 extends Ennemis{
 				if (angle < -60) versDroite = true;
 			}
 			ArmeBalayageEnnemiToupie a = ArmeBalayageEnnemiToupie.pool.obtain();
-			a.init(position.x + DEMI_LARGEUR - ArmeBalayageEnnemiToupie.DEMI_LARGEUR, position.y + DEMI_HAUTEUR - ArmeBalayageEnnemiToupie.DEMI_HAUTEUR,
-					direction.x, direction.y, angle);
+//			a.init(position.x + DEMI_LARGEUR - ArmeBalayageEnnemiToupie.DEMI_LARGEUR, position.y + DEMI_HAUTEUR - ArmeBalayageEnnemiToupie.DEMI_HAUTEUR,
+//					direction.x, direction.y, angle);
 			Armes.listeTirsDesEnnemis.add(a);
 			
 			ArmeBalayageEnnemiToupie b = ArmeBalayageEnnemiToupie.pool.obtain();
-			b.init(position.x + DEMI_LARGEUR - ArmeBalayageEnnemiToupie.DEMI_LARGEUR, position.y + DEMI_HAUTEUR - ArmeBalayageEnnemiToupie.DEMI_HAUTEUR,
-					direction.x, direction.y, -angle);
+//			b.init(position.x + DEMI_LARGEUR - ArmeBalayageEnnemiToupie.DEMI_LARGEUR, position.y + DEMI_HAUTEUR - ArmeBalayageEnnemiToupie.DEMI_HAUTEUR,
+//					direction.x, direction.y, -angle);
 			Armes.listeTirsDesEnnemis.add(b);
 			if (tpsAnimation > qdEnnemiATire + CADENCE_TIR)				qdEnnemiATire = tpsAnimation;
 		}

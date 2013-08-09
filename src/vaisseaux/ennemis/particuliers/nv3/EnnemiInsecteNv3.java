@@ -151,13 +151,13 @@ public class EnnemiInsecteNv3 extends Ennemis{
 			if (tirGauche) {
 				impulsion = 10;
 				ArmeInsecte e = ArmeInsecte.pool.obtain();
-				e.init(position.x + (DEMI_LARGEUR-ArmeInsecte.DEMI_LARGEUR) + ArmeInsecte.LARGEUR, position.y - ArmeInsecte.DEMI_HAUTEUR, angle, direction);
+//				e.init(position.x + (DEMI_LARGEUR-ArmeInsecte.DEMI_LARGEUR) + ArmeInsecte.LARGEUR, position.y - ArmeInsecte.DEMI_HAUTEUR, angle, direction);
 				dernierTir = maintenant + ArmeInsecte.CADENCETIR + ArmeInsecte.CADENCETIR;
 				Armes.listeTirsDesEnnemis.add(e);
 			} else {
 				impulsion = -10;
 				ArmeInsecte e = ArmeInsecte.pool.obtain();
-				e.init(position.x + (DEMI_LARGEUR-ArmeInsecte.DEMI_LARGEUR) - ArmeInsecte.LARGEUR, position.y - ArmeInsecte.DEMI_HAUTEUR, angle, direction);
+//				e.init(position.x + (DEMI_LARGEUR-ArmeInsecte.DEMI_LARGEUR) - ArmeInsecte.LARGEUR, position.y - ArmeInsecte.DEMI_HAUTEUR, angle, direction);
 				dernierTir = maintenant + ArmeInsecte.CADENCETIR + ArmeInsecte.CADENCETIR;
 				Armes.listeTirsDesEnnemis.add(e);
 			}

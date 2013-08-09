@@ -134,8 +134,8 @@ public class EnnemiQuiTir2Nv3 extends Ennemis{
 	protected void tir() {
 		if (!mort && maintenant > dernierTir + ArmeFusee.CADENCETIR) {
 			ArmeFusee e = ArmeFusee.pool.obtain();
-			if (pv > Stats.DEMI_PV_BASE_QUI_TIR2) e.init(position.x + DEMI_LARGEUR - ArmeFusee.DEMI_LARGEUR, position.y - ArmeFusee.LARGEUR, 0, -0.8f);
-			else e.init(position.x + DEMI_LARGEUR - ArmeFusee.DEMI_LARGEUR, position.y - ArmeFusee.LARGEUR, 0.1f, -0.8f);
+//			if (pv > Stats.DEMI_PV_BASE_QUI_TIR2) e.init(position.x + DEMI_LARGEUR - ArmeFusee.DEMI_LARGEUR, position.y - ArmeFusee.LARGEUR, 0, -0.8f);
+//			else e.init(position.x + DEMI_LARGEUR - ArmeFusee.DEMI_LARGEUR, position.y - ArmeFusee.LARGEUR, 0.1f, -0.8f);
 			dernierTir = maintenant + ArmeBossQuad.CADENCETIR + ArmeBossQuad.CADENCETIR + ArmeBossQuad.CADENCETIR;
 		}
 	}
