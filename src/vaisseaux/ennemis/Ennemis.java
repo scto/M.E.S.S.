@@ -4,16 +4,21 @@ import jeu.Endless;
 import vaisseaux.Vaisseaux;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.particuliers.EnnemiBossQuad;
-import vaisseaux.ennemis.particuliers.EnnemiBouleQuiSArrete;
-import vaisseaux.ennemis.particuliers.EnnemiCylon;
-import vaisseaux.ennemis.particuliers.EnnemiDeBase;
-import vaisseaux.ennemis.particuliers.EnnemiQuiTir;
-import vaisseaux.ennemis.particuliers.EnnemiKinder;
 import vaisseaux.ennemis.particuliers.EnnemiPorteNef;
-import vaisseaux.ennemis.particuliers.EnnemiPorteRaisin;
-import vaisseaux.ennemis.particuliers.EnnemiQuiTourne;
-import vaisseaux.ennemis.particuliers.EnnemiToupie;
-import vaisseaux.ennemis.particuliers.EnnemiZigZag;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiAvion;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiBouleQuiSArrete;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiCylon;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiDeBase;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiInsecte;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiKinder;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiLaser;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiPorteRaisin;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir2;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTourne;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiToupie;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiZigZag;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -21,12 +26,15 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 
-public abstract class Ennemis extends Vaisseaux implements Poolable{
+public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	
 	// voir a quelle taille l'initialiser
 	public static Array<Ennemis> liste = new Array<Ennemis>(30);
 	protected static final Vector2 tmpPos = new Vector2();
 	protected static final Vector2 tmpDir = new Vector2();
+	public static final Invocable[] LISTE_LV1 = {EnnemiDeBase.pool.obtain(), EnnemiZigZag.pool.obtain(), EnnemiQuiTir.pool.obtain(), EnnemiBouleQuiSArrete.pool.obtain()
+		,EnnemiQuiTourne.pool.obtain(), EnnemiToupie.pool.obtain(), EnnemiCylon.pool.obtain(), EnnemiKinder.pool.obtain(), EnnemiQuiTir2.pool.obtain(), EnnemiAvion.pool.obtain(),
+		EnnemiPorteRaisin.pool.obtain(), EnnemiLaser.pool.obtain(), EnnemiInsecte.pool.obtain()};
 	public static float derniereApparition = 0;
 	public boolean mort = false;
 	protected static Rectangle collision = new Rectangle();
@@ -211,5 +219,4 @@ public abstract class Ennemis extends Vaisseaux implements Poolable{
 	public static void initLevelBoss(int level) {
 		EnnemiBossQuad.setLevel(level);
 	}
-
 }

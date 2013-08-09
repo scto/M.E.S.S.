@@ -170,4 +170,8 @@ public class Rocher extends Ennemis{
 		return demiLargeur;
 	}
 	
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
+	}
 }

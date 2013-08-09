@@ -6,7 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeAvion;
 import vaisseaux.ennemis.TypesEnnemis;
-import vaisseaux.ennemis.particuliers.EnnemiDeBase;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiDeBase;
 import assets.SoundMan;
 import assets.animation.AnimationAvion;
 import assets.animation.AnimationExplosion1;

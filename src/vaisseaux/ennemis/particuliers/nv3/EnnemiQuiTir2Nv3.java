@@ -8,7 +8,7 @@ import vaisseaux.armes.ArmeBossQuad;
 import vaisseaux.armes.ArmeFusee;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
-import vaisseaux.ennemis.particuliers.EnnemiQuiTir2;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir2;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;

@@ -6,6 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.Armes;
 import vaisseaux.armes.ArmesBouleVerte;
+import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;

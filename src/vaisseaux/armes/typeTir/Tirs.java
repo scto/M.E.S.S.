@@ -1,11 +1,6 @@
 package vaisseaux.armes.typeTir;
 
 import vaisseaux.armes.Armes;
-import vaisseaux.ennemis.particuliers.DoubleTireur;
-import vaisseaux.ennemis.particuliers.Tireur;
-import vaisseaux.ennemis.particuliers.TireurAngle;
-import vaisseaux.ennemis.particuliers.TireurBalayage;
-import vaisseaux.ennemis.particuliers.TireurPlusieurFois;
 import vaisseaux.joueur.VaisseauType1;
 
 import com.badlogic.gdx.math.Vector2;

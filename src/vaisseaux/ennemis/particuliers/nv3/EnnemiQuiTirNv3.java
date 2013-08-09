@@ -7,7 +7,7 @@ import menu.CSG;
 import vaisseaux.armes.ArmeBossQuad;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
-import vaisseaux.ennemis.particuliers.EnnemiQuiTir;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;

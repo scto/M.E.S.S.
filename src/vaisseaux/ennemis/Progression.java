@@ -2,23 +2,23 @@ package vaisseaux.ennemis;
 
 import jeu.Endless;
 import menu.CSG;
-import vaisseaux.ennemis.particuliers.EnnemiAvion;
 import vaisseaux.ennemis.particuliers.EnnemiBossMine;
 import vaisseaux.ennemis.particuliers.EnnemiBossQuad;
-import vaisseaux.ennemis.particuliers.EnnemiBouleQuiSArrete;
-import vaisseaux.ennemis.particuliers.EnnemiCylon;
-import vaisseaux.ennemis.particuliers.EnnemiDeBase;
-import vaisseaux.ennemis.particuliers.EnnemiInsecte;
-import vaisseaux.ennemis.particuliers.EnnemiKinder;
-import vaisseaux.ennemis.particuliers.EnnemiLaser;
 import vaisseaux.ennemis.particuliers.EnnemiPorteNef;
-import vaisseaux.ennemis.particuliers.EnnemiPorteRaisin;
-import vaisseaux.ennemis.particuliers.EnnemiQuiTir;
-import vaisseaux.ennemis.particuliers.EnnemiQuiTir2;
-import vaisseaux.ennemis.particuliers.EnnemiQuiTourne;
-import vaisseaux.ennemis.particuliers.EnnemiToupie;
-import vaisseaux.ennemis.particuliers.EnnemiZigZag;
 import vaisseaux.ennemis.particuliers.Rocher;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiAvion;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiBouleQuiSArrete;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiCylon;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiDeBase;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiInsecte;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiKinder;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiLaser;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiPorteRaisin;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir2;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTourne;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiToupie;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiZigZag;
 import vaisseaux.ennemis.particuliers.nv2.EnnemiKinderDoubleTir;
 import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCote;
 import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCotePetitEtRapide;
@@ -46,7 +46,7 @@ import vaisseaux.ennemis.particuliers.nv3.EnnemiZigZagNv3;
  */
 public class Progression {
 
-	private static final int NV_DE_BASE = 20000;
+	private static final int NV_DE_BASE = 2;
 	private static int niveau = NV_DE_BASE;
 	private static final int PALIER = 15;
 	private static int pointsDispos = 0;
@@ -142,37 +142,14 @@ public class Progression {
 		}
 		pointsDispos++;
 
-		for (TypesEnnemis type : TypesEnnemis.LISTE_ENNEMIS_NV1) {
-			if (pointsDispos >= type.COUT) {
-				// liste.add(type);
-				ajoutNv1(type);
-				pointsDispos -= type.COUT;
+		for (Invocable inv : Ennemis.LISTE_LV1) {
+			if (pointsDispos >= inv.getXp()) {
+				inv.invoquer();
+				pointsDispos -= inv.getXp();
 			}
 		}
 	}
 	
-	private static void ajoutNv1(TypesEnnemis type) {
-		switch (type) {
-		case EnnemiLaser:				Ennemis.liste.add(EnnemiLaser.pool.obtain());					break;
-		case ROCHER:					Ennemis.liste.add(Rocher.pool.obtain());						break;
-		case EnnemiBossMine:			Ennemis.liste.add(EnnemiBossMine.pool.obtain());				break;
-		case EnnemiQuiTir2:				Ennemis.liste.add(EnnemiQuiTir2.pool.obtain());					break;
-		case EnnemiAvion:				Ennemis.liste.add(EnnemiAvion.pool.obtain());					break;
-		case EnnemiPorteRaisin:			Ennemis.liste.add(EnnemiPorteRaisin.pool.obtain());				break;
-		case EnnemiBossQuad:			Ennemis.liste.add(EnnemiBossQuad.pool.obtain());				break;
-		case EnnemiKinder:				Ennemis.liste.add(EnnemiKinder.pool.obtain());					break;
-		case EnnemiCylon:				Ennemis.liste.add(EnnemiCylon.pool.obtain());					break;
-		case EnnemiToupie:				Ennemis.liste.add(EnnemiToupie.pool.obtain());					break;
-		case EnnemiQuiTourne:			Ennemis.liste.add(EnnemiQuiTourne.pool.obtain());				break;
-		case EnnemiPorteNef:			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());				break;
-		case EnnemiBouleQuiSArrete:		Ennemis.liste.add(EnnemiBouleQuiSArrete.pool.obtain());			break;
-		case EnnemiDeBaseQuiTir:		Ennemis.liste.add(EnnemiQuiTir.pool.obtain());					break;
-		case EnnemiZigZag:				Ennemis.liste.add(EnnemiZigZag.pool.obtain());					break;
-		case EnnemiInsecte:				Ennemis.liste.add(EnnemiInsecte.pool.obtain());					break;
-		case EnnemiDeBase:				Ennemis.liste.add(EnnemiDeBase.pool.obtain());					break;
-	}
-	}
-
 	private static void popNormal2() {
 		switch (alternerNbPoints) { // calcul des points. Se base sur le niveau
 		case 0:
@@ -228,7 +205,7 @@ public class Progression {
 			case EnnemiQuiTourne:			Ennemis.liste.add(EnnemiQuiTourne.pool.obtain());				break;
 			case EnnemiPorteNef:			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());				break;
 			case EnnemiBouleQuiSArrete:		Ennemis.liste.add(EnnemiBouleQuiSArrete.pool.obtain());			break;
-			case EnnemiDeBaseQuiTir:		Ennemis.liste.add(EnnemiQuiTir.pool.obtain());					break;
+			case EnnemiQuiTir:		Ennemis.liste.add(EnnemiQuiTir.pool.obtain());					break;
 			case EnnemiZigZag:				Ennemis.liste.add(EnnemiZigZag.pool.obtain());					break;
 			case EnnemiKinderDoubleNv2:		Ennemis.liste.add(EnnemiKinderDoubleTir.pool.obtain());			break;
 			case EnnemiInsecte:				Ennemis.liste.add(EnnemiInsecte.pool.obtain());					break;

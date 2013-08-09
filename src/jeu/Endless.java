@@ -7,37 +7,7 @@ import vaisseaux.RestesEnnemis;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.particuliers.EnnemiAilesDeployees;
-import vaisseaux.ennemis.particuliers.EnnemiAvion;
-import vaisseaux.ennemis.particuliers.EnnemiBossMine;
-import vaisseaux.ennemis.particuliers.EnnemiBossQuad;
-import vaisseaux.ennemis.particuliers.EnnemiBouleQuiSArrete;
-import vaisseaux.ennemis.particuliers.EnnemiCylon;
-import vaisseaux.ennemis.particuliers.EnnemiInsecte;
-import vaisseaux.ennemis.particuliers.EnnemiLaser;
-import vaisseaux.ennemis.particuliers.EnnemiPorteRaisin;
-import vaisseaux.ennemis.particuliers.EnnemiQuiTir;
-import vaisseaux.ennemis.particuliers.EnnemiQuiTir2;
-import vaisseaux.ennemis.particuliers.EnnemiKinder;
-import vaisseaux.ennemis.particuliers.EnnemiPorteNef;
-import vaisseaux.ennemis.particuliers.EnnemiQuiTourne;
-import vaisseaux.ennemis.particuliers.EnnemiToupie;
-import vaisseaux.ennemis.particuliers.EnnemiZigZag;
-import vaisseaux.ennemis.particuliers.nv2.EnnemiKinderDoubleTir;
-import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCote;
-import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCotePetitEtRapide;
-import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCoteRotation;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiAvionNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiBouleQuiSArreteNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiCylonNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiInsecteNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiLaserNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiPorteRaisinNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTir2Nv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTirNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiKinderNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiToupieNv3;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiKinder;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -51,7 +21,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.swarmconnect.SwarmLeaderboard;
 
 /**
@@ -387,7 +356,7 @@ public class Endless implements Screen {
 			if (CSG.profil.typeControle == CSG.CONTROLE_ACCELEROMETRE & !afficherMenuRadial) vaisseau.accelerometre();
 
 			if (alterner) {		
-//				Ennemis.possibleApparitionEtUpdateScore();
+				Ennemis.possibleApparitionEtUpdateScore();
 				if (!activerStop) 			Physique.testCollisions();
 				if (!afficherMenuRadial)	vaisseau.tir();
 				if (alternerUpdateScore) {
@@ -395,8 +364,8 @@ public class Endless implements Screen {
 					// Roue des couleurs
 					if (color > .99f) {
 						sensCouleurGlobale = false;
-						Ennemis.liste.add(EnnemiKinder.pool.obtain());
-						Ennemis.liste.add(EnnemiKinder.pool.obtain());
+//						Ennemis.liste.add(EnnemiKinder.pool.obtain());
+//						Ennemis.liste.add(EnnemiKinder.pool.obtain());
 					}
 					else if (color < .01f) sensCouleurGlobale = true;
 					if (sensCouleurGlobale) color += .02f;
@@ -473,7 +442,7 @@ public class Endless implements Screen {
 	}
 
 	private void afficherDPAD() {
-		if (CSG.profil.typeControle == CSG.CONTROLE_DPAD & Gdx.input.isTouched()){
+		if (CSG.profil.typeControle == CSG.CONTROLE_DPAD && Gdx.input.isTouched()){
 			//			F L E C H E   D R O I T E
 			batch.draw(fleche,(cam.position.x-CSG.DEMI_LARGEUR_ECRAN) + VaisseauType1.prevX + DEMI_LARGEUR_FLECHE, CSG.HAUTEUR_ECRAN - (VaisseauType1.prevY + DEMI_HAUTEUR_FLECHE), DEMI_LARGEUR_FLECHE, DEMI_HAUTEUR_FLECHE, LARGEUR_FLECHE, HAUTEUR_FLECHE, 1, 1, 0);
 			//			F L E C H E   G A U C H E

@@ -1,6 +1,6 @@
 package vaisseaux.ennemis;
 
-import vaisseaux.ennemis.particuliers.EnnemiDeBase;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiDeBase;
 
 /**
  * Definit les differents ennemis et leurs couts
@@ -9,7 +9,7 @@ import vaisseaux.ennemis.particuliers.EnnemiDeBase;
 public enum TypesEnnemis {
 	EnnemiDeBase(1),
 	EnnemiZigZag(3),
-	EnnemiDeBaseQuiTir(5),
+	EnnemiQuiTir(5),
 	EnnemiBouleQuiSArrete(7),
 	EnnemiPorteNef(50),
 	EnnemiQuiTourne(11),
@@ -52,10 +52,10 @@ public enum TypesEnnemis {
 	public final int COUT;
 	
 	public final static TypesEnnemis[] LISTE_ENNEMIS_NV1 = {EnnemiInsecte, EnnemiLaser, EnnemiPorteRaisin, EnnemiAvion, EnnemiQuiTir2, EnnemiKinder, EnnemiCylon,
-		EnnemiToupie, EnnemiQuiTourne, EnnemiBouleQuiSArrete, EnnemiDeBaseQuiTir, EnnemiZigZag, EnnemiDeBase};
+		EnnemiToupie, EnnemiQuiTourne, EnnemiBouleQuiSArrete, EnnemiQuiTir, EnnemiZigZag, EnnemiDeBase};
 	
 	public final static TypesEnnemis[] LISTE_ENNEMIS_NV2 = {EnnemiInsecte, EnnemiLaserCoteNv2, EnnemiLaser, EnnemiKinderDoubleNv2, EnnemiLaserCoteRotationNv2, EnnemiPorteRaisin,
-		EnnemiAvion, EnnemiQuiTir2, EnnemiLaserCotePetitNv2, EnnemiKinder, EnnemiCylon, EnnemiToupie, EnnemiQuiTourne, EnnemiBouleQuiSArrete, EnnemiDeBaseQuiTir, EnnemiZigZag,
+		EnnemiAvion, EnnemiQuiTir2, EnnemiLaserCotePetitNv2, EnnemiKinder, EnnemiCylon, EnnemiToupie, EnnemiQuiTourne, EnnemiBouleQuiSArrete, EnnemiQuiTir, EnnemiZigZag,
 		EnnemiDeBase};
 	
 	public final static TypesEnnemis[] LISTE_ENNEMIS_NV3 = {EnnemiInsecteNv3, EnnemiLaserNv3, EnnemiPorteRaisinNv3, EnnemiAvionNv3, EnnemiQuiTir2Nv3, EnnemiKinderNv3, EnnemiCylonNv3, EnnemiToupieNv3, EnnemiQuiTourneNv3, EnnemiBouleQuiSArreteNv3,

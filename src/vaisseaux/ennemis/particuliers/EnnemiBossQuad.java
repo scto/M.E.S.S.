@@ -6,6 +6,7 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeBossQuad;
 import vaisseaux.armes.Armes;
+import vaisseaux.armes.typeTir.Tireur;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;

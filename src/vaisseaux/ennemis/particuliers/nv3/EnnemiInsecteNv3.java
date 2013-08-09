@@ -8,7 +8,7 @@ import vaisseaux.armes.ArmeInsecte;
 import vaisseaux.armes.Armes;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.TypesEnnemis;
-import vaisseaux.ennemis.particuliers.EnnemiInsecte;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiInsecte;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
