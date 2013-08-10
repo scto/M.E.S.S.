@@ -9,7 +9,6 @@ import assets.animation.AnimationMeteorite;
 import assets.particules.ParticulesMeteorite;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -40,7 +39,9 @@ public class ArmesFragmentation extends Armes implements Poolable{
 	}
 	
 	@Override
-	public void reset() {	}
+	public void reset() {
+		tpsAnim = 0;
+	}
 
 	@Override
 	public void afficher(SpriteBatch batch) {

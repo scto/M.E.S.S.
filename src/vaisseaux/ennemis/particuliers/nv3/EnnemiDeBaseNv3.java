@@ -162,5 +162,10 @@ public class EnnemiDeBaseNv3 extends Ennemis{
 	}
 	
 	@Override
-	public void invoquer() {		liste.add(pool.obtain());	}
+	public void invoquer() {		
+		liste.add(pool.obtain());
+		liste.add(pool.obtain());
+		liste.add(pool.obtain());
+		liste.add(pool.obtain());
+	}
 }

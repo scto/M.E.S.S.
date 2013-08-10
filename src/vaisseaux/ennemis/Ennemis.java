@@ -18,6 +18,22 @@ import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir2;
 import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTourne;
 import vaisseaux.ennemis.particuliers.nv1.EnnemiToupie;
 import vaisseaux.ennemis.particuliers.nv1.EnnemiZigZag;
+import vaisseaux.ennemis.particuliers.nv2.EnnemiKinderDoubleTir;
+import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCote;
+import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCotePetitEtRapide;
+import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCoteRotation;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiAvionNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiBouleQuiSArreteNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiCylonNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiDeBaseNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiInsecteNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiKinderNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiPorteRaisinNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTir2Nv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTirNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiToupieNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiZigZagNv3;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -32,9 +48,56 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	public static Array<Ennemis> liste = new Array<Ennemis>(30);
 	protected static final Vector2 tmpPos = new Vector2();
 	protected static final Vector2 tmpDir = new Vector2();
-	public static final Invocable[] LISTE_LV1 = {EnnemiDeBase.pool.obtain(), EnnemiZigZag.pool.obtain(), EnnemiQuiTir.pool.obtain(), EnnemiBouleQuiSArrete.pool.obtain()
-		,EnnemiQuiTourne.pool.obtain(), EnnemiToupie.pool.obtain(), EnnemiCylon.pool.obtain(), EnnemiKinder.pool.obtain(), EnnemiQuiTir2.pool.obtain(), EnnemiAvion.pool.obtain(),
-		EnnemiPorteRaisin.pool.obtain(), EnnemiLaser.pool.obtain(), new EnnemiInsecte()};//EnnemiInsecte.pool.obtain()};
+	public static final Invocable[] LISTE_LV1 = {
+		new EnnemiInsecte(),
+		EnnemiLaser.pool.obtain(),
+		EnnemiPorteRaisin.pool.obtain(),
+		EnnemiAvion.pool.obtain(),
+		EnnemiQuiTir2.pool.obtain(),
+		EnnemiKinder.pool.obtain(),
+		EnnemiCylon.pool.obtain(),
+		EnnemiToupie.pool.obtain(),
+		EnnemiQuiTourne.pool.obtain(),
+		EnnemiBouleQuiSArrete.pool.obtain(),
+		EnnemiQuiTir.pool.obtain(),
+		EnnemiZigZag.pool.obtain(),
+		EnnemiDeBase.pool.obtain(),
+		};//EnnemiInsecte.pool.obtain()};
+	public static final Invocable[] LISTE_LV2 = {
+		new EnnemiInsecte(),
+		EnnemiKinderDoubleTir.pool.obtain(),
+		EnnemiLaserCote.pool.obtain(),
+		EnnemiLaser.pool.obtain(),
+		EnnemiKinderDoubleTir.pool.obtain(),
+		EnnemiLaserCoteRotation.pool.obtain(),
+		EnnemiPorteRaisin.pool.obtain(),
+		EnnemiAvion.pool.obtain(),
+		EnnemiQuiTir2.pool.obtain(), 
+		EnnemiLaserCotePetitEtRapide.pool.obtain(),
+		EnnemiKinder.pool.obtain(), 
+		EnnemiCylon.pool.obtain(), 
+		EnnemiToupie.pool.obtain(), 
+		EnnemiQuiTourne.pool.obtain(), 
+		EnnemiBouleQuiSArrete.pool.obtain(),
+		EnnemiQuiTir.pool.obtain(),
+		EnnemiZigZag.pool.obtain(),
+		EnnemiDeBase.pool.obtain(),
+		};//EnnemiInsecte.pool.obtain()};
+	public static final Invocable[] LISTE_LV3 = {
+		new EnnemiInsecteNv3(),
+		EnnemiLaserCote.pool.obtain(), 
+		EnnemiPorteRaisinNv3.pool.obtain(), 
+		EnnemiAvionNv3.pool.obtain(),
+		EnnemiQuiTir2Nv3.pool.obtain(), 
+		EnnemiKinderNv3.pool.obtain(), 
+		EnnemiCylonNv3.pool.obtain(), 
+		EnnemiToupieNv3.pool.obtain(), 
+		EnnemiQuiTourneNv3.pool.obtain(), 
+		EnnemiBouleQuiSArreteNv3.pool.obtain(),
+		EnnemiQuiTirNv3.pool.obtain(),
+		EnnemiZigZagNv3.pool.obtain(),
+		EnnemiDeBaseNv3.pool.obtain(),
+		};//EnnemiInsecte.pool.obtain()};
 	public static float derniereApparition = 0;
 	public boolean mort = false;
 	protected static Rectangle collision = new Rectangle();
@@ -79,7 +142,6 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 * Methode de tir, si elle n'est pas redefinie l'ennemi ne tir pas
 	 */
 	protected void tir() {
-		
 	}
 
 	/**
@@ -117,16 +179,13 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 */
 	public static void possibleApparitionEtUpdateScore() {
 		if (Progression.frequenceApparition + derniereApparition < Endless.maintenant) {
-			long debut = System.currentTimeMillis();
-			switch (Endless.level) {
-			case 1:				Progression.listeEnnemisNv1();				break;
-			case 2:				Progression.listeEnnemisNv2();				break;
-			case 3:				Progression.listeEnnemisNv3();				break;
-			}
+			Progression.invoqueEnnemis();
+//			switch (Endless.level) {
+//			case 1:				Progression.listeEnnemisNv1();				break;
+//			case 2:				Progression.listeEnnemisNv2();				break;
+//			case 3:				Progression.listeEnnemisNv3();				break;
+//			}
 			derniereApparition = Endless.maintenant;
-			System.out.println(System.currentTimeMillis() - debut);
-			for (Ennemis e : liste)
-				e.mourrir();
 		}
 	}
 	/**

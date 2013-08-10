@@ -7,6 +7,7 @@ import vaisseaux.RestesEnnemis;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
+import vaisseaux.ennemis.particuliers.nv1.EnnemiCylon;
 import vaisseaux.ennemis.particuliers.nv1.EnnemiKinder;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
@@ -115,19 +116,19 @@ public class Endless implements Screen {
 		activerStop = false;
 		nbBombes = 0;
 		
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					System.out.println((int)maintenant + ";" + Gdx.graphics.getFramesPerSecond());
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
+//		Thread t = new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				while (true) {
+//					System.out.println((int)maintenant + ";" + Gdx.graphics.getFramesPerSecond());
+//					try {
+//						Thread.sleep(1000);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			}
+//		});
 //		t.start();
 	}
 
