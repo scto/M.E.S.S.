@@ -9,7 +9,6 @@ import assets.animation.AnimationTirTrois;
 import assets.particules.ParticulesArmeHantee;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -30,7 +29,6 @@ public class ArmeHantee extends Armes implements Poolable{
 	private float tpsAnimation = 0;
 	// ** ** particules
 	public ParticulesArmeHantee particleEffect;
-	private Vector2 direction = new Vector2();
 	private static boolean alterner = false;
 	
 	public static void updateDimensions() {
@@ -42,7 +40,6 @@ public class ArmeHantee extends Armes implements Poolable{
 		position.x = posX;
 		position.y = posY;
 		liste.add(this);
-		initGraphismes();
 		direction.x = 0;
 		direction.y = 1;
 		tpsAnimation = 0;
@@ -50,13 +47,6 @@ public class ArmeHantee extends Armes implements Poolable{
 
 	@Override
 	public void reset() {	}
-
-	@Override
-	public void afficher(SpriteBatch batch){
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-		particleEffect.draw(batch, Endless.delta);
-		batch.draw(AnimationTirTrois.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, LARGEUR);
-	}
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
@@ -79,20 +69,11 @@ public class ArmeHantee extends Armes implements Poolable{
 
 	@Override
 	public int getForce() {		return FORCE + CSG.profil.NvArmeHantee;	}
-
 	@Override
 	public int getLargeur() {		return LARGEUR;	}
-
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
 
-	@Override
-	public void initGraphismes() {
-		if(CSG.profil.particules){
-			particleEffect = ParticulesArmeHantee.pool.obtain();
-			particleEffect.start();
-		}
-	}
 	@Override
 	public void free() {
 		if (particleEffect != null) particleEffect.free();
@@ -100,12 +81,5 @@ public class ArmeHantee extends Armes implements Poolable{
 	}
 
 	@Override
-	public boolean testCollsionAdds() {
-		return false;
-	}
-	
-	@Override
-	public Vector2 getDirection(){
-		return direction;
-	}
+	public boolean testCollsionAdds() {		return false;	}
 }

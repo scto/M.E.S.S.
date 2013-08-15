@@ -15,7 +15,7 @@ import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationKinder;
 import assets.particules.ParticulesExplosionPetite;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -28,7 +28,7 @@ public class Kinder extends Ennemis implements TireurAngle {
 	// ** ** caracteristiques g�n�rales
 	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 8;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = LARGEUR - DEMI_LARGEUR / 2;
+	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	protected static final Tirs tir = new Tirs(.5f);
 	// ** ** caracteristiques variables.
@@ -45,18 +45,9 @@ public class Kinder extends Ennemis implements TireurAngle {
 		super(0,0, Stats.PVMAX_KINDER);
 		init();
 	}
-	
+
 	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosionkinder);
-		if (CSG.profil.particules) {
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y	+ DEMI_HAUTEUR);
-			explosion.start();
-		} else {
-			tpsAnimationExplosion = 0;
-		}
-	}
+	protected Sound getSonExplosion() {		return SoundMan.explosionkinder;	}
 	
 	/**
 	 * Ajoute � la liste
@@ -117,45 +108,21 @@ public class Kinder extends Ennemis implements TireurAngle {
 	}
 	
 	@Override
-	protected TextureRegion getTexture() {
-		return AnimationKinder.getTexture(maintenant);
-	}
-	
+	protected TextureRegion getTexture() {		return AnimationKinder.getTexture(maintenant);	}
 	@Override
-	protected float getAngle() {
-		return angle;
-	}
-	
+	protected float getAngle() {				return angle + 90;	}
 	@Override
-	protected void tir() {
-		tir.tirToutDroit(this, mort, maintenant, prochainTir);
-	}
-
-
+	protected void tir() {						tir.tirToutDroit(this, mort, maintenant, prochainTir);	}
 	@Override
-	public int getXp() {
-		return CoutsEnnemis.EnnemiKinder.COUT;
-	}
-	
+	public int getXp() {						return CoutsEnnemis.EnnemiKinder.COUT;	}
 	@Override
-	public int getHauteur() {
-		return HAUTEUR;
-	}
-
+	public int getHauteur() {					return HAUTEUR;	}
 	@Override
-	public int getLargeur() {
-		return LARGEUR;
-	}
-
+	public int getLargeur() {					return LARGEUR;	}
 	@Override
-	public int getDemiHauteur() {
-		return DEMI_HAUTEUR;
-	}
-
+	public int getDemiHauteur() {				return DEMI_HAUTEUR;	}
 	@Override
-	public int getDemiLargeur() {
-		return DEMI_LARGEUR;
-	}
+	public int getDemiLargeur() {				return DEMI_LARGEUR;	}
 
 	@Override
 	public Rectangle getRectangleCollision() {
@@ -199,5 +166,6 @@ public class Kinder extends Ennemis implements TireurAngle {
 	public void invoquer() {
 		liste.add(pool.obtain());
 	}
+	
 }
 

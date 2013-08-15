@@ -12,11 +12,10 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationAvion;
-import assets.animation.AnimationEnnemiDeBase;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -41,17 +40,6 @@ public class Avion extends DeBase implements DoubleTireur {
 	// ** ** particules
 	protected ParticulesExplosionPetite explosion;
 	
-	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosionennemidebasequitir);
-		if(CSG.profil.particules){
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-			explosion.start();
-		} else {
-			tpsAnimationExplosion = 0;
-		}
-	}
 	
 	public void init() {
 		if (CSG.profil.particules && explosion == null) explosion = ParticulesExplosionPetite.pool.obtain();
@@ -67,11 +55,6 @@ public class Avion extends DeBase implements DoubleTireur {
 		prochainTir = 2.5f;
 	}
 
-	public Avion() {
-		super(Positionnement.getEmplacementX(DEMI_LARGEUR), CSG.HAUTEUR_ECRAN + HAUTEUR, Stats.PVMAX_AVION);
-	}
-
-
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
@@ -84,20 +67,6 @@ public class Avion extends DeBase implements DoubleTireur {
 		position.y -= (Stats.VITESSE_AVION * Endless.delta);
 		return true;
 	}
-
-	@Override
-	protected TextureRegion getTexture() {
-		return AnimationAvion.getTexture(pv);
-	}
-	
-	@Override
-	protected void tir() {
-		tir.doubleTirVersBas(this, mort, maintenant, prochainTir);
-	}
-
-
-	@Override
-	public int getXp() {		return CoutsEnnemis.EnnemiAvion.COUT;	}
 	
 	@Override
 	public Rectangle getRectangleCollision() {
@@ -106,42 +75,34 @@ public class Avion extends DeBase implements DoubleTireur {
 	}
 	
 	@Override
+	protected Sound getSonExplosion() {	return SoundMan.explosionennemidebasequitir;	}
+	@Override
 	public int getHauteur() {			return HAUTEUR;	}
-
 	@Override
 	public int getLargeur() {			return LARGEUR;	}
-
 	@Override
 	public int getDemiHauteur() {		return DEMI_HAUTEUR;	}
-
 	@Override
 	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
-
 	@Override
 	public Armes getArme() {			return ArmeBossQuad.pool.obtain();	}
-	
 	@Override
 	public void setProchainTir(float f) {		prochainTir = f;	}
-
 	@Override
 	public float getModifVitesse() {	return 1;	}
-	
 	public int getPvMax() {				return Stats.PVMAX_AVION; }
-	
 	@Override
-	public float getXtir1() {
-		return position.x - offsetArmeGauche;
-	}
-
+	public float getXtir1() {			return position.x - offsetArmeGauche;	}
 	@Override
-	public float getXtir2() {
-		return position.x + offsetArmeDroite;
-	}
-
+	public float getXtir2() {			return position.x + offsetArmeDroite;	}
 	@Override
-	public float getYtirs() {
-		return position.y;
-	}
+	public float getYtirs() {			return position.y;	}
+	@Override
+	protected TextureRegion getTexture() {		return AnimationAvion.getTexture(pv);	}
+	@Override
+	protected void tir() {				tir.doubleTirVersBas(this, mort, maintenant, prochainTir);	}
+	@Override
+	public int getXp() {				return CoutsEnnemis.EnnemiAvion.COUT;	}
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {

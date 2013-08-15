@@ -39,12 +39,6 @@ public class ArmeKinder extends Armes implements Poolable {
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch) {
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-		particleEffect.draw(batch, Endless.delta);
-	}
-
-	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(Color.CYAN);
@@ -77,14 +71,6 @@ public class ArmeKinder extends Armes implements Poolable {
 
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
-
-	@Override
-	public void initGraphismes() {
-		if (CSG.profil.particules) {
-			particleEffect = ParticulesArmeTrois.pool.obtain();
-			particleEffect.start();
-		}
-	}
 
 	@Override
 	public void free() {

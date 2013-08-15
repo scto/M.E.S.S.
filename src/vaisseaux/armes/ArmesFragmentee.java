@@ -1,6 +1,5 @@
 package vaisseaux.armes;
 
-import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
@@ -8,7 +7,6 @@ import assets.animation.AnimationMeteorite;
 import assets.particules.ParticulesMeteorite;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -24,7 +22,6 @@ public class ArmesFragmentee extends Armes implements Poolable{
 	private float tpsAnim = 3;
 	// ** ** variable utilitaire
 	private float angle;
-	private Vector2 direction = new Vector2();
 	private ParticulesMeteorite particleEffect;
 	
 	public void init(float posX, float posY, float dirX, float dirY) {
@@ -34,8 +31,8 @@ public class ArmesFragmentee extends Armes implements Poolable{
 		if (Math.abs(dirY) < .1f) dirY *= 15;
 		position.x = posX;
 		position.y = posY;
-		Armes.listeTirsDesEnnemis.add(this);
-		initGraphismes();
+		// Car elle est générée par une arme
+		listeTirsDesEnnemis.add(this); 
 	}
 	
 	@Override
@@ -51,13 +48,6 @@ public class ArmesFragmentee extends Armes implements Poolable{
 	@Override
 	public boolean testCollsionAdds() {
 		return Physique.testCollisionAdds(position, LARGEUR);
-	}
-	
-	@Override
-	public void afficher(SpriteBatch batch) {
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-		particleEffect.draw(batch, Endless.delta);
-		batch.draw(AnimationMeteorite.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle, false);
 	}
 	
 	@Override
@@ -81,13 +71,6 @@ public class ArmesFragmentee extends Armes implements Poolable{
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
 
-	@Override
-	public void initGraphismes() {
-		if (CSG.profil.particules){
-			particleEffect = ParticulesMeteorite.pool.obtain();
-			particleEffect.start();
-		}
-	}
 	@Override
 	public void free() {
 		if (particleEffect != null) particleEffect.free();

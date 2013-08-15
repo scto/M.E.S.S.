@@ -42,13 +42,6 @@ public class ArmesBouleVerte extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch) {
-		tpsAnim += Endless.delta;
-		batch.setColor(.7f, 1, .7f, 1);
-		batch.draw(AnimationBouleBleu.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_LARGEUR, LARGEUR, LARGEUR,	1, 1, angle, false);
-		batch.setColor(Color.WHITE);
-	}
-	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(.7f, 1, .7f, 1);
@@ -71,9 +64,6 @@ public class ArmesBouleVerte extends Armes implements Poolable{
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
 
-	@Override
-	public void initGraphismes() {	}
-	
 	@Override
 	public void free() {		pool.free(this);	}
 }

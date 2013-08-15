@@ -16,7 +16,7 @@ import assets.animation.AnimationEnnemiToupie;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -82,16 +82,7 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	}
 
 	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosiontoupie);
-		if(CSG.profil.particules){
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-			explosion.start();
-		} else {
-			tpsAnimationExplosion = 0;
-		}
-	}
+	protected Sound getSonExplosion() {		return SoundMan.explosiontoupie;	}
 
 	@Override
 	protected TextureRegion getTexture() {
@@ -100,7 +91,7 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	
 	@Override
 	public float getAngle() {
-		return angleAffichage;
+		return angleAffichage + 90;
 	}
 
 	@Override

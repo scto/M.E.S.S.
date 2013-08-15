@@ -13,7 +13,7 @@ import assets.animation.AnimationEnnemiDeBase;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -38,37 +38,12 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	private static int nbEnnemisAvant = 0;
 	private static float posXInitiale;
 	
-	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosiontoupie);
-		if (CSG.profil.particules) {
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-			explosion.start();
-		} else {
-			tpsAnimationExplosion = 0;
-		}
-	}
-
 	/**
 	 * Contructeur sans argument, appel� par le pool
 	 */
 	public DeBase() {
 		super(CSG.LARGEUR_BORD,	CSG.HAUTEUR_ECRAN + HAUTEUR, Stats.PVMAX_DE_BASE);
 		Positionnement.setPosX(this);
-	}
-
-	
-	public DeBase(float emplacementX, int i, int pvmaxAvion) {
-		super(emplacementX, i, pvmaxAvion);
-	}
-
-	/**
-	 * Initialise l'ennemi
-	 */
-	public void init() {
-		tpsAnimationExplosion = 0;
-		if (CSG.profil.particules & explosion == null)	explosion = ParticulesExplosionPetite.pool.obtain();
 	}
 
 	@Override
@@ -101,32 +76,28 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
 		return collision;
 	}
-
-	@Override
-	public int getXp() {
-		return CoutsEnnemis.DeBase.COUT;
-	}
-
-	@Override
-	public int getHauteur() {
-		return HAUTEUR;
-	}
-
-	@Override
-	public int getLargeur() {
-		return LARGEUR;
-	}
 	
 	@Override
-	public int getDemiHauteur() {
-		return DEMI_HAUTEUR;
-	}
-
+	protected Sound getSonExplosion() {		return SoundMan.explosiontoupie;	}
 	@Override
-	public int getDemiLargeur() {
-		return DEMI_LARGEUR;
-	}
-
+	public int getXp() {					return CoutsEnnemis.DeBase.COUT;	}
+	@Override
+	public int getHauteur() {				return HAUTEUR;	}
+	@Override
+	public int getLargeur() {				return LARGEUR;	}
+	@Override
+	public int getDemiHauteur() {			return DEMI_HAUTEUR;	}
+	@Override
+	public int getDemiLargeur() {			return DEMI_LARGEUR;	}
+	@Override
+	public int getNbEnnemisAvant() {		return nbEnnemisAvant;	}
+	@Override
+	public void setPosXInitiale(float emplacementX) {		posXInitiale = emplacementX;	}
+	@Override
+	public Vector2 getPosition() {			return position;	}
+	@Override
+	public float getPosXInitiale() {		return posXInitiale;	}
+	
 	@Override
 	public void invoquer() {
 		liste.add(pool.obtain());
@@ -136,26 +107,6 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 			liste.add(pool.obtain());
 			liste.add(pool.obtain());
 		}
-	}
-
-	@Override
-	public int getNbEnnemisAvant() {
-		return nbEnnemisAvant;
-	}
-
-	@Override
-	public void setPosXInitiale(float emplacementX) {
-		posXInitiale = emplacementX;
-	}
-
-	@Override
-	public Vector2 getPosition() {
-		return position;
-	}
-
-	@Override
-	public float getPosXInitiale() {
-		return posXInitiale;
 	}
 
 	@Override

@@ -36,13 +36,7 @@ public class ArmeMine extends Armes implements Poolable{
 	public boolean testCollsionAdds() {
 		return Physique.testCollisionAdds(position, LARGEUR);
 	}
-	
-	@Override
-	public void afficher(SpriteBatch batch) {
-		tpsAnim += Endless.delta;
-		batch.draw(AnimationMine.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1,	angle, false);
-	}
-	
+
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
@@ -66,9 +60,6 @@ public class ArmeMine extends Armes implements Poolable{
 
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
-
-	@Override
-	public void initGraphismes() {	}
 	
 	@Override
 	public void free() {		pool.free(this);	}

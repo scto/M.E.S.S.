@@ -16,6 +16,7 @@ import assets.animation.AnimationBossQuad;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -70,23 +71,13 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	}
 	
 	public EnnemiBossQuad() {
-		super(0,0, PV_MAX);
-		position.x = CSG.DEMI_LARGEUR_ECRAN - DEMI_LARGEUR;
-		position.y = CSG.HAUTEUR_ECRAN;
+		super(CSG.DEMI_LARGEUR_ECRAN - DEMI_LARGEUR, CSG.HAUTEUR_ECRAN, PV_MAX);
 		init();
 	}
 	
 	@Override
-	protected void mort() {
-		Endless.effetBloom();
-		SoundMan.playBruitage(SoundMan.explosionGrosse);
-		if (CSG.profil.particules) {
-			if (explosion == null) {
-				explosion = new ParticleEffect(AssetMan.explosionGros);
-				explosion.start();
-			} else explosion.reset();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-		}
+	protected Sound getSonExplosion() {
+		return SoundMan.explosionGrosse;
 	}
 	
 	/**

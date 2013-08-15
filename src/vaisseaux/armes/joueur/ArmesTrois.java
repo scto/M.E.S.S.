@@ -1,7 +1,6 @@
 package vaisseaux.armes.joueur;
 
 import vaisseaux.armes.Armes;
-import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
@@ -9,7 +8,6 @@ import assets.AssetMan;
 import assets.particules.ParticulesArmeTrois;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -31,7 +29,6 @@ public class ArmesTrois extends Armes implements Poolable{
 	private float angle = 0;
 	// ** ** particules
 	private ParticulesArmeTrois particleEffect;
-	private Vector2 direction = new Vector2();
 
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeTrois);
@@ -45,18 +42,10 @@ public class ArmesTrois extends Armes implements Poolable{
 		direction.y = e;
 		this.angle = angle;
 		liste.add(this);
-		initGraphismes();
 	}
 
 	@Override
 	public void reset() {	}
-
-	@Override
-	public void afficher(SpriteBatch batch){
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-		particleEffect.draw(batch, Endless.delta);
-		batch.draw(AssetMan.laser , position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR,	LARGEUR, LARGEUR, 1, 1,	angle, false);
-	}
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
@@ -78,14 +67,6 @@ public class ArmesTrois extends Armes implements Poolable{
 
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
-
-	@Override
-	public void initGraphismes() {
-		if (CSG.profil.particules){
-			particleEffect = ParticulesArmeTrois.pool.obtain();
-			particleEffect.start();
-		}
-	}
 	
 	@Override
 	public void free() {
@@ -95,9 +76,4 @@ public class ArmesTrois extends Armes implements Poolable{
 
 	@Override
 	public boolean testCollsionAdds() {		return false;	}
-	
-	@Override
-	public Vector2 getDirection(){
-		return direction;
-	}
 }

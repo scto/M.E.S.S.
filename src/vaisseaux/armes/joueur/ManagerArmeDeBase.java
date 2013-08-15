@@ -102,5 +102,6 @@ public class ManagerArmeDeBase {
 		posX -= ArmesDeBase.DEMI_LARGEUR;
 		ArmesDeBase e = ArmesDeBase.pool.obtain();
 		e.init(posX, posY);
+		e.getDirection().y = 1;
 	}
 }

@@ -33,9 +33,11 @@ import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTirNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiToupieNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiZigZagNv3;
+import assets.SoundMan;
 import assets.animation.AnimationArmeFusee;
 import assets.animation.AnimationExplosion1;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -47,8 +49,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	
 	// voir a quelle taille l'initialiser
 	public static Array<Ennemis> liste = new Array<Ennemis>(30);
-	protected static final Vector2 tmpPos = new Vector2();
-	protected static final Vector2 tmpDir = new Vector2();
+	protected static final Vector2 tmpPos = new Vector2(), tmpDir = new Vector2();
 	public static final Invocable[] LISTE_LV1 = {
 		new Insecte(),
 		Laser.pool.obtain(),
@@ -134,20 +135,10 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 		}
 	}
 	
-	protected float getAngle() {
-		return 0;
-	}
-
-	private TextureRegion getExplosion() {
-		return AnimationExplosion1.getTexture(tpsAnimationExplosion);
-	}
-
-	protected TextureRegion getTexture() {
-		return AnimationArmeFusee.getTexture(maintenant);
-	}
-
-	protected void tir() {
-	}
+	protected float getAngle() {				return 0;	}
+	protected TextureRegion getExplosion() {	return AnimationExplosion1.getTexture(tpsAnimationExplosion);	}
+	protected TextureRegion getTexture() {		return AnimationArmeFusee.getTexture(maintenant);	}
+	protected void tir() {	}
 
 	public static void affichageSansParticules(SpriteBatch batch) {
 		for(Ennemis e : liste)
@@ -193,26 +184,21 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	public void mourrir() {
 		mort = true;
 		Bonus.ajoutBonus(position.x + getDemiLargeur(), position.y + getDemiHauteur(), getXp());
-		this.mort();
+		tpsAnimationExplosion = 0;
+		SoundMan.playBruitage(getSonExplosion());
 	}
-
-	protected void mort() {	}
 
 	/**
 	 * renvoie la valeur en xp de l'ennemi
 	 * @return
 	 */
 	public abstract int getXp();
-
-	/**
-	 * Je n'ai pas trouv� comment me passer des getters si je veux pouvoir �tendre une classe d'ennemi sans devoir tout r�implementer
-	 * tout en pouvant malgr� tout changer ses caract�ristiques
-	 * @return
-	 */
 	public abstract int getHauteur();
 	public abstract int getLargeur();
 	public abstract int getDemiHauteur();
 	public abstract int getDemiLargeur();
+	public abstract boolean mouvementEtVerifSansParticules();
+	protected Sound getSonExplosion() {		return null;	}
 
 	public static void randomApparition() {
 		double f = Math.random();
@@ -228,8 +214,6 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 		} else if (f < .95) {		liste.add(PorteRaisin.pool.obtain());
 		}
 	}
-
-	abstract public boolean mouvementEtVerifSansParticules();
 
 	public static void bombe() {
 		for (Ennemis e : liste)

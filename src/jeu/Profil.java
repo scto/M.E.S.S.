@@ -2,14 +2,11 @@ package jeu;
 
 import menu.CSG;
 import vaisseaux.TypesArmes;
-import vaisseaux.armes.Armes;
 import vaisseaux.armes.joueur.ArmeAdd;
 import vaisseaux.armes.joueur.ArmeHantee;
 import vaisseaux.armes.joueur.ArmesBalayage;
 import vaisseaux.armes.joueur.ArmesDeBase;
 import vaisseaux.armes.joueur.ArmesTrois;
-import vaisseaux.ennemis.Ennemis;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Json.Serializable;
@@ -250,7 +247,7 @@ public class Profil implements Serializable{
 	public void switchParticules() {
 		if (Gdx.graphics.isGL20Available()) {
 			particules = !particules;
-			Armes.initEffets();
+//			Armes.initEffets();
 //			Ennemis.switchParticules();
 		}
 	}

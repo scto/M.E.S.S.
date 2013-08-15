@@ -10,7 +10,6 @@ import assets.particules.ParticulesArmeTraitVert;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -33,7 +32,6 @@ public class ArmeAdd extends Armes implements Poolable{
 	private float tpsAnim = 0;
 	// ** ** variable utilitaire
 	private ParticulesArmeTraitVert particleEffect;
-	private Vector2 direction = new Vector2();
 	private float angle;
 	
 	public static void determinerCadenceTir() {	CADENCETIR = 0.4f / CSG.profil.cadenceAdd;	}
@@ -46,20 +44,12 @@ public class ArmeAdd extends Armes implements Poolable{
 		direction.rotate(angle + 90);
 		position.x += direction.x * 25;
 		position.y += direction.y * 25;
-		initGraphismes();
 		this.angle = angle;
 		Armes.liste.add(this);
 	}
 
 	@Override
 	public void reset() {		tpsAnim = 0;	}
-
-	@Override
-	public void afficher(SpriteBatch batch) {
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-		particleEffect.draw(batch, Endless.delta);
-		tpsAnim += Endless.delta;
-	}
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
@@ -85,19 +75,6 @@ public class ArmeAdd extends Armes implements Poolable{
 
 	@Override
 	public int getHauteur() {		return HAUTEUR;	}
-
-	@Override
-	public void initGraphismes() {
-		if(CSG.profil.particules){
-			particleEffect = ParticulesArmeTraitVert.pool.obtain();
-			particleEffect.start();
-		}
-	}
-	
-	@Override
-	public Vector2 getDirection(){
-		return direction;
-	}
 
 	@Override
 	public void free() {

@@ -45,19 +45,6 @@ public class ArmeBossQuad extends Armes implements Poolable{
 	public boolean testCollisionVaisseau() {
 		return Physique.pointDansVaisseau(position, LARGEUR, HAUTEUR);
 	}
-	
-	/**
-	 * Cr�e l'objet, il faut appeler la m�thode init apr�s
-	 */
-	public ArmeBossQuad() {
-		super();
-	}
-
-	@Override
-	public void afficher(SpriteBatch batch){
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-		particleEffect.draw(batch, Endless.delta);
-	}
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
@@ -97,13 +84,6 @@ public class ArmeBossQuad extends Armes implements Poolable{
 		return HAUTEUR;
 	}
 
-	@Override
-	public void initGraphismes() {
-		if(CSG.profil.particules){
-			particleEffect = ParticulesArmeDeBase.pool.obtain();
-			particleEffect.start();
-		}
-	}
 	@Override
 	public void free() {
 		if (particleEffect != null) particleEffect.free();

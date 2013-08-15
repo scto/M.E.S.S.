@@ -17,7 +17,7 @@ import assets.animation.AnimationCylonCasse;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -40,18 +40,6 @@ public class Cylon extends Ennemis implements TireurAngle {
 	private ParticulesExplosionPetite explosion;
 	// ** ** caracteristiques variables.
 
-	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosioncylon);
-		if (CSG.profil.particules){
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-			explosion.start();
-		} else {
-			tpsAnimationExplosion = 0;
-		}
-	}
-	
 	/**
 	 * Contructeur sans argument, appel� par le pool
 	 */
@@ -60,6 +48,11 @@ public class Cylon extends Ennemis implements TireurAngle {
 		if(position.x + DEMI_LARGEUR < CSG.DEMI_LARGEUR_ECRAN)			direction.x = 0.26f;
 		else 			direction.x = -0.26f;
 		direction.y = -0.83f;
+	}
+	
+	@Override
+	protected Sound getSonExplosion() {
+		return SoundMan.explosioncylon;
 	}
 	
 	/**

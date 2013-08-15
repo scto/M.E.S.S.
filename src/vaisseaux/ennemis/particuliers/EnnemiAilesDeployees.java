@@ -13,8 +13,7 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiAileDeployee;
 import assets.animation.AnimationExplosion1;
-import assets.particules.ParticulesExplosionPetite;
-
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -41,19 +40,10 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	// ** ** autre
 	private float angle;
 	private Vector2 direction = new Vector2(-1,0);
-	// ** ** particules
-	private ParticulesExplosionPetite explosion;
-	
+
 	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosionpetittetechercheuse);
-		if(CSG.profil.particules){
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-			explosion.start();
-		} else {
-			tpsAnimationExplosion = 0;
-		}
+	protected Sound getSonExplosion() {
+		return SoundMan.explosionpetittetechercheuse;
 	}
 	
 	@Override

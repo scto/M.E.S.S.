@@ -42,14 +42,6 @@ public class ArmesFragmentation extends Armes implements Poolable{
 	public void reset() {
 		tpsAnim = 0;
 	}
-
-	@Override
-	public void afficher(SpriteBatch batch) {
-		tpsAnim += Endless.delta;
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-		particleEffect.draw(batch, Endless.delta);
-		batch.draw(AnimationMeteorite.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle, false);
-	}
 	
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
@@ -91,14 +83,6 @@ public class ArmesFragmentation extends Armes implements Poolable{
 
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
-	
-	@Override
-	public void initGraphismes() {
-		if (CSG.profil.particules) {
-			particleEffect = ParticulesMeteorite.pool.obtain();
-			particleEffect.start();
-		}
-	}
 	
 	@Override
 	public void free() {

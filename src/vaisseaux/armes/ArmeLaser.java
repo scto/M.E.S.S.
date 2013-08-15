@@ -38,11 +38,6 @@ public class ArmeLaser extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch){
-		batch.draw(AssetMan.laserVert , position.x, position.y,	DEMI_LARGEUR,DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1, angle, false);
-	}
-
-	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		batch.draw(AssetMan.laserVert , position.x, position.y,	DEMI_LARGEUR,DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1, angle, false);
 	}
@@ -62,9 +57,6 @@ public class ArmeLaser extends Armes implements Poolable{
 
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
-
-	@Override
-	public void initGraphismes() {	}
 	
 	@Override
 	public void free() {		pool.free(this);	}

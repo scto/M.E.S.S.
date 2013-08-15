@@ -41,12 +41,6 @@ public class ArmeBalayageEnnemiToupie extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch) {
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-		particleEffect.draw(batch, Endless.delta);
-	}
-
-	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(Color.GREEN);
@@ -57,7 +51,7 @@ public class ArmeBalayageEnnemiToupie extends Armes implements Poolable{
 	@Override
 	public boolean mouvementEtVerif() {
 		// 0 pour que l'effet ne disparaisse pas trop vite au lieu de HAUTEUR
-		if(Physique.mouvementDeBase(direction, position, Stats.VITESSE_MAX_ARME_BALAYAGE_ENNEMIS_TOUPIE, LARGEUR, HAUTEUR))		return true;
+		if (Physique.mouvementDeBase(direction, position, Stats.VITESSE_MAX_ARME_BALAYAGE_ENNEMIS_TOUPIE, LARGEUR, HAUTEUR))		return true;
 		free();
 		return false;
 	}
@@ -73,27 +67,11 @@ public class ArmeBalayageEnnemiToupie extends Armes implements Poolable{
 	}
 	
 	@Override
-	public int getForce() {
-		return FORCE;
-	}
-	
+	public int getForce() {		return FORCE;	}
 	@Override
-	public int getLargeur() {
-		return LARGEUR;
-	}
-
+	public int getLargeur() {	return LARGEUR;	}
 	@Override
-	public int getHauteur() {
-		return HAUTEUR;
-	}
-
-	@Override
-	public void initGraphismes() {
-		if (CSG.profil.particules) {
-			particleEffect = ParticulesArmeTraitVert.pool.obtain();
-			particleEffect.start();
-		}
-	}
+	public int getHauteur() {	return HAUTEUR;	}
 
 	@Override
 	public void free() {

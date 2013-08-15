@@ -8,8 +8,7 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationRouli;
-import assets.particules.ParticulesExplosionPetite;
-
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -27,19 +26,10 @@ public class ZigZag extends Ennemis {
 	private Vector2 direction;
 	private boolean sens = true;
 	public static Pool<ZigZag> pool = Pools.get(ZigZag.class);
-	// ** ** particules
-	private ParticulesExplosionPetite explosion;
 
 	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosiontoupie);
-		if (CSG.profil.particules) {
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-			explosion.start();
-		} else {
-			tpsAnimationExplosion = 0;
-		}
+	protected Sound getSonExplosion() {
+		return SoundMan.explosiontoupie;
 	}
 	
 	@Override

@@ -6,12 +6,11 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
-import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationPorteNef;
 
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
@@ -43,28 +42,13 @@ public class EnnemiPorteNef extends Ennemis{
 	protected float tpsAnimationExplosion = 0;
 	private int nbLance = 0;
 	private int dirX = -1;
-	// ** ** particules
-	private ParticleEffect explosion;
-	
-	@Override
-	protected void mort() {
-		mort = true;
-		SoundMan.playBruitage(SoundMan.explosionGrosse);
-		if(CSG.profil.particules){
-			if (explosion == null) explosion = new ParticleEffect(AssetMan.explosionPorteNef);
-			else explosion.reset();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-			explosion.start();
-		}
-	}
-	
-	/**
-	 * Initialise l'ennemi
-	 */
-	public void init() {
-		if(CSG.profil.particules & explosion == null) explosion = new ParticleEffect(AssetMan.explosionPorteNef);
-	}
 
+
+	@Override
+	protected Sound getSonExplosion() {
+		return SoundMan.explosionGrosse;
+	}
+	
 	/**
 	 * Le reset sert � faire le random du c�t� depuis le quel il apparait, � voir � l'usage mais pourquoi pas.
 	 */

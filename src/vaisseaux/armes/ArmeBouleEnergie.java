@@ -42,19 +42,6 @@ public class ArmeBouleEnergie extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch){
-		batch.draw(AssetMan.boulenergiebleu , position.x, position.y, DEMI_LARGEUR,DEMI_HAUTEUR,
-		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
-		LARGEUR, HAUTEUR,
-		//scaleX the scale of the rectangle around originX/originY in x ET Y
-		1,1,
-		// L'ANGLE DE ROTATION
-		angle ,
-		//FLIP OU PAS
-		false);
-	}
-
-	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		batch.draw(AssetMan.boulenergiebleu , position.x, position.y, DEMI_LARGEUR,DEMI_HAUTEUR,
 		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
@@ -89,13 +76,6 @@ public class ArmeBouleEnergie extends Armes implements Poolable{
 		return HAUTEUR;
 	}
 
-	@Override
-	public void initGraphismes() {
-		if (CSG.profil.particules) {
-			particleEffect = ParticulesArmeBalayage.pool.obtain();
-			particleEffect.start();
-		}
-	}
 	@Override
 	public void free() {
 		if (particleEffect != null) particleEffect.free();

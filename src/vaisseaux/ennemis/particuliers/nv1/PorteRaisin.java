@@ -16,7 +16,7 @@ import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -48,19 +48,12 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	public PorteRaisin() {
 		super(Positionnement.getEmplacementX(DEMI_LARGEUR),	CSG.HAUTEUR_ECRAN + HAUTEUR, Stats.PVMAX_PORTE_RAISIN);
 	}
-	
+
 	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosionkinder);
-		if (CSG.profil.particules) {
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-			explosion.start();
-		} else {
-			tpsAnimationExplosion = 0;
-		}
+	protected Sound getSonExplosion() {
+		return SoundMan.explosionkinder;
 	}
-	
+
 	/**
 	 * Initialise l'ennemi
 	 */

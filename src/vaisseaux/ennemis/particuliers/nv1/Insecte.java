@@ -1,6 +1,5 @@
 package vaisseaux.ennemis.particuliers.nv1;
 
-import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
@@ -15,7 +14,7 @@ import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -52,15 +51,8 @@ public class Insecte extends Ennemis implements TireurAngle {
 	}
 	
 	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosionennemidebasequitir);
-		if (CSG.profil.particules){
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-			explosion.start();
-		} else {
-			tpsAnimationExplosion = 0;
-		}
+	protected Sound getSonExplosion() {
+		return SoundMan.explosionennemidebasequitir;
 	}
 	
 	public void init() {

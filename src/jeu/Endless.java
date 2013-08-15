@@ -7,14 +7,9 @@ import vaisseaux.RestesEnnemis;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.particuliers.nv1.Avion;
-import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
-import vaisseaux.ennemis.particuliers.nv1.Cylon;
 import vaisseaux.ennemis.particuliers.nv1.DeBase;
-import vaisseaux.ennemis.particuliers.nv1.Kinder;
 import vaisseaux.ennemis.particuliers.nv1.Insecte;
-import vaisseaux.ennemis.particuliers.nv2.BouleTirCote;
-import vaisseaux.ennemis.particuliers.nv2.BouleTirCoteRotation;
+import vaisseaux.ennemis.particuliers.nv1.Kinder;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -149,10 +144,10 @@ public class Endless implements Screen {
 //			Ennemis.liste.add(new EnnemiCylon());
 //		if (Gdx.input.isKeyPressed(Keys.T))
 //			Ennemis.liste.add(new EnnemiBossMine());
-		if (Gdx.input.justTouched()) {
-			Ennemis.liste.add(DeBase.pool.obtain());
-			Ennemis.liste.add(Insecte.pool.obtain());
-		}
+		if (Gdx.input.justTouched()) 
+			Ennemis.liste.add(Kinder.pool.obtain());
+//			Ennemis.liste.add(Insecte.pool.obtain());
+//		}
 //			Ennemis.liste.add(new EnnemiBouleQuiSArrete());
 //			Ennemis.liste.add(new EnnemiInsecte());
 //			Ennemis.liste.add(new EnnemiZigZag());

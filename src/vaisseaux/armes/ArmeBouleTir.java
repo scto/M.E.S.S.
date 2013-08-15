@@ -40,24 +40,7 @@ public class ArmeBouleTir extends Armes implements Poolable{
 	public boolean testCollsionAdds() {
 		return Physique.testCollisionAdds(position, LARGEUR);
 	}
-	
-	@Override
-	public void afficher(SpriteBatch batch) {
-		tpsAnim += Endless.delta;
-		batch.setColor(.99f, Endless.color, .3f, 1);
-		batch.draw(AnimationBouleBleu.getTexture(tpsAnim), position.x, position.y,
-		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
-		DEMI_LARGEUR,DEMI_LARGEUR,
-		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
-		LARGEUR, LARGEUR,
-		//scaleX the scale of the rectangle around originX/originY in x ET Y
-		1,1,
-		// L'ANGLE DE ROTATION
-		angle,
-		//FLIP OU PAS
-		false);
-		batch.setColor(Color.WHITE);
-	}
+
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
@@ -84,16 +67,10 @@ public class ArmeBouleTir extends Armes implements Poolable{
 
 	@Override
 	public int getForce() {		return FORCE;	}
-	
 	@Override
 	public int getLargeur() {		return LARGEUR;	}
-
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
-
-	@Override
-	public void initGraphismes() {	}
-	
 	@Override
 	public void free() {		pool.free(this);	}
 }

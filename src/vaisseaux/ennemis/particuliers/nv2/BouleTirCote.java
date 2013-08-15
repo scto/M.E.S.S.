@@ -16,6 +16,7 @@ import assets.animation.AnimationBouleBleuRouge;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -47,15 +48,10 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 	protected final static Tirs TIR = new Tirs(.12f); 
 	
 	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosiontoupie);
-		if (CSG.profil.particules) {
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-			explosion.start();
-		} else {	tpsAnimationExplosion = 0;	}
+	protected Sound getSonExplosion() {
+		return SoundMan.explosiontoupie;
 	}
-
+	
 	/**
 	 * Contructeur sans argument, appel� par le pool
 	 */

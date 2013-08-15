@@ -18,6 +18,7 @@ import assets.SoundMan;
 import assets.animation.AnimationBossMine;
 import assets.animation.AnimationExplosion1;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -60,16 +61,8 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	}
 	
 	@Override
-	protected void mort() {
-		Endless.effetBloom();
-		SoundMan.playBruitage(SoundMan.explosionGrosse);
-		if(CSG.profil.particules){
-			if (explosion == null){
-				explosion = new ParticleEffect(AssetMan.explosionGros);
-				explosion.start();
-			} else explosion.reset();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-		}
+	protected Sound getSonExplosion() {
+		return SoundMan.explosionGrosse;
 	}
 	
 	/**

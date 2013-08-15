@@ -36,19 +36,12 @@ public class ArmeBalayageEnnemiQuiTourne extends Armes {
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch) {
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-		particleEffect.draw(batch, Endless.delta);
-	}
-
-	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(Color.ORANGE);
 		batch.draw(AnimationBouleBleu.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle,	false);
 		batch.setColor(Color.WHITE);
 	}
-
 	
 	@Override
 	public boolean testCollisionVaisseau() {
@@ -70,27 +63,11 @@ public class ArmeBalayageEnnemiQuiTourne extends Armes {
 	}
 	
 	@Override
-	public int getForce() {
-		return FORCE;
-	}
-	
+	public int getForce() {		return FORCE;	}
 	@Override
-	public int getLargeur() {
-		return LARGEUR;
-	}
-
+	public int getLargeur() {	return LARGEUR;	}
 	@Override
-	public int getHauteur() {
-		return LARGEUR;
-	}
-
-	@Override
-	public void initGraphismes() {
-		if (CSG.profil.particules) {
-			particleEffect = ParticulesArmeBalleBleuStatic.pool.obtain();
-			particleEffect.start();
-		}
-	}
+	public int getHauteur() {	return LARGEUR;	}
 
 	@Override
 	public void free() {

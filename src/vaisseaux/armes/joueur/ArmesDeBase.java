@@ -9,7 +9,6 @@ import assets.animation.AnimationTirFeu;
 import assets.particules.ParticulesArmeDeBase;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -32,8 +31,6 @@ public class ArmesDeBase extends Armes implements Poolable{
 	private float tpsAnimation = 0;
 	// ** ** particules
 	public ParticulesArmeDeBase particleEffect;
-//	private float dirY = 1;
-	private Vector2 direction = new Vector2(0,1);
 	
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeDeBase);
@@ -49,19 +46,10 @@ public class ArmesDeBase extends Armes implements Poolable{
 		position.x = posX;
 		position.y = posY;
 		liste.add(this);
-		initGraphismes();
 	}
 
 	@Override
 	public void reset() {	}
-
-	@Override
-	public void afficher(SpriteBatch batch){
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-		particleEffect.draw(batch, Endless.delta);
-		tpsAnimation += Endless.delta;
-		batch.draw(AnimationTirFeu.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
-	}
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
@@ -78,20 +66,11 @@ public class ArmesDeBase extends Armes implements Poolable{
 
 	@Override
 	public int getForce() {		return FORCE + CSG.profil.NvArmeDeBase;	}
-
 	@Override
 	public int getLargeur() {		return LARGEUR;	}
-
 	@Override
 	public int getHauteur() {		return HAUTEUR;	}
 
-	@Override
-	public void initGraphismes() {
-		if(CSG.profil.particules){
-			particleEffect = ParticulesArmeDeBase.pool.obtain();
-			particleEffect.start();
-		}
-	}
 	@Override
 	public void free() {
 		if (particleEffect != null) particleEffect.free();
@@ -100,9 +79,4 @@ public class ArmesDeBase extends Armes implements Poolable{
 
 	@Override
 	public boolean testCollsionAdds() {	return false;	}
-	
-	@Override
-	public Vector2 getDirection(){		return direction;	}
-
-
 }

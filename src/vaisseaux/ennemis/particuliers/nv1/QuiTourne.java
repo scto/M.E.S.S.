@@ -16,7 +16,7 @@ import assets.animation.AnimationEnnemiTourne;
 import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -43,21 +43,13 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	 * Contructeur sans argument, appel� par le pool
 	 */
 	public QuiTourne() {
-		super(Positionnement.getEmplacementX(DEMI_LARGEUR)- CSG.LARGEUR_BORD/2,	CSG.HAUTEUR_ECRAN + LARGEUR, Stats.PVMAX_QUI_TOURNE);
+		super(Positionnement.getEmplacementXVersMilieu(DEMI_LARGEUR),	CSG.HAUTEUR_ECRAN + LARGEUR, Stats.PVMAX_QUI_TOURNE);
 		prochainTir = 2;
 	}
 	
-	/**
-	 * Initialise l'ennemi
-	 */
-	public void init() {
-		if (CSG.profil.particules & explosion==null) explosion = ParticulesExplosionPetite.pool.obtain();
-		else tpsAnimationExplosion = 0;
-	}
-
 	@Override
 	public void reset() {
-		position.x = Positionnement.getEmplacementX(DEMI_LARGEUR) - CSG.LARGEUR_BORD/2;
+		position.x = Positionnement.getEmplacementXVersMilieu(DEMI_LARGEUR);
 		position.y = CSG.HAUTEUR_ECRAN + LARGEUR;
 		direction.x = 0;
 		direction.y = 1;
@@ -69,21 +61,9 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	}
 
 	@Override
-	protected void mort() {
-		SoundMan.playBruitage(SoundMan.explosionPetite);
-		if (CSG.profil.particules){
-			explosion = ParticulesExplosionPetite.pool.obtain();
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-			explosion.start();
-		} else {
-			tpsAnimationExplosion = 0;
-		}
-	}
-
+	protected Sound getSonExplosion() {		return SoundMan.explosionPetite;	}
 	@Override
-	protected TextureRegion getTexture() {
-		return AnimationEnnemiTourne.getTexture(maintenant);
-	}
+	protected TextureRegion getTexture() {	return AnimationEnnemiTourne.getTexture(maintenant);	}
 
 	@Override
 	public boolean mouvementEtVerifSansParticules() {

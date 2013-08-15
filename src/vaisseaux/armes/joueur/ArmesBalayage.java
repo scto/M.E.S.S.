@@ -9,7 +9,6 @@ import assets.animation.AnimationTirBleu;
 import assets.particules.ParticulesArmeBalayage;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -33,7 +32,6 @@ public class ArmesBalayage extends Armes implements Poolable{
 	// ** ** variable utilitaire
 	private float angle;
 	private ParticulesArmeBalayage particleEffect;
-	public Vector2 direction = new Vector2();
 	
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeBalayage);
@@ -46,20 +44,11 @@ public class ArmesBalayage extends Armes implements Poolable{
 		direction.x = x;
 		direction.y = y;
 		this.angle = angle;
-		initGraphismes();
 	}
 
 	@Override
 	public void reset() {
 		tpsAnim = 0;
-	}
-
-	@Override
-	public void afficher(SpriteBatch batch) {
-		tpsAnim += Endless.delta;
-		batch.draw(AnimationTirBleu.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_LARGEUR,	LARGEUR, LARGEUR, 1,1, angle, false);
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-		particleEffect.draw(batch, Endless.delta);
 	}
 
 	@Override
@@ -86,13 +75,6 @@ public class ArmesBalayage extends Armes implements Poolable{
 	public int getHauteur() {		return LARGEUR;	}
 
 	@Override
-	public void initGraphismes() {
-		if(CSG.profil.particules){
-			particleEffect = ParticulesArmeBalayage.pool.obtain();
-			particleEffect.start();
-		}
-	}
-	@Override
 	public void free() {
 		if (particleEffect != null) particleEffect.free();
 		pool.free(this);
@@ -100,9 +82,4 @@ public class ArmesBalayage extends Armes implements Poolable{
 
 	@Override
 	public boolean testCollsionAdds() {		return false;	}
-	
-	@Override
-	public Vector2 getDirection(){
-		return direction;
-	}
 }

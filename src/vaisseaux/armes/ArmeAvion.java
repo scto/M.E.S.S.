@@ -40,7 +40,6 @@ public class ArmeAvion extends Armes implements Poolable{
 		position.y = posY;
 		listeTirsDesEnnemis.add(this);
 		dirY = -1 * modifVitesse;
-		initGraphismes();
 	}
 
 	@Override
@@ -54,18 +53,6 @@ public class ArmeAvion extends Armes implements Poolable{
 	@Override
 	public boolean testCollisionVaisseau() {
 		return Physique.pointDansVaisseau(position, LARGEUR, HAUTEUR);
-	}
-	/**
-	 * Cr�e l'objet, il faut appeler la m�thode init apr�s
-	 */
-	public ArmeAvion() {
-		super();
-	}
-
-	@Override
-	public void afficher(SpriteBatch batch){
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-		particleEffect.draw(batch, Endless.delta);
 	}
 
 	@Override
@@ -106,13 +93,6 @@ public class ArmeAvion extends Armes implements Poolable{
 		return HAUTEUR;
 	}
 
-	@Override
-	public void initGraphismes() {
-		if(CSG.profil.particules){
-			particleEffect = ParticulesArmeDeBase.pool.obtain();
-			particleEffect.start();
-		}
-	}
 	@Override
 	public void free() {
 		if(particleEffect != null) particleEffect.free();

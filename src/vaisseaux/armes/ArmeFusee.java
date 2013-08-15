@@ -44,11 +44,6 @@ public class ArmeFusee extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch) {
-		tpsAnim += Endless.delta;
-		batch.draw(AnimationArmeFusee.getTexture(tpsAnim), position.x, position.y,LARGEUR, LARGEUR);
-	}
-	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.draw(AnimationArmeFusee.getTexture(tpsAnim), position.x, position.y,LARGEUR, LARGEUR);
@@ -88,9 +83,6 @@ public class ArmeFusee extends Armes implements Poolable{
 
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
-
-	@Override
-	public void initGraphismes() {	}
 	@Override
 	public void free() {		pool.free(this);	}
 }

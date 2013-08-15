@@ -1,6 +1,5 @@
 package vaisseaux.armes;
 
-import jeu.Endless;
 import vaisseaux.Vaisseaux;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,36 +20,6 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	 */
 	public Armes() {
 		this.position = new Vector2();
-	}
-	
-	/**
-	 * Parcourt la liste une fois invoquant la methode mouvement et la methode afficher
-	 * @param batch
-	 */
-	public static void affichageEtMouvement(SpriteBatch batch) {
-		for (Armes a : liste) {
-			a.afficher(batch);
-			if (a.mouvementEtVerif() == false)			liste.removeValue(a, true);
-		}
-		testCollision = !testCollision;
-		for (Armes a : listeTirsDesEnnemis) {
-			a.afficher(batch);
-			if (testCollision) {
-				if (a.testCollisionVaisseau() == true) {
-					// Si on a perdu faut pas la virer sinon on la voit plus � l'�cran
-					if (Endless.aPerdu() == false) { 
-						listeTirsDesEnnemis.removeValue(a, true);
-						a.free();
-					}
-					break;
-				}
-			} else if (a.testCollsionAdds()) { // Si elle a touché un add on la vire
-				listeTirsDesEnnemis.removeValue(a, true);
-				a.free();
-				break;
-			}
-			if (a.mouvementEtVerif() == false)			listeTirsDesEnnemis.removeValue(a, true);
-		}
 	}
 	
 	abstract public boolean testCollsionAdds();
@@ -86,13 +55,6 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	}
 
 	abstract public void afficherSansParticules(SpriteBatch batch);
-
-	/**
-	 * Methode servant � afficher les balles
-	 * @param batch : batch principal
-
-	 */
-	abstract public void afficher(SpriteBatch batch);
 	
 	/**
 	 * Fait bouger les objets et les enl�ves si ils ne sont plus � l'�cran
@@ -100,15 +62,6 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	 * return false si on doit le virer de la liste
 	 */
 	abstract public boolean mouvementEtVerif();
-
-	/**
-	 * Se contente d'afficher simplement les objets
-	 * @param batch
-	 */
-	public static void affichage(SpriteBatch batch) {
-		for (Armes a : liste)					a.afficher(batch);
-		for (Armes a : listeTirsDesEnnemis)		a.afficher(batch);
-	}
 
 	public static void affichageSansParticules(SpriteBatch batch) {
 		for (Armes a : liste)					a.afficherSansParticules(batch);
@@ -132,15 +85,6 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	 */
 	public abstract int getHauteur();
 	
-	public static void initEffets() {
-		for (Armes a : liste)
-			a.initGraphismes();
-		for (Armes a : listeTirsDesEnnemis)
-			a.initGraphismes();
-	}
-
-	public abstract void initGraphismes();
-	
 	/**
 	 * Methode appel�e par Physique quand la balle touche un ennemi
 	 */
@@ -149,7 +93,7 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	public abstract void free();
 
 	public Vector2 getDirection() {
-		return null;
+		return direction;
 	}
 
 
@@ -158,7 +102,6 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		this.position.x = position.x + dEMI_LARGEUR - getLargeur() / 2;
 		this.position.y = position.y + demiHauteur - getHauteur() / 2;
 		listeTirsDesEnnemis.add(this);
-		initGraphismes();
 	}
 
 
@@ -169,7 +112,6 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		this.direction.y = -1 * modifVitesse;
 		System.out.println(direction.y);
 		listeTirsDesEnnemis.add(this);
-		initGraphismes();
 	}
 
 	public void init(Vector2 position, float modifVitesse, float angle, Vector2 direction) {
@@ -179,7 +121,6 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		this.direction.y = direction.y * modifVitesse;
 		this.angle = angle;
 		listeTirsDesEnnemis.add(this);
-		initGraphismes();
 	}
 
 	public void init(Vector2 position, Vector2 direction) {
@@ -188,7 +129,6 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		this.direction.x = direction.x;
 		this.direction.y = direction.y;
 		listeTirsDesEnnemis.add(this);
-		initGraphismes();
 	}
 	
 	public void init(Vector2 position, Vector2 direction, float modifVitesse) {
@@ -197,6 +137,5 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		this.direction.x = direction.x * modifVitesse;
 		this.direction.y = direction.y * modifVitesse;
 		listeTirsDesEnnemis.add(this);
-		initGraphismes();
 	}
 }

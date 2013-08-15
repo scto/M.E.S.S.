@@ -35,13 +35,6 @@ public class ArmeInsecte extends Armes implements Poolable{
 	public void reset() {		tpsAnim = 0;	}
 
 	@Override
-	public void afficher(SpriteBatch batch) {
-		batch.setColor(Color.ORANGE);
-		batch.draw(AnimationTirFeu.getTexture(tpsAnim), position.x, position.y,	DEMI_LARGEUR,DEMI_HAUTEUR, LARGEUR, HAUTEUR, 1.5f,0.5f, angle, false);
-		batch.setColor(Color.WHITE);
-	}
-
-	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		batch.setColor(Color.ORANGE);
 		batch.draw(AnimationTirFeu.getTexture(tpsAnim), position.x, position.y,	DEMI_LARGEUR,DEMI_HAUTEUR, LARGEUR, HAUTEUR, 1.5f,0.5f, angle, false);
@@ -74,14 +67,6 @@ public class ArmeInsecte extends Armes implements Poolable{
 
 	@Override
 	public int getHauteur() {		return HAUTEUR;	}
-
-	@Override
-	public void initGraphismes() {
-//		if(CSG.profil.particules){
-//			particleEffect = ParticulesArmeTraitVert.pool.obtain();
-//			particleEffect.start();
-//		}
-	}
 
 	@Override
 	public void free() {
