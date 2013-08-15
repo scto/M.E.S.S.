@@ -11,7 +11,7 @@ public class BouleTirCoteRotation extends BouleTirCote {
 	public static final float VITESSE_ANGLE = 100f, CADENCETIR = .09f;
 
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		angle += VITESSE_ANGLE * Endless.delta;
 		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1)
 				|| Physique.mouvementDeBase(direction, position, Stats.VITESSE_BOULE_TIR_COTE_PETIT, LARGEUR) == false){

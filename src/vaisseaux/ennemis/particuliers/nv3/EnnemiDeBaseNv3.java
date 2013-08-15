@@ -15,7 +15,7 @@ public class EnnemiDeBaseNv3 extends DeBase {
 	}
 	
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;

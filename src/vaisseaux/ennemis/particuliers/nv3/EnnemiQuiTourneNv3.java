@@ -22,7 +22,7 @@ public class EnnemiQuiTourneNv3 extends QuiTourne {
 	}
 	
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 || Physique.toujoursAfficher(position, LARGEUR) == false){
 			pool.free(this);
 			return false;

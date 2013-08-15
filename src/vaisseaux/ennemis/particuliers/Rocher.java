@@ -47,6 +47,11 @@ public class Rocher extends Ennemis{
 		initDimensionsEtPosition();
 	}
 	
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
 	private void initDimensionsEtPosition() {
 		largeur = (int) ((Math.random() + .5) * LARGEUR_DE_BASE);
 		demiLargeur = largeur / 2;
@@ -91,7 +96,7 @@ public class Rocher extends Ennemis{
 	}
 	
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		if(mort){
 			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, largeur, largeur);
 			tpsAnimationExplosion += Endless.delta;
@@ -101,7 +106,7 @@ public class Rocher extends Ennemis{
 	}
 	
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, largeur, largeur) == false){
 			pool.free(this);
 			return false;

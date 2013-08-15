@@ -62,6 +62,11 @@ public class EnnemiPorteNef extends Ennemis{
 		dirX = -1;
 		nbLance = 0;
 	}
+	
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
 
 	public EnnemiPorteNef() {
 		super(CSG.LARGEUR_ZONE_JEU, CSG.HAUTEUR_ECRAN_PALLIER_2 - LARGEUR, Stats.PVMAX_PORTE_NEF + (CSG.profil.getCoutUpArme() / 35));
@@ -71,7 +76,7 @@ public class EnnemiPorteNef extends Ennemis{
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, LARGEUR) == false){
 			pool.free(this);
 			return false;
@@ -210,7 +215,7 @@ public class EnnemiPorteNef extends Ennemis{
 	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		if (mort){
 			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
 			tpsAnimationExplosion += Endless.delta;

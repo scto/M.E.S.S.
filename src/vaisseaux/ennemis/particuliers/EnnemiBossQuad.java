@@ -70,6 +70,11 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 		PV_MIN_PHASE2 = PV_MAX / 3;
 	}
 	
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
 	public EnnemiBossQuad() {
 		super(CSG.DEMI_LARGEUR_ECRAN - DEMI_LARGEUR, CSG.HAUTEUR_ECRAN, PV_MAX);
 		init();
@@ -114,7 +119,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;
@@ -131,7 +136,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		if(mort){
 			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
 			tpsAnimationExplosion += Endless.delta;

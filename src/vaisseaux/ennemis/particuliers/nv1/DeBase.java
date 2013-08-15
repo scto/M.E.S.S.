@@ -1,7 +1,6 @@
 package vaisseaux.ennemis.particuliers.nv1;
 
 import jeu.Endless;
-import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.PatternHorizontalPositionnable;
@@ -10,7 +9,6 @@ import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiDeBase;
-import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
 import com.badlogic.gdx.audio.Sound;
@@ -42,17 +40,13 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	 * Contructeur sans argument, appel� par le pool
 	 */
 	public DeBase() {
-		super(CSG.LARGEUR_BORD,	CSG.HAUTEUR_ECRAN + HAUTEUR, Stats.PVMAX_DE_BASE);
+		super(CSG.LARGEUR_BORD,	CSG.HAUTEUR_ECRAN + HAUTEUR);
 		Positionnement.setPosX(this);
 	}
 
 	@Override
 	public void reset() {
 		Positionnement.setPosX(this);
-		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
-		mort = false;
-		if (!CSG.profil.particules)		tpsAnimationExplosion = 0;
-		pv = Stats.PVMAX_DE_BASE;
 	}
 
 	@Override
@@ -61,20 +55,9 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	}
 	
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
-		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
+	public boolean mouvementEtVerif() {
 		position.y -= (Stats.VITESSE_MAX_DE_BASE * Endless.delta);
-		return true;
-	}
-
-
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
+		return super.mouvementEtVerif();
 	}
 	
 	@Override
@@ -114,5 +97,13 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 		nbEnnemisAvant++;
 		if (nbEnnemisAvant > MAX_ENNEMIS_LIGNE)
 			nbEnnemisAvant = 0;
-	}	
+	}
+	
+	@Override
+	protected void free() {		pool.free(this);	}
+
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_DE_BASE;
+	}
 }

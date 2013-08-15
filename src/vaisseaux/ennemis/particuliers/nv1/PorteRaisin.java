@@ -54,6 +54,11 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 		return SoundMan.explosionkinder;
 	}
 
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
 	/**
 	 * Initialise l'ennemi
 	 */
@@ -71,7 +76,7 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	}
 
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;

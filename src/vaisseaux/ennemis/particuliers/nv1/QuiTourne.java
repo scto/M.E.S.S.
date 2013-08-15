@@ -48,6 +48,11 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	}
 	
 	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
+	@Override
 	public void reset() {
 		position.x = Positionnement.getEmplacementXVersMilieu(DEMI_LARGEUR);
 		position.y = CSG.HAUTEUR_ECRAN + LARGEUR;
@@ -66,7 +71,7 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	protected TextureRegion getTexture() {	return AnimationEnnemiTourne.getTexture(maintenant);	}
 
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 || Physique.toujoursAfficher(position, LARGEUR) == false){
 			pool.free(this);
 			return false;

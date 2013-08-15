@@ -11,5 +11,6 @@ public interface PatternHorizontalPositionnable {
 	float getPosXInitiale();
 	int getLargeur();
 	void incNbEnnemisAvant();
+	int getHauteur();
 
 }

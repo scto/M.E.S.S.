@@ -52,6 +52,11 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 		return SoundMan.explosiontoupie;
 	}
 	
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
 	/**
 	 * Contructeur sans argument, appel� par le pool
 	 */
@@ -83,7 +88,7 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		if (mort) {
 			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
 			tpsAnimationExplosion += Endless.delta;
@@ -94,7 +99,7 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 	}
 
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1)
 				|| Physique.mouvementDeBase(direction, position, Stats.VITESSE_BOULE_TIR_COTE, LARGEUR) == false){
 			pool.free(this);

@@ -49,6 +49,11 @@ public class Toupie extends Ennemis implements TireurBalayage {
 		super(posX, posY, pv);
 	}
 
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
 	/**
 	 * Contructeur sans argument, appel� par le pool
 	 */
@@ -95,7 +100,7 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	}
 
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;

@@ -13,6 +13,7 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiAileDeployee;
 import assets.animation.AnimationExplosion1;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -47,6 +48,11 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	}
 	
 	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
+	@Override
 	public void reset() {
 		mort = false;
 		pv = Stats.PVMAX_AILES_DEPLOYEE;
@@ -58,7 +64,7 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	}
 
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if ( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, (int)LARGEUR, (int)LARGEUR) == false) {
 			pool.free(this);
 			return false;
@@ -72,7 +78,7 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	 * Exactement la meme que dans la super classe mais ca evite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		maintenant += Endless.delta;
 		if (mort) {
 			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);

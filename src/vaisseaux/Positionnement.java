@@ -22,11 +22,16 @@ public class Positionnement {
 			if (php.getPosXInitiale() + php.getDemiLargeur() > CSG.DEMI_LARGEUR_ZONE_JEU)	php.getPosition().x = php.getPosXInitiale() - php.getLargeur() * php.getNbEnnemisAvant();
 			else															php.getPosition().x = php.getPosXInitiale() + php.getLargeur() * php.getNbEnnemisAvant();
 		php.incNbEnnemisAvant();
+		php.getPosition().y = CSG.HAUTEUR_ECRAN + php.getHauteur();
 	}
 
 	public static float getEmplacementXVersMilieu(int largeur) {
 		float x = (float) (Math.random() * (CSG.LARGEUR_ZONE_JEU - largeur));
 		x = (x / 2) + (x / 4);
 		return x;
+	}
+	
+	public static void positionnerEnHautDansLaZoneDeJeu(int largeur, int hauteur) {
+		
 	}
 }

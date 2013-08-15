@@ -1,7 +1,5 @@
 package vaisseaux.ennemis.particuliers.nv1;
 
-import jeu.Endless;
-import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
@@ -12,12 +10,10 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationAvion;
-import assets.animation.AnimationExplosion1;
 import assets.particules.ParticulesExplosionPetite;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -40,40 +36,14 @@ public class Avion extends DeBase implements DoubleTireur {
 	// ** ** particules
 	protected ParticulesExplosionPetite explosion;
 	
-	
-	public void init() {
-		if (CSG.profil.particules && explosion == null) explosion = ParticulesExplosionPetite.pool.obtain();
-		else tpsAnimationExplosion = 0;
-	}
-	
 	@Override
 	public void reset() {
 		position.x = Positionnement.getEmplacementX(DEMI_LARGEUR);
 		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
-		mort = false;
-		pv = Stats.PVMAX_AVION;
+		reset(Stats.PVMAX_AVION);
 		prochainTir = 2.5f;
 	}
 
-	/**
-	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
-	 */
-	@Override
-	public boolean mouvementEtVerifSansParticules() {
-		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
-		position.y -= (Stats.VITESSE_AVION * Endless.delta);
-		return true;
-	}
-	
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
-	}
-	
 	@Override
 	protected Sound getSonExplosion() {	return SoundMan.explosionennemidebasequitir;	}
 	@Override
@@ -90,7 +60,6 @@ public class Avion extends DeBase implements DoubleTireur {
 	public void setProchainTir(float f) {		prochainTir = f;	}
 	@Override
 	public float getModifVitesse() {	return 1;	}
-	public int getPvMax() {				return Stats.PVMAX_AVION; }
 	@Override
 	public float getXtir1() {			return position.x - offsetArmeGauche;	}
 	@Override

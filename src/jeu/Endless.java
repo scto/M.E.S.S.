@@ -7,9 +7,9 @@ import vaisseaux.RestesEnnemis;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
+import vaisseaux.ennemis.particuliers.nv1.Avion;
+import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
 import vaisseaux.ennemis.particuliers.nv1.DeBase;
-import vaisseaux.ennemis.particuliers.nv1.Insecte;
-import vaisseaux.ennemis.particuliers.nv1.Kinder;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -137,15 +137,15 @@ public class Endless implements Screen {
 	public void render(float delta) {
 		
 //		if (Gdx.input.isKeyPressed(Keys.A))
-
+		Ennemis.liste.add(BouleQuiSArrete.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.E))
 //			Ennemis.liste.add(new EnnemiKinderDoubleTir());
 //		if (Gdx.input.isKeyPressed(Keys.R))
 //			Ennemis.liste.add(new EnnemiCylon());
 //		if (Gdx.input.isKeyPressed(Keys.T))
 //			Ennemis.liste.add(new EnnemiBossMine());
-		if (Gdx.input.justTouched()) 
-			Ennemis.liste.add(Kinder.pool.obtain());
+//		if (Gdx.input.justTouched()) 
+//			Ennemis.liste.add(Kinder.pool.obtain());
 //			Ennemis.liste.add(Insecte.pool.obtain());
 //		}
 //			Ennemis.liste.add(new EnnemiBouleQuiSArrete());
@@ -285,7 +285,7 @@ public class Endless implements Screen {
 		prevDelta = delta;
 		delta = 0;
 		vaisseau.drawSansParticules(batch);
-		Ennemis.affichageSansParticules(batch);
+		Ennemis.affichage(batch);
 		delta = prevDelta;
 		Armes.affichageSansParticules(batch);
 		ui();
@@ -321,7 +321,7 @@ public class Endless implements Screen {
 	private void affichageNonPerdu() {
 		Bonus.affichageEtMouvement(batch);
 		vaisseau.drawSansParticules(batch);
-		Ennemis.affichageEtMouvementSansParticules(batch);
+		Ennemis.affichageEtMouvement(batch);
 		Armes.affichageEtMouvementSansParticules(batch);
 		RestesEnnemis.render(batch);
 

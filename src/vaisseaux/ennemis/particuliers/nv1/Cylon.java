@@ -87,7 +87,7 @@ public class Cylon extends Ennemis implements TireurAngle {
 	}
 
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1 || Physique.toujoursAfficher(position, (int)LARGEUR) == false){
 			pool.free(this);
 			return false;
@@ -142,6 +142,11 @@ public class Cylon extends Ennemis implements TireurAngle {
 	@Override
 	public Vector2 getDirectionTir() {
 		return direction;
+	}
+	
+	@Override
+	protected void free() {
+		pool.free(this);
 	}
 
 	@Override

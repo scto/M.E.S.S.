@@ -55,6 +55,11 @@ public class QuiTir extends Ennemis implements Tireur{
 	}
 	
 	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
+	@Override
 	protected Sound getSonExplosion() {
 		return SoundMan.explosionennemidebasequitir;
 	}
@@ -81,7 +86,7 @@ public class QuiTir extends Ennemis implements Tireur{
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, (int)HAUTEUR, (int)LARGEUR) == false){
 			pool.free(this);
 			return false;

@@ -1,6 +1,8 @@
 package vaisseaux.ennemis;
 
 import jeu.Endless;
+import jeu.Physique;
+import jeu.Stats;
 import vaisseaux.Vaisseaux;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.particuliers.EnnemiBossQuad;
@@ -43,13 +45,22 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.badlogic.gdx.utils.Pools;
 
 public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	
 	// voir a quelle taille l'initialiser
 	public static Array<Ennemis> liste = new Array<Ennemis>(30);
 	protected static final Vector2 tmpPos = new Vector2(), tmpDir = new Vector2();
+	
+	public static float derniereApparition = 0;
+	public boolean mort = false;
+	protected static Rectangle collision = new Rectangle();
+	protected int pv;
+	protected float maintenant = 0, tpsAnimationExplosion = 0;
+	
 	public static final Invocable[] LISTE_LV1 = {
 		new Insecte(),
 		Laser.pool.obtain(),
@@ -99,11 +110,6 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 		EnnemiZigZagNv3.pool.obtain(),
 		EnnemiDeBaseNv3.pool.obtain(),
 		};//EnnemiInsecte.pool.obtain()};
-	public static float derniereApparition = 0;
-	public boolean mort = false;
-	protected static Rectangle collision = new Rectangle();
-	protected int pv;
-	protected float maintenant = 0, tpsAnimationExplosion = 0;
 	
 	/**
 	 * Initialise l'ennemi
@@ -112,20 +118,33 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 * @param direction
 	 * @param pv 
 	 */
-	protected Ennemis(float posX, float posY, int pv) {
+	protected Ennemis(float posX, float posY) {
 		position = new Vector2(posX, posY);
-		this.pv = pv;
+		this.pv = getPvMax();
 	}
 	
-	public static void affichageEtMouvementSansParticules(SpriteBatch batch) {
+	public static void affichageEtMouvement(SpriteBatch batch) {
 		for (Ennemis e : liste){
-			e.afficherSansParticules(batch);
+			e.afficher(batch);
 			e.tir();
-			if (e.mouvementEtVerifSansParticules() == false) 	liste.removeValue(e, true);
+			if (e.mouvementEtVerif() == false) 	liste.removeValue(e, true);
 		}
 	}
 	
-	public void afficherSansParticules(SpriteBatch batch) {
+	// Obligé pour le pooléz"E<Z
+	public Ennemis() {	}
+	
+	public boolean mouvementEtVerif() {
+		if ( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, getHauteur(), getLargeur()) == false){
+			free();
+			return false;
+		}
+		return true;
+	}
+	
+	protected abstract void free();
+
+	public void afficher(SpriteBatch batch) {
 		if (mort) {
 			batch.draw(getExplosion(), position.x, position.y, getLargeur(), getHauteur());
 			tpsAnimationExplosion += Endless.delta;
@@ -140,9 +159,9 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	protected TextureRegion getTexture() {		return AnimationArmeFusee.getTexture(maintenant);	}
 	protected void tir() {	}
 
-	public static void affichageSansParticules(SpriteBatch batch) {
+	public static void affichage(SpriteBatch batch) {
 		for(Ennemis e : liste)
-			e.afficherSansParticules(batch);
+			e.afficher(batch);
 	}
 	
 	static int cpt = 0;
@@ -162,7 +181,10 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 * Renvoie le rectangle de collision de l'objet
 	 * @return
 	 */
-	abstract public Rectangle getRectangleCollision();
+	public Rectangle getRectangleCollision() {
+		collision.set(position.x, position.y, getLargeur(), getHauteur());
+		return collision;
+	}
 
 	/**
 	 * On decremente les pvs de la force de l'arme. Si c'est 0 ou moins on le condamne ï¿½ mort. Ca ajoute les bonus eventuellement
@@ -183,10 +205,23 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 */
 	public void mourrir() {
 		mort = true;
-		Bonus.ajoutBonus(position.x + getDemiLargeur(), position.y + getDemiHauteur(), getXp());
+		Bonus.ajoutBonus(position.x + getDemiLargeur(), position.y - Bonus.DEMI_LARGEUR, getXp());
 		tpsAnimationExplosion = 0;
 		SoundMan.playBruitage(getSonExplosion());
 	}
+
+	/**
+	 * Reset mort, tpsAnimationExplosion et pv
+	 * @param pvMax
+	 */
+	public void reset(int pvMax) {
+		mort = false;
+		tpsAnimationExplosion = 0;
+		maintenant = 0;
+		pv = getPvMax();
+	}
+	
+	protected abstract int getPvMax();
 
 	/**
 	 * renvoie la valeur en xp de l'ennemi
@@ -197,7 +232,6 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	public abstract int getLargeur();
 	public abstract int getDemiHauteur();
 	public abstract int getDemiLargeur();
-	public abstract boolean mouvementEtVerifSansParticules();
 	protected Sound getSonExplosion() {		return null;	}
 
 	public static void randomApparition() {

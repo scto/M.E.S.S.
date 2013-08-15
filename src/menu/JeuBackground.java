@@ -22,7 +22,7 @@ public class JeuBackground {
 
 	public void render(SpriteBatch batch, float delta) {
 		Endless.maintenant += delta;
-		Ennemis.affichageEtMouvementSansParticules(batch);
+		Ennemis.affichageEtMouvement(batch);
 		vaisseau.drawSansParticules(batch);
 		Armes.affichageEtMouvementSansParticules(batch);
 		

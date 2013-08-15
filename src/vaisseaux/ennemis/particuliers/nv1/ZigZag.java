@@ -8,6 +8,7 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationRouli;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -43,6 +44,11 @@ public class ZigZag extends Ennemis {
 		sens = true;
 	}
 	
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
 	public ZigZag() {
 		super(getRandX(), CSG.HAUTEUR_ECRAN + ZigZag.HAUTEUR, Stats.PVMAX_ZIGZAG);
 		direction = new Vector2(0, -1);
@@ -59,7 +65,7 @@ public class ZigZag extends Ennemis {
 	}
 
 	@Override
-	public boolean mouvementEtVerifSansParticules() {	
+	public boolean mouvementEtVerif() {	
 		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || !Physique.toujoursAfficher(position, HAUTEUR, LARGEUR)){
 			pool.free(this);
 			return false;

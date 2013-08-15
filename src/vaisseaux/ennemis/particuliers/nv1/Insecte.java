@@ -45,6 +45,12 @@ public class Insecte extends Ennemis implements TireurAngle {
 	public static AtlasRegion bonEtat;
 	public static AtlasRegion mauvaisEtat;
 	
+	
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
 	public static void initAnimation(){
 		bonEtat = CSG.getAssetMan().getAtlas().findRegion("insecte");
 		mauvaisEtat = CSG.getAssetMan().getAtlas().findRegion("insectecasse");
@@ -91,7 +97,7 @@ public class Insecte extends Ennemis implements TireurAngle {
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.mouvementDeBase(direction, position, Stats.VITESSE_ENNEMI_INSECTE, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;

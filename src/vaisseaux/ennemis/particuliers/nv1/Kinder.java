@@ -49,12 +49,17 @@ public class Kinder extends Ennemis implements TireurAngle {
 	@Override
 	protected Sound getSonExplosion() {		return SoundMan.explosionkinder;	}
 	
+	
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
+	
 	/**
 	 * Ajoute � la liste
 	 */
 	public void init() {
-		if (CSG.profil.particules & explosion == null) explosion = ParticulesExplosionPetite.pool.obtain();
-		else tpsAnimationExplosion = 0;
 		randPositionEtDirection();
 	}
 	
@@ -93,7 +98,7 @@ public class Kinder extends Ennemis implements TireurAngle {
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;

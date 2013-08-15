@@ -43,49 +43,37 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	public void reset() {
 		position.x = Positionnement.getEmplacementX(DEMI_LARGEUR);
 		position.y = CSG.HAUTEUR_ECRAN + LARGEUR;
-		mort = false;
-		pv = Stats.PVMAX_BOULE_QUI_SARRETE;
+		super.reset(Stats.PVMAX_BOULE_QUI_SARRETE);
 		prochainTir = .2f;
 		reset = true;
-		maintenant = 0;
 	}
 	
 	@Override
-	protected Sound getSonExplosion() {
-		return SoundMan.explosionboule;
-	}
+	protected Sound getSonExplosion() {		return SoundMan.explosionboule;	}
 
 	public BouleQuiSArrete() {
 		super(Positionnement.getEmplacementX(DEMI_LARGEUR), CSG.HAUTEUR_ECRAN + LARGEUR, Stats.PVMAX_BOULE_QUI_SARRETE);
 	}
-
-	public void init() {
-		if(CSG.profil.particules & explosion == null)	explosion = ParticulesExplosionPetite.pool.obtain();
-	}
 	
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
-		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		} else { // Si on a pass� le deuxi�me pallier les ailes sont repli�es
-			if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
-				// On ralentit
-				if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)	position.y += (-50 * Endless.delta);
+	public boolean mouvementEtVerif() {
+		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
+			// On ralentit
+			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
+				position.y += (-50 * Endless.delta);
+		} else {
+			position.y += (Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta);
+		}
+		if (maintenant > 10) {
+			if (reset) {
+				position.y -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
+				position.x -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
 			} else {
-				position.y += (Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta);
-			}
-			if(maintenant > 10) {
-				if(reset){
-					position.y -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
-					position.x -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
-				} else {
-					position.y -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
-					position.x += Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
-				}
+				position.y -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
+				position.x += Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
 			}
 		}
-		return true;
+		return super.mouvementEtVerif();
 	}
 
 	@Override
@@ -112,12 +100,6 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 
 	@Override
 	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
-
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, LARGEUR);
-		return collision;
-	}
 	
 	@Override
 	public Armes getArme() {			return ArmesBouleBleu.pool.obtain();	}
@@ -140,4 +122,8 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 		liste.add(pool.obtain());
 	}
 
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
 }

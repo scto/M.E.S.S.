@@ -52,6 +52,11 @@ public class Laser extends Ennemis implements TireurAngle {
 	}
 	
 	@Override
+	protected void free() {
+		pool.free(this);
+	}
+	
+	@Override
 	public void reset() {
 		maintenant = 0;
 		position.x = Positionnement.getEmplacementX(DEMI_LARGEUR);
@@ -84,7 +89,7 @@ public class Laser extends Ennemis implements TireurAngle {
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerifSansParticules() {
+	public boolean mouvementEtVerif() {
 		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
 			return false;
