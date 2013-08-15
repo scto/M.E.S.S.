@@ -95,15 +95,6 @@ public class Rocher extends Ennemis{
 		mort = false;
 		if (!CSG.profil.particules)		tpsAnimationExplosion = 0;
 	}
-
-	@Override
-	public void afficher(SpriteBatch batch) {
-		if(mort){
-			explosion.draw(batch, Endless.delta);
-		} else {
-			batch.draw(AssetMan.rocher , position.x, position.y, demiLargeur, demiLargeur, largeur, largeur, 1, 1, angle, false);
-		}
-	}
 	
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
@@ -113,18 +104,6 @@ public class Rocher extends Ennemis{
 		} else {
 			batch.draw(AssetMan.rocher , position.x, position.y, demiLargeur, demiLargeur, largeur, largeur, 1, 1, angle, false);
 		}
-	}
-
-	@Override
-	public boolean mouvementEtVerif() {
-		if( (mort && explosion.isComplete()) | Physique.toujoursAfficher(position, largeur, largeur) == false){
-			pool.free(this);
-			if (explosion != null) explosion.free();
-			return false;
-		}
-		angle += vitesse * Endless.delta;
-		position.y -= (vitesse * Endless.delta);
-		return true;
 	}
 	
 	@Override

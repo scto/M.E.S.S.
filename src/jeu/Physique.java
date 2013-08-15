@@ -159,7 +159,7 @@ public class Physique {
 		for(Ennemis ennemi : Ennemis.liste){
 			// Si le centre du vaisseau est dans un ennemi
 			if( !ennemi.mort &&	pointDansRectangle(VaisseauType1.centreX, VaisseauType1.centreY, ennemi.getRectangleCollision())){
-//				Endless.perdu = true;
+				Endless.perdu();
 			}
 			for (Armes a : Armes.liste) {
 				// Le tir touche l'ennemie
@@ -275,9 +275,8 @@ public class Physique {
 		angle = (float)Math.atan2(y, x) * MathUtils.radiansToDegrees;
 		return angle;
 	}
-	public static float getEmplacementX(int demiLargeur) {
-		return (float) (CSG.LARGEUR_BORD + (Math.random() * CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD_MUL2 - demiLargeur) );
-	}
+	
+
 	
 	private static boolean collision = false;
 	

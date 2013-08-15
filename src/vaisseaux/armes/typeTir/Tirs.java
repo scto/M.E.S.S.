@@ -24,7 +24,7 @@ public class Tirs {
 		}
 	}
 	
-	public void doubleTirVersBas(DoubleTireur t, boolean mort, float maintenant, float prochainTir) {
+	public void doubleTirVersBas(Tireur t, boolean mort, float maintenant, float prochainTir) {
 		if (!mort && maintenant > prochainTir) {
 			
 			t.getArme().init(t.getPositionDuTir(1), t.getModifVitesse());
@@ -46,6 +46,14 @@ public class Tirs {
 	public void tirToutDroit(TireurAngle t, boolean mort, float maintenant, float prochainTir) {
 		if (!mort && maintenant > prochainTir) {
 			t.getArme().init(t.getPositionDuTir(1), t.getModifVitesse(), t.getAngleTir(), t.getDirectionTir());
+			t.setProchainTir(prochainTir + CADENCE);
+		}
+	}
+	
+	public void tirSurCote(TireurAngle t, boolean mort, float maintenant, float prochainTir) {
+		if (!mort && maintenant > prochainTir) {
+			t.getArme().init(t.getPositionDuTir(1), t.getDirectionTir().rotate( t.getAngleTir() ), t.getModifVitesse());
+			t.getArme().init(t.getPositionDuTir(2), t.getDirectionTir().rotate( (t.getAngleTir()+180) ), t.getModifVitesse());
 			t.setProchainTir(prochainTir + CADENCE);
 		}
 	}

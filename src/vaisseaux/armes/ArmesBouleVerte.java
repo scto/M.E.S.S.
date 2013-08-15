@@ -8,7 +8,6 @@ import assets.animation.AnimationBouleBleu;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Pool.Poolable;

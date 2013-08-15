@@ -15,7 +15,7 @@ public class Stats {
 	
 	// E N N E M I   D E   B A S E
 	public static final int VITESSE_MAX_DE_BASE = (int) (CSG.HAUTEUR_ECRAN/5.33f);
-	public static final int PVMAX_DE_BASE = 7;
+	public static final int PVMAX_DE_BASE = 5;
 	public static final int PVMAX_DE_BASE_NV3 = 14;
 	public static final int VITESSE_MAX_DE_BASE_NV3 = (int) (CSG.HAUTEUR_ECRAN/4.13f);
 	
@@ -55,7 +55,7 @@ public class Stats {
 	public static final int PVMAX_QUI_TOURNE = 60;
 	public static final int VITESSE_QUI_TOURNE3 = (int) (CSG.HAUTEUR_ECRAN/2.4f);
 	public static final int DEMI_VITESSE_QUI_TOURNE3 = VITESSE_QUI_TOURNE/2;
-	public static final int PVMAX_QUI_TOURNE3 = 80;
+	public static final int PVMAX_QUI_TOURNE3 = 85;
 	
 	// T O U P I E
 	public static final int VITESSE_TOUPIE = (int) (CSG.HAUTEUR_ECRAN/8.88f);
@@ -74,7 +74,7 @@ public class Stats {
 	
 	// K I N D E R
 	public static final int PVMAX_KINDER = 100;
-	public static final int PVMAX_KINDER_DOUBLE = 170;
+	public static final int PV_KINDER2 = 170;
 	public static final int VITESSE_KINDER = (int) (CSG.HAUTEUR_ECRAN/12f);
 	public static final int PVMAX_KINDER3 = 200;
 	public static final int PVMAX_KINDER_DOUBLE3 = 340;
@@ -89,6 +89,7 @@ public class Stats {
 	public static final int VITESSE_PORTE_RAISIN = CSG.HAUTEUR_ECRAN / 30;
 	public static final int PVMAX_PORTE_RAISIN = 340;
 	public static final int PVMAX_PORTE_RAISIN_AMOCHE = 150;
+	public static final int PVMAX_PORTE_RAISIN3 = 420;
 	
 	// A V I O N
 	public static final int VITESSE_AVION = CSG.HAUTEUR_ECRAN / 8;
@@ -118,10 +119,10 @@ public class Stats {
 	public static final int PVMAX_LASER3 = 290;
 	
 	// L A S E R   C O T E 
-	public static final int VITESSE_ENNEMI_LASER_COTE = (CSG.HAUTEUR_ECRAN / 14);
-	public static final int VITESSE_ENNEMI_LASER_COTE_PETIT = (CSG.HAUTEUR_ECRAN / 8);
+	public static final int VITESSE_BOULE_TIR_COTE = (CSG.HAUTEUR_ECRAN / 14);
+	public static final int VITESSE_BOULE_TIR_COTE_PETIT = (CSG.HAUTEUR_ECRAN / 8);
 	public static final int PVMAX_LASER_COTE = 240;
-	public static final int PVMAX_LASER_COTE_PETIT = 145;
+	public static final int PV_BOULE_COTE_PETIT = 145;
 	
 	// E N N E M I   I N S E C T E 
 	public static final int VITESSE_ENNEMI_INSECTE = (CSG.HAUTEUR_ECRAN / 20);

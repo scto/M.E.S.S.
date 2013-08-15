@@ -93,7 +93,7 @@ public class Profil implements Serializable{
 		champXp = "XP : " + xpDispo;
 		typeControle = json.readValue(STR_TYPE_CONTROLE, Integer.class, jsonData);
 		bloom = json.readValue(STR_BLOOM, Boolean.class, jsonData);
-		particules = json.readValue(STR_PARTICULES, Boolean.class, jsonData);
+		particules = false;
 		intensiteBloom = json.readValue(STR_INTENSITE_BLOOM, Float.class, jsonData);
 	}
 
@@ -251,7 +251,7 @@ public class Profil implements Serializable{
 		if (Gdx.graphics.isGL20Available()) {
 			particules = !particules;
 			Armes.initEffets();
-			Ennemis.switchParticules();
+//			Ennemis.switchParticules();
 		}
 	}
 

@@ -63,11 +63,6 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 		tpsAnim = 0;
 	}
 
-	@Override
-	public void init() {
-		if (CSG.profil.particules & explosion == null)	explosion = ParticulesExplosionPetite.pool.obtain();
-	}
-	
 	public EnnemiAilesDeployees() {
 		super((float) (Math.random() * CSG.LARGEUR_ECRAN - DEMI_LARGEUR), CSG.HAUTEUR_ECRAN + LARGEUR, Stats.PVMAX_AILES_DEPLOYEE);
 	}
@@ -82,33 +77,7 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 		}
 		return true;
 	}
-	
-	@Override
-	public boolean mouvementEtVerif() {
-		if( (mort && explosion.isComplete()) | Physique.toujoursAfficher(position, (int)LARGEUR, (int)LARGEUR) == false) {
-			pool.free(this);
-			if (explosion != null) explosion.free();
-			return false;
-		} else {
-			angle = Physique.mouvementTeteChercheuse(direction, position, Stats.VITESSE_MAX_AILES_DEPLOYEE,(int) LARGEUR, VITESSE_ANGULAIRE, (int)DEMI_LARGEUR);
-		}
-		return true;
-	}
 
-	/**
-	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
-	 */
-	@Override
-	public void afficher(SpriteBatch batch) {
-		maintenant += Endless.delta;
-		if(mort){
-			explosion.draw(batch, Endless.delta);
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-		} else {
-			batch.draw(AnimationEnnemiAileDeployee.getTexture(tpsAnim), position.x, position.y,	DEMI_LARGEUR,DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1, angle, false);
-			tpsAnim += Endless.delta;
-		}
-	}
 	/**
 	 * Exactement la meme que dans la super classe mais ca evite de faire des getter largeur hauteur...
 	 */
@@ -155,32 +124,22 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	
 	@Override
 	public int getHauteur() {			return (int)LARGEUR;	}
-
 	@Override
 	public int getLargeur() {			return (int)LARGEUR;	}
-
 	@Override
 	public int getDemiHauteur() {		return (int)DEMI_LARGEUR;	}
-
 	@Override
 	public int getDemiLargeur() {		return (int)DEMI_LARGEUR;	}
-
 	@Override
 	public Armes getArme() {			return ArmesBouleVerte.pool.obtain();	}
-
 	@Override
 	public void setProchainTir(float f) {		prochainTir = f;	}
-
 	@Override
 	public float getModifVitesse() {	return 1;	}
-
 	@Override
-	public float getAngleTir() {			return angle;	}
-	
+	public float getAngleTir() {		return angle;	}
 	@Override
-	public Vector2 getDirectionTir() {
-		return direction;
-	}
+	public Vector2 getDirectionTir() {	return direction;	}
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
@@ -190,7 +149,5 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	}
 	
 	@Override
-	public void invoquer() {
-		liste.add(pool.obtain());
-	}
+	public void invoquer() {			liste.add(pool.obtain());	}
 }

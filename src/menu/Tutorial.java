@@ -9,9 +9,9 @@ import vaisseaux.bonus.BonusTemps;
 import vaisseaux.bonus.XP;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.particuliers.EnnemiPorteNef;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiBouleQuiSArrete;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiDeBase;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiToupie;
+import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
+import vaisseaux.ennemis.particuliers.nv1.DeBase;
+import vaisseaux.ennemis.particuliers.nv1.Toupie;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.animation.AnimationVaisseau;
@@ -36,13 +36,13 @@ public class Tutorial extends AbstractScreen {
 	private static String thisIsYourShip = "You =>";
 	private static String touchToMove = "Touch the screen to move";
 	private static String thisIsAnEnemi = "Shoot him !";
-	private EnnemiDeBase ennemi1DeBase;
+	private DeBase ennemi1DeBase;
 	// step 2
 	private Bonus xp;
 	private static String gg = "Catch the XP" ;	
 	private static String gg2 = "It will help you improve your ship !";
 	// step 3
-	private EnnemiBouleQuiSArrete ennemi2BouleQuiSArrete;
+	private BouleQuiSArrete ennemi2BouleQuiSArrete;
 	private BonusTemps bonusTemps;
 	private static String txtBonusTemps = "This one will slow time";
 	// step 5
@@ -54,7 +54,7 @@ public class Tutorial extends AbstractScreen {
 	private static String txtStop = "Stop the world";
 	private BonusStop bonusStop;
 	// step 8 
-	private EnnemiToupie ennemi4Toupie;
+	private Toupie ennemi4Toupie;
 	// step 9
 	private static String twoFingers = "Use two fingers";
 	
@@ -133,7 +133,7 @@ public class Tutorial extends AbstractScreen {
 		case 1:
 			monter += delta * 5;
 			if (ennemi1DeBase == null) {
-				ennemi1DeBase = EnnemiDeBase.pool.obtain();
+				ennemi1DeBase = DeBase.pool.obtain();
 				Ennemis.liste.add(ennemi1DeBase);
 				ennemi1DeBase.position.x = CSG.DEMI_LARGEUR_ECRAN/2;
 			}
@@ -212,7 +212,7 @@ public class Tutorial extends AbstractScreen {
 		fade(1.5f);
 		font.draw(batch, thisIsYourShip, VaisseauType1.position.x - font.getBounds(thisIsYourShip).width, VaisseauType1.position.y + VaisseauType1.HAUTEUR);
 		font.draw(batch, touchToMove, VaisseauType1.position.x - font.getBounds(touchToMove).width / 2, VaisseauType1.position.y + VaisseauType1.HAUTEUR * 2);
-		font.draw(batch, thisIsAnEnemi, ennemi1DeBase.position.x - font.getBounds(thisIsAnEnemi).width/2, ennemi1DeBase.position.y + EnnemiDeBase.HAUTEUR * 3);
+		font.draw(batch, thisIsAnEnemi, ennemi1DeBase.position.x - font.getBounds(thisIsAnEnemi).width/2, ennemi1DeBase.position.y + DeBase.HAUTEUR * 3);
 	}
 
 	private void update(float delta) {
@@ -237,8 +237,8 @@ public class Tutorial extends AbstractScreen {
 			xp = XP.pool.obtain();
 			Bonus.liste.add(xp);
 			if(ennemi1DeBase.mort) {
-				xp.posX = ennemi1DeBase.position.x + EnnemiDeBase.DEMI_LARGEUR;
-				xp.posY = ennemi1DeBase.position.y + EnnemiDeBase.DEMI_LARGEUR;
+				xp.posX = ennemi1DeBase.position.x + DeBase.DEMI_LARGEUR;
+				xp.posY = ennemi1DeBase.position.y + DeBase.DEMI_LARGEUR;
 			} else {
 				xp.posX = CSG.DEMI_LARGEUR_ECRAN;
 				xp.posY = CSG.HAUTEUR_ECRAN;
@@ -246,7 +246,7 @@ public class Tutorial extends AbstractScreen {
 			incStep();
 		}
 		if (step == 2 && Bonus.liste.size == 0) {
-			ennemi2BouleQuiSArrete = EnnemiBouleQuiSArrete.pool.obtain();
+			ennemi2BouleQuiSArrete = BouleQuiSArrete.pool.obtain();
 			Ennemis.liste.add(ennemi2BouleQuiSArrete);
 			ennemi2BouleQuiSArrete.position.x = CSG.LARGEUR_ECRAN/3;
 			incStep();
@@ -256,8 +256,8 @@ public class Tutorial extends AbstractScreen {
 			bonusTemps = BonusTemps.pool.obtain();
 			Bonus.liste.add(bonusTemps);
 			if(ennemi2BouleQuiSArrete.mort) {
-				bonusTemps.posX = ennemi2BouleQuiSArrete.position.x + EnnemiBouleQuiSArrete.DEMI_LARGEUR;
-				bonusTemps.posY = ennemi2BouleQuiSArrete.position.y + EnnemiBouleQuiSArrete.DEMI_LARGEUR;
+				bonusTemps.posX = ennemi2BouleQuiSArrete.position.x + BouleQuiSArrete.DEMI_LARGEUR;
+				bonusTemps.posY = ennemi2BouleQuiSArrete.position.y + BouleQuiSArrete.DEMI_LARGEUR;
 			} else {
 				bonusTemps.posX = CSG.DEMI_LARGEUR_ECRAN;
 				bonusTemps.posY = CSG.HAUTEUR_ECRAN;
@@ -302,7 +302,7 @@ public class Tutorial extends AbstractScreen {
 	
 		if (step == 8){
 			if(ennemi4Toupie == null){
-				ennemi4Toupie = EnnemiToupie.pool.obtain();
+				ennemi4Toupie = Toupie.pool.obtain();
 				Ennemis.liste.add(ennemi4Toupie);
 			} else {
 				if(ennemi4Toupie.mort | Ennemis.liste.size==0) incStep();
@@ -352,32 +352,19 @@ public class Tutorial extends AbstractScreen {
 	}
 	private float prevDelta;
 	private void affichageNonPerdu() {
-		if(activerStop == false) {
-			if(CSG.profil.particules){
-				Bonus.affichageEtMouvement(batch);
-				Ennemis.affichageEtMouvement(batch);
-				vaisseau.draw(batch);
-				Armes.affichageEtMouvement(batch);
-			} else {
-				Bonus.affichageEtMouvement(batch);
-				Ennemis.affichageEtMouvementSansParticules(batch);
-				vaisseau.drawSansParticules(batch);
-				Armes.affichageEtMouvementSansParticules(batch);
-			}
+		if (activerStop == false) {
+			Bonus.affichageEtMouvement(batch);
+			Ennemis.affichageEtMouvementSansParticules(batch);
+			vaisseau.drawSansParticules(batch);
+			Armes.affichageEtMouvementSansParticules(batch);
 		} else {
 			prevDelta = Endless.delta;
 			Endless.delta = 0;
-			if(CSG.profil.particules){
-				Ennemis.affichage(batch);
-				Endless.delta = prevDelta;
-				Armes.affichage(batch);
-				vaisseau.draw(batch);
-			} else {
-				Ennemis.affichageSansParticules(batch);
-				Endless.delta = prevDelta;
-				Armes.affichageSansParticules(batch);
-				vaisseau.drawSansParticules(batch);
-			}
+			Ennemis.affichageSansParticules(batch);
+			Endless.delta = prevDelta;
+			Armes.affichageSansParticules(batch);
+			vaisseau.drawSansParticules(batch);
+			
 			nbBonusStop -= Endless.delta;
 			if (nbBonusStop < 0) activerStop = false;
 		}

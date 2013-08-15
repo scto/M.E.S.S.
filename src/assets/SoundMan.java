@@ -2,7 +2,6 @@ package assets;
 
 import menu.CSG;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 

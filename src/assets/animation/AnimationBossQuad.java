@@ -1,8 +1,6 @@
 package assets.animation;
 
-import vaisseaux.ennemis.particuliers.EnnemiBossQuad;
 import menu.CSG;
-import jeu.Stats;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 

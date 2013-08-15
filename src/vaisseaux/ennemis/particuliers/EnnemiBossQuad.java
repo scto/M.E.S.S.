@@ -118,25 +118,6 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 		position.y = CSG.HAUTEUR_ECRAN;
 		explosionTourellesCentre = false;
 	}
-
-	/**
-	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
-	 */
-	@Override
-	public boolean mouvementEtVerif() {
-		if( (mort && explosion.isComplete()) || Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			if (explosionTourelle1 != null) explosionTourelle1.free();
-			if (explosionTourelle2 != null) explosionTourelle2.free();
-			return false;
-		}
-		if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_2 | dirY < 1) 	position.y -= (dirY * Stats.VITESSE_BOSS_QUAD * Endless.delta);
-		if (dirY < 1) 												dirY += 30 * Endless.delta;
-		if (position.x + DEMI_LARGEUR > CSG.DEMI_LARGEUR_ZONE_JEU)	dirX -= 4 * Endless.delta;
-		else														dirX += 4 * Endless.delta;
-		position.x += dirX * Stats.VITESSE_BOSS_QUAD * Endless.delta;
-		return true;
-	}
 	
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
@@ -155,26 +136,6 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 		return true;
 	}
 
-	/**
-	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
-	 */
-	@Override
-	public void afficher(SpriteBatch batch) {
-		if (mort) {
-			explosion.draw(batch, Endless.delta);
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-		} else {
-			batch.draw(AnimationBossQuad.getTexture(phase), position.x, position.y, LARGEUR, HAUTEUR);
-			maintenant += Endless.delta;
-		}
-		if (explosionTourellesCentre && explosionTourelle1 != null && explosionTourelle2 != null && !explosionTourelle1.isComplete() && !explosionTourelle2.isComplete()) {
-			explosionTourelle1.draw(batch, Endless.delta);
-			explosionTourelle1.setPosition( position.x + DECALAGE_ARME_2 + ArmeBossQuad.DEMI_LARGEUR, position.y + ArmeBossQuad.DEMI_HAUTEUR);
-			
-			explosionTourelle2.draw(batch, Endless.delta);
-			explosionTourelle2.setPosition( position.x + DECALAGE_ARME_3+ ArmeBossQuad.DEMI_LARGEUR, position.y + ArmeBossQuad.DEMI_HAUTEUR);
-		}
-	}
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */

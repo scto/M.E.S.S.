@@ -16,23 +16,17 @@ import vaisseaux.ennemis.particuliers.Rocher;
  */
 public class Progression {
 
-	private static final int NV_DE_BASE = 2;
+	private static final int PALIER = 15, DUREE_GRACE = 20, DUREE_PHASE_NORMALE = 37, NV_DE_BASE = 2;
 	private static int niveau = NV_DE_BASE;
-	private static final int PALIER = 15, DUREE_GRACE = 15, DUREE_PHASE_NORMALE = 37;
-	private static int pointsDispos = 0;
-	private static int alternerNbPoints = 0;
+	private static int pointsDispos = 0, alternerNbPoints = 0, nbAppels = 0, nbBoss = 0;
+	private static EtatProgression etat = EtatProgression.Normal;
 	public static final float frequenceApparition = 1;
-	public static int nbAppels = 0;
-	public static EtatProgression etat = EtatProgression.Normal;
-	public static int nbBoss = 0;
 
 	public static void invoqueEnnemis() {
-		nbAppels++; // Sert a compter si on passe en mode boss ou pas
-		
 		if (niveau < 10) // on monte rapidement de niveau au debut 
 			niveau += Endless.level;
 
-		if (nbAppels > DUREE_PHASE_NORMALE) {
+		if (nbAppels++ > DUREE_PHASE_NORMALE) {
 			etat = EtatProgression.Boss;
 			nbAppels = 0;
 		}
@@ -54,7 +48,7 @@ public class Progression {
 	
 	private static void popNormal() {
 		alternerNbPoints++;
-		switch (alternerNbPoints) { // calcul des points. Se base sur le niveau
+		switch (alternerNbPoints) { // calcul des points. Se base sur le niveau. rien sur 3, c'est normal
 		case 0:			pointsDispos = niveau * Endless.level / 10;			break;
 		case 1:			pointsDispos = niveau * Endless.level / 6;			break;
 		case 2:			pointsDispos = niveau * Endless.level / 3;			break;
@@ -121,7 +115,7 @@ public class Progression {
 	}
 
 	private static void popBoss2() {
-		if (Ennemis.liste.size > 0)		return; 
+		if (Ennemis.liste.size > 1)		return; 
 
 		switch (nbBoss) {
 		case 0:
@@ -146,11 +140,7 @@ public class Progression {
 			Rocher.pool.obtain();
 			break;
 		default:
-			Ennemis.liste.add(EnnemiBossQuad.pool.obtain());
-			Rocher.pool.obtain();
-			Rocher.pool.obtain();
-			Rocher.pool.obtain();
-			Rocher.pool.obtain();
+			Ennemis.liste.add(EnnemiBossMine.pool.obtain());
 			break;
 		}
 		etat = EtatProgression.TempsDeGrace;
@@ -160,7 +150,7 @@ public class Progression {
 
 	
 	private static void popBoss3() {
-		if (Ennemis.liste.size > 0)		return; 
+		if (Ennemis.liste.size > 1)		return; 
 
 		switch (nbBoss) {
 		case 0:			Ennemis.liste.add(EnnemiBossQuad.pool.obtain());			break;

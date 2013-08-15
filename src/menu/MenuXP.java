@@ -1,8 +1,5 @@
 package menu;
 
-import vaisseaux.armes.joueur.ArmeHantee;
-import vaisseaux.armes.joueur.ArmesBalayage;
-import vaisseaux.armes.joueur.ArmesDeBase;
 import vaisseaux.armes.joueur.ArmesTrois;
 import vaisseaux.joueur.VaisseauType1;
 import bloom.Bloom;

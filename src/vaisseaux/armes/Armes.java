@@ -37,7 +37,7 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 			a.afficher(batch);
 			if (testCollision) {
 				if (a.testCollisionVaisseau() == true) {
-					// Si on a perdu faut pas la virer sinon on la voit plus à l'écran
+					// Si on a perdu faut pas la virer sinon on la voit plus ï¿½ l'ï¿½cran
 					if (Endless.aPerdu() == false) { 
 						listeTirsDesEnnemis.removeValue(a, true);
 						a.free();
@@ -111,10 +111,8 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	}
 
 	public static void affichageSansParticules(SpriteBatch batch) {
-		for (Armes a : liste)
-			a.afficherSansParticules(batch);
-		for (Armes a : listeTirsDesEnnemis)
-			a.afficherSansParticules(batch);
+		for (Armes a : liste)					a.afficherSansParticules(batch);
+		for (Armes a : listeTirsDesEnnemis)		a.afficherSansParticules(batch);
 	}
 	/**
 	 * Retourne la force de l'arme
@@ -168,7 +166,8 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		this.position.x = position.x;
 		this.position.y = position.y;
 		this.direction.x = 0;
-		this.direction.y = -1;
+		this.direction.y = -1 * modifVitesse;
+		System.out.println(direction.y);
 		listeTirsDesEnnemis.add(this);
 		initGraphismes();
 	}
@@ -188,6 +187,15 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		this.position.y = position.y;
 		this.direction.x = direction.x;
 		this.direction.y = direction.y;
+		listeTirsDesEnnemis.add(this);
+		initGraphismes();
+	}
+	
+	public void init(Vector2 position, Vector2 direction, float modifVitesse) {
+		this.position.x = position.x;
+		this.position.y = position.y;
+		this.direction.x = direction.x * modifVitesse;
+		this.direction.y = direction.y * modifVitesse;
 		listeTirsDesEnnemis.add(this);
 		initGraphismes();
 	}

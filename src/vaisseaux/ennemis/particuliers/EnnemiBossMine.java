@@ -102,24 +102,6 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerif() {
-		if( (mort && explosion.isComplete()) | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
-		if (phase == 1){
-			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3 | dirY < 1) 	position.y -= (dirY * Stats.VITESSE_KINDER * Endless.delta);
-			if (dirY < 1)	dirY += 30 * Endless.delta;
-		} else {
-			if (angle < 180) angle += Endless.delta * 100;
-		}
-		return true;
-	}
-	
-	/**
-	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
-	 */
-	@Override
 	public boolean mouvementEtVerifSansParticules() {
 		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
 			pool.free(this);
@@ -135,31 +117,6 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 		return true;
 	}
 
-	/**
-	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
-	 */
-	@Override
-	public void afficher(SpriteBatch batch) {
-		if(mort){
-			explosion.draw(batch, Endless.delta);
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-		}
-		else{
-			if (pv > Stats.DEUXTIERS_PVMAX_BOSS_MINE)			batch.draw(AnimationBossMine.getTexture(pv), position.x, position.y, LARGEUR, HAUTEUR);
-			else 	batch.draw(AnimationBossMine.getTexture(pv), position.x, position.y,
-					// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
-					DEMI_LARGEUR,DEMI_HAUTEUR,
-					// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
-					LARGEUR, HAUTEUR,
-					//scaleX the scale of the rectangle around originX/originY in x ET Y
-					4,0.25f,
-					// L'ANGLE DE ROTATION
-					angle -90,
-					//FLIP OU PAS
-					false);
-			maintenant += Endless.delta;
-		}
-	}
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
@@ -220,29 +177,15 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	}
 
 	@Override
-	public int getXp() {
-		return CoutsEnnemis.EnnemiBossMine.COUT;
-	}
-	
+	public int getXp() {				return CoutsEnnemis.EnnemiBossMine.COUT;	}
 	@Override
-	public int getHauteur() {
-		return HAUTEUR;
-	}
-
+	public int getHauteur() {			return HAUTEUR;	}
 	@Override
-	public int getLargeur() {
-		return LARGEUR;
-	}
-
+	public int getLargeur() {			return LARGEUR;	}
 	@Override
-	public int getDemiHauteur() {
-		return DEMI_HAUTEUR;
-	}
-
+	public int getDemiHauteur() {		return DEMI_HAUTEUR;	}
 	@Override
-	public int getDemiLargeur() {
-		return DEMI_LARGEUR;
-	}
+	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
 
 	@Override
 	public Rectangle getRectangleCollision() {

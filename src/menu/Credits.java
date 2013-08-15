@@ -6,7 +6,7 @@ public class Credits {
 	
 	private float posX = 0;
 	private final String CREDIT = "                                                    DEVELOPER : JULIEN BERTOZZI,    GAME DESIGN : JULIEN BERTOZZI, CHRISTIAN BRUYERE, JEREMY DETRAUX, RUDY SCHOONENBURG   GRAPHICS : TYRIAN,    MUSIC : OLIVIER LAHAYE.    DONE WITH THE LIBGDX FRAMEWORK...         THANKS FOR PLAYING !";
-	private final String PATCHNOTE = "                                                    PATCHNOTE 0.86 : NO SOUND WHEN AN ENNEMY SHOOTS    ";
+	private final String PATCHNOTE = "                                                    PATCHNOTE 0.87 : BUG FIXES AND SMALL ADJUSMENTS.      ";
 	private final String str;
 	
 	public Credits() {

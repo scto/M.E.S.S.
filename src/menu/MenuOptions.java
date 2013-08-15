@@ -26,7 +26,7 @@ public class MenuOptions extends AbstractScreen{
 	private Bouton affichageMusique;
 	private Bouton boutonBloom;
 	private Bouton boutonBloomIntensite;
-	private Bouton boutonParticules;
+//	private Bouton boutonParticules;
 	private Bouton boutonControles;
 	private SpriteBatch batch;
 	private Bloom bloom;
@@ -204,24 +204,7 @@ public class MenuOptions extends AbstractScreen{
 		});
 		updateTexteBoutonBloomIntensite();
 		getStage().addActor(boutonBloomIntensite);
-		// *******************************************************************************************************
-		// ************************  P A R T I C U L E S  ********************************************************
-		// *******************************************************************************************************
-		boutonParticules = new Bouton(CSG.menuFont, false);
-		boutonParticules.setSize(Menu.LARGEUR_BOUTON, Menu.HAUTEUR_BOUTON);
-		boutonParticules.setPosition(CSG.LARGEUR_ECRAN /2 - Menu.LARGEUR_BOUTON/2,
-				-Menu.decalageY +-Menu.HAUTEUR_MINIBOUTON+getStage().getHeight() - Menu.HAUTEUR_BOUTON * ligne5 );
-		boutonParticules.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				CSG.profil.switchParticules();
-				if(CSG.profil.particules) boutonParticules.setTexte("Particules");
-				else boutonParticules.setTexte("Sprites");
-			}
-		});
-		if(CSG.profil.particules) boutonParticules.setTexte("Particules");
-		else boutonParticules.setTexte("Sprites");
-		getStage().addActor(boutonParticules);
+
 		// *******************************************************************************************************
 		// ************************   C O N T R O L E S   ********************************************************
 		// *******************************************************************************************************
@@ -298,7 +281,7 @@ public class MenuOptions extends AbstractScreen{
 		if(bouton != boutonMusiquePlus) 		boutonMusiquePlus.setRapetisser(true);
 		if(bouton != boutonBloom) 				boutonBloom.setRapetisser(true);
 		if(bouton != boutonBloomIntensite)		boutonBloomIntensite.setRapetisser(true);
-		if(bouton != boutonParticules)			boutonParticules.setRapetisser(true);
+//		if(bouton != boutonParticules)			boutonParticules.setRapetisser(true);
 		if(bouton != boutonControles)			boutonControles.setRapetisser(true);
 		bouton.setVersDroite(true);
 		Gdx.input.setInputProcessor(null);

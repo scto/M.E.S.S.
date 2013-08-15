@@ -5,23 +5,22 @@ import vaisseaux.Vaisseaux;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.particuliers.EnnemiBossQuad;
 import vaisseaux.ennemis.particuliers.EnnemiPorteNef;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiAvion;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiBouleQuiSArrete;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiCylon;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiDeBase;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiInsecte;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiKinder;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiLaser;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiPorteRaisin;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir2;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTourne;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiToupie;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiZigZag;
-import vaisseaux.ennemis.particuliers.nv2.EnnemiKinderDoubleTir;
-import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCote;
-import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCotePetitEtRapide;
-import vaisseaux.ennemis.particuliers.nv2.EnnemiLaserCoteRotation;
+import vaisseaux.ennemis.particuliers.nv1.Avion;
+import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
+import vaisseaux.ennemis.particuliers.nv1.Cylon;
+import vaisseaux.ennemis.particuliers.nv1.DeBase;
+import vaisseaux.ennemis.particuliers.nv1.Insecte;
+import vaisseaux.ennemis.particuliers.nv1.Kinder;
+import vaisseaux.ennemis.particuliers.nv1.Laser;
+import vaisseaux.ennemis.particuliers.nv1.PorteRaisin;
+import vaisseaux.ennemis.particuliers.nv1.QuiTir;
+import vaisseaux.ennemis.particuliers.nv1.QuiTir2;
+import vaisseaux.ennemis.particuliers.nv1.QuiTourne;
+import vaisseaux.ennemis.particuliers.nv1.Toupie;
+import vaisseaux.ennemis.particuliers.nv1.ZigZag;
+import vaisseaux.ennemis.particuliers.nv2.Kinder2;
+import vaisseaux.ennemis.particuliers.nv2.BouleTirCote;
+import vaisseaux.ennemis.particuliers.nv2.BouleTirCoteRotation;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiAvionNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiBouleQuiSArreteNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiCylonNv3;
@@ -34,13 +33,15 @@ import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTirNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiToupieNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiZigZagNv3;
+import assets.animation.AnimationArmeFusee;
+import assets.animation.AnimationExplosion1;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
-
 
 public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	
@@ -49,43 +50,42 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	protected static final Vector2 tmpPos = new Vector2();
 	protected static final Vector2 tmpDir = new Vector2();
 	public static final Invocable[] LISTE_LV1 = {
-		new EnnemiInsecte(),
-		EnnemiLaser.pool.obtain(),
-		EnnemiPorteRaisin.pool.obtain(),
-		EnnemiAvion.pool.obtain(),
-		EnnemiQuiTir2.pool.obtain(),
-		EnnemiKinder.pool.obtain(),
-		EnnemiCylon.pool.obtain(),
-		EnnemiToupie.pool.obtain(),
-		EnnemiQuiTourne.pool.obtain(),
-		EnnemiBouleQuiSArrete.pool.obtain(),
-		EnnemiQuiTir.pool.obtain(),
-		EnnemiZigZag.pool.obtain(),
-		EnnemiDeBase.pool.obtain(),
+		new Insecte(),
+		Laser.pool.obtain(),
+		PorteRaisin.pool.obtain(),
+		Avion.pool.obtain(),
+		QuiTir2.pool.obtain(),
+		Kinder.pool.obtain(),
+		Cylon.pool.obtain(),
+		Toupie.pool.obtain(),
+		QuiTourne.pool.obtain(),
+		BouleQuiSArrete.pool.obtain(),
+		QuiTir.pool.obtain(),
+		ZigZag.pool.obtain(),
+		DeBase.pool.obtain(),
 		};//EnnemiInsecte.pool.obtain()};
 	public static final Invocable[] LISTE_LV2 = {
-		new EnnemiInsecte(),
-		EnnemiKinderDoubleTir.pool.obtain(),
-		EnnemiLaserCote.pool.obtain(),
-		EnnemiLaser.pool.obtain(),
-		EnnemiKinderDoubleTir.pool.obtain(),
-		EnnemiLaserCoteRotation.pool.obtain(),
-		EnnemiPorteRaisin.pool.obtain(),
-		EnnemiAvion.pool.obtain(),
-		EnnemiQuiTir2.pool.obtain(), 
-		EnnemiLaserCotePetitEtRapide.pool.obtain(),
-		EnnemiKinder.pool.obtain(), 
-		EnnemiCylon.pool.obtain(), 
-		EnnemiToupie.pool.obtain(), 
-		EnnemiQuiTourne.pool.obtain(), 
-		EnnemiBouleQuiSArrete.pool.obtain(),
-		EnnemiQuiTir.pool.obtain(),
-		EnnemiZigZag.pool.obtain(),
-		EnnemiDeBase.pool.obtain(),
+		new Insecte(),
+		Kinder2.pool.obtain(),
+		BouleTirCote.pool.obtain(),
+		Laser.pool.obtain(),
+		Kinder2.pool.obtain(),
+		BouleTirCoteRotation.pool.obtain(),
+		PorteRaisin.pool.obtain(),
+		Avion.pool.obtain(),
+		QuiTir2.pool.obtain(), 
+		Kinder.pool.obtain(), 
+		Cylon.pool.obtain(), 
+		Toupie.pool.obtain(), 
+		QuiTourne.pool.obtain(), 
+		BouleQuiSArrete.pool.obtain(),
+		QuiTir.pool.obtain(),
+		ZigZag.pool.obtain(),
+		DeBase.pool.obtain(),
 		};//EnnemiInsecte.pool.obtain()};
 	public static final Invocable[] LISTE_LV3 = {
 		new EnnemiInsecteNv3(),
-		EnnemiLaserCote.pool.obtain(), 
+		BouleTirCote.pool.obtain(), 
 		EnnemiPorteRaisinNv3.pool.obtain(), 
 		EnnemiAvionNv3.pool.obtain(),
 		EnnemiQuiTir2Nv3.pool.obtain(), 
@@ -102,6 +102,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	public boolean mort = false;
 	protected static Rectangle collision = new Rectangle();
 	protected int pv;
+	protected float maintenant = 0, tpsAnimationExplosion = 0;
 	
 	/**
 	 * Initialise l'ennemi
@@ -115,20 +116,6 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 		this.pv = pv;
 	}
 	
-	/**
-	 * Parcourt la liste une fois invoquant la methode mouvement et la methode afficher
-	 * Les fait egalement tirer
-	 * @param batch
-	 */
-	public static void affichageEtMouvement(SpriteBatch batch) {
-		for (Ennemis e : liste){
-			e.afficher(batch);
-			e.tir();
-			// On le vire si hors de l'ecran
-			if (e.mouvementEtVerif() == false)		liste.removeValue(e, true);
-		}
-	}
-	
 	public static void affichageEtMouvementSansParticules(SpriteBatch batch) {
 		for (Ennemis e : liste){
 			e.afficherSansParticules(batch);
@@ -136,39 +123,36 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 			if (e.mouvementEtVerifSansParticules() == false) 	liste.removeValue(e, true);
 		}
 	}
-	abstract public void afficherSansParticules(SpriteBatch batch);
+	
+	public void afficherSansParticules(SpriteBatch batch) {
+		if (mort) {
+			batch.draw(getExplosion(), position.x, position.y, getLargeur(), getHauteur());
+			tpsAnimationExplosion += Endless.delta;
+		} else {
+			batch.draw(getTexture(), position.x, position.y, getDemiLargeur(), getDemiHauteur(), getLargeur(), getHauteur(), 1,1, getAngle());
+			maintenant += Endless.delta;
+		}
+	}
+	
+	protected float getAngle() {
+		return 0;
+	}
 
-	/**
-	 * Methode de tir, si elle n'est pas redefinie l'ennemi ne tir pas
-	 */
+	private TextureRegion getExplosion() {
+		return AnimationExplosion1.getTexture(tpsAnimationExplosion);
+	}
+
+	protected TextureRegion getTexture() {
+		return AnimationArmeFusee.getTexture(maintenant);
+	}
+
 	protected void tir() {
 	}
 
-	/**
-	 * Se contente d'afficher simplement les objets
-	 * @param batch
-	 */
-	public static void affichage(SpriteBatch batch) {
-		for(Ennemis e : liste)
-			e.afficher(batch);
-	}
 	public static void affichageSansParticules(SpriteBatch batch) {
 		for(Ennemis e : liste)
 			e.afficherSansParticules(batch);
 	}
-	/**
-	 * Methode servant a afficher les balles
-	 * @param batch : batch principal
-	 */
-	abstract public void afficher(SpriteBatch batch);
-	
-	/**
-	 * Fait bouger les objets et les enl�ves si ils ne sont plus � l'�cran
-	 * On les enl�ve �galement si ils sont morts et que l'animation est finie
-	 * @param delta 
-	 * @param batch
-	 */
-	abstract public boolean mouvementEtVerif();
 	
 	static int cpt = 0;
 	/**
@@ -180,11 +164,6 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	public static void possibleApparitionEtUpdateScore() {
 		if (Progression.frequenceApparition + derniereApparition < Endless.maintenant) {
 			Progression.invoqueEnnemis();
-//			switch (Endless.level) {
-//			case 1:				Progression.listeEnnemisNv1();				break;
-//			case 2:				Progression.listeEnnemisNv2();				break;
-//			case 3:				Progression.listeEnnemisNv3();				break;
-//			}
 			derniereApparition = Endless.maintenant;
 		}
 	}
@@ -201,7 +180,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 */
 	public boolean touche(int force) {
 		pv -= force;
-		if (pv <= 0 & !mort) {			mourrir();		}
+		if (pv <= 0 && !mort) {			mourrir();		}
 		return !mort;
 	}
 
@@ -212,16 +191,12 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 * appele mort()
 	 */
 	public void mourrir() {
-//		SoundMan.playBruitage(SoundMan.explosionGrosse);
 		mort = true;
 		Bonus.ajoutBonus(position.x + getDemiLargeur(), position.y + getDemiHauteur(), getXp());
-//		Endless.score += getXp();
 		this.mort();
 	}
 
-	protected void mort() {
-		
-	}
+	protected void mort() {	}
 
 	/**
 	 * renvoie la valeur en xp de l'ennemi
@@ -241,36 +216,20 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 
 	public static void randomApparition() {
 		double f = Math.random();
-		if (f < 0.1){
-			liste.add(EnnemiPorteNef.pool.obtain());
-		} else if (f < .2){
-			liste.add(EnnemiBouleQuiSArrete.pool.obtain());
-		} else if (f < .3){
-			liste.add(EnnemiQuiTir.pool.obtain());
-		} else if (f < .4){
-			liste.add(EnnemiZigZag.pool.obtain());
-		} else if (f < .5){
-			liste.add(EnnemiKinder.pool.obtain());
-		} else if (f < .6){
-			liste.add(EnnemiDeBase.pool.obtain());
-		} else if (f < .7){
-			liste.add(EnnemiQuiTourne.pool.obtain());
-		} else if (f < .8){
-			liste.add(EnnemiToupie.pool.obtain());
-		} else if (f < .9){
-			liste.add(EnnemiCylon.pool.obtain());
-		} else if (f < .95){
-				liste.add(EnnemiPorteRaisin.pool.obtain());
+		if (f < 0.1) {				liste.add(EnnemiPorteNef.pool.obtain());
+		} else if (f < .2) {		liste.add(BouleQuiSArrete.pool.obtain());
+		} else if (f < .3) {		liste.add(QuiTir.pool.obtain());
+		} else if (f < .4) {		liste.add(ZigZag.pool.obtain());
+		} else if (f < .5) {		liste.add(Kinder.pool.obtain());
+		} else if (f < .6) {		liste.add(DeBase.pool.obtain());
+		} else if (f < .7) {		liste.add(QuiTourne.pool.obtain());
+		} else if (f < .8) {		liste.add(Toupie.pool.obtain());
+		} else if (f < .9) {		liste.add(Cylon.pool.obtain());
+		} else if (f < .95) {		liste.add(PorteRaisin.pool.obtain());
 		}
 	}
 
 	abstract public boolean mouvementEtVerifSansParticules();
-
-	public static void switchParticules(){
-		for(Ennemis e : liste)			e.init();
-	}
-
-	abstract public void init();
 
 	public static void bombe() {
 		for (Ennemis e : liste)

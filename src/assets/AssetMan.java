@@ -5,9 +5,9 @@ import vaisseaux.armes.joueur.ArmeHantee;
 import vaisseaux.armes.joueur.ArmesBalayage;
 import vaisseaux.armes.joueur.ArmesDeBase;
 import vaisseaux.armes.joueur.ArmesTrois;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiInsecte;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir;
-import vaisseaux.ennemis.particuliers.nv1.EnnemiQuiTir2;
+import vaisseaux.ennemis.particuliers.nv1.Insecte;
+import vaisseaux.ennemis.particuliers.nv1.QuiTir;
+import vaisseaux.ennemis.particuliers.nv1.QuiTir2;
 import assets.animation.AnimationArmeFusee;
 import assets.animation.AnimationAvion;
 import assets.animation.AnimationBossMine;
@@ -125,7 +125,7 @@ public class AssetMan {
 		explosionPorteNef = man.get("explosionportenef.p", ParticleEffect.class);
 
 		AnimationMine.initAnimation();
-		EnnemiInsecte.initAnimation();
+		Insecte.initAnimation();
 		AnimationAvion.initAnimation();
 		AnimationRouli.initAnimation();
 		AnimationCylon.initAnimation();
@@ -140,8 +140,8 @@ public class AssetMan {
 		AnimationMeteorite.initAnimation();
 		AnimationArmeFusee.initAnimation();
 		AnimationBouleBleu.initAnimation();
-		EnnemiQuiTir.initAnimation();
-		EnnemiQuiTir2.initAnimation();
+		QuiTir.initAnimation();
+		QuiTir2.initAnimation();
 		AnimationBouleVerte.initAnimation();
 		AnimationCylonCasse.initAnimation();
 		AnimationExplosion1.initAnimation();

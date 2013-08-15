@@ -30,22 +30,10 @@ public class ArmeBossQuad extends Armes implements Poolable{
 	private float tpsAnimation = 0;
 	// ** ** particules
 	public ParticulesArmeDeBase particleEffect;
-	private float dirY = -1;
 	
-	/**
-	 * ATTENTION ici le init s'occupe d'ajouter � la bonne liste
-	 */
-	public void init(float posX, float posY, float modifVitesse) {
-		position.x = posX;
-		position.y = posY;
-		listeTirsDesEnnemis.add(this);
-		dirY = -1 * modifVitesse;
-		initGraphismes();
-	}
 
 	@Override
 	public void reset() {
-		dirY = -1;
 	}
 	
 	@Override
@@ -89,7 +77,7 @@ public class ArmeBossQuad extends Armes implements Poolable{
 	
 	@Override
 	public boolean mouvementEtVerif() {
-		if (Physique.mouvementDeBaseDirY(dirY, position, Stats.VITESSE_ARME_BOSS_QUAD, HAUTEUR, LARGEUR)) return true;
+		if (Physique.mouvementDeBase(direction, position, Stats.VITESSE_ARME_BOSS_QUAD, HAUTEUR, LARGEUR)) return true;
 		pool.free(this);
 		return false;
 	}

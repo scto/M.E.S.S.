@@ -9,7 +9,6 @@ import assets.particules.ParticulesArmeTrois;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -21,7 +20,7 @@ import com.badlogic.gdx.utils.Pools;
  *
  */
 
-public class ArmeKinder extends Armes implements Poolable{
+public class ArmeKinder extends Armes implements Poolable {
 	
 	// ** ** caracteristiques g�n�rales
 	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 25;
@@ -81,7 +80,7 @@ public class ArmeKinder extends Armes implements Poolable{
 
 	@Override
 	public void initGraphismes() {
-		if(CSG.profil.particules){
+		if (CSG.profil.particules) {
 			particleEffect = ParticulesArmeTrois.pool.obtain();
 			particleEffect.start();
 		}
@@ -89,7 +88,7 @@ public class ArmeKinder extends Armes implements Poolable{
 
 	@Override
 	public void free() {
-		if(particleEffect != null) particleEffect.free();
+		if (particleEffect != null) particleEffect.free();
 		pool.free(this);
 	}
 }

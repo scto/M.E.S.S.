@@ -22,15 +22,10 @@ public class JeuBackground {
 
 	public void render(SpriteBatch batch, float delta) {
 		Endless.maintenant += delta;
-		if (CSG.profil.particules){
-			Ennemis.affichageEtMouvement(batch);
-			vaisseau.draw(batch);
-			Armes.affichageEtMouvement(batch);
-		} else {
-			Ennemis.affichageEtMouvementSansParticules(batch);
-			vaisseau.drawSansParticules(batch);
-			Armes.affichageEtMouvementSansParticules(batch);
-		}
+		Ennemis.affichageEtMouvementSansParticules(batch);
+		vaisseau.drawSansParticules(batch);
+		Armes.affichageEtMouvementSansParticules(batch);
+		
 		// ** ** ** ** ** UPDATE ** ** ** ** **
 		Endless.delta = delta;
 		tps += delta;

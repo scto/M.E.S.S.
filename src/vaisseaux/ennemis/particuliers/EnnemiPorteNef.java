@@ -87,20 +87,6 @@ public class EnnemiPorteNef extends Ennemis{
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
-	public boolean mouvementEtVerif() {
-		if( (mort && explosion.isComplete()) | Physique.toujoursAfficher(position, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
-		position.x += dirX * Endless.delta * Stats.VITESSE_MAX_PORTE_NEF;
-		// == == Partie ennemis � lancer
-		if(!mort)		lancerEnnemi();
-		return true;
-	}
-	/**
-	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
-	 */
-	@Override
 	public boolean mouvementEtVerifSansParticules() {
 		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, LARGEUR) == false){
 			pool.free(this);
@@ -239,19 +225,6 @@ public class EnnemiPorteNef extends Ennemis{
 		}
 	}
 
-	/**
-	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
-	 * Il rotationne du double du delta
-	 */
-	@Override
-	public void afficher(SpriteBatch batch) {
-		if (mort){
-			explosion.draw(batch, Endless.delta);
-			explosion.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_LARGEUR);
-		} else {
-			batch.draw(AnimationPorteNef.getTexture(pv), position.x, position.y, LARGEUR, LARGEUR);
-		}
-	}
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		if (mort){

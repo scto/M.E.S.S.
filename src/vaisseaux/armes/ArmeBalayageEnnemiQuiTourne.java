@@ -4,7 +4,7 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.AnimationTirBleu;
+import assets.animation.AnimationBouleBleu;
 import assets.particules.ParticulesArmeBalleBleuStatic;
 
 import com.badlogic.gdx.graphics.Color;
@@ -21,7 +21,7 @@ import com.badlogic.gdx.utils.Pools;
 public class ArmeBalayageEnnemiQuiTourne extends Armes {
 	
 	// ** ** caracteristiques g�n�rales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 20;
+	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 30;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final float CADENCETIR = .1f;
 	public static final int FORCE = 2;
@@ -45,7 +45,7 @@ public class ArmeBalayageEnnemiQuiTourne extends Armes {
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(Color.ORANGE);
-		batch.draw(AnimationTirBleu.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle,	false);
+		batch.draw(AnimationBouleBleu.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle,	false);
 		batch.setColor(Color.WHITE);
 	}
 

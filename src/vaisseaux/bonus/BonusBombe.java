@@ -3,7 +3,6 @@ package vaisseaux.bonus;
 import jeu.Endless;
 import jeu.Stats;
 
-import vaisseaux.ennemis.Ennemis;
 import assets.AssetMan;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;

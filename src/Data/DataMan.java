@@ -3,8 +3,6 @@ package Data;
 import java.sql.Connection;
 
 import vaisseaux.TypesArmes;
-import menu.CSG;
-import jeu.Profil;
 
 public class DataMan {
 	
