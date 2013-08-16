@@ -30,8 +30,8 @@ public class Menu extends AbstractScreen{
 	private int etapeCode = 0;
 	
 	 public Menu(Game game) {
-		 super(game,"");
-		 setUpScreenElements();
+		super(game,"");
+		setUpScreenElements();
 	 }
 	  
 	 public void setUpScreenElements() {

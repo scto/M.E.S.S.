@@ -1,5 +1,8 @@
 package vaisseaux.ennemis.particuliers.nv3;
 
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
+
 import jeu.Stats;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
@@ -10,17 +13,23 @@ public class EnnemiToupieNv3 extends Toupie {
 	public static final float CADENCE_TIR = .28f;
 	public static final Tirs TIR = new Tirs(CADENCE_TIR);
 
-	public EnnemiToupieNv3() {
-		super();
-		pv = Stats.PVMAX_TOUPIE3;
+	public static Pool<EnnemiToupieNv3> pool = Pools.get(EnnemiToupieNv3.class);
+	
+	@Override
+	protected void free() {
+		pool.free(this);
 	}
 	
 	@Override
-	public void reset() {
-		super.reset();
-		pv = Stats.PVMAX_TOUPIE3;
+	public void invoquer() {
+		liste.add(pool.obtain());
 	}
-
+	
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_TOUPIE3;
+	}
+	
 	@Override
 	protected void tir() {		TIR.tirBalayage(this, mort, maintenant, prochainTir);	}
 

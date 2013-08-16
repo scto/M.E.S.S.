@@ -5,8 +5,6 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.animation.AnimationTirFeu;
-import assets.particules.ParticulesArmeTraitVert;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
@@ -32,9 +30,6 @@ public class ArmeBalayageEnnemiToupie extends Armes implements Poolable{
 	public static Pool<ArmeBalayageEnnemiToupie> pool = Pools.get(ArmeBalayageEnnemiToupie.class);
 	// ** ** animation
 	private float tpsAnim = 0;
-	// ** ** variable utilitaire
-	private ParticulesArmeTraitVert particleEffect;
-
 	@Override
 	public void reset() {
 		tpsAnim = 0;
@@ -56,16 +51,7 @@ public class ArmeBalayageEnnemiToupie extends Armes implements Poolable{
 		return false;
 	}
 
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR, HAUTEUR);
-	}
-	
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR, HAUTEUR);
-	}
-	
+
 	@Override
 	public int getForce() {		return FORCE;	}
 	@Override
@@ -75,7 +61,6 @@ public class ArmeBalayageEnnemiToupie extends Armes implements Poolable{
 
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
 		pool.free(this);
 	}
 }

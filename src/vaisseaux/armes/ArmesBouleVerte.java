@@ -31,15 +31,9 @@ public class ArmesBouleVerte extends Armes implements Poolable{
 	@Override
 	public void reset() {	}
 
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR);
-	}
+
 	
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR);
-	}
+
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {

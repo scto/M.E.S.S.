@@ -200,16 +200,9 @@ public class VaisseauType1 extends Vaisseaux {
 		Endless.cam.position.x += Endless.delta * destX * 0.18f;
 		camXmoinsDemiEcran = Endless.cam.position.x - CSG.DEMI_LARGEUR_ECRAN;
 		destX -= Endless.delta * destX * 0.125f; // On doit d'office decrementer de ce que la camera s'est déplacée pour ne pas additionner les deux vitesses !
-//		destX /= 5;
-//		destX = 0;
 	}
 
-	private void mouvementCamPositionEcran() {
-		if (centreX < Endless.cam.position.x - CSG.TIER_LARGEUR_ECRAN)// & Endless.cam.position.x > CSG.DEMI_LARGEUR_ECRAN)
-			Endless.cam.position.x -= Endless.delta * 200;
-		if (centreX > Endless.cam.position.x + CSG.TIER_LARGEUR_ECRAN)// & Endless.cam.position.x < CSG.DEMI_CAMERA)// + CSG.DEMI_LARGEUR_ECRAN)
-			Endless.cam.position.x += Endless.delta * 200;
-	}
+
 	/**
 	 * Le vaisseau se d�place vers les coordonn�es pass�es avec un cap � sa vitesse max
 	 * @param x

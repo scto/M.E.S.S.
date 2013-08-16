@@ -21,10 +21,10 @@ public class AnimationRouli {
 	 * @return
 	 */
 	public static TextureRegion getTexture(float x) {
-		if (x < CSG.CINQUIEME_ECRAN) return tr[0];
-		if (x < CSG.DEUX_CINQUIEME_ECRAN) return tr[1];
-		if (x < CSG.TROIS_CINQUIEME_ECRAN) return tr[2];
-		if (x < CSG.QUATRE_CINQUIEME_ECRAN) return tr[3];
+		if (x < CSG.CINQUIEME_ZONE) return tr[0];
+		if (x < CSG.DEUX_CINQUIEME_ZONE) return tr[1];
+		if (x < CSG.TROIS_CINQUIEME_ZONE) return tr[2];
+		if (x < CSG.QUATRE_CINQUIEME_ZONE) return tr[3];
 		return tr[4];
 	}
 

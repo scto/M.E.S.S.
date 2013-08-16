@@ -1,24 +1,32 @@
 package vaisseaux.ennemis.particuliers.nv2;
 
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
+
 import jeu.Endless;
-import jeu.Physique;
 import jeu.Stats;
 import vaisseaux.ennemis.CoutsEnnemis;
-import assets.animation.AnimationExplosion1;
 
 public class BouleTirCoteRotation extends BouleTirCote {
 
 	public static final float VITESSE_ANGLE = 100f, CADENCETIR = .09f;
 
+	public static Pool<BouleTirCoteRotation> pool = Pools.get(BouleTirCoteRotation.class);
+	
+	@Override
+	protected void free() {		pool.free(this);	}
+	@Override
+	public void invoquer() {	pool.obtain();	}
+	
 	@Override
 	public boolean mouvementEtVerif() {
 		angle += VITESSE_ANGLE * Endless.delta;
-		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1)
-				|| Physique.mouvementDeBase(direction, position, Stats.VITESSE_BOULE_TIR_COTE_PETIT, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
-		return true;
+		return super.mouvementEtVerif();
+	}
+	
+	@Override
+	protected float getVitesse() {
+		return  Stats.VITESSE_BOULE_TIR_COTE_PETIT;
 	}
 
 	@Override

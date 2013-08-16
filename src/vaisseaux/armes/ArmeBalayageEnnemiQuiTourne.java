@@ -43,10 +43,7 @@ public class ArmeBalayageEnnemiQuiTourne extends Armes {
 		batch.setColor(Color.WHITE);
 	}
 	
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR);
-	}
+
 	
 	@Override
 	public boolean testCollsionAdds() {
@@ -71,7 +68,7 @@ public class ArmeBalayageEnnemiQuiTourne extends Armes {
 
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
+		
 		pool.free(this);
 	}
 

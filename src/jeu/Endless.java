@@ -7,9 +7,7 @@ import vaisseaux.RestesEnnemis;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.particuliers.nv1.Avion;
-import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
-import vaisseaux.ennemis.particuliers.nv1.DeBase;
+import vaisseaux.ennemis.particuliers.EnnemiPorteNef;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -137,15 +135,15 @@ public class Endless implements Screen {
 	public void render(float delta) {
 		
 //		if (Gdx.input.isKeyPressed(Keys.A))
-		Ennemis.liste.add(BouleQuiSArrete.pool.obtain());
+//			Ennemis.liste.add(EnnemiZigZagNv3.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.E))
 //			Ennemis.liste.add(new EnnemiKinderDoubleTir());
 //		if (Gdx.input.isKeyPressed(Keys.R))
 //			Ennemis.liste.add(new EnnemiCylon());
 //		if (Gdx.input.isKeyPressed(Keys.T))
 //			Ennemis.liste.add(new EnnemiBossMine());
-//		if (Gdx.input.justTouched()) 
-//			Ennemis.liste.add(Kinder.pool.obtain());
+		if (Gdx.input.justTouched()) 
+			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());
 //			Ennemis.liste.add(Insecte.pool.obtain());
 //		}
 //			Ennemis.liste.add(new EnnemiBouleQuiSArrete());
@@ -329,7 +327,6 @@ public class Endless implements Screen {
 	}
 
 	private void update() {
-//		perdu = false;
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.POWER) || Gdx.input.isKeyPressed(Keys.HOME)) {
 			vientDEtreTouche = maintenant;
 			mettrePause();
@@ -352,8 +349,6 @@ public class Endless implements Screen {
 					// Roue des couleurs
 					if (color > .99f) {
 						sensCouleurGlobale = false;
-//						Ennemis.liste.add(EnnemiKinder.pool.obtain());
-//						Ennemis.liste.add(EnnemiKinder.pool.obtain());
 					}
 					else if (color < .01f) sensCouleurGlobale = true;
 					if (sensCouleurGlobale) color += .02f;

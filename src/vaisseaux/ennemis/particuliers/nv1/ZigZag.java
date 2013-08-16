@@ -6,12 +6,10 @@ import menu.CSG;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
-import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationRouli;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -23,7 +21,7 @@ public class ZigZag extends Ennemis {
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = (int) (LARGEUR*1.2);
 	public static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	public static final float AMPLITUDE_HORIZONTALE = 8f;
+	public static final float AMPLITUDE_HORIZONTALE = 160f, VITESSE = Stats.VITESSE_MAX_ZIGZAG;
 	private Vector2 direction;
 	private boolean sens = true;
 	public static Pool<ZigZag> pool = Pools.get(ZigZag.class);
@@ -35,12 +33,11 @@ public class ZigZag extends Ennemis {
 	
 	@Override
 	public void reset() {
+		super.reset();
 		position.x = getRandX();
 		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
 		direction.x = 0;
-		direction.y = -1;
-		mort = false;
-		pv = Stats.PVMAX_ZIGZAG;
+		direction.y = -VITESSE;
 		sens = true;
 	}
 	
@@ -50,8 +47,12 @@ public class ZigZag extends Ennemis {
 	}
 	
 	public ZigZag() {
-		super(getRandX(), CSG.HAUTEUR_ECRAN + ZigZag.HAUTEUR, Stats.PVMAX_ZIGZAG);
-		direction = new Vector2(0, -1);
+		super();
+		direction = new Vector2(0, -Stats.VITESSE_MAX_ZIGZAG);
+	}
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_ZIGZAG;
 	}
 	
 	private static float getRandX() {
@@ -66,21 +67,10 @@ public class ZigZag extends Ennemis {
 
 	@Override
 	public boolean mouvementEtVerif() {	
-		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || !Physique.toujoursAfficher(position, HAUTEUR, LARGEUR)){
-			pool.free(this);
-			return false;
-		}
-		if(!mort)	sens = Physique.goToZigZagCentre(position, direction, DEMI_LARGEUR, sens, AMPLITUDE_HORIZONTALE, Stats.VITESSE_MAX_ZIGZAG, HAUTEUR, LARGEUR, mort);
-		else 		Physique.goToZigZagCentre(position, direction, DEMI_LARGEUR, sens, AMPLITUDE_HORIZONTALE, Stats.VITESSE_MAX_ZIGZAG, HAUTEUR, LARGEUR, mort);
-		return true;
+		if (!mort)	sens = Physique.goToZigZagCentre(position, direction, DEMI_LARGEUR, sens, AMPLITUDE_HORIZONTALE, HAUTEUR, LARGEUR);
+		Physique.mvtSansVerif(position, direction);
+		return super.mouvementEtVerif();
 	}
-	
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
-	}
-	
 
 	@Override
 	public int getXp() {			return CoutsEnnemis.EnnemiZigZag.COUT;	}

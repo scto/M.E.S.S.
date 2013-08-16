@@ -30,16 +30,6 @@ public class ArmeBossMine extends Armes implements Poolable{
 		direction.x = 0;
 		direction.y = -1;
 	}
-	
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR, HAUTEUR);
-	}
-	
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR, HAUTEUR);
-	}
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {

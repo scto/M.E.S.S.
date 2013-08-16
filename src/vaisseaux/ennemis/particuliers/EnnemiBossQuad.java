@@ -1,7 +1,6 @@
 package vaisseaux.ennemis.particuliers;
 
 import jeu.Endless;
-import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeBossQuad;
@@ -10,16 +9,11 @@ import vaisseaux.armes.typeTir.Tireur;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
-import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationBossQuad;
 import assets.animation.AnimationExplosion1;
-import assets.particules.ParticulesExplosionPetite;
-
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -43,11 +37,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	public static Tirs tirPhase3;
 	// ** ** caracteristiques variables.
 	private float prochainTir = .8f;
-	private float maintenant = 0;
-	private float tpsAnimationExplosion = 0;
 	public static Pool<EnnemiBossQuad> pool = Pools.get(EnnemiBossQuad.class);
-	// ** ** particules
-	private ParticleEffect explosion;
 	// direction
 	private float dirY = 1;
 	private float dirX = -2;
@@ -55,8 +45,6 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	private boolean explosionTourellesCentre = false; 
 	private float tpsExplosionTourellesCentre = 0;
 	private int largeurExplosionTourelle = (int) (ArmeBossQuad.LARGEUR * 1.5);
-	private ParticulesExplosionPetite explosionTourelle1;
-	private ParticulesExplosionPetite explosionTourelle2;
 	private int phase = 1;
 	
 	public static int divisionPv = 27;
@@ -70,17 +58,21 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 		PV_MIN_PHASE2 = PV_MAX / 3;
 	}
 	
-	@Override
+
 	protected void free() {
 		pool.free(this);
 	}
 	
 	public EnnemiBossQuad() {
-		super(CSG.DEMI_LARGEUR_ECRAN - DEMI_LARGEUR, CSG.HAUTEUR_ECRAN, PV_MAX);
+		super();
 		init();
 	}
 	
 	@Override
+	protected int getPvMax() {
+		return PV_MAX;
+	}
+
 	protected Sound getSonExplosion() {
 		return SoundMan.explosionGrosse;
 	}
@@ -89,53 +81,39 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	 * Ajoute � la liste
 	 */
 	public void init() {
-		if (CSG.profil.particules){
-			if (explosion == null) explosion = new ParticleEffect(AssetMan.explosionGros);
-			explosionTourelle1 = ParticulesExplosionPetite.pool.obtain();
-			explosionTourelle1 = ParticulesExplosionPetite.pool.obtain();
-		} else {
-			tpsAnimationExplosion = 0;
-			tpsExplosionTourellesCentre = 0;
-		}
+		tpsExplosionTourellesCentre = 0;
+		position.x = CSG.DEMI_LARGEUR_ECRAN - DEMI_LARGEUR;
+		position.y = CSG.HAUTEUR_ECRAN;
 	}
 
-	@Override
+
 	public void reset() {
-		mort = false;	
-		tpsAnimationExplosion = 0;
-		pv = PV_MAX;
+		super.reset();
 		phase = 1;
 		prochainTir = .2f;
-		maintenant = 0;
 		init();
 		dirY = 1;
 		dirX = 2;
-		position.x = CSG.DEMI_LARGEUR_ECRAN - DEMI_LARGEUR;
-		position.y = CSG.HAUTEUR_ECRAN;
 		explosionTourellesCentre = false;
 	}
 	
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
-	@Override
+
 	public boolean mouvementEtVerif() {
-		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
 		if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_2 | dirY < 1) 	position.y -= (dirY * Stats.VITESSE_BOSS_QUAD * Endless.delta);
 		if (dirY < 1) 												dirY += 30 * Endless.delta;
 		if (position.x + DEMI_LARGEUR > CSG.DEMI_LARGEUR_ZONE_JEU)	dirX -= 4 * Endless.delta;
 		else														dirX += 4 * Endless.delta;
 		position.x += dirX * Stats.VITESSE_BOSS_QUAD * Endless.delta;
-		return true;
+		return super.mouvementEtVerif();
 	}
 
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
-	@Override
+
 	public void afficher(SpriteBatch batch) {
 		if(mort){
 			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
@@ -151,7 +129,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 		}
 	}
 	
-	@Override
+
 	protected void tir() {
 		switch(phase) {
 		case 1:			tirPhase1.tirMultiplesVersBas(this, 4, mort, maintenant, prochainTir);			break;
@@ -161,26 +139,13 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	}
 	
 	
-	@Override
+
 	public boolean touche(int force) {
 		// si mes pvs sont inf�rieurs � �a je suis en phase 2 ou 3
 		if (pv < PV_MAX_PHASE2 ) { 
 			if (pv > PV_MIN_PHASE2) {
 				if (explosionTourellesCentre == false) {
 					explosionTourellesCentre = true;
-					if (CSG.profil.particules) {
-						if (explosionTourelle1 == null){
-							explosionTourelle1 = ParticulesExplosionPetite.pool.obtain();
-							explosionTourelle1.start();
-						} else explosionTourelle1.reset();
-						explosionTourelle1.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-						
-						if (explosionTourelle2 == null){
-							explosionTourelle2 = ParticulesExplosionPetite.pool.obtain();
-							explosionTourelle2.start();
-						} else explosionTourelle2.reset();
-						explosionTourelle2.setPosition(position.x + DEMI_LARGEUR, position.y + DEMI_HAUTEUR);
-					}
 				}
 				phase = 2;
 			} else {
@@ -190,47 +155,40 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 		return super.touche(force);
 	}
 
-	@Override
+
 	public int getXp() {
 		return CoutsEnnemis.EnnemiBossQuad.COUT;
 	}
 	
-	@Override
+
 	public int getHauteur() {
 		return HAUTEUR;
 	}
 
-	@Override
+
 	public int getLargeur() {
 		return LARGEUR;
 	}
 
-	@Override
+
 	public int getDemiHauteur() {
 		return DEMI_HAUTEUR;
 	}
 
-	@Override
+
 	public int getDemiLargeur() {
 		return DEMI_LARGEUR;
 	}
 
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
-	}
-	
-	@Override
 	public Armes getArme() {			return ArmeBossQuad.pool.obtain();	}
 	
-	@Override
+
 	public void setProchainTir(float f) {		prochainTir = f;	}
 
-	@Override
+
 	public float getModifVitesse() {	return 1;	}
 	
-	@Override
+
 	public Vector2 getPositionDuTir(int numeroTir) {
 		switch (numeroTir) {
 		// Attention on donne en premier les exterieurs 
@@ -260,7 +218,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 		return tmpPos;
 	}
 	
-	@Override
+
 	public void invoquer() {
 		liste.add(pool.obtain());
 	}

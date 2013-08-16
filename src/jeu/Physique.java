@@ -138,14 +138,12 @@ public class Physique {
 	 * Fait aller l'ennemi en zigzag. Il doit utiliser le boolean pour modifier son sens
 	 * @return le sens
 	 */
-	public static boolean goToZigZagCentre(Vector2 pos, Vector2 dir,int demiLargeur, boolean sens, final float AMPLITUDE, final int VITESSE, final int hauteur, final int largeur, boolean mort){
-		if (!mort) {
-			if (pos.x + demiLargeur < CSG.DEMI_LARGEUR_ZONE_JEU) 	sens = false;
-			else 													sens = true;
-			if (sens)					dir.x -= AMPLITUDE * Endless.delta;
-			else						dir.x += AMPLITUDE * Endless.delta;
-		}
-		deplacementBase(dir, pos, VITESSE);
+	public static boolean goToZigZagCentre(Vector2 pos, Vector2 dir,int demiLargeur, boolean sens, final float AMPLITUDE, final int hauteur, final int largeur){
+		if (pos.x + demiLargeur < CSG.DEMI_LARGEUR_ZONE_JEU) 	sens = false;
+		else 													sens = true;
+		if (sens)					dir.x -= AMPLITUDE * Endless.delta;
+		else						dir.x += AMPLITUDE * Endless.delta;
+		mvtSansVerif(pos, dir);
 		return sens;
 	}
 
@@ -358,5 +356,29 @@ public class Physique {
 		}
 		if (sensVert) 	baseVert += .08f;
 		else 			baseVert -= .08f;
+	}
+	
+	public static void mvtSansVerif(Vector2 position, Vector2 direction) {
+		position.x += direction.x * Endless.delta;
+		position.y += direction.y * Endless.delta;
+	}
+	
+	public static void mvtArretHauteur(Vector2 position, float vitesse, float maintenant) {
+		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
+			// On ralentit
+			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
+				position.y += (-50 * Endless.delta);
+		} else {
+			position.y += (vitesse * Endless.delta);
+		}
+		if (maintenant > 10) {
+			if (Math.random() > .5) {
+				position.y -= vitesse * Endless.delta;
+				position.x -= vitesse * Endless.delta;
+			} else {
+				position.y -= vitesse * Endless.delta;
+				position.x += vitesse * Endless.delta;
+			}
+		}
 	}
 }

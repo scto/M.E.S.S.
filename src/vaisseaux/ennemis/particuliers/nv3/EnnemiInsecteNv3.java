@@ -1,27 +1,30 @@
 package vaisseaux.ennemis.particuliers.nv3;
 
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
+
 import jeu.Stats;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.particuliers.nv1.Insecte;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 public class EnnemiInsecteNv3 extends Insecte {
 	
-	public static TextureRegion getTexture(int pv) {
-		if (pv < Stats.PVMAX_INSECTE_DEMI3)	return Insecte.mauvaisEtat;
-		return Insecte.bonEtat;
+	public static Pool<EnnemiInsecteNv3> pool = Pools.get(EnnemiInsecteNv3.class);
+	
+	@Override
+	protected void free() {
+		pool.free(this);
 	}
 	
 	@Override
-	public void reset() {
-		super.reset();
-		pv = Stats.PVMAX_INSECTE3;
+	public void invoquer() {
+		liste.add(pool.obtain());
 	}
-
-	public EnnemiInsecteNv3() {
-		super();
-		pv = Stats.PVMAX_INSECTE3;
+	
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_INSECTE3;
 	}
 
 	@Override

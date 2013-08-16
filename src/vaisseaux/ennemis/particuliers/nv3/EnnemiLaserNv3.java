@@ -1,5 +1,8 @@
 package vaisseaux.ennemis.particuliers.nv3;
 
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
+
 import jeu.Stats;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
@@ -9,16 +12,21 @@ import vaisseaux.ennemis.particuliers.nv1.Laser;
 public class EnnemiLaserNv3 extends Laser {
 	
 	public static final Tirs TIR = new Tirs(0.8f);
-		
+	
+	public static Pool<EnnemiLaserNv3> pool = Pools.get(EnnemiLaserNv3.class);
+	
 	@Override
-	public void reset() {
-		super.reset();
-		pv = Stats.PVMAX_LASER3;
+	protected void free() {
+		pool.free(this);
 	}
-
-	public EnnemiLaserNv3() {
-		super();
-		pv = Stats.PVMAX_LASER3;
+	
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
+	}
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_LASER3;
 	}
 	
 	@Override

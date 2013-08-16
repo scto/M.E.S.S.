@@ -20,16 +20,7 @@ public class ArmeFusee extends Armes implements Poolable{
 	private static final int FORCE = 2;
 	public static Pool<ArmeFusee> pool = Pools.get(ArmeFusee.class);
 	private float tpsAnim = 0;
-	
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR);
-	}
-	
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR);
-	}
+
 	
 	@Override
 	public void reset() {

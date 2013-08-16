@@ -53,15 +53,9 @@ public class ArmeKinder extends Armes implements Poolable {
 		return false;
 	}
 
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR);
-	}
+
 	
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR);
-	}
+
 	
 	@Override
 	public int getForce() {		return FORCE + CSG.profil.NvArmeBalayage;	}
@@ -74,7 +68,7 @@ public class ArmeKinder extends Armes implements Poolable {
 
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
+		
 		pool.free(this);
 	}
 }

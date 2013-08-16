@@ -4,6 +4,7 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
+import vaisseaux.Positionnement;
 import vaisseaux.armes.ArmeKinder;
 import vaisseaux.armes.Armes;
 import vaisseaux.armes.typeTir.TireurAngle;
@@ -11,13 +12,9 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
-import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationKinder;
-import assets.particules.ParticulesExplosionPetite;
-
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -30,20 +27,19 @@ public class Kinder extends Ennemis implements TireurAngle {
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
+	private static final float VITESSE = Stats.VITESSE_KINDER;
 	protected static final Tirs tir = new Tirs(.5f);
 	// ** ** caracteristiques variables.
 	protected float prochainTir = 1f;
 	public static Pool<Kinder> pool = Pools.get(Kinder.class);
-	// ** ** particules
-	private ParticulesExplosionPetite explosion;
 	// direction
 	private Vector2 direction = new Vector2();
 	protected float angle = 0;
 	protected boolean gauche = true;
 	
 	public Kinder() {
-		super(0,0, Stats.PVMAX_KINDER);
-		init();
+		super();
+		randPositionEtDirection();
 	}
 
 	@Override
@@ -54,44 +50,22 @@ public class Kinder extends Ennemis implements TireurAngle {
 	protected void free() {
 		pool.free(this);
 	}
-	
-	
-	/**
-	 * Ajoute � la liste
-	 */
-	public void init() {
-		randPositionEtDirection();
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_KINDER;
 	}
-	
-	public static double rand;
+
 	
 	private void randPositionEtDirection() {
-		rand = Math.random();
-		if (rand > 0.5){ // on est a droite
-			position.x = CSG.LARGEUR_ZONE_JEU-1;
-			position.y = (float) (CSG.HAUTEUR_ECRAN - (rand * CSG.DEMI_HAUTEUR_ECRAN));
-			direction.x = 0;
-			direction.y = -1.1f;
-			direction.rotate((float) ((( (rand + rand) - 1) * 55) + 55) );
-			gauche = false;
-		} else {
-			gauche = true;
-			position.x = -LARGEUR+1;
-			position.y = (float) (CSG.HAUTEUR_ECRAN - ((rand+rand) * CSG.DEMI_HAUTEUR_ECRAN));
-			direction.x = 0;
-			direction.y = -1;
-			direction.rotate((float) -((( (rand + rand)) * 90) + 45) );
-		}
+		Positionnement.coteVersInterieurKinder(this, VITESSE, direction);
 		angle = direction.angle();
 	}
 
 	@Override
 	public void reset() {
-		mort = false;
-		pv = Stats.PVMAX_KINDER;
 		prochainTir = .2f;
-		maintenant = 0;
-		init();
+		randPositionEtDirection();
+		super.reset();
 	}
 	
 	/**
@@ -99,17 +73,12 @@ public class Kinder extends Ennemis implements TireurAngle {
 	 */
 	@Override
 	public boolean mouvementEtVerif() {
-		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
 		if (maintenant < AnimationKinder.TPS_ANIM_OUVERT || maintenant > 12) {
-			position.y -= (direction.y * Stats.VITESSE_KINDER * Endless.delta);
-			position.x -= (direction.x * Stats.VITESSE_KINDER * Endless.delta);
+			Physique.mvtSansVerif(position, direction);
 		} else {
 			angle += Stats.VITESSE_KINDER * Endless.delta;
 		}
-		return true;
+		return super.mouvementEtVerif();
 	}
 	
 	@Override
@@ -128,12 +97,6 @@ public class Kinder extends Ennemis implements TireurAngle {
 	public int getDemiHauteur() {				return DEMI_HAUTEUR;	}
 	@Override
 	public int getDemiLargeur() {				return DEMI_LARGEUR;	}
-
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
-	}
 
 	@Override
 	public Armes getArme() {			return ArmeKinder.pool.obtain();	}

@@ -11,13 +11,9 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
-import assets.animation.AnimationExplosion1;
-import assets.particules.ParticulesExplosionPetite;
-
+import assets.animation.AnimationInsecte;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -29,68 +25,44 @@ public class Insecte extends Ennemis implements TireurAngle {
 	public static final int LARGEUR = CSG.LARGEUR_ECRAN / 4;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = (LARGEUR / 2) + DEMI_LARGEUR;
-	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
+	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
+	private static final float VITESSE = Stats.VITESSE_ENNEMI_INSECTE;
 	public static final Tirs tir = new Tirs(.7f);
-	private static final Vector2 tmpVector = new Vector2();
 	private float prochainTir = 1f;
 	public static Pool<Insecte> pool = Pools.get(Insecte.class);
 	private boolean tirGauche = true;
 	private float impulsion;
 	private float angle = 0;
-	// ** ** particules
-	private ParticulesExplosionPetite explosion;
 	protected Vector2 direction = new Vector2();
 	
-	// Animation
-	public static AtlasRegion bonEtat;
-	public static AtlasRegion mauvaisEtat;
+
+	public Insecte() {
+		super();
+		initPlacement();
+	}
 	
 	
 	@Override
-	protected void free() {
-		pool.free(this);
-	}
-	
-	public static void initAnimation(){
-		bonEtat = CSG.getAssetMan().getAtlas().findRegion("insecte");
-		mauvaisEtat = CSG.getAssetMan().getAtlas().findRegion("insectecasse");
-	}
-	
+	protected Sound getSonExplosion() {		return SoundMan.explosionennemidebasequitir;	}
 	@Override
-	protected Sound getSonExplosion() {
-		return SoundMan.explosionennemidebasequitir;
-	}
-	
-	public void init() {
-		if (CSG.profil.particules & explosion == null) explosion = ParticulesExplosionPetite.pool.obtain();
-		else tpsAnimationExplosion = 0;
-	}
+	protected void free() {					pool.free(this);	}
 	
 	@Override
 	public void reset() {
-		mort = false;
-		pv = Stats.PVMAX_INSECTE;
 		prochainTir = .2f;
 		initPlacement();
+		super.reset();
 	}
 
-	public Insecte() {
-		super(Positionnement.getEmplacementX(DEMI_LARGEUR), CSG.HAUTEUR_ECRAN + HAUTEUR, Stats.PVMAX_INSECTE);
-		initPlacement();
+	@Override
+	protected int getPvMax() {
+		return  Stats.PVMAX_INSECTE;
 	}
 
 	private void initPlacement() {
 		angle = 90;
 		impulsion = -10;
-		position.y = CSG.HAUTEUR_ECRAN_PALLIER_3;
-		if (Math.random() > .5) {
-			direction.x = -1;
-			position.x = CSG.LARGEUR_ZONE_JEU;
-		} else {
-			direction.x = 1;
-			position.x = -LARGEUR;
-		}
-		direction.y = 0;
+		Positionnement.coteVersInterieur(position, VITESSE, direction, getLargeur());
 	}
 
 	/**
@@ -98,14 +70,11 @@ public class Insecte extends Ennemis implements TireurAngle {
 	 */
 	@Override
 	public boolean mouvementEtVerif() {
-		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.mouvementDeBase(direction, position, Stats.VITESSE_ENNEMI_INSECTE, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
+		Physique.mvtSansVerif(position, direction);
 		direction.rotate(impulsion);
 		angle += impulsion;
 		impulsion /= 1.2f;
-		return true;
+		return super.mouvementEtVerif();
 	}
 
 	@Override
@@ -115,19 +84,12 @@ public class Insecte extends Ennemis implements TireurAngle {
 	
 	@Override
 	protected TextureRegion getTexture() {
-		if (pv < Stats.PVMAX_INSECTE_DEMI)	return mauvaisEtat;
-		return bonEtat;
+		return AnimationInsecte.getTexture(pv);
 	}
 	
 	@Override
 	protected void tir() {
 		tir.tirToutDroit(this, mort, maintenant, prochainTir);
-	}
-
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
 	}
 
 	@Override
@@ -175,27 +137,27 @@ public class Insecte extends Ennemis implements TireurAngle {
 	
 	@Override
 	public Vector2 getDirectionTir() {
-		return tmpVector;
+		return tmpDir;
 	}
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
 		majVecteurTir();
 		if (!tirGauche) {
-			tmpPos.x = (position.x) + (tmpVector.x * 16);
-			tmpPos.y = (position.y + ArmeInsecte.DEMI_HAUTEUR)+ (tmpVector.y * 16);
+			tmpPos.x = (position.x) + (tmpDir.x * 16);
+			tmpPos.y = (position.y + ArmeInsecte.DEMI_HAUTEUR)+ (tmpDir.y * 16);
 		} else {
-			tmpPos.x = (position.x + DEMI_LARGEUR) + (tmpVector.x * 16);
-			tmpPos.y = (position.y - ArmeInsecte.DEMI_HAUTEUR) + (tmpVector.y * 16);
+			tmpPos.x = (position.x + DEMI_LARGEUR) + (tmpDir.x * 16);
+			tmpPos.y = (position.y - ArmeInsecte.DEMI_HAUTEUR) + (tmpDir.y * 16);
 		}
 		return tmpPos;
 	}
 
 	private void majVecteurTir() {
-		tmpVector.x = direction.x;
-		tmpVector.y = direction.y;
-		if (direction.x < 0) tmpVector.rotate(90);
-		else tmpVector.rotate(-90);
+		tmpDir.x = direction.x / VITESSE;
+		tmpDir.y = direction.y / VITESSE;
+		if (direction.x < 0) tmpDir.rotate(90);
+		else tmpDir.rotate(-90);
 	}
 	
 	@Override

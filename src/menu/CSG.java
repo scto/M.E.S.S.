@@ -8,10 +8,6 @@ import vaisseaux.bonus.Bonus;
 import vaisseaux.bonus.XP;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.Progression;
-import vaisseaux.ennemis.particuliers.nv1.Avion;
-import vaisseaux.ennemis.particuliers.nv1.DeBase;
-import vaisseaux.ennemis.particuliers.nv1.Laser;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiDeBaseNv3;
 import Data.DataMan;
 import assets.AssetMan;
 import assets.background.ParallaxBackground;
@@ -29,8 +25,9 @@ public class CSG extends Game implements ApplicationListener {
 	public static int DEMI_LARGEUR_ECRAN = 0, TIER_LARGEUR_ECRAN, DEMI_LARGEUR_ZONE_JEU, DEMI_HAUTEUR_ECRAN, LARGEUR_ECRAN, LARGEUR_ZONE_JEU, LARGEUR_BORD;
 	public static int DEMI_CAMERA, LARGEUR_ZONE_MOINS_LARGEUR_BORD, LARGEUR_ZONE_MOINS_LARGEUR_BORD_MUL2, HAUTEUR_ECRAN, DIXIEME_LARGEUR, DIXIEME_HAUTEUR;
 	public static int CINQUIEME_ECRAN, DEUX_CINQUIEME_ECRAN, TROIS_CINQUIEME_ECRAN, QUATRE_CINQUIEME_ECRAN;
+	public static int CINQUIEME_ZONE, DEUX_CINQUIEME_ZONE, TROIS_CINQUIEME_ZONE, QUATRE_CINQUIEME_ZONE;
 	// ********  P A L I E R S  P O U R   E N N E M I S  ***********
-	public static int HAUTEUR_ECRAN_PALLIER_1, HAUTEUR_ECRAN_PALLIER_2, HAUTEUR_ECRAN_PALLIER_3, HAUTEUR_ECRAN_PALLIER_7;
+	public static int HAUTEUR_ECRAN_PALLIER_1, HAUTEUR_ECRAN_PALLIER_2, HAUTEUR_ECRAN_PALLIER_3 = 0, HAUTEUR_ECRAN_PALLIER_7;
 	// ********  C O N T R O L E S  ********
 	public static final int CONTROLE_TOUCH_NON_RELATIVE = 0, CONTROLE_DPAD = 1, CONTROLE_ACCELEROMETRE = 2, CONTROLE_TOUCH_RELATIVE = 3, CONTROLE_MAX = 3;
 	// ********  A U T R E S  *********
@@ -103,6 +100,12 @@ public class CSG extends Game implements ApplicationListener {
 		DEUX_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 2;
 		TROIS_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 3;
 		QUATRE_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 4;
+		
+		CINQUIEME_ZONE = LARGEUR_ZONE_JEU / 5;
+		DEUX_CINQUIEME_ZONE = CINQUIEME_ZONE * 2;
+		TROIS_CINQUIEME_ZONE = CINQUIEME_ZONE * 3;
+		QUATRE_CINQUIEME_ZONE = CINQUIEME_ZONE * 4;
+		
 		HAUTEUR_ECRAN_PALLIER_1 = HAUTEUR_ECRAN - DIXIEME_HAUTEUR;
 		HAUTEUR_ECRAN_PALLIER_2 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 2);
 		HAUTEUR_ECRAN_PALLIER_3 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 3);

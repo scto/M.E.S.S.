@@ -26,17 +26,11 @@ public class ArmesFragmentation extends Armes implements Poolable{
 	private float angle;
 	private boolean gauche = true;
 	private boolean bas = true;
-	private ParticulesMeteorite particleEffect;
+
 	
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR);
-	}
+
 	
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR);
-	}
+
 	
 	@Override
 	public void reset() {
@@ -86,7 +80,7 @@ public class ArmesFragmentation extends Armes implements Poolable{
 	
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
+		
 		pool.free(this);
 	}
 

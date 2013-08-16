@@ -1,7 +1,6 @@
 package vaisseaux.ennemis.particuliers.nv1;
 
 import jeu.Endless;
-import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
@@ -13,12 +12,8 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.AssetMan;
 import assets.SoundMan;
-import assets.animation.AnimationExplosion1;
-import assets.particules.ParticulesExplosionPetite;
-
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -39,16 +34,21 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	public static final Tirs TIR = new Tirs(.3f);
 	// ** ** animations
 	private float prochainTir = 3, angleTir = 0;
-	private ParticulesExplosionPetite explosion;
 	private int numeroTir = 3;
 
 	/**
 	 * Contructeur sans argument, appel� par le pool
 	 */
 	public PorteRaisin() {
-		super(Positionnement.getEmplacementX(DEMI_LARGEUR),	CSG.HAUTEUR_ECRAN + HAUTEUR, Stats.PVMAX_PORTE_RAISIN);
+		super();
+		Positionnement.hautLarge(position, getLargeur(), getHauteur());
 	}
 
+	
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_PORTE_RAISIN;
+	}
 	@Override
 	protected Sound getSonExplosion() {
 		return SoundMan.explosionkinder;
@@ -58,31 +58,19 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	protected void free() {
 		pool.free(this);
 	}
-	
-	/**
-	 * Initialise l'ennemi
-	 */
-	public void init() {
-		tpsAnimationExplosion = 0;
-		if(CSG.profil.particules & explosion == null)	explosion = ParticulesExplosionPetite.pool.obtain();
-	}
 
 	@Override
 	public void reset() {
-		position.x = Positionnement.getEmplacementX(DEMI_LARGEUR);
-		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
-		mort = false;
-		pv = Stats.PVMAX_PORTE_RAISIN;
+		Positionnement.hautLarge(position, getLargeur(), getHauteur());
+		prochainTir = 3;
+		angleTir = 0;
+		super.reset();
 	}
 
 	@Override
 	public boolean mouvementEtVerif() {
-		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
 		position.y -= (Stats.VITESSE_PORTE_RAISIN * Endless.delta);
-		return true;
+		return super.mouvementEtVerif();
 	}
 	
 	@Override
@@ -94,13 +82,6 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	@Override
 	protected void tir() {
 		TIR.tirEnRafaleGaucheEtDroite(this, 4, mort, maintenant, prochainTir);
-	}
-
-
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
 	}
 
 	@Override

@@ -13,12 +13,8 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiAileDeployee;
-import assets.animation.AnimationExplosion1;
-import assets.particules.ParticulesExplosionPetite;
-
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -27,16 +23,15 @@ import com.badlogic.gdx.utils.Pools;
 public class Laser extends Ennemis implements TireurAngle {
 	
 	// ** ** caracteristiques g�n�rales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 15;
+	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 9;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = LARGEUR + LARGEUR;
-	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
+//	public static final int HAUTEUR = LARGEUR + LARGEUR;
+//	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
+	private static final float VITESSE = Stats.VITESSE_ENNEMI_LASER;
 	public static final Tirs TIR = new Tirs(1.1f);
 	// ** ** caracteristiques variables.
 	protected float prochainTir = 1f;
 	public static Pool<Laser> pool = Pools.get(Laser.class);
-	// ** ** particules
-	private ParticulesExplosionPetite explosion;
 	private float angle = -90;
 	private Vector2 direction = new Vector2();
 	private boolean versGauche;
@@ -46,11 +41,6 @@ public class Laser extends Ennemis implements TireurAngle {
 		return SoundMan.explosionennemidebasequitir;
 	}
 	
-	public void init() {
-		tpsAnimationExplosion = 0;
-		if (CSG.profil.particules && explosion == null) explosion = ParticulesExplosionPetite.pool.obtain();
-	}
-	
 	@Override
 	protected void free() {
 		pool.free(this);
@@ -58,21 +48,24 @@ public class Laser extends Ennemis implements TireurAngle {
 	
 	@Override
 	public void reset() {
-		maintenant = 0;
-		position.x = Positionnement.getEmplacementX(DEMI_LARGEUR);
-		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
-		mort = false;
-		pv = Stats.PVMAX_LASER;
+		Positionnement.hautLarge(position, getLargeur(), getHauteur());
 		prochainTir = .2f;
-		initPositionEtAngle();
+		initAngle();
+		super.reset();
 	}
 
 	public Laser() {
-		super(Positionnement.getEmplacementX(DEMI_LARGEUR), CSG.HAUTEUR_ECRAN + HAUTEUR, Stats.PVMAX_LASER);
-		initPositionEtAngle();
+		super();
+		Positionnement.hautLarge(position, getLargeur(), getHauteur());
+		initAngle();
+	}
+	
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_LASER;
 	}
 
-	private void initPositionEtAngle() {
+	private void initAngle() {
 		if (position.x + DEMI_LARGEUR > CSG.DEMI_LARGEUR_ZONE_JEU) {
 			versGauche = true;
 			direction.x = -1;
@@ -83,6 +76,12 @@ public class Laser extends Ennemis implements TireurAngle {
 			angle = -45;
 		}
 		direction.y = -1;
+		direction.mul(getVitesse());
+	}
+	
+	@Override
+	protected float getVitesse() {
+		return VITESSE;
 	}
 
 	/**
@@ -90,22 +89,17 @@ public class Laser extends Ennemis implements TireurAngle {
 	 */
 	@Override
 	public boolean mouvementEtVerif() {
-		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
-		maintenant += Endless.delta + Endless.delta; // Pour rotationner plus vite, du coup attention à la cadence de tir
-		Physique.mouvementDeBase(direction, position, Stats.VITESSE_ENNEMI_LASER, HAUTEUR, LARGEUR);
+		Physique.mvtSansVerif(position, direction);
 		if (maintenant < 50) {
 			if (versGauche) {
-				direction.rotate(maintenant * Endless.delta);
-				angle += maintenant * Endless.delta;
+				direction.rotate(maintenant * Endless.delta * 2);
+				angle += maintenant * Endless.delta * 2;
 			} else {
-				direction.rotate(-maintenant * Endless.delta);
-				angle -= maintenant * Endless.delta;
+				direction.rotate(-maintenant * Endless.delta * 2);
+				angle -= maintenant * Endless.delta * 2;
 			}
 		}
-		return true;
+		return super.mouvementEtVerif();
 	}
 
 	@Override
@@ -115,18 +109,12 @@ public class Laser extends Ennemis implements TireurAngle {
 	
 	@Override
 	public float getAngle() {
-		return angle;
+		return angle+90;
 	}
 	
 	@Override
 	protected void tir() {
 		TIR.tirToutDroit(this, mort, maintenant, prochainTir);
-	}
-
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
 	}
 
 	@Override
@@ -136,7 +124,7 @@ public class Laser extends Ennemis implements TireurAngle {
 	
 	@Override
 	public int getHauteur() {
-		return HAUTEUR;
+		return LARGEUR;
 	}
 
 	@Override
@@ -146,7 +134,7 @@ public class Laser extends Ennemis implements TireurAngle {
 
 	@Override
 	public int getDemiHauteur() {
-		return DEMI_HAUTEUR;
+		return DEMI_LARGEUR;
 	}
 
 	@Override
@@ -161,7 +149,7 @@ public class Laser extends Ennemis implements TireurAngle {
 	public void setProchainTir(float f) {		prochainTir = f;	}
 
 	@Override
-	public float getModifVitesse() {	return 1;	}
+	public float getModifVitesse() {	return 0.02f;	}
 
 	@Override
 	public float getAngleTir() {			return angle+90;	}
@@ -173,8 +161,8 @@ public class Laser extends Ennemis implements TireurAngle {
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = (position.x + DEMI_LARGEUR - ArmeLaser.DEMI_LARGEUR) + (direction.x * 32);
-		tmpPos.y = (position.y + DEMI_HAUTEUR - ArmeLaser.DEMI_LARGEUR) + (direction.y * 32);
+		tmpPos.x = (position.x + DEMI_LARGEUR - ArmeLaser.DEMI_LARGEUR) + (direction.x / 3);
+		tmpPos.y = (position.y + DEMI_LARGEUR - ArmeLaser.DEMI_LARGEUR) + (direction.y / 3);
 		return tmpPos;
 	}
 	

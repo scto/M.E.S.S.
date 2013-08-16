@@ -29,22 +29,10 @@ public class ArmeBossQuad extends Armes implements Poolable{
 	public static Pool<ArmeBossQuad> pool = Pools.get(ArmeBossQuad.class);
 	private float tpsAnimation = 0;
 	// ** ** particules
-	public ParticulesArmeDeBase particleEffect;
-	
-
-	@Override
+	public ParticulesArmeDeBase particleEffect;@Override
 	public void reset() {
 	}
-	
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR, HAUTEUR);
-	}
-	
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR, HAUTEUR);
-	}
+
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
@@ -86,7 +74,7 @@ public class ArmeBossQuad extends Armes implements Poolable{
 
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
+		
 		pool.free(this);
 	}
 }

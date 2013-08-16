@@ -30,16 +30,7 @@ public class ArmeBouleEnergie extends Armes implements Poolable{
 	
 	@Override
 	public void reset() {	}
-	
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR, HAUTEUR);
-	}
-	
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR, HAUTEUR);
-	}
+
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
@@ -78,7 +69,7 @@ public class ArmeBouleEnergie extends Armes implements Poolable{
 
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
+		
 		pool.free(this);
 	}
 }

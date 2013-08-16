@@ -22,7 +22,7 @@ public class ArmesFragmentee extends Armes implements Poolable{
 	private float tpsAnim = 3;
 	// ** ** variable utilitaire
 	private float angle;
-	private ParticulesMeteorite particleEffect;
+
 	
 	public void init(float posX, float posY, float dirX, float dirY) {
 		direction.x = dirX;
@@ -40,15 +40,9 @@ public class ArmesFragmentee extends Armes implements Poolable{
 		tpsAnim = 4;
 	}
 
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR);
-	}
 
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR);
-	}
+
+
 	
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
@@ -73,7 +67,7 @@ public class ArmesFragmentee extends Armes implements Poolable{
 
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
+		
 		pool.free(this);
 	}
 }

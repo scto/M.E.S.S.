@@ -1,6 +1,5 @@
 package vaisseaux.ennemis.particuliers.nv1;
 
-import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
@@ -14,12 +13,8 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.AnimationBouleBleuRouge;
-import assets.animation.AnimationExplosion1;
-import assets.particules.ParticulesExplosionPetite;
-
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -35,80 +30,25 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	// ** ** caracteristiques variables.
 	private float prochainTir = .1f;
 	public static Pool<BouleQuiSArrete> pool = Pools.get(BouleQuiSArrete.class);
-	// ** ** animations 
-	private ParticulesExplosionPetite explosion;
-	private boolean reset = false;
 	
-	@Override
-	public void reset() {
-		position.x = Positionnement.getEmplacementX(DEMI_LARGEUR);
-		position.y = CSG.HAUTEUR_ECRAN + LARGEUR;
-		super.reset(Stats.PVMAX_BOULE_QUI_SARRETE);
-		prochainTir = .2f;
-		reset = true;
+	
+	public BouleQuiSArrete() {
+		super();
+		Positionnement.hautLarge(position, getLargeur(), getHauteur());
 	}
 	
 	@Override
-	protected Sound getSonExplosion() {		return SoundMan.explosionboule;	}
-
-	public BouleQuiSArrete() {
-		super(Positionnement.getEmplacementX(DEMI_LARGEUR), CSG.HAUTEUR_ECRAN + LARGEUR, Stats.PVMAX_BOULE_QUI_SARRETE);
+	public void reset() {
+		Positionnement.hautLarge(position, getLargeur(), getHauteur());
+		super.reset();
+		prochainTir = .2f;
 	}
 	
 	@Override
 	public boolean mouvementEtVerif() {
-		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
-			// On ralentit
-			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
-				position.y += (-50 * Endless.delta);
-		} else {
-			position.y += (Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta);
-		}
-		if (maintenant > 10) {
-			if (reset) {
-				position.y -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
-				position.x -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
-			} else {
-				position.y -= Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
-				position.x += Stats.VITESSE_MAX_BOULE_QUI_SARRETE * Endless.delta;
-			}
-		}
+		Physique.mvtArretHauteur(position, Stats.VITESSE_BOULE_QUI_SARRETE, maintenant);
 		return super.mouvementEtVerif();
 	}
-
-	@Override
-	protected TextureRegion getTexture() {
-		return AnimationBouleBleuRouge.getTexture(maintenant);
-	}
-	
-	@Override
-	protected void tir() {
-		tir.tirVersJoueur(this, mort, maintenant, prochainTir);
-	}
-
-	@Override
-	public int getXp() {		return CoutsEnnemis.EnnemiBouleQuiSArrete.COUT;	}
-	
-	@Override
-	public int getHauteur() {		return LARGEUR;	}
-
-	@Override
-	public int getLargeur() {		return LARGEUR;	}
-
-	@Override
-	public int getDemiHauteur() {		return DEMI_LARGEUR;	}
-
-	@Override
-	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
-	
-	@Override
-	public Armes getArme() {			return ArmesBouleBleu.pool.obtain();	}
-
-	@Override
-	public void setProchainTir(float f) {		prochainTir = f;	}
-
-	@Override
-	public float getModifVitesse() {	return 1;	}
 
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
@@ -118,12 +58,31 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	}
 	
 	@Override
-	public void invoquer() {
-		liste.add(pool.obtain());
-	}
-
+	public void invoquer() {				liste.add(pool.obtain());	}
 	@Override
-	protected void free() {
-		pool.free(this);
-	}
+	protected void free() {					pool.free(this);	}
+	@Override
+	protected TextureRegion getTexture() {	return AnimationBouleBleuRouge.getTexture(maintenant);	}
+	@Override
+	protected void tir() {					tir.tirVersJoueur(this, mort, maintenant, prochainTir);	}
+	@Override
+	protected Sound getSonExplosion() {		return SoundMan.explosionboule;	}
+	@Override
+	protected int getPvMax() {				return Stats.PV_BOULE_QUI_SARRETE;	}
+	@Override
+	public int getXp() {					return CoutsEnnemis.EnnemiBouleQuiSArrete.COUT;	}
+	@Override
+	public int getHauteur() {				return LARGEUR;	}
+	@Override
+	public int getLargeur() {				return LARGEUR;	}
+	@Override
+	public int getDemiHauteur() {			return DEMI_LARGEUR;	}
+	@Override
+	public int getDemiLargeur() {			return DEMI_LARGEUR;	}
+	@Override
+	public Armes getArme() {				return ArmesBouleBleu.pool.obtain();	}
+	@Override
+	public void setProchainTir(float f) {	prochainTir = f;	}
+	@Override
+	public float getModifVitesse() {		return 1;	}
 }

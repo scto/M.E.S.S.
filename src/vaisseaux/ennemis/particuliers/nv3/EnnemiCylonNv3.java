@@ -1,20 +1,28 @@
 package vaisseaux.ennemis.particuliers.nv3;
 
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
+
 import jeu.Stats;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.particuliers.nv1.Cylon;
 
 public class EnnemiCylonNv3 extends Cylon {
 	
-	public EnnemiCylonNv3() {
-		super();
-		pv = Stats.PVMAX_CYLON3;
-	}
-
+	public static Pool<EnnemiCylonNv3> pool = Pools.get(EnnemiCylonNv3.class);
+	
 	@Override
-	public void reset() {
-		super.reset();
-		pv = Stats.PVMAX_CYLON3;
+	protected void free() {
+		pool.free(this);
+	}
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
+	}
+	
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_CYLON3;
 	}
 
 	@Override

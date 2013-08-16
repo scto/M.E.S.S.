@@ -34,7 +34,6 @@ public class MenuOptions extends AbstractScreen{
 	private int ligne2 = 3;
 	private int ligne3 = 4;
 	private int ligne4 = 7;
-	private int ligne5 = 8;
 	private int ligne6 = 9;
 	
 	public MenuOptions(final Game game, SpriteBatch batch, JeuBackground jeuBackground, Bloom bloom) {

@@ -27,15 +27,9 @@ public class ArmeMine extends Armes implements Poolable{
 		tpsAnim = 4;
 	}
 	
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR);
-	}
 
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR);
-	}
+
+
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {

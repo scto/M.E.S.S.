@@ -1,33 +1,29 @@
 package vaisseaux.ennemis.particuliers.nv3;
 
-import jeu.Endless;
-import jeu.Physique;
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
+
 import jeu.Stats;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.particuliers.nv1.DeBase;
-import assets.animation.AnimationExplosion1;
 
 public class EnnemiDeBaseNv3 extends DeBase {
+	
+	public static Pool<EnnemiDeBaseNv3> pool = Pools.get(EnnemiDeBaseNv3.class);
+	
+	@Override
+	protected void free() {
+		pool.free(this);
+	}
 
-	public EnnemiDeBaseNv3() {
-		super();
-		pv = Stats.PVMAX_DE_BASE_NV3;
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_DE_BASE_NV3;
 	}
 	
 	@Override
-	public boolean mouvementEtVerif() {
-		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
-		position.y -= (Stats.VITESSE_MAX_DE_BASE_NV3 * Endless.delta);
-		return true;
-	}
-
-	@Override
-	public void reset() {
-		super.reset();
-		pv = Stats.PVMAX_DE_BASE_NV3;		
+	protected float getVitesse() {
+		return Stats.VITESSE_MAX_DE_BASE_NV3;
 	}
 
 	@Override

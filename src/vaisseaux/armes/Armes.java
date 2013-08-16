@@ -1,5 +1,6 @@
 package vaisseaux.armes;
 
+import jeu.Physique;
 import vaisseaux.Vaisseaux;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,14 +22,13 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	public Armes() {
 		this.position = new Vector2();
 	}
-	
-	abstract public boolean testCollsionAdds();
 
-	/**
-	 * @return true il fait le virer
-	 */
 	public boolean testCollisionVaisseau() {
-		return false;
+		return Physique.pointDansVaisseau(position, getLargeur(), getHauteur());
+	}
+	
+	public boolean testCollsionAdds() {
+		return Physique.testCollisionAdds(position, getLargeur(), getHauteur());
 	}
 
 	public static void affichageEtMouvementSansParticules(SpriteBatch batch) {

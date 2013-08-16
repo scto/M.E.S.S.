@@ -2,7 +2,6 @@ package vaisseaux.ennemis;
 
 import jeu.Endless;
 import jeu.Physique;
-import jeu.Stats;
 import vaisseaux.Vaisseaux;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.particuliers.EnnemiBossQuad;
@@ -20,10 +19,10 @@ import vaisseaux.ennemis.particuliers.nv1.QuiTir2;
 import vaisseaux.ennemis.particuliers.nv1.QuiTourne;
 import vaisseaux.ennemis.particuliers.nv1.Toupie;
 import vaisseaux.ennemis.particuliers.nv1.ZigZag;
-import vaisseaux.ennemis.particuliers.nv2.Kinder2;
 import vaisseaux.ennemis.particuliers.nv2.BouleTirCote;
 import vaisseaux.ennemis.particuliers.nv2.BouleTirCoteRotation;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiAvionNv3;
+import vaisseaux.ennemis.particuliers.nv2.Kinder2;
+import vaisseaux.ennemis.particuliers.nv3.AvionNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiBouleQuiSArreteNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiCylonNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiDeBaseNv3;
@@ -45,24 +44,21 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
-import com.badlogic.gdx.utils.Pools;
 
 public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	
 	// voir a quelle taille l'initialiser
 	public static Array<Ennemis> liste = new Array<Ennemis>(30);
 	protected static final Vector2 tmpPos = new Vector2(), tmpDir = new Vector2();
-	
 	public static float derniereApparition = 0;
 	public boolean mort = false;
 	protected static Rectangle collision = new Rectangle();
 	protected int pv;
 	protected float maintenant = 0, tpsAnimationExplosion = 0;
 	
-	public static final Invocable[] LISTE_LV1 = {
-		new Insecte(),
+	public static Invocable[] LISTE_LV1 = {
+		Insecte.pool.obtain(),//new Insecte(),
 		Laser.pool.obtain(),
 		PorteRaisin.pool.obtain(),
 		Avion.pool.obtain(),
@@ -76,8 +72,8 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 		ZigZag.pool.obtain(),
 		DeBase.pool.obtain(),
 		};//EnnemiInsecte.pool.obtain()};
-	public static final Invocable[] LISTE_LV2 = {
-		new Insecte(),
+	public static Invocable[] LISTE_LV2 = {
+		Insecte.pool.obtain(),
 		Kinder2.pool.obtain(),
 		BouleTirCote.pool.obtain(),
 		Laser.pool.obtain(),
@@ -95,11 +91,11 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 		ZigZag.pool.obtain(),
 		DeBase.pool.obtain(),
 		};//EnnemiInsecte.pool.obtain()};
-	public static final Invocable[] LISTE_LV3 = {
-		new EnnemiInsecteNv3(),
+	public static Invocable[] LISTE_LV3 = {
+		EnnemiInsecteNv3.pool.obtain(),
 		BouleTirCote.pool.obtain(), 
 		EnnemiPorteRaisinNv3.pool.obtain(), 
-		EnnemiAvionNv3.pool.obtain(),
+		AvionNv3.pool.obtain(),
 		EnnemiQuiTir2Nv3.pool.obtain(), 
 		EnnemiKinderNv3.pool.obtain(), 
 		EnnemiCylonNv3.pool.obtain(), 
@@ -118,8 +114,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 * @param direction
 	 * @param pv 
 	 */
-	protected Ennemis(float posX, float posY) {
-		position = new Vector2(posX, posY);
+	protected Ennemis() {
 		this.pv = getPvMax();
 	}
 	
@@ -131,15 +126,12 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 		}
 	}
 	
-	// Obligé pour le pooléz"E<Z
-	public Ennemis() {	}
-	
 	public boolean mouvementEtVerif() {
 		if ( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, getHauteur(), getLargeur()) == false){
 			free();
 			return false;
 		}
-		return true;
+		return Physique.toujoursAfficher(position, getHauteur(), getLargeur());
 	}
 	
 	protected abstract void free();
@@ -214,13 +206,16 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 * Reset mort, tpsAnimationExplosion et pv
 	 * @param pvMax
 	 */
-	public void reset(int pvMax) {
+	public void reset() {
 		mort = false;
 		tpsAnimationExplosion = 0;
 		maintenant = 0;
 		pv = getPvMax();
 	}
 	
+	protected float getVitesse(){
+		return 3333;
+	}
 	protected abstract int getPvMax();
 
 	/**
@@ -258,5 +253,9 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 
 	public static void initLevelBoss(int level) {
 		EnnemiBossQuad.setLevel(level);
+	}
+
+	public Vector2 getPosition() {
+		return position;
 	}
 }

@@ -1,7 +1,6 @@
 package vaisseaux.ennemis.particuliers.nv1;
 
 import jeu.Endless;
-import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
@@ -12,13 +11,10 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
-import assets.animation.AnimationExplosion1;
-import assets.particules.ParticulesExplosionPetite;
+import assets.animation.AnimationQuiTir;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -36,22 +32,10 @@ public class QuiTir extends Ennemis implements Tireur{
 	// ** ** caracteristiques variables.
 	protected float prochainTir = .1f;
 	public static Pool<QuiTir> pool = Pools.get(QuiTir.class);
-	// ** ** particules
-	protected ParticulesExplosionPetite explosion;
-	// Animation
-	public static AtlasRegion bonEtat;
-	public static AtlasRegion mauvaisEtat;
-	
-	public static void initAnimation(){
-		bonEtat = CSG.getAssetMan().getAtlas().findRegion("fusee");
-		mauvaisEtat = CSG.getAssetMan().getAtlas().findRegion("fuseeamochee");
-	}
 	
 	@Override
 	public TextureRegion getTexture() {
-		if (pv < Stats.DEMI_PV_BASE_QUI_TIR)
-			return mauvaisEtat;
-		return bonEtat;
+		return AnimationQuiTir.getTexture(pv);
 	}
 	
 	@Override
@@ -64,47 +48,42 @@ public class QuiTir extends Ennemis implements Tireur{
 		return SoundMan.explosionennemidebasequitir;
 	}
 	
-	public void init() {
-		if (CSG.profil.particules & explosion == null) explosion = ParticulesExplosionPetite.pool.obtain();
-		else tpsAnimationExplosion = 0;
+	@Override
+	public void reset() {
+		Positionnement.hautLarge(position, getLargeur(), getHauteur());
+		prochainTir = .2f;
+		super.reset();
 	}
 	
 	@Override
-	public void reset() {
-		position.x = Positionnement.getEmplacementX((int) DEMI_LARGEUR);
-		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
-		mort = false;
-		pv = Stats.PVMAX_DE_BASE_QUI_TIR;
-		prochainTir = .2f;
+	protected int getPvMax() {
+		return Stats.PVMAX_DE_BASE_QUI_TIR;
 	}
-
-	public QuiTir() {
-		super(Positionnement.getEmplacementX((int) DEMI_LARGEUR), CSG.HAUTEUR_ECRAN + HAUTEUR, Stats.PVMAX_DE_BASE_QUI_TIR);
-	}
-	
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
 	public boolean mouvementEtVerif() {
-		if( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, (int)HAUTEUR, (int)LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
-		position.y += (Stats.VITESSE_MAX_DE_BASE_QUI_TIR * Endless.delta);
-		if (pv < Stats.DEMI_PV_BASE_QUI_TIR) position.x += (Stats.DERIVE_DE_BASE_QUI_TIR * Endless.delta);
-		return true;
+		position.y += (getVitesse() * Endless.delta);
+		if (pv < getDemiPv()) position.x += (getDerive() * Endless.delta);
+		return super.mouvementEtVerif();
 	}
 	
-	@Override
-	protected void tir() {
-		tir.tirVersBas(this, mort, maintenant, prochainTir);
+	protected float getVitesse() {
+		return Stats.VITESSE_MAX_DE_BASE_QUI_TIR;
+	}
+	
+	protected float getDerive() {
+		return Stats.DERIVE_DE_BASE_QUI_TIR;
+	}
+	
+	protected int getDemiPv() {
+		return Stats.DEMI_PV_BASE_QUI_TIR;
 	}
 
 	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
+	protected void tir() {
+		tir.tirVersBas(this, mort, maintenant, prochainTir);
 	}
 
 	@Override

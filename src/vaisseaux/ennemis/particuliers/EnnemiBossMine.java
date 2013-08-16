@@ -3,7 +3,6 @@ package vaisseaux.ennemis.particuliers;
 import java.util.Random;
 
 import jeu.Endless;
-import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.ArmeBossMine;
@@ -13,15 +12,12 @@ import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
-import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationBossMine;
 import assets.animation.AnimationExplosion1;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -39,11 +35,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	// ** ** caracteristiques variables.
 	private static final Vector2 tmpDirectionTir = new Vector2();
 	private float prochainTir = 3f;
-	private float maintenant = 0;
-	private float tpsAnimationExplosion = 0;
 	public static Pool<EnnemiBossMine> pool = Pools.get(EnnemiBossMine.class);
-	// ** ** particules
-	private ParticleEffect explosion;
 	// direction
 	private float dirY = 1;
 	private float angle;
@@ -53,72 +45,52 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	private int nbMinesEtDisspersion = 5;
 	
 	public EnnemiBossMine() {
-		super(0,0, Stats.PVMAX_BOSS_MINE + (CSG.profil.getCoutUpArme() / 30));
 		angle = 0;
 		position.x = CSG.DEMI_LARGEUR_ZONE_JEU - DEMI_LARGEUR;
 		position.y = CSG.HAUTEUR_ECRAN;
-		init();
 	}
 	
 	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_BOSS_MINE + (CSG.profil.getCoutUpArme() / 30);
+	}
+
 	protected void free() {
 		pool.free(this);
 	}
 	
-	@Override
 	protected Sound getSonExplosion() {
 		return SoundMan.explosionGrosse;
 	}
-	
-	/**
-	 * Ajoute � la liste
-	 */
-	public void init() {
-		if (CSG.profil.particules){
-			if (explosion == null) explosion = new ParticleEffect(AssetMan.explosionGros);
-		} else {
-			tpsAnimationExplosion = 0;
-		}
-	}
 
-	@Override
 	public void reset() {
 		angle = 0;
 		versDroite = false;
-		mort = false;	
-		tpsAnimationExplosion = 0;
-		pv = Stats.PVMAX_BOSS_MINE + (CSG.profil.getCoutUpArme() / 30);
 		prochainTir = 3f;
-		maintenant = 0;
-		init();
 		dirY = 1;
 		position.x = CSG.DEMI_LARGEUR_ZONE_JEU - DEMI_LARGEUR;
 		position.y = CSG.HAUTEUR_ECRAN;
+		super.reset();
 	}
 
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
-	@Override
-	public boolean mouvementEtVerif() {
-		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, HAUTEUR, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
 
+	public boolean mouvementEtVerif() {
 		if (phase == 1){
 			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3 | dirY < 1) 	position.y -= (dirY * Stats.VITESSE_KINDER * Endless.delta);
 			if (dirY < 1)	dirY += 30 * Endless.delta;
 		} else {
 			if (angle < 180) angle += Endless.delta * 100;
 		}
-		return true;
+		return super.mouvementEtVerif();
 	}
 
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
-	@Override
+
 	public void afficher(SpriteBatch batch) {
 		if(mort){
 			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
@@ -141,7 +113,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 		}
 	}
 	
-	@Override
+
 	protected void tir() {
 		switch (phase) {
 		case 1 : 
@@ -162,7 +134,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	}
 	
 	
-	@Override
+
 	public boolean touche(int force) {
 		if (pv > Stats.DEUXTIERS_PVMAX_BOSS_MINE) {
 			phase = 1;
@@ -174,45 +146,34 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 		return super.touche(force);
 	}
 
-	@Override
+
 	public int getXp() {				return CoutsEnnemis.EnnemiBossMine.COUT;	}
-	@Override
+
 	public int getHauteur() {			return HAUTEUR;	}
-	@Override
+
 	public int getLargeur() {			return LARGEUR;	}
-	@Override
+
 	public int getDemiHauteur() {		return DEMI_HAUTEUR;	}
-	@Override
+
 	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
 
-	@Override
-	public Rectangle getRectangleCollision() {
-		collision.set(position.x, position.y, LARGEUR, HAUTEUR);
-		return collision;
-	}
-	
-	@Override
 	public Armes getArme() {
 		if (phase == 1) {
 			return ArmeBossMine.pool.obtain();
 		}
 		else return ArmeMine.pool.obtain();
 	}
-	
-	@Override
+
 	public void setProchainTir(float f) {
 		SoundMan.playBruitage(SoundMan.tirRocket);
 		prochainTir = f;	
 	}
 
-	@Override
 	public float getModifVitesse() {	return 1;	}
 
 
-	@Override
 	public float getAngleTir() {			return angle;	}
 	
-	@Override
 	public Vector2 getDirectionTir() {
 		tmpDirectionTir.x = 0;
 		if (phase == 1)	tmpDirectionTir.y = -1;
@@ -220,14 +181,14 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 		return tmpDirectionTir;
 	}
 	
-	@Override
+
 	public Vector2 getPositionDuTir(int numeroTir) {
 		if (phase == 1)		tmpPos.x = (position.x + DEMI_LARGEUR - ArmeBossMine.DEMI_LARGEUR);
 		else tmpPos.x = (position.x + DEMI_LARGEUR - ArmeMine.DEMI_LARGEUR);
 		tmpPos.y = position.y;
 		return tmpPos;
 	}
-	@Override
+
 	public void invoquer() {
 		liste.add(pool.obtain());
 	}

@@ -49,15 +49,9 @@ public class ArmeInsecte extends Armes implements Poolable{
 		return false;
 	}
 
-	@Override
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, LARGEUR, HAUTEUR);
-	}
+
 	
-	@Override
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, LARGEUR);
-	}
+
 	
 	@Override
 	public int getForce() {			return FORCE;	}
@@ -70,7 +64,7 @@ public class ArmeInsecte extends Armes implements Poolable{
 
 	@Override
 	public void free() {
-//		if (particleEffect != null) particleEffect.free();
+//		
 		pool.free(this);
 	}
 

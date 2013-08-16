@@ -36,13 +36,13 @@ public class Stats {
 	public static final int VITESSE_MAX_ZIGZAG_NV3 = CSG.HAUTEUR_ECRAN / 10;
 	
 	// A I L E S    D E P L O Y E E S
-	public static final int VITESSE_MAX_AILES_DEPLOYEE = CSG.HAUTEUR_ECRAN / 10;
-	public static final int PVMAX_AILES_DEPLOYEE = 20;
+	public static final int VITESSE_AILES_DEPLOYEE = CSG.HAUTEUR_ECRAN / 10;
+	public static final int PV_AILES_DEPLOYEE = 20;
 	
 	// B O U L E    Q U I    S ' A R R E T E
-	public static final int VITESSE_MAX_BOULE_QUI_SARRETE = -CSG.HAUTEUR_ECRAN / 10;
-	public static final int PVMAX_BOULE_QUI_SARRETE = 30;
-	public static final int PVMAX_BOULE_QUI_SARRETE3 = 60;
+	public static final int VITESSE_BOULE_QUI_SARRETE = -CSG.HAUTEUR_ECRAN / 10;
+	public static final int PV_BOULE_QUI_SARRETE = 30;
+	public static final int PV_BOULE_QUI_SARRETE3 = 60;
 	
 	// P O R T E   N E F
 	public static final int VITESSE_MAX_PORTE_NEF = CSG.LARGEUR_ECRAN/12;
@@ -112,7 +112,7 @@ public class Stats {
 	public static final int VITESSE_BOSS_MINE = (int) (CSG.HAUTEUR_ECRAN/6f);
 	
 	// L A S E R   
-	public static final int VITESSE_ENNEMI_LASER = (CSG.HAUTEUR_ECRAN / 12);
+	public static final int VITESSE_ENNEMI_LASER = (CSG.HAUTEUR_ECRAN / 14);
 	public static final int PVMAX_LASER = 190;
 	// -- 3
 	public static final int VITESSE_ENNEMI_LASER3 = (CSG.HAUTEUR_ECRAN / 9);

@@ -13,7 +13,6 @@ import assets.particules.ParticulesExplosionPetite;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -40,26 +39,39 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	 * Contructeur sans argument, appel� par le pool
 	 */
 	public DeBase() {
-		super(CSG.LARGEUR_BORD,	CSG.HAUTEUR_ECRAN + HAUTEUR);
-		Positionnement.setPosX(this);
+		super();
+		Positionnement.hautLarge(position, getLargeur(), getHauteur());
 	}
 
-	@Override
-	public void reset() {
-		Positionnement.setPosX(this);
-	}
-
-	@Override
-	protected TextureRegion getTexture() {
-		return AnimationEnnemiDeBase.getTexture(maintenant);
-	}
-	
 	@Override
 	public boolean mouvementEtVerif() {
-		position.y -= (Stats.VITESSE_MAX_DE_BASE * Endless.delta);
+		position.y -= (getVitesse() * Endless.delta);
 		return super.mouvementEtVerif();
 	}
 	
+	@Override
+	protected float getVitesse() {
+		return Stats.VITESSE_MAX_DE_BASE;
+	}
+	
+	@Override
+	public void invoquer() {
+		liste.add(pool.obtain());
+		if (Endless.level == 2) {
+			liste.add(pool.obtain());
+			liste.add(pool.obtain());
+			liste.add(pool.obtain());
+			liste.add(pool.obtain());
+		}
+	}
+
+	@Override
+	public void incNbEnnemisAvant() {
+		nbEnnemisAvant++;
+		if (nbEnnemisAvant > MAX_ENNEMIS_LIGNE)
+			nbEnnemisAvant = 0;
+	}
+
 	@Override
 	protected Sound getSonExplosion() {		return SoundMan.explosiontoupie;	}
 	@Override
@@ -80,30 +92,15 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	public Vector2 getPosition() {			return position;	}
 	@Override
 	public float getPosXInitiale() {		return posXInitiale;	}
-	
 	@Override
-	public void invoquer() {
-		liste.add(pool.obtain());
-		if (Endless.level == 2) {
-			liste.add(pool.obtain());
-			liste.add(pool.obtain());
-			liste.add(pool.obtain());
-			liste.add(pool.obtain());
-		}
+	protected int getPvMax() {		return Stats.PVMAX_DE_BASE;	}
+	@Override
+	public void reset() {
+		Positionnement.hautLarge(position, getLargeur(), getHauteur());
+		super.reset();
 	}
-
 	@Override
-	public void incNbEnnemisAvant() {
-		nbEnnemisAvant++;
-		if (nbEnnemisAvant > MAX_ENNEMIS_LIGNE)
-			nbEnnemisAvant = 0;
-	}
-	
+	protected TextureRegion getTexture() {		return AnimationEnnemiDeBase.getTexture(maintenant);	}
 	@Override
-	protected void free() {		pool.free(this);	}
-
-	@Override
-	protected int getPvMax() {
-		return Stats.PVMAX_DE_BASE;
-	}
+	protected void free() { pool.free(this);	}
 }

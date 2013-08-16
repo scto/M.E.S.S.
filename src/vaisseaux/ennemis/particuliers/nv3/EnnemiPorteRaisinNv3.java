@@ -1,20 +1,29 @@
 package vaisseaux.ennemis.particuliers.nv3;
 
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
+
 import jeu.Stats;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.particuliers.nv1.PorteRaisin;
 
 public class EnnemiPorteRaisinNv3 extends PorteRaisin {
 
-	public EnnemiPorteRaisinNv3() {
-		super();
-		pv = Stats.PVMAX_PORTE_RAISIN3;
+	public static Pool<EnnemiPorteRaisinNv3> pool = Pools.get(EnnemiPorteRaisinNv3.class);
+	
+	@Override
+	protected void free() {
+		pool.free(this);
 	}
 	
 	@Override
-	public void reset() {
-		super.reset();
-		pv = Stats.PVMAX_PORTE_RAISIN3;
+	public void invoquer() {
+		liste.add(pool.obtain());
+	}
+	
+	@Override
+	protected int getPvMax() {
+		return Stats.PVMAX_PORTE_RAISIN3;
 	}
 
 	@Override
