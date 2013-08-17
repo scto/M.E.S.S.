@@ -1,8 +1,9 @@
 package jeu;
 
 import menu.CSG;
-import vaisseaux.RestesEnnemis;
+import vaisseaux.Particules;
 import vaisseaux.armes.Armes;
+import vaisseaux.armes.joueur.ArmeJoueur;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.joueur.VaisseauType1;
 
@@ -159,11 +160,11 @@ public class Physique {
 			if( !ennemi.mort &&	pointDansRectangle(VaisseauType1.centreX, VaisseauType1.centreY, ennemi.getRectangleCollision())){
 				Endless.perdu();
 			}
-			for (Armes a : Armes.liste) {
+			for (ArmeJoueur a : Armes.liste) {
 				// Le tir touche l'ennemie
 				if (!ennemi.mort && rectangleDansRectangle(a.position.x, a.position.y, a.getLargeur(), a.getHauteur(), ennemi.getRectangleCollision())) {
 					// on decompte suivant la puissance de l'arme et en plus ca fait un free
-					RestesEnnemis.ajout(a.position, a.getDirection()); // Ajout des particules dans la direction voulue
+					Particules.ajoutDebris(a); // Ajout des particules dans la direction voulue
 					if (ennemi.touche(a.getForce())){
 						a.free();
 						Armes.liste.removeValue(a, true);

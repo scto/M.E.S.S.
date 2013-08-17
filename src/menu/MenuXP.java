@@ -1,5 +1,6 @@
 package menu;
 
+import jeu.Endless;
 import vaisseaux.armes.joueur.ArmesTrois;
 import vaisseaux.joueur.VaisseauType1;
 import bloom.Bloom;
@@ -198,6 +199,7 @@ public class MenuXP extends AbstractScreen{
 	
 	@Override
 	public void render(float delta) {
+		Endless.delta = delta;
 		if (CSG.profil.bloom)	bloom.capture();
 		else					Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();

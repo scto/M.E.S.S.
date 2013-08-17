@@ -3,7 +3,7 @@ import java.text.DecimalFormat;
 
 import menu.CSG;
 import menu.Menu;
-import vaisseaux.RestesEnnemis;
+import vaisseaux.Particules;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
@@ -78,6 +78,9 @@ public class Endless implements Screen {
 		Ennemis.initLevelBoss(level);
 		init();
 		vaisseau.initialiser();
+		
+		Client c = new Client("127.0.0.1", this);
+		c.send();
 	}
 
 	private void init() {	
@@ -142,8 +145,8 @@ public class Endless implements Screen {
 //			Ennemis.liste.add(new EnnemiCylon());
 //		if (Gdx.input.isKeyPressed(Keys.T))
 //			Ennemis.liste.add(new EnnemiBossMine());
-		if (Gdx.input.justTouched()) 
-			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());
+//		if (Gdx.input.justTouched()) 
+//			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());
 //			Ennemis.liste.add(Insecte.pool.obtain());
 //		}
 //			Ennemis.liste.add(new EnnemiBouleQuiSArrete());
@@ -321,7 +324,7 @@ public class Endless implements Screen {
 		vaisseau.drawSansParticules(batch);
 		Ennemis.affichageEtMouvement(batch);
 		Armes.affichageEtMouvementSansParticules(batch);
-		RestesEnnemis.render(batch);
+		Particules.render(batch);
 
 		ui();
 	}

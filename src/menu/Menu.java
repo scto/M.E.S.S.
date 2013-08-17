@@ -40,7 +40,7 @@ public class Menu extends AbstractScreen{
 		temps = 0;
 		Gdx.input.setCatchBackKey(true);
 		credits = new Credits();
-		
+				
 		// *****************************
 		// ** ** ** BOUTON PLAY ** ** **
 		// *****************************
@@ -151,6 +151,7 @@ public class Menu extends AbstractScreen{
 		batch.begin();
 		CSG.renderBackground(batch);
 		Endless.maintenant += delta;
+		Endless.delta = delta;
 		credits.render(batch, delta);
 		detectiopnKonamiCode(batch);
 		batch.end();

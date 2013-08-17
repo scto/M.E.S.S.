@@ -2,7 +2,7 @@ package menu;
 
 import jeu.Profil;
 import jeu.ProfilManager;
-import vaisseaux.RestesEnnemis;
+import vaisseaux.Particules;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.bonus.XP;
@@ -119,7 +119,7 @@ public class CSG extends Game implements ApplicationListener {
 	public static void resetLists(){
 		ParallaxBackground.resetEtoiles();
 		Armes.listeTirsDesEnnemis.clear();
-        RestesEnnemis.restes.clear();
+        Particules.restes.clear();
 		Ennemis.liste.clear();
 		Armes.liste.clear();
         Progression.reset();

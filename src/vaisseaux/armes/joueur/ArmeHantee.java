@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Pools;
  * @author Julien
  *
  */
-public class ArmeHantee extends Armes implements Poolable{
+public class ArmeHantee extends ArmeJoueur implements Poolable{
 	
 	// ** ** caracteristiques g�n�rales
 	public static int LARGEUR;
@@ -82,4 +82,22 @@ public class ArmeHantee extends Armes implements Poolable{
 
 	@Override
 	public boolean testCollsionAdds() {		return false;	}
+
+	@Override
+	public float getR() {
+		if (numeroCouleur == 1) return 0.000f;
+		return 0.000f;
+	}
+
+	@Override
+	public float getG() {
+		if (numeroCouleur == 1) return 0.854f;
+		return 0.725f;
+	}
+
+	@Override
+	public float getB() {
+		if (numeroCouleur == 1) return 0.894f;
+		return 0.925f;
+	}
 }

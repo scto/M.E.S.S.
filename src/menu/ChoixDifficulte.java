@@ -104,6 +104,7 @@ public class ChoixDifficulte extends AbstractScreen{
 
 	@Override
 	public void render(float delta) {
+		Endless.delta = delta;
 		if (Gdx.input.isKeyPressed(Keys.R)) CSG.assetMan.reload();
 		temps += delta;
 		if (CSG.profil.bloom)	bloom.capture();

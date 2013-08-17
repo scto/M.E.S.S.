@@ -5,6 +5,7 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
+import assets.animation.AnimationTirAdd;
 import assets.animation.AnimationTirFeu;
 import assets.particules.ParticulesArmeTraitVert;
 
@@ -21,7 +22,7 @@ import com.badlogic.gdx.utils.Pools;
  *
  */
 
-public class ArmeAdd extends Armes implements Poolable{
+public class ArmeAdd extends ArmeJoueur implements Poolable{
 	
 	// ** ** caracteristiques g�n�rales
 	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 27, DEMI_LARGEUR = LARGEUR/2, HAUTEUR = LARGEUR * 2, DEMI_HAUTEUR = HAUTEUR / 2; 
@@ -29,9 +30,6 @@ public class ArmeAdd extends Armes implements Poolable{
 	private static final int FORCE = 5;
 	public static Pool<ArmeAdd> pool = Pools.get(ArmeAdd.class);
 	// ** ** animation
-	private float tpsAnim = 0;
-	// ** ** variable utilitaire
-	private ParticulesArmeTraitVert particleEffect;
 	private float angle;
 	
 	public static void determinerCadenceTir() {	CADENCETIR = 0.4f / CSG.profil.cadenceAdd;	}
@@ -49,19 +47,15 @@ public class ArmeAdd extends Armes implements Poolable{
 	}
 
 	@Override
-	public void reset() {		tpsAnim = 0;	}
+	public void reset() {			}
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
-		tpsAnim += Endless.delta;
-		batch.setColor(Color.GREEN);
-		batch.draw(AnimationTirFeu.getTexture(tpsAnim), position.x, position.y,	DEMI_LARGEUR,DEMI_HAUTEUR, LARGEUR, HAUTEUR, 1.5f,0.5f, angle, false);
-		batch.setColor(Color.WHITE);
+		batch.draw(AnimationTirAdd.getTexture(), position.x, position.y,	DEMI_LARGEUR,DEMI_HAUTEUR, LARGEUR, HAUTEUR, 1.5f,0.5f, angle, false);
 	}
 
 	@Override
 	public boolean mouvementEtVerif() {
-		// 0 pour que l'effet ne disparaisse pas trop vite au lieu de HAUTEUR
 		if (Physique.mouvementDeBase(direction, position, Stats.VITESSE_MAX_ARME_ADD, HAUTEUR, LARGEUR))		return true;
 		free();
 		return false;
@@ -78,11 +72,28 @@ public class ArmeAdd extends Armes implements Poolable{
 
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
 		pool.free(this);
 	}
 
 	@Override
 	public boolean testCollsionAdds() {		return false;	}
+
+	@Override
+	public float getR() {
+		if (numeroCouleur == 1) return 0.813f;
+		return 0.207f;
+	}
+
+	@Override
+	public float getG() {
+		if (numeroCouleur == 1) return 0.988f;
+		return 0.976f;
+	}
+
+	@Override
+	public float getB() {
+		if (numeroCouleur == 1) return 0.872f;
+		return 0f;
+	}
 }
 

@@ -44,7 +44,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetMan {
 
-	public static TextureRegion fleche, laserVert, add, addvaisseau, bombe, bombeGris, temps, tempsGris, XP, XP2, porteraisin, porteraisinamoche, boulenergiebleu, bouclier, bonusetoile, bonusetoileGris, laser, rocher, poussiere, debris;
+	public static TextureRegion fleche, laserVert, add, tirAdd, addvaisseau, bombe, bombeGris, temps, tempsGris, XP, XP2, porteraisin, porteraisinamoche, boulenergiebleu, bouclier, bonusetoile, bonusetoileGris, laser, rocher, poussiere, debris;
 	public static ParticleEffect explosionGros, explosionPorteNef;
 	private static AssetManager man = new AssetManager();
 	public static TextureRegion[] animationVaisseau;
@@ -55,9 +55,9 @@ public class AssetMan {
 		man.clear();
 		
 		man.load("textures.atlas", TextureAtlas.class);
-		man.setLoader(ParticleEffect.class, new ParticleEffectManager(new InternalFileHandleResolver()));
-		man.load("explosiongros.p", ParticleEffect.class);
-		man.load("explosionportenef.p", ParticleEffect.class);
+//		man.setLoader(ParticleEffect.class, new ParticleEffectManager(new InternalFileHandleResolver()));
+//		man.load("explosiongros.p", ParticleEffect.class);
+//		man.load("explosionportenef.p", ParticleEffect.class);
 		
 		man.load("sons/162792__timgormly__8-bit-explosion1.wav", Sound.class);
 		man.load("sons/explosionpetittetechercheuse.wav", Sound.class);
@@ -106,6 +106,7 @@ public class AssetMan {
 		laser = getAtlas().findRegion("laser");
 		fleche = getAtlas().findRegion("fleche");
 		debris = getAtlas().findRegion("debris");
+		tirAdd = getAtlas().findRegion("tiradd");
 		panneau = getAtlas().findRegion("panneau");
 		bouclier = getAtlas().findRegion("bouclier");
 		bouton = getAtlas().findRegion("boutonlarge");
@@ -120,8 +121,8 @@ public class AssetMan {
 		bonusetoileGris = getAtlas().findRegion("bonusetoilegris");
 		boulenergiebleu = getAtlas().findRegion("boulenergiebleu");
 		// *********************** P A R T I C U L E S ******************************
-		explosionGros = man.get("explosiongros.p", ParticleEffect.class);
-		explosionPorteNef = man.get("explosionportenef.p", ParticleEffect.class);
+//		explosionGros = man.get("explosiongros.p", ParticleEffect.class);
+//		explosionPorteNef = man.get("explosionportenef.p", ParticleEffect.class);
 
 		AnimationMine.initAnimation();
 		AnimationInsecte.initAnimation();

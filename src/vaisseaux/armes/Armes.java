@@ -2,6 +2,7 @@ package vaisseaux.armes;
 
 import jeu.Physique;
 import vaisseaux.Vaisseaux;
+import vaisseaux.armes.joueur.ArmeJoueur;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -10,9 +11,9 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 public abstract class Armes extends Vaisseaux implements Poolable{
 	
-	public static Array<Armes> liste = new Array<Armes>(false, 30);
+	public static Array<ArmeJoueur> liste = new Array<ArmeJoueur>(false, 30);
 	public static Array<Armes> listeTirsDesEnnemis = new Array<Armes>(false, 30);
-	protected Vector2 direction = new Vector2();
+	public Vector2 direction = new Vector2();
 	private static boolean testCollision = false;
 	protected float angle = 0;
 	
@@ -32,7 +33,7 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	}
 
 	public static void affichageEtMouvementSansParticules(SpriteBatch batch) {
-		for (Armes a : liste) {
+		for (ArmeJoueur a : liste) {
 			a.afficherSansParticules(batch);
 			if (a.mouvementEtVerif() == false)			liste.removeValue(a, true);
 		}
@@ -64,7 +65,7 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	abstract public boolean mouvementEtVerif();
 
 	public static void affichageSansParticules(SpriteBatch batch) {
-		for (Armes a : liste)					a.afficherSansParticules(batch);
+		for (ArmeJoueur a : liste)				a.afficherSansParticules(batch);
 		for (Armes a : listeTirsDesEnnemis)		a.afficherSansParticules(batch);
 	}
 	/**
@@ -96,9 +97,7 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		return direction;
 	}
 
-
 	public void init(Vector2 position, float dEMI_LARGEUR, float demiHauteur, float modifVitesse) {
-		System.out.println("Init de : " + position);
 		this.position.x = position.x + dEMI_LARGEUR - getLargeur() / 2;
 		this.position.y = position.y + demiHauteur - getHauteur() / 2;
 		listeTirsDesEnnemis.add(this);

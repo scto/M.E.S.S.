@@ -1,5 +1,6 @@
 package menu;
 
+import jeu.Endless;
 import assets.SoundMan;
 import bloom.Bloom;
 
@@ -288,6 +289,7 @@ public class MenuOptions extends AbstractScreen{
 
 	@Override
 	public void render(float delta) {
+		Endless.delta = delta;
 		if(CSG.profil.bloom)	bloom.capture();
 		else					Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();

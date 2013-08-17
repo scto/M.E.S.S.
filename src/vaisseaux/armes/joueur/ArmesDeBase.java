@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Pools;
  * @author Julien
  *
  */
-public class ArmesDeBase extends Armes implements Poolable{
+public class ArmesDeBase extends ArmeJoueur implements Poolable{
 	
 	// ** ** caracteristiques g�n�rales
 	public static int LARGEUR;
@@ -29,8 +29,6 @@ public class ArmesDeBase extends Armes implements Poolable{
 	private final int FORCE = 8;
 	public static Pool<ArmesDeBase> pool = Pools.get(ArmesDeBase.class);
 	private float tpsAnimation = 0;
-	// ** ** particules
-	public ParticulesArmeDeBase particleEffect;
 	
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeDeBase);
@@ -46,6 +44,7 @@ public class ArmesDeBase extends Armes implements Poolable{
 		position.x = posX;
 		position.y = posY;
 		liste.add(this);
+		direction.y = 1;
 	}
 
 	@Override
@@ -73,10 +72,27 @@ public class ArmesDeBase extends Armes implements Poolable{
 
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
 		pool.free(this);
 	}
 
 	@Override
 	public boolean testCollsionAdds() {	return false;	}
+	
+	@Override
+	public float getR() {
+		if (numeroCouleur == 1)		return 0.988f;
+		return 0.862f;
+	}
+
+	@Override
+	public float getG() {
+		if (numeroCouleur == 1)		return 0.972f;
+		return 0.235f;
+	}
+
+	@Override
+	public float getB() {
+		if (numeroCouleur == 1)		return 0.580f;
+		return 0.000f;
+	}
 }
