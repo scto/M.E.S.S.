@@ -5,8 +5,6 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.animation.AnimationTirTrois;
-import assets.particules.ParticulesArmeTrois;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
@@ -30,8 +28,6 @@ public class ArmeKinder extends Armes implements Poolable {
 	public static Pool<ArmeKinder> pool = Pools.get(ArmeKinder.class);
 	// ** ** animation
 	private float tpsAnim = 0;
-	// ** ** variable utilitaire
-	private ParticulesArmeTrois particleEffect;
 
 	@Override
 	public void reset() {

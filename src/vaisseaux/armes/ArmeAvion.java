@@ -5,8 +5,6 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.animation.AnimationTirTrois;
-import assets.particules.ParticulesArmeDeBase;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -29,7 +27,6 @@ public class ArmeAvion extends Armes implements Poolable{
 	public static Pool<ArmeAvion> pool = Pools.get(ArmeAvion.class);
 	private float tpsAnimation = 0;
 	// ** ** particules
-	public ParticulesArmeDeBase particleEffect;
 	private float dirY = -1;
 	
 	/**
@@ -86,7 +83,6 @@ public class ArmeAvion extends Armes implements Poolable{
 
 	@Override
 	public void free() {
-		if(particleEffect != null) particleEffect.free();
 		pool.free(this);
 	}
 }

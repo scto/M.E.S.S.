@@ -7,8 +7,6 @@ import jeu.Stats;
 import menu.CSG;
 import assets.animation.AnimationTirAdd;
 import assets.animation.AnimationTirFeu;
-import assets.particules.ParticulesArmeTraitVert;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;

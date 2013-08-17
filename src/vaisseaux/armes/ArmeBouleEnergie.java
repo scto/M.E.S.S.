@@ -4,8 +4,6 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.AssetMan;
-import assets.particules.ParticulesArmeBalayage;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -26,7 +24,6 @@ public class ArmeBouleEnergie extends Armes implements Poolable{
 	public static final float CADENCETIR = 1.2f;
 	private final int FORCE = 4;
 	public static Pool<ArmeBouleEnergie> pool = Pools.get(ArmeBouleEnergie.class);
-	public ParticulesArmeBalayage particleEffect;
 	
 	@Override
 	public void reset() {	}

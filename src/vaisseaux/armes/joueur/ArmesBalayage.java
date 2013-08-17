@@ -6,8 +6,6 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.animation.AnimationTirBleu;
-import assets.particules.ParticulesArmeBalayage;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -31,7 +29,6 @@ public class ArmesBalayage extends ArmeJoueur implements Poolable{
 	private float tpsAnim = 0;
 	// ** ** variable utilitaire
 	private float angle;
-	private ParticulesArmeBalayage particleEffect;
 	
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeBalayage);
@@ -76,7 +73,6 @@ public class ArmesBalayage extends ArmeJoueur implements Poolable{
 
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
 		pool.free(this);
 	}
 

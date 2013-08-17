@@ -4,8 +4,6 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.animation.AnimationMeteorite;
-import assets.particules.ParticulesMeteorite;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;

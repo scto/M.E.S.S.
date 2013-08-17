@@ -5,8 +5,6 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.animation.AnimationTirFeu;
-import assets.particules.ParticulesArmeDeBase;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -28,11 +26,9 @@ public class ArmeBossQuad extends Armes implements Poolable{
 	private final int FORCE = 8;
 	public static Pool<ArmeBossQuad> pool = Pools.get(ArmeBossQuad.class);
 	private float tpsAnimation = 0;
-	// ** ** particules
-	public ParticulesArmeDeBase particleEffect;@Override
+	
 	public void reset() {
 	}
-
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {

@@ -6,8 +6,6 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.animation.AnimationTirTrois;
-import assets.particules.ParticulesArmeHantee;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -27,8 +25,6 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 	private final int FORCE = 2;
 	public static Pool<ArmeHantee> pool = Pools.get(ArmeHantee.class);
 	private float tpsAnimation = 0;
-	// ** ** particules
-	public ParticulesArmeHantee particleEffect;
 	private static boolean alterner = false;
 	
 	public static void updateDimensions() {
@@ -76,7 +72,6 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
 		pool.free(this);
 	}
 

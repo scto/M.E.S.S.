@@ -5,8 +5,6 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.animation.AnimationBouleBleu;
-import assets.particules.ParticulesArmeBalleBleuStatic;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
@@ -28,7 +26,6 @@ public class ArmeBalayageEnnemiQuiTourne extends Armes {
 	public static Pool<ArmeBalayageEnnemiQuiTourne> pool = Pools.get(ArmeBalayageEnnemiQuiTourne.class);
 	// ** ** animation
 	private float tpsAnim = 0;
-	private ParticulesArmeBalleBleuStatic particleEffect;
 
 	@Override
 	public void reset() {

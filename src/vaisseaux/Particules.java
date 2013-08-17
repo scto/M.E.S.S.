@@ -3,7 +3,6 @@ package vaisseaux;
 import vaisseaux.armes.joueur.ArmeJoueur;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class Particules {

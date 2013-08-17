@@ -5,8 +5,6 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.AssetMan;
-import assets.particules.ParticulesArmeTrois;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -25,10 +23,7 @@ public class ArmesTrois extends ArmeJoueur implements Poolable{
 	public static final float CADENCETIR = .12f;
 	private final int FORCE = 4;
 	public static Pool<ArmesTrois> pool = Pools.get(ArmesTrois.class);
-//	private float tpsAnimation = 0;
 	private float angle = 0;
-	// ** ** particules
-	private ParticulesArmeTrois particleEffect;
 
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeTrois);
@@ -70,7 +65,6 @@ public class ArmesTrois extends ArmeJoueur implements Poolable{
 	
 	@Override
 	public void free() {
-		if (particleEffect != null) particleEffect.free();
 		pool.free(this);
 	}
 

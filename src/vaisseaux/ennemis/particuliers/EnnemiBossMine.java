@@ -66,6 +66,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	public void reset() {
 		angle = 0;
 		versDroite = false;
+		phase = 1;
 		prochainTir = 3f;
 		dirY = 1;
 		position.x = CSG.DEMI_LARGEUR_ZONE_JEU - DEMI_LARGEUR;
