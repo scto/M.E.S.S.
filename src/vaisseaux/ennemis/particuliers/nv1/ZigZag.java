@@ -26,6 +26,12 @@ public class ZigZag extends Ennemis {
 	private boolean sens = true;
 	public static Pool<ZigZag> pool = Pools.get(ZigZag.class);
 
+	public ZigZag() {
+		super();
+		direction = new Vector2(0, -VITESSE);
+		position.x = getRandX();
+	}
+	
 	@Override
 	protected Sound getSonExplosion() {
 		return SoundMan.explosiontoupie;
@@ -46,17 +52,15 @@ public class ZigZag extends Ennemis {
 		pool.free(this);
 	}
 	
-	public ZigZag() {
-		super();
-		direction = new Vector2(0, -Stats.VITESSE_MAX_ZIGZAG);
-	}
 	@Override
 	protected int getPvMax() {
 		return Stats.PVMAX_ZIGZAG;
 	}
 	
 	private static float getRandX() {
-		if(Math.random() > .5f)			return CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - DEMI_LARGEUR;
+		if (Math.random() > .5f) {
+			return CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - DEMI_LARGEUR;
+		}
 		return DEMI_LARGEUR + CSG.LARGEUR_BORD;
 	}
 
@@ -84,4 +88,9 @@ public class ZigZag extends Ennemis {
 	public int getDemiLargeur() {	return DEMI_LARGEUR;	}
 	@Override
 	public void invoquer() {		liste.add(pool.obtain());	}
+	
+	@Override
+	public float getDirectionY() {		return direction.y;	}
+	@Override
+	public float getDirectionX() {		return direction.x;	}
 }

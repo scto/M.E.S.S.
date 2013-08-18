@@ -2,7 +2,6 @@ package menu;
 
 import jeu.Profil;
 import jeu.ProfilManager;
-import vaisseaux.Particules;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.bonus.XP;
@@ -11,6 +10,7 @@ import vaisseaux.ennemis.Progression;
 import Data.DataMan;
 import assets.AssetMan;
 import assets.background.ParallaxBackground;
+import assets.particules.Particules;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
@@ -118,13 +118,11 @@ public class CSG extends Game implements ApplicationListener {
 
 	public static void resetLists(){
 		ParallaxBackground.resetEtoiles();
-		Armes.listeTirsDesEnnemis.clear();
-        Particules.restes.clear();
-		Ennemis.liste.clear();
-		Armes.liste.clear();
+		Ennemis.clear();
+		Armes.clear();
         Progression.reset();
         Bonus.resetTout();
-        XP.liste.clear();
+        Particules.clear();
 	}
 
 	public static AssetMan getAssetMan() {

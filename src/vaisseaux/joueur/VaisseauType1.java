@@ -17,9 +17,12 @@ import vaisseaux.armes.joueur.ManagerArmeTrois;
 import vaisseaux.bonus.Bonus;
 import assets.AssetMan;
 import assets.animation.AnimationVaisseau;
+import assets.particules.Particules;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -50,8 +53,6 @@ public class VaisseauType1 extends Vaisseaux {
 	public static Vector2 position = new Vector2();
 	public static float prevX, prevY, destX, destY;
 	private static float vitesseFoisdelta = 0, tmpCalculDeplacement = 0, originalAccelX = 0, originalAccelY = 0;
-	// ** ** particules
-	public ParticleEffect particleEffect = new ParticleEffect();
 	// ** ** A D D S
 	public static boolean addGauche = false, addDroite = false, addGauche2 = false, addDroite2 = false;
 	public static float addX, addY, centreAddGauche1X, centreAdds1Y, centreAddDroite1X, centreAddGauche2X, centreAdds2Y, centreAddDroite2X;
@@ -59,6 +60,8 @@ public class VaisseauType1 extends Vaisseaux {
 	public static float angleAdd = -90, angleAddDroite = -90;
 	private Vector2 oldPosition = new Vector2();
 	public static boolean bouclier = false;
+	private float alphaBouclier = .5f;
+	private boolean sensAlpha = true;
 	
 	/**
 	 * initialise le vaisseau avec les parametres par d�faut
@@ -74,8 +77,6 @@ public class VaisseauType1 extends Vaisseaux {
 	public void initialiser() {
 		bouclier = false;
 		reInit();
-	    particleEffect.load(Gdx.files.internal("particules/feu.p"), Gdx.files.internal("particules"));
-	    particleEffect.start();
 	    addDroite = false;
 	    addGauche = false;
 	    addDroite2 = false;
@@ -98,19 +99,21 @@ public class VaisseauType1 extends Vaisseaux {
 			originalAccelY = Gdx.input.getAccelerometerY();
 		}
 	}
-	/**
-	 * affiche le vaisseau � l'endroit pr�vu avec la taille standardt
-	 * @param batch
-	 */
-	public void draw(SpriteBatch batch) {
-		particleEffect.setPosition(position.x + DEMI_LARGEUR, position.y);
-		particleEffect.draw(batch, Endless.delta);
-		drawSansParticules(batch);
-	}
 	
 	public void drawSansParticules(SpriteBatch batch) {
+		if (alphaBouclier > .85f) sensAlpha = false;
+		if (alphaBouclier < .55f) sensAlpha = true;
+		
+		if (sensAlpha) alphaBouclier += Endless.delta;
+		else alphaBouclier -= Endless.delta;
+			
+		Particules.ajoutFlammes(this);
 		batch.draw(AnimationVaisseau.getTexture(), position.x, position.y, LARGEUR, HAUTEUR); // Vaisseau dessin� au dessus
-		if (bouclier) batch.draw(AssetMan.bouclier, position.x - 2, position.y - 2, LARGEUR + 4, HAUTEUR + 4);
+		if (bouclier) {
+			batch.setColor(.9f, .9f, 1, alphaBouclier);
+			batch.draw(AssetMan.bouclier, position.x - 2, position.y - 2, LARGEUR + 4, HAUTEUR + 4);
+			batch.setColor(Color.WHITE);
+		}
 		// ** ** A D D S
 		if (addGauche) 	batch.draw(assets.AssetMan.addvaisseau, addX - DEMI_LARGEUR, addY - DEMI_HAUTEUR, DEMI_LARGEUR_ADD, DEMI_HAUTEUR/2, LARGEUR_ADD, DEMI_HAUTEUR, 2f, 0.5f, angleAdd, false);
 		if (addDroite) 	batch.draw(assets.AssetMan.addvaisseau, addX + DECALAGE_ADD, addY - DEMI_HAUTEUR, DEMI_LARGEUR_ADD, DEMI_HAUTEUR/2, LARGEUR_ADD, DEMI_HAUTEUR, 2f, 0.5f, angleAddDroite, false);

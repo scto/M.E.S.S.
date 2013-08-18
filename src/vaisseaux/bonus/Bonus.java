@@ -51,6 +51,7 @@ public static Array<Bonus> liste = new Array<Bonus>(30);
 	public abstract void free();
 
 	public static void resetTout() {
+		for(Bonus b : liste) b.free();
         Bonus.liste.clear();
         cptBonus = 0;
         nbBonusLacheAdd = 1;

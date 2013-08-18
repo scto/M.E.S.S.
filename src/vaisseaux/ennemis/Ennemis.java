@@ -37,6 +37,7 @@ import vaisseaux.ennemis.particuliers.nv3.EnnemiZigZagNv3;
 import assets.SoundMan;
 import assets.animation.AnimationArmeFusee;
 import assets.animation.AnimationExplosion1;
+import assets.particules.Particules;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -127,7 +128,8 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	}
 	
 	public boolean mouvementEtVerif() {
-		if ( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, getHauteur(), getLargeur()) == false){
+//		if ( (mort && tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) || Physique.toujoursAfficher(position, getHauteur(), getLargeur()) == false){
+		if ( mort || Physique.toujoursAfficher(position, getHauteur(), getLargeur()) == false){
 			free();
 			return false;
 		}
@@ -137,13 +139,13 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	protected abstract void free();
 
 	public void afficher(SpriteBatch batch) {
-		if (mort) {
-			batch.draw(getExplosion(), position.x, position.y, getLargeur(), getHauteur());
-			tpsAnimationExplosion += Endless.delta;
-		} else {
+//		if (mort) {
+//			batch.draw(getExplosion(), position.x, position.y, getLargeur(), getHauteur());
+//			tpsAnimationExplosion += Endless.delta;
+//		} else {
 			batch.draw(getTexture(), position.x, position.y, getDemiLargeur(), getDemiHauteur(), getLargeur(), getHauteur(), 1,1, getAngle());
 			maintenant += Endless.delta;
-		}
+//		}
 	}
 	
 	protected float getAngle() {				return 0;	}
@@ -196,6 +198,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 * appele mort()
 	 */
 	public void mourrir() {
+		Particules.explosion(this);
 		mort = true;
 		Bonus.ajoutBonus(position.x + getDemiLargeur(), position.y - Bonus.DEMI_LARGEUR, getXp());
 		tpsAnimationExplosion = 0;
@@ -257,5 +260,16 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 
 	public Vector2 getPosition() {
 		return position;
+	}
+
+	public static void clear() {
+		for(Ennemis e : liste) e.free();
+		liste.clear();
+	}
+
+	public abstract float getDirectionY();
+
+	public float getDirectionX() {
+		return 0;
 	}
 }

@@ -12,6 +12,7 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.AnimationInsecte;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -163,5 +164,15 @@ public class Insecte extends Ennemis implements TireurAngle {
 	@Override
 	public void invoquer() {
 		liste.add(pool.obtain());
+	}
+	
+	@Override
+	public float getDirectionY() {
+		return direction.y;
+	}
+	
+	@Override
+	public float getDirectionX() {
+		return direction.x;
 	}
 }

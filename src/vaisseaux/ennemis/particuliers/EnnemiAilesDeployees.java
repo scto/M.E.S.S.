@@ -11,6 +11,7 @@ import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiAileDeployee;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -116,4 +117,9 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	
 
 	public void invoquer() {			liste.add(pool.obtain());	}
+	
+	@Override
+	public float getDirectionY() {		return direction.y;	}
+	@Override
+	public float getDirectionX() {		return direction.x;	}
 }

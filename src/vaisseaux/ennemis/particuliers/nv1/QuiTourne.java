@@ -143,4 +143,14 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	public void invoquer() {
 		liste.add(pool.obtain());
 	}
+	
+	@Override
+	public float getDirectionY() {
+		return direction.y;
+	}
+	
+	@Override
+	public float getDirectionX() {
+		return direction.x;
+	}
 }

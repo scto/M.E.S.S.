@@ -93,11 +93,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	 */
 
 	public void afficher(SpriteBatch batch) {
-		if(mort){
-			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
-			tpsAnimationExplosion += Endless.delta;
-		}
-		else{
+		maintenant += Endless.delta;
 			if (pv > Stats.DEUXTIERS_PVMAX_BOSS_MINE)			batch.draw(AnimationBossMine.getTexture(pv), position.x, position.y, LARGEUR, HAUTEUR);
 			else 	batch.draw(AnimationBossMine.getTexture(pv), position.x, position.y,
 					// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
@@ -110,8 +106,6 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 					angle -90,
 					//FLIP OU PAS
 					false);
-			maintenant += Endless.delta;
-		}
 	}
 	
 
@@ -193,5 +187,8 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	public void invoquer() {
 		liste.add(pool.obtain());
 	}
+	
+	@Override
+	public float getDirectionY() {		return -dirY * Stats.VITESSE_KINDER;	}
 }
 

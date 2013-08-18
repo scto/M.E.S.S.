@@ -12,6 +12,7 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationBossQuad;
 import assets.animation.AnimationExplosion1;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -115,7 +116,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	 */
 
 	public void afficher(SpriteBatch batch) {
-		if(mort){
+		if (mort) {
 			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
 			tpsAnimationExplosion += Endless.delta;
 		} else {
@@ -221,6 +222,13 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 
 	public void invoquer() {
 		liste.add(pool.obtain());
+	}
+	
+	@Override
+	public float getDirectionY() {		return -dirY;	}
+	@Override
+	public float getDirectionX() {
+		return dirX;
 	}
 }
 

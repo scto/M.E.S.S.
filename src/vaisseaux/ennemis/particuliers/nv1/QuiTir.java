@@ -123,5 +123,16 @@ public class QuiTir extends Ennemis implements Tireur{
 	public void invoquer() {
 		liste.add(pool.obtain());
 	}
+	
+	@Override
+	public float getDirectionY() {
+		return getVitesse();
+	}
 
+	@Override
+	public float getDirectionX() {
+		if (pv < getDemiPv()) 
+		return getDerive();
+		else return 0;
+	}
 }

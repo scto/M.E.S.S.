@@ -137,4 +137,11 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		this.direction.y = direction.y * modifVitesse;
 		listeTirsDesEnnemis.add(this);
 	}
+
+	public static void clear() {
+		for(Armes a : liste) a.free();
+		for(Armes a : listeTirsDesEnnemis) a.free();
+		liste.clear();
+		listeTirsDesEnnemis.clear();
+	}
 }

@@ -5,6 +5,7 @@ import menu.CSG;
 import vaisseaux.ennemis.Ennemis;
 import assets.AssetMan;
 import assets.SoundMan;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
@@ -115,4 +116,7 @@ public class Rocher extends Ennemis{
 	public void invoquer() {
 		liste.add(pool.obtain());
 	}
+	
+	@Override
+	public float getDirectionY() {		return -vitesse;	}
 }

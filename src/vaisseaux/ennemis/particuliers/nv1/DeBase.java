@@ -103,4 +103,10 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	protected TextureRegion getTexture() {		return AnimationEnnemiDeBase.getTexture(maintenant);	}
 	@Override
 	protected void free() { pool.free(this);	}
+	
+	@Override
+	public float getDirectionY() {
+		return -Stats.VITESSE_MAX_DE_BASE;
+	}
+	
 }

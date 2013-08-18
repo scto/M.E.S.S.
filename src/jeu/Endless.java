@@ -3,13 +3,14 @@ import java.text.DecimalFormat;
 
 import menu.CSG;
 import menu.Menu;
-import vaisseaux.Particules;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
+import vaisseaux.ennemis.particuliers.nv1.ZigZag;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
+import assets.particules.Particules;
 import bloom.Bloom;
 
 import com.badlogic.gdx.Game;
@@ -105,7 +106,7 @@ public class Endless implements Screen {
 			bloom = new Bloom();
 			bloom.setBloomIntesity(CSG.profil.intensiteBloom);
 		}
-        Gdx.graphics.setVSync(false);
+//        Gdx.graphics.setVSync(false);
         SoundMan.playMusic();
 		rougefonce = CSG.getAssetMan().getAtlas().findRegion("rougefonce");
 		pause = false;
@@ -145,12 +146,13 @@ public class Endless implements Screen {
 //		if (Gdx.input.isKeyPressed(Keys.T))
 //			Ennemis.liste.add(new EnnemiBossMine());
 //		if (Gdx.input.justTouched()) 
-//			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());
+//			Ennemis.liste.add(EnnemiBossMine.pool.obtain());
 //			Ennemis.liste.add(Insecte.pool.obtain());
 //		}
 //			Ennemis.liste.add(new EnnemiBouleQuiSArrete());
 //			Ennemis.liste.add(new EnnemiInsecte());
-//			Ennemis.liste.add(new EnnemiZigZag());
+//			Ennemis.liste.add(ZigZag.pool.obtain());
+//		System.out.println(Gdx.graphics.getFramesPerSecond());
 		preRendu();
 		CSG.renderBackground(batch);
 		if (!pause) {

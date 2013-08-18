@@ -1,11 +1,11 @@
 package jeu;
 
 import menu.CSG;
-import vaisseaux.Particules;
 import vaisseaux.armes.Armes;
 import vaisseaux.armes.joueur.ArmeJoueur;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.joueur.VaisseauType1;
+import assets.particules.Particules;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -373,13 +373,8 @@ public class Physique {
 			position.y += (vitesse * Endless.delta);
 		}
 		if (maintenant > 10) {
-			if (Math.random() > .5) {
-				position.y -= vitesse * Endless.delta;
-				position.x -= vitesse * Endless.delta;
-			} else {
-				position.y -= vitesse * Endless.delta;
-				position.x += vitesse * Endless.delta;
-			}
+			position.y -= vitesse * Endless.delta;
+			position.x += vitesse * Endless.delta;
 		}
 	}
 }

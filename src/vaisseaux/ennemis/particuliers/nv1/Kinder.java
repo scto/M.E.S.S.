@@ -13,6 +13,7 @@ import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationKinder;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -135,5 +136,16 @@ public class Kinder extends Ennemis implements TireurAngle {
 		liste.add(pool.obtain());
 	}
 	
+	@Override
+	public float getDirectionY() {
+		return direction.y;
+	}
+	
+	@Override
+	public float getDirectionX() {
+		if (maintenant < AnimationKinder.TPS_ANIM_OUVERT || maintenant > 12) 
+			return direction.x;
+		return 0;
+	}
 }
 

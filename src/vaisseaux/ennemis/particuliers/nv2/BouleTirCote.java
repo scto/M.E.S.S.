@@ -12,6 +12,7 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.AnimationBouleBleuRouge;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -134,4 +135,9 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 
 
 	public float getAngleTir() {	return angle;	}
+	
+	@Override
+	public float getDirectionY() {		return direction.y;	}
+	@Override
+	public float getDirectionX() {		return direction.x;	}
 }

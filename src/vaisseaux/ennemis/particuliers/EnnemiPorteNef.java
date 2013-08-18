@@ -75,13 +75,9 @@ public class EnnemiPorteNef extends Ennemis{
 	 */
 
 	public boolean mouvementEtVerif() {
-		if( (mort & tpsAnimationExplosion > AnimationExplosion1.tpsTotalAnimationExplosion1) | Physique.toujoursAfficher(position, LARGEUR) == false){
-			pool.free(this);
-			return false;
-		}
 		position.x += dirX * Endless.delta * Stats.VITESSE_MAX_PORTE_NEF;
-		if(!mort)			lancerEnnemi();
-		return true;
+		if (!mort)			lancerEnnemi();
+		return super.mouvementEtVerif();
 	}
 	private void lancerEnnemi() {
 		if (position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - DEMI_LARGEUR && (nbLance == 0)){
@@ -157,4 +153,9 @@ public class EnnemiPorteNef extends Ennemis{
 	public void invoquer() {
 		liste.add(pool.obtain());
 	}
+	
+	@Override
+	public float getDirectionY() {		return 0;	}
+	@Override
+	public float getDirectionX() {		return -dirX;	}
 }

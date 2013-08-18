@@ -1,5 +1,6 @@
 package vaisseaux.ennemis.particuliers.nv1;
 
+import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
@@ -13,6 +14,7 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.AnimationBouleBleuRouge;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -85,4 +87,25 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	public void setProchainTir(float f) {	prochainTir = f;	}
 	@Override
 	public float getModifVitesse() {		return 1;	}
+
+	@Override
+	public float getDirectionY() {
+		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
+			// On ralentit
+			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
+				return -50;
+		} else {
+			return -Stats.VITESSE_BOULE_QUI_SARRETE;
+		}
+		return -Stats.VITESSE_BOULE_QUI_SARRETE;
+	}
+	
+	@Override
+	public float getDirectionX() {
+		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
+			return 0;
+		} else {
+			return -Stats.VITESSE_BOULE_QUI_SARRETE;
+		}
+	}
 }

@@ -12,6 +12,7 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.AssetMan;
 import assets.SoundMan;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -154,4 +155,9 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 		liste.add(pool.obtain());
 	}
 	
+	@Override
+	public float getDirectionY() {
+		return -Stats.VITESSE_PORTE_RAISIN;
+	}
+
 }
