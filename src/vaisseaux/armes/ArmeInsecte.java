@@ -3,8 +3,7 @@ package vaisseaux.armes;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.AnimationTirFeu;
-
+import assets.animation.Anim;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
@@ -37,7 +36,7 @@ public class ArmeInsecte extends Armes implements Poolable{
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		batch.setColor(Color.ORANGE);
-		batch.draw(AnimationTirFeu.getTexture(tpsAnim), position.x, position.y,	DEMI_LARGEUR,DEMI_HAUTEUR, LARGEUR, HAUTEUR, 1.5f,0.5f, angle, false);
+		batch.draw(Anim.tirFeu.getTexture(tpsAnim), position.x, position.y,	DEMI_LARGEUR,DEMI_HAUTEUR, LARGEUR, HAUTEUR, 1.5f,0.5f, angle, false);
 		batch.setColor(Color.WHITE);
 	}
 

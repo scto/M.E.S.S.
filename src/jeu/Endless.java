@@ -6,7 +6,6 @@ import menu.Menu;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.particuliers.nv1.ZigZag;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -79,8 +78,8 @@ public class Endless implements Screen {
 		init();
 		vaisseau.initialiser();
 		
-		Client c = new Client("127.0.0.1", this);
-		c.send();
+		Client c = new Client("80.201.86.80", this);	
+		c.send("Coucou 80.201.86.80	");
 	}
 
 	private void init() {	
@@ -110,7 +109,6 @@ public class Endless implements Screen {
         SoundMan.playMusic();
 		rougefonce = CSG.getAssetMan().getAtlas().findRegion("rougefonce");
 		pause = false;
-//		EnnemiPorteNef.dejaPresent = false;
 		score = 0;
 		strScore = String.valueOf(score);
 		tempsBonusStop = 0;
@@ -132,11 +130,12 @@ public class Endless implements Screen {
 //			}
 //		});
 //		t.start();
+		
 	}
-
+	
 	@Override
 	public void render(float delta) {
-		
+
 //		if (Gdx.input.isKeyPressed(Keys.A))
 //			Ennemis.liste.add(EnnemiZigZagNv3.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.E))
@@ -145,7 +144,12 @@ public class Endless implements Screen {
 //			Ennemis.liste.add(new EnnemiCylon());
 //		if (Gdx.input.isKeyPressed(Keys.T))
 //			Ennemis.liste.add(new EnnemiBossMine());
-//		if (Gdx.input.justTouched()) 
+//		if (Gdx.input.justTouched()) {
+//			Client c = new Client("80.201.86.80", this);	
+//			c.send("Coucou 80.201.86.80	");
+//			Client d = new Client("192.168.1.2", this);	
+//			d.send("Coucou 192.168.1.2");
+//		}
 //			Ennemis.liste.add(EnnemiBossMine.pool.obtain());
 //			Ennemis.liste.add(Insecte.pool.obtain());
 //		}
@@ -198,8 +202,11 @@ public class Endless implements Screen {
 				vientDEtreTouche = maintenant;
 			}
 		}
+		
 		batch.end();
+
 		if (CSG.profil.bloom) bloom.render();
+		
 		maintenant += Endless.delta;
 	}
 
@@ -218,7 +225,7 @@ public class Endless implements Screen {
 		
 		if (CSG.profil.bloom) bloomActive();
 		else gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  //+10% de perfs !!. Si pas de bloom il faut le mettre
-	
+//		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 	}
 
@@ -324,8 +331,9 @@ public class Endless implements Screen {
 		Bonus.affichageEtMouvement(batch);
 		vaisseau.drawSansParticules(batch);
 		Ennemis.affichageEtMouvement(batch);
-		Armes.affichageEtMouvementSansParticules(batch);
+		
 		Particules.render(batch);
+		Armes.affichageEtMouvementSansParticules(batch);
 
 		ui();
 	}
@@ -465,7 +473,10 @@ public class Endless implements Screen {
 	public void pause() {	}
 
 	@Override
-	public void resume() { 		CSG.assetMan.reload();	}
+	public void resume() { 		
+		CSG.assetMan.reload();
+		bloom.resume();
+	}
 
 	@Override
 	public void dispose() {	}

@@ -12,8 +12,7 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
-import assets.animation.AnimationEnnemiToupie;
-
+import assets.animation.Anim;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -73,7 +72,7 @@ public class Toupie extends Ennemis implements TireurBalayage {
 
 	@Override
 	protected TextureRegion getTexture() {
-		return AnimationEnnemiToupie.getTexture(maintenant);
+		return Anim.toupie.getTexture(maintenant);
 	}
 	
 	@Override

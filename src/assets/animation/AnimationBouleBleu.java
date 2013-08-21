@@ -1,25 +1,14 @@
 package assets.animation;
 
-import menu.CSG;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class AnimationBouleBleu{
+public class AnimationBouleBleu extends Anim {
 
-	private static final float TPS_ANIM = .03f;
-	public static Animation animation; 
+	public static final String[] frames = {"boulebleu1","boulebleu2"};
+	public static final float TPS_ANIM = .03f, TPS_ANIM_TOTAL = TPS_ANIM * frames.length;
+	public static Anim anim = new Anim();
 	
-	public static TextureRegion getTexture(float tps) {
-		return animation.getKeyFrame(tps, true);
+	AnimationBouleBleu() {
+		anime = anim.initAnim(frames, TPS_ANIM, Animation.LOOP_PINGPONG);
 	}
-	
-	public static void initAnimation() {
-		TextureRegion[] tr = new TextureRegion[2];
-		
-		tr[0] = CSG.getAssetMan().getAtlas().findRegion("boulebleu1");
-		tr[1] = CSG.getAssetMan().getAtlas().findRegion("boulebleu2");
-
-	    animation = new Animation(TPS_ANIM, tr);
-		animation.setPlayMode(Animation.LOOP_PINGPONG);
-	}	
 }

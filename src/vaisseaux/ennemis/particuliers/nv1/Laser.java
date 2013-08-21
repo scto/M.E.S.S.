@@ -12,7 +12,7 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
-import assets.animation.AnimationEnnemiAileDeployee;
+import assets.animation.Anim;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -105,7 +105,7 @@ public class Laser extends Ennemis implements TireurAngle {
 
 	@Override
 	protected TextureRegion getTexture() {
-		return AnimationEnnemiAileDeployee.getTexture(3);
+		return Anim.aileDeployee.getTexture(3);
 	}
 	
 	@Override

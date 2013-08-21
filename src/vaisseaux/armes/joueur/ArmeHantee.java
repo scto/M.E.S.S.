@@ -1,11 +1,10 @@
 package vaisseaux.armes.joueur;
 
-import vaisseaux.armes.Armes;
 import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.AnimationTirTrois;
+import assets.animation.Anim;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -46,7 +45,7 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
-		batch.draw(AnimationTirTrois.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, LARGEUR);
+		batch.draw(Anim.tirTrois.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, LARGEUR);
 	}
 	
 	@Override

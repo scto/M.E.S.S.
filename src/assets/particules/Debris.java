@@ -3,10 +3,6 @@ package assets.particules;
 import vaisseaux.armes.joueur.ArmeJoueur;
 import jeu.Endless;
 import menu.CSG;
-import assets.AssetMan;
-
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;

@@ -1,6 +1,5 @@
 package vaisseaux.armes.joueur;
 
-import vaisseaux.armes.Armes;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;

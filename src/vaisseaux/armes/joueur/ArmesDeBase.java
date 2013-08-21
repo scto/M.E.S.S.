@@ -1,11 +1,10 @@
 package vaisseaux.armes.joueur;
 
-import vaisseaux.armes.Armes;
 import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.AnimationTirFeu;
+import assets.animation.Anim;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -51,7 +50,7 @@ public class ArmesDeBase extends ArmeJoueur implements Poolable{
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnimation += Endless.delta;
-		batch.draw(AnimationTirFeu.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
+		batch.draw(Anim.tirFeu.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
 	}
 	
 	@Override

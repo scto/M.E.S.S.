@@ -3,11 +3,12 @@ package vaisseaux.armes;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.AnimationMeteorite;
+import assets.animation.Anim;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.badlogic.gdx.utils.Pools;
 
 public class ArmesFragmentee extends Armes implements Poolable{
 	
@@ -44,7 +45,7 @@ public class ArmesFragmentee extends Armes implements Poolable{
 	
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
-		batch.draw(AnimationMeteorite.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle, false);
+		batch.draw(Anim.meteor.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle, false);
 	}
 	
 	@Override

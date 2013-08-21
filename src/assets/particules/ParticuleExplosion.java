@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Pools;
 
 public class ParticuleExplosion extends Particule implements Poolable {
 	
-	public static final float LARGEUR = CSG.LARGEUR_ECRAN / 100;
+	public static final float LARGEUR = CSG.LARGEUR_ECRAN / 100, DISPERSION = 450;
 	public static Pool<ParticuleExplosion> pool = Pools.get(ParticuleExplosion.class);
 	private float largeur;
 	
@@ -39,8 +39,8 @@ public class ParticuleExplosion extends Particule implements Poolable {
 	
 	@Override
 	public boolean mouvementEtVerif() {
-		vitesseX /= 1.01f;
-		vitesseY /= 1.01f;
+		vitesseX /= 1.02f;
+		vitesseY /= 1.02f;
 		return super.mouvementEtVerif();
 	}
 
@@ -48,8 +48,8 @@ public class ParticuleExplosion extends Particule implements Poolable {
 		posX = (float) (e.position.x + (e.getLargeur() * Math.random()));
 		posY = (float) (e.position.y + (e.getHauteur() * Math.random()));
 
-		vitesseY = (float) ((Math.random()-.5) * 250) + e.getDirectionY();
-		vitesseX = (float) ((Math.random()-.5) * 250) + e.getDirectionX();
+		vitesseY = (float) ((Math.random()-.5) * DISPERSION) + e.getDirectionY();
+		vitesseX = (float) ((Math.random()-.5) * DISPERSION) + e.getDirectionX();
 		
 		temps = (float) ((Math.random() / 2) + Endless.maintenant + .2f);
 	}

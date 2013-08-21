@@ -11,8 +11,7 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
-import assets.animation.AnimationCylon;
-import assets.animation.AnimationCylonCasse;
+import assets.animation.Anim;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -59,8 +58,8 @@ public class Cylon extends Ennemis implements TireurAngle {
 
 
 	protected TextureRegion getTexture() {
-		if (pv > Stats.DEMI_PV_CYLON) return AnimationCylon.getTexture(maintenant);
-		else return AnimationCylonCasse.getTexture(maintenant);
+		if (pv > Stats.DEMI_PV_CYLON) return Anim.cylon.getTexture(maintenant);
+		else return Anim.cylonCasse.getTexture(maintenant);
 	}
 
 

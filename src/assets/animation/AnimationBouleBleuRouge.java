@@ -1,30 +1,14 @@
 package assets.animation;
 
-import menu.CSG;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class AnimationBouleBleuRouge {
+public class AnimationBouleBleuRouge extends Anim {
 
-	private static final float TPS_ANIM = .03f;
-	public static Animation animation; 
+	public static final String[] frames = {"ennemiboulebleubanderouge1","ennemiboulebleubanderouge2","ennemiboulebleubanderouge3"};
+	public static final float TPS_ANIM = .03f, TPS_ANIM_TOTAL = TPS_ANIM * frames.length;
+	public static Anim anim = new Anim();
 	
-	/**
-	 * La methode s'occupe de calculer la frame � afficher suivant la position en x si on va vers la gauche, la droite ou si on vient de se remettre droit
-	 * @return
-	 */
-	public static TextureRegion getTexture(float tps) {
-		return animation.getKeyFrame(tps, true);
+	AnimationBouleBleuRouge() {
+		anime = anim.initAnim(frames, TPS_ANIM, Animation.LOOP_PINGPONG);
 	}
-	
-	public static void initAnimation() {
-		TextureRegion[] tr = new TextureRegion[3];
-		
-		tr[0] = CSG.getAssetMan().getAtlas().findRegion("ennemiboulebleubanderouge1");
-		tr[1] = CSG.getAssetMan().getAtlas().findRegion("ennemiboulebleubanderouge2");
-		tr[2] = CSG.getAssetMan().getAtlas().findRegion("ennemiboulebleubanderouge3");
-		
-	    animation = new Animation(TPS_ANIM, tr);
-		animation.setPlayMode(Animation.LOOP_PINGPONG);
-	}	
 }

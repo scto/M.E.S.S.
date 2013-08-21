@@ -4,7 +4,7 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.AnimationTirTrois;
+import assets.animation.Anim;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -46,7 +46,7 @@ public class ArmeAvion extends Armes implements Poolable{
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnimation += Endless.delta;
-		batch.draw(AnimationTirTrois.getTexture(tpsAnimation), position.x, position.y,
+		batch.draw(Anim.tirTrois.getTexture(tpsAnimation), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		DEMI_LARGEUR, DEMI_HAUTEUR,
 		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE

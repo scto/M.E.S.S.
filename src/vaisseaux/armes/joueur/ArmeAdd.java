@@ -1,13 +1,10 @@
 package vaisseaux.armes.joueur;
 
 import vaisseaux.armes.Armes;
-import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.animation.AnimationTirAdd;
-import assets.animation.AnimationTirFeu;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;

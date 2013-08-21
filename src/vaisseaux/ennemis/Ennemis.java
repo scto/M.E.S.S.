@@ -35,8 +35,6 @@ import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiToupieNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiZigZagNv3;
 import assets.SoundMan;
-import assets.animation.AnimationArmeFusee;
-import assets.animation.AnimationExplosion1;
 import assets.particules.Particules;
 
 import com.badlogic.gdx.audio.Sound;
@@ -149,8 +147,9 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	}
 	
 	protected float getAngle() {				return 0;	}
-	protected TextureRegion getExplosion() {	return AnimationExplosion1.getTexture(tpsAnimationExplosion);	}
-	protected TextureRegion getTexture() {		return AnimationArmeFusee.getTexture(maintenant);	}
+	
+	protected TextureRegion getTexture() {		return null;	}
+	
 	protected void tir() {	}
 
 	public static void affichage(SpriteBatch batch) {

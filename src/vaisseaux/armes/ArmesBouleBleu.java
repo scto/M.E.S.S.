@@ -4,8 +4,7 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.AnimationBouleBleu;
-
+import assets.animation.Anim;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -33,7 +32,7 @@ public class ArmesBouleBleu extends Armes implements Poolable{
 	@Override
 	public void afficherSansParticules(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
-		batch.draw(AnimationBouleBleu.getTexture(tpsAnim), position.x, position.y,
+		batch.draw(Anim.animBouleBleu.getTexture(tpsAnim), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		DEMI_LARGEUR,DEMI_HAUTEUR,
 		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE

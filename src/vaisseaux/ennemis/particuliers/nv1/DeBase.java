@@ -5,10 +5,10 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.PatternHorizontalPositionnable;
 import vaisseaux.Positionnement;
-import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
+import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
-import assets.animation.AnimationEnnemiDeBase;
+import assets.animation.Anim;
 import assets.particules.ParticulesExplosionPetite;
 
 import com.badlogic.gdx.audio.Sound;
@@ -100,7 +100,7 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 		super.reset();
 	}
 	@Override
-	protected TextureRegion getTexture() {		return AnimationEnnemiDeBase.getTexture(maintenant);	}
+	protected TextureRegion getTexture() {		return Anim.animEnnemiDeBase.getTexture(maintenant);	}
 	@Override
 	protected void free() { pool.free(this);	}
 	
