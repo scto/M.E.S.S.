@@ -11,7 +11,7 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
-import assets.animation.Anim;
+import assets.animation.AnimationEnnemiTourne;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -62,7 +62,7 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	@Override
 	protected Sound getSonExplosion() {		return SoundMan.explosionPetite;	}
 	@Override
-	protected TextureRegion getTexture() {	return Anim.tourne.getTexture(maintenant);	}
+	protected TextureRegion getTexture() {	return AnimationEnnemiTourne.getTexture(maintenant);	}
 
 	@Override
 	public boolean mouvementEtVerif() {

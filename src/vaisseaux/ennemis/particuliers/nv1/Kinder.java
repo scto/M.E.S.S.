@@ -12,7 +12,6 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
-import assets.animation.Anim;
 import assets.animation.AnimationKinder;
 
 import com.badlogic.gdx.audio.Sound;
@@ -75,7 +74,7 @@ public class Kinder extends Ennemis implements TireurAngle {
 	 */
 	@Override
 	public boolean mouvementEtVerif() {
-		if (maintenant < AnimationKinder.TPS_OUVERT || maintenant > 12) {
+		if (maintenant < AnimationKinder.TPS_ANIM_OUVERT || maintenant > 12) {
 			Physique.mvtSansVerif(position, direction);
 		} else {
 			angle += Stats.VITESSE_KINDER * Endless.delta;
@@ -84,7 +83,7 @@ public class Kinder extends Ennemis implements TireurAngle {
 	}
 	
 	@Override
-	protected TextureRegion getTexture() {		return Anim.kinder.getTexture(maintenant);	}
+	protected TextureRegion getTexture() {		return AnimationKinder.getTexture(maintenant);	}
 	@Override
 	protected float getAngle() {				return angle + 90;	}
 	@Override
@@ -144,7 +143,7 @@ public class Kinder extends Ennemis implements TireurAngle {
 	
 	@Override
 	public float getDirectionX() {
-		if (maintenant < AnimationKinder.TPS_OUVERT || maintenant > 12) 
+		if (maintenant < AnimationKinder.TPS_ANIM_OUVERT || maintenant > 12) 
 			return direction.x;
 		return 0;
 	}

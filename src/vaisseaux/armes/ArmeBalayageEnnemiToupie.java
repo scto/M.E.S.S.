@@ -4,7 +4,7 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.Anim;
+import assets.animation.AnimationTirFeu;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
@@ -39,7 +39,7 @@ public class ArmeBalayageEnnemiToupie extends Armes implements Poolable{
 	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(Color.GREEN);
-		batch.draw(Anim.tirTrois.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_HAUTEUR, LARGEUR, HAUTEUR, 1,1, angle+90, false);
+		batch.draw(AnimationTirFeu.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_HAUTEUR, LARGEUR, HAUTEUR, 1,1, angle+90, false);
 		batch.setColor(Color.WHITE);
 	}
 

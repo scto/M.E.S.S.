@@ -1,5 +1,6 @@
 package vaisseaux.ennemis.particuliers.nv1;
 
+import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
@@ -12,7 +13,7 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
-import assets.animation.Anim;
+import assets.animation.AnimationBouleBleuRouge;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -63,7 +64,7 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	@Override
 	protected void free() {					pool.free(this);	}
 	@Override
-	protected TextureRegion getTexture() {	return Anim.bouleBleuRouge.getTexture(maintenant);	}
+	protected TextureRegion getTexture() {	return AnimationBouleBleuRouge.getTexture(maintenant);	}
 	@Override
 	protected void tir() {					tir.tirVersJoueur(this, mort, maintenant, prochainTir);	}
 	@Override

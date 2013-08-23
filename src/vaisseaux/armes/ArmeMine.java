@@ -4,12 +4,12 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.Anim;
+import assets.animation.AnimationMine;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
+import com.badlogic.gdx.utils.Pool.Poolable;
 
 public class ArmeMine extends Armes implements Poolable{
 	
@@ -27,10 +27,14 @@ public class ArmeMine extends Armes implements Poolable{
 		tpsAnim = 4;
 	}
 	
+
+
+
+
 	@Override
 	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
-		batch.draw(Anim.mine.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1,	angle, false);
+		batch.draw(AnimationMine.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1,	angle, false);
 	}
 	
 	@Override

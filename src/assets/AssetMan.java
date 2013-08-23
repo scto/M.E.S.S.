@@ -9,10 +9,26 @@ import assets.animation.AnimationArmeFusee;
 import assets.animation.AnimationAvion;
 import assets.animation.AnimationBossMine;
 import assets.animation.AnimationBossQuad;
+import assets.animation.AnimationBouleBleu;
+import assets.animation.AnimationBouleBleuRouge;
+import assets.animation.AnimationBouleVerte;
+import assets.animation.AnimationCylon;
+import assets.animation.AnimationCylonCasse;
+import assets.animation.AnimationEnnemiAileDeployee;
+import assets.animation.AnimationEnnemiDeBase;
+import assets.animation.AnimationEnnemiToupie;
+import assets.animation.AnimationEnnemiTourne;
+import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationInsecte;
+import assets.animation.AnimationKinder;
+import assets.animation.AnimationMeteorite;
+import assets.animation.AnimationMine;
 import assets.animation.AnimationPorteNef;
 import assets.animation.AnimationQuiTir;
 import assets.animation.AnimationRouli;
+import assets.animation.AnimationTirBleu;
+import assets.animation.AnimationTirFeu;
+import assets.animation.AnimationTirTrois;
 import assets.animation.AnimationVaisseau;
 import assets.background.ParallaxBackground;
 import assets.background.ParallaxLayer;
@@ -41,6 +57,9 @@ public class AssetMan {
 		man.clear();
 		
 		man.load("textures.atlas", TextureAtlas.class);
+//		man.setLoader(ParticleEffect.class, new ParticleEffectManager(new InternalFileHandleResolver()));
+//		man.load("explosiongros.p", ParticleEffect.class);
+//		man.load("explosionportenef.p", ParticleEffect.class);
 		
 		man.load("sons/162792__timgormly__8-bit-explosion1.wav", Sound.class);
 		man.load("sons/explosionpetittetechercheuse.wav", Sound.class);
@@ -64,7 +83,6 @@ public class AssetMan {
 	}
 
 	public void loadPartie2() {
-		
 		SoundMan.explosionpetittetechercheuse = man.get("sons/explosionpetittetechercheuse.wav", Sound.class);
 		SoundMan.explosionPetite = man.get("sons/162792__timgormly__8-bit-explosion1.wav", Sound.class);
 		SoundMan.explosionGrosse = man.get("sons/80500__ggctuk__exp-obj-large03.wav", Sound.class);
@@ -105,16 +123,34 @@ public class AssetMan {
 		bonusetoileGris = getAtlas().findRegion("bonusetoilegris");
 		boulenergiebleu = getAtlas().findRegion("boulenergiebleu");
 		// *********************** P A R T I C U L E S ******************************
+//		explosionGros = man.get("explosiongros.p", ParticleEffect.class);
+//		explosionPorteNef = man.get("explosionportenef.p", ParticleEffect.class);
 
+		AnimationMine.initAnimation();
 		AnimationInsecte.initAnimation();
 		AnimationAvion.initAnimation();
 		AnimationRouli.initAnimation();
+		AnimationCylon.initAnimation();
+		AnimationKinder.initAnimation();
+		AnimationTirFeu.initAnimation();
+		AnimationTirBleu.initAnimation();
+		AnimationTirTrois.initAnimation();
 		AnimationBossMine.initAnimation();
 		AnimationVaisseau.initAnimation();
 		AnimationBossQuad.initAnimation();
 		AnimationPorteNef.initAnimation();
+		AnimationMeteorite.initAnimation();
 		AnimationArmeFusee.initAnimation();
+		AnimationBouleBleu.initAnimation();
 		AnimationQuiTir.initAnimation();
+		AnimationBouleVerte.initAnimation();
+		AnimationCylonCasse.initAnimation();
+		AnimationExplosion1.initAnimation();
+		AnimationEnnemiToupie.initAnimation();
+		AnimationEnnemiTourne.initAnimation();
+		AnimationEnnemiDeBase.initAnimation();
+		AnimationBouleBleuRouge.initAnimation();
+		AnimationEnnemiAileDeployee.initAnimation();
 		
 		ArmesBalayage.updateDimensions();
 		ArmeHantee.updateDimensions();

@@ -4,7 +4,7 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.Anim;
+import assets.animation.AnimationTirTrois;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
@@ -38,7 +38,7 @@ public class ArmeKinder extends Armes implements Poolable {
 	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(Color.CYAN);
-		batch.draw(Anim.tirTrois.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1,	angle, false);
+		batch.draw(AnimationTirTrois.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1,	angle, false);
 		batch.setColor(Color.WHITE);
 	}
 

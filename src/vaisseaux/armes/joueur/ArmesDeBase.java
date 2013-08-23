@@ -1,13 +1,18 @@
 package vaisseaux.armes.joueur;
 
+import vaisseaux.armes.Armes;
 import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
+<<<<<<< HEAD
 import assets.AssetMan;
 import assets.animation.Anim;
 import assets.particules.Particules;
 
+=======
+import assets.animation.AnimationTirFeu;
+>>>>>>> parent of a593e8e... refact animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -66,7 +71,7 @@ public class ArmesDeBase extends ArmeJoueur implements Poolable{
 	public void afficher(SpriteBatch batch) {
 		Particules.ajoutArmeDeBase(this);
 		tpsAnimation += Endless.delta;
-		batch.draw(Anim.tirFeu.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
+		batch.draw(AnimationTirFeu.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
 	}
 	
 	@Override

@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Pools;
 
 public class ParticuleExplosion extends ParticuleRGB implements Poolable {
 	
-	public static final float LARGEUR = CSG.LARGEUR_ECRAN / 100, DISPERSION = 450;
+	public static final float LARGEUR = CSG.LARGEUR_ECRAN / 100;
 	public static Pool<ParticuleExplosion> pool = Pools.get(ParticuleExplosion.class);
 	private float largeur, vitesseX, vitesseY;
 	
@@ -39,10 +39,15 @@ public class ParticuleExplosion extends ParticuleRGB implements Poolable {
 	
 	@Override
 	public boolean mouvementEtVerif() {
+<<<<<<< HEAD
 		vitesseX /= 1.02f;
 		vitesseY /= 1.02f;
 		posX += vitesseX * Endless.delta;
 		posY += vitesseY * Endless.delta;
+=======
+		vitesseX /= 1.01f;
+		vitesseY /= 1.01f;
+>>>>>>> parent of a593e8e... refact animation
 		return super.mouvementEtVerif();
 	}
 
@@ -50,8 +55,13 @@ public class ParticuleExplosion extends ParticuleRGB implements Poolable {
 		posX = (e.position.x + (e.getLargeur() * r.nextFloat()));
 		posY = (e.position.y + (e.getHauteur() * r.nextFloat()));
 
+<<<<<<< HEAD
 		vitesseY = ((r.nextFloat()-.5f) * DISPERSION) + e.getDirectionY();
 		vitesseX = ((r.nextFloat()-.5f) * DISPERSION) + e.getDirectionX();
+=======
+		vitesseY = (float) ((Math.random()-.5) * 250) + e.getDirectionY();
+		vitesseX = (float) ((Math.random()-.5) * 250) + e.getDirectionX();
+>>>>>>> parent of a593e8e... refact animation
 		
 		temps = ((r.nextFloat()/2) + Endless.maintenant + .2f);
 	}

@@ -11,7 +11,8 @@ import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
-import assets.animation.Anim;
+import assets.animation.AnimationBouleBleuRouge;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -81,7 +82,7 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 
 	@Override
 	protected TextureRegion getTexture() {
-		return Anim.bouleBleuRouge.getTexture(maintenant);
+		return AnimationBouleBleuRouge.getTexture(maintenant);
 	}
 
 	@Override

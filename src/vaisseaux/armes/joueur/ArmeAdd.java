@@ -1,13 +1,23 @@
 package vaisseaux.armes.joueur;
 
+<<<<<<< HEAD
+=======
+import vaisseaux.armes.Armes;
+import jeu.Endless;
+>>>>>>> parent of a593e8e... refact animation
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.armes.Armes;
 import assets.AssetMan;
 import assets.animation.AnimationTirAdd;
+<<<<<<< HEAD
 import assets.particules.Particules;
 
+=======
+import assets.animation.AnimationTirFeu;
+import com.badlogic.gdx.graphics.Color;
+>>>>>>> parent of a593e8e... refact animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;

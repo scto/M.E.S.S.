@@ -5,10 +5,15 @@ import jeu.Stats;
 import menu.CSG;
 import vaisseaux.PatternHorizontalPositionnable;
 import vaisseaux.Positionnement;
-import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
+<<<<<<< HEAD
 import assets.animation.Anim;
+=======
+import assets.animation.AnimationEnnemiDeBase;
+import assets.particules.ParticulesExplosionPetite;
+>>>>>>> parent of a593e8e... refact animation
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -98,7 +103,7 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 		super.reset();
 	}
 	@Override
-	protected TextureRegion getTexture() {		return Anim.animEnnemiDeBase.getTexture(maintenant);	}
+	protected TextureRegion getTexture() {		return AnimationEnnemiDeBase.getTexture(maintenant);	}
 	@Override
 	protected void free() { pool.free(this);	}
 	

@@ -1,13 +1,18 @@
 package vaisseaux.armes.joueur;
 
+import vaisseaux.armes.Armes;
 import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
+<<<<<<< HEAD
 import assets.AssetMan;
 import assets.animation.Anim;
 import assets.particules.Particules;
 
+=======
+import assets.animation.AnimationTirTrois;
+>>>>>>> parent of a593e8e... refact animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -56,10 +61,15 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 	public void reset() {	}
 
 	@Override
+<<<<<<< HEAD
 	public void afficher(SpriteBatch batch) {
 //		batch.draw(Anim.tirTrois.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, LARGEUR);
 		batch.draw(Anim.tirTrois.getTexture(1), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1, angle);
 		Particules.armeHantee(this);
+=======
+	public void afficherSansParticules(SpriteBatch batch) {
+		batch.draw(AnimationTirTrois.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, LARGEUR);
+>>>>>>> parent of a593e8e... refact animation
 	}
 	
 	@Override

@@ -4,7 +4,8 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.Anim;
+import assets.animation.AnimationBouleBleu;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
@@ -34,7 +35,7 @@ public class ArmeBouleTir extends Armes implements Poolable{
 	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(.99f, Endless.color, .3f, 1);
-		batch.draw(Anim.animBouleBleu.getTexture(tpsAnim), position.x, position.y,
+		batch.draw(AnimationBouleBleu.getTexture(tpsAnim), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		DEMI_LARGEUR,DEMI_LARGEUR,
 		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE

@@ -9,6 +9,7 @@ public class AnimationInsecte{
 	
 	public static AtlasRegion bonEtat, mauvaisEtat;
 	
+	
 	public static TextureRegion getTexture(int pv) {
 		if (pv < Stats.PVMAX_INSECTE) return mauvaisEtat;
 		return bonEtat;

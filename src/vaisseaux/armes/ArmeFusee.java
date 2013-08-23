@@ -20,7 +20,6 @@ public class ArmeFusee extends Armes implements Poolable{
 	private static final int FORCE = 2;
 	public static Pool<ArmeFusee> pool = Pools.get(ArmeFusee.class);
 	private float tpsAnim = 0;
-	private AnimationArmeFusee anim = new AnimationArmeFusee();
 
 	
 	@Override
@@ -38,7 +37,7 @@ public class ArmeFusee extends Armes implements Poolable{
 	@Override
 	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
-		batch.draw(anim.getTexture(tpsAnim), position.x, position.y,LARGEUR, LARGEUR);
+		batch.draw(AnimationArmeFusee.getTexture(tpsAnim), position.x, position.y,LARGEUR, LARGEUR);
 	}
 	
 	@Override

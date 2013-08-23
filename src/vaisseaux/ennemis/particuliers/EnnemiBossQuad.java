@@ -11,6 +11,7 @@ import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationBossQuad;
+import assets.animation.AnimationExplosion1;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -43,6 +44,8 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	private float dirX = -2;
 	// tourelles
 	private boolean explosionTourellesCentre = false; 
+	private float tpsExplosionTourellesCentre = 0;
+	private int largeurExplosionTourelle = (int) (ArmeBossQuad.LARGEUR * 1.5);
 	private int phase = 1;
 	
 	public static int divisionPv = 27;
@@ -79,6 +82,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	 * Ajoute � la liste
 	 */
 	public void init() {
+		tpsExplosionTourellesCentre = 0;
 		position.x = CSG.DEMI_LARGEUR_ECRAN - DEMI_LARGEUR;
 		position.y = CSG.HAUTEUR_ECRAN;
 	}
@@ -112,9 +116,18 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	 */
 
 	public void afficher(SpriteBatch batch) {
-		batch.draw(AnimationBossQuad.getTexture(phase), position.x, position.y, LARGEUR, HAUTEUR);
-		maintenant += Endless.delta;
-		
+		if (mort) {
+			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
+			tpsAnimationExplosion += Endless.delta;
+		} else {
+			batch.draw(AnimationBossQuad.getTexture(phase), position.x, position.y, LARGEUR, HAUTEUR);
+			maintenant += Endless.delta;
+		}
+		if (explosionTourellesCentre && tpsExplosionTourellesCentre < AnimationExplosion1.tpsTotalAnimationExplosion1) {
+			batch.draw(AnimationExplosion1.getTexture(tpsExplosionTourellesCentre), position.x + DECALAGE_ARME_3, position.y , largeurExplosionTourelle, largeurExplosionTourelle);
+			batch.draw(AnimationExplosion1.getTexture(tpsExplosionTourellesCentre), position.x + DECALAGE_ARME_2, position.y , largeurExplosionTourelle, largeurExplosionTourelle);
+			tpsExplosionTourellesCentre += Endless.delta;
+		}
 	}
 	
 

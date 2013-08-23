@@ -5,13 +5,11 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.SoundMan;
-import assets.animation.Anim;
 import assets.animation.AnimationMeteorite;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
+import com.badlogic.gdx.utils.Pool.Poolable;
 
 public class ArmesFragmentation extends Armes implements Poolable{
 	
@@ -40,7 +38,7 @@ public class ArmesFragmentation extends Armes implements Poolable{
 	@Override
 	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
-		batch.draw(Anim.meteor.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle, false);
+		batch.draw(AnimationMeteorite.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle, false);
 	}
 	
 	@Override

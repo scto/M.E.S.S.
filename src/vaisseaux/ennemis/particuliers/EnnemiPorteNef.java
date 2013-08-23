@@ -1,11 +1,13 @@
 package vaisseaux.ennemis.particuliers;
 
 import jeu.Endless;
+import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
+import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationPorteNef;
 
 import com.badlogic.gdx.audio.Sound;

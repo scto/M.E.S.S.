@@ -7,10 +7,10 @@ import vaisseaux.armes.Armes;
 import vaisseaux.armes.ArmesBouleVerte;
 import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
-import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
+import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
-import assets.animation.Anim;
+import assets.animation.AnimationEnnemiAileDeployee;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -57,7 +57,7 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	
 	@Override
 	protected TextureRegion getTexture() {
-		return Anim.aileDeployee.getTexture(maintenant);
+		return AnimationEnnemiAileDeployee.getTexture(maintenant);
 	}
 	
 	@Override

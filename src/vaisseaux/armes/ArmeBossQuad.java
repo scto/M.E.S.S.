@@ -4,7 +4,7 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.Anim;
+import assets.animation.AnimationTirFeu;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -33,7 +33,7 @@ public class ArmeBossQuad extends Armes implements Poolable{
 	@Override
 	public void afficher(SpriteBatch batch) {
 		tpsAnimation += Endless.delta;
-		batch.draw(Anim.tirFeu.getTexture(tpsAnimation), position.x, position.y,
+		batch.draw(AnimationTirFeu.getTexture(tpsAnimation), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		DEMI_LARGEUR, DEMI_HAUTEUR,
 		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE

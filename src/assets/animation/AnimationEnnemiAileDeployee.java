@@ -1,15 +1,26 @@
 package assets.animation;
 
+import menu.CSG;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class AnimationEnnemiAileDeployee extends Anim{
+public class AnimationEnnemiAileDeployee {
 	
-	public static final String[] frames = {"ennemiailesdeployees3","ennemiailesdeployees2", "ennemiailesdeployees1"};
-	public static final float TPS_ANIM = .3f, TPS_ANIM_TOTAL = TPS_ANIM * frames.length;
-	public static Anim anim = new Anim();
+	private static final float TPS_ANIM = .3f;
+	public static Animation animation; 
 	
-	AnimationEnnemiAileDeployee() {
-		anime = anim.initAnim(frames, TPS_ANIM, Animation.NORMAL);
+	public static TextureRegion getTexture(float tps) {
+		return animation.getKeyFrame(tps, false);
 	}
-
+	
+	public static void initAnimation() {
+		TextureRegion[] tr = new TextureRegion[3];
+		
+		tr[0] = CSG.getAssetMan().getAtlas().findRegion("ennemiailesdeployees3");
+		tr[1] = CSG.getAssetMan().getAtlas().findRegion("ennemiailesdeployees2");
+		tr[2] = CSG.getAssetMan().getAtlas().findRegion("ennemiailesdeployees1");
+		
+	    animation = new Animation(TPS_ANIM, tr);
+		animation.setPlayMode(Animation.NORMAL);
+	}
 }

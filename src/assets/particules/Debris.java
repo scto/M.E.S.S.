@@ -5,6 +5,11 @@ import jeu.Endless;
 import menu.CSG;
 import assets.AssetMan;
 
+<<<<<<< HEAD
+=======
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+>>>>>>> parent of a593e8e... refact animation
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;

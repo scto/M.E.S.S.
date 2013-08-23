@@ -37,9 +37,9 @@ public class Client extends Thread {
 		}
 	}
 	
-	public void send(String string) {
+	public void send() {
 		byte[] data = new byte[1024];
-		data = string.getBytes();
+//		data = Byte.parseByte("test");
 		DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, 2311);
 		try {
 			socket.send(packet);

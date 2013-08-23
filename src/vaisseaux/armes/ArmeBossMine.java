@@ -3,7 +3,8 @@ package vaisseaux.armes;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.Anim;
+import assets.animation.AnimationBouleBleu;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -31,8 +32,13 @@ public class ArmeBossMine extends Armes implements Poolable{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void afficher(SpriteBatch batch) {
 		batch.draw(Anim.animBouleBleu.getTexture(angle), position.x, position.y,
+=======
+	public void afficherSansParticules(SpriteBatch batch) {
+		batch.draw(AnimationBouleBleu.getTexture(1), position.x, position.y,
+>>>>>>> parent of a593e8e... refact animation
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		DEMI_LARGEUR, DEMI_HAUTEUR,
 		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE

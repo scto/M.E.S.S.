@@ -4,6 +4,7 @@ import jeu.Profil;
 import jeu.ProfilManager;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
+import vaisseaux.bonus.XP;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.Progression;
 import Data.DataMan;
