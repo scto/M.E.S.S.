@@ -6,6 +6,8 @@ import menu.Menu;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
+import vaisseaux.ennemis.particuliers.nv1.QuiTourne;
+import vaisseaux.ennemis.particuliers.nv1.Toupie;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -56,7 +58,7 @@ public class Endless implements Screen {
 	DecimalFormat df = new DecimalFormat();
 	public static OrthographicCamera cam = new OrthographicCamera(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);;
 	public static int level, nbBonusStop = 0, nbBombes = 0;
-	public static float color = 0, colorRapide, intensiteBloomOrigin = 1, camXmoinsDemiEcran, delta = 0, tempsBonusStop = 0;
+	public static float color = 0, colorRapide, intensiteBloomOrigin = 1, camXmoinsDemiEcran, delta = 0, tempsBonusStop = 0, delta15 = 0;
 	public static boolean sensCouleurGlobale = false, sensCouleurRapide = false, effetBloom = false, xpAjout = false;
 	private boolean onAchoisis = false, onVaRalentir = false, onVaStopper = false, afficherMenuRadial = false;
 	private int menuX = 0, menuY = 0, conseil = 0;
@@ -149,6 +151,8 @@ public class Endless implements Screen {
 //			c.send("Coucou 80.201.86.80	");
 //			Client d = new Client("192.168.1.2", this);	
 //			d.send("Coucou 192.168.1.2");
+//			Ennemis.liste.add(Toupie.pool.obtain());
+//			Ennemis.liste.add(QuiTourne.pool.obtain());
 //		}
 //			Ennemis.liste.add(EnnemiBossMine.pool.obtain());
 //			Ennemis.liste.add(Insecte.pool.obtain());
@@ -164,6 +168,7 @@ public class Endless implements Screen {
 				Endless.delta = delta;
 				if ((afficherMenuRadial || onAchoisis) && CSG.profil.typeControle != CSG.CONTROLE_ACCELEROMETRE) Endless.delta = delta/7;
 				score += (Endless.delta+Endless.delta+Endless.delta);
+				delta15 = Endless.delta * 15;
 			}
 			// S I   O N   A   P A S   E N C O R E   P E R D U
 			if (!perdu && !activerStop) {
@@ -232,6 +237,7 @@ public class Endless implements Screen {
 	private void activerRalentissement(float delta) {
 		chronoRalentir -= delta/3;
 		Endless.delta /= 3;
+		Endless.delta15 = Endless.delta * 15;
 		if (chronoRalentir < 0) {
 			activerRalentissement = false;
 			chronoRalentir = 0;

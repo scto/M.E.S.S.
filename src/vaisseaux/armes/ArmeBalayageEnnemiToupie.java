@@ -36,7 +36,7 @@ public class ArmeBalayageEnnemiToupie extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(Color.GREEN);
 		batch.draw(Anim.tirTrois.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_HAUTEUR, LARGEUR, HAUTEUR, 1,1, angle+90, false);

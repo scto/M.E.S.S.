@@ -10,11 +10,11 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
 
-public class ParticuleExplosion extends Particule implements Poolable {
+public class ParticuleExplosion extends ParticuleRGB implements Poolable {
 	
 	public static final float LARGEUR = CSG.LARGEUR_ECRAN / 100, DISPERSION = 450;
 	public static Pool<ParticuleExplosion> pool = Pools.get(ParticuleExplosion.class);
-	private float largeur;
+	private float largeur, vitesseX, vitesseY;
 	
 	public ParticuleExplosion() {
 		flammes();
@@ -41,17 +41,19 @@ public class ParticuleExplosion extends Particule implements Poolable {
 	public boolean mouvementEtVerif() {
 		vitesseX /= 1.02f;
 		vitesseY /= 1.02f;
+		posX += vitesseX * Endless.delta;
+		posY += vitesseY * Endless.delta;
 		return super.mouvementEtVerif();
 	}
 
 	public void init(Ennemis e) {
-		posX = (float) (e.position.x + (e.getLargeur() * Math.random()));
-		posY = (float) (e.position.y + (e.getHauteur() * Math.random()));
+		posX = (e.position.x + (e.getLargeur() * r.nextFloat()));
+		posY = (e.position.y + (e.getHauteur() * r.nextFloat()));
 
-		vitesseY = (float) ((Math.random()-.5) * DISPERSION) + e.getDirectionY();
-		vitesseX = (float) ((Math.random()-.5) * DISPERSION) + e.getDirectionX();
+		vitesseY = ((r.nextFloat()-.5f) * DISPERSION) + e.getDirectionY();
+		vitesseX = ((r.nextFloat()-.5f) * DISPERSION) + e.getDirectionX();
 		
-		temps = (float) ((Math.random() / 2) + Endless.maintenant + .2f);
+		temps = ((r.nextFloat()/2) + Endless.maintenant + .2f);
 	}
 
 	@Override

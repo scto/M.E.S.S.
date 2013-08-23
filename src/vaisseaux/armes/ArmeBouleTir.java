@@ -31,7 +31,7 @@ public class ArmeBouleTir extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(.99f, Endless.color, .3f, 1);
 		batch.draw(Anim.animBouleBleu.getTexture(tpsAnim), position.x, position.y,

@@ -9,7 +9,7 @@ public class AnimationEnnemiToupie extends Anim {
 	public static Anim anim = new Anim();
 	
 	AnimationEnnemiToupie() {
-		anime = anim.initAnim(frames, TPS_ANIM, Animation.NORMAL);
+		anime = anim.initAnim(frames, TPS_ANIM, Animation.LOOP);
 	}
 
 }

@@ -36,7 +36,7 @@ public class ArmeFusee extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.draw(anim.getTexture(tpsAnim), position.x, position.y,LARGEUR, LARGEUR);
 	}

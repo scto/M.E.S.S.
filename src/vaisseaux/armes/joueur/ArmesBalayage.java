@@ -4,7 +4,10 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
+import assets.AssetMan;
 import assets.animation.Anim;
+import assets.particules.Particules;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -27,7 +30,12 @@ public class ArmesBalayage extends ArmeJoueur implements Poolable{
 	// ** ** animation
 	private float tpsAnim = 0;
 	// ** ** variable utilitaire
-	private float angle;
+	public float angle;
+	public static float[] couleurs = {
+		AssetMan.convertARGB(1, 0f, 0f, 136f/255f),
+		AssetMan.convertARGB(1, 17f/255f, 66f/255f, 1f),
+		AssetMan.convertARGB(1, 57f/255f, 127f/255f, 1f),
+		AssetMan.convertARGB(1, 81f/255f, 173f/255f, 1f)};
 	
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeBalayage);
@@ -48,8 +56,9 @@ public class ArmesBalayage extends ArmeJoueur implements Poolable{
 	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
+		Particules.ajoutArmeBalayage(this);
 		batch.draw(Anim.tirBleu.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_LARGEUR,	LARGEUR, LARGEUR, 1,1, angle, false);
 	}
 
@@ -79,20 +88,7 @@ public class ArmesBalayage extends ArmeJoueur implements Poolable{
 	public boolean testCollsionAdds() {		return false;	}
 
 	@Override
-	public float getR() {
-		if (numeroCouleur == 1) return 0.913f;
-		return 0.223f;
-	}
-
-	@Override
-	public float getG() {
-		if (numeroCouleur == 1) return 1.000f;
-		return 0.500f;
-	}
-
-	@Override
-	public float getB() {
-		if (numeroCouleur == 1) return 1.000f;
-		return 1.000f;
+	public float getColor() {
+		return couleurs[r.nextInt(couleurs.length)];
 	}
 }

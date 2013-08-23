@@ -1,31 +1,24 @@
 package assets.particules;
 
+import java.util.Random;
+
+import vaisseaux.armes.joueur.ArmeHantee;
 import jeu.Endless;
 import menu.CSG;
 import assets.AssetMan;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public abstract class Particule {
 	
 	public static final float HAUTEUR = CSG.LARGEUR_ECRAN / 280;
-	public float posX, posY, r, g, b, angle, vitesseAngle, vitesseY, vitesseX, temps;
+	public float posX, posY, angle, vitesseAngle, temps;
+	protected static float diminution = 0;
+	protected static Random r = new Random();
 	
-	protected void flammes() {
-		b = 0;
-		r = 1;
-		g = (float) ((Math.random() + .8) / 1.6);
-		
-		angle = g;
-		vitesseAngle = g * 100000;
-	}
-
 	public void afficher(SpriteBatch batch) {
-		batch.setColor(r, g, b, 1);
 		batch.draw(getTexture(), posX, posY, 0, 0, getLargeur(), getHauteur(), 1, 1, angle);
-		batch.setColor(Color.WHITE);
 	}
 	
 	/**
@@ -54,11 +47,22 @@ public abstract class Particule {
 
 	public boolean mouvementEtVerif() {
 		angle += vitesseAngle  * Endless.delta;
-		
 		if (Endless.maintenant > temps) return false;
-		posX += vitesseX * Endless.delta;
-		posY += vitesseY * Endless.delta;
 		// Je pense qu'on peut se permettre de ne pas verifier si il est tjrs à l'écran vu son court temps de vie
+		return true;
+	}
+	
+
+	protected boolean trainee() {
+		if (temps < 4) return false;
+		
+		diminution = temps * (Endless.delta15);
+		temps -= diminution;
+		diminution /= 2;
+
+		posX += diminution;
+		posY += diminution;
+		
 		return true;
 	}
 

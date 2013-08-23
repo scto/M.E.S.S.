@@ -30,7 +30,7 @@ public class ArmeBouleEnergie extends Armes implements Poolable{
 
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		batch.draw(AssetMan.boulenergiebleu , position.x, position.y, DEMI_LARGEUR,DEMI_HAUTEUR,
 		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
 		LARGEUR, HAUTEUR,

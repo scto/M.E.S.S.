@@ -34,7 +34,7 @@ public class ArmeBalayageEnnemiQuiTourne extends Armes {
 	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.setColor(Color.ORANGE);
 		batch.draw(Anim.animBouleBleu.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle,	false);

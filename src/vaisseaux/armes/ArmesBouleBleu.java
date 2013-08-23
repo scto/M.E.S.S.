@@ -30,7 +30,7 @@ public class ArmesBouleBleu extends Armes implements Poolable{
 	public boolean testCollsionAdds() {			return Physique.testCollisionAdds(position, LARGEUR, HAUTEUR);	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		tpsAnim += Endless.delta;
 		batch.draw(Anim.animBouleBleu.getTexture(tpsAnim), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y

@@ -20,10 +20,12 @@ import assets.background.ParallaxLayer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.NumberUtils;
 
 public class AssetMan {
 
@@ -33,6 +35,7 @@ public class AssetMan {
 	public static TextureRegion[] animationVaisseau;
 	public TextureRegion panneau, bouton;
 	public TextureAtlas atlas;
+	public static float WHITE = convertARGB(1, 1, 1, 1);
 	
 	public void load() {
 		man.clear();
@@ -134,6 +137,11 @@ public class AssetMan {
 			System.out.println("loading...");
 		}
 		loadPartie2();
+	}
+	
+	public static float convertARGB(float a, float r, float g, float b) {
+		int color = ((int)(255 * a) << 24) | ((int)(255 * b) << 16) | ((int)(255 * g) << 8) | ((int)(255 * r));
+		return NumberUtils.intToFloatColor(color);
 	}
 }
 

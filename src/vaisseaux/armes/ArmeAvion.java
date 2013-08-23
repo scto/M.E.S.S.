@@ -44,7 +44,7 @@ public class ArmeAvion extends Armes implements Poolable{
 
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		tpsAnimation += Endless.delta;
 		batch.draw(Anim.tirTrois.getTexture(tpsAnimation), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y

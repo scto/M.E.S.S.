@@ -4,6 +4,7 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.AssetMan;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -23,6 +24,12 @@ public class ArmesTrois extends ArmeJoueur implements Poolable{
 	private final int FORCE = 4;
 	public static Pool<ArmesTrois> pool = Pools.get(ArmesTrois.class);
 	private float angle = 0;
+	public static float[] couleurs = {
+		AssetMan.convertARGB(1, 97f, 32f, 79f),
+		AssetMan.convertARGB(1, 156f, 51f, 126f),
+		AssetMan.convertARGB(1, 190f, 63f, 154f),
+		AssetMan.convertARGB(1, 181f, 60f, 147f),
+		AssetMan.convertARGB(1, 220f, 151f, 201f)};
 
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeTrois);
@@ -42,7 +49,7 @@ public class ArmesTrois extends ArmeJoueur implements Poolable{
 	public void reset() {	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		batch.draw(AssetMan.laser , position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR,	LARGEUR, LARGEUR, 1, 1,	angle, false);
 	}
 	
@@ -71,20 +78,7 @@ public class ArmesTrois extends ArmeJoueur implements Poolable{
 	public boolean testCollsionAdds() {		return false;	}
 
 	@Override
-	public float getR() {
-		if (numeroCouleur == 1)		return 0.709f;
-		return 0.854f;
-	}
-
-	@Override
-	public float getG() {
-		if (numeroCouleur == 1)		return 0.247f;
-		return 0.568f;
-	}
-
-	@Override
-	public float getB() {
-		if (numeroCouleur == 1)		return 0.603f;
-		return 0.776f;
+	public float getColor() {
+		return couleurs[r.nextInt(couleurs.length)];
 	}
 }

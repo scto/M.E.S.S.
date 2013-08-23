@@ -9,7 +9,7 @@ public class AnimationEnnemiTourne extends Anim {
 	public static Anim anim = new Anim();
 	
 	AnimationEnnemiTourne() {
-		anime = anim.initAnim(frames, TPS_ANIM, Animation.NORMAL);
+		anime = anim.initAnim(frames, TPS_ANIM, Animation.LOOP);
 	}
 
 }

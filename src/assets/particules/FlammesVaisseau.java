@@ -11,16 +11,16 @@ import com.badlogic.gdx.utils.Pools;
 
 import vaisseaux.joueur.VaisseauType1;
 
-public class FlammesVaisseau extends Particule implements Poolable {
+public class FlammesVaisseau extends ParticuleRGB implements Poolable {
 	
-	public static final float LARGEUR = CSG.LARGEUR_ECRAN / 80;
+	public static final float LARGEUR = CSG.LARGEUR_ECRAN / 60;
 	public static Pool<FlammesVaisseau> pool = Pools.get(FlammesVaisseau.class);
+	private float vitesseX, vitesseY;
 	
 	public FlammesVaisseau() {
 		flammes();
 		vitesseY = (float) ((Math.random()+2) * -80);
 		vitesseX = (float) ((Math.random()-.5) * 120);
-		
 	}
 	
 	@Override
@@ -30,16 +30,23 @@ public class FlammesVaisseau extends Particule implements Poolable {
 	
 	@Override
 	protected float getLargeur() {
-		return CSG.LARGEUR_ECRAN / 60;
+		return LARGEUR;
+	}
+	
+	@Override
+	public boolean mouvementEtVerif() {
+		posX += vitesseX * Endless.delta;
+		posY += vitesseY * Endless.delta;
+		return super.mouvementEtVerif();
 	}
 	
 	@Override
 	protected float getHauteur() {
-		return CSG.LARGEUR_ECRAN / 60;
+		return LARGEUR;
 	}
 
 	public void init(VaisseauType1 v) {
-		posX = v.position.x + v.DEMI_LARGEUR;
+		posX = (v.position.x + v.DEMI_LARGEUR);
 		posY = v.position.y;
 		temps = (float) (Math.random()/8) + Endless.maintenant;
 	}

@@ -34,12 +34,12 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 
 	public static void affichageEtMouvementSansParticules(SpriteBatch batch) {
 		for (ArmeJoueur a : liste) {
-			a.afficherSansParticules(batch);
+			a.afficher(batch);
 			if (a.mouvementEtVerif() == false)			liste.removeValue(a, true);
 		}
 		testCollision = !testCollision;
 		for (Armes a : listeTirsDesEnnemis) {
-			a.afficherSansParticules(batch);
+			a.afficher(batch);
 			if (testCollision) {
 				if (a.testCollisionVaisseau() == true) {
 					listeTirsDesEnnemis.removeValue(a, true);
@@ -55,7 +55,7 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		}
 	}
 
-	abstract public void afficherSansParticules(SpriteBatch batch);
+	abstract public void afficher(SpriteBatch batch);
 	
 	/**
 	 * Fait bouger les objets et les enl�ves si ils ne sont plus � l'�cran
@@ -65,8 +65,8 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	abstract public boolean mouvementEtVerif();
 
 	public static void affichageSansParticules(SpriteBatch batch) {
-		for (ArmeJoueur a : liste)				a.afficherSansParticules(batch);
-		for (Armes a : listeTirsDesEnnemis)		a.afficherSansParticules(batch);
+		for (ArmeJoueur a : liste)				a.afficher(batch);
+		for (Armes a : listeTirsDesEnnemis)		a.afficher(batch);
 	}
 	/**
 	 * Retourne la force de l'arme

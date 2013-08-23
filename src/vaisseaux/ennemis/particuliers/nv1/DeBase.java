@@ -9,7 +9,6 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.Anim;
-import assets.particules.ParticulesExplosionPetite;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -30,7 +29,6 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
 	private static final int MAX_ENNEMIS_LIGNE = 4; 
 	public static Pool<DeBase> pool = Pools.get(DeBase.class);
-	protected ParticulesExplosionPetite explosion;
 	// ** ** moins al�atoire
 	private static int nbEnnemisAvant = 0;
 	private static float posXInitiale;

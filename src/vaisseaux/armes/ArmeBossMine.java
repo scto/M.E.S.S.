@@ -31,7 +31,7 @@ public class ArmeBossMine extends Armes implements Poolable{
 	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
+	public void afficher(SpriteBatch batch) {
 		batch.draw(Anim.animBouleBleu.getTexture(angle), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		DEMI_LARGEUR, DEMI_HAUTEUR,

@@ -4,7 +4,10 @@ import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
+import assets.AssetMan;
 import assets.animation.Anim;
+import assets.particules.Particules;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -21,10 +24,18 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 	public static int LARGEUR;
 	public static int DEMI_LARGEUR;
 	public static final float CADENCETIR = .05f;
+	public static final int VITESSE_ANGLE = 5000;
 	private final int FORCE = 2;
 	public static Pool<ArmeHantee> pool = Pools.get(ArmeHantee.class);
 	private float tpsAnimation = 0;
 	private static boolean alterner = false;
+	public static float[] couleurs = {
+		AssetMan.convertARGB(1, 0, 84f/255f, 73f/255f),
+		AssetMan.convertARGB(1, 0, 162f/255f, 140f/255f),
+		AssetMan.convertARGB(1, 0, 141f/255f, 239f/255f),
+		AssetMan.convertARGB(1, 0, 218f/255f, 228f/255f),
+		AssetMan.convertARGB(1, 0, 89f/255f, 252f/255f),
+		AssetMan.convertARGB(1, 0, 62f/255f, 254f/255f)};
 	
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeHantee);
@@ -38,18 +49,22 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 		direction.x = 0;
 		direction.y = 1;
 		tpsAnimation = 0;
+		angle += 0;
 	}
 
 	@Override
 	public void reset() {	}
 
 	@Override
-	public void afficherSansParticules(SpriteBatch batch) {
-		batch.draw(Anim.tirTrois.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, LARGEUR);
+	public void afficher(SpriteBatch batch) {
+//		batch.draw(Anim.tirTrois.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, LARGEUR);
+		batch.draw(Anim.tirTrois.getTexture(1), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1, angle);
+		Particules.armeHantee(this);
 	}
 	
 	@Override
 	public boolean mouvementEtVerif() {
+		angle += VITESSE_ANGLE * Endless.delta;
 		tpsAnimation += Endless.delta;
 		if (tpsAnimation > .4f & direction.y != 0) {
 			if (alterner) direction.x = -1;
@@ -78,20 +93,7 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 	public boolean testCollsionAdds() {		return false;	}
 
 	@Override
-	public float getR() {
-		if (numeroCouleur == 1) return 0.000f;
-		return 0.000f;
-	}
-
-	@Override
-	public float getG() {
-		if (numeroCouleur == 1) return 0.854f;
-		return 0.725f;
-	}
-
-	@Override
-	public float getB() {
-		if (numeroCouleur == 1) return 0.894f;
-		return 0.925f;
+	public float getColor() {
+		return couleurs[r.nextInt(couleurs.length)];
 	}
 }
