@@ -3,12 +3,12 @@ package vaisseaux.ennemis.particuliers;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import vaisseaux.armes.Armes;
-import vaisseaux.armes.ArmesBouleVerte;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
+import vaisseaux.armes.ennemi.BouleBleueRapide;
 import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
-import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
+import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiAileDeployee;
 
@@ -29,7 +29,7 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	public static final float CADENCE = 1.2f;
 	public static final Tirs tir = new Tirs(CADENCE);
 	// ** ** caracteristiques variables.
-	private float prochainTir = 0;
+	private float prochainTir = 2;
 	public static Pool<EnnemiAilesDeployees> pool = Pools.get(EnnemiAilesDeployees.class);
 	// ** ** autre
 	private float angle;
@@ -50,7 +50,7 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	}
 
 	public boolean mouvementEtVerif() {
-		angle = Physique.mouvementTeteChercheuse(direction, position, Stats.VITESSE_AILES_DEPLOYEE, (int)LARGEUR, VITESSE_ANGULAIRE, (int)DEMI_LARGEUR);
+		angle = Physique.mouvementTeteChercheuse(direction, position, Stats.V_ENN_AILES_DEPLOYEE, (int)LARGEUR, VITESSE_ANGULAIRE, (int)DEMI_LARGEUR);
 		return super.mouvementEtVerif();
 	}
 
@@ -98,7 +98,7 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 
 	public int getDemiLargeur() {		return (int)DEMI_LARGEUR;	}
 
-	public Armes getArme() {			return ArmesBouleVerte.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return BouleBleueRapide.pool.obtain();	}
 
 	public void setProchainTir(float f) {		prochainTir = f;	}
 
@@ -110,8 +110,8 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	
 
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = (position.x + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR) + (direction.x * 16);
-		tmpPos.y = (position.y + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR)+ (direction.y * 16);
+		tmpPos.x = (position.x + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR) + (direction.x * 16);
+		tmpPos.y = (position.y + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR)+ (direction.y * 16);
 		return tmpPos;
 	}
 	

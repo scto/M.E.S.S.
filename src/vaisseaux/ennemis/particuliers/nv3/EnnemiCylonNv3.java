@@ -22,7 +22,7 @@ public class EnnemiCylonNv3 extends Cylon {
 	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_CYLON3;
+		return Stats.PV_CYLON3;
 	}
 
 	@Override

@@ -21,8 +21,6 @@ import assets.particules.Particules;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -41,11 +39,11 @@ public class VaisseauType1 extends Vaisseaux {
 	public static final int DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
 	// ** ** limites dans l'espace
 	private static final int LIMITE_X_GAUCHE = 0 - DEMI_LARGEUR, LIMITE_X_DROITE = CSG.LARGEUR_ZONE_JEU - DEMI_LARGEUR, LIMITE_Y_GAUCHE = 0 - DEMI_HAUTEUR, LIMITE_Y_DROITE = CSG.HAUTEUR_ECRAN - DEMI_HAUTEUR;
-	private static final int DEGRE_PRECISION_DEPLACEMENT = 2;
+	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.LARGEUR_ECRAN + CSG.HAUTEUR_ECRAN) / 600;
 	// ** ** parametres pouvant etre modifi�s par des bonus
 	@SuppressWarnings("unused")
 	private static boolean peutSeTeleporter = false;
-	private static int vitesseMax = 0;
+	private static float vitesseMax = 0;
 	private static long modifCadenceTir = 0;
 	private static TypesArmes typeArme = CSG.profil.getArmeSelectionnee();
 //	private static TypesArmes[] typeArmePossible = TypesArmes.LISTE_ARME_JOUEUR;
@@ -89,7 +87,7 @@ public class VaisseauType1 extends Vaisseaux {
 	 */
 	public void reInit() {
 		position = new Vector2(CSG.DEMI_LARGEUR_ZONE_JEU - DEMI_LARGEUR, HAUTEUR/2);
-		vitesseMax = (Stats.VITESSE_JOUEUR);
+		vitesseMax = (Stats.V_JOUEUR);
 		prevX = position.x;
 		prevY = position.y;
 		centreX = position.x + DEMI_LARGEUR;
@@ -100,15 +98,15 @@ public class VaisseauType1 extends Vaisseaux {
 		}
 	}
 	
-	public void drawSansParticules(SpriteBatch batch) {
-		if (alphaBouclier > .85f) sensAlpha = false;
+	public void draw(SpriteBatch batch) {
+		if (alphaBouclier > .95f) sensAlpha = false;
 		if (alphaBouclier < .55f) sensAlpha = true;
 		
 		if (sensAlpha) alphaBouclier += Endless.delta;
 		else alphaBouclier -= Endless.delta;
 			
 		Particules.ajoutFlammes(this);
-		batch.draw(AnimationVaisseau.getTexture(), position.x, position.y, LARGEUR, HAUTEUR); // Vaisseau dessin� au dessus
+		batch.draw(AnimationVaisseau.getTexture(), position.x, position.y, LARGEUR, HAUTEUR);
 		if (bouclier) {
 			batch.setColor(.9f, .9f, 1, alphaBouclier);
 			batch.draw(AssetMan.bouclier, position.x - 2, position.y - 2, LARGEUR + 4, HAUTEUR + 4);
@@ -157,7 +155,7 @@ public class VaisseauType1 extends Vaisseaux {
 			}
 			else 					AnimationVaisseau.droit();
 			
-			if (position.y < clicY & (position.y + destY * Endless.delta) > clicY || position.y > clicY & (position.y + destY * Endless.delta) < clicY)		position.y = clicY;
+			if (position.y < clicY && (position.y + destY * Endless.delta) > clicY || position.y > clicY && (position.y + destY * Endless.delta) < clicY)		position.y = clicY;
 			else 				position.y += destY * Endless.delta;
 			routineAdds();
 			// On est à gauche		&		on est à droite // Si on était à gauche et qu'après on se retrouve à droite ou inversement on met directement la position à l'endroit ou on a cliqué

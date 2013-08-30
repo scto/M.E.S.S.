@@ -4,8 +4,8 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
-import vaisseaux.armes.ArmeInsecte;
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
+import vaisseaux.armes.ennemi.ArmeInsecte;
 import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
@@ -27,7 +27,7 @@ public class Insecte extends Ennemis implements TireurAngle {
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = (LARGEUR / 2) + DEMI_LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
-	private static final float VITESSE = Stats.VITESSE_ENNEMI_INSECTE;
+	private static final float VITESSE = Stats.V_ENN_INSECTE;
 	public static final Tirs tir = new Tirs(.7f);
 	private float prochainTir = 1f;
 	public static Pool<Insecte> pool = Pools.get(Insecte.class);
@@ -57,7 +57,7 @@ public class Insecte extends Ennemis implements TireurAngle {
 
 	@Override
 	protected int getPvMax() {
-		return  Stats.PVMAX_INSECTE;
+		return  Stats.PV_INSECTE;
 	}
 
 	private void initPlacement() {
@@ -120,7 +120,7 @@ public class Insecte extends Ennemis implements TireurAngle {
 
 
 	@Override
-	public Armes getArme() {			return ArmeInsecte.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return ArmeInsecte.pool.obtain();	}
 
 	@Override
 	public void setProchainTir(float f) {

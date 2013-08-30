@@ -2,7 +2,6 @@ package assets.particules;
 
 import jeu.Endless;
 import menu.CSG;
-import vaisseaux.armes.joueur.ArmeAdd;
 import vaisseaux.armes.joueur.ArmesDeBase;
 import assets.AssetMan;
 
@@ -34,7 +33,10 @@ public class ParticuleArmeDeBase extends ParticuleRGB implements Poolable {
 	public boolean mouvementEtVerif() {
 		posX += vitesseX * Endless.delta;
 		posY += vitesseY * Endless.delta;
-		return super.mouvementEtVerif();
+		angle += vitesseAngle  * Endless.delta;
+		if (Endless.maintenant > temps) return false;
+		// Je pense qu'on peut se permettre de ne pas verifier si il est tjrs à l'écran vu son court temps de vie
+		return true;
 	}
 	
 	@Override
@@ -53,7 +55,7 @@ public class ParticuleArmeDeBase extends ParticuleRGB implements Poolable {
 		
 		temps = (r.nextFloat() / 10) + .1f + Endless.maintenant;
 		vitesseX = ((r.nextFloat() / 4f) - .125f) * 500f;
-		vitesseY = ((a.direction.y) * ((r.nextFloat() / 4f) - .125f)) * 400f;
+		vitesseY = ((r.nextFloat() / 4f) - .125f) * 400f;
 		
 		color = a.getColor();
 	}

@@ -23,7 +23,7 @@ public class EnnemiKinderNv3 extends Kinder {
 	}
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_KINDER3;
+		return Stats.PV_KINDER3;
 	}
 
 	@Override

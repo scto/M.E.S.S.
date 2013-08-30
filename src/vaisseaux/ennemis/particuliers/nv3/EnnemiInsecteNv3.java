@@ -24,7 +24,7 @@ public class EnnemiInsecteNv3 extends Insecte {
 	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_INSECTE3;
+		return Stats.PV_INSECTE3;
 	}
 
 	@Override

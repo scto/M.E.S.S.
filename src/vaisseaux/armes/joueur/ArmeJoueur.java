@@ -15,5 +15,12 @@ public abstract class ArmeJoueur extends Armes{
 	}
 	
 	public abstract float getColor();
+	
+	/**
+	 * Retourne la force de l'arme
+	 * Si on a besoin de la force c'est qu'on peut la virer sans doute.. ? En tout cas pour le moment oui ! Donc free
+	 * @return FORCE
+	 */
+	public abstract int getForce();
 }
 

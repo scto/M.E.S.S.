@@ -26,7 +26,7 @@ public class EnnemiLaserNv3 extends Laser {
 	}
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_LASER3;
+		return Stats.PV_LASER3;
 	}
 	
 	@Override

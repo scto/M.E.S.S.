@@ -1,6 +1,6 @@
 package vaisseaux.armes.typeTir;
 
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
 import vaisseaux.joueur.VaisseauType1;
 
 import com.badlogic.gdx.math.Vector2;
@@ -76,7 +76,7 @@ public class Tirs {
 
 	public void tirVersJoueur(Tireur t, boolean mort, float maintenant, float prochainTir) {
 		if (!mort && maintenant > prochainTir) {
-			Armes a = t.getArme();
+			ArmeEnnemi a = t.getArme();
 			vecteurCiblePosition.x = (VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR) - a.getLargeur()/2;
 			vecteurCiblePosition.y = (VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR) - a.getHauteur()/2;
 			vecteurPosition.x = t.getPositionDuTir(0).x;
@@ -119,7 +119,7 @@ public class Tirs {
 			t.getArme().init(t.getPositionDuTir(1), t.getModifVitesse(), -t.getAngleTir(), t.getDirectionTir());
 			if (t.getNumeroTir() >= nombreTirs) {
 				t.addNombresTirs(-t.getNumeroTir());
-				t.setProchainTir(maintenant + (CADENCE * nombreTirs));
+				t.setProchainTir(maintenant + (CADENCE * nombreTirs * 2));
 			} else {
 				t.setProchainTir(maintenant + CADENCE);
 			}

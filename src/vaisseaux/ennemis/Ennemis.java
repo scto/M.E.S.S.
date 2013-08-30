@@ -30,10 +30,10 @@ import vaisseaux.ennemis.particuliers.nv3.EnnemiInsecteNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiKinderNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiPorteRaisinNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTir2Nv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTirNv3;
+import vaisseaux.ennemis.particuliers.nv3.QuiTirNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
 import vaisseaux.ennemis.particuliers.nv3.EnnemiToupieNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiZigZagNv3;
+import vaisseaux.ennemis.particuliers.nv3.ZigZagNv3;
 import assets.SoundMan;
 import assets.animation.AnimationArmeFusee;
 import assets.animation.AnimationExplosion1;
@@ -103,8 +103,8 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 		EnnemiToupieNv3.pool.obtain(), 
 		EnnemiQuiTourneNv3.pool.obtain(), 
 		EnnemiBouleQuiSArreteNv3.pool.obtain(),
-		EnnemiQuiTirNv3.pool.obtain(),
-		EnnemiZigZagNv3.pool.obtain(),
+		QuiTirNv3.pool.obtain(),
+		ZigZagNv3.pool.obtain(),
 		EnnemiDeBaseNv3.pool.obtain(),
 		};//EnnemiInsecte.pool.obtain()};
 	

@@ -4,8 +4,8 @@ import jeu.Endless;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
-import vaisseaux.armes.ArmeBossQuad;
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.BouleFeu;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
 import vaisseaux.armes.typeTir.Tireur;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
@@ -22,16 +22,15 @@ import com.badlogic.gdx.utils.Pools;
 
 public class QuiTir extends Ennemis implements Tireur{
 	
-	// ** ** caracteristiques g�n�rales
-	public static final float LARGEUR= CSG.LARGEUR_ECRAN / 15;
-	public static final float DEMI_LARGEUR = LARGEUR/2;
-	public static final float HAUTEUR = LARGEUR + DEMI_LARGEUR;
-	public static final float DEMI_HAUTEUR = HAUTEUR / 2;
+	public static final float LARGEUR= CSG.LARGEUR_ECRAN / 15, DEMI_LARGEUR = LARGEUR/2;
+	public static final float HAUTEUR = LARGEUR + DEMI_LARGEUR, DEMI_HAUTEUR = HAUTEUR / 2;
 	public static final float CADENCE = 1.2f;
 	public static final Tirs tir = new Tirs(CADENCE);
-	// ** ** caracteristiques variables.
 	protected float prochainTir = .1f;
 	public static Pool<QuiTir> pool = Pools.get(QuiTir.class);
+	
+	
+	public QuiTir() {		Positionnement.hautLarge(position, getLargeur(), getHauteur());	}
 	
 	@Override
 	public TextureRegion getTexture() {
@@ -51,34 +50,34 @@ public class QuiTir extends Ennemis implements Tireur{
 	@Override
 	public void reset() {
 		Positionnement.hautLarge(position, getLargeur(), getHauteur());
-		prochainTir = .2f;
+		prochainTir = .1f;
 		super.reset();
 	}
 	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_DE_BASE_QUI_TIR;
+		return Stats.PV_QUI_TIR;
 	}
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
 	public boolean mouvementEtVerif() {
-		position.y += (getVitesse() * Endless.delta);
+		position.y -= (getVitesse() * Endless.delta);
 		if (pv < getDemiPv()) position.x += (getDerive() * Endless.delta);
 		return super.mouvementEtVerif();
 	}
 	
 	protected float getVitesse() {
-		return Stats.VITESSE_MAX_DE_BASE_QUI_TIR;
+		return Stats.V_ENN_QUI_TIR;
 	}
 	
 	protected float getDerive() {
-		return Stats.DERIVE_DE_BASE_QUI_TIR;
+		return Stats.DERIVE_QUI_TIR;
 	}
 	
 	protected int getDemiPv() {
-		return Stats.DEMI_PV_BASE_QUI_TIR;
+		return Stats.DEMI_PV_QUI_TIR;
 	}
 
 	@Override
@@ -104,7 +103,7 @@ public class QuiTir extends Ennemis implements Tireur{
 	public int getDemiLargeur() {		return (int)DEMI_LARGEUR;	}
 
 	@Override
-	public Armes getArme() {			return ArmeBossQuad.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return BouleFeu.pool.obtain();	}
 	
 	@Override
 	public void setProchainTir(float f) {		prochainTir = f;	}
@@ -114,8 +113,8 @@ public class QuiTir extends Ennemis implements Tireur{
 
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = position.x + DEMI_LARGEUR - ArmeBossQuad.DEMI_LARGEUR;
-		tmpPos.y = position.y - ArmeBossQuad.HAUTEUR;
+		tmpPos.x = position.x + DEMI_LARGEUR - BouleFeu.DEMI_LARGEUR;
+		tmpPos.y = position.y - BouleFeu.HAUTEUR;
 		return tmpPos;
 	}
 

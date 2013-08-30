@@ -15,7 +15,7 @@ public class AnimationPorteNef{
 	}
 	
 	public static TextureRegion getTexture(int pv) {
-		if (pv < Stats.DEMI_PVMAX_PORTE_NEF) return mauvaisEtat;
+		if (pv < Stats.DEMI_PV_PORTE_NEF) return mauvaisEtat;
 		return bonEtat;
 	}
 }

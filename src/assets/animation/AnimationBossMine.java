@@ -15,7 +15,7 @@ public class AnimationBossMine{
 	}
 	
 	public static TextureRegion getTexture(int pv) {
-		if (pv < Stats.DEUXTIERS_PVMAX_BOSS_MINE) return moyenEtat;
+		if (pv < Stats.DEUXTIERS_PV_BOSS_MINE) return moyenEtat;
 		return bonEtat;
 	}
 }

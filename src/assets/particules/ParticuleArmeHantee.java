@@ -1,14 +1,10 @@
 package assets.particules;
 
 import jeu.Endless;
-import menu.CSG;
 import vaisseaux.armes.Armes;
 import vaisseaux.armes.joueur.ArmeHantee;
-import vaisseaux.bonus.Bonus;
-import assets.AssetMan;
-import assets.animation.Anim;
+import assets.animation.AnimationTirTrois;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
@@ -19,10 +15,11 @@ public class ParticuleArmeHantee extends Particule implements Poolable {
 	
 	public static final float LARGEUR = ArmeHantee.LARGEUR;
 	public static Pool<ParticuleArmeHantee> pool = Pools.get(ParticuleArmeHantee.class);
+	private float angle;
 	
 	@Override
 	protected TextureRegion getTexture() {
-		return Anim.tirTrois.getTexture(1);
+		return AnimationTirTrois.getTexture(1);
 	}
 
 	@Override

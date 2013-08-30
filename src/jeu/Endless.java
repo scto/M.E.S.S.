@@ -6,12 +6,14 @@ import menu.Menu;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
-<<<<<<< HEAD
-import vaisseaux.ennemis.particuliers.nv1.QuiTourne;
+import vaisseaux.ennemis.particuliers.nv1.Avion;
+import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
+import vaisseaux.ennemis.particuliers.nv1.DeBase;
+import vaisseaux.ennemis.particuliers.nv1.QuiTir;
 import vaisseaux.ennemis.particuliers.nv1.Toupie;
-=======
 import vaisseaux.ennemis.particuliers.nv1.ZigZag;
->>>>>>> parent of a593e8e... refact animation
+import vaisseaux.ennemis.particuliers.nv3.ZigZagNv3;
+import vaisseaux.ennemis.particuliers.nv3.QuiTirNv3;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -88,7 +90,7 @@ public class Endless implements Screen {
 		c.send();
 	}
 
-	private void init() {	
+	private void init() {
 		vaisseau.reInit(); // Pour remettre les positions mais garder shield et adds
 		if (Gdx.app.getVersion() != 0) CSG.myRequestHandler.showAds(false); // desactiver adds. A VIRER POUR LA RELEASE
 		// ** DEPLACEMENT ZONE DE JEU
@@ -150,18 +152,20 @@ public class Endless implements Screen {
 //			Ennemis.liste.add(new EnnemiCylon());
 //		if (Gdx.input.isKeyPressed(Keys.T))
 //			Ennemis.liste.add(new EnnemiBossMine());
-<<<<<<< HEAD
-//		if (Gdx.input.justTouched()) {
+		if (Gdx.input.justTouched()) 
+		{
 //			Client c = new Client("80.201.86.80", this);	
 //			c.send("Coucou 80.201.86.80	");
 //			Client d = new Client("192.168.1.2", this);	
 //			d.send("Coucou 192.168.1.2");
-//			Ennemis.liste.add(Toupie.pool.obtain());
-//			Ennemis.liste.add(QuiTourne.pool.obtain());
-//		}
-=======
+//			Ennemis.liste.add(ZigZag.pool.obtain());
+//			Ennemis.liste.add(ZigZagNv3.pool.obtain());
+//			Ennemis.liste.add(ZigZagNv3.pool.obtain());
+//			Ennemis.liste.add(ZigZagNv3.pool.obtain());
+//			Ennemis.liste.add(ZigZagNv3.pool.obtain());
+			Ennemis.liste.add(BouleQuiSArrete.pool.obtain());
+		}
 //		if (Gdx.input.justTouched()) 
->>>>>>> parent of a593e8e... refact animation
 //			Ennemis.liste.add(EnnemiBossMine.pool.obtain());
 //			Ennemis.liste.add(Insecte.pool.obtain());
 //		}
@@ -178,6 +182,7 @@ public class Endless implements Screen {
 				score += (Endless.delta+Endless.delta+Endless.delta);
 				delta15 = Endless.delta * 15;
 			}
+//			Endless.delta /= 3;
 			// S I   O N   A   P A S   E N C O R E   P E R D U
 			if (!perdu && !activerStop) {
 				if (activerRalentissement) activerRalentissement(delta);
@@ -304,10 +309,11 @@ public class Endless implements Screen {
 	private void affichagePerdu() {
 		prevDelta = delta;
 		delta = 0;
-		vaisseau.drawSansParticules(batch);
+		vaisseau.draw(batch);
 		Ennemis.affichage(batch);
 		delta = prevDelta;
-		Armes.affichageSansParticules(batch);
+		Particules.render(batch);
+		Armes.affichage(batch);
 		ui();
 	}
 	
@@ -340,11 +346,10 @@ public class Endless implements Screen {
 
 	private void affichageNonPerdu() {
 		Bonus.affichageEtMouvement(batch);
-		vaisseau.drawSansParticules(batch);
+		vaisseau.draw(batch);
 		Ennemis.affichageEtMouvement(batch);
-		Armes.affichageEtMouvementSansParticules(batch);
 		Particules.render(batch);
-
+		Armes.affichageEtMouvement(batch);
 		ui();
 	}
 
@@ -509,7 +514,7 @@ public class Endless implements Screen {
 	}
 
 	public static void perdu() {
-		 perdu = true;
+//		 perdu = true;
 	}
 
 	public static boolean aPerdu() {

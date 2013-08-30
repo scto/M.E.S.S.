@@ -19,6 +19,7 @@ public class FlammesVaisseau extends ParticuleRGB implements Poolable {
 	
 	public FlammesVaisseau() {
 		flammes();
+		
 		vitesseY = (float) ((Math.random()+2) * -80);
 		vitesseX = (float) ((Math.random()-.5) * 120);
 	}
@@ -37,7 +38,10 @@ public class FlammesVaisseau extends ParticuleRGB implements Poolable {
 	public boolean mouvementEtVerif() {
 		posX += vitesseX * Endless.delta;
 		posY += vitesseY * Endless.delta;
-		return super.mouvementEtVerif();
+		angle += vitesseAngle  * Endless.delta;
+		if (Endless.maintenant > temps) return false;
+		// Je pense qu'on peut se permettre de ne pas verifier si il est tjrs à l'écran vu son court temps de vie
+		return true;
 	}
 	
 	@Override
@@ -49,6 +53,8 @@ public class FlammesVaisseau extends ParticuleRGB implements Poolable {
 		posX = (v.position.x + v.DEMI_LARGEUR);
 		posY = v.position.y;
 		temps = (float) (Math.random()/8) + Endless.maintenant;
+		
+		angle = r.nextFloat() * 360f;
 	}
 
 	@Override

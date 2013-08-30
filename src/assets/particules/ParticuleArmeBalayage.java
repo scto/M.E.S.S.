@@ -3,7 +3,6 @@ package assets.particules;
 import jeu.Endless;
 import menu.CSG;
 import vaisseaux.armes.joueur.ArmesBalayage;
-import vaisseaux.armes.joueur.ArmesDeBase;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,10 +14,8 @@ public class ParticuleArmeBalayage extends ParticuleRGB implements Poolable {
 	
 	public static Pool<ParticuleArmeBalayage> pool = Pools.get(ParticuleArmeBalayage.class);
 //	private float hauteur;
-	private static float LARGEUR = CSG.LARGEUR_ECRAN / 300;
-	private static float DEMI_HAUTEUR = CSG.LARGEUR_ECRAN / 130;
-	protected static float diminutionH;
-	private static float VITESSE = 1000;
+	private static float LARGEUR = CSG.LARGEUR_ECRAN / 220;
+	private static float VITESSE = 550;
 	private float vitesseX, vitesseY, hauteur;
 	
 	public ParticuleArmeBalayage() {
@@ -33,7 +30,10 @@ public class ParticuleArmeBalayage extends ParticuleRGB implements Poolable {
 	public boolean mouvementEtVerif() {
 		posX += vitesseX * Endless.delta;
 		posY += vitesseY * Endless.delta;
-		return super.mouvementEtVerif();
+		angle += vitesseAngle  * Endless.delta;
+		if (Endless.maintenant > temps) return false;
+		// Je pense qu'on peut se permettre de ne pas verifier si il est tjrs à l'écran vu son court temps de vie
+		return true;
 	}
 	
 	@Override
@@ -51,8 +51,8 @@ public class ParticuleArmeBalayage extends ParticuleRGB implements Poolable {
 		posY = a.position.y + a.DEMI_LARGEUR;
 		angle = a.angle +90;
 		temps = (r.nextFloat() / 10) + .1f + Endless.maintenant;
-		vitesseX = ((r.nextFloat() / 4f) - .125f) * 500f;
-		vitesseY = ((a.direction.y) * ((r.nextFloat() / 4f) - .125f)) * 400f;
+		vitesseX = ((r.nextFloat() / 4f) - .125f) * VITESSE;
+		vitesseY = ((r.nextFloat() / 4f) - .125f) * VITESSE;
 		
 		color = a.getColor();
 	}

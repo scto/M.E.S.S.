@@ -5,6 +5,7 @@ import vaisseaux.armes.joueur.ArmeAdd;
 import vaisseaux.armes.joueur.ArmeJoueur;
 import vaisseaux.armes.joueur.ArmesBalayage;
 import vaisseaux.armes.joueur.ArmesDeBase;
+import vaisseaux.armes.joueur.ArmesTrois;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.joueur.VaisseauType1;
 
@@ -14,11 +15,11 @@ import com.badlogic.gdx.utils.Array;
 public class Particules {
 	
 	public static final int MAX = 150;
-	public static final int MAX_AUTRES = 350;
+	public static final int MAX_ARMES_JOUEUR = 450;
 	public static Array<Particule> restes = new Array<Particule>(false, MAX);
 	public static Array<Particule> flammes = new Array<Particule>(false, MAX);
 	public static Array<Particule> explosions = new Array<Particule>(false, MAX);
-	public static Array<Particule> autres = new Array<Particule>(false, MAX_AUTRES);
+	public static Array<Particule> armesJoueur = new Array<Particule>(false, MAX_ARMES_JOUEUR);
 	
 	public static void render(SpriteBatch batch) {
 		for (Particule p : restes){
@@ -43,10 +44,10 @@ public class Particules {
 			}
 		}
 		
-		for (Particule p : autres){
+		for (Particule p : armesJoueur){
 			p.afficher(batch);
 			if (p.mouvementEtVerif() == false) {
-				autres.removeValue(p, true);
+				armesJoueur.removeValue(p, true);
 				p.free();
 			}
 		}
@@ -89,11 +90,11 @@ public class Particules {
 		for(Particule p : flammes) p.free();
 		for(Particule p : restes) p.free();
 		for(Particule p : explosions) p.free();
-		for(Particule p : autres) p.free();
+		for(Particule p : armesJoueur) p.free();
 		restes.clear();
 		flammes.clear();
 		explosions.clear();
-		autres.clear();
+		armesJoueur.clear();
 	}
 
 	public static void explosion(Ennemis ennemis) {
@@ -106,34 +107,42 @@ public class Particules {
 	}
 
 	public static void armeHantee(Armes a) {
-		if (autres.size < MAX_AUTRES) {
+		if (armesJoueur.size < MAX_ARMES_JOUEUR) {
 			ParticuleArmeHantee p = ParticuleArmeHantee.pool.obtain();
 			p.init(a);
-			autres.add(p);
+			armesJoueur.add(p);
 		}
 	}
 
 	public static void ajoutAdd(ArmeAdd a) {
-		if (autres.size < MAX_AUTRES) {
-			ParticuleArmeAdd p = ParticuleArmeAdd.pool.obtain();
+//		if (armesJoueur.size < MAX_ARMES_JOUEUR) {
+			ParticuleArmeAddTrainee p = ParticuleArmeAddTrainee.pool.obtain();
 			p.init(a);
-			autres.add(p);
-		}
+			armesJoueur.add(p);
+//		}
 	}
 
 	public static void ajoutArmeDeBase(ArmesDeBase a) {
-		if (autres.size < MAX_AUTRES) {
+		if (armesJoueur.size < MAX_ARMES_JOUEUR) {
 			ParticuleArmeDeBase p = ParticuleArmeDeBase.pool.obtain();
 			p.init(a);
-			autres.add(p);
+			armesJoueur.add(p);
 		}
 	}
 
 	public static void ajoutArmeBalayage(ArmesBalayage a) {
-		if (autres.size < MAX_AUTRES) {
+		if (armesJoueur.size < MAX_ARMES_JOUEUR) {
 			ParticuleArmeBalayage p = ParticuleArmeBalayage.pool.obtain();
 			p.init(a);
-			autres.add(p);
+			armesJoueur.add(p);
+		}
+	}
+
+	public static void armeTrois(ArmesTrois a) {
+		if (armesJoueur.size < MAX_ARMES_JOUEUR) {
+			ParticuleArmeTrois p = ParticuleArmeTrois.pool.obtain();
+			p.init(a);
+			armesJoueur.add(p);
 		}
 	}
 

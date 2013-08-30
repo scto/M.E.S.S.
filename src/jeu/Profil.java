@@ -46,7 +46,7 @@ public class Profil implements Serializable{
 		volumeArme = .5f;
 		volumeBruitages = 1;
 		volumeMusique = 1;
-		bloom = false; // Provoque dans de rares cas des bugs d'affichages, donc false
+		bloom = true; // Provoque dans de rares cas des bugs d'affichages
 		armeSelectionnee = TypesArmes.ArmeDeBase.toString();
 		typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
 		intensiteBloom = 2.0f;

@@ -26,7 +26,7 @@ public class BouleTirCoteRotation extends BouleTirCote {
 	
 	@Override
 	protected float getVitesse() {
-		return  Stats.VITESSE_BOULE_TIR_COTE_PETIT;
+		return  Stats.V_BOULE_TIR_COTE_PETIT;
 	}
 
 	@Override

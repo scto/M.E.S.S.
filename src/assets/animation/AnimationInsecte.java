@@ -11,7 +11,7 @@ public class AnimationInsecte{
 	
 	
 	public static TextureRegion getTexture(int pv) {
-		if (pv < Stats.PVMAX_INSECTE) return mauvaisEtat;
+		if (pv < Stats.PV_INSECTE) return mauvaisEtat;
 		return bonEtat;
 	}
 	

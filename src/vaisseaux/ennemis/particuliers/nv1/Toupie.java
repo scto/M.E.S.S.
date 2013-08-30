@@ -5,8 +5,8 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
-import vaisseaux.armes.Armes;
-import vaisseaux.armes.ArmesBouleVerte;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
+import vaisseaux.armes.ennemi.BouleBleueRapide;
 import vaisseaux.armes.typeTir.TireurBalayage;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
@@ -27,7 +27,7 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
-	public static final float VITESSE = Stats.VITESSE_TOUPIE;
+	public static final float VITESSE = Stats.V_ENN_TOUPIE;
 	public static final float CADENCE_TIR = .33f; 
 	public static final Tirs TIR = new Tirs(CADENCE_TIR);
 	private static int ecartTirs = 10;
@@ -85,17 +85,15 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	public boolean mouvementEtVerif() {
 		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_7) { // tout droit
 			if (aGaucheEcran) {
-				direction.rotate(Endless.delta * Stats.DEMI_VITESSE_TOUPIE);
+				direction.rotate(Endless.delta * Stats.DEMI_V_ENN_TOUPIE);
 			} else {
-				direction.rotate(Endless.delta * -Stats.DEMI_VITESSE_TOUPIE);
+				direction.rotate(Endless.delta * -Stats.DEMI_V_ENN_TOUPIE);
 			}
 			angleAffichage = direction.angle();
 		}
 		Physique.mvtSansVerif(position, direction);
 		return super.mouvementEtVerif();
 	}
-
-	
 
 	@Override
 	protected void tir() {
@@ -128,7 +126,7 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	}
 	
 		@Override
-	public Armes getArme() {			return ArmesBouleVerte.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return BouleBleueRapide.pool.obtain();	}
 
 	@Override
 	public void setProchainTir(float f) {
@@ -136,7 +134,7 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	}
 
 	@Override
-	public float getModifVitesse() {	return 0.011f;	}
+	public float getModifVitesse() {	return 0.020f;	}
 
 	@Override
 	public float getAngleTir() {			return 0;	}
@@ -148,8 +146,8 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = (position.x + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR);
-		tmpPos.y = (position.y + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR);
+		tmpPos.x = (position.x + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR);
+		tmpPos.y = (position.y + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR);
 		return tmpPos;
 	}
 
@@ -190,7 +188,7 @@ public class Toupie extends Ennemis implements TireurBalayage {
 
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_TOUPIE;
+		return Stats.PV_TOUPIE;
 	}
 	
 	@Override

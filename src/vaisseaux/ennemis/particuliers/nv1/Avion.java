@@ -2,8 +2,8 @@ package vaisseaux.ennemis.particuliers.nv1;
 
 import jeu.Stats;
 import menu.CSG;
-import vaisseaux.armes.ArmeBossQuad;
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.BouleFeu;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
 import vaisseaux.armes.typeTir.DoubleTireur;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
@@ -45,11 +45,11 @@ public class Avion extends DeBase implements DoubleTireur {
 	public Vector2 getPositionDuTir(int numeroTir) {
 		switch (numeroTir) {
 		case 1: 
-			tmpPos.x = position.x - ArmeBossQuad.DEMI_LARGEUR;
+			tmpPos.x = position.x - BouleFeu.DEMI_LARGEUR;
 			tmpPos.y = position.y;
 			break;
 		case 2:
-			tmpPos.x = position.x + LARGEUR - ArmeBossQuad.DEMI_LARGEUR;
+			tmpPos.x = position.x + LARGEUR - BouleFeu.DEMI_LARGEUR;
 			tmpPos.y = position.y;
 			break;
 		}
@@ -58,11 +58,11 @@ public class Avion extends DeBase implements DoubleTireur {
 	
 	@Override
 	protected float getVitesse() {
-		return Stats.VITESSE_AVION;
+		return Stats.V_ENN_AVION;
 	}
 
 	@Override
-	protected int getPvMax() {		return Stats.PVMAX_AVION;	}
+	protected int getPvMax() {		return Stats.PV_AVION;	}
 	@Override
 	public void invoquer() {		liste.add(pool.obtain());	}
 	@Override
@@ -76,7 +76,7 @@ public class Avion extends DeBase implements DoubleTireur {
 	@Override
 	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
 	@Override
-	public Armes getArme() {			return ArmeBossQuad.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return BouleFeu.pool.obtain();	}
 	@Override
 	public void setProchainTir(float f) {		prochainTir = f;	}
 	@Override

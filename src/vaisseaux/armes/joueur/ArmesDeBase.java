@@ -1,19 +1,13 @@
 package vaisseaux.armes.joueur;
 
-import vaisseaux.armes.Armes;
-import jeu.Endless;
-import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-<<<<<<< HEAD
 import assets.AssetMan;
-import assets.animation.Anim;
 import assets.particules.Particules;
 
-=======
 import assets.animation.AnimationTirFeu;
->>>>>>> parent of a593e8e... refact animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -31,9 +25,9 @@ public class ArmesDeBase extends ArmeJoueur implements Poolable{
 	public static int HAUTEUR;
 	public static int DEMI_HAUTEUR; 
 	public static final float CADENCETIR = .11f;
-	private final int FORCE = 8;
+	private static final int FORCE = 8;
 	public static Pool<ArmesDeBase> pool = Pools.get(ArmesDeBase.class);
-	private float tpsAnimation = 0;
+	
 	public static float[] couleurs = {
 		AssetMan.convertARGB(1, 108f/255f, 4f/255f, 0),
 		AssetMan.convertARGB(1, 156f/255f, 8f/255f, 0),
@@ -61,43 +55,29 @@ public class ArmesDeBase extends ArmeJoueur implements Poolable{
 		position.x = posX;
 		position.y = posY;
 		liste.add(this);
-		direction.y = 1;
+		direction.y = Stats.V_ARME_DE_BASE;
 	}
-
-	@Override
-	public void reset() {	}
 
 	@Override
 	public void afficher(SpriteBatch batch) {
 		Particules.ajoutArmeDeBase(this);
-		tpsAnimation += Endless.delta;
-		batch.draw(AnimationTirFeu.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, HAUTEUR);
-	}
-	
-	@Override
-	public boolean mouvementEtVerif() {
-		if (Physique.mouvementDeBase(direction, position, Stats.VITESSE_MAX_ARME_DE_BASE, HAUTEUR, LARGEUR)) return true;
-		free();
-		return false;
+		super.afficher(batch);
 	}
 
 	@Override
-	public int getForce() {		return FORCE + CSG.profil.NvArmeDeBase;	}
+	public int getForce() {				return FORCE + CSG.profil.NvArmeDeBase;	}
 	@Override
-	public int getLargeur() {		return LARGEUR;	}
+	public int getLargeur() {			return LARGEUR;	}
 	@Override
-	public int getHauteur() {		return HAUTEUR;	}
-
+	public int getHauteur() {			return HAUTEUR;	}
 	@Override
-	public void free() {
-		pool.free(this);
-	}
-
+	public void free() {				pool.free(this);	}
 	@Override
-	public boolean testCollsionAdds() {	return false;	}
-	
+	public float getColor() {			return couleurs[r.nextInt(couleurs.length)];	}
 	@Override
-	public float getColor() {
-		return couleurs[r.nextInt(couleurs.length)];
-	}	
+	public TextureRegion getTexture() {	return AnimationTirFeu.getTexture(maintenant);	}
+	@Override
+	public float getDemiLargeur() {		return DEMI_LARGEUR;	}
+	@Override
+	public float getDemiHauteur() {		return DEMI_HAUTEUR;	}
 }

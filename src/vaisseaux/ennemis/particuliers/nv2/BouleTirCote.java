@@ -4,8 +4,8 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
-import vaisseaux.armes.ArmeBouleTir;
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.ArmeBouleTir;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
 import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
@@ -61,18 +61,23 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 
 	private void placement() {
 		direction.x = 0;
-		direction.y = getVitesse();
+		direction.y = -getVitesse();
 		prochainTir = 1;
 		numeroTir = 1;
 		Positionnement.hautMoyen(this);
 		angle = CSG.DEMI_LARGEUR_ZONE_JEU - (position.x + LARGEUR*2);
 		angle /= 4;
 		direction.rotate(angle);
-		angle += -90;
+		angle += 180;
 	}
 
+	@Override
+	protected float getAngle() {
+		return angle;
+	}
+	
 	protected float getVitesse() {
-		return Stats.VITESSE_BOULE_TIR_COTE;
+		return Stats.V_BOULE_TIR_COTE;
 	}
 
 	public void reset() {
@@ -108,7 +113,7 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 
 	public void invoquer() {		liste.add(pool.obtain());	}
 
-	public Armes getArme() {		return ArmeBouleTir.pool.obtain();	}
+	public ArmeEnnemi getArme() {		return ArmeBouleTir.pool.obtain();	}
 
 
 	public Vector2 getPositionDuTir(int numeroTir) {

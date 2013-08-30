@@ -25,7 +25,7 @@ public class BonusBombe extends Bonus implements Poolable{
 		tps += Endless.delta;
 		batch.draw(AssetMan.bombe, posX, posY, LARGEUR, LARGEUR);
 		// Le fait descendre
-		posY += -(Stats.VITESSE_BONUS_BOMBE+(tps*15)) * Endless.delta;
+		posY += -(Stats.V_BONUS_BOMBE+(tps*15)) * Endless.delta;
 		return true;
 	}
 

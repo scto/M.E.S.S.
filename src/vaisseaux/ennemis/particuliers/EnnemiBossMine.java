@@ -5,16 +5,15 @@ import java.util.Random;
 import jeu.Endless;
 import jeu.Stats;
 import menu.CSG;
-import vaisseaux.armes.ArmeBossMine;
-import vaisseaux.armes.ArmeMine;
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.ArmeBossMine;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
+import vaisseaux.armes.ennemi.ArmeMine;
 import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
-import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
+import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.AnimationBossMine;
-import assets.animation.AnimationExplosion1;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,7 +29,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = LARGEUR * 4;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
-	public static final Tirs tirPhase1 = new Tirs(ArmeBossMine.CADENCETIR);
+	public static final Tirs tirPhase1 = new Tirs(.1f);
 	public static final Tirs tirPhase2 = new Tirs(ArmeMine.CADENCETIR);
 	// ** ** caracteristiques variables.
 	private static final Vector2 tmpDirectionTir = new Vector2();
@@ -52,7 +51,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_BOSS_MINE + (CSG.profil.getCoutUpArme() / 30);
+		return Stats.PV_BOSS_MINE + (CSG.profil.getCoutUpArme() / 30);
 	}
 
 	protected void free() {
@@ -80,7 +79,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 
 	public boolean mouvementEtVerif() {
 		if (phase == 1){
-			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3 | dirY < 1) 	position.y -= (dirY * Stats.VITESSE_KINDER * Endless.delta);
+			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3 | dirY < 1) 	position.y -= (dirY * Stats.V_ENN_KINDER * Endless.delta);
 			if (dirY < 1)	dirY += 30 * Endless.delta;
 		} else {
 			if (angle < 180) angle += Endless.delta * 100;
@@ -94,7 +93,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 
 	public void afficher(SpriteBatch batch) {
 		maintenant += Endless.delta;
-			if (pv > Stats.DEUXTIERS_PVMAX_BOSS_MINE)			batch.draw(AnimationBossMine.getTexture(pv), position.x, position.y, LARGEUR, HAUTEUR);
+			if (pv > Stats.DEUXTIERS_PV_BOSS_MINE)			batch.draw(AnimationBossMine.getTexture(pv), position.x, position.y, LARGEUR, HAUTEUR);
 			else 	batch.draw(AnimationBossMine.getTexture(pv), position.x, position.y,
 					// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 					DEMI_LARGEUR,DEMI_HAUTEUR,
@@ -131,7 +130,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	
 
 	public boolean touche(int force) {
-		if (pv > Stats.DEUXTIERS_PVMAX_BOSS_MINE) {
+		if (pv > Stats.DEUXTIERS_PV_BOSS_MINE) {
 			phase = 1;
 		} else if (phase != 2) {
 			// pour lui laisser le temps de se retourner
@@ -152,7 +151,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 
 	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
 
-	public Armes getArme() {
+	public ArmeEnnemi getArme() {
 		if (phase == 1) {
 			return ArmeBossMine.pool.obtain();
 		}
@@ -189,6 +188,6 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	}
 	
 	@Override
-	public float getDirectionY() {		return -dirY * Stats.VITESSE_KINDER;	}
+	public float getDirectionY() {		return -dirY * Stats.V_ENN_KINDER;	}
 }
 

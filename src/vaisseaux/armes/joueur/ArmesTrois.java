@@ -1,12 +1,12 @@
 package vaisseaux.armes.joueur;
 
-import vaisseaux.armes.Armes;
-import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import assets.AssetMan;
+import assets.particules.Particules;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -22,15 +22,14 @@ public class ArmesTrois extends ArmeJoueur implements Poolable{
 	public static int LARGEUR;
 	public static int DEMI_LARGEUR;
 	public static final float CADENCETIR = .12f;
-	private final int FORCE = 4;
+	private static final int FORCE = 4;
 	public static Pool<ArmesTrois> pool = Pools.get(ArmesTrois.class);
-	private float angle = 0;
 	public static float[] couleurs = {
-		AssetMan.convertARGB(1, 97f, 32f, 79f),
-		AssetMan.convertARGB(1, 156f, 51f, 126f),
-		AssetMan.convertARGB(1, 190f, 63f, 154f),
-		AssetMan.convertARGB(1, 181f, 60f, 147f),
-		AssetMan.convertARGB(1, 220f, 151f, 201f)};
+		AssetMan.convertARGB(1, 97f/255f, 32f/255f, 79f/255f),
+		AssetMan.convertARGB(1, 156f/255f, 51f/255f, 126f/255f),
+		AssetMan.convertARGB(1, 190f/255f, 63f/255f, 154f/255f),
+		AssetMan.convertARGB(1, 181f/255f, 60f/255f, 147f/255f),
+		AssetMan.convertARGB(1, 220f/255f, 151f/255f, 201f/255f)};
 
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeTrois);
@@ -42,44 +41,31 @@ public class ArmesTrois extends ArmeJoueur implements Poolable{
 		position.y = posY;
 		direction.x = d;
 		direction.y = e;
+		direction.mul(Stats.V_ARME_TROIS);
 		this.angle = angle;
 		liste.add(this);
 	}
 
 	@Override
-	public void reset() {	}
-
-	@Override
 	public void afficher(SpriteBatch batch) {
+		Particules.armeTrois(this);
 		batch.draw(AssetMan.laser , position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR,	LARGEUR, LARGEUR, 1, 1,	angle, false);
-	}
-	
-	@Override
-	public boolean mouvementEtVerif() {
-		if (Physique.mouvementDeBase(direction, position, Stats.VITESSE_MAX_ARME_DE_BASE, LARGEUR)) return true;
-		free();
-		return false;
 	}
 
 	@Override
 	public int getForce() {		return FORCE + CSG.profil.NvArmeTrois;	}
-
 	@Override
 	public int getLargeur() {		return LARGEUR;	}
-
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
-	
 	@Override
-	public void free() {
-		pool.free(this);
-	}
-
+	public void free() {			pool.free(this);	}
 	@Override
-	public boolean testCollsionAdds() {		return false;	}
-
+	public float getColor() {		return couleurs[r.nextInt(couleurs.length)];	}
 	@Override
-	public float getColor() {
-		return couleurs[r.nextInt(couleurs.length)];
-	}
+	public TextureRegion getTexture() {	return AssetMan.laser;	}
+	@Override
+	public float getDemiLargeur() {		return DEMI_LARGEUR;	}
+	@Override
+	public float getDemiHauteur() {		return DEMI_LARGEUR;	}
 }

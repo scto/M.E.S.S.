@@ -4,14 +4,15 @@ import jeu.Endless;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
-import vaisseaux.armes.ArmeBalayageEnnemiQuiTourne;
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
+import vaisseaux.armes.ennemi.BouleBleu;
 import vaisseaux.armes.typeTir.TireurPlusieurFois;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
 import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiTourne;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -23,12 +24,11 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	// ** ** caracteristiques g�n�rales
 	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 13;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final float CADENCE_TIR = .2f;
+	public static final float CADENCE_TIR = .1f;
 	public static final Tirs TIR = new Tirs(CADENCE_TIR);
-	protected Vector2 direction = new Vector2(0,-getVitesse());
+	protected Vector2 direction;
 	public static Pool<QuiTourne> pool = Pools.get(QuiTourne.class);
-	// ******************************************** T I R ********************************************************************
-	private float prochainTir = 0;
+	protected float prochainTir = 0;
 	private int numeroTir = 0;
 
 	/**
@@ -38,11 +38,12 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 		super();
 		Positionnement.hautLarge(position, getLargeur(), getHauteur());
 		prochainTir = 2;
+		direction = new Vector2(0,-getVitesse());
 	}
 	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_QUI_TOURNE;
+		return Stats.PV_QUI_TOURNE;
 	}
 	
 	@Override
@@ -75,16 +76,14 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	
 	@Override
 	protected float getVitesse() {
-		return Stats.VITESSE_QUI_TOURNE;
+		return Stats.V_ENN_QUI_TOURNE;
 	}
 	protected float getDemiVitesse() {
-		return Stats.DEMI_VITESSE_QUI_TOURNE;
+		return Stats.DEMI_V_ENN_QUI_TOURNE;
 	}
 
 	@Override
-	protected void tir() {
-		TIR.tirEnRafale(this, 3, mort, maintenant, prochainTir);
-	}
+	protected void tir() {		TIR.tirEnRafale(this, 4, mort, maintenant, prochainTir);	}
 
 	@Override
 	public int getXp() {
@@ -112,7 +111,7 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	}
 	
 	@Override
-	public Armes getArme() {			return ArmeBalayageEnnemiQuiTourne.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return BouleBleu.pool.obtain();	}
 	@Override
 	public void setProchainTir(float f) {		prochainTir = f;	}
 	@Override
@@ -124,8 +123,8 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = (position.x + DEMI_LARGEUR - ArmeBalayageEnnemiQuiTourne.DEMI_LARGEUR);
-		tmpPos.y = (position.y + DEMI_LARGEUR - ArmeBalayageEnnemiQuiTourne.DEMI_LARGEUR);
+		tmpPos.x = (position.x + DEMI_LARGEUR - BouleBleu.DEMI_LARGEUR);
+		tmpPos.y = (position.y + DEMI_LARGEUR - BouleBleu.DEMI_LARGEUR);
 		return tmpPos;
 	}
 

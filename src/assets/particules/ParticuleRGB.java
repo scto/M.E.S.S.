@@ -2,12 +2,11 @@ package assets.particules;
 
 import assets.AssetMan;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class ParticuleRGB extends Particule {
 	
-	protected float color;
+	protected float color, angle, vitesseAngle;
 	
 	protected void flammes() {
 		

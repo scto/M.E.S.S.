@@ -3,16 +3,14 @@ package vaisseaux.ennemis.particuliers;
 import jeu.Endless;
 import jeu.Stats;
 import menu.CSG;
-import vaisseaux.armes.ArmeBossQuad;
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.BouleFeu;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
 import vaisseaux.armes.typeTir.Tireur;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
 import assets.animation.AnimationBossQuad;
-import assets.animation.AnimationExplosion1;
-
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -44,8 +42,6 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	private float dirX = -2;
 	// tourelles
 	private boolean explosionTourellesCentre = false; 
-	private float tpsExplosionTourellesCentre = 0;
-	private int largeurExplosionTourelle = (int) (ArmeBossQuad.LARGEUR * 1.5);
 	private int phase = 1;
 	
 	public static int divisionPv = 27;
@@ -54,7 +50,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 		tirPhase1 = new Tirs(.9f - (0.09f * level));
 		tirPhase2 = new Tirs(.5f - (0.05f * level));
 		tirPhase3 = new Tirs(.3f - (0.03f * level));
-		PV_MAX = Stats.PVMAX_BOSS_QUAD * level;
+		PV_MAX = Stats.PV_BOSS_QUAD * level;
 		PV_MAX_PHASE2 = PV_MAX / 3 * 2;
 		PV_MIN_PHASE2 = PV_MAX / 3;
 	}
@@ -70,19 +66,14 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	}
 	
 	@Override
-	protected int getPvMax() {
-		return PV_MAX;
-	}
+	protected int getPvMax() {		return PV_MAX;	}
 
-	protected Sound getSonExplosion() {
-		return SoundMan.explosionGrosse;
-	}
+	protected Sound getSonExplosion() {		return SoundMan.explosionGrosse;	}
 	
 	/**
 	 * Ajoute � la liste
 	 */
 	public void init() {
-		tpsExplosionTourellesCentre = 0;
 		position.x = CSG.DEMI_LARGEUR_ECRAN - DEMI_LARGEUR;
 		position.y = CSG.HAUTEUR_ECRAN;
 	}
@@ -103,11 +94,11 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	 */
 
 	public boolean mouvementEtVerif() {
-		if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_2 | dirY < 1) 	position.y -= (dirY * Stats.VITESSE_BOSS_QUAD * Endless.delta);
+		if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_2 | dirY < 1) 	position.y -= (dirY * Stats.V_ENN_BOSS_QUAD * Endless.delta);
 		if (dirY < 1) 												dirY += 30 * Endless.delta;
 		if (position.x + DEMI_LARGEUR > CSG.DEMI_LARGEUR_ZONE_JEU)	dirX -= 4 * Endless.delta;
 		else														dirX += 4 * Endless.delta;
-		position.x += dirX * Stats.VITESSE_BOSS_QUAD * Endless.delta;
+		position.x += dirX * Stats.V_ENN_BOSS_QUAD * Endless.delta;
 		return super.mouvementEtVerif();
 	}
 
@@ -116,18 +107,8 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	 */
 
 	public void afficher(SpriteBatch batch) {
-		if (mort) {
-			batch.draw(AnimationExplosion1.getTexture(tpsAnimationExplosion), position.x, position.y, LARGEUR, LARGEUR);
-			tpsAnimationExplosion += Endless.delta;
-		} else {
-			batch.draw(AnimationBossQuad.getTexture(phase), position.x, position.y, LARGEUR, HAUTEUR);
-			maintenant += Endless.delta;
-		}
-		if (explosionTourellesCentre && tpsExplosionTourellesCentre < AnimationExplosion1.tpsTotalAnimationExplosion1) {
-			batch.draw(AnimationExplosion1.getTexture(tpsExplosionTourellesCentre), position.x + DECALAGE_ARME_3, position.y , largeurExplosionTourelle, largeurExplosionTourelle);
-			batch.draw(AnimationExplosion1.getTexture(tpsExplosionTourellesCentre), position.x + DECALAGE_ARME_2, position.y , largeurExplosionTourelle, largeurExplosionTourelle);
-			tpsExplosionTourellesCentre += Endless.delta;
-		}
+		batch.draw(AnimationBossQuad.getTexture(phase), position.x, position.y, LARGEUR, HAUTEUR);
+		maintenant += Endless.delta;
 	}
 	
 
@@ -181,7 +162,7 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 		return DEMI_LARGEUR;
 	}
 
-	public Armes getArme() {			return ArmeBossQuad.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return BouleFeu.pool.obtain();	}
 	
 
 	public void setProchainTir(float f) {		prochainTir = f;	}
@@ -200,20 +181,20 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 			tmpPos.y = position.y - DECALAGE_ARME_EXTERIEUR_Y;
 			break;
 		case 2:
-			tmpPos.x = position.x + LARGEUR - ArmeBossQuad.LARGEUR;
+			tmpPos.x = position.x + LARGEUR - BouleFeu.LARGEUR;
 			tmpPos.y = position.y - DECALAGE_ARME_EXTERIEUR_Y;
 			break;
 		case 3:
 			tmpPos.x = position.x + DECALAGE_ARME_3;
-			tmpPos.y = position.y - ArmeBossQuad.DEMI_HAUTEUR;
+			tmpPos.y = position.y - BouleFeu.DEMI_HAUTEUR;
 			break;
 		case 4:
 			tmpPos.x = position.x + DECALAGE_ARME_2;
-			tmpPos.y = position.y - ArmeBossQuad.DEMI_HAUTEUR;
+			tmpPos.y = position.y - BouleFeu.DEMI_HAUTEUR;
 			break;
 		default:
-			tmpPos.x = position.x + DEMI_LARGEUR - ArmeBossQuad.DEMI_LARGEUR;
-			tmpPos.y = position.y - ArmeBossQuad.DEMI_HAUTEUR;
+			tmpPos.x = position.x + DEMI_LARGEUR - BouleFeu.DEMI_LARGEUR;
+			tmpPos.y = position.y - BouleFeu.DEMI_HAUTEUR;
 			break;
 		}
 		return tmpPos;

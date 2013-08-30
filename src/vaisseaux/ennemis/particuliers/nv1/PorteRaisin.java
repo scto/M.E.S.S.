@@ -4,8 +4,8 @@ import jeu.Endless;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
-import vaisseaux.armes.ArmeBouleEnergie;
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.ArmeBouleEnergie;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
 import vaisseaux.armes.typeTir.TireurPlusieurFois;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
@@ -48,7 +48,7 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_PORTE_RAISIN;
+		return Stats.PV_PORTE_RAISIN;
 	}
 	@Override
 	protected Sound getSonExplosion() {
@@ -70,13 +70,13 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 
 	@Override
 	public boolean mouvementEtVerif() {
-		position.y -= (Stats.VITESSE_PORTE_RAISIN * Endless.delta);
+		position.y -= (Stats.V_ENN_PORTE_RAISIN * Endless.delta);
 		return super.mouvementEtVerif();
 	}
 	
 	@Override
 	protected TextureRegion getTexture() {
-		if (pv > Stats.PVMAX_PORTE_RAISIN_AMOCHE)	return AssetMan.porteraisin;
+		if (pv > Stats.PV_PORTE_RAISIN_AMOCHE)	return AssetMan.porteraisin;
 		else										return AssetMan.porteraisinamoche;
 	}
 	
@@ -111,7 +111,7 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	}
 
 	@Override
-	public Armes getArme() {			return ArmeBouleEnergie.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return ArmeBouleEnergie.pool.obtain();	}
 
 	@Override
 	public void setProchainTir(float f) {
@@ -157,7 +157,7 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	
 	@Override
 	public float getDirectionY() {
-		return -Stats.VITESSE_PORTE_RAISIN;
+		return -Stats.V_ENN_PORTE_RAISIN;
 	}
 
 }

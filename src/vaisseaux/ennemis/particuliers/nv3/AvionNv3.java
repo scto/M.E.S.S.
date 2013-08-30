@@ -21,9 +21,9 @@ public class AvionNv3 extends Avion {
 	}
 	
 	@Override
-	protected int getPvMax() {			return Stats.PVMAX_AVION3;	}
+	protected int getPvMax() {			return Stats.PV_AVION3;	}
 	@Override
-	protected float getVitesse() {		return Stats.VITESSE_AVION3;	}
+	protected float getVitesse() {		return Stats.V_ENN_AVION3;	}
 	@Override
 	public float getModifVitesse() {	return 1.3f;		}
 	@Override

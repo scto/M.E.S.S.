@@ -26,7 +26,7 @@ public class BonusTemps extends Bonus implements Poolable{
 		tps += Endless.delta;
 		batch.draw(AssetMan.temps, posX, posY, LARGEUR, LARGEUR);
 		// Le fait descendre
-		posY += -Stats.VITESSE_BONUS * Endless.delta;
+		posY += -Stats.V_BONUS * Endless.delta;
 		// le fait aller � gauche ou � droite de plus en plus suivant le temps �coul�
 		if (posX < CSG.DEMI_LARGEUR_ZONE_JEU)	posX -= ( (tps*tps) * Endless.delta);
 		else								posX += ( (tps*tps) * Endless.delta);

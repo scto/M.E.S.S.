@@ -28,11 +28,11 @@ public class XP extends Bonus implements Poolable{
 
 	@Override
 	boolean afficherEtMvt(SpriteBatch batch) {
-		if (valeur < 49) batch.draw(AssetMan.XP, posX, posY,	LARGEUR, LARGEUR);
-		else batch.draw(AssetMan.XP2, posX, posY,	LARGEUR, LARGEUR);
+		if (valeur < 49) batch.draw(AssetMan.XP, posX, posY, LARGEUR, LARGEUR);
+		else batch.draw(AssetMan.XP2, posX, posY, LARGEUR, LARGEUR);
 		tps += Endless.delta;
 		// Le fait descendre
-		posY -= Stats.VITESSE_BONUS * Endless.delta;
+		posY -= Stats.V_BONUS * Endless.delta;
 		// le fait aller � gauche ou � droite de plus en plus suivant le temps �coul�
 		if (gauche)		posX -= ( (tps*tps) * Endless.delta);
 		else			posX += ( (tps*tps) * Endless.delta);

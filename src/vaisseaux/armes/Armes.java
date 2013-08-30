@@ -1,79 +1,89 @@
 package vaisseaux.armes;
 
+import jeu.Endless;
 import jeu.Physique;
 import vaisseaux.Vaisseaux;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
 import vaisseaux.armes.joueur.ArmeJoueur;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 public abstract class Armes extends Vaisseaux implements Poolable{
 	
-	public static Array<ArmeJoueur> liste = new Array<ArmeJoueur>(false, 30);
-	public static Array<Armes> listeTirsDesEnnemis = new Array<Armes>(false, 30);
+	public static Array<ArmeJoueur> liste = new Array<ArmeJoueur>(false, 50);
+	public static Array<ArmeEnnemi> listeTirsDesEnnemis = new Array<ArmeEnnemi>(false, 50);
 	public Vector2 direction = new Vector2();
 	private static boolean testCollision = false;
-	protected float angle = 0;
-	
-	/**
-	 * Initialise les vecteurs sans rien de pr�cis
-	 */
-	public Armes() {
-		this.position = new Vector2();
-	}
+	public float angle = 0, maintenant = 0;
 
-	public boolean testCollisionVaisseau() {
-		return Physique.pointDansVaisseau(position, getLargeur(), getHauteur());
-	}
-	
-	public boolean testCollsionAdds() {
-		return Physique.testCollisionAdds(position, getLargeur(), getHauteur());
-	}
-
-	public static void affichageEtMouvementSansParticules(SpriteBatch batch) {
+	public static void affichageEtMouvement(SpriteBatch batch) {
 		for (ArmeJoueur a : liste) {
 			a.afficher(batch);
-			if (a.mouvementEtVerif() == false)			liste.removeValue(a, true);
+			if (a.mouvementEtVerif() == false) {
+				liste.removeValue(a, true);
+				a.free();
+			}
 		}
+		
 		testCollision = !testCollision;
-		for (Armes a : listeTirsDesEnnemis) {
+		for (ArmeEnnemi a : listeTirsDesEnnemis) {
 			a.afficher(batch);
 			if (testCollision) {
-				if (a.testCollisionVaisseau() == true) {
-					listeTirsDesEnnemis.removeValue(a, true);
-					a.free();
+				if (a.testCollisionVaisseau()) {
+					enlever(a);
 					break;
 				}
-			} else if (a.testCollsionAdds()) { // Si elle a touché un add on la vire
-				listeTirsDesEnnemis.removeValue(a, true);
-				a.free();
+			} else if (a.testCollsionAdds()) {
+				enlever(a);
 				break;
 			}
-			if (a.mouvementEtVerif() == false)			listeTirsDesEnnemis.removeValue(a, true);
+			if (a.mouvementEtVerif() == false) {
+				enlever(a);
+			}
 		}
 	}
 
-	abstract public void afficher(SpriteBatch batch);
+	private static void enlever(ArmeEnnemi a) {
+		listeTirsDesEnnemis.removeValue(a, true);
+		a.free();
+	}
+
+	public void afficher(SpriteBatch batch) {
+		maintenant += Endless.delta;
+		batch.draw(getTexture(), position.x, position.y,
+		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
+		getDemiLargeur(), getDemiHauteur(),
+		// LARGEUR DU RECTANGLE AFFICHE		HAUTEUR DU RECTANGLE
+		getLargeur(), getHauteur(),
+		//scaleX the scale of the rectangle around originX/originY in x ET Y
+		1,1,
+		// L'ANGLE DE ROTATION
+		angle,
+		//FLIP OU PAS
+		false);
+	}
+	
+	abstract public TextureRegion getTexture();
+	abstract public float getDemiLargeur();
+	abstract public float getDemiHauteur();
 	
 	/**
 	 * Fait bouger les objets et les enl�ves si ils ne sont plus � l'�cran
 	 * @param batch
-	 * return false si on doit le virer de la liste
+	 * return false si on doit le virer de la liste et appeler free()
 	 */
-	abstract public boolean mouvementEtVerif();
+	public boolean mouvementEtVerif() {
+		return Physique.mouvementDeBase(getLargeur(), getHauteur(), direction, position);
+	}
 
-	public static void affichageSansParticules(SpriteBatch batch) {
+	public static void affichage(SpriteBatch batch) {
 		for (ArmeJoueur a : liste)				a.afficher(batch);
 		for (Armes a : listeTirsDesEnnemis)		a.afficher(batch);
 	}
-	/**
-	 * Retourne la force de l'arme
-	 * Si on a besoin de la force c'est qu'on peut la virer sans doute.. ? En tout cas pour le moment oui ! Donc free
-	 * @return FORCE
-	 */
-	public abstract int getForce();
 
 	/**
 	 * necessaire pour tester les collisions des balles ennemies avec le centre du vaisseau
@@ -89,7 +99,9 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 	/**
 	 * Methode appel�e par Physique quand la balle touche un ennemi
 	 */
-	public abstract void reset();
+	public void reset() {
+		maintenant = 0;
+	}
 
 	public abstract void free();
 
@@ -97,51 +109,12 @@ public abstract class Armes extends Vaisseaux implements Poolable{
 		return direction;
 	}
 
-	public void init(Vector2 position, float dEMI_LARGEUR, float demiHauteur, float modifVitesse) {
-		this.position.x = position.x + dEMI_LARGEUR - getLargeur() / 2;
-		this.position.y = position.y + demiHauteur - getHauteur() / 2;
-		listeTirsDesEnnemis.add(this);
-	}
-
-
-	public void init(Vector2 position, float modifVitesse) {
-		this.position.x = position.x;
-		this.position.y = position.y;
-		this.direction.x = 0;
-		this.direction.y = -1 * modifVitesse;
-		System.out.println(direction.y);
-		listeTirsDesEnnemis.add(this);
-	}
-
-	public void init(Vector2 position, float modifVitesse, float angle, Vector2 direction) {
-		this.position.x = position.x;
-		this.position.y = position.y;
-		this.direction.x = direction.x * modifVitesse;
-		this.direction.y = direction.y * modifVitesse;
-		this.angle = angle;
-		listeTirsDesEnnemis.add(this);
-	}
-
-	public void init(Vector2 position, Vector2 direction) {
-		this.position.x = position.x;
-		this.position.y = position.y;
-		this.direction.x = direction.x;
-		this.direction.y = direction.y;
-		listeTirsDesEnnemis.add(this);
-	}
-	
-	public void init(Vector2 position, Vector2 direction, float modifVitesse) {
-		this.position.x = position.x;
-		this.position.y = position.y;
-		this.direction.x = direction.x * modifVitesse;
-		this.direction.y = direction.y * modifVitesse;
-		listeTirsDesEnnemis.add(this);
-	}
-
 	public static void clear() {
-		for(Armes a : liste) a.free();
-		for(Armes a : listeTirsDesEnnemis) a.free();
+		for (Armes a : liste) a.free();
 		liste.clear();
+		for (Armes a : listeTirsDesEnnemis) a.free();
 		listeTirsDesEnnemis.clear();
 	}
+
+
 }

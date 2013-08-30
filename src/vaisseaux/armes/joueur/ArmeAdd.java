@@ -1,24 +1,14 @@
 package vaisseaux.armes.joueur;
 
-<<<<<<< HEAD
-=======
 import vaisseaux.armes.Armes;
-import jeu.Endless;
->>>>>>> parent of a593e8e... refact animation
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-import vaisseaux.armes.Armes;
 import assets.AssetMan;
-import assets.animation.AnimationTirAdd;
-<<<<<<< HEAD
 import assets.particules.Particules;
 
-=======
-import assets.animation.AnimationTirFeu;
-import com.badlogic.gdx.graphics.Color;
->>>>>>> parent of a593e8e... refact animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -37,8 +27,6 @@ public class ArmeAdd extends ArmeJoueur implements Poolable{
 	public static float CADENCETIR;
 	private static final int FORCE = 5;
 	public static Pool<ArmeAdd> pool = Pools.get(ArmeAdd.class);
-	// ** ** animation
-	public float angle;
 	public static float[] couleurs = {
 		AssetMan.convertARGB(1, 27f/255f, 124f/255f, 0),
 		AssetMan.convertARGB(1, 38f/255f, 178f/255f, 0),
@@ -57,6 +45,7 @@ public class ArmeAdd extends ArmeJoueur implements Poolable{
 		direction.rotate(angle + 90);
 		position.x += direction.x * 25;
 		position.y += direction.y * 25;
+		direction.mul(Stats.V_ARME_ADD);
 		this.angle = angle;
 		Armes.liste.add(this);
 	}
@@ -65,39 +54,30 @@ public class ArmeAdd extends ArmeJoueur implements Poolable{
 	public void reset() {			}
 
 	@Override
-	public void afficher(SpriteBatch batch) {
-		batch.draw(AnimationTirAdd.getTexture(), position.x, position.y, DEMI_LARGEUR, DEMI_HAUTEUR, LARGEUR, HAUTEUR, 1.5f,0.5f, angle, false);
-	}
+	public void afficher(SpriteBatch batch) {	}
 
 	@Override
 	public boolean mouvementEtVerif() {
 		Particules.ajoutAdd(this);
-		if (Physique.mouvementDeBase(direction, position, Stats.VITESSE_MAX_ARME_ADD, HAUTEUR, LARGEUR))		return true;
-		free();
-		return false;
+		return Physique.mouvementDeBase(HAUTEUR, LARGEUR, direction, position);
 	}
 	
 	@Override
 	public int getForce() {		return FORCE;	}
-	
 	@Override
-	public int getLargeur() {		return LARGEUR;	}
-
+	public int getLargeur() {	return LARGEUR;	}
 	@Override
-	public int getHauteur() {		return HAUTEUR;	}
-
+	public int getHauteur() {	return HAUTEUR;	}
 	@Override
-	public void free() {
-		pool.free(this);
-	}
-
+	public void free() {		pool.free(this);	}
 	@Override
-	public boolean testCollsionAdds() {		return false;	}
-
+	public float getColor() {	return couleurs[r.nextInt(couleurs.length)];	}
 	@Override
-	public float getColor() {
-		return couleurs[r.nextInt(couleurs.length)];
-	}
+	public TextureRegion getTexture() {		return null;	}
+	@Override
+	public float getDemiLargeur() {		return DEMI_LARGEUR;	}
+	@Override
+	public float getDemiHauteur() {		return DEMI_HAUTEUR;	}
 
 }
 

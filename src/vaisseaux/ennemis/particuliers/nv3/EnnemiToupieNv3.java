@@ -27,7 +27,7 @@ public class EnnemiToupieNv3 extends Toupie {
 	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_TOUPIE3;
+		return Stats.PV_TOUPIE3;
 	}
 	
 	@Override

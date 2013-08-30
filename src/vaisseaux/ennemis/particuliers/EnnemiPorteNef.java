@@ -1,13 +1,11 @@
 package vaisseaux.ennemis.particuliers;
 
 import jeu.Endless;
-import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
 import assets.SoundMan;
-import assets.animation.AnimationExplosion1;
 import assets.animation.AnimationPorteNef;
 
 import com.badlogic.gdx.audio.Sound;
@@ -63,7 +61,7 @@ public class EnnemiPorteNef extends Ennemis{
 	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_PORTE_NEF + (CSG.profil.getCoutUpArme() / 35);
+		return Stats.PV_PORTE_NEF + (CSG.profil.getCoutUpArme() / 35);
 	}
 
 	protected void free() {
@@ -75,7 +73,7 @@ public class EnnemiPorteNef extends Ennemis{
 	 */
 
 	public boolean mouvementEtVerif() {
-		position.x += dirX * Endless.delta * Stats.VITESSE_MAX_PORTE_NEF;
+		position.x += dirX * Endless.delta * Stats.V_ENN_PORTE_NEF;
 		if (!mort)			lancerEnnemi();
 		return super.mouvementEtVerif();
 	}

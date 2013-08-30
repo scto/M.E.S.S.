@@ -1,13 +1,12 @@
 package vaisseaux.ennemis.particuliers.nv1;
 
-import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
-import vaisseaux.armes.Armes;
-import vaisseaux.armes.ArmesBouleBleu;
-import vaisseaux.armes.ArmesBouleVerte;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
+import vaisseaux.armes.ennemi.ArmesBouleBleu;
+import vaisseaux.armes.ennemi.BouleBleueRapide;
 import vaisseaux.armes.typeTir.Tireur;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
@@ -48,14 +47,14 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	
 	@Override
 	public boolean mouvementEtVerif() {
-		Physique.mvtArretHauteur(position, Stats.VITESSE_BOULE_QUI_SARRETE, maintenant);
+		Physique.mvtArretHauteur(position, Stats.V_ENN_BOULE_QUI_SARRETE, maintenant);
 		return super.mouvementEtVerif();
 	}
 
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = (position.x + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR);
-		tmpPos.y = (position.y + DEMI_LARGEUR - ArmesBouleVerte.DEMI_LARGEUR);
+		tmpPos.x = (position.x + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR);
+		tmpPos.y = (position.y + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR);
 		return tmpPos;
 	}
 	
@@ -82,7 +81,7 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	@Override
 	public int getDemiLargeur() {			return DEMI_LARGEUR;	}
 	@Override
-	public Armes getArme() {				return ArmesBouleBleu.pool.obtain();	}
+	public ArmeEnnemi getArme() {				return ArmesBouleBleu.pool.obtain();	}
 	@Override
 	public void setProchainTir(float f) {	prochainTir = f;	}
 	@Override
@@ -95,9 +94,9 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
 				return -50;
 		} else {
-			return -Stats.VITESSE_BOULE_QUI_SARRETE;
+			return -Stats.V_ENN_BOULE_QUI_SARRETE;
 		}
-		return -Stats.VITESSE_BOULE_QUI_SARRETE;
+		return -Stats.V_ENN_BOULE_QUI_SARRETE;
 	}
 	
 	@Override
@@ -105,7 +104,7 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
 			return 0;
 		} else {
-			return -Stats.VITESSE_BOULE_QUI_SARRETE;
+			return -Stats.V_ENN_BOULE_QUI_SARRETE;
 		}
 	}
 }

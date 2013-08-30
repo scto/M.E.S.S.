@@ -4,15 +4,16 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
-import vaisseaux.armes.Armes;
-import vaisseaux.armes.ArmesFragmentation;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
+import vaisseaux.armes.ennemi.ArmesFragmentation;
 import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
-import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
+import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.AnimationCylon;
 import assets.animation.AnimationCylonCasse;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -26,7 +27,7 @@ public class Cylon extends Ennemis implements TireurAngle {
 	public static final float DEMI_LARGEUR = LARGEUR/2;
 	private Vector2 direction = new Vector2(0,-1);
 	public static Pool<Cylon> pool = Pools.get(Cylon.class);
-	public static final float CADENCE = 3f, VITESSE = Stats.VITESSE_CYLON;
+	public static final float CADENCE = 3f, VITESSE = Stats.V_ENN_CYLON;
 	public static final Tirs tir = new Tirs(CADENCE);
 	// ******************************************** T I R ********************************************************************
 	private float prochainTir = 3f;
@@ -91,7 +92,7 @@ public class Cylon extends Ennemis implements TireurAngle {
 	public int getDemiLargeur() {		return (int)DEMI_LARGEUR;	}
 	
 
-	public Armes getArme() {			return ArmesFragmentation.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return ArmesFragmentation.pool.obtain();	}
 	
 
 	public void setProchainTir(float f) {		prochainTir = f;	}
@@ -105,7 +106,7 @@ public class Cylon extends Ennemis implements TireurAngle {
 
 	public Vector2 getDirectionTir() {			return direction;	}
 
-	protected int getPvMax() {					return Stats.PVMAX_CYLON;	}
+	protected int getPvMax() {					return Stats.PV_CYLON;	}
 
 	protected Sound getSonExplosion() {			return SoundMan.explosioncylon;	}
 

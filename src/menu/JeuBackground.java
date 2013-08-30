@@ -23,8 +23,8 @@ public class JeuBackground {
 	public void render(SpriteBatch batch, float delta) {
 		Endless.maintenant += delta;
 		Ennemis.affichageEtMouvement(batch);
-		vaisseau.drawSansParticules(batch);
-		Armes.affichageEtMouvementSansParticules(batch);
+		vaisseau.draw(batch);
+		Armes.affichageEtMouvement(batch);
 		
 		// ** ** ** ** ** UPDATE ** ** ** ** **
 		Endless.delta = delta;
@@ -37,7 +37,7 @@ public class JeuBackground {
 			Physique.testCollisions();
 			vaisseau.tir();
 		}
-		if (VaisseauType1.position.y > VaisseauType1.HAUTEUR) 	vaisseau.mvtLimiteVitesse(0, -Stats.VITESSE_ARME_BOSS_QUAD);
+		if (VaisseauType1.position.y > VaisseauType1.HAUTEUR) 	vaisseau.mvtLimiteVitesse(0, -Stats.V_ARME_BOSS_QUAD);
 		else			VaisseauType1.position.y = VaisseauType1.HAUTEUR;
 		
 		alterner = !alterner;

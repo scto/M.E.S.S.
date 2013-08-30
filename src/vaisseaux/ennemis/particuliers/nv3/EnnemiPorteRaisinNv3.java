@@ -23,7 +23,7 @@ public class EnnemiPorteRaisinNv3 extends PorteRaisin {
 	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_PORTE_RAISIN3;
+		return Stats.PV_PORTE_RAISIN3;
 	}
 
 	@Override

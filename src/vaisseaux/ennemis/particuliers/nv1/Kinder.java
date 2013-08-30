@@ -5,12 +5,12 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
-import vaisseaux.armes.ArmeKinder;
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
+import vaisseaux.armes.ennemi.ArmeKinder;
 import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
-import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.CoutsEnnemis;
+import vaisseaux.ennemis.Ennemis;
 import assets.SoundMan;
 import assets.animation.AnimationKinder;
 
@@ -28,7 +28,7 @@ public class Kinder extends Ennemis implements TireurAngle {
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	private static final float VITESSE = Stats.VITESSE_KINDER;
+	private static final float VITESSE = Stats.V_ENN_KINDER;
 	protected static final Tirs tir = new Tirs(.5f);
 	// ** ** caracteristiques variables.
 	protected float prochainTir = 1f;
@@ -53,7 +53,7 @@ public class Kinder extends Ennemis implements TireurAngle {
 	}
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_KINDER;
+		return Stats.PV_KINDER;
 	}
 
 	
@@ -77,7 +77,7 @@ public class Kinder extends Ennemis implements TireurAngle {
 		if (maintenant < AnimationKinder.TPS_ANIM_OUVERT || maintenant > 12) {
 			Physique.mvtSansVerif(position, direction);
 		} else {
-			angle += Stats.VITESSE_KINDER * Endless.delta;
+			angle += Stats.V_ENN_KINDER * Endless.delta;
 		}
 		return super.mouvementEtVerif();
 	}
@@ -100,7 +100,7 @@ public class Kinder extends Ennemis implements TireurAngle {
 	public int getDemiLargeur() {				return DEMI_LARGEUR;	}
 
 	@Override
-	public Armes getArme() {			return ArmeKinder.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return ArmeKinder.pool.obtain();	}
 
 	@Override
 	public void setProchainTir(float f) {

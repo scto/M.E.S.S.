@@ -5,8 +5,8 @@ import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
 import vaisseaux.Positionnement;
-import vaisseaux.armes.ArmeLaser;
-import vaisseaux.armes.Armes;
+import vaisseaux.armes.ennemi.ArmeEnnemi;
+import vaisseaux.armes.ennemi.ArmeLaser;
 import vaisseaux.armes.typeTir.TireurAngle;
 import vaisseaux.armes.typeTir.Tirs;
 import vaisseaux.ennemis.CoutsEnnemis;
@@ -28,7 +28,7 @@ public class Laser extends Ennemis implements TireurAngle {
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 //	public static final int HAUTEUR = LARGEUR + LARGEUR;
 //	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
-	private static final float VITESSE = Stats.VITESSE_ENNEMI_LASER;
+	private static final float VITESSE = Stats.V_ENN_LASER;
 	public static final Tirs TIR = new Tirs(1.1f);
 	// ** ** caracteristiques variables.
 	protected float prochainTir = 1f;
@@ -63,7 +63,7 @@ public class Laser extends Ennemis implements TireurAngle {
 	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_LASER;
+		return Stats.PV_LASER;
 	}
 
 	private void initAngle() {
@@ -144,7 +144,7 @@ public class Laser extends Ennemis implements TireurAngle {
 	}
 	
 	@Override
-	public Armes getArme() {			return ArmeLaser.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return ArmeLaser.pool.obtain();	}
 	
 	@Override
 	public void setProchainTir(float f) {		prochainTir = f;	}

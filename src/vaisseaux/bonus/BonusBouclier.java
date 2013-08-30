@@ -25,7 +25,7 @@ public class BonusBouclier extends Bonus implements Poolable{
 	boolean afficherEtMvt(SpriteBatch batch) {
 		tps += Endless.delta;
 		batch.draw(AssetMan.bouclier, posX, posY, LARGEUR, LARGEUR);
-		posY += -(Stats.VITESSE_BONUS_BOUCLIER + (tps*15)) * Endless.delta;
+		posY += -(Stats.V_BONUS_BOUCLIER + (tps*15)) * Endless.delta;
 		return true;
 	}
 

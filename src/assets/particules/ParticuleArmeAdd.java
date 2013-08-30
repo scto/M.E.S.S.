@@ -2,16 +2,8 @@ package assets.particules;
 
 import jeu.Endless;
 import menu.CSG;
-import vaisseaux.armes.Armes;
 import vaisseaux.armes.joueur.ArmeAdd;
-import vaisseaux.armes.joueur.ArmeHantee;
-import vaisseaux.bonus.Bonus;
 import assets.AssetMan;
-import assets.animation.Anim;
-import assets.animation.AnimationTirAdd;
-
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -29,7 +21,7 @@ public class ParticuleArmeAdd extends ParticuleRGB implements Poolable {
 
 
 	public ParticuleArmeAdd() {
-		vitesseAngle = r.nextFloat() * 400;
+//		vitesseAngle = r.nextFloat() * 400;
 	}
 	
 	@Override
@@ -40,7 +32,10 @@ public class ParticuleArmeAdd extends ParticuleRGB implements Poolable {
 	public boolean mouvementEtVerif() {
 		posX += vitesseX * Endless.delta;
 		posY += vitesseY * Endless.delta;
-		return super.mouvementEtVerif();
+		angle += vitesseAngle  * Endless.delta;
+		if (Endless.maintenant > temps) return false;
+		// Je pense qu'on peut se permettre de ne pas verifier si il est tjrs à l'écran vu son court temps de vie
+		return true;
 	}
 	
 	@Override
@@ -54,7 +49,7 @@ public class ParticuleArmeAdd extends ParticuleRGB implements Poolable {
 	}
 
 	public void init(ArmeAdd a) {
-		angle = a.angle + 90;
+//		angle = a.angle + 90;
 		posX = (a.position.x + a.DEMI_LARGEUR);
 		posY = a.position.y + a.DEMI_HAUTEUR;
 		

@@ -39,7 +39,7 @@ public class Physique {
 	 * Fait aller l'objet dans la direction passee
 	 * @return True si encore a l'ecran
 	 */
-	public static boolean mouvementDeBase(Vector2 direction, Vector2 position, int VITESSE, int largeur) {
+	public static boolean mouvementDeBase(Vector2 direction, Vector2 position, float VITESSE, int largeur) {
 		deplacementBase(direction, position, VITESSE);
 		return toujoursAfficher(position, largeur);
 	}
@@ -83,7 +83,7 @@ public class Physique {
 	/**
 	 * ATTENTION voir si il vaut mieux creer un vecteur ou alors faire les calculs sur x et y sans en creer un
 	 */
-	private static void deplacementBase(Vector2 direction, Vector2 position, final int VITESSE) {
+	private static void deplacementBase(Vector2 direction, Vector2 position, final float VITESSE) {
 		position.x += (direction.x * Endless.delta * VITESSE);
 		position.y += (direction.y * Endless.delta * VITESSE);	
 	}
@@ -245,7 +245,7 @@ public class Physique {
 	private static float angleDirection;
 
 	// Pas compris en relisant ? Normal, dï¿½jï¿½ pas compris en ï¿½crivant, enfin si mais en tout cas c'est surement pas top
-	public static float mouvementTeteChercheuse(Vector2 direction, Vector2 position, int vitesseMax, int largeur, float vitesseAngulaire, int demiLargeur) {
+	public static float mouvementTeteChercheuse(Vector2 direction, Vector2 position, float vitesseMax, int largeur, float vitesseAngulaire, int demiLargeur) {
 		// Init variable
 		cibleTMP.x = (VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR) - (position.x + demiLargeur);
 		cibleTMP.y = (VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR) - (position.y + demiLargeur);
@@ -376,5 +376,23 @@ public class Physique {
 			position.y -= vitesse * Endless.delta;
 			position.x += vitesse * Endless.delta;
 		}
+	}
+	
+	/**
+	 * Retourne true = toujours affiché
+	 * @param direction
+	 * @param position
+	 * @param LARGEUR
+	 * @return
+	 */
+	public static boolean mouvementDeBase(Vector2 direction, Vector2 position,	int LARGEUR) {
+		position.x += direction.x * Endless.delta;
+		position.y += direction.y * Endless.delta;
+		return toujoursAfficher(position, LARGEUR);
+	}
+	public static boolean mouvementDeBase(int HAUTEUR, int LARGEUR,	Vector2 direction, Vector2 position) {
+		position.x += direction.x * Endless.delta;
+		position.y += direction.y * Endless.delta;
+		return toujoursAfficher(position, LARGEUR, HAUTEUR);
 	}
 }

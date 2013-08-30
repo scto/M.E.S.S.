@@ -16,25 +16,17 @@ import com.badlogic.gdx.utils.Pools;
 
 public class ZigZag extends Ennemis {
 	
-	// ** ** caracteristiques g�n�rales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 9;
-	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = (int) (LARGEUR*1.2);
-	public static final int DEMI_HAUTEUR = HAUTEUR / 2; 
-	public static final float AMPLITUDE_HORIZONTALE = 160f, VITESSE = Stats.VITESSE_MAX_ZIGZAG;
+	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 9, DEMI_LARGEUR = LARGEUR/2;
+	public static final int HAUTEUR = (int) (LARGEUR*1.2), DEMI_HAUTEUR = HAUTEUR / 2; 
+	public static final float AMPLITUDE_HORIZONTALE = 160f, VITESSE = Stats.V_ENN_ZIGZAG;
 	private Vector2 direction;
 	private boolean sens = true;
 	public static Pool<ZigZag> pool = Pools.get(ZigZag.class);
 
 	public ZigZag() {
 		super();
-		direction = new Vector2(0, -VITESSE);
 		position.x = getRandX();
-	}
-	
-	@Override
-	protected Sound getSonExplosion() {
-		return SoundMan.explosiontoupie;
+		direction = new Vector2(0, -getVitesse());
 	}
 	
 	@Override
@@ -43,18 +35,8 @@ public class ZigZag extends Ennemis {
 		position.x = getRandX();
 		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
 		direction.x = 0;
-		direction.y = -VITESSE;
+		direction.y = -getVitesse();
 		sens = true;
-	}
-	
-	@Override
-	protected void free() {
-		pool.free(this);
-	}
-	
-	@Override
-	protected int getPvMax() {
-		return Stats.PVMAX_ZIGZAG;
 	}
 	
 	private static float getRandX() {
@@ -65,11 +47,6 @@ public class ZigZag extends Ennemis {
 	}
 
 	@Override
-	protected TextureRegion getTexture() {
-		return AnimationRouli.getTexture(position.x + DEMI_LARGEUR);
-	}
-
-	@Override
 	public boolean mouvementEtVerif() {	
 		if (!mort)	sens = Physique.goToZigZagCentre(position, direction, DEMI_LARGEUR, sens, AMPLITUDE_HORIZONTALE, HAUTEUR, LARGEUR);
 		Physique.mvtSansVerif(position, direction);
@@ -77,20 +54,29 @@ public class ZigZag extends Ennemis {
 	}
 
 	@Override
-	public int getXp() {			return CoutsEnnemis.EnnemiZigZag.COUT;	}
+	protected void free() {					pool.free(this);	}
 	@Override
-	public int getHauteur() {		return HAUTEUR;	}
+	protected int getPvMax() {				return Stats.PV_ZIGZAG;	}
 	@Override
-	public int getLargeur() {		return LARGEUR;	}
+	protected TextureRegion getTexture() {	return AnimationRouli.getTexture(position.x + DEMI_LARGEUR);	}
 	@Override
-	public int getDemiHauteur() {	return DEMI_HAUTEUR;	}
+	public int getXp() {					return CoutsEnnemis.EnnemiZigZag.COUT;	}
 	@Override
-	public int getDemiLargeur() {	return DEMI_LARGEUR;	}
+	public int getHauteur() {				return HAUTEUR;	}
 	@Override
-	public void invoquer() {		liste.add(pool.obtain());	}
-	
+	public int getLargeur() {				return LARGEUR;	}
 	@Override
-	public float getDirectionY() {		return direction.y;	}
+	public int getDemiHauteur() {			return DEMI_HAUTEUR;	}
 	@Override
-	public float getDirectionX() {		return direction.x;	}
+	public int getDemiLargeur() {			return DEMI_LARGEUR;	}
+	@Override
+	public void invoquer() {				liste.add(pool.obtain());	}
+	@Override
+	public float getDirectionY() {			return direction.y;	}
+	@Override
+	public float getDirectionX() {			return direction.x;	}
+	@Override
+	protected float getVitesse() {			return VITESSE;	}
+	@Override
+	protected Sound getSonExplosion() {		return SoundMan.explosiontoupie;	}
 }

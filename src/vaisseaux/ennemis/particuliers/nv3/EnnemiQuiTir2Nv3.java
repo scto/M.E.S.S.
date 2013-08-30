@@ -23,15 +23,9 @@ public class EnnemiQuiTir2Nv3 extends QuiTir2 {
 		liste.add(pool.obtain());	
 	}
 	
-	public static TextureRegion getTexture(int pv) {
-		if (pv < Stats.DEMI_PV_BASE_QUI_TIR2)
-			return QuiTir2.mauvaisEtat;
-		return QuiTir2.bonEtat;
-	}
-	
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_DE_BASE_QUI_TIR2;
+		return Stats.PV_DE_BASE_QUI_TIR2;
 	}
 	
 	@Override

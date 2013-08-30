@@ -18,12 +18,12 @@ public class EnnemiDeBaseNv3 extends DeBase {
 
 	@Override
 	protected int getPvMax() {
-		return Stats.PVMAX_DE_BASE_NV3;
+		return Stats.PV_DE_BASE_NV3;
 	}
 	
 	@Override
 	protected float getVitesse() {
-		return Stats.VITESSE_MAX_DE_BASE_NV3;
+		return Stats.V_ENN_DE_BASE_3;
 	}
 
 	@Override

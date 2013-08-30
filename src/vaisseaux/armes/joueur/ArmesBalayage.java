@@ -1,19 +1,13 @@
 package vaisseaux.armes.joueur;
 
-import vaisseaux.armes.Armes;
-import jeu.Endless;
-import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-<<<<<<< HEAD
 import assets.AssetMan;
-import assets.animation.Anim;
 import assets.particules.Particules;
 
-=======
 import assets.animation.AnimationTirBleu;
->>>>>>> parent of a593e8e... refact animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -32,10 +26,6 @@ public class ArmesBalayage extends ArmeJoueur implements Poolable{
 	public static final float CADENCETIR = .08f;
 	private static final int FORCE = 2;
 	public static Pool<ArmesBalayage> pool = Pools.get(ArmesBalayage.class);
-	// ** ** animation
-	private float tpsAnim = 0;
-	// ** ** variable utilitaire
-	public float angle;
 	public static float[] couleurs = {
 		AssetMan.convertARGB(1, 0f, 0f, 136f/255f),
 		AssetMan.convertARGB(1, 17f/255f, 66f/255f, 1f),
@@ -52,52 +42,31 @@ public class ArmesBalayage extends ArmeJoueur implements Poolable{
 		position.y = posY;
 		direction.x = x;
 		direction.y = y;
+		direction.mul(Stats.V_ARME_BALAYAGE);
 		this.angle = angle;
-	}
-
-	@Override
-	public void reset() {
-		tpsAnim = 0;
+		liste.add(this);
 	}
 
 	@Override
 	public void afficher(SpriteBatch batch) {
-		tpsAnim += Endless.delta;
-<<<<<<< HEAD
 		Particules.ajoutArmeBalayage(this);
-		batch.draw(Anim.tirBleu.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_LARGEUR,	LARGEUR, LARGEUR, 1,1, angle, false);
-=======
-		batch.draw(AnimationTirBleu.getTexture(tpsAnim), position.x, position.y, DEMI_LARGEUR,DEMI_LARGEUR,	LARGEUR, LARGEUR, 1,1, angle, false);
->>>>>>> parent of a593e8e... refact animation
-	}
-
-	@Override
-	public boolean mouvementEtVerif() {
-		// 0 pour que l'effet ne disparaisse pas trop vite au lieu de LARGEUR
-		if (Physique.mouvementDeBase(direction, position, Stats.VITESSE_MAX_ARME_BALAYAGE, 0, LARGEUR)) return true;
-		free();
-		return false;
+		super.afficher(batch);
 	}
 	
 	@Override
-	public int getForce() {		return FORCE + CSG.profil.NvArmeBalayage;	}
-	
+	public int getForce() {				return FORCE + CSG.profil.NvArmeBalayage;	}
 	@Override
-	public int getLargeur() {		return LARGEUR;	}
-
+	public int getLargeur() {			return LARGEUR;	}
 	@Override
-	public int getHauteur() {		return LARGEUR;	}
-
+	public int getHauteur() {			return LARGEUR;	}
 	@Override
-	public void free() {
-		pool.free(this);
-	}
-
+	public void free() {				pool.free(this);	}
 	@Override
-	public boolean testCollsionAdds() {		return false;	}
-
+	public float getColor() {			return couleurs[r.nextInt(couleurs.length)];	}
 	@Override
-	public float getColor() {
-		return couleurs[r.nextInt(couleurs.length)];
-	}
+	public TextureRegion getTexture() {	return AnimationTirBleu.getTexture(maintenant);	}
+	@Override
+	public float getDemiLargeur() {		return DEMI_LARGEUR;	}
+	@Override
+	public float getDemiHauteur() {		return DEMI_LARGEUR;	}
 }

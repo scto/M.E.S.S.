@@ -1,6 +1,7 @@
 package assets.particules;
 
 import jeu.Endless;
+import jeu.Stats;
 import menu.CSG;
 import vaisseaux.ennemis.Ennemis;
 import assets.AssetMan;
@@ -18,7 +19,6 @@ public class ParticuleExplosion extends ParticuleRGB implements Poolable {
 	
 	public ParticuleExplosion() {
 		flammes();
-	
 		largeur = (float) ((Math.random() * LARGEUR) + LARGEUR);
 	}
 
@@ -39,29 +39,22 @@ public class ParticuleExplosion extends ParticuleRGB implements Poolable {
 	
 	@Override
 	public boolean mouvementEtVerif() {
-<<<<<<< HEAD
 		vitesseX /= 1.02f;
 		vitesseY /= 1.02f;
 		posX += vitesseX * Endless.delta;
 		posY += vitesseY * Endless.delta;
-=======
-		vitesseX /= 1.01f;
-		vitesseY /= 1.01f;
->>>>>>> parent of a593e8e... refact animation
-		return super.mouvementEtVerif();
+		angle += vitesseAngle  * Endless.delta;
+		if (Endless.maintenant > temps) return false;
+		// Je pense qu'on peut se permettre de ne pas verifier si il est tjrs à l'écran vu son court temps de vie
+		return true;
 	}
 
 	public void init(Ennemis e) {
 		posX = (e.position.x + (e.getLargeur() * r.nextFloat()));
 		posY = (e.position.y + (e.getHauteur() * r.nextFloat()));
 
-<<<<<<< HEAD
-		vitesseY = ((r.nextFloat()-.5f) * DISPERSION) + e.getDirectionY();
-		vitesseX = ((r.nextFloat()-.5f) * DISPERSION) + e.getDirectionX();
-=======
-		vitesseY = (float) ((Math.random()-.5) * 250) + e.getDirectionY();
-		vitesseX = (float) ((Math.random()-.5) * 250) + e.getDirectionX();
->>>>>>> parent of a593e8e... refact animation
+		vitesseY = (float) ((Math.random()-.5) * Stats.V_PARTICULE_EXPLOSION) + e.getDirectionY();
+		vitesseX = (float) ((Math.random()-.5) * Stats.V_PARTICULE_EXPLOSION) + e.getDirectionX();
 		
 		temps = ((r.nextFloat()/2) + Endless.maintenant + .2f);
 	}

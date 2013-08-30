@@ -1,19 +1,15 @@
 package vaisseaux.armes.joueur;
 
-import vaisseaux.armes.Armes;
 import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
 import menu.CSG;
-<<<<<<< HEAD
 import assets.AssetMan;
-import assets.animation.Anim;
 import assets.particules.Particules;
 
-=======
 import assets.animation.AnimationTirTrois;
->>>>>>> parent of a593e8e... refact animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -30,9 +26,8 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 	public static int DEMI_LARGEUR;
 	public static final float CADENCETIR = .05f;
 	public static final int VITESSE_ANGLE = 5000;
-	private final int FORCE = 2;
+	private static final int FORCE = 2;
 	public static Pool<ArmeHantee> pool = Pools.get(ArmeHantee.class);
-	private float tpsAnimation = 0;
 	private static boolean alterner = false;
 	public static float[] couleurs = {
 		AssetMan.convertARGB(1, 0, 84f/255f, 73f/255f),
@@ -53,38 +48,35 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 		liste.add(this);
 		direction.x = 0;
 		direction.y = 1;
-		tpsAnimation = 0;
+		direction.y *= Stats.V_ARME_HANTEE;
 		angle += 0;
 	}
 
 	@Override
-	public void reset() {	}
+	public void reset() {
+		direction.x = 0;
+		direction.y = 1;
+		direction.y *= Stats.V_ARME_HANTEE;
+		maintenant = 0;
+	}
 
 	@Override
-<<<<<<< HEAD
 	public void afficher(SpriteBatch batch) {
-//		batch.draw(Anim.tirTrois.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, LARGEUR);
-		batch.draw(Anim.tirTrois.getTexture(1), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1,1, angle);
 		Particules.armeHantee(this);
-=======
-	public void afficherSansParticules(SpriteBatch batch) {
-		batch.draw(AnimationTirTrois.getTexture(tpsAnimation) , position.x, position.y, LARGEUR, LARGEUR);
->>>>>>> parent of a593e8e... refact animation
+		batch.draw(AnimationTirTrois.getTexture(1), position.x, position.y, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, angle);
 	}
 	
 	@Override
 	public boolean mouvementEtVerif() {
 		angle += VITESSE_ANGLE * Endless.delta;
-		tpsAnimation += Endless.delta;
-		if (tpsAnimation > .4f & direction.y != 0) {
-			if (alterner) direction.x = -1;
-			else direction.x = 1;
+		maintenant += Endless.delta;
+		if (maintenant > .4f && direction.y != 0) {
+			if (alterner) direction.x = -direction.y;
+			else direction.x = direction.y;
 			direction.y = 0;
 			alterner = !alterner;
 		}
-		if (Physique.mouvementDeBase(direction, position, Stats.VITESSE_MAX_ARME_HANTEE, LARGEUR)) return true;
-		free();
-		return false;
+		return Physique.mouvementDeBase(direction, position, LARGEUR);
 	}
 
 	@Override
@@ -93,17 +85,14 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 	public int getLargeur() {		return LARGEUR;	}
 	@Override
 	public int getHauteur() {		return LARGEUR;	}
-
 	@Override
-	public void free() {
-		pool.free(this);
-	}
-
+	public void free() {		pool.free(this);	}
 	@Override
-	public boolean testCollsionAdds() {		return false;	}
-
+	public float getColor() {		return couleurs[r.nextInt(couleurs.length)];	}
 	@Override
-	public float getColor() {
-		return couleurs[r.nextInt(couleurs.length)];
-	}
+	public TextureRegion getTexture() {		return null;	}
+	@Override
+	public float getDemiLargeur() {		return DEMI_LARGEUR;	}
+	@Override
+	public float getDemiHauteur() {		return DEMI_LARGEUR;	}
 }
