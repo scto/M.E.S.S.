@@ -3,6 +3,7 @@ package menu;
 import jeu.Endless;
 import jeu.Physique;
 import jeu.Stats;
+import assets.particules.Particules;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -14,7 +15,6 @@ public class JeuBackground {
 	
 	private VaisseauType1 vaisseau = new VaisseauType1();
 	private boolean alterner = true;
-	private float tps = 0;
 
 	public void reset() {
 		CSG.resetLists();
@@ -22,17 +22,14 @@ public class JeuBackground {
 
 	public void render(SpriteBatch batch, float delta) {
 		Endless.maintenant += delta;
-		Ennemis.affichageEtMouvement(batch);
+
 		vaisseau.draw(batch);
 		Armes.affichageEtMouvement(batch);
-		
+		Particules.render(batch);		
+		VaisseauType1.centreX = VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR;
+		VaisseauType1.centreY = VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR;
+
 		// ** ** ** ** ** UPDATE ** ** ** ** **
-		Endless.delta = delta;
-		tps += delta;
-		if (tps > 8){
-//			Ennemis.randomApparition();
-			tps = 0;
-		}
 		if (alterner) {
 			Physique.testCollisions();
 			vaisseau.tir();
@@ -46,8 +43,5 @@ public class JeuBackground {
 	public VaisseauType1 getVaisseau() {
 		return vaisseau;
 	}
-
-	public void add() {
-		vaisseau.routineAdds();
-	}
 }
+

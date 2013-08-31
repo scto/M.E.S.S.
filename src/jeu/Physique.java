@@ -7,6 +7,7 @@ import vaisseaux.ennemis.Ennemis;
 import vaisseaux.joueur.VaisseauType1;
 import assets.particules.Particules;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
@@ -15,7 +16,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Physique {
 
-	public static boolean pointIn(Sprite s, int x, int y) {
+	public static boolean pointIn(Sprite s) { //, int x, int y) {
+		int x = Gdx.input.getX();
+		int y = CSG.HAUTEUR_ECRAN - Gdx.input.getY();
         return s.getX() <= x && s.getX() + s.getWidth() >= x && s.getY() <= y && s.getY() + s.getHeight() >= y;
 	}
 	/**

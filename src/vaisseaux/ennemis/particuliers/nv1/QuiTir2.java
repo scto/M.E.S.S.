@@ -11,7 +11,6 @@ import vaisseaux.ennemis.CoutsEnnemis;
 import assets.animation.AnimationQuiTir;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;

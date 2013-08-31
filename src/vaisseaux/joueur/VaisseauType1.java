@@ -412,7 +412,7 @@ public class VaisseauType1 extends Vaisseaux {
 		}
 	}
 	
-	public void changerArme(){
+	public static void changerArme(){
 		typeArme = TypesArmes.changerArme(typeArme);
 		CSG.profil.setArmeSelectionnee(typeArme);
 	}

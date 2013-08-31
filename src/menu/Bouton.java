@@ -1,51 +1,92 @@
 package menu;
 
+import jeu.Physique;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.moribitotech.mtx.AbstractScreen;
 
-public class Bouton extends Actor{
+public class Bouton {
 
 	private BitmapFont font, fontShadow;
 	private String texte;
 	private boolean versDroite = false, rapetisser = false, fade = false;
 	private float vitesse = 50;
-	
-	public Bouton(BitmapFont menuFont, boolean panneau) {
+	private final AbstractScreen parent;
+	private Sprite sprite;
+	private OnClick click;
+	private boolean faitBouger = false;
+
+	public Bouton(String s, boolean panneau, BitmapFont menuFont, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent, OnClick click, boolean faitBouger) {
+		sprite = new Sprite(CSG.assetMan.bouton);
+		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
 		this.font = menuFont;
 		fontShadow = new BitmapFont(font.getData(), font.getRegion(), font.isFlipped());
 		fontShadow.setColor(Color.BLACK);
+		this.parent = parent;
+		texte = s;
+		this.click = click;
+		this.faitBouger = faitBouger;
 	}
 	
-
-	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		batch.draw(CSG.assetMan.bouton, getX(), getY(), getWidth(), getHeight());
-		fontShadow.draw(batch, texte, ((getX() + (getWidth()/2)) - font.getBounds(texte).width/2) + CSG.LARGEUR_ECRAN/100, (getY() + font.getBounds(texte).height + getHeight()/2 - font.getBounds(texte).height/2) - CSG.LARGEUR_ECRAN/150);
-		font.draw(batch, texte, ((getX() + (getWidth()/2)) - font.getBounds(texte).width/2), (getY() + font.getBounds(texte).height + getHeight()/2 - font.getBounds(texte).height/2) );
-		// La font est affichee centree
+	public Bouton(String s, boolean panneau, BitmapFont menuFont, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent) {
+		sprite = new Sprite(CSG.assetMan.bouton);
+		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
+		this.font = menuFont;
+		fontShadow = new BitmapFont(font.getData(), font.getRegion(), font.isFlipped());
+		fontShadow.setColor(Color.BLACK);
+		this.parent = parent;
+		texte = s;
 	}
-	@Override
-	public void act(float delta) {
-		super.act(delta);
+	
+	public void setClick(OnClick click) {
+		this.click = click;
+	}
+
+	public void draw(SpriteBatch batch) {
+		if (texte.equals(AbstractScreen.BACK)) {
+			if(Gdx.input.justTouched()) {
+				System.err.println(Physique.pointIn(sprite));
+				
+			}
+		}
+		sprite.draw(batch);
+		fontShadow.draw(batch, texte, ((sprite.getX() + (sprite.getWidth()/2)) - font.getBounds(texte).width/2) + CSG.LARGEUR_ECRAN/100,
+				(sprite.getY() + font.getBounds(texte).height + sprite.getHeight()/2 - font.getBounds(texte).height/2) - CSG.LARGEUR_ECRAN/150);
+		font.draw(batch, texte, ((sprite.getX() + (sprite.getWidth()/2)) - font.getBounds(texte).width/2),
+				(sprite.getY() + font.getBounds(texte).height + sprite.getHeight()/2 - font.getBounds(texte).height/2) );
+		
+		if (Gdx.input.justTouched() && Physique.pointIn(sprite)) {
+			
+			if (faitBouger) {
+				parent.touche();
+				fade = false;
+				versDroite = true;
+			} else {
+				click.onClick();
+			}
+		}
+		act();
+	}
+	
+	public void act() {
+		float delta = Gdx.graphics.getDeltaTime();
 		if (versDroite || fade || rapetisser)
 			incrementVitesse();
 		if (versDroite)
-			setX(getX() + delta * getVitesse());
+			sprite.setX(sprite.getX() + delta * getVitesse());
 		if (fade)
-			setX(getX() - delta * getVitesse());
+			sprite.setX(sprite.getX() - delta * getVitesse());
 		if (rapetisser) {
 			setTexte("");
-			if (getWidth() > 0) {								// Teste pour ne pas qu'il continue une fois qu'il est cense avoir disparu et donc se retourne
-				setWidth(getWidth() - (delta * getVitesse()));
-				setX(getX() + ((delta * getVitesse()) / 2));
-			}
-			if (getHeight() > 0) {
-				setHeight(getHeight() - (delta * getVitesse()));
-				setY(getY() + ((delta * getVitesse()) / 2));
-			}
+			sprite.setScale((delta * getVitesse()));
+		}
+		
+		if (versDroite && sprite.getX() > CSG.LARGEUR_ECRAN) {
+			click.onClick();
 		}
 	}
 	
@@ -58,15 +99,7 @@ public class Bouton extends Actor{
 	
 	public void setTexte(String texte) {		this.texte = texte;	}
 	
-	public boolean aFini() {
-		if (versDroite & getX() > CSG.LARGEUR_ECRAN)
-			return true;
-		return false;
-	}
-	
-	public void setVersDroite(boolean b) {
-		versDroite = b;
-	}
+	public void setVersDroite(boolean b) {		versDroite = b;	}
 	
 	public void setFade(boolean b) {		fade = b;	}
 	
@@ -77,9 +110,7 @@ public class Bouton extends Actor{
 		rapetisser = false;
 	}
 	
-	public void setRapetisser(boolean b) {
-		rapetisser = b;
-	}
+	public void setRapetisser(boolean b) {		rapetisser = b;	}
 	
 	
 }

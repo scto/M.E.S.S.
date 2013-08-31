@@ -1,6 +1,5 @@
 package vaisseaux.armes.joueur;
 
-import vaisseaux.armes.Armes;
 import menu.CSG;
 
 import assets.SoundMan;

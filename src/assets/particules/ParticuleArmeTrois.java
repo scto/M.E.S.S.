@@ -16,7 +16,6 @@ public class ParticuleArmeTrois extends Particule implements Poolable {
 	public static Pool<ParticuleArmeTrois> pool = Pools.get(ParticuleArmeTrois.class);
 //	private float hauteur;
 	private static float LARGEUR = CSG.LARGEUR_ECRAN / 220;
-	private static float VITESSE = 550;
 	private float vitesseX, vitesseY, hauteur, vitesseAngle, angle;
 	
 	public ParticuleArmeTrois() {

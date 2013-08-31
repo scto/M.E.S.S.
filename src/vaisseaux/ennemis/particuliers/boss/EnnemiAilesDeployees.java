@@ -1,4 +1,4 @@
-package vaisseaux.ennemis.particuliers;
+package vaisseaux.ennemis.particuliers.boss;
 
 import jeu.Physique;
 import jeu.Stats;

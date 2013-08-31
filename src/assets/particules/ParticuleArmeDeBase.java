@@ -15,9 +15,7 @@ public class ParticuleArmeDeBase extends ParticuleRGB implements Poolable {
 	public static Pool<ParticuleArmeDeBase> pool = Pools.get(ParticuleArmeDeBase.class);
 //	private float hauteur;
 	private static float HAUTEUR = CSG.LARGEUR_ECRAN / 130;
-	private static float DEMI_HAUTEUR = CSG.LARGEUR_ECRAN / 130;
 	protected static float diminutionH;
-	private static float VITESSE = 1000;
 	private float vitesseX, vitesseY;
 
 

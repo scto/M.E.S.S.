@@ -16,13 +16,13 @@ public class SoundMan {
 	}
 
 	public static void playBruitage(Sound s) {
-		
 		if (CSG.profil.volumeBruitages > 0.05)
 			s.play(CSG.profil.volumeBruitages);
 	}
 
 	public static void playMusic() {
 		if (CSG.profil.volumeMusique > 0.05) {
+			outsideNorm.setVolume(CSG.profil.volumeMusique);
 			outsideNorm.play();
 			outsideNorm.setLooping(true);
 		}

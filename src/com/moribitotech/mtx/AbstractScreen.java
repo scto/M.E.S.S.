@@ -16,264 +16,118 @@
 
 package com.moribitotech.mtx;
 
+import jeu.Endless;
+import menu.Bouton;
 import menu.CSG;
+import menu.Credits;
+import menu.Menu;
+import menu.OnClick;
+import bloom.Bloom;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Scaling;
-import com.moribitotech.mtx.settings.AppSettings;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 
 public abstract class AbstractScreen implements Screen {
-	//
-	protected static final String logTag = "MtxScreenLog";
-	public static boolean logActive = true;
 
-	// Game reference
 	private Game game;
-
-	// Initial
-	private String screenName = "Untitled Screen";
-	private final Stage stage;
-
-	// Screen second counter (1 second tick)
-	private float startTime = System.nanoTime();
-	public static float SECONDS_TIME = 0;
-
-	// Animation timer (If any animation is used)
-	private float stateTime = 0;
-
-	// Custom back button
-	private boolean isBackButtonActive = false;
-
-	/**
-	 * Construct the screen
-	 * <p>
-	 * -Gives reference to game<br>
-	 * -Creates stage<br>
-	 * -Centers camera of stage<br>
-	 * -Sets Input processor for stage (Gdx.input.setInputProcessor(stage))<br>
-	 * -Calls setUpScreenElements (Good place the set views and iniatial
-	 * elements)
-	 * 
-	 * @param game
-	 *            the main game class
-	 * @param screenName
-	 *            the name of the screen
-	 * */
-	public AbstractScreen(Game game, String screenName) {
+	private Array<Bouton> boutons = new Array<Bouton>();
+	private Credits credits;
+	protected final SpriteBatch batch;
+	public static final String PLAY = "Play", SHIP = "Upgrade", OPTION = "Options", SWARM = "Highscores", EXIT = "Exit", BACK = "BACK", WEAPON_VOL = "WEAPON VOL  ", MOINS = "-", PLUS = "+", BRUITAGE_VOL = "EFFECTS VOL  ", MUSIQUE_VOL = "MUSIC VOL  ", INTENSITY = "INTENSITY : ", OTHER_WEAP = "Change weapon" ;
+	protected Bloom bloom = new Bloom();
+	public final static int PADDING = 10, LARGEUR_BOUTON = (CSG.LARGEUR_ECRAN / PADDING) * 8, HAUTEUR_BOUTON = CSG.HAUTEUR_ECRAN / 18;
+	public final static int DEMI_LARGEUR_BOUTON = LARGEUR_BOUTON / 2, DEMI_HAUTEUR_BOUTON = HAUTEUR_BOUTON / 2;
+	public final static int LARGEUR_PETITBOUTON = (CSG.LARGEUR_ECRAN / PADDING) * 3, HAUTEUR_PETITBOUTON = CSG.HAUTEUR_ECRAN / 18;
+	public final static int LARGEUR_MINIBOUTON = LARGEUR_PETITBOUTON/2, HAUTEUR_MINIBOUTON = HAUTEUR_PETITBOUTON/2, decalageY = CSG.HAUTEUR_ECRAN/10;
+	public static OrthographicCamera cam = new OrthographicCamera(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);
+	protected final Bouton boutonBack;
+	public boolean renderBackground = true;
+	
+	public AbstractScreen(final Game game) {
 		super();
+		CSG.resetLists();
 		this.game = game;
-		if (screenName.equals("")) {
-			this.screenName = "Untitled Screen";
-		} else {
-			this.screenName = screenName;
-		}
-
-		//
-		AppSettings.SCREEN_H = CSG.HAUTEUR_ECRAN;
-		AppSettings.SCREEN_W = CSG.LARGEUR_ECRAN;
-		stage = new Stage(AppSettings.SCREEN_W, AppSettings.SCREEN_H, false);
-		stage.getCamera().position.set(AppSettings.SCREEN_W / 2,
-				AppSettings.SCREEN_H / 2, 0);
-
-		// Receive inputs from stage
-		Gdx.input.setInputProcessor(stage);
+		credits = new Credits();
+		this.batch = CSG.batch;
+		bloom.setBloomIntesity(CSG.profil.intensiteBloom);
+		cam.position.set(CSG.LARGEUR_ECRAN / 2, CSG.HAUTEUR_ECRAN / 2, 0);
+		cam.update();
+		batch.setProjectionMatrix(cam.combined);
+		
+		boutonBack = new Bouton(BACK, false, CSG.menuFontPetite, LARGEUR_PETITBOUTON, HAUTEUR_PETITBOUTON, CSG.LARGEUR_ECRAN / PADDING, HAUTEUR_BOUTON, this,
+	    		new OnClick() {
+					public void onClick() {
+						Menu choix = new Menu(game);
+						getGame().setScreen(choix);
+						CSG.profilManager.persist();
+					}
+				}, true);
 	}
-
+	
+	public void setRenderBackground(boolean renderBackground) {
+		this.renderBackground = renderBackground;
+	}
+	
+	protected void ajout(Bouton bouton) {
+		boutons.add(bouton);
+	}
+	
 	@Override
 	public void render(float delta) {
-		// Update screen clock (1 second tick)
-		// ############################################################
-		if (System.nanoTime() - startTime >= 1000000000) {
-			SECONDS_TIME++;
-			startTime = System.nanoTime();
+		if (CSG.profil.bloom)	bloom.capture();
+		else Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Endless.delta = delta;
+		Endless.delta15 = delta * 15;
+		Endless.maintenant += delta;
+		if (Gdx.input.isKeyPressed(Keys.BACK)) {
+			keyBackPressed();
 		}
-
-		// Update animation times
-		// ############################################################
-		stateTime += delta;
-
-		// Snippet (Clear screen and give red color)
-		// ############################################################
-//		Gdx.gl.glClearColor(1, 0, 0, 1);
-		// Update stage/actors logic (update() method in previous games)
-		// ############################################################
-		stage.act(delta);
-
-		// Render drawings (draw()/render() methods in previous games)
-		// ############################################################
-		stage.draw();
-
-		// Custom back button
-		// ############################################################
-		if (isBackButtonActive) {
-			if (Gdx.input.isKeyPressed(Keys.BACK)) {
-				keyBackPressed();
-			}
-		}
-	}
-
-	/**
-	 * Set stage background. Sets the image (Adds to stage as image)
-	 * 
-	 * @param backgroundTextureRegion
-	 * 
-	 * */
-	public void setBackgroundTexture(TextureRegion textureBackground) {
-		Drawable tBg = new TextureRegionDrawable(textureBackground);
-		Image imgbg = new Image(tBg, Scaling.stretch);
-		imgbg.setFillParent(true);
-		stage.addActor(imgbg);
-	}
-
-	/**
-	 * Set the back button active for the screen. Sets
-	 * "Gdx.input.setCatchBackKey(true)" and override the method
-	 * "keyBackPressed" to add desired functionality to back button
-	 * 
-	 * @param isBackButtonActive
-	 *            to use or not to use the back button
-	 * @see keyBackPressed
-	 * 
-	 * */
-	public void setBackButtonActive(boolean isBackButtonActive) {
-		Gdx.input.setCatchBackKey(true);
-		this.isBackButtonActive = isBackButtonActive;
-	}
-
-	/**
-	 * Override this method to do some function when back button pressed
-	 * */
-	public void keyBackPressed() {
-	}
-
-	/**
-	 * Get the game class
-	 * */
-	public Game getGame() {
-		return game;
-	}
-
-	/**
-	 * Set the game class
-	 * */
-	public void setGame(Game game) {
-		this.game = game;
-	}
-
-	/**
-	 * Get screen name
-	 * */
-	public String getScreenName() {
-		return screenName;
-	}
-
-	/**
-	 * Set screen name
-	 * */
-	public void setScreenName(String screenName) {
-		this.screenName = screenName;
-	}
-
-	/**
-	 * Get screen name
-	 * */
-	public float getStartTime() {
-		return startTime;
-	}
-
-	/**
-	 * Get seconds since this screen constructed (EX: 3345 seconds)
-	 * */
-	public float getSecondsTime() {
-		return SECONDS_TIME;
-	}
-
-	/**
-	 * Set or reset sceconds
-	 * */
-	public void setSecondsTime(float secondsTime) {
-		SECONDS_TIME = secondsTime;
-	}
-
-	/**
-	 * Get delta added state time (Generally used for animations)
-	 * */
-	public float getStateTime() {
-		return stateTime;
-	}
-
-	/**
-	 * Set state time
-	 * */
-	public void setStateTime(float stateTime) {
-		this.stateTime = stateTime;
-	}
-
-	/**
-	 * Get if back button active
-	 * */
-	public boolean isBackButtonActive() {
-		return isBackButtonActive;
-	}
-
-	/**
-	 * Get stage of the screen
-	 * */
-	public Stage getStage() {
-		return stage;
-	}
-
-	/**
-	 * Get screen time from start in format of HH:MM:SS. It is calculated from
-	 * "secondsTime" parameter, reset that to get resetted time.
-	 * */
-	public String getScreenTime() {
-		int seconds = (int) (SECONDS_TIME % 60);
-		int minutes = (int) ((SECONDS_TIME / 60) % 60);
-		int hours = (int) ((SECONDS_TIME / 3600) % 24);
-		String secondsStr = (seconds < 10 ? "0" : "") + seconds;
-		String minutesStr = (minutes < 10 ? "0" : "") + minutes;
-		String hoursStr = (hours < 10 ? "0" : "") + hours;
-		return new String(hoursStr + ":" + minutesStr + ":" + secondsStr);
-	}
-
-	@Override
-	public void resize(int width, int height) {
-	}
-
-	@Override
-	public void show() {
-		Gdx.input.setInputProcessor(stage);
-		reset();
-	}
-
-	public void reset() {
-		// TODO Auto-generated method stub
 		
+		if (renderBackground) {
+			batch.begin();
+			CSG.renderBackground(batch);
+		}
+		for (Bouton b : boutons) {
+			if (b != null) b.draw(batch);
+		}
+		credits.render(batch, delta);
+		batch.end();
+		
+		if (CSG.profil.bloom)	bloom.render();
 	}
 
-	@Override
-	public void hide() {
-	}
+	public void setBackButtonActive(boolean isBackButtonActive) {		Gdx.input.setCatchBackKey(true);	}
+
+	public void keyBackPressed() {	}
+
+	public Game getGame() {		return game;	}
+
+	public void setGame(Game game) {		this.game = game;	}
 
 	@Override
-	public void pause() {
-	}
+	public void resize(int width, int height) {	}
 
 	@Override
-	public void resume() {
-	}
+	public void show() {		reset();	}
 
+	public void reset() {		for (Bouton b : boutons) if (b != null) b.reset();	}
 	@Override
-	public void dispose() {
-		stage.dispose();
+	public void hide() {	}
+	@Override
+	public void pause() {	}
+	@Override
+	public void resume() {			CSG.assetMan.reload();	}
+	@Override
+	public void dispose() {			}
+
+	public void touche() {
+		for (Bouton b : boutons)
+			b.setFade(true);
 	}
 }

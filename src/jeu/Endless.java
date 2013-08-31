@@ -6,14 +6,7 @@ import menu.Menu;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.particuliers.nv1.Avion;
 import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
-import vaisseaux.ennemis.particuliers.nv1.DeBase;
-import vaisseaux.ennemis.particuliers.nv1.QuiTir;
-import vaisseaux.ennemis.particuliers.nv1.Toupie;
-import vaisseaux.ennemis.particuliers.nv1.ZigZag;
-import vaisseaux.ennemis.particuliers.nv3.ZigZagNv3;
-import vaisseaux.ennemis.particuliers.nv3.QuiTirNv3;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -206,7 +199,7 @@ public class Endless implements Screen {
 			}					 
 			update(); // ** ** UPDATE inline. Gain en moyenne : + 2.5fps sur 450 (test sur 8 fois sur 5 min), en gros rien de mesurable
 		} else { // D O N C   E N   P A U S E
-			if (Gdx.input.isKeyPressed(Keys.BACK) && (maintenant > vientDEtreTouche + .1) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+			if ((Gdx.input.isKeyPressed(Keys.BACK) && (maintenant > vientDEtreTouche + .1)) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 				Menu menu = new Menu(game);
 				game.setScreen(menu);
 			}

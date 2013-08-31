@@ -63,7 +63,7 @@ public class CSG extends Game implements ApplicationListener {
 		if (x < 1)	x = 1.0f;
 		if (y < 1)	y = 1.0f;
 		menuFont.setScale(x, y);
-		menuFont.setColor(.99f, .85f, 0f, 1);
+		menuFont.setColor(.59f, .55f, 0f, 1);
 		menuFontPetite = new BitmapFont();
 		x = LARGEUR_ECRAN / 440;
 		y = HAUTEUR_ECRAN / 480;
@@ -71,7 +71,7 @@ public class CSG extends Game implements ApplicationListener {
 		if (y < 1)	y = 1.0f;
 		menuFontPetite = new BitmapFont(Gdx.files.internal("petite.fnt"), false);
 		menuFontPetite.setScale(x, y);
-		menuFontPetite.setColor(.99f, .85f, 0f, 1);
+		menuFontPetite.setColor(.59f, .55f, 0f, 1);
 		// ***** Une fois que toutes les variables globales sont chargees on lance le loading pour charger les assets
 		Loading loading = new Loading(this);
 		setScreen(loading);

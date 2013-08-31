@@ -11,8 +11,6 @@ public class Client extends Thread {
 
 	private InetAddress ipAddress;
 	private DatagramSocket socket;
-	private Endless endless;
-	
 	public Client(String ipAddress, Endless endless) {
 		super();
 		try {
@@ -23,7 +21,6 @@ public class Client extends Thread {
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
-		this.endless = endless;
 	}
 	
 	@Override

@@ -2,10 +2,10 @@ package vaisseaux.ennemis;
 
 import jeu.Endless;
 import menu.CSG;
-import vaisseaux.ennemis.particuliers.EnnemiBossMine;
-import vaisseaux.ennemis.particuliers.EnnemiBossQuad;
-import vaisseaux.ennemis.particuliers.EnnemiPorteNef;
 import vaisseaux.ennemis.particuliers.Rocher;
+import vaisseaux.ennemis.particuliers.boss.EnnemiBossMine;
+import vaisseaux.ennemis.particuliers.boss.EnnemiBossQuad;
+import vaisseaux.ennemis.particuliers.boss.EnnemiPorteNef;
 
 /**
  * Les switchs sont degueux, voir comment faire autrement. 
