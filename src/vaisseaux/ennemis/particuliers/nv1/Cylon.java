@@ -116,14 +116,14 @@ public class Cylon extends Ennemis implements TireurAngle {
 
 
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = position.x + (direction.x / 2);
-		tmpPos.y = position.y + (direction.y / 2);
-		return tmpPos;
+		TMP_POS.x = position.x + (direction.x / 2);
+		TMP_POS.y = position.y + (direction.y / 2);
+		return TMP_POS;
 	}
 	
 
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 
 	@Override

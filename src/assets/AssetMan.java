@@ -23,6 +23,7 @@ import assets.animation.AnimationInsecte;
 import assets.animation.AnimationKinder;
 import assets.animation.AnimationMeteorite;
 import assets.animation.AnimationMine;
+import assets.animation.AnimationOmbrelle;
 import assets.animation.AnimationPorteNef;
 import assets.animation.AnimationQuiTir;
 import assets.animation.AnimationRouli;
@@ -134,6 +135,7 @@ public class AssetMan {
 		AnimationTirFeu.initAnimation();
 		AnimationTirBleu.initAnimation();
 		AnimationTirTrois.initAnimation();
+		AnimationOmbrelle.initAnimation();
 		AnimationBossMine.initAnimation();
 		AnimationVaisseau.initAnimation();
 		AnimationBossQuad.initAnimation();

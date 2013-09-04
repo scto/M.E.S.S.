@@ -66,7 +66,7 @@ public class Bouton {
 				fade = false;
 				versDroite = true;
 			} else {
-				click.onClick();
+				if (click != null) click.onClick();
 			}
 		}
 		act();

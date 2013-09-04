@@ -1,7 +1,8 @@
 package vaisseaux.armes.typeTir;
 
+import jeu.Physique;
 import vaisseaux.armes.ennemi.ArmeEnnemi;
-import vaisseaux.joueur.VaisseauType1;
+import vaisseaux.armes.ennemi.BouleFeu;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -69,21 +70,80 @@ public class Tirs {
 			for (int i = - (nbTirs/2) ; i <= nbTirs/2 ; i++) {
 				float rotationSupplementaire = t.getAngleTir() + (i * dispersion);
 				t.getArme().init(t.getPositionDuTir(1), t.getModifVitesse(), rotationSupplementaire, t.getDirectionTir().rotate(rotationSupplementaire));
-				t.setProchainTir(maintenant + CADENCE);
 			}
+			t.setProchainTir(maintenant + CADENCE);
 		}
 	}
+	
+	/**
+	 * Semblable au tir en eventail mais laisse un angle plus important au centre et ne tient compte que de l'angle pour le tir
+	 * @param ombrelle
+	 * @param i
+	 * @param j
+	 * @param mort
+	 * @param maintenant
+	 * @param prochainTir
+	 * @param k
+	 */
+	public void tirOmbrelle(TireurAngle t, int nbTirs, float dispersion, boolean mort, float maintenant, float prochainTir, float ecartCentre) {
+		if (!mort && maintenant > prochainTir) {
+			vecteurCible.x = 0;
+			vecteurCible.y = -1;
+			vecteurCible.rotate(t.getAngleTir());
+			int numeroTrou = nbTirs/2;
+			float angleTotal = (dispersion * (nbTirs-1)) + ecartCentre * 2;
+			float angleDepart = t.getAngleTir() - ( angleTotal / 2f);
+			float angleTir = angleDepart;
+			for (int i = 0; i < nbTirs; i++) {
+				System.out.println(i);
+				if (i==numeroTrou) {
+					angleDepart += ecartCentre;
+					angleTir = angleDepart + (i * dispersion);
+					BouleFeu.pool.obtain().init(t.getPositionDuTir(6), t.getModifVitesse(), angleTir);
+				} else {
+					if(i == numeroTrou+1) angleDepart += ecartCentre;
+					angleTir = angleDepart + (i * dispersion);
+					t.getArme().init(t.getPositionDuTir(1), t.getModifVitesse(), angleTir);
+				}
+			}
+			t.setProchainTir(maintenant + CADENCE);
+		}
+	}
+	
+//	if (i==numeroTrou) { 
+//		// On est à celle du centre
+//		angleDepart += ecartCentre;
+//		BouleFeu.pool.obtain().init(vecteurPosition, modifVitesse, angleTir);
+//	} else {
+//		if (i == numeroTrou+1) 	angleTir = angleDepart + (i * dispersion);
+//		t.getArme().init(vecteurPosition, modifVitesse, angleTir);
+//	}
+	
+//	public void tirOmbrelleV2(TireurAngle t, int nbTirs, float dispersion, boolean mort, float maintenant, float prochainTir, float ecartCentre) {
+//		if (!mort && maintenant > prochainTir) {
+//			vecteurCible.x = 0;
+//			vecteurCible.y = -1;
+//			vecteurCible.rotate(t.getAngleTir());
+//			int numeroTrou = nbTirs/2;
+//			float angleTotal = (dispersion * (nbTirs-1)) + ecartCentre * 2;
+//			float angleDepart = t.getAngleTir() - ( angleTotal / 2f);
+//			float angleTir = angleDepart;
+//			for (int i = 0; i < nbTirs; i++) {
+//				if (i==numeroTrou || i == numeroTrou+1) angleDepart += ecartCentre;
+//				angleTir = angleDepart + (i * dispersion);
+//				t.getArme().init(t.getPositionDuTir(1), t.getModifVitesse(), angleTir);
+//				t.setProchainTir(maintenant + CADENCE);
+//			}
+//		}
+//	}
 
 	public void tirVersJoueur(Tireur t, boolean mort, float maintenant, float prochainTir) {
 		if (!mort && maintenant > prochainTir) {
 			ArmeEnnemi a = t.getArme();
-			vecteurCiblePosition.x = (VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR) - a.getLargeur()/2;
-			vecteurCiblePosition.y = (VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR) - a.getHauteur()/2;
 			vecteurPosition.x = t.getPositionDuTir(0).x;
 			vecteurPosition.y = t.getPositionDuTir(0).y;
-			vecteurCible.x = 1;
-			vecteurCible.y = 0;
-			float angle = vecteurCiblePosition.sub(vecteurPosition).angle();
+
+			float angle = Physique.getAngleVersJoueur(vecteurPosition, a.getLargeur()/2, a.getHauteur()/2);
 			vecteurCible.rotate(angle);
 			a.init(vecteurPosition, t.getModifVitesse(), angle, vecteurCible);
 			t.setProchainTir(maintenant + CADENCE);
@@ -146,4 +206,6 @@ public class Tirs {
 			t.setProchainTir(maintenant + CADENCE);
 		}
 	}
+
+
 }

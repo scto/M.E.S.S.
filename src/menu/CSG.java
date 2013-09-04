@@ -6,7 +6,6 @@ import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
 import vaisseaux.ennemis.Progression;
-import Data.DataMan;
 import assets.AssetMan;
 import assets.background.ParallaxBackground;
 import assets.particules.Particules;
@@ -34,7 +33,6 @@ public class CSG extends Game implements ApplicationListener {
 	public static Profil profil;
 	public static ParallaxBackground rbg;
 	public static BitmapFont menuFont, menuFontPetite;
-	public static DataMan dataMan;
 	public static AssetMan assetMan;
 	public static SpriteBatch batch;
 	
@@ -75,10 +73,6 @@ public class CSG extends Game implements ApplicationListener {
 		// ***** Une fois que toutes les variables globales sont chargees on lance le loading pour charger les assets
 		Loading loading = new Loading(this);
 		setScreen(loading);
-		if (Gdx.app.getVersion() == 0) {
-			dataMan = new DataMan();
-			dataMan.recupProfil();
-		}
 	}
 
 	private void dimensions() {

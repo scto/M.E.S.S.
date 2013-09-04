@@ -1,29 +1,25 @@
 package vaisseaux;
 
-/** défini les types d'armes, utilisée par la classe xp. (Pourquoi ?) et par la classe joueur
- * @author Julien
- */
 public enum TypesArmes {
-	ArmeDeBase,
-	ArmeBalayage,
-	ArmeTrois,
-	ArmeHantee;
+	DE_BASE,
+	BALAYAGE,
+	LASER,
+	HANTEE;
 	
-	
-	public static TypesArmes[] typeArmePossible = {ArmeDeBase, ArmeBalayage, ArmeTrois, ArmeHantee};
+	public final static TypesArmes[] typeArmePossible = {DE_BASE, BALAYAGE, LASER, HANTEE};
 	
 	public static TypesArmes changerArme(TypesArmes typeArme) {
 		int indexCourant = typeArme.ordinal();
-		if(++indexCourant < typeArmePossible.length){
+		if (++indexCourant < typeArmePossible.length){
 			return typeArmePossible[indexCourant];
 		}
 		return typeArmePossible[0];
 	}
 
 	public static TypesArmes determinerArme(String arme) {
-		if (arme.equals(ArmeDeBase.toString())) return ArmeDeBase;
-		if (arme.equals(ArmeBalayage.toString())) return ArmeBalayage;
-		if (arme.equals(ArmeTrois.toString())) return ArmeTrois;
-		return ArmeHantee;
+		if (arme.equals(DE_BASE.toString())) return DE_BASE;
+		if (arme.equals(BALAYAGE.toString())) return BALAYAGE;
+		if (arme.equals(LASER.toString())) return LASER;
+		return HANTEE;
 	}
 }

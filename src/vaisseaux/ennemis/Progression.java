@@ -6,24 +6,98 @@ import vaisseaux.ennemis.particuliers.Rocher;
 import vaisseaux.ennemis.particuliers.boss.EnnemiBossMine;
 import vaisseaux.ennemis.particuliers.boss.EnnemiBossQuad;
 import vaisseaux.ennemis.particuliers.boss.EnnemiPorteNef;
+import vaisseaux.ennemis.particuliers.nv1.Avion;
+import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
+import vaisseaux.ennemis.particuliers.nv1.Cylon;
+import vaisseaux.ennemis.particuliers.nv1.DeBase;
+import vaisseaux.ennemis.particuliers.nv1.Insecte;
+import vaisseaux.ennemis.particuliers.nv1.Kinder;
+import vaisseaux.ennemis.particuliers.nv1.Laser;
+import vaisseaux.ennemis.particuliers.nv1.PorteRaisin;
+import vaisseaux.ennemis.particuliers.nv1.QuiTir;
+import vaisseaux.ennemis.particuliers.nv1.QuiTir2;
+import vaisseaux.ennemis.particuliers.nv1.QuiTourne;
+import vaisseaux.ennemis.particuliers.nv1.Toupie;
+import vaisseaux.ennemis.particuliers.nv1.ZigZag;
+import vaisseaux.ennemis.particuliers.nv2.BouleTirCote;
+import vaisseaux.ennemis.particuliers.nv2.BouleTirCoteRotation;
+import vaisseaux.ennemis.particuliers.nv2.Kinder2;
+import vaisseaux.ennemis.particuliers.nv3.AvionNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiBouleQuiSArreteNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiCylonNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiDeBaseNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiInsecteNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiKinderNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiPorteRaisinNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTir2Nv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiToupieNv3;
+import vaisseaux.ennemis.particuliers.nv3.QuiTirNv3;
+import vaisseaux.ennemis.particuliers.nv3.ZigZagNv3;
 
-/**
- * Les switchs sont degueux, voir comment faire autrement. 
- * Garder une reference de chaque type ? Mais ca encombre
- * Trouver comment appeler une methode de la classe en ayant le nom de la classe (for name ?)
- * @author julien
- *
- */
 public class Progression {
 
 	private static final int PALIER = 15, DUREE_GRACE = 20, DUREE_PHASE_NORMALE = 37, NV_DE_BASE = 2;
 	private static int niveau = NV_DE_BASE;
 	private static int pointsDispos = 0, alternerNbPoints = 0, nbAppels = 0, nbBoss = 0;
 	private static EtatProgression etat = EtatProgression.Normal;
-	public static final float frequenceApparition = 1;
+	public static final float FREQ_APPARATION = 1;
 
+	private Progression() {	}
+
+	private final static Invocable[] LISTE_LV1 = {
+		Insecte.pool.obtain(),
+		Laser.pool.obtain(),
+		PorteRaisin.pool.obtain(),
+		Avion.pool.obtain(),
+		QuiTir2.pool.obtain(),
+		Kinder.pool.obtain(),
+		Cylon.pool.obtain(),
+		Toupie.pool.obtain(),
+		QuiTourne.pool.obtain(),
+		BouleQuiSArrete.pool.obtain(),
+		QuiTir.pool.obtain(),
+		ZigZag.pool.obtain(),
+		DeBase.pool.obtain(),
+		};
+	private final static Invocable[] LISTE_LV2 = {
+		Insecte.pool.obtain(),
+		Kinder2.pool.obtain(),
+		BouleTirCote.pool.obtain(),
+		Laser.pool.obtain(),
+		Kinder2.pool.obtain(),
+		BouleTirCoteRotation.pool.obtain(),
+		PorteRaisin.pool.obtain(),
+		Avion.pool.obtain(),
+		QuiTir2.pool.obtain(), 
+		Kinder.pool.obtain(), 
+		Cylon.pool.obtain(), 
+		Toupie.pool.obtain(), 
+		QuiTourne.pool.obtain(), 
+		BouleQuiSArrete.pool.obtain(),
+		QuiTir.pool.obtain(),
+		ZigZag.pool.obtain(),
+		DeBase.pool.obtain(),
+		};
+	private final static Invocable[] LISTE_LV3 = {
+		EnnemiInsecteNv3.pool.obtain(),
+		BouleTirCote.pool.obtain(), 
+		EnnemiPorteRaisinNv3.pool.obtain(), 
+		AvionNv3.pool.obtain(),
+		EnnemiQuiTir2Nv3.pool.obtain(), 
+		EnnemiKinderNv3.pool.obtain(), 
+		EnnemiCylonNv3.pool.obtain(), 
+		EnnemiToupieNv3.pool.obtain(), 
+		EnnemiQuiTourneNv3.pool.obtain(), 
+		EnnemiBouleQuiSArreteNv3.pool.obtain(),
+		QuiTirNv3.pool.obtain(),
+		ZigZagNv3.pool.obtain(),
+		EnnemiDeBaseNv3.pool.obtain(),
+		};
+	
 	public static void invoqueEnnemis() {
-		if (niveau < 10) // on monte rapidement de niveau au debut 
+		// on monte rapidement de niveau au debut
+		if (niveau < 10)  
 			niveau += Endless.level;
 
 		if (nbAppels++ > DUREE_PHASE_NORMALE) {
@@ -38,6 +112,7 @@ public class Progression {
 		case Normal:			popNormal();			break;
 		case TempsDeGrace:		grace();				break;
 		case Boss:
+			if (Ennemis.LISTE.size > 0) return;
 			switch (Endless.level) {
 			case 1:				popBoss();				break;
 			case 2:				popBoss2();				break;
@@ -47,8 +122,40 @@ public class Progression {
 	}
 	
 	private static void popNormal() {
+		calculPoints();
+	
+		switch (Endless.level) {
+		case 1: 
+			for (Invocable inv : LISTE_LV1) {
+				if (pointsDispos >= inv.getXp()) {
+					inv.invoquer();
+					pointsDispos -= inv.getXp();
+				}
+			}
+			break;
+		case 2: 
+			for (Invocable inv : LISTE_LV2) {
+				if (pointsDispos >= inv.getXp()) {
+					inv.invoquer();
+					pointsDispos -= inv.getXp();
+				}
+			}
+			break;
+		case 3:
+			for (Invocable inv : LISTE_LV3) {
+				if (pointsDispos >= inv.getXp()) {
+					inv.invoquer();
+					pointsDispos -= inv.getXp();
+				}
+			}
+			break;
+		}
+	}
+	
+	private static void calculPoints() {
+		// calcul des points. Se base sur le niveau. rien sur 3, c'est normal
 		alternerNbPoints++;
-		switch (alternerNbPoints) { // calcul des points. Se base sur le niveau. rien sur 3, c'est normal
+		switch (alternerNbPoints) { 
 		case 0:			pointsDispos = niveau * Endless.level / 10;			break;
 		case 1:			pointsDispos = niveau * Endless.level / 6;			break;
 		case 2:			pointsDispos = niveau * Endless.level / 3;			break;
@@ -58,55 +165,25 @@ public class Progression {
 			alternerNbPoints = 0;
 			break;
 		}
-	
-		switch (Endless.level) {
-		case 1: 
-			for (Invocable inv : Ennemis.LISTE_LV1) {
-				if (pointsDispos >= inv.getXp()) {
-					inv.invoquer();
-					pointsDispos -= inv.getXp();
-				}
-			}
-			break;
-		case 2: 
-			for (Invocable inv : Ennemis.LISTE_LV2) {
-				if (pointsDispos >= inv.getXp()) {
-					inv.invoquer();
-					pointsDispos -= inv.getXp();
-				}
-			}
-			break;
-		case 3:
-			for (Invocable inv : Ennemis.LISTE_LV3) {
-				if (pointsDispos >= inv.getXp()) {
-					inv.invoquer();
-					pointsDispos -= inv.getXp();
-				}
-			}
-			break;
-		}
 	}
 	
 	private static void popBoss() {
-		if (Ennemis.liste.size > 0)
-			return; // si y'a encore des ennemis en jeu
-
 		switch (nbBoss) {
 		case 0:
-			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());		// 1 porte nef
+			Ennemis.LISTE.add(EnnemiPorteNef.pool.obtain());		// 1 porte nef
 			break;
 		case 1:														// 2 portes nefs
-			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());
+			Ennemis.LISTE.add(EnnemiPorteNef.pool.obtain());
 			EnnemiPorteNef e = EnnemiPorteNef.pool.obtain();			// celui ci plus et plus tard
 			e.position.x += EnnemiPorteNef.LARGEUR;
 			e.position.y += EnnemiPorteNef.DEMI_LARGEUR;
-			Ennemis.liste.add(e);
+			Ennemis.LISTE.add(e);
 			break;
 		case 2:
-			Ennemis.liste.add(EnnemiBossQuad.pool.obtain());
+			Ennemis.LISTE.add(EnnemiBossQuad.pool.obtain());
 			break;
 		default:
-			Ennemis.liste.add(EnnemiBossMine.pool.obtain());
+			Ennemis.LISTE.add(EnnemiBossMine.pool.obtain());
 			break;
 		}
 		etat = EtatProgression.TempsDeGrace;
@@ -115,15 +192,13 @@ public class Progression {
 	}
 
 	private static void popBoss2() {
-		if (Ennemis.liste.size > 1)		return; 
-
 		switch (nbBoss) {
 		case 0:
-			Ennemis.liste.add(EnnemiPorteNef.pool.obtain());
+			Ennemis.LISTE.add(EnnemiPorteNef.pool.obtain());
 			EnnemiPorteNef e = EnnemiPorteNef.pool.obtain();
 			e.position.x += EnnemiPorteNef.LARGEUR;
 			e.position.y += EnnemiPorteNef.DEMI_LARGEUR;
-			Ennemis.liste.add(e);
+			Ennemis.LISTE.add(e);
 
 			Rocher rocher = Rocher.pool.obtain();
 			rocher.position.x = CSG.DEMI_LARGEUR_ECRAN;
@@ -135,12 +210,12 @@ public class Progression {
 			Rocher.pool.obtain();
 			break;
 		case 1:
-			Ennemis.liste.add(EnnemiBossQuad.pool.obtain());
+			Ennemis.LISTE.add(EnnemiBossQuad.pool.obtain());
 			Rocher.pool.obtain();
 			Rocher.pool.obtain();
 			break;
 		default:
-			Ennemis.liste.add(EnnemiBossMine.pool.obtain());
+			Ennemis.LISTE.add(EnnemiBossMine.pool.obtain());
 			break;
 		}
 		etat = EtatProgression.TempsDeGrace;
@@ -150,11 +225,9 @@ public class Progression {
 
 	
 	private static void popBoss3() {
-		if (Ennemis.liste.size > 1)		return; 
-
 		switch (nbBoss) {
-		case 0:			Ennemis.liste.add(EnnemiBossQuad.pool.obtain());			break;
-		default:		Ennemis.liste.add(EnnemiBossMine.pool.obtain());			break;
+		case 0:			Ennemis.LISTE.add(EnnemiBossQuad.pool.obtain());			break;
+		default:		Ennemis.LISTE.add(EnnemiBossMine.pool.obtain());			break;
 		}
 		etat = EtatProgression.TempsDeGrace;
 		nbAppels = 0;
@@ -163,7 +236,7 @@ public class Progression {
 	
 	
 	private static void grace() {
-		if (nbAppels > DUREE_GRACE || Ennemis.liste.size == 0) {
+		if (nbAppels > DUREE_GRACE || Ennemis.LISTE.size == 0) {
 			nbAppels = 0;
 			etat = EtatProgression.Normal;
 		}

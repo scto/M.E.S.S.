@@ -8,7 +8,6 @@ import assets.particules.Particules;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import vaisseaux.armes.Armes;
-import vaisseaux.ennemis.Ennemis;
 import vaisseaux.joueur.VaisseauType1;
 
 public class JeuBackground {

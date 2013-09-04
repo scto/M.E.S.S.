@@ -17,7 +17,7 @@ public class EnnemiCylonNv3 extends Cylon {
 	}
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

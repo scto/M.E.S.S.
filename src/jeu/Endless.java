@@ -6,7 +6,7 @@ import menu.Menu;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
+import vaisseaux.ennemis.particuliers.boss.Ombrelle;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -101,7 +101,7 @@ public class Endless implements Screen {
         scoreEnvoye = false;
         perdu = false;
         maintenant = 0;
-    	Ennemis.derniereApparition = 0;
+        Ennemis.clear();
 		if (CSG.profil.bloom) {
 			bloom = new Bloom();
 			bloom.setBloomIntesity(CSG.profil.intensiteBloom);
@@ -145,7 +145,7 @@ public class Endless implements Screen {
 //			Ennemis.liste.add(new EnnemiCylon());
 //		if (Gdx.input.isKeyPressed(Keys.T))
 //			Ennemis.liste.add(new EnnemiBossMine());
-		if (Gdx.input.justTouched()) 
+//		if (Gdx.input.justTouched()) 
 		{
 //			Client c = new Client("80.201.86.80", this);	
 //			c.send("Coucou 80.201.86.80	");
@@ -156,7 +156,7 @@ public class Endless implements Screen {
 //			Ennemis.liste.add(ZigZagNv3.pool.obtain());
 //			Ennemis.liste.add(ZigZagNv3.pool.obtain());
 //			Ennemis.liste.add(ZigZagNv3.pool.obtain());
-			Ennemis.liste.add(BouleQuiSArrete.pool.obtain());
+//			Ennemis.LISTE.add(Ombrelle.pool.obtain());
 		}
 //		if (Gdx.input.justTouched()) 
 //			Ennemis.liste.add(EnnemiBossMine.pool.obtain());
@@ -361,7 +361,9 @@ public class Endless implements Screen {
 			if (CSG.profil.typeControle == CSG.CONTROLE_ACCELEROMETRE & !afficherMenuRadial) vaisseau.accelerometre();
 
 			if (alterner) {	
+				System.err.println(Ennemis.LISTE);
 				Ennemis.possibleApparitionEtUpdateScore();
+				System.out.println(Ennemis.LISTE.size);
 				if (!activerStop) 			Physique.testCollisions();
 				if (!afficherMenuRadial)	vaisseau.tir();
 				if (alternerUpdateScore) {

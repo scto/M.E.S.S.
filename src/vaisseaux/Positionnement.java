@@ -88,4 +88,9 @@ public class Positionnement {
 			return true;
 		}
 	}
+
+	public static void milieu(Ennemis e) {
+		e.position.x = CSG.DEMI_LARGEUR_ZONE_JEU - e.getDemiLargeur();
+		e.position.y = CSG.HAUTEUR_ECRAN;
+	}
 }

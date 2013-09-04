@@ -17,7 +17,7 @@ public class EnnemiQuiTourneNv3 extends QuiTourne {
 	@Override
 	protected void free() {				pool.free(this);	}
 	@Override
-	public void invoquer() {			liste.add(pool.obtain());	}
+	public void invoquer() {			LISTE.add(pool.obtain());	}
 	@Override
 	protected void tir() {				TIR.tirEnRafale(this, 3, mort, maintenant, prochainTir);	}
 	@Override

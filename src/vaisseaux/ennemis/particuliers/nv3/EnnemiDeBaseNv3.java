@@ -31,9 +31,9 @@ public class EnnemiDeBaseNv3 extends DeBase {
 	
 	@Override
 	public void invoquer() {		
-		liste.add(pool.obtain());
-		liste.add(pool.obtain());
-		liste.add(pool.obtain());
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
+		LISTE.add(pool.obtain());
+		LISTE.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 }

@@ -113,14 +113,14 @@ public class QuiTir extends Ennemis implements Tireur{
 
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = position.x + DEMI_LARGEUR - BouleFeu.DEMI_LARGEUR;
-		tmpPos.y = position.y - BouleFeu.HAUTEUR;
-		return tmpPos;
+		TMP_POS.x = position.x + DEMI_LARGEUR - BouleFeu.DEMI_LARGEUR;
+		TMP_POS.y = position.y - BouleFeu.HAUTEUR;
+		return TMP_POS;
 	}
 
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

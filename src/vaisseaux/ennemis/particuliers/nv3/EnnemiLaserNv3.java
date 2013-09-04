@@ -22,7 +22,7 @@ public class EnnemiLaserNv3 extends Laser {
 	
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	@Override
 	protected int getPvMax() {

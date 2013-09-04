@@ -70,7 +70,7 @@ public class ZigZag extends Ennemis {
 	@Override
 	public int getDemiLargeur() {			return DEMI_LARGEUR;	}
 	@Override
-	public void invoquer() {				liste.add(pool.obtain());	}
+	public void invoquer() {				LISTE.add(pool.obtain());	}
 	@Override
 	public float getDirectionY() {			return direction.y;	}
 	@Override

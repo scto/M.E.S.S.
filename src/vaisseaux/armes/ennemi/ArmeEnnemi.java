@@ -45,6 +45,18 @@ public abstract class ArmeEnnemi extends Armes {
 		this.angle = angle;
 		listeTirsDesEnnemis.add(this);
 	}
+	
+	public void init(Vector2 position, float modifVitesse, float angle) {
+		this.position.x = position.x;
+		this.position.y = position.y;
+		this.direction.x = 0;
+		this.direction.y = 1 * modifVitesse;
+		direction.rotate(angle);
+		this.angle = angle;
+		this.position.x += direction.x / 1.35f;
+		this.position.y += direction.y / 1.35f;
+		listeTirsDesEnnemis.add(this);
+	}
 
 	public void init(Vector2 position, Vector2 direction) {
 		this.position.x = position.x;

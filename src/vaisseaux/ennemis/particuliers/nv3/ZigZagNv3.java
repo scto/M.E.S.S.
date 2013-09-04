@@ -14,7 +14,7 @@ public class ZigZagNv3 extends ZigZag {
 	@Override
 	protected void free() {			pool.free(this);	}
 	@Override
-	public void invoquer() {		liste.add(pool.obtain());	}
+	public void invoquer() {		LISTE.add(pool.obtain());	}
 	@Override
 	protected int getPvMax() {		return Stats.PV_ZIGZAG_NV3;	}
 	@Override

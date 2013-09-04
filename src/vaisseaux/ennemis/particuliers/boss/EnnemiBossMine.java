@@ -177,14 +177,14 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	
 
 	public Vector2 getPositionDuTir(int numeroTir) {
-		if (phase == 1)		tmpPos.x = (position.x + DEMI_LARGEUR - ArmeBossMine.DEMI_LARGEUR);
-		else tmpPos.x = (position.x + DEMI_LARGEUR - ArmeMine.DEMI_LARGEUR);
-		tmpPos.y = position.y;
-		return tmpPos;
+		if (phase == 1)		TMP_POS.x = (position.x + DEMI_LARGEUR - ArmeBossMine.DEMI_LARGEUR);
+		else TMP_POS.x = (position.x + DEMI_LARGEUR - ArmeMine.DEMI_LARGEUR);
+		TMP_POS.y = position.y;
+		return TMP_POS;
 	}
 
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

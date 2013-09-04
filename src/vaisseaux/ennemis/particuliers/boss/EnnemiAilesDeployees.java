@@ -86,7 +86,7 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 		position.x = x;
 		position.y = y;
 		this.angle = angle;
-		liste.add(this);
+		LISTE.add(this);
 	}
 	
 
@@ -110,13 +110,13 @@ public class EnnemiAilesDeployees extends Ennemis implements TireurAngle {
 	
 
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = (position.x + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR) + (direction.x * 16);
-		tmpPos.y = (position.y + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR)+ (direction.y * 16);
-		return tmpPos;
+		TMP_POS.x = (position.x + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR) + (direction.x * 16);
+		TMP_POS.y = (position.y + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR)+ (direction.y * 16);
+		return TMP_POS;
 	}
 	
 
-	public void invoquer() {			liste.add(pool.obtain());	}
+	public void invoquer() {			LISTE.add(pool.obtain());	}
 	
 	@Override
 	public float getDirectionY() {		return direction.y;	}

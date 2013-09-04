@@ -23,6 +23,7 @@ public class Profil implements Serializable{
 	private static final String strXP = "XP", STR_VOLUME_ARME = "sjciuendk", STR_VOLUME_MUSIQUE = "sjciuend";
 	private static final String STR_VOLUME_BRUITAGES = "sjciuen", STR_TYPE_CONTROLE = "sfdsfiuen", STR_BLOOM = "bloom";
 	private static final String STR_PARTICULES = "particules", STR_INTENSITE_BLOOM = "intensitebloom";
+	private static final float STEP_VOL = .1f;
 	// -- -- initialisation des champs
 	public int cadenceAdd, typeControle, NvArmeDeBase, NvArmeBalayage, NvArmeTrois,	NvArmeHantee, xpDispo;
 	public float volumeArme, volumeMusique, volumeBruitages, intensiteBloom;
@@ -47,7 +48,7 @@ public class Profil implements Serializable{
 		volumeBruitages = 1;
 		volumeMusique = 1;
 		bloom = true; // Provoque dans de rares cas des bugs d'affichages
-		armeSelectionnee = TypesArmes.ArmeDeBase.toString();
+		armeSelectionnee = TypesArmes.DE_BASE.toString();
 		typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
 		intensiteBloom = 2.0f;
 		premiereFois = true;
@@ -120,25 +121,25 @@ public class Profil implements Serializable{
 	 */
 	public void upArme() {
 		switch(convertArme(armeSelectionnee)) {
-		case ArmeBalayage:
+		case BALAYAGE:
 			if (NvArmeBalayage < NV_ARME_MAX) {
 				xpDispo -= getCoutUpArme();
 				NvArmeBalayage++;
 				ArmesBalayage.updateDimensions();
 			} break;
-		case ArmeDeBase:
+		case DE_BASE:
 			if (NvArmeDeBase < NV_ARME_MAX) {
 				xpDispo -= getCoutUpArme();
 				NvArmeDeBase++;
 				ArmesDeBase.updateDimensions();
 			} break;
-		case ArmeHantee:
+		case HANTEE:
 			if (NvArmeHantee < NV_ARME_MAX) {
 				xpDispo -= getCoutUpArme();
 				NvArmeHantee++;
 				ArmeHantee.updateDimensions();
 			} break;
-		case ArmeTrois:
+		case LASER:
 			if (NvArmeTrois < NV_ARME_MAX) {
 				xpDispo -= getCoutUpArme();
 				NvArmeTrois++;
@@ -152,10 +153,10 @@ public class Profil implements Serializable{
 	public int getCoutUpArme() {
 		int nv = 1;	
 		switch(convertArme(armeSelectionnee)) {
-		case ArmeBalayage:	nv = NvArmeBalayage;	break;
-		case ArmeDeBase:	nv = NvArmeDeBase;		break;
-		case ArmeHantee:	nv = NvArmeHantee;		break;
-		case ArmeTrois:		nv = NvArmeTrois;		break;
+		case BALAYAGE:	nv = NvArmeBalayage;	break;
+		case DE_BASE:	nv = NvArmeDeBase;		break;
+		case HANTEE:	nv = NvArmeHantee;		break;
+		case LASER:		nv = NvArmeTrois;		break;
 		}
 		return (nv+nv) * nv * nv * 100;
 	}
@@ -175,10 +176,10 @@ public class Profil implements Serializable{
 	 * @return <code>TypesArmes</code>
 	 */
 	private static TypesArmes convertArme(String arme){
-		if (arme.equals(TypesArmes.ArmeDeBase.toString()))		return TypesArmes.ArmeDeBase;
-		if (arme.equals(TypesArmes.ArmeTrois.toString()))		return TypesArmes.ArmeTrois;
-		if (arme.equals(TypesArmes.ArmeBalayage.toString()))	return TypesArmes.ArmeBalayage;
-		return TypesArmes.ArmeHantee;
+		if (arme.equals(TypesArmes.DE_BASE.toString()))		return TypesArmes.DE_BASE;
+		if (arme.equals(TypesArmes.LASER.toString()))		return TypesArmes.LASER;
+		if (arme.equals(TypesArmes.BALAYAGE.toString()))	return TypesArmes.BALAYAGE;
+		return TypesArmes.HANTEE;
 	}
 
 	public String getNomControle() {
@@ -200,7 +201,7 @@ public class Profil implements Serializable{
 	 * Augmente et persiste
 	 */
 	public void augmenterVolumeArme() {
-		if (volumeArme < 1)			volumeArme += 0.1f;
+		if (volumeArme < 1)			volumeArme += STEP_VOL;
 		CSG.profilManager.persist();
 	}
 
@@ -208,7 +209,7 @@ public class Profil implements Serializable{
 	 * Diminue et persiste
 	 */
 	public void diminuerVolumeArme() {
-		if (volumeArme > 0)			volumeArme -= 0.1f;
+		if (volumeArme > 0)			volumeArme -= STEP_VOL;
 		CSG.profilManager.persist();
 	}
 
@@ -216,7 +217,7 @@ public class Profil implements Serializable{
 	 * Diminue et persiste
 	 */
 	public void diminuerVolumeBruitage() {
-		if (volumeBruitages > 0)	volumeBruitages -= 0.1f;
+		if (volumeBruitages > 0)	volumeBruitages -= STEP_VOL;
 		CSG.profilManager.persist();
 	}
 	
@@ -224,7 +225,7 @@ public class Profil implements Serializable{
 	 * Augmente et persiste
 	 */
 	public void augmenterVolumeBruitage() {
-		if (volumeBruitages < 1)	volumeBruitages += 0.1f;
+		if (volumeBruitages < 1)	volumeBruitages += STEP_VOL;
 		CSG.profilManager.persist();
 	}
 
@@ -232,7 +233,7 @@ public class Profil implements Serializable{
 	 * Augmente et persiste
 	 */
 	public void augmenterVolumeMusique() {
-		if (volumeMusique < 1)		volumeMusique += 0.1f;
+		if (volumeMusique < 1)		volumeMusique += STEP_VOL;
 		CSG.profilManager.persist();
 	}
 	
@@ -240,16 +241,7 @@ public class Profil implements Serializable{
 	 * Augmente et persiste
 	 */
 	public void diminuerVolumeMusique() {
-		if (volumeMusique > 0)		volumeMusique -= 0.1f;
+		if (volumeMusique > 0)		volumeMusique -= STEP_VOL;
 		CSG.profilManager.persist();
 	}
-
-	public void switchParticules() {
-		if (Gdx.graphics.isGL20Available()) {
-			particules = !particules;
-//			Armes.initEffets();
-//			Ennemis.switchParticules();
-		}
-	}
-
 }

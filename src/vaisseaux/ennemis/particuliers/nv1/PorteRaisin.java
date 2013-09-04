@@ -127,17 +127,17 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	
 	@Override
 	public Vector2 getDirectionTir() {
-		tmpDir.x = 0;
-		tmpDir.y = -1;
-		tmpDir.rotate(angleTir++);
-		return tmpDir;
+		TMP_DIR.x = 0;
+		TMP_DIR.y = -1;
+		TMP_DIR.rotate(angleTir++);
+		return TMP_DIR;
 	}
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = (position.x + DEMI_LARGEUR - ArmeBouleEnergie.DEMI_LARGEUR);// + (direction.x * 16);
-		tmpPos.y = (position.y + DEMI_LARGEUR - ArmeBouleEnergie.DEMI_LARGEUR);//+ (direction.y * 16);
-		return tmpPos;
+		TMP_POS.x = (position.x + DEMI_LARGEUR - ArmeBouleEnergie.DEMI_LARGEUR);// + (direction.x * 16);
+		TMP_POS.y = (position.y + DEMI_LARGEUR - ArmeBouleEnergie.DEMI_LARGEUR);//+ (direction.y * 16);
+		return TMP_POS;
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

@@ -330,25 +330,25 @@ public class VaisseauType1 extends Vaisseaux {
 		// current time millis prend apparement 5 a 6 cycles contre parfois 100 pour nanotime mais c'est moins pr�cis. JE N'AI PAS VERIFIE
 		// -- -- Bon c'est naze la il doit y avoir un meilleur moyen de faire
 		switch (typeArme) {
-			case ArmeDeBase:
+			case DE_BASE:
 				if (maintenant > dernierTir	+ ArmesDeBase.CADENCETIR) {
 					ManagerArmeDeBase.init(centreX, position.y + HAUTEUR);
 					dernierTir = maintenant;
 				}
 				break;
-			case ArmeBalayage:
+			case BALAYAGE:
 				if (maintenant > dernierTir	+ ArmesBalayage.CADENCETIR + modifCadenceTir) {
 					ManagerArmeBalayage.init(centreX, position.y + HAUTEUR);
 					dernierTir = maintenant;
 				}
 				break;
-			case ArmeTrois:
+			case LASER:
 				if (maintenant > dernierTir	+ ArmesTrois.CADENCETIR + modifCadenceTir) {
 					ManagerArmeTrois.init(centreX - ArmesTrois.DEMI_LARGEUR, position.y + HAUTEUR);
 					dernierTir = maintenant;
 				}
 				break;
-		case ArmeHantee:
+		case HANTEE:
 			if (maintenant > dernierTir	+ ArmeHantee.CADENCETIR + modifCadenceTir) {
 				ManagerArmeHantee.init(centreX - ArmeHantee.DEMI_LARGEUR, position.y + HAUTEUR);
 				dernierTir = maintenant;

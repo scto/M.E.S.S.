@@ -66,9 +66,6 @@ public class Insecte extends Ennemis implements TireurAngle {
 		Positionnement.coteVersInterieur(position, VITESSE, direction, getLargeur());
 	}
 
-	/**
-	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
-	 */
 	@Override
 	public boolean mouvementEtVerif() {
 		Physique.mvtSansVerif(position, direction);
@@ -138,32 +135,32 @@ public class Insecte extends Ennemis implements TireurAngle {
 	
 	@Override
 	public Vector2 getDirectionTir() {
-		return tmpDir;
+		return TMP_DIR;
 	}
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
 		majVecteurTir();
 		if (!tirGauche) {
-			tmpPos.x = (position.x) + (tmpDir.x * 16);
-			tmpPos.y = (position.y + ArmeInsecte.DEMI_HAUTEUR)+ (tmpDir.y * 16);
+			TMP_POS.x = (position.x) + (TMP_DIR.x * 16);
+			TMP_POS.y = (position.y + ArmeInsecte.DEMI_HAUTEUR)+ (TMP_DIR.y * 16);
 		} else {
-			tmpPos.x = (position.x + DEMI_LARGEUR) + (tmpDir.x * 16);
-			tmpPos.y = (position.y - ArmeInsecte.DEMI_HAUTEUR) + (tmpDir.y * 16);
+			TMP_POS.x = (position.x + DEMI_LARGEUR) + (TMP_DIR.x * 16);
+			TMP_POS.y = (position.y - ArmeInsecte.DEMI_HAUTEUR) + (TMP_DIR.y * 16);
 		}
-		return tmpPos;
+		return TMP_POS;
 	}
 
 	private void majVecteurTir() {
-		tmpDir.x = direction.x / VITESSE;
-		tmpDir.y = direction.y / VITESSE;
-		if (direction.x < 0) tmpDir.rotate(90);
-		else tmpDir.rotate(-90);
+		TMP_DIR.x = direction.x / VITESSE;
+		TMP_DIR.y = direction.y / VITESSE;
+		if (direction.x < 0) TMP_DIR.rotate(90);
+		else TMP_DIR.rotate(-90);
 	}
 	
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

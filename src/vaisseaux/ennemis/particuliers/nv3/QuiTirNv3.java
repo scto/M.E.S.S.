@@ -20,7 +20,7 @@ public class QuiTirNv3 extends QuiTir {
 	@Override
 	protected void free() {				pool.free(this);	}
 	@Override
-	public void invoquer() {			liste.add(pool.obtain());	}
+	public void invoquer() {			LISTE.add(pool.obtain());	}
 	@Override
 	protected float getVitesse() {		return Stats.V_ENN_MAX_QUI_TIR3;	} 
 	@Override
@@ -38,10 +38,10 @@ public class QuiTirNv3 extends QuiTir {
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
-		if (numeroTir == 1) tmpPos.x = position.x + DEMI_LARGEUR - BouleFeu.LARGEUR;
-		else tmpPos.x = position.x + DEMI_LARGEUR;
+		if (numeroTir == 1) TMP_POS.x = position.x + DEMI_LARGEUR - BouleFeu.LARGEUR;
+		else TMP_POS.x = position.x + DEMI_LARGEUR;
 		
-		tmpPos.y = position.y - BouleFeu.HAUTEUR + BouleFeu.DEMI_HAUTEUR;
-		return tmpPos;
+		TMP_POS.y = position.y - BouleFeu.HAUTEUR + BouleFeu.DEMI_HAUTEUR;
+		return TMP_POS;
 	}
 }

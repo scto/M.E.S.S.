@@ -52,12 +52,12 @@ public class QuiTir2 extends QuiTir implements Tireur {
 	@Override
 	public float getModifVitesse() {	return 1;	}
 	@Override
-	public void invoquer() {			liste.add(pool.obtain());	}
+	public void invoquer() {			LISTE.add(pool.obtain());	}
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = position.x + DEMI_LARGEUR - ArmeFusee.DEMI_LARGEUR;
-		tmpPos.y = position.y - ArmeFusee.LARGEUR;
-		return tmpPos;
+		TMP_POS.x = position.x + DEMI_LARGEUR - ArmeFusee.DEMI_LARGEUR;
+		TMP_POS.y = position.y - ArmeFusee.LARGEUR;
+		return TMP_POS;
 	}
 	@Override
 	public TextureRegion getTexture() {		return AnimationQuiTir.getTexture(pv);	}

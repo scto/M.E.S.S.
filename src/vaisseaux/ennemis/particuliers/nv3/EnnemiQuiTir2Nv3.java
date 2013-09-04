@@ -19,7 +19,7 @@ public class EnnemiQuiTir2Nv3 extends QuiTir2 {
 	
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());	
+		LISTE.add(pool.obtain());	
 	}
 	
 	@Override

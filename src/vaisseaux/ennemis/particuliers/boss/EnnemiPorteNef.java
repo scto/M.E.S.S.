@@ -149,7 +149,7 @@ public class EnnemiPorteNef extends Ennemis{
 
 
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

@@ -45,15 +45,15 @@ public class Avion extends DeBase implements DoubleTireur {
 	public Vector2 getPositionDuTir(int numeroTir) {
 		switch (numeroTir) {
 		case 1: 
-			tmpPos.x = position.x - BouleFeu.DEMI_LARGEUR;
-			tmpPos.y = position.y;
+			TMP_POS.x = position.x - BouleFeu.DEMI_LARGEUR;
+			TMP_POS.y = position.y;
 			break;
 		case 2:
-			tmpPos.x = position.x + LARGEUR - BouleFeu.DEMI_LARGEUR;
-			tmpPos.y = position.y;
+			TMP_POS.x = position.x + LARGEUR - BouleFeu.DEMI_LARGEUR;
+			TMP_POS.y = position.y;
 			break;
 		}
-		return tmpPos;
+		return TMP_POS;
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class Avion extends DeBase implements DoubleTireur {
 	@Override
 	protected int getPvMax() {		return Stats.PV_AVION;	}
 	@Override
-	public void invoquer() {		liste.add(pool.obtain());	}
+	public void invoquer() {		LISTE.add(pool.obtain());	}
 	@Override
 	protected Sound getSonExplosion() {	return SoundMan.explosionennemidebasequitir;	}
 	@Override

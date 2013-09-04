@@ -131,6 +131,10 @@ public class Stats {
 	public static final float V_ENNEMI_INSECTE3 = V_ENN_INSECTE * VNV3;
 	public static final int PV_INSECTE3 = (int) (PV_INSECTE * PVNV3);
 	
+	// O M B R E L L E
+	public static final float V_ENN_OMBRELLE = 26 * U;
+	public static final int PV_OMBRELLE = 250;
+	
 	// ***********************************************************************************
 	// ***********************   A   R   M   E   S   *************************************
 	// ***********************************************************************************

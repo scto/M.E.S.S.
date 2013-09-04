@@ -111,15 +111,15 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 
 	public int getDemiLargeur() {	return DEMI_LARGEUR;	}
 
-	public void invoquer() {		liste.add(pool.obtain());	}
+	public void invoquer() {		LISTE.add(pool.obtain());	}
 
 	public ArmeEnnemi getArme() {		return ArmeBouleTir.pool.obtain();	}
 
 
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = position.x + DEMI_LARGEUR - ArmeBouleTir.DEMI_LARGEUR; 
-		tmpPos.y = position.y + DEMI_LARGEUR - ArmeBouleTir.DEMI_LARGEUR;
-		return tmpPos;
+		TMP_POS.x = position.x + DEMI_LARGEUR - ArmeBouleTir.DEMI_LARGEUR; 
+		TMP_POS.y = position.y + DEMI_LARGEUR - ArmeBouleTir.DEMI_LARGEUR;
+		return TMP_POS;
 	}
 
 
@@ -133,9 +133,9 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 
 
 	public Vector2 getDirectionTir() {
-		tmpDir.x = direction.x;
-		tmpDir.y = direction.y;
-		return tmpDir;
+		TMP_DIR.x = direction.x;
+		TMP_DIR.y = direction.y;
+		return TMP_DIR;
 	}
 
 

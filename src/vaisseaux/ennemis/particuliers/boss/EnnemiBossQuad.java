@@ -177,32 +177,32 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 		case 1:
 			SoundMan.playBruitage(SoundMan.tirRocket);
 			dirY = -1.2f;
-			tmpPos.x = position.x;
-			tmpPos.y = position.y - DECALAGE_ARME_EXTERIEUR_Y;
+			TMP_POS.x = position.x;
+			TMP_POS.y = position.y - DECALAGE_ARME_EXTERIEUR_Y;
 			break;
 		case 2:
-			tmpPos.x = position.x + LARGEUR - BouleFeu.LARGEUR;
-			tmpPos.y = position.y - DECALAGE_ARME_EXTERIEUR_Y;
+			TMP_POS.x = position.x + LARGEUR - BouleFeu.LARGEUR;
+			TMP_POS.y = position.y - DECALAGE_ARME_EXTERIEUR_Y;
 			break;
 		case 3:
-			tmpPos.x = position.x + DECALAGE_ARME_3;
-			tmpPos.y = position.y - BouleFeu.DEMI_HAUTEUR;
+			TMP_POS.x = position.x + DECALAGE_ARME_3;
+			TMP_POS.y = position.y - BouleFeu.DEMI_HAUTEUR;
 			break;
 		case 4:
-			tmpPos.x = position.x + DECALAGE_ARME_2;
-			tmpPos.y = position.y - BouleFeu.DEMI_HAUTEUR;
+			TMP_POS.x = position.x + DECALAGE_ARME_2;
+			TMP_POS.y = position.y - BouleFeu.DEMI_HAUTEUR;
 			break;
 		default:
-			tmpPos.x = position.x + DEMI_LARGEUR - BouleFeu.DEMI_LARGEUR;
-			tmpPos.y = position.y - BouleFeu.DEMI_HAUTEUR;
+			TMP_POS.x = position.x + DEMI_LARGEUR - BouleFeu.DEMI_LARGEUR;
+			TMP_POS.y = position.y - BouleFeu.DEMI_HAUTEUR;
 			break;
 		}
-		return tmpPos;
+		return TMP_POS;
 	}
 	
 
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

@@ -1,13 +1,11 @@
-﻿package vaisseaux.armes.joueur;
-
+package vaisseaux.armes.joueur;
 import menu.CSG;
 import assets.SoundMan;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
 public class ManagerArmeDeBase {
-	
+
 	private static Sound son = Gdx.audio.newSound(Gdx.files.internal("sons/156895__halgrimm__shot-2-0.wav"));
 
 	public static void init(float posX, float posY){

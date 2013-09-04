@@ -17,7 +17,7 @@ public class EnnemiBouleQuiSArreteNv3 extends BouleQuiSArrete {
 	}
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

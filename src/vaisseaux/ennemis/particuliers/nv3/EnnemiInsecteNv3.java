@@ -19,7 +19,7 @@ public class EnnemiInsecteNv3 extends Insecte {
 	
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

@@ -18,7 +18,7 @@ public class EnnemiPorteRaisinNv3 extends PorteRaisin {
 	
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

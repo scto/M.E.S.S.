@@ -162,14 +162,14 @@ public class Laser extends Ennemis implements TireurAngle {
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
-		tmpPos.x = (position.x + DEMI_LARGEUR - ArmeLaser.DEMI_LARGEUR) + (direction.x / 3);
-		tmpPos.y = (position.y + DEMI_LARGEUR - ArmeLaser.DEMI_LARGEUR) + (direction.y / 3);
-		return tmpPos;
+		TMP_POS.x = (position.x + DEMI_LARGEUR - ArmeLaser.DEMI_LARGEUR) + (direction.x / 3);
+		TMP_POS.y = (position.y + DEMI_LARGEUR - ArmeLaser.DEMI_LARGEUR) + (direction.y / 3);
+		return TMP_POS;
 	}
 	
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

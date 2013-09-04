@@ -3,37 +3,19 @@ package vaisseaux.ennemis;
 import jeu.Endless;
 import jeu.Physique;
 import vaisseaux.Vaisseaux;
+import vaisseaux.armes.joueur.ArmeJoueur;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.particuliers.boss.EnnemiBossQuad;
 import vaisseaux.ennemis.particuliers.boss.EnnemiPorteNef;
-import vaisseaux.ennemis.particuliers.nv1.Avion;
 import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
 import vaisseaux.ennemis.particuliers.nv1.Cylon;
 import vaisseaux.ennemis.particuliers.nv1.DeBase;
-import vaisseaux.ennemis.particuliers.nv1.Insecte;
 import vaisseaux.ennemis.particuliers.nv1.Kinder;
-import vaisseaux.ennemis.particuliers.nv1.Laser;
 import vaisseaux.ennemis.particuliers.nv1.PorteRaisin;
 import vaisseaux.ennemis.particuliers.nv1.QuiTir;
-import vaisseaux.ennemis.particuliers.nv1.QuiTir2;
 import vaisseaux.ennemis.particuliers.nv1.QuiTourne;
 import vaisseaux.ennemis.particuliers.nv1.Toupie;
 import vaisseaux.ennemis.particuliers.nv1.ZigZag;
-import vaisseaux.ennemis.particuliers.nv2.BouleTirCote;
-import vaisseaux.ennemis.particuliers.nv2.BouleTirCoteRotation;
-import vaisseaux.ennemis.particuliers.nv2.Kinder2;
-import vaisseaux.ennemis.particuliers.nv3.AvionNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiBouleQuiSArreteNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiCylonNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiDeBaseNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiInsecteNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiKinderNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiPorteRaisinNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTir2Nv3;
-import vaisseaux.ennemis.particuliers.nv3.QuiTirNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiToupieNv3;
-import vaisseaux.ennemis.particuliers.nv3.ZigZagNv3;
 import assets.SoundMan;
 import assets.animation.AnimationArmeFusee;
 import assets.animation.AnimationExplosion1;
@@ -50,64 +32,14 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	
 	// voir a quelle taille l'initialiser
-	public static Array<Ennemis> liste = new Array<Ennemis>(30);
-	protected static final Vector2 tmpPos = new Vector2(), tmpDir = new Vector2();
-	public static float derniereApparition = 0;
-	public boolean mort = false;
+	public final static Array<Ennemis> LISTE = new Array<Ennemis>(30);
+	protected static final Vector2 TMP_POS = new Vector2(), TMP_DIR = new Vector2();
+	private static float derniereApparition = 0;
 	protected static Rectangle collision = new Rectangle();
+	// champs des ennemis
+	protected boolean mort = false;
 	protected int pv;
-	protected float maintenant = 0, tpsAnimationExplosion = 0;
-	
-	public static Invocable[] LISTE_LV1 = {
-		Insecte.pool.obtain(),//new Insecte(),
-		Laser.pool.obtain(),
-		PorteRaisin.pool.obtain(),
-		Avion.pool.obtain(),
-		QuiTir2.pool.obtain(),
-		Kinder.pool.obtain(),
-		Cylon.pool.obtain(),
-		Toupie.pool.obtain(),
-		QuiTourne.pool.obtain(),
-		BouleQuiSArrete.pool.obtain(),
-		QuiTir.pool.obtain(),
-		ZigZag.pool.obtain(),
-		DeBase.pool.obtain(),
-		};//EnnemiInsecte.pool.obtain()};
-	public static Invocable[] LISTE_LV2 = {
-		Insecte.pool.obtain(),
-		Kinder2.pool.obtain(),
-		BouleTirCote.pool.obtain(),
-		Laser.pool.obtain(),
-		Kinder2.pool.obtain(),
-		BouleTirCoteRotation.pool.obtain(),
-		PorteRaisin.pool.obtain(),
-		Avion.pool.obtain(),
-		QuiTir2.pool.obtain(), 
-		Kinder.pool.obtain(), 
-		Cylon.pool.obtain(), 
-		Toupie.pool.obtain(), 
-		QuiTourne.pool.obtain(), 
-		BouleQuiSArrete.pool.obtain(),
-		QuiTir.pool.obtain(),
-		ZigZag.pool.obtain(),
-		DeBase.pool.obtain(),
-		};//EnnemiInsecte.pool.obtain()};
-	public static Invocable[] LISTE_LV3 = {
-		EnnemiInsecteNv3.pool.obtain(),
-		BouleTirCote.pool.obtain(), 
-		EnnemiPorteRaisinNv3.pool.obtain(), 
-		AvionNv3.pool.obtain(),
-		EnnemiQuiTir2Nv3.pool.obtain(), 
-		EnnemiKinderNv3.pool.obtain(), 
-		EnnemiCylonNv3.pool.obtain(), 
-		EnnemiToupieNv3.pool.obtain(), 
-		EnnemiQuiTourneNv3.pool.obtain(), 
-		EnnemiBouleQuiSArreteNv3.pool.obtain(),
-		QuiTirNv3.pool.obtain(),
-		ZigZagNv3.pool.obtain(),
-		EnnemiDeBaseNv3.pool.obtain(),
-		};//EnnemiInsecte.pool.obtain()};
-	
+	protected float maintenant = 0, tpsAnimation = 0;
 	/**
 	 * Initialise l'ennemi
 	 * @param posX
@@ -120,10 +52,10 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	}
 	
 	public static void affichageEtMouvement(SpriteBatch batch) {
-		for (Ennemis e : liste){
+		for (Ennemis e : LISTE){
 			e.afficher(batch);
 			e.tir();
-			if (e.mouvementEtVerif() == false) 	liste.removeValue(e, true);
+			if (e.mouvementEtVerif() == false) 	LISTE.removeValue(e, true);
 		}
 	}
 	
@@ -149,12 +81,12 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	}
 	
 	protected float getAngle() {				return 0;	}
-	protected TextureRegion getExplosion() {	return AnimationExplosion1.getTexture(tpsAnimationExplosion);	}
+	protected TextureRegion getExplosion() {	return AnimationExplosion1.getTexture(tpsAnimation);	}
 	protected TextureRegion getTexture() {		return AnimationArmeFusee.getTexture(maintenant);	}
 	protected void tir() {	}
 
 	public static void affichage(SpriteBatch batch) {
-		for(Ennemis e : liste)
+		for(Ennemis e : LISTE)
 			e.afficher(batch);
 	}
 	
@@ -166,7 +98,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 * @param tempsEcoule
 	 */
 	public static void possibleApparitionEtUpdateScore() {
-		if (Progression.frequenceApparition + derniereApparition < Endless.maintenant) {
+		if (Progression.FREQ_APPARATION + derniereApparition < Endless.maintenant) {
 			Progression.invoqueEnnemis();
 			derniereApparition = Endless.maintenant;
 		}
@@ -201,7 +133,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 		Particules.explosion(this);
 		mort = true;
 		Bonus.ajoutBonus(position.x + getDemiLargeur(), position.y - Bonus.DEMI_LARGEUR, getXp());
-		tpsAnimationExplosion = 0;
+		tpsAnimation = 0;
 		SoundMan.playBruitage(getSonExplosion());
 	}
 
@@ -211,7 +143,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	 */
 	public void reset() {
 		mort = false;
-		tpsAnimationExplosion = 0;
+		tpsAnimation = 0;
 		maintenant = 0;
 		pv = getPvMax();
 	}
@@ -234,21 +166,21 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 
 	public static void randomApparition() {
 		double f = Math.random();
-		if (f < 0.1) {				liste.add(EnnemiPorteNef.pool.obtain());
-		} else if (f < .2) {		liste.add(BouleQuiSArrete.pool.obtain());
-		} else if (f < .3) {		liste.add(QuiTir.pool.obtain());
-		} else if (f < .4) {		liste.add(ZigZag.pool.obtain());
-		} else if (f < .5) {		liste.add(Kinder.pool.obtain());
-		} else if (f < .6) {		liste.add(DeBase.pool.obtain());
-		} else if (f < .7) {		liste.add(QuiTourne.pool.obtain());
-		} else if (f < .8) {		liste.add(Toupie.pool.obtain());
-		} else if (f < .9) {		liste.add(Cylon.pool.obtain());
-		} else if (f < .95) {		liste.add(PorteRaisin.pool.obtain());
+		if (f < 0.1) {				LISTE.add(EnnemiPorteNef.pool.obtain());
+		} else if (f < .2) {		LISTE.add(BouleQuiSArrete.pool.obtain());
+		} else if (f < .3) {		LISTE.add(QuiTir.pool.obtain());
+		} else if (f < .4) {		LISTE.add(ZigZag.pool.obtain());
+		} else if (f < .5) {		LISTE.add(Kinder.pool.obtain());
+		} else if (f < .6) {		LISTE.add(DeBase.pool.obtain());
+		} else if (f < .7) {		LISTE.add(QuiTourne.pool.obtain());
+		} else if (f < .8) {		LISTE.add(Toupie.pool.obtain());
+		} else if (f < .9) {		LISTE.add(Cylon.pool.obtain());
+		} else if (f < .95) {		LISTE.add(PorteRaisin.pool.obtain());
 		}
 	}
 
 	public static void bombe() {
-		for (Ennemis e : liste)
+		for (Ennemis e : LISTE)
 			if (e.mort == false)
 				e.mourrir();
 		Endless.effetBloom();
@@ -263,13 +195,24 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 	}
 
 	public static void clear() {
-		for(Ennemis e : liste) e.free();
-		liste.clear();
+		derniereApparition = 0;
+		for(Ennemis e : LISTE) e.free();
+		LISTE.clear();
 	}
 
 	public abstract float getDirectionY();
 
 	public float getDirectionX() {
 		return 0;
+	}
+
+	/**
+	 * Verifie si il y a collision avec la balle.
+	 * @param a
+	 * @return true = collision 
+	 */
+	public boolean checkBullet(ArmeJoueur a) {
+		if (mort) return false;
+		return Physique.rectangleDansRectangle(a.getRectangleCollision(), getRectangleCollision());
 	}
 }

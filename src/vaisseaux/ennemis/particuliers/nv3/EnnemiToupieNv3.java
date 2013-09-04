@@ -22,7 +22,7 @@ public class EnnemiToupieNv3 extends Toupie {
 	
 	@Override
 	public void invoquer() {
-		liste.add(pool.obtain());
+		LISTE.add(pool.obtain());
 	}
 	
 	@Override

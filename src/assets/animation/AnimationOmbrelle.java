@@ -10,7 +10,7 @@ public class AnimationOmbrelle {
 	public static AtlasRegion bonEtat;
 	
 	public static void initAnimation(){
-		bonEtat = CSG.getAssetMan().getAtlas().findRegion("ombrelleBoss");
+		bonEtat = CSG.getAssetMan().getAtlas().findRegion("ombrelleboss");
 	}
 	
 	public static TextureRegion getTexture(int pv) {
