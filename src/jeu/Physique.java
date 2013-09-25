@@ -9,7 +9,6 @@ import assets.particules.Particules;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -59,25 +58,31 @@ public class Physique {
 	}
 	
 	/**
+	 * On laisse une marge au dessus
 	 * @return True = toujours affiche
 	 */
 	public static boolean toujoursAfficher(Vector2 position, int hauteur, int largeur) {
-		if (position.y + hauteur < 0 || position.x + largeur + largeur < 0 || position.x > CSG.LARGEUR_ZONE_JEU + largeur || position.y > CSG.HAUTEUR_ECRAN + hauteur)
-			return false;
-		return true;
-	}
-	
-	public static boolean toujoursAfficher(Vector2 position, int lrg) {
-		if (position.y + lrg < 0 || position.x + lrg + lrg < 0 || position.x > CSG.LARGEUR_ZONE_JEU + lrg || position.y > CSG.HAUTEUR_ECRAN + lrg)
+		if (position.y + hauteur < 0 || position.x + largeur < 0 || position.x > CSG.LARGEUR_ZONE_JEU  || position.y > CSG.HAUTEUR_ECRAN + hauteur)
 			return false;
 		return true;
 	}
 	
 	/**
+	 * On laisse une marge au dessus
 	 * @return True = toujours affiche
 	 */
-	public static boolean toujoursAfficher(float posX, float posY, int lARGEUR) {
-		if (posY + lARGEUR < 0 || posX + lARGEUR + lARGEUR < 0 || posX > CSG.LARGEUR_ZONE_JEU + lARGEUR || posY > CSG.HAUTEUR_ECRAN + lARGEUR)
+	public static boolean toujoursAfficher(Vector2 position, int lrg) {
+		if (position.y + lrg < 0 || position.x + lrg  < 0 || position.x > CSG.LARGEUR_ZONE_JEU || position.y > CSG.HAUTEUR_ECRAN + lrg)
+			return false;
+		return true;
+	}
+	
+	/**
+	 * On laisse une marge au dessus
+	 * @return True = toujours affiche
+	 */
+	public static boolean toujoursAfficher(float posX, float posY, int largeur) {
+		if (posY + largeur < 0 || posX + largeur < 0 || posX > CSG.LARGEUR_ZONE_JEU || posY > CSG.HAUTEUR_ECRAN + largeur)
 			return false;
 		return true;
 	}
@@ -119,7 +124,7 @@ public class Physique {
 		// On parcourt la liste des ennemis
 		for(Ennemis ennemi : Ennemis.LISTE){
 			// Si le centre du vaisseau est dans un ennemi
-			if(pointDansRectangle(VaisseauType1.centreX, VaisseauType1.centreY, ennemi.getRectangleCollision())){
+			if (pointDansRectangle(VaisseauType1.centreX, VaisseauType1.centreY, ennemi.getRectangleCollision())) {
 				Endless.perdu();
 			}
 			for (ArmeJoueur a : Armes.liste) {
@@ -163,10 +168,6 @@ public class Physique {
         return r.x <= p.x && r.x + r.width >= p.x && r.y <= p.y && r.y + r.height >= p.y;
     }
     
-	private static float nbTests = 0;
-	private static float nbPass = 0;
-	private static int nbTestParPass = 0;
-	
 	public static boolean pointDansVaisseau(Vector2 position, int rectLarg, int rectHaut) {
 		if (position.x <= VaisseauType1.centreX && position.x + rectLarg >= VaisseauType1.centreX && position.y <= VaisseauType1.centreY && position.y + rectHaut >= VaisseauType1.centreY) {
 			VaisseauType1.perdu();

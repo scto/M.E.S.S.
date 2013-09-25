@@ -20,6 +20,7 @@ public class Particules {
 	public static Array<Particule> flammes = new Array<Particule>(false, MAX);
 	public static Array<Particule> explosions = new Array<Particule>(false, MAX);
 	public static Array<Particule> armesJoueur = new Array<Particule>(false, MAX_ARMES_JOUEUR);
+	private static float yVaisseau = 0;
 	
 	public static void render(SpriteBatch batch) {
 		for (Particule p : restes){
@@ -70,20 +71,33 @@ public class Particules {
 		}
 	}
 
+	/**
+	 * Il tient compte de si on monte ou on descend pour ajouter plus ou moins de flammes
+	 * @param v
+	 */
 	public static void ajoutFlammes(VaisseauType1 v) {
 		if (Particules.flammes.size < Particules.MAX) {
 			FlammesVaisseau r = FlammesVaisseau.pool.obtain();
 			r.init(v);
 			flammes.add(r);
 			
-			FlammesVaisseau r1 = FlammesVaisseau.pool.obtain();
-			r1.init(v);
-			flammes.add(r1);
-			
-			FlammesVaisseau r2 = FlammesVaisseau.pool.obtain();
-			r2.init(v);
-			flammes.add(r2);
+			if (yVaisseau-1 < v.position.y) {
+				FlammesVaisseau r1 = FlammesVaisseau.pool.obtain();
+				r1.init(v);
+				flammes.add(r1);
+		
+				FlammesVaisseau r2 = FlammesVaisseau.pool.obtain();
+				r2.init(v);
+				flammes.add(r2);
+				if (yVaisseau+1 < v.position.y) {
+					FlammesVaisseau r3 = FlammesVaisseau.pool.obtain();
+					r3.init(v);
+					flammes.add(r3);
+					
+				}
+			}
 		}
+		yVaisseau = v.position.y;
 	}
 
 	public static void clear() {

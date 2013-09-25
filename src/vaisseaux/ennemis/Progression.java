@@ -37,14 +37,21 @@ import vaisseaux.ennemis.particuliers.nv3.ZigZagNv3;
 
 public class Progression {
 
+	// palier : Le nombre d'appels avant 
+	// durée phase normale : le nombre d'appels avant de rentrer en mode boss. rappel : 1 appel = 1 seconde POUR LE MOMENT
+	// palier : le nombre par le quel on multiplie le niveau pour si on va ou non passer un niveau en le comparant au score (voir dans le code)
 	private static final int PALIER = 15, DUREE_GRACE = 20, DUREE_PHASE_NORMALE = 37, NV_DE_BASE = 2;
+	// Niveau : c'est la difficulté à la quelle on est arrivé
 	private static int niveau = NV_DE_BASE;
 	private static int pointsDispos = 0, alternerNbPoints = 0, nbAppels = 0, nbBoss = 0;
+	// etat : sert à définir dans quel mode on se trouve, il peut avoir normal, tempsDeGrace ou Boss.
 	private static EtatProgression etat = EtatProgression.Normal;
+	// La fréquence d'apparition en secondes
 	public static final float FREQ_APPARATION = 1;
 
 	private Progression() {	}
 
+	// Ce sont les listes des ennemis
 	private final static Invocable[] LISTE_LV1 = {
 		Insecte.pool.obtain(),
 		Laser.pool.obtain(),
@@ -95,25 +102,31 @@ public class Progression {
 		EnnemiDeBaseNv3.pool.obtain(),
 		};
 	
+	
+	/*
+	 * On passe ici toutes les secondes, en pratique il faut regarder dans la methode qui attribue les points
+	 *  mais sur un cycle de 6 secondes il y a deux fois ou on ne fait pas pop d'ennemi
+	 */
 	public static void invoqueEnnemis() {
-		// on monte rapidement de niveau au debut
+		// on monte rapidement de niveau jusqu'au niveau 10. Et ça augmente suivant la difficulté choisie (come get some,...)
 		if (niveau < 10)  
-			niveau += Endless.level;
-
+			niveau += Endless.modeDifficulte;
+		// Si on a fait un certain nombre d'appels on passe en mode boss
 		if (nbAppels++ > DUREE_PHASE_NORMALE) {
 			etat = EtatProgression.Boss;
 			nbAppels = 0;
 		}
-		
+		// On multiplie le palier (15 POUR LE MOMENT) par le niveau, si c'est plus petit on incrémente le niveau, de sorte que le niveau aura toujours un rapport de : score / palier
 		if (Endless.score > PALIER * niveau)
 			niveau++; 
 
+		// On va regarder l'état, et donc appele la fonctionne correspondante, il faut donc regarder plus bas :)
 		switch (etat) {
 		case Normal:			popNormal();			break;
 		case TempsDeGrace:		grace();				break;
 		case Boss:
 			if (Ennemis.LISTE.size > 0) return;
-			switch (Endless.level) {
+			switch (Endless.modeDifficulte) {
 			case 1:				popBoss();				break;
 			case 2:				popBoss2();				break;
 			case 3:				popBoss3();				break;
@@ -121,10 +134,19 @@ public class Progression {
 		}
 	}
 	
+	/**
+	 * Fait apparaitre des ennemis standards
+	 */
 	private static void popNormal() {
+		// détermine le nombre de points dispos
 		calculPoints();
+		if (pointsDispos == 0) return;
 	
-		switch (Endless.level) {
+		// Il va utiliser une liste d'ennemi en fonction de la difficulté, les listes sont définies plus haut.
+		// Il parcourt sa liste, si il a assez de points, il "achète" l'ennemi. Il commence par les plus chers jusqu'aux moins chers
+		// Attention que si il a assez pour mettons deux ennemis insectes, il n'en achète qu'un avant de passer au suivant.
+		// Autre point : Si il lui reste des points à la fin c'est tant pis
+		switch (Endless.modeDifficulte) {
 		case 1: 
 			for (Invocable inv : LISTE_LV1) {
 				if (pointsDispos >= inv.getXp()) {
@@ -152,14 +174,21 @@ public class Progression {
 		}
 	}
 	
+	/** calcul des points. Se base sur le niveau. rien sur 3, c'est normal, en fait ça permet de faire un cycle
+	 * premier appel : on donne comme points : le nouveau * le mode / 10 
+	 * deuxieme : niveau * mode / 6
+	 * troisieme ...
+	 * quatrieme : La c'est spécial, on ne donne aucun point. Ca permet de faire une pause.
+	 * cinquieme : ...
+	 * sixième et dernier : La pareil, rien.
+	 */
 	private static void calculPoints() {
-		// calcul des points. Se base sur le niveau. rien sur 3, c'est normal
 		alternerNbPoints++;
 		switch (alternerNbPoints) { 
-		case 0:			pointsDispos = niveau * Endless.level / 10;			break;
-		case 1:			pointsDispos = niveau * Endless.level / 6;			break;
-		case 2:			pointsDispos = niveau * Endless.level / 3;			break;
-		case 4:			pointsDispos = niveau * Endless.level / 2;			break;
+		case 0:			pointsDispos = niveau * Endless.modeDifficulte / 10;			break;
+		case 1:			pointsDispos = niveau * Endless.modeDifficulte / 6;			break;
+		case 2:			pointsDispos = niveau * Endless.modeDifficulte / 3;			break;
+		case 4:			pointsDispos = niveau * Endless.modeDifficulte / 2;			break;
 		case 5:
 			pointsDispos = 0;
 			alternerNbPoints = 0;
@@ -167,7 +196,11 @@ public class Progression {
 		}
 	}
 	
+	/**
+	 * Fait apparaitre les boss
+	 */
 	private static void popBoss() {
+		// D'abord 1 porte nef, puis 2, puis un boss quad puis un mine.
 		switch (nbBoss) {
 		case 0:
 			Ennemis.LISTE.add(EnnemiPorteNef.pool.obtain());		// 1 porte nef
@@ -191,7 +224,11 @@ public class Progression {
 		nbBoss++;
 	}
 
+	/**
+	 * Fait apparaitre les boss suivant le schema niveau 2
+	 */
 	private static void popBoss2() {
+		// D'abord 2 porte nef,puis un boss quad puis un mine.
 		switch (nbBoss) {
 		case 0:
 			Ennemis.LISTE.add(EnnemiPorteNef.pool.obtain());
@@ -225,6 +262,7 @@ public class Progression {
 
 	
 	private static void popBoss3() {
+		// Fait apparaitre un boss quad puis un mine
 		switch (nbBoss) {
 		case 0:			Ennemis.LISTE.add(EnnemiBossQuad.pool.obtain());			break;
 		default:		Ennemis.LISTE.add(EnnemiBossMine.pool.obtain());			break;
@@ -234,7 +272,9 @@ public class Progression {
 		nbBoss++;
 	}
 	
-	
+	/*
+	 * C'est le temps de grace, rien n'apparait, il s'arrete si on a dépassé la durée de grace ou si le boss est mort
+	 */
 	private static void grace() {
 		if (nbAppels > DUREE_GRACE || Ennemis.LISTE.size == 0) {
 			nbAppels = 0;

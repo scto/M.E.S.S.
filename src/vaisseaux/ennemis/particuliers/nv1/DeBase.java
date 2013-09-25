@@ -48,7 +48,7 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	@Override
 	public void invoquer() {
 		LISTE.add(pool.obtain());
-		if (Endless.level == 2) {
+		if (Endless.modeDifficulte == 2) {
 			LISTE.add(pool.obtain());
 			LISTE.add(pool.obtain());
 			LISTE.add(pool.obtain());

@@ -25,6 +25,8 @@ public class SoundMan {
 			outsideNorm.setVolume(CSG.profil.volumeMusique);
 			outsideNorm.play();
 			outsideNorm.setLooping(true);
+		} else {
+			checkMusique();
 		}
 	}
 

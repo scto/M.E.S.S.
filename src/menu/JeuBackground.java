@@ -16,7 +16,7 @@ public class JeuBackground {
 	private boolean alterner = true;
 
 	public void reset() {
-		CSG.resetLists();
+		CSG.reset();
 	}
 
 	public void render(SpriteBatch batch, float delta) {

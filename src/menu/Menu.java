@@ -1,8 +1,10 @@
 package menu;
 
-import vaisseaux.armes.joueur.ArmeAdd;
 import jeu.Endless;
+import menu.tuto.Tutorial;
+import vaisseaux.armes.joueur.ArmeAdd;
 import assets.SoundMan;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -49,6 +51,14 @@ public class Menu extends AbstractScreen{
 				new OnClick() {
 					public void onClick() {
 						Swarm.showDashboard(); 						
+					}
+				}, true));
+		ajout(new Bouton(TUTO, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.LARGEUR_ECRAN / PADDING, CSG.HAUTEUR_ECRAN - (HAUTEUR_BOUTON * 12), this,
+				new OnClick() {
+					public void onClick() {
+//						Tutorial choix = new Tutorial(getGame());
+						Tuto choix = new Tuto(getGame());
+						getGame().setScreen(choix);
 					}
 				}, true));
 		ajout(new Bouton(EXIT, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.LARGEUR_ECRAN / PADDING, CSG.HAUTEUR_ECRAN - (HAUTEUR_BOUTON * 15), this,

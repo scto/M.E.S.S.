@@ -1,5 +1,6 @@
 package menu;
 
+import jeu.Endless;
 import jeu.Profil;
 import jeu.ProfilManager;
 import vaisseaux.armes.Armes;
@@ -53,7 +54,6 @@ public class CSG extends Game implements ApplicationListener {
 		// ***********************  P R O F I L  ****************************
 		profilManager = new ProfilManager();
 		profil = profilManager.retrieveProfile();
-		menuFont = new BitmapFont();
 		// ************************ P O L I C E S ****************************
 		menuFont = new BitmapFont(Gdx.files.internal("default.fnt"), false);
 		float x = LARGEUR_ECRAN / 250;
@@ -61,7 +61,7 @@ public class CSG extends Game implements ApplicationListener {
 		if (x < 1)	x = 1.0f;
 		if (y < 1)	y = 1.0f;
 		menuFont.setScale(x, y);
-		menuFont.setColor(.59f, .55f, 0f, 1);
+		menuFont.setColor(.82f, .82f, 0.1f, 1);
 		menuFontPetite = new BitmapFont();
 		x = LARGEUR_ECRAN / 440;
 		y = HAUTEUR_ECRAN / 480;
@@ -69,7 +69,7 @@ public class CSG extends Game implements ApplicationListener {
 		if (y < 1)	y = 1.0f;
 		menuFontPetite = new BitmapFont(Gdx.files.internal("petite.fnt"), false);
 		menuFontPetite.setScale(x, y);
-		menuFontPetite.setColor(.59f, .55f, 0f, 1);
+		menuFontPetite.setColor(.82f, .82f, 0.1f, 1);
 		// ***** Une fois que toutes les variables globales sont chargees on lance le loading pour charger les assets
 		Loading loading = new Loading(this);
 		setScreen(loading);
@@ -109,13 +109,14 @@ public class CSG extends Game implements ApplicationListener {
 		rbg.render(batch);
 	}
 
-	public static void resetLists(){
+	public static void reset(){
 		ParallaxBackground.resetEtoiles();
 		Ennemis.clear();
 		Armes.clear();
         Progression.reset();
         Bonus.resetTout();
         Particules.clear();
+        Endless.reset();
 	}
 
 	public static AssetMan getAssetMan() {

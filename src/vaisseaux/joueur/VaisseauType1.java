@@ -124,7 +124,7 @@ public class VaisseauType1 extends Vaisseaux {
 	 * Fait aller le vaisseau � l'endroit cliqu�.
 	 * Si il peut se teleporter il y va directement -- Sinon il se d�place suivant sa vitesse max
 	 */
-	public void mouvements() {
+	public void mouvements() {		
 		centreX = position.x + DEMI_LARGEUR;
 		centreY = position.y + DEMI_HAUTEUR;
 		switch (CSG.profil.typeControle) {
@@ -211,6 +211,7 @@ public class VaisseauType1 extends Vaisseaux {
 	 */
 	public void mvtLimiteVitesse(float x, float y) {
 		// haut gauche : +x -y
+
 		oldPosition.x = position.x;
 		oldPosition.y = position.y;			// position avant
 
@@ -251,6 +252,7 @@ public class VaisseauType1 extends Vaisseaux {
 		routineAdds();
 	}
 
+	
 	public void routineAdds() {
 		addX = position.x;
 		if (addY > position.y + HAUTEUR_MAX_ADD) {
@@ -298,6 +300,7 @@ public class VaisseauType1 extends Vaisseaux {
 	 * oblige le vaisseau a rester dans les limites de l'�cran
 	 */
 	private void limitesEtCentre() {
+		oldPosition.y = position.y;
 		centreX = position.x + DEMI_LARGEUR;
 		centreY = position.y + DEMI_HAUTEUR;
 		
@@ -305,19 +308,6 @@ public class VaisseauType1 extends Vaisseaux {
 		if(position.x > LIMITE_X_DROITE) position.x = LIMITE_X_DROITE;
 		if(position.y < LIMITE_Y_GAUCHE) position.y = LIMITE_Y_GAUCHE;
 		if(position.y > LIMITE_Y_DROITE) position.y = LIMITE_Y_DROITE;
-		
-//		if (Endless.cam.position.x > CSG.DEMI_CAMERA) Endless.cam.position.x = CSG.DEMI_CAMERA;
-//		if (Endless.cam.position.x < CSG.DEMI_LARGEUR_ECRAN) Endless.cam.position.x = CSG.DEMI_LARGEUR_ECRAN;
-		
-		// M O U V E M E N T   C A M   B A S E   S U R   Z O N E   E C R A N
-//		if (centreX < Endless.cam.position.x - CSG.TIER_LARGEUR_ECRAN & Endless.cam.position.x > CSG.DEMI_LARGEUR_ECRAN)
-//			Endless.cam.position.x -= Endless.delta * 200;
-//		if (centreX > Endless.cam.position.x + CSG.TIER_LARGEUR_ECRAN & Endless.cam.position.x < CSG.DEMI_CAMERA)// + CSG.DEMI_LARGEUR_ECRAN)
-//			Endless.cam.position.x += Endless.delta * 200;
-		// M O U V E M E N T   C A M   B A S E   S U R   D I R E C T I O N
-//		if (centreX-oldCentreX > 2 & Endless.cam.position.x < CSG.DEMI_CAMERA ) 		Endless.cam.position.x += Endless.delta * 200;
-//		if (centreX-oldCentreX < -2 & Endless.cam.position.x > CSG.DEMI_LARGEUR_ECRAN) Endless.cam.position.x -= Endless.delta * 200;
-			
 	}
 
 	/**

@@ -147,6 +147,7 @@ public class PhysiqueTest {
 		assertTrue(Physique.rectangleDansRectangle(new Rectangle(10,15,5,5), new Rectangle(10,10,20,20)));
 		assertTrue(Physique.rectangleDansRectangle(new Rectangle(10,15,5,5), new Rectangle(14,19,1,1)));
 		assertTrue(Physique.rectangleDansRectangle(new Rectangle(10,15,5,5), new Rectangle(9,14,2,2)));
+		
 		assertFalse(Physique.rectangleDansRectangle(new Rectangle(10,15,5,5), new Rectangle(11,21,1,1)));
 		assertFalse(Physique.rectangleDansRectangle(new Rectangle(10,15,5,5), new Rectangle(11,1,1,1)));
 		assertFalse(Physique.rectangleDansRectangle(new Rectangle(10,15,5,5), new Rectangle(21,17,1,1)));
@@ -154,7 +155,30 @@ public class PhysiqueTest {
 	}
 	
 	@Test
-	public void testPointDansVaisseau() {
+	public void testTjrsAffiche() {
+		CSG.LARGEUR_ZONE_JEU = 1500;
+		CSG.HAUTEUR_ECRAN = 800;
+		tjrsAfficher(new Vector2(100, 100), true, 20, 30);
+		tjrsAfficher(new Vector2(1499, 100), true, 40, 50);
+		tjrsAfficher(new Vector2(-39, 100), true, 40, 50);
+		tjrsAfficher(new Vector2(100, -39), true, 40, 40);
+		tjrsAfficher(new Vector2(100, 839), true, 40, 40);
 		
+		tjrsAfficher(new Vector2(-41, 100), false, 40, 40);
+		tjrsAfficher(new Vector2(1501, 100), false, 40, 40);
+		tjrsAfficher(new Vector2(100, -41), false, 40, 40);
+		tjrsAfficher(new Vector2(100, 841), false, 40, 40);
+	}
+
+	private void tjrsAfficher(Vector2 pos, boolean dedans, int largeur, int hauteur) {
+		if (dedans) {
+			assertTrue(Physique.toujoursAfficher(pos, largeur));
+			assertTrue(Physique.toujoursAfficher(pos.x, pos.y, largeur));
+			assertTrue(Physique.toujoursAfficher(pos, largeur, hauteur));
+		} else {
+			assertFalse(Physique.toujoursAfficher(pos, largeur));
+			assertFalse(Physique.toujoursAfficher(pos.x, pos.y, largeur));
+			assertFalse(Physique.toujoursAfficher(pos, largeur, hauteur));
+		}
 	}
 }

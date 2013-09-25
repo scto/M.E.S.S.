@@ -81,7 +81,7 @@ public class EnnemiPorteNef extends Ennemis{
 		if (position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - DEMI_LARGEUR && (nbLance == 0)){
 			EnnemiAilesDeployees.pool.obtain().lancer(-1, 0, position.x, position.y + Y_PREMIER, 180);
 			EnnemiAilesDeployees.pool.obtain().lancer(-0.76604444f, 0.6427876f, position.x + X_DEUXIEME, position.y + Y_DEUXIEME, ANGLE_DEUXIEME);
-			if (Endless.level > 1) {
+			if (Endless.modeDifficulte > 1) {
 				EnnemiAilesDeployees.pool.obtain().lancer(0, 1, position.x + X_TROISIEME, position.y + Y_TROISIEME, ANGLE_TROISIEME);
 			}
 			nbLance++;
@@ -89,7 +89,7 @@ public class EnnemiPorteNef extends Ennemis{
 		if (position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - LARGEUR && (nbLance == 1)){
 			EnnemiAilesDeployees.pool.obtain().lancer(-1, 0, position.x, position.y + Y_PREMIER, 180);
 			EnnemiAilesDeployees.pool.obtain().lancer(-0.76604444f, 0.6427876f, position.x + X_DEUXIEME, position.y + Y_DEUXIEME, ANGLE_DEUXIEME);
-			if (Endless.level > 1) {
+			if (Endless.modeDifficulte > 1) {
 				EnnemiAilesDeployees.pool.obtain().lancer(0, 1, position.x + X_TROISIEME, position.y + Y_TROISIEME, ANGLE_TROISIEME);	
 				EnnemiAilesDeployees.pool.obtain().lancer(0.76604444f, 0.6427876f, position.x + X_QUATRIEME, position.y + Y_QUATRIEME, ANGLE_QUATRIEME);
 			}
@@ -98,7 +98,7 @@ public class EnnemiPorteNef extends Ennemis{
 		if(position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - (LARGEUR + DEMI_LARGEUR) && (nbLance == 2)){
 			EnnemiAilesDeployees.pool.obtain().lancer(0, 1, position.x + X_TROISIEME, position.y + Y_TROISIEME, ANGLE_TROISIEME);
 			
-			if (Endless.level > 1) {				
+			if (Endless.modeDifficulte > 1) {				
 				EnnemiAilesDeployees.pool.obtain().lancer(0.76604444f, 0.6427876f, position.x + X_QUATRIEME, position.y + Y_QUATRIEME, ANGLE_QUATRIEME);
 				EnnemiAilesDeployees.pool.obtain().lancer(-1, 0, position.x, position.y + Y_PREMIER, 180);
 				EnnemiAilesDeployees.pool.obtain().lancer(-0.76604444f, 0.6427876f, position.x + X_DEUXIEME, position.y + Y_DEUXIEME, ANGLE_DEUXIEME);
@@ -109,7 +109,7 @@ public class EnnemiPorteNef extends Ennemis{
 		if(position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - DEMI_LARGEUR && (nbLance == 3)){
 			EnnemiAilesDeployees.pool.obtain().lancer(0.76604444f, 0.6427876f, position.x + X_QUATRIEME, position.y + Y_QUATRIEME, ANGLE_QUATRIEME);
 			
-			if (Endless.level > 1) {
+			if (Endless.modeDifficulte > 1) {
 				EnnemiAilesDeployees.pool.obtain().lancer(0, 1, position.x + X_TROISIEME, position.y + Y_TROISIEME, ANGLE_TROISIEME);
 				EnnemiAilesDeployees.pool.obtain().lancer(-1, 0, position.x, position.y + Y_PREMIER, 180);
 				EnnemiAilesDeployees.pool.obtain().lancer(-0.76604444f, 0.6427876f, position.x + X_DEUXIEME, position.y + Y_DEUXIEME, ANGLE_DEUXIEME);
@@ -119,7 +119,7 @@ public class EnnemiPorteNef extends Ennemis{
 		if (position.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - LARGEUR && (nbLance == 4)){
 			EnnemiAilesDeployees.pool.obtain().lancer(1, 0, position.x + X_CINQUIEME, position.y + Y_CINQUIEME, ANGLE_CINQUIEME);
 			
-			if (Endless.level > 1) {
+			if (Endless.modeDifficulte > 1) {
 				EnnemiAilesDeployees.pool.obtain().lancer(0, 1, position.x + X_TROISIEME, position.y + Y_TROISIEME, ANGLE_TROISIEME);
 				EnnemiAilesDeployees.pool.obtain().lancer(0.76604444f, 0.6427876f, position.x + X_QUATRIEME, position.y + Y_QUATRIEME, ANGLE_QUATRIEME);
 			}

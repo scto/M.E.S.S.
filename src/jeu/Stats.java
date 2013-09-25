@@ -94,7 +94,7 @@ public class Stats {
 	public static final int PV_PORTE_RAISIN3 = (int) (PV_PORTE_RAISIN * PVNV3);
 	
 	// A V I O N
-	public static final float V_ENN_AVION = 12 * U;
+	public static final float V_ENN_AVION = 9.5f * U;
 	public static final float V_ENN_AVION3 = V_ENN_AVION * VNV3;
 	public static final int PV_AVION = 130;
 	public static final int PVMAX_AVION_AMOCHE = PV_AVION / 2;

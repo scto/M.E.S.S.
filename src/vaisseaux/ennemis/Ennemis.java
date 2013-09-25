@@ -202,9 +202,7 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 
 	public abstract float getDirectionY();
 
-	public float getDirectionX() {
-		return 0;
-	}
+	public float getDirectionX() {		return 0;	}
 
 	/**
 	 * Verifie si il y a collision avec la balle.
@@ -215,4 +213,6 @@ public abstract class Ennemis extends Vaisseaux implements Poolable, Invocable{
 		if (mort) return false;
 		return Physique.rectangleDansRectangle(a.getRectangleCollision(), getRectangleCollision());
 	}
+	
+	public boolean isMort() {		return mort;	}
 }

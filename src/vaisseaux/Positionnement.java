@@ -12,8 +12,8 @@ public class Positionnement {
 	 * @param demiLargeur
 	 * @return
 	 */
-	public static float getEmplacementX(Ennemis e) {
-		return (float) (Math.random() * (CSG.LARGEUR_ZONE_JEU - e.getLargeur()));
+	public static void getEmplacementX(Ennemis e) {
+		e.position.x = (float) (Math.random() * (CSG.LARGEUR_ZONE_JEU - e.getLargeur()));
 	}
 
 	public static void setPosX(PatternHorizontalPositionnable php) {
@@ -27,22 +27,22 @@ public class Positionnement {
 		php.incNbEnnemisAvant();
 		php.getPosition().y = CSG.HAUTEUR_ECRAN + php.getHauteur();
 	}
-
-	public static float getEmplacementXVersMilieu(int largeur) {
-		float x = (float) (Math.random() * (CSG.LARGEUR_ZONE_JEU - largeur));
-		x = (x / 2) + (x / 4);
-		return x;
-	}
 	
 	public static void hautLarge(Vector2 position, int largeur, int hauteur) {
 		position.x = (float) (Math.random() * (CSG.LARGEUR_ZONE_JEU - largeur));
 		position.y = CSG.HAUTEUR_ECRAN + hauteur;
 	}
 	
+	/**
+	 * Renvoie un x compris entre le quart et les 3/4 de la zone de jeu
+	 * @param largeur
+	 * @return
+	 */
 	public static void hautMoyen(Ennemis e) {
 		float x = (float) (Math.random() * (CSG.LARGEUR_ZONE_JEU - e.getLargeur()));
-		e.position.x = (x / 2) + (x / 4);
-		e.position.y = CSG.HAUTEUR_ECRAN + e.getHauteur();
+		x = (x / 2) + (CSG.LARGEUR_ZONE_JEU / 4);
+		e.position.x = x;
+		e.position.y = CSG.HAUTEUR_ECRAN;
 	}
 	
 	/**

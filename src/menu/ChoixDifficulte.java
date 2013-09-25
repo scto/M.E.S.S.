@@ -3,12 +3,16 @@ package menu;
 import jeu.Endless;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.moribitotech.mtx.AbstractScreen;
 
 public class ChoixDifficulte extends AbstractScreen{
 	
+	private final Game game;
+	
 	 public ChoixDifficulte(Game game) {
 		 super(game);
+		 this.game = game;
 		 setUpScreenElements();
 	 }
 	  
@@ -39,7 +43,17 @@ public class ChoixDifficulte extends AbstractScreen{
 		ajout(lvl3);
 		
 		if (Gdx.app.getVersion() != 0) CSG.myRequestHandler.showAds(true);
+		
 	 }
+	 
+	 @Override
+	public void render(float delta) {
+		super.render(delta);
+		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+			Menu menu = new Menu(game);
+			game.setScreen(menu);
+		}
+	}
 
 	@Override
 	public void keyBackPressed() {

@@ -6,7 +6,10 @@ import menu.Menu;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.particuliers.boss.Ombrelle;
+import vaisseaux.ennemis.particuliers.nv1.Avion;
+import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
+import vaisseaux.ennemis.particuliers.nv3.AvionNv3;
+import vaisseaux.ennemis.particuliers.nv3.EnnemiDeBaseNv3;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -31,22 +34,27 @@ public class Endless implements Screen {
 	
 	private Game game;
 	// A F F I C H A G E
-	private SpriteBatch batch;
+	private static SpriteBatch batch = CSG.batch;
 	private Bloom bloom;
 	private GL20 gl;
 	// A L T E R N E R
 	private boolean alterner = true, alternerUpdateScore = true;
 	// E T A T S
-	private boolean activerRalentissement = false, pause = false, scoreEnvoye = false, activerStop = false;
+	private static boolean activerRalentissement = false;
+	private static boolean pause = false;
+	private boolean scoreEnvoye = false;
+	private static boolean activerStop = false;
 	private static boolean perdu = false;
 	
 	public static final int MAX_STOP_BONUS = 2; 
-	private VaisseauType1 vaisseau = new VaisseauType1();
+	private static VaisseauType1 vaisseau;
 	public static String strScore = "0";
 	private static float chronoRalentir = 0;
 	public static float maintenant = 0, score = 0;
 	private float vientDEtreTouche = 0;
-	private static final int X_CHRONO = CSG.DIXIEME_LARGEUR/2 - CSG.DEMI_LARGEUR_ECRAN, X_SLOW = (CSG.DEMI_LARGEUR_ECRAN/6), HAUTEUR_POLICE = CSG.DIXIEME_HAUTEUR/3;
+	public static final int X_CHRONO = CSG.DIXIEME_LARGEUR/2 - CSG.DEMI_LARGEUR_ECRAN;
+	private static final int X_SLOW = (CSG.DEMI_LARGEUR_ECRAN/6);
+	public static final int HAUTEUR_POLICE = CSG.DIXIEME_HAUTEUR/3;
 	// *************************  J  A  U  G  E  *************************
 	private TextureRegion rougefonce;
 	private static final int MAX_LARGEUR_JAUGE = CSG.LARGEUR_ECRAN/6, DIXIEME_LARGEUR_JAUGE = MAX_LARGEUR_JAUGE/10, TIER_LARGEUR_JAUGE = MAX_LARGEUR_JAUGE/3, HAUTEUR_JAUGE = CSG.HAUTEUR_ECRAN/75;
@@ -56,11 +64,16 @@ public class Endless implements Screen {
 
 	DecimalFormat df = new DecimalFormat();
 	public static OrthographicCamera cam = new OrthographicCamera(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);;
-	public static int level, nbBonusStop = 0, nbBombes = 0;
+	public static int modeDifficulte, nbBonusStop = 0, nbBombes = 0;
 	public static float color = 0, colorRapide, intensiteBloomOrigin = 1, camXmoinsDemiEcran, delta = 0, tempsBonusStop = 0, delta15 = 0;
 	public static boolean sensCouleurGlobale = false, sensCouleurRapide = false, effetBloom = false, xpAjout = false;
-	private boolean onAchoisis = false, onVaRalentir = false, onVaStopper = false, afficherMenuRadial = false;
-	private int menuX = 0, menuY = 0, conseil = 0;
+	private static boolean onAchoisis = false;
+	private static boolean onVaRalentir = false;
+	private static boolean onVaStopper = false;
+	public static boolean afficherMenuRadial = false;
+	private static int menuX = 0;
+	private static int menuY = 0;
+	private int conseil = 0;
 	private static final String conseil1 = "YOU SHOULD UPGRADE YOUR WEAPON.    GO TO THE XP MENU";
 	private static final String conseil2 = "GO TO THE OPTION MENU IF YOU WANT TO CHANGE THE CONTROL";
 	private static final String conseil3 = "KEEP TRYING";
@@ -72,9 +85,10 @@ public class Endless implements Screen {
 
 	public Endless(Game game, SpriteBatch batch, int level) {
 		super();
-		this.batch = batch;
+		Endless.batch = batch;
 		this.game = game;
-		Endless.level = level;
+		vaisseau = new VaisseauType1();
+		Endless.modeDifficulte = level;
 		Ennemis.initLevelBoss(level);
 		init();
 		vaisseau.initialiser();
@@ -96,7 +110,7 @@ public class Endless implements Screen {
 		df.setMinimumFractionDigits(1);	
 		df.setDecimalSeparatorAlwaysShown(true);
 		
-		CSG.resetLists();
+		CSG.reset();
 		chronoRalentir = 0;
         scoreEnvoye = false;
         perdu = false;
@@ -137,8 +151,10 @@ public class Endless implements Screen {
 	@Override
 	public void render(float delta) {
 		
-//		if (Gdx.input.isKeyPressed(Keys.A))
-//			Ennemis.liste.add(EnnemiZigZagNv3.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.A)) {
+			Ennemis.LISTE.add(BouleQuiSArrete.pool.obtain());
+//			Ennemis.LISTE.add(AvionNv3.pool.obtain());
+		}
 //		if (Gdx.input.isKeyPressed(Keys.E))
 //			Ennemis.liste.add(new EnnemiKinderDoubleTir());
 //		if (Gdx.input.isKeyPressed(Keys.R))
@@ -186,7 +202,7 @@ public class Endless implements Screen {
 				} else {
 				// A   V I R E R   P O U R   L A   R E L E A S E
 					if (perdu && Gdx.app.getVersion() != 0 && !scoreEnvoye && !konamiCode){
-						switch (level) {
+						switch (modeDifficulte) {
 						case 1:			SwarmLeaderboard.submitScore(6475, score);			break;
 						case 2:			SwarmLeaderboard.submitScore(7317, score);			break; 
 						case 3:			SwarmLeaderboard.submitScore(9101, (int)score);			break;
@@ -266,7 +282,7 @@ public class Endless implements Screen {
 		CSG.menuFont.draw(batch, "Back : menu",((cam.position.x-CSG.DEMI_LARGEUR_ECRAN)) + (CSG.DEMI_LARGEUR_ECRAN - CSG.menuFont.getBounds("Back : menu").width / 2), CSG.DEMI_HAUTEUR_ECRAN / 2);
 	}
 
-	private void mettrePause() {
+	private static void mettrePause() {
 		pause = true;
 		CSG.profilManager.persist();
 	}
@@ -353,17 +369,10 @@ public class Endless implements Screen {
 		}
 		if (!perdu) {
 			// **************************************  M O U V E M E N T   E T   M E N U  **************************************  
-			if (Gdx.input.justTouched()) 		justeTouche();
-			else {
-				if (Gdx.input.isTouched()) 		touche();
-				else  							pasTouche();
-			}	
-			if (CSG.profil.typeControle == CSG.CONTROLE_ACCELEROMETRE & !afficherMenuRadial) vaisseau.accelerometre();
+			mouvement();
 
 			if (alterner) {	
-				System.err.println(Ennemis.LISTE);
 				Ennemis.possibleApparitionEtUpdateScore();
-				System.out.println(Ennemis.LISTE.size);
 				if (!activerStop) 			Physique.testCollisions();
 				if (!afficherMenuRadial)	vaisseau.tir();
 				if (alternerUpdateScore) {
@@ -389,7 +398,16 @@ public class Endless implements Screen {
 		}
 	}
 
-	private void pasTouche() {
+	public static void mouvement() {
+		if (Gdx.input.justTouched()) 		justeTouche();
+		else {
+			if (Gdx.input.isTouched()) 		touche();
+			else  							pasTouche();
+		}	
+		if (CSG.profil.typeControle == CSG.CONTROLE_ACCELEROMETRE & !afficherMenuRadial) vaisseau.accelerometre();
+	}
+
+	private static void pasTouche() {
 		if (afficherMenuRadial)	{
 			if (nbBonusStop > 0) batch.draw(AssetMan.bonusetoile,(menuX - Bonus.AFFICHAGE) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauType1.DEMI_LARGEUR, menuY, Bonus.AFFICHAGE, Bonus.AFFICHAGE);
 			else batch.draw(AssetMan.bonusetoileGris,(menuX - Bonus.AFFICHAGE) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauType1.DEMI_LARGEUR, menuY, Bonus.AFFICHAGE, Bonus.AFFICHAGE);
@@ -407,7 +425,7 @@ public class Endless implements Screen {
 		}
 	}
 
-	private void touche() {
+	private static void touche() {
 		if (!onAchoisis) {
 			if (Gdx.app.getVersion() == 0) clavier();
 			if (CSG.profil.typeControle == CSG.CONTROLE_DPAD) afficherDPAD();  
@@ -423,7 +441,7 @@ public class Endless implements Screen {
 		}
 	}
 
-	private void justeTouche() {
+	private static void justeTouche() {
 		if (CSG.profil.typeControle == CSG.CONTROLE_DPAD) {
 			VaisseauType1.prevX = Gdx.input.getX();
 			VaisseauType1.prevY = Gdx.input.getY();
@@ -446,7 +464,7 @@ public class Endless implements Screen {
 		}
 	}
 
-	private void afficherDPAD() {
+	private static void afficherDPAD() {
 		if (CSG.profil.typeControle == CSG.CONTROLE_DPAD && Gdx.input.isTouched()){
 			//			F L E C H E   D R O I T E
 			batch.draw(fleche,(cam.position.x-CSG.DEMI_LARGEUR_ECRAN) + VaisseauType1.prevX + DEMI_LARGEUR_FLECHE, CSG.HAUTEUR_ECRAN - (VaisseauType1.prevY + DEMI_HAUTEUR_FLECHE), DEMI_LARGEUR_FLECHE, DEMI_HAUTEUR_FLECHE, LARGEUR_FLECHE, HAUTEUR_FLECHE, 1, 1, 0);
@@ -459,7 +477,7 @@ public class Endless implements Screen {
 		}
 	}
 
-	private void clavier() {
+	private static void clavier() {
 		if (!afficherMenuRadial & !onAchoisis) 	vaisseau.mouvements();
 		if (Gdx.input.isKeyPressed(Keys.LEFT)) 	vaisseau.mvtLimiteVitesse(-500, 0);
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) vaisseau.mvtLimiteVitesse(500, 0);
@@ -514,5 +532,18 @@ public class Endless implements Screen {
 
 	public static boolean aPerdu() {
 		return perdu;
+	}
+	
+	public static void reset() {
+		afficherMenuRadial = false;
+		onAchoisis = false;
+		vaisseau = new VaisseauType1();
+		onVaRalentir = false;
+		onVaStopper = false;
+		menuX = (int) VaisseauType1.position.x;
+		activerStop = false;
+		activerRalentissement = false;
+		pause = false;
+		menuY = (int) VaisseauType1.position.y;
 	}
 }

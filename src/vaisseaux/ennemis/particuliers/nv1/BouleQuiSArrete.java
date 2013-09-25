@@ -47,7 +47,8 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	
 	@Override
 	public boolean mouvementEtVerif() {
-		Physique.mvtArretHauteur(position, Stats.V_ENN_BOULE_QUI_SARRETE, maintenant);
+		System.out.println("BouleQuiSArrete.mouvementEtVerif()");
+		Physique.mvtArretHauteur(position, -Stats.V_ENN_BOULE_QUI_SARRETE, maintenant);
 		return super.mouvementEtVerif();
 	}
 
