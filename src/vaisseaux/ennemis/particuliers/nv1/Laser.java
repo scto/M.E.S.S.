@@ -26,8 +26,6 @@ public class Laser extends Ennemis implements TireurAngle {
 	// ** ** caracteristiques g�n�rales
 	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 9;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
-//	public static final int HAUTEUR = LARGEUR + LARGEUR;
-//	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
 	private static final float VITESSE = Stats.V_ENN_LASER;
 	public static final Tirs TIR = new Tirs(1.1f);
 	// ** ** caracteristiques variables.
@@ -36,6 +34,7 @@ public class Laser extends Ennemis implements TireurAngle {
 	private float angle = -90;
 	private Vector2 direction = new Vector2();
 	private boolean versGauche;
+	private static float tmp;
 
 	@Override
 	protected Sound getSonExplosion() {
@@ -50,7 +49,7 @@ public class Laser extends Ennemis implements TireurAngle {
 	@Override
 	public void reset() {
 		Positionnement.hautLarge(position, getLargeur(), getHauteur());
-		prochainTir = .2f;
+		prochainTir = 2f;
 		initAngle();
 		super.reset();
 	}
@@ -85,19 +84,21 @@ public class Laser extends Ennemis implements TireurAngle {
 		return VITESSE;
 	}
 
+	
 	/**
 	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
 	 */
 	@Override
 	public boolean mouvementEtVerif() {
 		Physique.mvtSansVerif(position, direction);
-		if (maintenant < 50) {
+		tmp = maintenant * Endless.delta * 5;
+		if (maintenant < 16) {
 			if (versGauche) {
-				direction.rotate(maintenant * Endless.delta * 2);
-				angle += maintenant * Endless.delta * 2;
+				direction.rotate(tmp);
+				angle += tmp;
 			} else {
-				direction.rotate(-maintenant * Endless.delta * 2);
-				angle -= maintenant * Endless.delta * 2;
+				direction.rotate(-tmp);
+				angle -= tmp;
 			}
 		}
 		return super.mouvementEtVerif();
@@ -150,7 +151,7 @@ public class Laser extends Ennemis implements TireurAngle {
 	public void setProchainTir(float f) {		prochainTir = f;	}
 
 	@Override
-	public float getModifVitesse() {	return 0.02f;	}
+	public float getModifVitesse() {	return 0.017f;	}
 
 	@Override
 	public float getAngleTir() {			return angle+90;	}

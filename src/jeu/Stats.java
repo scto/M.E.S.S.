@@ -113,7 +113,7 @@ public class Stats {
 	public static final float V_ENN_BOSS_MINE = 5 * U;
 	
 	// L A S E R   
-	public static final float V_ENN_LASER = 10 * U;
+	public static final float V_ENN_LASER = 8 * U;
 	public static final int PV_LASER = 190;
 	public static final float V_ENN_LASER3 = V_ENN_LASER * VNV3;
 	public static final int PV_LASER3 = (int) (PV_LASER * PVNV3);

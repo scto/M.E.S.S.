@@ -28,6 +28,11 @@ public class BouleTirCoteRotation extends BouleTirCote {
 	protected float getVitesse() {
 		return  Stats.V_BOULE_TIR_COTE_PETIT;
 	}
+	
+	@Override
+	public float getAngleTir() {
+		return super.getAngleTir();
+	}
 
 	@Override
 	public int getXp() {

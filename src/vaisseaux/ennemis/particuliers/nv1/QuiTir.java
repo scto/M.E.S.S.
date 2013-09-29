@@ -22,11 +22,11 @@ import com.badlogic.gdx.utils.Pools;
 
 public class QuiTir extends Ennemis implements Tireur{
 	
-	public static final float LARGEUR= CSG.LARGEUR_ECRAN / 15, DEMI_LARGEUR = LARGEUR/2;
+	public static final float LARGEUR= CSG.LARGEUR_ECRAN / 11, DEMI_LARGEUR = LARGEUR/2;
 	public static final float HAUTEUR = LARGEUR + DEMI_LARGEUR, DEMI_HAUTEUR = HAUTEUR / 2;
 	public static final float CADENCE = 1.2f;
 	public static final Tirs tir = new Tirs(CADENCE);
-	protected float prochainTir = .1f;
+	protected float prochainTir = 1.5f;
 	public static Pool<QuiTir> pool = Pools.get(QuiTir.class);
 	
 	
@@ -50,7 +50,7 @@ public class QuiTir extends Ennemis implements Tireur{
 	@Override
 	public void reset() {
 		Positionnement.hautLarge(position, getLargeur(), getHauteur());
-		prochainTir = .1f;
+		prochainTir = 2f;
 		super.reset();
 	}
 	

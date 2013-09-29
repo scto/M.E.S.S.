@@ -134,7 +134,7 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	}
 
 	@Override
-	public float getModifVitesse() {	return 0.020f;	}
+	public float getModifVitesse() {	return 0.010f;	}
 
 	@Override
 	public float getAngleTir() {			return 0;	}

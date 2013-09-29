@@ -53,8 +53,8 @@ public class Tirs {
 	
 	public void tirSurCote(TireurAngle t, boolean mort, float maintenant, float prochainTir) {
 		if (!mort && maintenant > prochainTir) {
-			t.getArme().init(t.getPositionDuTir(1), t.getDirectionTir().rotate( t.getAngleTir() ), t.getModifVitesse());
-			t.getArme().init(t.getPositionDuTir(2), t.getDirectionTir().rotate( (t.getAngleTir()+180) ), t.getModifVitesse());
+			t.getArme().init(t.getPositionDuTir(2), t.getDirectionTir().rotate(-90), t.getModifVitesse());
+			t.getArme().init(t.getPositionDuTir(2), t.getDirectionTir().rotate(90), t.getModifVitesse());
 			t.setProchainTir(prochainTir + CADENCE);
 		}
 	}
@@ -142,7 +142,8 @@ public class Tirs {
 			ArmeEnnemi a = t.getArme();
 			vecteurPosition.x = t.getPositionDuTir(0).x;
 			vecteurPosition.y = t.getPositionDuTir(0).y;
-
+			vecteurCible.x = 1;
+			vecteurCible.y = 0;
 			float angle = Physique.getAngleVersJoueur(vecteurPosition, a.getLargeur()/2, a.getHauteur()/2);
 			vecteurCible.rotate(angle);
 			a.init(vecteurPosition, t.getModifVitesse(), angle, vecteurCible);

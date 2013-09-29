@@ -2,7 +2,7 @@ package vaisseaux.armes.ennemi;
 
 import jeu.Stats;
 import menu.CSG;
-import assets.animation.AnimationTirFeu;
+import assets.animation.AnimationBouleBleu;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
@@ -18,7 +18,7 @@ public class ArmeInsecte extends ArmeEnnemi implements Poolable{
 	public static Pool<ArmeInsecte> pool = Pools.get(ArmeInsecte.class);
 
 	@Override
-	public TextureRegion getTexture() {	return AnimationTirFeu.getTexture(maintenant);	}
+	public TextureRegion getTexture() {	return AnimationBouleBleu.getTexture(maintenant);	}
 	@Override
 	protected float getVitesse() {		return Stats.V_INSECTE;	}
 	@Override

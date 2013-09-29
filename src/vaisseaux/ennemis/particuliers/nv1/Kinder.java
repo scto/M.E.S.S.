@@ -29,7 +29,7 @@ public class Kinder extends Ennemis implements TireurAngle {
 	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR;
 	private static final int DEMI_HAUTEUR = HAUTEUR / 2; 
 	private static final float VITESSE = Stats.V_ENN_KINDER;
-	protected static final Tirs tir = new Tirs(.5f);
+	protected static final Tirs tir = new Tirs(.45f);
 	// ** ** caracteristiques variables.
 	protected float prochainTir = 1f;
 	public static Pool<Kinder> pool = Pools.get(Kinder.class);
@@ -111,14 +111,14 @@ public class Kinder extends Ennemis implements TireurAngle {
 	}
 
 	@Override
-	public float getModifVitesse() {	return 1;	}
+	public float getModifVitesse() {	return 0.8f;	}
 
 	@Override
 	public float getAngleTir() {			return angle;	}
 	
 	@Override
 	public Vector2 getDirectionTir() {
-		TMP_DIR.x = 1;
+		TMP_DIR.x = -1;
 		TMP_DIR.y = 0;
 		TMP_DIR.rotate(angle);
 		return TMP_DIR;

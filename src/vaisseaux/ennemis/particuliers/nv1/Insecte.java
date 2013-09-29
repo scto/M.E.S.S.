@@ -77,7 +77,7 @@ public class Insecte extends Ennemis implements TireurAngle {
 
 	@Override
 	public float getAngle() {
-		return angle+90;
+		return angle;
 	}
 	
 	@Override

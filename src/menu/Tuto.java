@@ -11,10 +11,11 @@ import assets.animation.AnimationEnnemiDeBase;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Tuto implements Screen {
 	
@@ -44,20 +45,16 @@ public class Tuto implements Screen {
 		CSG.batch.begin();
 		CSG.renderBackground(CSG.batch);
 		// SHIP
-		CSG.batch.draw(AnimationEnnemiDeBase.getTexture(0), colonne, ligne, DeBase.LARGEUR, DeBase.HAUTEUR);
-		font.draw(CSG.batch, enemy, CSG.LARGEUR_ECRAN - (colonne + font.getBounds(enemy).width) , ligne + DeBase.DEMI_HAUTEUR);
+		ligne(AnimationEnnemiDeBase.getTexture(0), 1, DeBase.LARGEUR, DeBase.HAUTEUR, enemy);
 		// XP
-		CSG.batch.draw(AssetMan.XP, colonne, ligne * 3, XP.LARGEUR, XP.LARGEUR);
-		font.draw(CSG.batch, xp, CSG.LARGEUR_ECRAN - (colonne + font.getBounds(xp).width) , ligne * 3 + XP.LARGEUR  / 2);
+		ligne(AssetMan.XP, 3, XP.LARGEUR, XP.LARGEUR, xp);
 		// BOMB
-		CSG.batch.draw(AssetMan.bombe, colonne, ligne * 5, BonusBombe.LARGEUR, BonusBombe.LARGEUR);
-		font.draw(CSG.batch, bomb, CSG.LARGEUR_ECRAN - (colonne + font.getBounds(bomb).width) , ligne * 5 + BonusBombe.LARGEUR  / 2);
-		// STOP
-		CSG.batch.draw(AssetMan.temps, colonne, ligne * 9, BonusStop.LARGEUR, BonusStop.LARGEUR);
-		font.draw(CSG.batch, stop, CSG.LARGEUR_ECRAN - (colonne + font.getBounds(stop).width) , ligne * 7 + BonusStop.LARGEUR  / 2);
-		// SLOW
-		CSG.batch.draw(AssetMan.bonusetoile, colonne, ligne * 7, BonusTemps.LARGEUR, BonusTemps.LARGEUR);
-		font.draw(CSG.batch, slow, CSG.LARGEUR_ECRAN - (colonne + font.getBounds(slow).width) , ligne * 9 + BonusTemps.LARGEUR  / 2);
+		ligne(AssetMan.bombe, 5, BonusBombe.LARGEUR, BonusBombe.LARGEUR, bomb);
+
+		ligne(AssetMan.temps, 7, BonusTemps.LARGEUR, BonusTemps.LARGEUR, stop);
+
+		ligne(AssetMan.bonusetoile, 9, BonusStop.LARGEUR, BonusStop.LARGEUR, slow);
+		                           
 		// TITRE
 		font.draw(CSG.batch, stay, CSG.DEMI_LARGEUR_ECRAN - (font.getBounds(stay).width/2) , CSG.HAUTEUR_ECRAN - 5);
 		CSG.batch.end();
@@ -66,6 +63,11 @@ public class Tuto implements Screen {
 			Menu menu = new Menu(game);
 			game.setScreen(menu);
 		}
+	}
+
+	private void ligne(TextureRegion r, int l, int largeur, int hauteur, String text) {
+		CSG.batch.draw(r, colonne, ligne * l, largeur, hauteur);
+		font.draw(CSG.batch, text, CSG.LARGEUR_ECRAN - (colonne + font.getBounds(text).width) , (ligne*l) + (hauteur/2));
 	}
 
 	@Override

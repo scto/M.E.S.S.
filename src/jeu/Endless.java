@@ -6,10 +6,18 @@ import menu.Menu;
 import vaisseaux.armes.Armes;
 import vaisseaux.bonus.Bonus;
 import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.particuliers.nv1.Avion;
-import vaisseaux.ennemis.particuliers.nv1.BouleQuiSArrete;
-import vaisseaux.ennemis.particuliers.nv3.AvionNv3;
-import vaisseaux.ennemis.particuliers.nv3.EnnemiDeBaseNv3;
+import vaisseaux.ennemis.particuliers.nv1.DeBase;
+import vaisseaux.ennemis.particuliers.nv1.Insecte;
+import vaisseaux.ennemis.particuliers.nv1.Kinder;
+import vaisseaux.ennemis.particuliers.nv1.Laser;
+import vaisseaux.ennemis.particuliers.nv1.PorteRaisin;
+import vaisseaux.ennemis.particuliers.nv1.QuiTir;
+import vaisseaux.ennemis.particuliers.nv1.QuiTir2;
+import vaisseaux.ennemis.particuliers.nv1.QuiTourne;
+import vaisseaux.ennemis.particuliers.nv1.Toupie;
+import vaisseaux.ennemis.particuliers.nv1.ZigZag;
+import vaisseaux.ennemis.particuliers.nv2.BouleTirCote;
+import vaisseaux.ennemis.particuliers.nv2.BouleTirCoteRotation;
 import vaisseaux.joueur.VaisseauType1;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -152,11 +160,21 @@ public class Endless implements Screen {
 	public void render(float delta) {
 		
 		if (Gdx.input.isKeyPressed(Keys.A)) {
-			Ennemis.LISTE.add(BouleQuiSArrete.pool.obtain());
+			Ennemis.LISTE.add(DeBase.pool.obtain());
 //			Ennemis.LISTE.add(AvionNv3.pool.obtain());
 		}
-//		if (Gdx.input.isKeyPressed(Keys.E))
-//			Ennemis.liste.add(new EnnemiKinderDoubleTir());
+		if (Gdx.input.isKeyPressed(Keys.Z)) 	Ennemis.LISTE.add(Insecte.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.E))		Ennemis.LISTE.add(Kinder.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.R))		Ennemis.LISTE.add(Laser.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.T))		Ennemis.LISTE.add(PorteRaisin.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.Y))		Ennemis.LISTE.add(QuiTir.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.U))		Ennemis.LISTE.add(QuiTir2.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.I))		Ennemis.LISTE.add(QuiTourne.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.O))		Ennemis.LISTE.add(Toupie.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.P))		Ennemis.LISTE.add(ZigZag.pool.obtain());
+		
+		if (Gdx.input.isKeyPressed(Keys.Q))		Ennemis.LISTE.add(BouleTirCote.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.S))		Ennemis.LISTE.add(BouleTirCoteRotation.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.R))
 //			Ennemis.liste.add(new EnnemiCylon());
 //		if (Gdx.input.isKeyPressed(Keys.T))
