@@ -1,10 +1,10 @@
 package jeu;
 
+import objets.armes.Armes;
+import objets.armes.joueur.ArmeJoueur;
+import objets.ennemis.Ennemis;
+import objets.joueur.VaisseauJoueur;
 import menu.CSG;
-import vaisseaux.armes.Armes;
-import vaisseaux.armes.joueur.ArmeJoueur;
-import vaisseaux.ennemis.Ennemis;
-import vaisseaux.joueur.VaisseauType1;
 import assets.particules.Particules;
 
 import com.badlogic.gdx.Gdx;
@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Physique {
 
 	/**
-	 * Test si c'est touché dans le sprite
+	 * Test si c'est touchï¿½ dans le sprite
 	 * @param s
 	 * @return
 	 */
@@ -48,13 +48,13 @@ public class Physique {
 	 * @return True si encore a l'ecran
 	 */
 	public static boolean mouvementDeBaseDirY(float dirY, Vector2 position,	int vitesse, int hauteur, int largeur) {
-		position.y += (dirY * Endless.delta * vitesse);
+		position.y += (dirY * EndlessMode.delta * vitesse);
 		return toujoursAfficher(position, hauteur, largeur);
 	}
 	
 	private static void deplacementBase(Vector2 direction, Vector2 position, float v) {
-		position.x += (direction.x * Endless.delta * v);
-		position.y += (direction.y * Endless.delta * v);	
+		position.x += (direction.x * EndlessMode.delta * v);
+		position.y += (direction.y * EndlessMode.delta * v);	
 	}
 	
 	/**
@@ -95,8 +95,8 @@ public class Physique {
 		if (!mort) {
 			if (pos.x + demiLargeur < axeDeBase)	sens = false;
 			else									sens = true;
-			if (sens)								dir.x -= amplitude * Endless.delta;
-			else									dir.x += amplitude * Endless.delta;
+			if (sens)								dir.x -= amplitude * EndlessMode.delta;
+			else									dir.x += amplitude * EndlessMode.delta;
 		}
 		deplacementBase(dir, pos, VITESSE);
 		return sens;
@@ -109,8 +109,8 @@ public class Physique {
 	public static boolean goToZigZagCentre(Vector2 pos, Vector2 dir, int demiLargeur, boolean sens, final float AMPLITUDE, final int hauteur, final int largeur){
 		if (pos.x + demiLargeur < CSG.DEMI_LARGEUR_ZONE_JEU) 	sens = false;
 		else 													sens = true;
-		if (sens)					dir.x -= AMPLITUDE * Endless.delta;
-		else						dir.x += AMPLITUDE * Endless.delta;
+		if (sens)					dir.x -= AMPLITUDE * EndlessMode.delta;
+		else						dir.x += AMPLITUDE * EndlessMode.delta;
 		mvtSansVerif(pos, dir);
 		return sens;
 	}
@@ -124,8 +124,8 @@ public class Physique {
 		// On parcourt la liste des ennemis
 		for(Ennemis ennemi : Ennemis.LISTE){
 			// Si le centre du vaisseau est dans un ennemi
-			if (pointDansRectangle(VaisseauType1.centreX, VaisseauType1.centreY, ennemi.getRectangleCollision())) {
-				Endless.perdu();
+			if (pointDansRectangle(VaisseauJoueur.centreX, VaisseauJoueur.centreY, ennemi.getRectangleCollision())) {
+				EndlessMode.perdu();
 			}
 			for (ArmeJoueur a : Armes.liste) {
 				// Le tir touche l'ennemie
@@ -169,16 +169,16 @@ public class Physique {
     }
     
 	public static boolean pointDansVaisseau(Vector2 position, int rectLarg, int rectHaut) {
-		if (position.x <= VaisseauType1.centreX && position.x + rectLarg >= VaisseauType1.centreX && position.y <= VaisseauType1.centreY && position.y + rectHaut >= VaisseauType1.centreY) {
-			VaisseauType1.perdu();
+		if (position.x <= VaisseauJoueur.centreX && position.x + rectLarg >= VaisseauJoueur.centreX && position.y <= VaisseauJoueur.centreY && position.y + rectHaut >= VaisseauJoueur.centreY) {
+			VaisseauJoueur.perdu();
 			return true;
 		}
 		return false;
 	}
 	
 	public static boolean pointDansVaisseau(Vector2 position, int rectLarg) {
-		if (position.x <= VaisseauType1.centreX && position.x + rectLarg >= VaisseauType1.centreX && position.y <= VaisseauType1.centreY && position.y + rectLarg >= VaisseauType1.centreY) {
-			VaisseauType1.perdu();
+		if (position.x <= VaisseauJoueur.centreX && position.x + rectLarg >= VaisseauJoueur.centreX && position.y <= VaisseauJoueur.centreY && position.y + rectLarg >= VaisseauJoueur.centreY) {
+			VaisseauJoueur.perdu();
 			return true;
 		}
 		return false;
@@ -195,7 +195,7 @@ public class Physique {
         else            return false;
     }
 	public static float rotation(float angleRotation, float vitesseRotation) {
-		return angleRotation + (Endless.delta * vitesseRotation);
+		return angleRotation + (EndlessMode.delta * vitesseRotation);
 	}
 	
 	private static Vector2 cibleTMP = new Vector2();
@@ -203,19 +203,19 @@ public class Physique {
 	private static float angleDirection;
 
 	public static float mouvementTeteChercheuse(Vector2 direction, Vector2 position, float vitesseMax, int largeur, float vitesseAngulaire, int demiLargeur) {
-		cibleTMP.x = (VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR) - (position.x + demiLargeur);
-		cibleTMP.y = (VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR) - (position.y + demiLargeur);
+		cibleTMP.x = (VaisseauJoueur.position.x + VaisseauJoueur.DEMI_LARGEUR) - (position.x + demiLargeur);
+		cibleTMP.y = (VaisseauJoueur.position.y + VaisseauJoueur.DEMI_HAUTEUR) - (position.y + demiLargeur);
 		angleCible = cibleTMP.angle();
 		angleDirection = direction.angle();
 		// cas particulier
 		if ((angleCible > 350) && ( (angleDirection < 5) || (angleDirection > 355)) )
-			direction.rotate(-vitesseAngulaire * Endless.delta * 10);
+			direction.rotate(-vitesseAngulaire * EndlessMode.delta * 10);
 		else {
 			if (angleDirection < angleCible && angleCible - angleDirection < 180) {
-				direction.rotate(vitesseAngulaire * Endless.delta);
+				direction.rotate(vitesseAngulaire * EndlessMode.delta);
 			} else {
-				if (Math.abs(angleCible - angleDirection) < 180)	direction.rotate(-vitesseAngulaire * Endless.delta);
-				else												direction.rotate(vitesseAngulaire * Endless.delta);
+				if (Math.abs(angleCible - angleDirection) < 180)	direction.rotate(-vitesseAngulaire * EndlessMode.delta);
+				else												direction.rotate(vitesseAngulaire * EndlessMode.delta);
 			}
 		}
 		
@@ -233,47 +233,47 @@ public class Physique {
 	 */
 	public static boolean testCollisionAdds(Vector2 position, int largeur, int hauteur) {
 		collision = false;
-		if (VaisseauType1.addGauche && Physique.pointDansRectangle(VaisseauType1.centreAddGauche1X, VaisseauType1.centreAdds1Y, position.x, position.y, largeur, hauteur)) {
-			VaisseauType1.enleverAddGauche1();
+		if (VaisseauJoueur.addGauche && Physique.pointDansRectangle(VaisseauJoueur.centreAddGauche1X, VaisseauJoueur.centreAdds1Y, position.x, position.y, largeur, hauteur)) {
+			VaisseauJoueur.enleverAddGauche1();
 			collision = true;
 		}
-		if (VaisseauType1.addDroite && Physique.pointDansRectangle(VaisseauType1.centreAddDroite1X, VaisseauType1.centreAdds1Y, position.x, position.y, largeur, hauteur))	{
-			VaisseauType1.enleverAddDroite1();
+		if (VaisseauJoueur.addDroite && Physique.pointDansRectangle(VaisseauJoueur.centreAddDroite1X, VaisseauJoueur.centreAdds1Y, position.x, position.y, largeur, hauteur))	{
+			VaisseauJoueur.enleverAddDroite1();
 			collision = true;
 		}
-		if (VaisseauType1.addGauche2 && Physique.pointDansRectangle(VaisseauType1.centreAddGauche2X, VaisseauType1.centreAdds2Y, position.x, position.y, largeur, hauteur)) {
-			VaisseauType1.enleverAddGauche2();
+		if (VaisseauJoueur.addGauche2 && Physique.pointDansRectangle(VaisseauJoueur.centreAddGauche2X, VaisseauJoueur.centreAdds2Y, position.x, position.y, largeur, hauteur)) {
+			VaisseauJoueur.enleverAddGauche2();
 			collision = true;
 		}
-		if (VaisseauType1.addDroite2 && Physique.pointDansRectangle(VaisseauType1.centreAddDroite2X, VaisseauType1.centreAdds2Y, position.x, position.y, largeur, hauteur)) {
-			VaisseauType1.enleverAddDroite2();
+		if (VaisseauJoueur.addDroite2 && Physique.pointDansRectangle(VaisseauJoueur.centreAddDroite2X, VaisseauJoueur.centreAdds2Y, position.x, position.y, largeur, hauteur)) {
+			VaisseauJoueur.enleverAddDroite2();
 			collision = true;
 		}
 		return collision;
 	}
 	
 	/**
-	 * Test si le carré formé par la position + la largeur est dans un des adds du vaisseau
+	 * Test si le carrï¿½ formï¿½ par la position + la largeur est dans un des adds du vaisseau
 	 * @param position
 	 * @param largeur
 	 * @return
 	 */
 	public static boolean testCollisionAdds(Vector2 position, int largeur) {
 		collision = false;
-		if (VaisseauType1.addGauche && Physique.pointDansCarre(VaisseauType1.centreAddGauche1X, VaisseauType1.centreAdds1Y, position.x, position.y, largeur)) {
-			VaisseauType1.enleverAddGauche1();
+		if (VaisseauJoueur.addGauche && Physique.pointDansCarre(VaisseauJoueur.centreAddGauche1X, VaisseauJoueur.centreAdds1Y, position.x, position.y, largeur)) {
+			VaisseauJoueur.enleverAddGauche1();
 			collision = true;
 		}
-		if (VaisseauType1.addDroite && Physique.pointDansCarre(VaisseauType1.centreAddDroite1X, VaisseauType1.centreAdds1Y, position.x, position.y, largeur))	{
-			VaisseauType1.enleverAddDroite1();
+		if (VaisseauJoueur.addDroite && Physique.pointDansCarre(VaisseauJoueur.centreAddDroite1X, VaisseauJoueur.centreAdds1Y, position.x, position.y, largeur))	{
+			VaisseauJoueur.enleverAddDroite1();
 			collision = true;
 		}
-		if (VaisseauType1.addGauche2 && Physique.pointDansCarre(VaisseauType1.centreAddGauche2X, VaisseauType1.centreAdds2Y, position.x, position.y, largeur)) {
-			VaisseauType1.enleverAddGauche2();
+		if (VaisseauJoueur.addGauche2 && Physique.pointDansCarre(VaisseauJoueur.centreAddGauche2X, VaisseauJoueur.centreAdds2Y, position.x, position.y, largeur)) {
+			VaisseauJoueur.enleverAddGauche2();
 			collision = true;
 		}
-		if (VaisseauType1.addDroite2 && Physique.pointDansCarre(VaisseauType1.centreAddDroite2X, VaisseauType1.centreAdds2Y, position.x, position.y, largeur)) {
-			VaisseauType1.enleverAddDroite2();
+		if (VaisseauJoueur.addDroite2 && Physique.pointDansCarre(VaisseauJoueur.centreAddDroite2X, VaisseauJoueur.centreAdds2Y, position.x, position.y, largeur)) {
+			VaisseauJoueur.enleverAddDroite2();
 			collision = true;
 		}
 		return collision;
@@ -281,12 +281,12 @@ public class Physique {
 
 	
 	public static void mvtSansVerif(Vector2 position, Vector2 direction) {
-		position.x += direction.x * Endless.delta;
-		position.y += direction.y * Endless.delta;
+		position.x += direction.x * EndlessMode.delta;
+		position.y += direction.y * EndlessMode.delta;
 	}
 	
 	/**
-	 * Le fait bouger vers le bas et ralentit à un premier pallier et s'arrete au deuxième
+	 * Le fait bouger vers le bas et ralentit ï¿½ un premier pallier et s'arrete au deuxiï¿½me
 	 * @param position
 	 * @param vitesse
 	 * @param maintenant
@@ -295,26 +295,26 @@ public class Physique {
 		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
 			// On ralentit
 			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
-				position.y += (-50 * Endless.delta);
+				position.y += (-50 * EndlessMode.delta);
 		} else {
-			position.y += (vitesse * Endless.delta);
+			position.y += (vitesse * EndlessMode.delta);
 		}
 		if (maintenant > 10) {
-			position.y -= vitesse * Endless.delta;
-			position.x += vitesse * Endless.delta;
+			position.y -= vitesse * EndlessMode.delta;
+			position.x += vitesse * EndlessMode.delta;
 		}
 	}
 	
 	/**
-	 * Retourne true = toujours affiché
+	 * Retourne true = toujours affichï¿½
 	 * @param direction
 	 * @param position
 	 * @param largeur
-	 * @return true si toujours affiché
+	 * @return true si toujours affichï¿½
 	 */
 	public static boolean mouvementDeBase(Vector2 direction, Vector2 position,	int largeur) {
-		position.x += direction.x * Endless.delta;
-		position.y += direction.y * Endless.delta;
+		position.x += direction.x * EndlessMode.delta;
+		position.y += direction.y * EndlessMode.delta;
 		return toujoursAfficher(position, largeur);
 	}
 	
@@ -324,23 +324,23 @@ public class Physique {
 	 * @param largeur
 	 * @param direction
 	 * @param position
-	 * @return true si toujours affiché
+	 * @return true si toujours affichï¿½
 	 */
 	public static boolean mouvementDeBase(int hauteur, int largeur,	Vector2 direction, Vector2 position) {
-		position.x += direction.x * Endless.delta;
-		position.y += direction.y * Endless.delta;
+		position.x += direction.x * EndlessMode.delta;
+		position.y += direction.y * EndlessMode.delta;
 		return toujoursAfficher(position, largeur, hauteur);
 	}
 	
 	/**
-	 * Se déplace par rapport au joueur dans l'axe X pour essayer d'être sur le même axe Y.
+	 * Se dï¿½place par rapport au joueur dans l'axe X pour essayer d'ï¿½tre sur le mï¿½me axe Y.
 	 * @param e
 	 * @param direction
 	 * @return
 	 */
 	public static float mvtOmbrelle(Ennemis e, Vector2 direction) {
-		direction.x = -((CSG.DEMI_LARGEUR_ZONE_JEU - VaisseauType1.centreX) - (CSG.DEMI_LARGEUR_ZONE_JEU - e.position.x - e.getDemiLargeur()));
-		direction.y /= 1 + Endless.delta;
+		direction.x = -((CSG.DEMI_LARGEUR_ZONE_JEU - VaisseauJoueur.centreX) - (CSG.DEMI_LARGEUR_ZONE_JEU - e.position.x - e.getDemiLargeur()));
+		direction.y /= 1 + EndlessMode.delta;
 		Physique.mvtSansVerif(e.position, direction);
 		return getAngleVersJoueur(e.position, e.getDemiLargeur(), e.getDemiHauteur());
 	}
@@ -348,15 +348,15 @@ public class Physique {
 	private static Vector2 positionCible = new Vector2();
 	private static Vector2 positionBalle = new Vector2();
 	/**
-	 * Renvoie l'angle entre le centre de l'arme et le centre du joueur, les dimensions passées sont celles de l'arme
+	 * Renvoie l'angle entre le centre de l'arme et le centre du joueur, les dimensions passï¿½es sont celles de l'arme
 	 * @param vecteurPosition
 	 * @param demiLargeur 
 	 * @param demiHauteur
 	 * @return
 	 */
 	public static float getAngleVersJoueur(Vector2 vecteurPosition,  float demiLargeur, float demiHauteur) {
-		positionCible.x = (VaisseauType1.position.x + VaisseauType1.DEMI_LARGEUR);
-		positionCible.y = (VaisseauType1.position.y + VaisseauType1.DEMI_HAUTEUR);
+		positionCible.x = (VaisseauJoueur.position.x + VaisseauJoueur.DEMI_LARGEUR);
+		positionCible.y = (VaisseauJoueur.position.y + VaisseauJoueur.DEMI_HAUTEUR);
 		positionBalle.x = vecteurPosition.x + demiLargeur;
 		positionBalle.y = vecteurPosition.y + demiHauteur;
 		return positionCible.sub(positionBalle).angle();

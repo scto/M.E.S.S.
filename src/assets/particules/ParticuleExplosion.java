@@ -1,9 +1,9 @@
 package assets.particules;
 
-import jeu.Endless;
+import objets.ennemis.Ennemis;
+import jeu.EndlessMode;
 import jeu.Stats;
 import menu.CSG;
-import vaisseaux.ennemis.Ennemis;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -41,11 +41,11 @@ public class ParticuleExplosion extends ParticuleRGB implements Poolable {
 	public boolean mouvementEtVerif() {
 		vitesseX /= 1.02f;
 		vitesseY /= 1.02f;
-		posX += vitesseX * Endless.delta;
-		posY += vitesseY * Endless.delta;
-		angle += vitesseAngle  * Endless.delta;
-		if (Endless.maintenant > temps) return false;
-		// Je pense qu'on peut se permettre de ne pas verifier si il est tjrs à l'écran vu son court temps de vie
+		posX += vitesseX * EndlessMode.delta;
+		posY += vitesseY * EndlessMode.delta;
+		angle += vitesseAngle  * EndlessMode.delta;
+		if (EndlessMode.maintenant > temps) return false;
+		// Je pense qu'on peut se permettre de ne pas verifier si il est tjrs ï¿½ l'ï¿½cran vu son court temps de vie
 		return true;
 	}
 
@@ -56,7 +56,7 @@ public class ParticuleExplosion extends ParticuleRGB implements Poolable {
 		vitesseY = (float) ((Math.random()-.5) * Stats.V_PARTICULE_EXPLOSION) + e.getDirectionY();
 		vitesseX = (float) ((Math.random()-.5) * Stats.V_PARTICULE_EXPLOSION) + e.getDirectionX();
 		
-		temps = ((r.nextFloat()/2) + Endless.maintenant + .2f);
+		temps = ((r.nextFloat()/2) + EndlessMode.maintenant + .2f);
 	}
 
 	@Override

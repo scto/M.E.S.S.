@@ -11,7 +11,8 @@ public class Client extends Thread {
 
 	private InetAddress ipAddress;
 	private DatagramSocket socket;
-	public Client(String ipAddress, Endless endless) {
+	
+	public Client(String ipAddress, EndlessMode endless) {
 		super();
 		try {
 			this.ipAddress = InetAddress.getByName(ipAddress);
@@ -40,9 +41,7 @@ public class Client extends Thread {
 		DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, 2311);
 		try {
 			socket.send(packet);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
 		}
 	}
 	

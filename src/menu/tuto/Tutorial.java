@@ -1,15 +1,15 @@
 package menu.tuto;
 
-import jeu.Endless;
+import objets.armes.Armes;
+import objets.bonus.Bonus;
+import objets.bonus.BonusAdd;
+import objets.bonus.XP;
+import objets.ennemis.Ennemis;
+import objets.ennemis.particuliers.nv1.DeBase;
+import objets.joueur.VaisseauJoueur;
+import jeu.EndlessMode;
 import jeu.Physique;
 import menu.CSG;
-import vaisseaux.armes.Armes;
-import vaisseaux.bonus.Bonus;
-import vaisseaux.bonus.BonusAdd;
-import vaisseaux.bonus.XP;
-import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.particuliers.nv1.DeBase;
-import vaisseaux.joueur.VaisseauType1;
 import assets.particules.Particule;
 import assets.particules.Particules;
 import bloom.Bloom;
@@ -30,7 +30,7 @@ public class Tutorial implements Screen {
 	private float xP1 = CSG.LARGEUR_ECRAN;
 	private Bloom bloom;
 	private float alphaBackground = 0.02f, vitesseMontee = 200f, alphaShip = 0.02f, timerPhase = 0;
-	private VaisseauType1 vaisseau = new VaisseauType1();
+	private VaisseauJoueur vaisseau = new VaisseauJoueur();
 	private int phase = 0;
 	private boolean alterner = false;
 	private DeBase deBase1 = DeBase.pool.obtain(), deBase2 = DeBase.pool.obtain();
@@ -39,8 +39,8 @@ public class Tutorial implements Screen {
 			alphaBackground *= 1 + Gdx.graphics.getDeltaTime();
 			if (alphaBackground > 1) alphaBackground = 1;
 			
-			if (VaisseauType1.position.y < VaisseauType1.HAUTEUR - 2 && phase == 0) {
-				if (VaisseauType1.position.y < VaisseauType1.HAUTEUR) VaisseauType1.position.y += vitesseMontee * Gdx.graphics.getDeltaTime();
+			if (VaisseauJoueur.position.y < VaisseauJoueur.HAUTEUR - 2 && phase == 0) {
+				if (VaisseauJoueur.position.y < VaisseauJoueur.HAUTEUR) VaisseauJoueur.position.y += vitesseMontee * Gdx.graphics.getDeltaTime();
 				vitesseMontee /= 1 + (Gdx.graphics.getDeltaTime() * 1.5f);
 			}
 		}
@@ -58,8 +58,8 @@ public class Tutorial implements Screen {
 	};
 	private Action actionMouvementVaisseau = new Action() {		public void action() {
 		batch.begin();
-		Endless.mouvement();
-		Endless.strScore = String.valueOf(Endless.score);
+		EndlessMode.mouvement();
+		EndlessMode.strScore = String.valueOf(EndlessMode.score);
 		batch.end();
 		}	};
 	private Action actionTirVaisseau = new Action() {		public void action() {
@@ -95,14 +95,14 @@ public class Tutorial implements Screen {
 	private Action actionAfficherPoints = new Action() {
 		public void action() {	
 			batch.begin();
-			CSG.menuFontPetite.draw(batch, Endless.strScore, Endless.cam.position.x + Endless.X_CHRONO, Endless.HAUTEUR_POLICE);
+			CSG.menuFontPetite.draw(batch, EndlessMode.strScore, EndlessMode.cam.position.x + EndlessMode.X_CHRONO, EndlessMode.HAUTEUR_POLICE);
 			batch.end();
 	}};
 	private Action aAfficherGgEtAddXp = new Action() {
 		public void action() {
-			if (Endless.score == 0) Bonus.liste.add(XP.pool.obtain());
+			if (EndlessMode.score == 0) Bonus.liste.add(XP.pool.obtain());
 			batch.begin();
-			CSG.menuFont.draw(batch, GG, Endless.cam.position.x + Endless.X_CHRONO, Endless.HAUTEUR_POLICE * 3);
+			CSG.menuFont.draw(batch, GG, EndlessMode.cam.position.x + EndlessMode.X_CHRONO, EndlessMode.HAUTEUR_POLICE * 3);
 			batch.end();
 	}};
 	private Color originalColor = CSG.menuFont.getColor();
@@ -118,16 +118,16 @@ public class Tutorial implements Screen {
 	public Tutorial(Game game) {
 		bloom = new Bloom();
 		bloom.setBloomIntesity(CSG.profil.intensiteBloom);
-		VaisseauType1.position.x = CSG.DEMI_LARGEUR_ZONE_JEU - VaisseauType1.DEMI_LARGEUR;
-		VaisseauType1.position.y = -VaisseauType1.HAUTEUR;
+		VaisseauJoueur.position.x = CSG.DEMI_LARGEUR_ZONE_JEU - VaisseauJoueur.DEMI_LARGEUR;
+		VaisseauJoueur.position.y = -VaisseauJoueur.HAUTEUR;
 		CSG.reset();
-		Endless.cam.position.set(CSG.LARGEUR_ZONE_JEU/2, CSG.HAUTEUR_ECRAN / 2, 0);
+		EndlessMode.cam.position.set(CSG.LARGEUR_ZONE_JEU/2, CSG.HAUTEUR_ECRAN / 2, 0);
 	}
 
 	@Override
 	public void render(float delta) {
-		Endless.cam.update();
-		batch.setProjectionMatrix(Endless.cam.combined);
+		EndlessMode.cam.update();
+		batch.setProjectionMatrix(EndlessMode.cam.combined);
 		
 		bloom.capture();
 		batch.begin();
@@ -145,15 +145,15 @@ public class Tutorial implements Screen {
 		timerPhase += delta;
 		triggers(delta);
 		Physique.testCollisions();
-		Endless.delta = delta;
-		Endless.delta15 = delta * 15;
-		Endless.maintenant += delta;
+		EndlessMode.delta = delta;
+		EndlessMode.delta15 = delta * 15;
+		EndlessMode.maintenant += delta;
 	}
 
 	private void triggers(float delta) {
 		// Quand le vaisseau est en place
 		switch (phase) {
-		case 0:		if (VaisseauType1.position.y > VaisseauType1.HAUTEUR - 2 && phase == 0) nextPhase();	break;
+		case 0:		if (VaisseauJoueur.position.y > VaisseauJoueur.HAUTEUR - 2 && phase == 0) nextPhase();	break;
 		case 1:		if (Gdx.input.justTouched())											nextPhase();	break;
 		case 2:		if (timerPhase > .8f)													nextPhase();	break;
 		case 3:		if (timerPhase > .8f)													nextPhase();	break;
@@ -170,7 +170,6 @@ public class Tutorial implements Screen {
 
 	private void background(float delta) {
 		batch.setColor(1, 1, 1, alphaBackground);
-		CSG.renderBackground(batch);
 		batch.setColor(1,1,1,1);
 	}
 

@@ -1,7 +1,7 @@
 package assets.animation;
 
 import menu.CSG;
-import jeu.Endless;
+import jeu.EndlessMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationVaisseau{
@@ -33,7 +33,7 @@ public class AnimationVaisseau{
 		if (tpsDroite > TPS_ANIM)				// Si on va vers la droite depuis un moment 
 			etat = 0;
 		else {
-			tpsDroite += Endless.delta;			// Sinon on commence seulement l'anim est pas la m�me
+			tpsDroite += EndlessMode.delta;			// Sinon on commence seulement l'anim est pas la m�me
 			etat = 1;
 			tpsGauche = 0;
 		}
@@ -44,7 +44,7 @@ public class AnimationVaisseau{
 			etat = 4;
 		else {
 			etat = 3;
-			tpsGauche += Endless.delta;
+			tpsGauche += EndlessMode.delta;
 			tpsDroite = 0;
 		}
 	}
@@ -54,11 +54,11 @@ public class AnimationVaisseau{
 
 		if (tpsDroite > 0) {					// on allait a droite avant
 			etat = 1;
-			tpsDroite -= Endless.delta;
+			tpsDroite -= EndlessMode.delta;
 		} else {
 			if (tpsGauche > 0) {				// on allait a gauche avant
 				etat = 3;
-				tpsGauche -= Endless.delta;
+				tpsGauche -= EndlessMode.delta;
 			} else 
 				etat = 2;
 		}

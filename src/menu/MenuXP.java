@@ -1,6 +1,8 @@
 package menu;
 
-import vaisseaux.joueur.VaisseauType1;
+import objets.joueur.VaisseauJoueur;
+import assets.particules.Particules;
+
 import com.badlogic.gdx.Game;
 import com.moribitotech.mtx.AbstractScreen;
 
@@ -31,7 +33,7 @@ public class MenuXP extends AbstractScreen{
 		ajout(new Bouton(OTHER_WEAP, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_PETITBOUTON,
 				(CSG.LARGEUR_ECRAN / 2) - Menu.LARGEUR_BOUTON/2, - Menu.decalageY + CSG.HAUTEUR_ECRAN - Menu.HAUTEUR_BOUTON * 4, this, new OnClick() {
 					public void onClick() {	
-						VaisseauType1.changerArme();
+						VaisseauJoueur.changerArme();
 						CSG.profilManager.persist();
 						updateTexteUpgrade();
 					}}, false));
@@ -65,20 +67,19 @@ public class MenuXP extends AbstractScreen{
 					}}, false);
 		updateTexteCadence();
 		ajout(boutonCadence);
-		VaisseauType1.position.y = CSG.HAUTEUR_ECRAN / 3;
-		VaisseauType1.position.x = (CSG.LARGEUR_ECRAN / 2) - VaisseauType1.DEMI_LARGEUR; 
-		VaisseauType1.rajoutAdd();
-		VaisseauType1.rajoutAdd();
-		VaisseauType1.rajoutAdd();
-		VaisseauType1.rajoutAdd();
+		VaisseauJoueur.position.y = CSG.HAUTEUR_ECRAN / 3;
+		VaisseauJoueur.position.x = (CSG.LARGEUR_ECRAN / 2) - VaisseauJoueur.DEMI_LARGEUR; 
+		VaisseauJoueur.rajoutAdd();
+		VaisseauJoueur.rajoutAdd();
+		VaisseauJoueur.rajoutAdd();
+		VaisseauJoueur.rajoutAdd();
 		setRenderBackground(false);
 	}
 
 	@Override
 	public void render(float delta) {
 		batch.begin();
-		
-		CSG.renderBackground(batch);
+		Particules.background(batch);
 		jeu.render(batch, delta);
 		super.render(delta);
 	}

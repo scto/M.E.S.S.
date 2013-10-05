@@ -1,26 +1,45 @@
 package assets.particules;
 
-import vaisseaux.armes.Armes;
-import vaisseaux.armes.joueur.ArmeAdd;
-import vaisseaux.armes.joueur.ArmeJoueur;
-import vaisseaux.armes.joueur.ArmesBalayage;
-import vaisseaux.armes.joueur.ArmesDeBase;
-import vaisseaux.armes.joueur.ArmesTrois;
-import vaisseaux.ennemis.Ennemis;
-import vaisseaux.joueur.VaisseauType1;
+import objets.armes.Armes;
+import objets.armes.joueur.ArmeAdd;
+import objets.armes.joueur.ArmeJoueur;
+import objets.armes.joueur.ArmesBalayage;
+import objets.armes.joueur.ArmesDeBase;
+import objets.armes.joueur.ArmesTrois;
+import objets.ennemis.Ennemis;
+import objets.joueur.VaisseauJoueur;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
 public class Particules {
-	
+	 	
 	public static final int MAX = 150;
 	public static final int MAX_ARMES_JOUEUR = 450;
 	public static Array<Particule> restes = new Array<Particule>(false, MAX);
 	public static Array<Particule> flammes = new Array<Particule>(false, MAX);
 	public static Array<Particule> explosions = new Array<Particule>(false, MAX);
 	public static Array<Particule> armesJoueur = new Array<Particule>(false, MAX_ARMES_JOUEUR);
+	public static Array<Particule> background = new Array<Particule>(false, 200);
 	private static float yVaisseau = 0;
+	
+	/**
+	 * Ajoute 150 étoiles
+	 */
+	public static void initBackground() {
+		ParticuleEtoile.initBackground();
+	}
+	
+	public static void background(SpriteBatch batch) {
+		ParticuleEtoile.mightAdd();
+		for (Particule p : background) {
+			p.afficher(batch);
+			if (p.mouvementEtVerif() == false) {
+				background.removeValue(p, true);
+				p.free();
+			}
+		}
+	}
 	
 	public static void render(SpriteBatch batch) {
 		for (Particule p : restes){
@@ -75,7 +94,7 @@ public class Particules {
 	 * Il tient compte de si on monte ou on descend pour ajouter plus ou moins de flammes
 	 * @param v
 	 */
-	public static void ajoutFlammes(VaisseauType1 v) {
+	public static void ajoutFlammes(VaisseauJoueur v) {
 		if (Particules.flammes.size < Particules.MAX) {
 			FlammesVaisseau r = FlammesVaisseau.pool.obtain();
 			r.init(v);
@@ -129,11 +148,9 @@ public class Particules {
 	}
 
 	public static void ajoutAdd(ArmeAdd a) {
-//		if (armesJoueur.size < MAX_ARMES_JOUEUR) {
-			ParticuleArmeAddTrainee p = ParticuleArmeAddTrainee.pool.obtain();
-			p.init(a);
-			armesJoueur.add(p);
-//		}
+		ParticuleArmeAddTrainee p = ParticuleArmeAddTrainee.pool.obtain();
+		p.init(a);
+		armesJoueur.add(p);
 	}
 
 	public static void ajoutArmeDeBase(ArmesDeBase a) {
@@ -159,5 +176,7 @@ public class Particules {
 			armesJoueur.add(p);
 		}
 	}
+
+
 
 }

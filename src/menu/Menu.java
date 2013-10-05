@@ -1,9 +1,10 @@
 package menu;
 
-import jeu.Endless;
+import objets.armes.joueur.ArmeAdd;
+import jeu.EndlessMode;
 import menu.tuto.Tutorial;
-import vaisseaux.armes.joueur.ArmeAdd;
 import assets.SoundMan;
+import assets.particules.Particules;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -18,6 +19,7 @@ public class Menu extends AbstractScreen{
 	
 	 public Menu(Game game) {
 		super(game);
+		Particules.initBackground();
 		setUpScreenElements();
 	 }
 	  
@@ -74,7 +76,7 @@ public class Menu extends AbstractScreen{
 	@Override
 	public void keyBackPressed() {
 		super.keyBackPressed();
-		getGame().setScreen(new Endless(getGame(), batch, 1));
+		getGame().setScreen(new EndlessMode(getGame(), batch, 1));
 	}
 
 	@Override
@@ -108,7 +110,7 @@ public class Menu extends AbstractScreen{
 			if (Gdx.input.justTouched() && Gdx.input.getX() > CSG.DEMI_LARGEUR_ECRAN) 	etapeCode++;
 			break;
 		case 8:
-			Endless.konamiCode = true;
+			EndlessMode.konamiCode = true;
 			SoundMan.playBruitage(SoundMan.explosionGrosse);
 			break;
 		}

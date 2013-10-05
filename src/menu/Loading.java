@@ -1,5 +1,7 @@
 package menu;
 
+import assets.particules.Particules;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -36,7 +38,7 @@ public class Loading implements Screen {
 				case 6:					loading = "loadinG";					break;
 				case 7:					loading = "loading";					break;
 				}
-				if(++orientation > 7) orientation = 0;
+				if (++orientation > 7) orientation = 0;
 			}
 			CSG.menuFontPetite.draw(batch, loading, CSG.DEMI_LARGEUR_ECRAN - CSG.menuFontPetite.getBounds("Loading -").width / 2, CSG.DEMI_HAUTEUR_ECRAN - CSG.menuFontPetite.getBounds(loading).height / 2);
 			batch.end();

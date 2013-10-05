@@ -2,7 +2,7 @@ package assets.particules;
 
 import java.util.Random;
 
-import jeu.Endless;
+import jeu.EndlessMode;
 import menu.CSG;
 import assets.AssetMan;
 
@@ -48,7 +48,7 @@ public abstract class Particule {
 	protected boolean trainee() {
 		if (temps < 4) return false;
 		
-		diminution = temps * (Endless.delta15);
+		diminution = temps * (EndlessMode.delta15);
 		temps -= diminution;
 		diminution /= 2;
 

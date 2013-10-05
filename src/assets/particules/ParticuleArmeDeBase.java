@@ -1,8 +1,8 @@
 package assets.particules;
 
-import jeu.Endless;
+import objets.armes.joueur.ArmesDeBase;
+import jeu.EndlessMode;
 import menu.CSG;
-import vaisseaux.armes.joueur.ArmesDeBase;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,11 +29,11 @@ public class ParticuleArmeDeBase extends ParticuleRGB implements Poolable {
 	}
 	@Override
 	public boolean mouvementEtVerif() {
-		posX += vitesseX * Endless.delta;
-		posY += vitesseY * Endless.delta;
-		angle += vitesseAngle  * Endless.delta;
-		if (Endless.maintenant > temps) return false;
-		// Je pense qu'on peut se permettre de ne pas verifier si il est tjrs à l'écran vu son court temps de vie
+		posX += vitesseX * EndlessMode.delta;
+		posY += vitesseY * EndlessMode.delta;
+		angle += vitesseAngle  * EndlessMode.delta;
+		if (EndlessMode.maintenant > temps) return false;
+		// Je pense qu'on peut se permettre de ne pas verifier si il est tjrs ï¿½ l'ï¿½cran vu son court temps de vie
 		return true;
 	}
 	
@@ -51,7 +51,7 @@ public class ParticuleArmeDeBase extends ParticuleRGB implements Poolable {
 		posX = (a.position.x + a.DEMI_LARGEUR);
 		posY = a.position.y + a.DEMI_HAUTEUR;
 		
-		temps = (r.nextFloat() / 10) + .1f + Endless.maintenant;
+		temps = (r.nextFloat() / 10) + .1f + EndlessMode.maintenant;
 		vitesseX = ((r.nextFloat() / 4f) - .125f) * 500f;
 		vitesseY = ((r.nextFloat() / 4f) - .125f) * 400f;
 		

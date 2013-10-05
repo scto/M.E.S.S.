@@ -1,14 +1,13 @@
 package menu;
 
-import jeu.Endless;
+import objets.armes.Armes;
+import objets.bonus.Bonus;
+import objets.ennemis.Ennemis;
+import objets.ennemis.Progression;
+import jeu.EndlessMode;
 import jeu.Profil;
 import jeu.ProfilManager;
-import vaisseaux.armes.Armes;
-import vaisseaux.bonus.Bonus;
-import vaisseaux.ennemis.Ennemis;
-import vaisseaux.ennemis.Progression;
 import assets.AssetMan;
-import assets.background.ParallaxBackground;
 import assets.particules.Particules;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -32,7 +31,6 @@ public class CSG extends Game implements ApplicationListener {
 	// ********  A U T R E S  *********
 	public static ProfilManager profilManager;
 	public static Profil profil;
-	public static ParallaxBackground rbg;
 	public static BitmapFont menuFont, menuFontPetite;
 	public static AssetMan assetMan;
 	public static SpriteBatch batch;
@@ -46,7 +44,7 @@ public class CSG extends Game implements ApplicationListener {
 
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
+		batch = new SpriteBatch(10000);
 		assetMan = new AssetMan();
 		// **************  V A R I A B L E S   C O N S T A N T E S  :) ********************
 		if (Gdx.app.getVersion() != 0)		CSG.myRequestHandler.showAds(true);
@@ -105,18 +103,13 @@ public class CSG extends Game implements ApplicationListener {
 		HAUTEUR_ECRAN_PALLIER_7 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 7);
 	}
 	
-	public static void renderBackground(SpriteBatch batch){
-		rbg.render(batch);
-	}
-
 	public static void reset(){
-		ParallaxBackground.resetEtoiles();
 		Ennemis.clear();
 		Armes.clear();
         Progression.reset();
         Bonus.resetTout();
         Particules.clear();
-        Endless.reset();
+        EndlessMode.reset();
 	}
 
 	public static AssetMan getAssetMan() {

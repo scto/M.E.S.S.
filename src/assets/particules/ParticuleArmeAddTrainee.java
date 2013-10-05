@@ -1,9 +1,10 @@
 package assets.particules;
 
+import objets.armes.joueur.ArmeAdd;
 import menu.CSG;
-import jeu.Endless;
-import vaisseaux.armes.joueur.ArmeAdd;
+import jeu.EndlessMode;
 import assets.AssetMan;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -26,7 +27,7 @@ public class ParticuleArmeAddTrainee extends Particule implements Poolable {
 	public boolean mouvementEtVerif() {
 		if (temps < 4) return false;
 		
-		diminution = temps * (Endless.delta15);
+		diminution = temps * (EndlessMode.delta15);
 		temps -= diminution;
 		diminution /= 2;
 

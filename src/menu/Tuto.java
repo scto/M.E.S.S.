@@ -1,11 +1,11 @@
 package menu;
 
+import objets.bonus.BonusBombe;
+import objets.bonus.BonusStop;
+import objets.bonus.BonusTemps;
+import objets.bonus.XP;
+import objets.ennemis.particuliers.nv1.DeBase;
 import jeu.Stats;
-import vaisseaux.bonus.BonusBombe;
-import vaisseaux.bonus.BonusStop;
-import vaisseaux.bonus.BonusTemps;
-import vaisseaux.bonus.XP;
-import vaisseaux.ennemis.particuliers.nv1.DeBase;
 import assets.AssetMan;
 import assets.animation.AnimationEnnemiDeBase;
 
@@ -43,7 +43,6 @@ public class Tuto implements Screen {
 		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		CSG.batch.begin();
-		CSG.renderBackground(CSG.batch);
 		// SHIP
 		ligne(AnimationEnnemiDeBase.getTexture(0), 1, DeBase.LARGEUR, DeBase.HAUTEUR, enemy);
 		// XP

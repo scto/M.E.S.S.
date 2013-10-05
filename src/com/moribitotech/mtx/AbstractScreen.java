@@ -16,12 +16,13 @@
 
 package com.moribitotech.mtx;
 
-import jeu.Endless;
+import jeu.EndlessMode;
 import menu.Bouton;
 import menu.CSG;
 import menu.Credits;
 import menu.Menu;
 import menu.OnClick;
+import assets.particules.Particules;
 import bloom.Bloom;
 
 import com.badlogic.gdx.Game;
@@ -82,16 +83,16 @@ public abstract class AbstractScreen implements Screen {
 	public void render(float delta) {
 		if (CSG.profil.bloom)	bloom.capture();
 		else Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Endless.delta = delta;
-		Endless.delta15 = delta * 15;
-		Endless.maintenant += delta;
+		EndlessMode.delta = delta;
+		EndlessMode.delta15 = delta * 15;
+		EndlessMode.maintenant += delta;
 		if (Gdx.input.isKeyPressed(Keys.BACK)) {
 			keyBackPressed();
 		}
 		
 		if (renderBackground) {
 			batch.begin();
-			CSG.renderBackground(batch);
+			Particules.background(batch);
 		}
 		for (Bouton b : boutons) {
 			if (b != null) b.draw(batch);

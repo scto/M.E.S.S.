@@ -1,13 +1,17 @@
 package jeu;
 
 import menu.CSG;
-import vaisseaux.TypesArmes;
-import vaisseaux.armes.joueur.ArmeAdd;
-import vaisseaux.armes.joueur.ArmeHantee;
-import vaisseaux.armes.joueur.ArmesBalayage;
-import vaisseaux.armes.joueur.ArmesDeBase;
-import vaisseaux.armes.joueur.ArmesTrois;
-import com.badlogic.gdx.Gdx;
+import objets.armes.joueur.ArmeAdd;
+import objets.armes.joueur.ArmeHantee;
+import objets.armes.joueur.ArmesBalayage;
+import objets.armes.joueur.ArmesDeBase;
+import objets.armes.joueur.ArmesTrois;
+import objets.armes.joueur.ManagerArme;
+import objets.armes.joueur.ManagerArmeBalayage;
+import objets.armes.joueur.ManagerArmeDeBase;
+import objets.armes.joueur.ManagerArmeHantee;
+import objets.armes.joueur.ManagerArmeTrois;
+
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Json.Serializable;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -48,7 +52,7 @@ public class Profil implements Serializable{
 		volumeBruitages = 1;
 		volumeMusique = 1;
 		bloom = true; // Provoque dans de rares cas des bugs d'affichages
-		armeSelectionnee = TypesArmes.DE_BASE.toString();
+		armeSelectionnee = ArmesDeBase.LABEL;
 		typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
 		intensiteBloom = 2.0f;
 		premiereFois = true;
@@ -112,7 +116,7 @@ public class Profil implements Serializable{
 	/**
 	 * Renvoie l'arme actuellement selectionnee.
 	 */
-	public TypesArmes getArmeSelectionnee() {
+	public ManagerArme getArmeSelectionnee() {
 		return convertArme(armeSelectionnee);
 	}
 
@@ -120,44 +124,42 @@ public class Profil implements Serializable{
 	 * decremente l'xp du coup de l'amelioration et augmente le niveau de l'arme selectionnee.
 	 */
 	public void upArme() {
-		switch(convertArme(armeSelectionnee)) {
-		case BALAYAGE:
-			if (NvArmeBalayage < NV_ARME_MAX) {
-				xpDispo -= getCoutUpArme();
-				NvArmeBalayage++;
-				ArmesBalayage.updateDimensions();
-			} break;
-		case DE_BASE:
-			if (NvArmeDeBase < NV_ARME_MAX) {
-				xpDispo -= getCoutUpArme();
-				NvArmeDeBase++;
-				ArmesDeBase.updateDimensions();
-			} break;
-		case HANTEE:
-			if (NvArmeHantee < NV_ARME_MAX) {
-				xpDispo -= getCoutUpArme();
-				NvArmeHantee++;
-				ArmeHantee.updateDimensions();
-			} break;
-		case LASER:
-			if (NvArmeTrois < NV_ARME_MAX) {
-				xpDispo -= getCoutUpArme();
-				NvArmeTrois++;
-				ArmesTrois.updateDimensions();
-			} break;
+		if (armeSelectionnee.equals(ArmesBalayage.LABEL) && NvArmeBalayage < NV_ARME_MAX) {
+			xpDispo -= getCoutUpArme();
+			NvArmeBalayage++;
+			ArmesBalayage.updateDimensions();
+			champXp = "XP : " + xpDispo;
+			return;
+		} 
+		if (armeSelectionnee.equals(ArmesDeBase.LABEL) && NvArmeDeBase < NV_ARME_MAX) {
+			xpDispo -= getCoutUpArme();
+			NvArmeDeBase++;
+			ArmesDeBase.updateDimensions();
+			champXp = "XP : " + xpDispo;
+			return;
+		} 
+		if (armeSelectionnee.equals(ArmeHantee.LABEL) && NvArmeHantee < NV_ARME_MAX) {
+			xpDispo -= getCoutUpArme();
+			NvArmeHantee++;
+			ArmeHantee.updateDimensions();
+			champXp = "XP : " + xpDispo;
+			return;
 		}
-
-		champXp = "XP : " + xpDispo;
+		if (armeSelectionnee.equals(ArmesTrois.LABEL) && NvArmeTrois < NV_ARME_MAX) {
+			xpDispo -= getCoutUpArme();
+			NvArmeTrois++;
+			ArmesTrois.updateDimensions();
+			champXp = "XP : " + xpDispo;
+			return;
+		}
 	}
 	
 	public int getCoutUpArme() {
-		int nv = 1;	
-		switch(convertArme(armeSelectionnee)) {
-		case BALAYAGE:	nv = NvArmeBalayage;	break;
-		case DE_BASE:	nv = NvArmeDeBase;		break;
-		case HANTEE:	nv = NvArmeHantee;		break;
-		case LASER:		nv = NvArmeTrois;		break;
-		}
+		int nv = 1;
+		if (ArmesBalayage.LABEL.equals(armeSelectionnee))	nv = NvArmeBalayage;
+		if (ArmesDeBase.LABEL.equals(armeSelectionnee))		nv = NvArmeDeBase;
+		if (ArmeHantee.LABEL.equals(armeSelectionnee))		nv = NvArmeHantee;
+		if (ArmesTrois.LABEL.equals(armeSelectionnee))		nv = NvArmeTrois;
 		return (nv+nv) * nv * nv * 100;
 	}
 
@@ -166,8 +168,8 @@ public class Profil implements Serializable{
 		champXp = "XP : " + xpDispo;
 	}
 
-	public void setArmeSelectionnee(TypesArmes typeArme) {
-		armeSelectionnee = typeArme.toString();
+	public void setArmeSelectionnee(String s) {
+		armeSelectionnee = s;
 	}
 	
 	/**
@@ -175,11 +177,11 @@ public class Profil implements Serializable{
 	 * @param arme
 	 * @return <code>TypesArmes</code>
 	 */
-	private static TypesArmes convertArme(String arme){
-		if (arme.equals(TypesArmes.DE_BASE.toString()))		return TypesArmes.DE_BASE;
-		if (arme.equals(TypesArmes.LASER.toString()))		return TypesArmes.LASER;
-		if (arme.equals(TypesArmes.BALAYAGE.toString()))	return TypesArmes.BALAYAGE;
-		return TypesArmes.HANTEE;
+	private static ManagerArme convertArme(String arme){
+		if (ArmesDeBase.LABEL.equals(arme))	    return new ManagerArmeDeBase();
+		if (ArmesTrois.LABEL.equals(arme))	    return new ManagerArmeTrois();
+		if (ArmesBalayage.LABEL.equals(arme))	return new ManagerArmeBalayage();
+		return new ManagerArmeHantee();
 	}
 
 	public String getNomControle() {

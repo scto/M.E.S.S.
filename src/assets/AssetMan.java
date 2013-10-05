@@ -1,10 +1,9 @@
 package assets;
 
-import menu.CSG;
-import vaisseaux.armes.joueur.ArmeHantee;
-import vaisseaux.armes.joueur.ArmesBalayage;
-import vaisseaux.armes.joueur.ArmesDeBase;
-import vaisseaux.armes.joueur.ArmesTrois;
+import objets.armes.joueur.ArmeHantee;
+import objets.armes.joueur.ArmesBalayage;
+import objets.armes.joueur.ArmesDeBase;
+import objets.armes.joueur.ArmesTrois;
 import assets.animation.AnimationArmeFusee;
 import assets.animation.AnimationAvion;
 import assets.animation.AnimationBossMine;
@@ -31,8 +30,6 @@ import assets.animation.AnimationTirBleu;
 import assets.animation.AnimationTirFeu;
 import assets.animation.AnimationTirTrois;
 import assets.animation.AnimationVaisseau;
-import assets.background.ParallaxBackground;
-import assets.background.ParallaxLayer;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -157,8 +154,6 @@ public class AssetMan {
 		ArmeHantee.updateDimensions();
 		ArmesTrois.updateDimensions();
 		ArmesDeBase.updateDimensions();
-		
-		CSG.rbg = new ParallaxBackground(new ParallaxLayer[]{new ParallaxLayer(getAtlas().findRegion("etoilesnew1"), 0), new ParallaxLayer(getAtlas().findRegion("etoilesnew2"), 1f)});
 	}
 
 	public TextureAtlas getAtlas() {

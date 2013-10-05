@@ -1,8 +1,8 @@
 package assets.particules;
 
-import jeu.Endless;
-import vaisseaux.armes.Armes;
-import vaisseaux.armes.joueur.ArmeHantee;
+import objets.armes.Armes;
+import objets.armes.joueur.ArmeHantee;
+import jeu.EndlessMode;
 import assets.animation.AnimationTirTrois;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -29,7 +29,7 @@ public class ParticuleArmeHantee extends Particule implements Poolable {
 	
 	@Override
 	public boolean mouvementEtVerif() {
-		angle += ArmeHantee.VITESSE_ANGLE * Endless.delta;
+		angle += ArmeHantee.VITESSE_ANGLE * EndlessMode.delta;
 		return trainee();
 	}
 
