@@ -3,6 +3,7 @@ package menu;
 import objets.armes.joueur.ArmeAdd;
 import jeu.EndlessMode;
 import menu.tuto.Tutorial;
+import assets.AssetMan;
 import assets.SoundMan;
 import assets.particules.Particules;
 
@@ -16,6 +17,7 @@ public class Menu extends AbstractScreen{
 	
 	private float temps = 0;
 	private int etapeCode = 0;
+	private Bouton swarm;
 	
 	 public Menu(Game game) {
 		super(game);
@@ -49,12 +51,8 @@ public class Menu extends AbstractScreen{
 						getGame().setScreen(choix);
 					}
 				}, true));
-		ajout(new Bouton(SWARM, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.LARGEUR_ECRAN / PADDING, CSG.HAUTEUR_ECRAN - (HAUTEUR_BOUTON * 10), this,
-				new OnClick() {
-					public void onClick() {
-						Swarm.showDashboard(); 						
-					}
-				}, true));
+		swarm = new Bouton(SWARM, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.LARGEUR_ECRAN / PADDING, CSG.HAUTEUR_ECRAN - (HAUTEUR_BOUTON * 10), this);
+		ajout(swarm);
 		ajout(new Bouton(TUTO, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.LARGEUR_ECRAN / PADDING, CSG.HAUTEUR_ECRAN - (HAUTEUR_BOUTON * 12), this,
 				new OnClick() {
 					public void onClick() {
@@ -81,6 +79,11 @@ public class Menu extends AbstractScreen{
 
 	@Override
 	public void render(float delta) {
+		if (Gdx.input.isTouched() &&
+				CSG.HAUTEUR_ECRAN - Gdx.input.getY() > CSG.HAUTEUR_ECRAN - (HAUTEUR_BOUTON * 10) &&
+				CSG.HAUTEUR_ECRAN - Gdx.input.getY() < ((CSG.HAUTEUR_ECRAN - (HAUTEUR_BOUTON * 10)) + HAUTEUR_BOUTON) ) {
+			CSG.google.Login();
+		}
 		temps += delta;
 		detectiopnKonamiCode();
 		super.render(delta);

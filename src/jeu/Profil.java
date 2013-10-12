@@ -21,6 +21,8 @@ import com.badlogic.gdx.utils.OrderedMap;
  * @author Julien
  */
 public class Profil implements Serializable{
+	
+	public static final int VERSION = 90;
 	// -- -- String qui servent de clefs
 	private static final String STR_CADENCE_ADD = "vitesse", STR_ARME_SELECT = "kjhuk", STR_ARME_DE_BASE_NV = "adbnv";
 	private static final String STR_ARME_BALAYAGE_NV = "abnv", STR_ARME_TROIS_NV = "tricheur", STR_ARME_HANTEE_NV = "trichur";

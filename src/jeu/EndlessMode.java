@@ -1,5 +1,6 @@
 package jeu;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 import objets.armes.Armes;
 import objets.bonus.Bonus;
@@ -40,23 +41,26 @@ import com.swarmconnect.SwarmLeaderboard;
  */
 public class EndlessMode implements Screen {
 	
+	public static final int MAX_STOP_BONUS = 2;
+	private static final String conseil1 = "YOU SHOULD UPGRADE YOUR WEAPON.    GO TO THE UPGRADE MENU";
+	private static final String conseil2 = "GO TO THE OPTION MENU IF YOU WANT TO CHANGE THE CONTROL";
+	private static final String conseil3 = "YOU CAN USE YOUR POINTS TO UPGRADE YOUR SHIP";
+	private static final String conseil4 = "USE THE BOMBE TO CLEAR THE PATH";
+	private static final String conseil5 = "USE THIS BONUS TO STOP THE TIME";
+	private static final String conseil6 = "USE THIS BONUS SLOW THE TIME";
+	private static final String tryAgain = "TRY AGAIN NOW AND YOU CAN KEEP YOUR SHIELD AND ADDS";
+	
 	private Game game;
-	// A F F I C H A G E
+	// DISPLAY
 	private static SpriteBatch batch = CSG.batch;
-	private static SpriteBatch armeBatch;
 	private Bloom bloom;
 	private GL20 gl;
-	// A L T E R N E R
-	private boolean alterner = true, alternerUpdateScore = true;
-	// E T A T S
-	private static boolean activerRalentissement = false;
-	private static boolean pause = false;
-	private boolean scoreEnvoye = false;
-	private static boolean activerStop = false;
-	private static boolean perdu = false;
+	// there is an alternateUpdateScore because we only update the score every 4 frame, other things are done every 2 frames (collision detection,...)
+	private boolean alternate = true, alternateUpdateScore = true;
+	// states
+	private static boolean triggerSlowMotion = false, pause = false, scoreSent = false, triggerStop = false, lost = false;
 	
-	public static final int MAX_STOP_BONUS = 2; 
-	private static VaisseauJoueur vaisseau;
+	private static VaisseauJoueur ship;
 	public static String strScore = "0";
 	private static float chronoRalentir = 0;
 	public static float maintenant = 0, score = 0;
@@ -83,32 +87,33 @@ public class EndlessMode implements Screen {
 	private static int menuX = 0;
 	private static int menuY = 0;
 	private int conseil = 0;
-	private static final String conseil1 = "YOU SHOULD UPGRADE YOUR WEAPON.    GO TO THE XP MENU";
-	private static final String conseil2 = "GO TO THE OPTION MENU IF YOU WANT TO CHANGE THE CONTROL";
-	private static final String conseil3 = "KEEP TRYING";
-	private static final String conseil4 = "USE THE BOMBE TO CLEAR THE PATH";
-	private static final String conseil5 = "USE THIS BONUS TO STOP THE TIME";
-	private static final String conseil6 = "USE THIS BONUS SLOW THE TIME";
-	private static final String tryAgain = "TRY AGAIN NOW AND YOU CAN KEEP YOUR SHIELD AND ADDS";
 	public static boolean konamiCode = false;
+	Client c = new Client("beyondpixel.dnsdojo.org", this);
+//	Client c = new Client("127.0.0.1", this);
+	private float fps = 0;
+	private int frameCounter = 0;
 
 	public EndlessMode(Game game, SpriteBatch batch, int level) {
 		super();
 		EndlessMode.batch = batch;
-		armeBatch = new SpriteBatch();
 		this.game = game;
-		vaisseau = new VaisseauJoueur();
+		ship = new VaisseauJoueur();
 		EndlessMode.modeDifficulte = level;
 		Ennemis.initLevelBoss(level);
 		init();
-		vaisseau.initialiser();
-		
-		Client c = new Client("esg.sherpagreenock.be", this);
-		c.send();
+		ship.initialiser();
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				c.send();
+			}
+		});
+		t.start();
 	}
 
 	private void init() {
-		vaisseau.reInit(); // Pour remettre les positions mais garder shield et adds
+		fps = 0;
+		ship.reInit(); // Pour remettre les positions mais garder shield et adds
 		if (Gdx.app.getVersion() != 0) CSG.myRequestHandler.showAds(false); // desactiver adds. A VIRER POUR LA RELEASE
 		// ** DEPLACEMENT ZONE DE JEU
 		xpAjout = false;
@@ -122,8 +127,8 @@ public class EndlessMode implements Screen {
 		
 		CSG.reset();
 		chronoRalentir = 0;
-        scoreEnvoye = false;
-        perdu = false;
+        scoreSent = false;
+        lost = false;
         maintenant = 0;
         Ennemis.clear();
 		if (CSG.profil.bloom) {
@@ -139,22 +144,9 @@ public class EndlessMode implements Screen {
 		strScore = String.valueOf(score);
 		tempsBonusStop = 0;
 		nbBonusStop = 0;
-		activerStop = false;
+		triggerStop = false;
 		nbBombes = 0;
-//		Thread t = new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-//				while (true) {
-//					System.out.println((int)maintenant + ";" + Gdx.graphics.getFramesPerSecond());
-//					try {
-//						Thread.sleep(1000);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//			}
-//		});
-//		t.start();
+
 	}
 
 	@Override
@@ -185,25 +177,25 @@ public class EndlessMode implements Screen {
 				delta15 = EndlessMode.delta * 15;
 			}
 			// S I   O N   A   P A S   E N C O R E   P E R D U
-			if (!perdu && !activerStop) {
-				if (activerRalentissement) activerRalentissement(delta);
+			if (!lost && !triggerStop) {
+				if (triggerSlowMotion) activerRalentissement(delta);
 				affichageNonPerdu();
 			} else {
-				if (activerStop) {
+				if (triggerStop) {
 					affichageEtUpdateStop(delta);
 				} else {
 				// A   V I R E R   P O U R   L A   R E L E A S E
-					if (perdu && Gdx.app.getVersion() != 0 && !scoreEnvoye && !konamiCode){
+					if (lost && Gdx.app.getVersion() != 0 && !scoreSent && !konamiCode){
 						switch (modeDifficulte) {
 						case 1:			SwarmLeaderboard.submitScore(6475, score);			break;
 						case 2:			SwarmLeaderboard.submitScore(7317, score);			break; 
 						case 3:			SwarmLeaderboard.submitScore(9101, (int)score);			break;
 						}
-						scoreEnvoye = true;
+						scoreSent = true;
 					}
 				}
 				affichagePerdu();
-				if (!activerStop && perdu) scoreEtConseils();
+				if (!triggerStop && lost) scoreEtConseils();
 			}					 
 			update(); // ** ** UPDATE inline. Gain en moyenne : + 2.5fps sur 450 (test sur 8 fois sur 5 min), en gros rien de mesurable
 		} else { // D O N C   E N   P A U S E
@@ -224,13 +216,15 @@ public class EndlessMode implements Screen {
 		batch.end();
 		if (CSG.profil.bloom) bloom.render();
 		maintenant += EndlessMode.delta;
+		frameCounter++;
+		fps += Gdx.graphics.getFramesPerSecond();
 	}
 
 	private void affichageEtUpdateStop(float delta) {
 		tempsBonusStop -= delta;
 		batch.draw(rougefonce, (VaisseauJoueur.position.x + VaisseauJoueur.DEMI_LARGEUR) - (TIER_LARGEUR_JAUGE * tempsBonusStop)/2, VaisseauJoueur.position.y - HAUTEUR_JAUGE * 3, TIER_LARGEUR_JAUGE * tempsBonusStop, HAUTEUR_JAUGE);
 		if (tempsBonusStop < 0) {
-			activerStop = false;
+			triggerStop = false;
 			if (--nbBonusStop > 0)	tempsBonusStop += 3;
 		}
 	}
@@ -250,20 +244,20 @@ public class EndlessMode implements Screen {
 		EndlessMode.delta /= 3;
 		EndlessMode.delta15 = EndlessMode.delta * 15;
 		if (chronoRalentir < 0) {
-			activerRalentissement = false;
+			triggerSlowMotion = false;
 			chronoRalentir = 0;
 		}
 	}
 
 	private void bloomActive() {
-		if (activerStop) bloom.setBloomIntesity(CSG.profil.intensiteBloom + (tempsBonusStop*2));
+		if (triggerStop) bloom.setBloomIntesity(CSG.profil.intensiteBloom + (tempsBonusStop*2));
 		if (effetBloom) {
 			intensiteBloomOrigin -= 500 * EndlessMode.delta;
 			bloom.setBloomIntesity(intensiteBloomOrigin);
 			if (intensiteBloomOrigin < CSG.profil.intensiteBloom) {
 				effetBloom = false;
 				intensiteBloomOrigin = CSG.profil.intensiteBloom;
-				bloom.setBloomIntesity(1);
+				bloom.setBloomIntesity(intensiteBloomOrigin);
 			}
 		}
 		bloom.capture();
@@ -283,9 +277,21 @@ public class EndlessMode implements Screen {
 		if (!xpAjout && !konamiCode) {
 			CSG.profil.addXp((int) score);
 			xpAjout = true;
+			
+			final StringBuilder sb = new StringBuilder(250);
+			sb.append("score:").append(score).append("_").append("temps:").append(maintenant).append("_").append("bloomIntensity:").append(CSG.profil.intensiteBloom).
+			append("_").append("niveau:").append(modeDifficulte).append("_").append("version:").append(CSG.profil.VERSION).append("_").append("androidVersion;").append(Gdx.app.getVersion()).
+			append("_").append("averageFPS:").append(fps/frameCounter).append("_").append("date:").append(Calendar.getInstance().getTime().toString());
+			Thread t = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					c.send(sb.toString());
+				}
+			});
+			t.start();
 		} 
 		
-		if (score < 200) {
+		if (score < 3000) {
 			if (conseil == 0) conseil = (int) (1 + Math.random() * 6);
 			switch (conseil) {
 			case 1:		afficherConseil(conseil1);								break;
@@ -297,20 +303,21 @@ public class EndlessMode implements Screen {
 			}
 		}
 		
-		if (VaisseauJoueur.addDroite || VaisseauJoueur.addDroite2 || VaisseauJoueur.addGauche || VaisseauJoueur.bouclier || VaisseauJoueur.addGauche2)
+		if (VaisseauJoueur.addDroite || VaisseauJoueur.addDroite2 || VaisseauJoueur.addGauche || VaisseauJoueur.bouclier || VaisseauJoueur.addGauche2) 
 			CSG.menuFontPetite.draw(batch, tryAgain, ((cam.position.x-CSG.DEMI_LARGEUR_ECRAN)) + ((CSG.DEMI_LARGEUR_ECRAN - (CSG.menuFontPetite.getBounds(tryAgain).width)/2)),
 					(CSG.DEMI_HAUTEUR_ECRAN/2) - CSG.menuFontPetite.getBounds(tryAgain).height);
 		
 		CSG.menuFont.setColor(.99f, .85f, 0f, 1);
 		CSG.menuFont.draw(batch, strScore, ((cam.position.x-CSG.DEMI_LARGEUR_ECRAN)) + ((CSG.DEMI_LARGEUR_ECRAN - (CSG.menuFont.getBounds(strScore).width)/2)),
 				CSG.DEMI_HAUTEUR_ECRAN + CSG.menuFontPetite.getBounds(strScore).height);
+		
 	}
 
 	private float prevDelta;
 	private void affichagePerdu() {
 		prevDelta = delta;
 		delta = 0;
-		vaisseau.draw(batch);
+		ship.draw(batch);
 		Ennemis.affichage(batch);
 		delta = prevDelta;
 		Particules.render(batch);
@@ -347,7 +354,7 @@ public class EndlessMode implements Screen {
 
 	private void affichageNonPerdu() {
 		Bonus.affichageEtMouvement(batch);
-		vaisseau.draw(batch);
+		ship.draw(batch);
 		Ennemis.affichageEtMouvement(batch);
 		Particules.render(batch);
 		Armes.affichageEtMouvement(batch);
@@ -359,15 +366,15 @@ public class EndlessMode implements Screen {
 			vientDEtreTouche = maintenant;
 			mettrePause();
 		}
-		if (!perdu) {
+		if (!lost) {
 			// **************************************  M O U V E M E N T   E T   M E N U  **************************************  
 			mouvement();
 
-			if (alterner) {	
+			if (alternate) {	
 				Ennemis.possibleApparitionEtUpdateScore();
-				if (!activerStop) 			Physique.testCollisions();
-				if (!afficherMenuRadial)	vaisseau.tir();
-				if (alternerUpdateScore) {
+				if (!triggerStop) 			Physique.testCollisions();
+				if (!afficherMenuRadial)	ship.tir();
+				if (alternateUpdateScore) {
 					strScore = df.format(score);
 					// Roue des couleurs
 					if (color > .99f) {
@@ -382,9 +389,9 @@ public class EndlessMode implements Screen {
 					if (sensCouleurRapide) colorRapide += .08f;
 					else colorRapide -= 0.08f;
 				}
-				alternerUpdateScore = !alternerUpdateScore;
+				alternateUpdateScore = !alternateUpdateScore;
 			}
-			alterner = !alterner;
+			alternate = !alternate;
 		} else { // Donc si on a perdu
 			if (Gdx.input.justTouched())		init();
 		}
@@ -396,7 +403,7 @@ public class EndlessMode implements Screen {
 			if (Gdx.input.isTouched()) 		touche();
 			else  							pasTouche();
 		}	
-		if (CSG.profil.typeControle == CSG.CONTROLE_ACCELEROMETRE & !afficherMenuRadial) vaisseau.accelerometre();
+		if (CSG.profil.typeControle == CSG.CONTROLE_ACCELEROMETRE & !afficherMenuRadial) ship.accelerometre();
 	}
 
 	private static void pasTouche() {
@@ -421,13 +428,13 @@ public class EndlessMode implements Screen {
 		if (!onAchoisis) {
 			if (Gdx.app.getVersion() == 0) clavier();
 			if (CSG.profil.typeControle == CSG.CONTROLE_DPAD) afficherDPAD();  
-			vaisseau.mouvements();
+			ship.mouvements();
 			if (onVaRalentir) {
-				activerRalentissement = !activerRalentissement;
+				triggerSlowMotion = !triggerSlowMotion;
 				onVaRalentir = false;
 				}
 				if (onVaStopper) {
-					activerStop = true;
+					triggerStop = true;
 					onVaStopper = false;
 				}
 		}
@@ -470,13 +477,13 @@ public class EndlessMode implements Screen {
 	}
 
 	private static void clavier() {
-		if (!afficherMenuRadial & !onAchoisis) 	vaisseau.mouvements();
-		if (Gdx.input.isKeyPressed(Keys.LEFT)) 	vaisseau.mvtLimiteVitesse(-500, 0);
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) vaisseau.mvtLimiteVitesse(500, 0);
-		if (Gdx.input.isKeyPressed(Keys.UP)) 	vaisseau.mvtLimiteVitesse(0, 500);
-		if (Gdx.input.isKeyPressed(Keys.DOWN)) 	vaisseau.mvtLimiteVitesse(0, -500);
-		if (Gdx.input.isKeyPressed(Keys.S) && chronoRalentir > 0.1f) activerRalentissement = true;
-		if (Gdx.input.isKeyPressed(Keys.D) && tempsBonusStop > 0) activerStop = true;
+		if (!afficherMenuRadial & !onAchoisis) 	ship.mouvements();
+		if (Gdx.input.isKeyPressed(Keys.LEFT)) 	ship.mvtLimiteVitesse(-500, 0);
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)) ship.mvtLimiteVitesse(500, 0);
+		if (Gdx.input.isKeyPressed(Keys.UP)) 	ship.mvtLimiteVitesse(0, 500);
+		if (Gdx.input.isKeyPressed(Keys.DOWN)) 	ship.mvtLimiteVitesse(0, -500);
+		if (Gdx.input.isKeyPressed(Keys.S) && chronoRalentir > 0.1f) triggerSlowMotion = true;
+		if (Gdx.input.isKeyPressed(Keys.D) && tempsBonusStop > 0) triggerStop = true;
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) mettrePause();
 	}
 
@@ -519,22 +526,22 @@ public class EndlessMode implements Screen {
 	}
 
 	public static void perdu() {
-		 perdu = true;
+		 lost = true;
 	}
 
 	public static boolean aPerdu() {
-		return perdu;
+		return lost;
 	}
 	
 	public static void reset() {
 		afficherMenuRadial = false;
 		onAchoisis = false;
-		vaisseau = new VaisseauJoueur();
+		ship = new VaisseauJoueur();
 		onVaRalentir = false;
 		onVaStopper = false;
 		menuX = (int) VaisseauJoueur.position.x;
-		activerStop = false;
-		activerRalentissement = false;
+		triggerStop = false;
+		triggerSlowMotion = false;
 		pause = false;
 		menuY = (int) VaisseauJoueur.position.y;
 	}

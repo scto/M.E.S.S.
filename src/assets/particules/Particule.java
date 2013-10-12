@@ -24,7 +24,7 @@ public abstract class Particule {
 		return HAUTEUR;
 	}
 	
-	public abstract void afficher(SpriteBatch batch);
+	public abstract void display(SpriteBatch batch);
 	
 
 	/**

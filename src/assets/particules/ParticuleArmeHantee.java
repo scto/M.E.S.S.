@@ -23,7 +23,7 @@ public class ParticuleArmeHantee extends Particule implements Poolable {
 	}
 
 	@Override
-	public void afficher(SpriteBatch batch) {
+	public void display(SpriteBatch batch) {
 		batch.draw(getTexture(), posX, posY, temps/2, temps/2, temps, temps, 1, 1, angle);
 	}
 	
@@ -45,6 +45,7 @@ public class ParticuleArmeHantee extends Particule implements Poolable {
 	}
 	@Override
 	public void free() {
+		Particules.nbArmeJoueur--;
 		pool.free(this);
 	}
 }

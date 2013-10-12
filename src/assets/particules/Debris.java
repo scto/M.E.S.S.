@@ -22,7 +22,7 @@ public class Debris extends ParticuleRGB implements Poolable{
 		largeur = (r.nextFloat() * LARGEUR) + 1;
 	}
 	
-	public void afficher(SpriteBatch batch) {
+	public void display(SpriteBatch batch) {
 		batch.setColor(color);
 		batch.draw(getTexture(), posX, posY, 0, 0, getLargeur(), getHauteur(), 1, 1, angle);
 		batch.setColor(AssetMan.WHITE);
@@ -68,6 +68,7 @@ public class Debris extends ParticuleRGB implements Poolable{
 
 	@Override
 	public void free() {
+		Particules.nbDebris--;
 		pool.free(this);
 	}
 }

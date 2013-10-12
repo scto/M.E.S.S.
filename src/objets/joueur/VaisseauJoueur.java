@@ -34,7 +34,6 @@ public class VaisseauJoueur extends Objet {
 	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.LARGEUR_ECRAN + CSG.HAUTEUR_ECRAN) / 600;
 	// ** ** parametres pouvant etre modifi�s par des bonus
 	@SuppressWarnings("unused")
-	private static boolean peutSeTeleporter = false;
 	private static float vitesseMax = 0;
 	private static ManagerArme arme = CSG.profil.getArmeSelectionnee();
 //	private static TypesArmes[] typeArmePossible = TypesArmes.LISTE_ARME_JOUEUR;

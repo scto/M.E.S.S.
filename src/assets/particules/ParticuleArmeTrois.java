@@ -23,7 +23,7 @@ public class ParticuleArmeTrois extends Particule implements Poolable {
 		vitesseAngle = 360 + 360*r.nextFloat();
 	}
 	
-	public void afficher(SpriteBatch batch) {
+	public void display(SpriteBatch batch) {
 		batch.draw(getTexture(), posX, posY, 0, 0, getLargeur(), getHauteur(), 1, 1, angle);
 	}
 
@@ -67,5 +67,6 @@ public class ParticuleArmeTrois extends Particule implements Poolable {
 	@Override
 	public void free() {
 		pool.free(this);
+		Particules.nbArmeJoueur--;
 	}
 }

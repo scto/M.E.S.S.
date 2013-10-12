@@ -5,6 +5,7 @@ import objets.bonus.Bonus;
 import objets.ennemis.Ennemis;
 import objets.ennemis.Progression;
 import jeu.EndlessMode;
+import jeu.GoogleInterface;
 import jeu.Profil;
 import jeu.ProfilManager;
 import assets.AssetMan;
@@ -34,12 +35,17 @@ public class CSG extends Game implements ApplicationListener {
 	public static BitmapFont menuFont, menuFontPetite;
 	public static AssetMan assetMan;
 	public static SpriteBatch batch;
+	public static GoogleInterface google;
 	
-	public CSG(IActivityRequestHandler handler) {
+	public CSG(IActivityRequestHandler handler, GoogleInterface google) {
 		myRequestHandler = handler;
+		this.google = google;
+		this.google.Login();
 	}
 
-	public CSG() { // Constructeur desktop
+	public CSG(GoogleInterface google) { // Constructeur desktop
+		this.google = google;
+		this.google.Login();
 	}
 
 	@Override

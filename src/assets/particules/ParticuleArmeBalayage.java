@@ -63,5 +63,6 @@ public class ParticuleArmeBalayage extends ParticuleRGB implements Poolable {
 	@Override
 	public void free() {
 		pool.free(this);
+		Particules.nbArmeJoueur--;
 	}
 }

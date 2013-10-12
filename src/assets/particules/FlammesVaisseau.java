@@ -48,7 +48,7 @@ public class FlammesVaisseau extends Particule implements Poolable {
 	}
 	
 	@Override
-	public void afficher(SpriteBatch batch) {
+	public void display(SpriteBatch batch) {
 		batch.setColor(red, green, 1, alpha);
 		batch.draw(getTexture(), posX, posY, LARGEUR, LARGEUR);
 		batch.setColor(AssetMan.WHITE);
@@ -67,6 +67,7 @@ public class FlammesVaisseau extends Particule implements Poolable {
 		alpha = 1;
 		red = r.nextFloat();
 		green = r.nextFloat();
+		Particules.nbFlammes++;
 	}
 
 	@Override
@@ -74,6 +75,7 @@ public class FlammesVaisseau extends Particule implements Poolable {
 	}
 	@Override
 	public void free() {
+		Particules.nbFlammes--;
 		pool.free(this);
 	}
 }

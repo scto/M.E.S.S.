@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 
 public class Client extends Thread {
 
@@ -38,6 +39,15 @@ public class Client extends Thread {
 	public void send() {
 		byte[] data = new byte[1024];
 //		data = Byte.parseByte("test");
+		DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, 2311);
+		try {
+			socket.send(packet);
+		} catch (Exception e) {
+		}
+	}
+	public void send(String s) {
+		byte[] data = new byte[s.length()];
+		data = s.getBytes();
 		DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, 2311);
 		try {
 			socket.send(packet);

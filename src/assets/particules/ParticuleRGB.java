@@ -16,7 +16,7 @@ public abstract class ParticuleRGB extends Particule {
 		vitesseAngle = angle * 100000f;
 	}
 	
-	public void afficher(SpriteBatch batch) {
+	public void display(SpriteBatch batch) {
 		batch.setColor(color);
 		batch.draw(getTexture(), posX, posY, 0, 0, getLargeur(), getHauteur(), 1, 1, angle);
 		batch.setColor(AssetMan.WHITE);

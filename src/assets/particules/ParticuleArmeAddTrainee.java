@@ -17,7 +17,7 @@ public class ParticuleArmeAddTrainee extends Particule implements Poolable {
 	private float color;
 
 	@Override
-	public void afficher(SpriteBatch batch) {
+	public void display(SpriteBatch batch) {
 		batch.setColor(color);
 		batch.draw(AssetMan.poussiere, posX, posY, temps, temps);
 		batch.setColor(AssetMan.WHITE);
@@ -52,5 +52,6 @@ public class ParticuleArmeAddTrainee extends Particule implements Poolable {
 	@Override
 	public void free() {
 		pool.free(this);
+		Particules.nbArmeJoueur--;
 	}
 }

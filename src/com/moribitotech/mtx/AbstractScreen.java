@@ -27,12 +27,14 @@ import bloom.Bloom;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.swarmconnect.Swarm;
 
 public abstract class AbstractScreen implements Screen {
 
@@ -100,6 +102,7 @@ public abstract class AbstractScreen implements Screen {
 		credits.render(batch, delta);
 		batch.end();
 		
+
 		if (CSG.profil.bloom)	bloom.render();
 	}
 
