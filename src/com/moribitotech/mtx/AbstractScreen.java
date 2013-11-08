@@ -42,7 +42,7 @@ public abstract class AbstractScreen implements Screen {
 	private Array<Bouton> boutons = new Array<Bouton>();
 	private Credits credits;
 	protected final SpriteBatch batch;
-	public static final String PLAY = "Play", SHIP = "Upgrade", OPTION = "Options", SWARM = "Highscores", EXIT = "Exit", BACK = "BACK", WEAPON_VOL = "WEAPON VOL  ", MOINS = "-", PLUS = "+", BRUITAGE_VOL = "EFFECTS VOL  ", MUSIQUE_VOL = "MUSIC VOL  ", INTENSITY = "INTENSITY : ", OTHER_WEAP = "Change weapon", TUTO = "Tutorial" ;
+	public static final String PLAY = "Play!", SHIP = "Upgrade", OPTION = "Options", HIGHSCORE = "Highscores", EXIT = "Exit", BACK = "BACK", WEAPON_VOL = "WEAPON VOL  ", MOINS = "-", PLUS = "+", BRUITAGE_VOL = "EFFECTS VOL  ", MUSIQUE_VOL = "MUSIC VOL  ", INTENSITY = "INTENSITY : ", OTHER_WEAP = "Change weapon", TUTO = "Tutorial" , ACHIEVEMENT = "Achievements";
 	protected Bloom bloom = new Bloom();
 	public final static int PADDING = 10, LARGEUR_BOUTON = (CSG.LARGEUR_ECRAN / PADDING) * 8, HAUTEUR_BOUTON = CSG.HAUTEUR_ECRAN / 18;
 	public final static int DEMI_LARGEUR_BOUTON = LARGEUR_BOUTON / 2, DEMI_HAUTEUR_BOUTON = HAUTEUR_BOUTON / 2;
@@ -118,7 +118,10 @@ public abstract class AbstractScreen implements Screen {
 	public void resize(int width, int height) {	}
 
 	@Override
-	public void show() {		reset();	}
+	public void show() {		
+		reset();
+		CSG.assetMan.reload(true);
+    }
 
 	public void reset() {		for (Bouton b : boutons) if (b != null) b.reset();	}
 	@Override
@@ -126,7 +129,7 @@ public abstract class AbstractScreen implements Screen {
 	@Override
 	public void pause() {	}
 	@Override
-	public void resume() {			CSG.assetMan.reload();	}
+	public void resume() {			CSG.assetMan.reload(true);	}
 	@Override
 	public void dispose() {			}
 

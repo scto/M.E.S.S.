@@ -1,9 +1,11 @@
 package menu;
 
+import jeu.Strings;
 import objets.joueur.VaisseauJoueur;
 import assets.particules.Particules;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.moribitotech.mtx.AbstractScreen;
 
 
@@ -13,16 +15,18 @@ public class MenuXP extends AbstractScreen{
 	private Bouton boutonCadence;
 	private Bouton boutonUndo;
 	private final Bouton boutonXP;
-	private static int prevXp = CSG.profil.xpDispo;
+	private JeuBackground jeu = new JeuBackground();
 	private static int prevNvArmeDeBase = CSG.profil.NvArmeDeBase;
 	private static int prevNvArmeBalayage = CSG.profil.NvArmeBalayage;
 	private static int prevNvArmeHantee = CSG.profil.NvArmeHantee;
 	private static int prevNvArmeTrois = CSG.profil.NvArmeTrois;
 	private static int prevVitesse = CSG.profil.cadenceAdd;
-	private JeuBackground jeu = new JeuBackground();
+	private static int prevXp = CSG.profil.xpDispo;
 
 	public MenuXP(final Game game) {
 		super(game);
+		Gdx.graphics.setVSync(true);
+		Gdx.input.setCatchBackKey(true);
 		ajout(boutonBack);
 		// **       B O U T O N   X P       **
 		boutonXP = new Bouton(String.valueOf(CSG.profil.xpDispo) + "xp", false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_PETITBOUTON,
@@ -86,6 +90,7 @@ public class MenuXP extends AbstractScreen{
 	
 	private void ajoutUndo() {
 		if (boutonUndo == null) {
+			CSG.google.unlockAchievementGPGS(Strings.ACH_FAVORITE_SHOP);
 			boutonUndo = new Bouton("UNDO", false, CSG.menuFontPetite, Menu.LARGEUR_PETITBOUTON, Menu.HAUTEUR_PETITBOUTON, CSG.LARGEUR_ECRAN / Menu.PADDING, Menu.HAUTEUR_BOUTON * 3, this,
 			new OnClick()  {
 				public void onClick() {		undo();		}
@@ -115,20 +120,24 @@ public class MenuXP extends AbstractScreen{
 	}
 
 	protected void undo() {
-		CSG.profil.NvArmeDeBase = prevNvArmeDeBase;
 		CSG.profil.NvArmeBalayage = prevNvArmeBalayage;
-		CSG.profil.xpDispo = prevXp;
-		CSG.profil.cadenceAdd = prevVitesse;
+		CSG.profil.NvArmeDeBase = prevNvArmeDeBase;
 		CSG.profil.NvArmeHantee = prevNvArmeHantee;
 		CSG.profil.NvArmeTrois = prevNvArmeTrois;
+		CSG.profil.cadenceAdd = prevVitesse;
+		CSG.profil.xpDispo = prevXp;
 		updateTexteUpgrade();
 		updateTexteCadence();
 		updateTexteXp();
 	}
 
 	private void updateTexteUpgrade() {
-		if (CSG.profil.getCoutUpArme() == 43200) boutonUpgrade.setTexte("LEVEL MAX");
-		else boutonUpgrade.setTexte("WEAPON ++ (" + CSG.profil.getCoutUpArme() + ")");
+		if (CSG.profil.getCoutUpArme() == 43200) {
+			boutonUpgrade.setTexte("LEVEL MAX");
+			CSG.google.unlockAchievementGPGS(Strings.ACH_LVL6);
+		}
+		else 
+			boutonUpgrade.setTexte("WEAPON ++ (" + CSG.profil.getCoutUpArme() + ")");
 	}
 
 }

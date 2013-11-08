@@ -68,7 +68,7 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	@Override
 	public boolean mouvementEtVerif() {
 		position.y += (CSG.DEMI_HAUTEUR_ECRAN - position.y) * (EndlessMode.delta/2);
-		if (maintenant < 10)		direction.rotate(EndlessMode.delta * getVitesse());
+		if (maintenant < 11)		direction.rotate(EndlessMode.delta * getVitesse());
 		position.x += direction.x * EndlessMode.delta;
 		position.y += direction.y * EndlessMode.delta;
 		return super.mouvementEtVerif();
@@ -152,4 +152,6 @@ public class QuiTourne extends Ennemis implements TireurPlusieurFois {
 	public float getDirectionX() {
 		return direction.x;
 	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

@@ -212,5 +212,10 @@ public class EnnemiBossQuad extends Ennemis implements Tireur {
 	public float getDirectionX() {
 		return dirX;
 	}
+	
+	@Override
+	protected String getLabel() {
+		return getClass().toString();
+	}
 }
 

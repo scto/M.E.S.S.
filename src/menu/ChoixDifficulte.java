@@ -14,6 +14,7 @@ public class ChoixDifficulte extends AbstractScreen{
 		 super(game);
 		 this.game = game;
 		 setUpScreenElements();
+		 Gdx.input.setCatchBackKey(true);
 	 }
 	  
 	 public void setUpScreenElements() {

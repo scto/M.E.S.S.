@@ -70,6 +70,7 @@ public class VaisseauJoueur extends Objet {
 	    addDroite2 = false;
 	    addGauche2 = false;
 	    angleAdd = 80;
+	    dernierTirAdd = 0;
 	}
 
 	/**
@@ -295,10 +296,10 @@ public class VaisseauJoueur extends Objet {
 		centreX = position.x + DEMI_LARGEUR;
 		centreY = position.y + DEMI_HAUTEUR;
 		
-		if(position.x < LIMITE_X_GAUCHE) position.x = LIMITE_X_GAUCHE;
-		if(position.x > LIMITE_X_DROITE) position.x = LIMITE_X_DROITE;
-		if(position.y < LIMITE_Y_GAUCHE) position.y = LIMITE_Y_GAUCHE;
-		if(position.y > LIMITE_Y_DROITE) position.y = LIMITE_Y_DROITE;
+		if (position.x < LIMITE_X_GAUCHE) position.x = LIMITE_X_GAUCHE;
+		if (position.x > LIMITE_X_DROITE) position.x = LIMITE_X_DROITE;
+		if (position.y < LIMITE_Y_GAUCHE) position.y = LIMITE_Y_GAUCHE;
+		if (position.y > LIMITE_Y_DROITE) position.y = LIMITE_Y_DROITE;
 	}
 
 	/**
@@ -311,35 +312,24 @@ public class VaisseauJoueur extends Objet {
 		// ** ** A D D S
 		if (EndlessMode.maintenant > dernierTirAdd + ArmeAdd.CADENCETIR) {
 			if (addGauche) {
-				ArmeAdd b = ArmeAdd.pool.obtain();
-				b.init(addX + DECALAGE_TIR_ADD_X_GAUCHE , addY - DEMI_HAUTEUR, angleAdd);
-				if (CSG.profil.cadenceAdd > 3) {
-					ArmeAdd c = ArmeAdd.pool.obtain();
-					c.init(addX + DECALAGE_TIR_ADD_X_GAUCHE , addY - DEMI_HAUTEUR, angleAdd+10);
-				}
+				ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_GAUCHE , addY - DEMI_HAUTEUR, angleAdd);
+				if (CSG.profil.cadenceAdd > 3) 
+					ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_GAUCHE , addY - DEMI_HAUTEUR, angleAdd + 10);
 			}
 			if (addDroite){
-				ArmeAdd b = ArmeAdd.pool.obtain();
-				b.init(addX + DECALAGE_TIR_ADD_X_DROITE , addY - DEMI_HAUTEUR, angleAddDroite);
-				if (CSG.profil.cadenceAdd > 3) {
-					ArmeAdd c = ArmeAdd.pool.obtain();
-					c.init(addX + DECALAGE_TIR_ADD_X_DROITE , addY - DEMI_HAUTEUR, angleAddDroite-10);
-				}
+				ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_DROITE , addY - DEMI_HAUTEUR, angleAddDroite);
+				if (CSG.profil.cadenceAdd > 3) 
+					ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_DROITE , addY - DEMI_HAUTEUR, angleAddDroite - 10);
 			}
 			if (addGauche2){
-				ArmeAdd b = ArmeAdd.pool.obtain();
-				b.init(addX + DECALAGE_TIR_ADD_X_GAUCHE - DEMI_LARGEUR , addY - HAUTEUR, angleAdd);
-				if (CSG.profil.cadenceAdd > 6) {
-					ArmeAdd c = ArmeAdd.pool.obtain();
-					c.init(addX + DECALAGE_TIR_ADD_X_GAUCHE - DEMI_LARGEUR , addY - HAUTEUR, angleAdd+10);
-				}
+				ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_GAUCHE - DEMI_LARGEUR , addY - HAUTEUR, angleAdd);
+				if (CSG.profil.cadenceAdd > 6)
+					ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_GAUCHE - DEMI_LARGEUR , addY - HAUTEUR, angleAdd+10);
 			}
 			if (addDroite2){
-				ArmeAdd b = ArmeAdd.pool.obtain();
-				b.init(addX + DECALAGE_TIR_ADD_X_DROITE + DEMI_LARGEUR , addY - HAUTEUR, angleAddDroite);
+				ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_DROITE + DEMI_LARGEUR , addY - HAUTEUR, angleAddDroite);
 				if (CSG.profil.cadenceAdd > 6) {
-					ArmeAdd c = ArmeAdd.pool.obtain();
-					c.init(addX + DECALAGE_TIR_ADD_X_DROITE + DEMI_LARGEUR , addY - HAUTEUR, angleAddDroite-10);
+					ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_DROITE + DEMI_LARGEUR , addY - HAUTEUR, angleAddDroite-10);
 				}
 			}
 			dernierTirAdd = EndlessMode.maintenant;
@@ -348,20 +338,13 @@ public class VaisseauJoueur extends Objet {
 	
 	public static void rajoutAdd() {
 		if (VaisseauJoueur.addGauche == false) {
-			VaisseauJoueur.addGauche = true;
-			Bonus.collisionEnPlusDroite = LARGEUR_ADD * 2;
-		}
-		else if (VaisseauJoueur.addDroite == false) {
-			VaisseauJoueur.addDroite = true;
-			Bonus.collisionEnPlusAGauche = LARGEUR_ADD * 2;
-		}
-		else if (VaisseauJoueur.addGauche2 == false) {
-			VaisseauJoueur.addGauche2 = true;
-			Bonus.collisionEnPlusDroite = LARGEUR_ADD * 4;
-		}
-		else if (VaisseauJoueur.addDroite2 == false) {
-			VaisseauJoueur.addDroite2 = true;
-			Bonus.collisionEnPlusAGauche = LARGEUR_ADD * 4;
+			addGauche = true;
+		} else if (VaisseauJoueur.addDroite == false) {
+			addDroite = true;
+		} else if (VaisseauJoueur.addGauche2 == false) {
+			addGauche2 = true;
+		} else if (VaisseauJoueur.addDroite2 == false) {
+			addDroite2 = true;
 		}
 	}
 	
@@ -388,10 +371,18 @@ public class VaisseauJoueur extends Objet {
 		limitesEtCentre();
 	}
 
-	public static void enleverAddGauche1() {	addGauche = false;	}
-	public static void enleverAddDroite1() {	addDroite = false;	}
-	public static void enleverAddGauche2() {	addGauche2 = false;	}
-	public static void enleverAddDroite2() {	addDroite2 = false;	}
+	public static void enleverAddGauche1() {	
+		addGauche = false;
+	}
+	public static void enleverAddDroite1() {	
+		addDroite = false;	
+	}
+	public static void enleverAddGauche2() {	
+		addGauche2 = false;	
+	}
+	public static void enleverAddDroite2() {	
+		addDroite2 = false;
+	}
 
 	public static void ajoutBouclier() {
 		bouclier = true;

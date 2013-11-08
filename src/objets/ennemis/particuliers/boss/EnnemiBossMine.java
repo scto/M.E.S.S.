@@ -189,5 +189,10 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle{
 	
 	@Override
 	public float getDirectionY() {		return -dirY * Stats.V_ENN_KINDER;	}
+	
+	@Override
+	protected String getLabel() {
+		return getClass().toString();
+	}
 }
 

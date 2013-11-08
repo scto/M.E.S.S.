@@ -57,7 +57,7 @@ public class ParticuleStars extends Particule implements Poolable{
 	}
 
 	public static void initBackground() {
-		for (int i = 0; i < 150; i++) {
+		for (int i = 0; i < 200; i++) {
 			ParticuleStars p = ParticuleStars.pool.obtain();
 			p.init();
 			p.posY = r.nextFloat() * CSG.HAUTEUR_ECRAN;

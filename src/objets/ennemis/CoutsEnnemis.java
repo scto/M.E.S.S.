@@ -34,18 +34,18 @@ public enum CoutsEnnemis {
 	// NIVEAU 3
 	
 	EnnemiDeBaseNv3(2),
-	EnnemiZigZagNv3(5),
-	EnnemiDeBaseQuiTirNv3(7),
-	EnnemiBouleQuiSArreteNv3(10),
-	EnnemiQuiTourneNv3(14),
-	EnnemiToupieNv3(20),
-	EnnemiCylonNv3(26),
-	EnnemiKinderNv3(34),
-	EnnemiQuiTir2Nv3(45),
-	EnnemiAvionNv3(51),
-	EnnemiPorteRaisinNv3(63),
-	EnnemiLaserNv3(71),
-	EnnemiInsecteNv3(87);
+	EnnemiZigZagNv3(7),
+	EnnemiDeBaseQuiTirNv3(9),
+	EnnemiBouleQuiSArreteNv3(13),
+	EnnemiQuiTourneNv3(17),
+	EnnemiToupieNv3(23),
+	EnnemiCylonNv3(29),
+	EnnemiKinderNv3(38),
+	EnnemiQuiTir2Nv3(48),
+	EnnemiAvionNv3(55),
+	EnnemiPorteRaisinNv3(69),
+	EnnemiLaserNv3(78),
+	EnnemiInsecteNv3(95);
 
 	public final int COUT;
 	

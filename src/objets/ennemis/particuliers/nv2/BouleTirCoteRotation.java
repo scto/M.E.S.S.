@@ -51,4 +51,6 @@ public class BouleTirCoteRotation extends BouleTirCote {
 		if (++numeroTir > 10) numeroTir = 1;
 		prochainTir = f + CADENCETIR * numeroTir;
 	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

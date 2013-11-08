@@ -25,5 +25,7 @@ public class EnnemiBouleQuiSArreteNv3 extends BouleQuiSArrete {
 	protected int getPvMax() {	return Stats.PV_BOULE_QUI_SARRETE3;	}
 	@Override
 	public int getXp() {		return CoutsEnnemis.EnnemiBouleQuiSArreteNv3.COUT;	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 	
 }

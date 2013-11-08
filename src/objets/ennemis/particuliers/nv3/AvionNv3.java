@@ -29,5 +29,7 @@ public class AvionNv3 extends Avion {
 	public float getModifVitesse() {	return 1.3f;		}
 	@Override
 	public int getXp() {				return CoutsEnnemis.EnnemiAvionNv3.COUT;	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 	
 }

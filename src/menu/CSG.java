@@ -1,13 +1,14 @@
 package menu;
 
+import jeu.EndlessMode;
+import jeu.GlyphHelper;
+import jeu.GoogleInterface;
+import jeu.Profil;
+import jeu.ProfilManager;
 import objets.armes.Armes;
 import objets.bonus.Bonus;
 import objets.ennemis.Ennemis;
 import objets.ennemis.Progression;
-import jeu.EndlessMode;
-import jeu.GoogleInterface;
-import jeu.Profil;
-import jeu.ProfilManager;
 import assets.AssetMan;
 import assets.particules.Particules;
 
@@ -36,16 +37,18 @@ public class CSG extends Game implements ApplicationListener {
 	public static AssetMan assetMan;
 	public static SpriteBatch batch;
 	public static GoogleInterface google;
+	private static GlyphHelper glyph;
 	
-	public CSG(IActivityRequestHandler handler, GoogleInterface google) {
+	public CSG(IActivityRequestHandler handler, GoogleInterface google, GlyphHelper glyph) {
 		myRequestHandler = handler;
-		this.google = google;
-		this.google.Login();
+		CSG.google = google;
+//		CSG.google.Login();
+		CSG.glyph = glyph;
 	}
 
 	public CSG(GoogleInterface google) { // Constructeur desktop
-		this.google = google;
-		this.google.Login();
+		CSG.google = google;
+//		this.google.Login();
 	}
 
 	@Override
@@ -53,7 +56,8 @@ public class CSG extends Game implements ApplicationListener {
 		batch = new SpriteBatch(10000);
 		assetMan = new AssetMan();
 		// **************  V A R I A B L E S   C O N S T A N T E S  :) ********************
-		if (Gdx.app.getVersion() != 0)		CSG.myRequestHandler.showAds(true);
+		if (Gdx.app.getVersion() != 0)
+			CSG.myRequestHandler.showAds(true);
 		dimensions();
 		// ***********************  P R O F I L  ****************************
 		profilManager = new ProfilManager();
@@ -65,7 +69,7 @@ public class CSG extends Game implements ApplicationListener {
 		if (x < 1)	x = 1.0f;
 		if (y < 1)	y = 1.0f;
 		menuFont.setScale(x, y);
-		menuFont.setColor(.82f, .82f, 0.1f, 1);
+		menuFont.setColor(.32f, .52f, 0.99f, 1);
 		menuFontPetite = new BitmapFont();
 		x = LARGEUR_ECRAN / 440;
 		y = HAUTEUR_ECRAN / 480;
@@ -73,7 +77,7 @@ public class CSG extends Game implements ApplicationListener {
 		if (y < 1)	y = 1.0f;
 		menuFontPetite = new BitmapFont(Gdx.files.internal("petite.fnt"), false);
 		menuFontPetite.setScale(x, y);
-		menuFontPetite.setColor(.82f, .82f, 0.1f, 1);
+		menuFontPetite.setColor(.32f, .52f, 0.99f, 1);
 		// ***** Une fois que toutes les variables globales sont chargees on lance le loading pour charger les assets
 		Loading loading = new Loading(this);
 		setScreen(loading);
@@ -113,12 +117,16 @@ public class CSG extends Game implements ApplicationListener {
 		Ennemis.clear();
 		Armes.clear();
         Progression.reset();
-        Bonus.resetTout();
+        Bonus.resetAll();
         Particules.clear();
         EndlessMode.reset();
 	}
 
 	public static AssetMan getAssetMan() {
 		return assetMan;
+	}
+
+	public static GlyphHelper getGlyph() {
+		return glyph;
 	}
 }

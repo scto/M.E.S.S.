@@ -1,5 +1,6 @@
 package assets.particules;
 
+import jeu.EndlessMode;
 import objets.armes.Armes;
 import objets.armes.joueur.ArmeAdd;
 import objets.armes.joueur.ArmeJoueur;
@@ -9,7 +10,9 @@ import objets.armes.joueur.ArmesTrois;
 import objets.ennemis.Ennemis;
 import objets.joueur.VaisseauJoueur;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class Particules {
@@ -19,12 +22,16 @@ public class Particules {
 	public static int nbDebris = 0;
 	public static int nbArmeJoueur = 0;
 	public static int nbFlammes = 0;
+	// CHECK LA TAILLE
 	public static Array<Particule> particules = new Array<Particule>(false, MAX*4);
-	public static Array<Particule> background = new Array<Particule>(false, 200);
+	public static Array<Particule> background = new Array<Particule>(false, 300);
+	public static Array<ParticlePanneau> boutons = new Array<ParticlePanneau>(false, 300);
 	private static float yVaisseau = 0;
+	private static int fps = 0;
+	private static int frame = 0;
 	
 	/**
-	 * Ajoute 150 étoiles
+	 * Ajoute des étoiles
 	 */
 	public static void initBackground() {
 		ParticuleStars.initBackground();
@@ -36,12 +43,24 @@ public class Particules {
 	 */
 	public static void background(SpriteBatch batch) {
 		ParticuleStars.mightAdd();
-		for (Particule p : background) {
-			p.display(batch);
-			if (p.mouvementEtVerif() == false) {
-				background.removeValue(p, true);
+		for (int i = 0; i < 1; i++) {
+			for (Particule p : background) {
+				p.display(batch);
+				if (p.mouvementEtVerif() == false) {
+					background.removeValue(p, true);
+				}
 			}
 		}
+		for (ParticlePanneau p : boutons) {
+			p.display(batch);
+			if (p.mouvementEtVerif() == false) {
+				boutons.removeValue(p, true);
+				ParticlePanneau.pool.free(p);
+			}
+		}
+		fps += Gdx.graphics.getFramesPerSecond();
+		frame++;
+//		Gdx.app.log(String.valueOf(fps / frame), String.valueOf(EndlessMode.maintenant));
 	}
 	
 	public static void render(SpriteBatch batch) {
@@ -151,5 +170,29 @@ public class Particules {
 			p.init(a);
 			particules.add(p);
 		}
+	}
+
+	public static void ajoutPanneau(Vector2 posParticule, Vector2 baseDirection) {
+//		FlammesVaisseau p = FlammesVaisseau.pool.obtain();
+//		p.init(posParticule, baseDirection);
+//		boutons.add(p);
+//		FlammesVaisseau p2 = FlammesVaisseau.pool.obtain();
+//		p2.init(posParticule, baseDirection);
+//		boutons.add(p2);
+//		FlammesVaisseau p3 = FlammesVaisseau.pool.obtain();
+//		p3.init(posParticule, baseDirection);
+//		boutons.add(p3);
+//		FlammesVaisseau p4 = FlammesVaisseau.pool.obtain();
+//		p4.init(posParticule, baseDirection);
+//		boutons.add(p4);
+//		FlammesVaisseau p5 = FlammesVaisseau.pool.obtain();
+//		p5.init(posParticule, baseDirection);
+//		boutons.add(p5);
+//		FlammesVaisseau p6 = FlammesVaisseau.pool.obtain();
+//		p6.init(posParticule, baseDirection);
+//		boutons.add(p6);
+		ParticlePanneau p = ParticlePanneau.pool.obtain();
+		p.init(posParticule, baseDirection);
+		boutons.add(p);
 	}
 }

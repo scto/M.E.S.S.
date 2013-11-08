@@ -3,6 +3,7 @@ package menu;
 import assets.SoundMan;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.moribitotech.mtx.AbstractScreen;
 
 public class MenuOptions extends AbstractScreen{
@@ -15,6 +16,7 @@ public class MenuOptions extends AbstractScreen{
 	
 	public MenuOptions(final Game game) {
 		super(game);
+		Gdx.input.setCatchBackKey(true);
 	    ajout(boutonBack);
 	    // ************************  A R M E S  ************************************************************
 	    final Bouton vol = new Bouton(WEAPON_VOL + (int)(CSG.profil.volumeArme*10), true, CSG.menuFontPetite, LARGEUR_PETITBOUTON, HAUTEUR_PETITBOUTON, (CSG.LARGEUR_ECRAN / 2) - Menu.LARGEUR_PETITBOUTON/2, -Menu.decalageY + CSG.HAUTEUR_ECRAN - Menu.HAUTEUR_BOUTON * ligne1, this,

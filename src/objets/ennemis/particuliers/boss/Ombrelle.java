@@ -118,4 +118,9 @@ public class Ombrelle extends Ennemis implements TireurAngle {
 		TMP_DIR.nor();
 		return TMP_DIR;
 	}
+	
+	@Override
+	protected String getLabel() {
+		return getClass().toString();
+	}
 }

@@ -79,5 +79,9 @@ public class ArmeAdd extends ArmeJoueur implements Poolable{
 	@Override
 	public float getDemiHauteur() {		return DEMI_HAUTEUR;	}
 
+	public static void add(float x, float y, float angle) {
+		ArmeAdd a = pool.obtain();
+		a.init(x, y, angle);
+	}
 }
 

@@ -7,6 +7,7 @@ import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
@@ -77,5 +78,18 @@ public class FlammesVaisseau extends Particule implements Poolable {
 	public void free() {
 		Particules.nbFlammes--;
 		pool.free(this);
+	}
+
+	public void init(Vector2 posParticule, Vector2 baseDirection) {
+		posX = (posParticule.x) + (r.nextFloat() * LARGEUR);
+		posY = posParticule.y - (DEMI_LARGEUR + (DEMI_LARGEUR * r.nextFloat()));
+		baseDirection.rotate((-50 + r.nextFloat()*100));
+		vitesseX = baseDirection.x * 40;
+		vitesseY = baseDirection.y * 40;
+		temps = 2f + (r.nextFloat() * 2);
+		alpha = 1;
+		red = r.nextFloat();
+		green = r.nextFloat();
+		Particules.nbFlammes++;
 	}
 }

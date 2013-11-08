@@ -42,11 +42,11 @@ import com.badlogic.gdx.utils.NumberUtils;
 
 public class AssetMan {
 
-	public static TextureRegion fleche, laserVert, add, tirAdd, addvaisseau, bombe, bombeGris, temps, tempsGris, XP, XP2, porteraisin, porteraisinamoche, boulenergiebleu, bouclier, bonusetoile, bonusetoileGris, laser, rocher, poussiere, debris;
+	public static TextureRegion fleche, laserVert, add, tirAdd, addvaisseau, bombe, bombeGris, temps, tempsGris, XP, XP2, porteraisin, porteraisinamoche, boulenergiebleu, bouclier, bonusetoile, bonusetoileGris, laser, rocher, poussiere, debris, noir;
 	public static ParticleEffect explosionGros, explosionPorteNef;
 	private static AssetManager man = new AssetManager();
 	public static TextureRegion[] animationVaisseau;
-	public TextureRegion panneau, bouton;
+//	public static TextureRegion panneau, bouton;
 	public TextureAtlas atlas;
 	public static float WHITE = convertARGB(1, 1, 1, 1);
 	
@@ -79,7 +79,7 @@ public class AssetMan {
 		return man.update();
 	}
 
-	public void loadPartie2() {
+	public void loadPartie2(boolean dimension) {
 		SoundMan.explosionpetittetechercheuse = man.get("sons/explosionpetittetechercheuse.wav", Sound.class);
 		SoundMan.explosionPetite = man.get("sons/162792__timgormly__8-bit-explosion1.wav", Sound.class);
 		SoundMan.explosionGrosse = man.get("sons/80500__ggctuk__exp-obj-large03.wav", Sound.class);
@@ -99,6 +99,7 @@ public class AssetMan {
 		XP = getAtlas().findRegion("xp");
 		XP2 = getAtlas().findRegion("xp2");
 		add = getAtlas().findRegion("add");
+		noir = getAtlas().findRegion("noir");
 		bombe = getAtlas().findRegion("bombe");
 		temps = getAtlas().findRegion("temps");
 		rocher = getAtlas().findRegion("rock");
@@ -106,9 +107,9 @@ public class AssetMan {
 		fleche = getAtlas().findRegion("fleche");
 		debris = getAtlas().findRegion("debris");
 		tirAdd = getAtlas().findRegion("tiradd");
-		panneau = getAtlas().findRegion("panneau");
+//		panneau = getAtlas().findRegion("panneau");
 		bouclier = getAtlas().findRegion("bouclier");
-		bouton = getAtlas().findRegion("boutonlarge");
+//		bouton = getAtlas().findRegion("boutonlarge");
 		tempsGris = getAtlas().findRegion("tempsgris");
 		laserVert = getAtlas().findRegion("laservert");
 		poussiere = getAtlas().findRegion("rondblanc");
@@ -150,25 +151,28 @@ public class AssetMan {
 		AnimationBouleBleuRouge.initAnimation();
 		AnimationEnnemiAileDeployee.initAnimation();
 		
-		ArmesBalayage.updateDimensions();
-		ArmeHantee.updateDimensions();
-		ArmesTrois.updateDimensions();
-		ArmesDeBase.updateDimensions();
+		if (dimension) {
+			ArmesBalayage.updateDimensions();
+			ArmeHantee.updateDimensions();
+			ArmesTrois.updateDimensions();
+			ArmesDeBase.updateDimensions();
+		}
 	}
 
 	public TextureAtlas getAtlas() {
-		if (atlas == null) atlas = man.get("textures.atlas", TextureAtlas.class);
+		if (atlas == null)
+			atlas = man.get("textures.atlas", TextureAtlas.class);
 		return atlas;
 	}
 
-	public void reload() {
+	public void reload(boolean dimension) {
 		man.unload("textures.atlas");
 		atlas = null;
 		load();
 		while (!fini()){
-			System.out.println("loading...");
+			System.out.println("reload");
 		}
-		loadPartie2();
+		loadPartie2(dimension);
 	}
 	
 	public static float convertARGB(float a, float r, float g, float b) {

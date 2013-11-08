@@ -19,10 +19,10 @@ public abstract class ManagerArme {
 	public abstract String getLabel();
 
 	public static ManagerArme changerArme(ManagerArme arme) {
-		if (arme.getLabel() == ArmesDeBase.LABEL) return new ManagerArmeBalayage();
-		if (arme.getLabel() == ArmesBalayage.LABEL) return new ManagerArmeHantee();
-		if (arme.getLabel() == ArmeHantee.LABEL) return new ManagerArmeTrois();
-		return new ManagerArmeDeBase();
+		if (arme.getLabel() == ArmesBalayage.LABEL) return new ManagerArmeDeBase();
+		if (arme.getLabel() == ArmeHantee.LABEL) return new ManagerArmeBalayage();
+		if (arme.getLabel() == ArmesTrois.LABEL) return new ManagerArmeHantee();
+		return new ManagerArmeTrois();
 	}
 
 }

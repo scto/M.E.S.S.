@@ -79,4 +79,6 @@ public class ZigZag extends Ennemis {
 	protected float getVitesse() {			return VITESSE;	}
 	@Override
 	protected Sound getSonExplosion() {		return SoundMan.explosiontoupie;	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

@@ -1,10 +1,17 @@
 package jeu;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.Map;
 
+import menu.CSG;
+import menu.Menu;
 import objets.armes.Armes;
 import objets.bonus.Bonus;
+import objets.bonus.XP;
 import objets.ennemis.Ennemis;
+import objets.ennemis.particuliers.Projet;
+import objets.ennemis.particuliers.nv1.Cylon;
 import objets.ennemis.particuliers.nv1.DeBase;
 import objets.ennemis.particuliers.nv1.Insecte;
 import objets.ennemis.particuliers.nv1.Kinder;
@@ -17,9 +24,8 @@ import objets.ennemis.particuliers.nv1.Toupie;
 import objets.ennemis.particuliers.nv1.ZigZag;
 import objets.ennemis.particuliers.nv2.BouleTirCote;
 import objets.ennemis.particuliers.nv2.BouleTirCoteRotation;
+import objets.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
 import objets.joueur.VaisseauJoueur;
-import menu.CSG;
-import menu.Menu;
 import assets.AssetMan;
 import assets.SoundMan;
 import assets.particules.Particules;
@@ -33,22 +39,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.swarmconnect.SwarmLeaderboard;
 
 /**
  * Classe principale gerant le mode infini du jeu
  * @author Julien
  */
 public class EndlessMode implements Screen {
-	
-	public static final int MAX_STOP_BONUS = 2;
-	private static final String conseil1 = "YOU SHOULD UPGRADE YOUR WEAPON.    GO TO THE UPGRADE MENU";
-	private static final String conseil2 = "GO TO THE OPTION MENU IF YOU WANT TO CHANGE THE CONTROL";
-	private static final String conseil3 = "YOU CAN USE YOUR POINTS TO UPGRADE YOUR SHIP";
-	private static final String conseil4 = "USE THE BOMBE TO CLEAR THE PATH";
-	private static final String conseil5 = "USE THIS BONUS TO STOP THE TIME";
-	private static final String conseil6 = "USE THIS BONUS SLOW THE TIME";
-	private static final String tryAgain = "TRY AGAIN NOW AND YOU CAN KEEP YOUR SHIELD AND ADDS";
 	
 	private Game game;
 	// DISPLAY
@@ -88,13 +84,14 @@ public class EndlessMode implements Screen {
 	private static int menuY = 0;
 	private int conseil = 0;
 	public static boolean konamiCode = false;
-	Client c = new Client("beyondpixel.dnsdojo.org", this);
-//	Client c = new Client("127.0.0.1", this);
-	private float fps = 0;
+	Client c = new Client("beyondpixels.no-ip.biz");
+//	Client c = new Client("127.0.0.1");
+	private float fps = 0, minFPS = 200, maxFPS = 0, currentFPS = 0;
 	private int frameCounter = 0;
 
 	public EndlessMode(Game game, SpriteBatch batch, int level) {
 		super();
+		Gdx.input.setCatchBackKey(true);
 		EndlessMode.batch = batch;
 		this.game = game;
 		ship = new VaisseauJoueur();
@@ -102,13 +99,6 @@ public class EndlessMode implements Screen {
 		Ennemis.initLevelBoss(level);
 		init();
 		ship.initialiser();
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				c.send();
-			}
-		});
-		t.start();
 	}
 
 	private void init() {
@@ -135,7 +125,7 @@ public class EndlessMode implements Screen {
 			bloom = new Bloom();
 			bloom.setBloomIntesity(CSG.profil.intensiteBloom);
 		}
-//        Gdx.graphics.setVSync(false);
+//        Gdx.graphics.setVSync(true);
         SoundMan.playMusic();
 		rougefonce = CSG.getAssetMan().getAtlas().findRegion("rougefonce");
 		pause = false;
@@ -149,26 +139,37 @@ public class EndlessMode implements Screen {
 
 	}
 
+	Projet projet = new Projet();
 	@Override
 	public void render(float delta) {
 		
 		if (Gdx.input.isKeyPressed(Keys.A)) {
 			Ennemis.LISTE.add(DeBase.pool.obtain());
 		}
-		if (Gdx.input.isKeyPressed(Keys.Z)) 	Ennemis.LISTE.add(Insecte.pool.obtain());
-		if (Gdx.input.isKeyPressed(Keys.E))		Ennemis.LISTE.add(Kinder.pool.obtain());
-		if (Gdx.input.isKeyPressed(Keys.R))		Ennemis.LISTE.add(Laser.pool.obtain());
-		if (Gdx.input.isKeyPressed(Keys.T))		Ennemis.LISTE.add(PorteRaisin.pool.obtain());
-		if (Gdx.input.isKeyPressed(Keys.Y))		Ennemis.LISTE.add(QuiTir.pool.obtain());
-		if (Gdx.input.isKeyPressed(Keys.U))		Ennemis.LISTE.add(QuiTir2.pool.obtain());
-		if (Gdx.input.isKeyPressed(Keys.I))		Ennemis.LISTE.add(QuiTourne.pool.obtain());
-		if (Gdx.input.isKeyPressed(Keys.O))		Ennemis.LISTE.add(Toupie.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.Z)) 	Ennemis.LISTE.add(Insecte.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.E))		Ennemis.LISTE.add(Kinder.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.R))		Ennemis.LISTE.add(Laser.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.T))		Ennemis.LISTE.add(PorteRaisin.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.Y))		Ennemis.LISTE.add(QuiTir.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.U))		Ennemis.LISTE.add(QuiTir2.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.I))		Ennemis.LISTE.add(QuiTourne.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.O))		Ennemis.LISTE.add(Toupie.pool.obtain());
 		if (Gdx.input.isKeyPressed(Keys.P))		Ennemis.LISTE.add(ZigZag.pool.obtain());
-		
-		if (Gdx.input.isKeyPressed(Keys.Q))		Ennemis.LISTE.add(BouleTirCote.pool.obtain());
-		if (Gdx.input.isKeyPressed(Keys.S))		Ennemis.LISTE.add(BouleTirCoteRotation.pool.obtain());
+//		
+//		if (Gdx.input.isKeyPressed(Keys.Q))		Ennemis.LISTE.add(BouleTirCote.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.S))		Ennemis.LISTE.add(BouleTirCoteRotation.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.D))		XP.pool.obtain().init(400, 400, 30);
+//		if (Gdx.input.isKeyPressed(Keys.F))		Ennemis.LISTE.add(EnnemiQuiTourneNv3.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.G))		Ennemis.LISTE.add(Cylon.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.H))
+//			try {
+//				sendInfos();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 		preRendu();
 		Particules.background(batch);
+//		projet.act(batch);
 		if (!pause) {
 			if (delta < 1) { 
 				EndlessMode.delta = delta;
@@ -186,10 +187,11 @@ public class EndlessMode implements Screen {
 				} else {
 				// A   V I R E R   P O U R   L A   R E L E A S E
 					if (lost && Gdx.app.getVersion() != 0 && !scoreSent && !konamiCode){
+						int monScore = (int) score;
 						switch (modeDifficulte) {
-						case 1:			SwarmLeaderboard.submitScore(6475, score);			break;
-						case 2:			SwarmLeaderboard.submitScore(7317, score);			break; 
-						case 3:			SwarmLeaderboard.submitScore(9101, (int)score);			break;
+						case 1:			CSG.google.submitScore("CgkIrsqv7rIVEAIQAw", monScore );	break;
+						case 2:			CSG.google.submitScore("CgkIrsqv7rIVEAIQGA", monScore );	break;
+						case 3:			CSG.google.submitScore("CgkIrsqv7rIVEAIQGQ", monScore );	break;
 						}
 						scoreSent = true;
 					}
@@ -217,7 +219,13 @@ public class EndlessMode implements Screen {
 		if (CSG.profil.bloom) bloom.render();
 		maintenant += EndlessMode.delta;
 		frameCounter++;
-		fps += Gdx.graphics.getFramesPerSecond();
+		currentFPS = Gdx.graphics.getFramesPerSecond();
+		fps += currentFPS;
+		if (currentFPS > maxFPS)
+			maxFPS = currentFPS;
+		if (currentFPS < minFPS)
+			minFPS = currentFPS;
+//		Gdx.app.log(String.valueOf(frameCounter), String.valueOf(fps/frameCounter));
 	}
 
 	private void affichageEtUpdateStop(float delta) {
@@ -278,39 +286,83 @@ public class EndlessMode implements Screen {
 			CSG.profil.addXp((int) score);
 			xpAjout = true;
 			
-			final StringBuilder sb = new StringBuilder(250);
-			sb.append("score:").append(score).append("_").append("temps:").append(maintenant).append("_").append("bloomIntensity:").append(CSG.profil.intensiteBloom).
-			append("_").append("niveau:").append(modeDifficulte).append("_").append("version:").append(CSG.profil.VERSION).append("_").append("androidVersion;").append(Gdx.app.getVersion()).
-			append("_").append("averageFPS:").append(fps/frameCounter).append("_").append("date:").append(Calendar.getInstance().getTime().toString());
-			Thread t = new Thread(new Runnable() {
-				@Override
-				public void run() {
-					c.send(sb.toString());
-				}
-			});
-			t.start();
+//			Thread t = new Thread(new Runnable() {
+//				@Override
+//				public void run() {
+					try {
+						sendInfos();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+//				}
+//			});
+//			t.start();
+			fps = 0;
+			frameCounter = 0;
+			minFPS = 60;
+			maxFPS = 0;
 		} 
 		
 		if (score < 3000) {
 			if (conseil == 0) conseil = (int) (1 + Math.random() * 6);
 			switch (conseil) {
-			case 1:		afficherConseil(conseil1);								break;
-			case 2:		afficherConseil(conseil2);								break;
-			case 3:		afficherConseil(conseil3);								break;
-			case 4:		afficherConseil(conseil4, AssetMan.bombe, batch);		break;
-			case 5:		afficherConseil(conseil5, AssetMan.bonusetoile, batch);	break;
-			case 6:		afficherConseil(conseil6, AssetMan.temps, batch);		break;
+			case 1:		afficherConseil(Strings.ADVICE1);								break;
+			case 2:		afficherConseil(Strings.ADVICE2);								break;
+			case 3:		afficherConseil(Strings.ADVICE3);								break;
+			case 4:		afficherConseil(Strings.ADVICE4, AssetMan.bombe, batch);		break;
+			case 5:		afficherConseil(Strings.ADVICE5, AssetMan.bonusetoile, batch);	break;
+			case 6:		afficherConseil(Strings.ADVICE6, AssetMan.temps, batch);		break;
 			}
 		}
 		
 		if (VaisseauJoueur.addDroite || VaisseauJoueur.addDroite2 || VaisseauJoueur.addGauche || VaisseauJoueur.bouclier || VaisseauJoueur.addGauche2) 
-			CSG.menuFontPetite.draw(batch, tryAgain, ((cam.position.x-CSG.DEMI_LARGEUR_ECRAN)) + ((CSG.DEMI_LARGEUR_ECRAN - (CSG.menuFontPetite.getBounds(tryAgain).width)/2)),
-					(CSG.DEMI_HAUTEUR_ECRAN/2) - CSG.menuFontPetite.getBounds(tryAgain).height);
+			CSG.menuFontPetite.draw(batch, Strings.TRY_AGAIN, ((cam.position.x-CSG.DEMI_LARGEUR_ECRAN)) + ((CSG.DEMI_LARGEUR_ECRAN - (CSG.menuFontPetite.getBounds( Strings.TRY_AGAIN).width)/2)),
+					(CSG.DEMI_HAUTEUR_ECRAN/2) - CSG.menuFontPetite.getBounds(Strings.TRY_AGAIN).height);
 		
-		CSG.menuFont.setColor(.99f, .85f, 0f, 1);
 		CSG.menuFont.draw(batch, strScore, ((cam.position.x-CSG.DEMI_LARGEUR_ECRAN)) + ((CSG.DEMI_LARGEUR_ECRAN - (CSG.menuFont.getBounds(strScore).width)/2)),
 				CSG.DEMI_HAUTEUR_ECRAN + CSG.menuFontPetite.getBounds(strScore).height);
 		
+	}
+
+	private void sendInfos() throws Exception {
+		final StringBuilder sb = new StringBuilder(1550);
+		sb.append("_score:").append(score).append("_").
+		append("time:").append(maintenant).append("_").
+		append("bloomIntensity:").append(CSG.profil.intensiteBloom).append("_").
+		append("niveau:").append(modeDifficulte).append("_").
+		append("version:").append(CSG.profil.VERSION).append("_").
+		append("averageFPS:").append(fps/frameCounter).append("_").
+		append("minFPS:").append(minFPS).append("_").
+		append("maxFPS:").append(maxFPS).append("_").
+		append("date:").append(Calendar.getInstance().getTime().toString()).append("_").
+		append("control:").append(CSG.profil.getNomControle()).append("_").
+		
+		append("androidVersion:").append(Gdx.app.getVersion()).append("_").
+		append("modele:").append(CSG.getGlyph().getDeviceName()).append("_").
+		append("cpu:").append(CSG.getGlyph().readCPUinfo()).append("_").
+		append("gpu renderer:").append(gl.glGetString(GL20.GL_RENDERER)).append("_").
+		append("gpu vendor:").append(gl.glGetString(GL20.GL_VENDOR)).append("_").
+		append("largeur:").append(CSG.LARGEUR_ECRAN).append("_").
+		append("hauteur:").append(CSG.HAUTEUR_ECRAN).append("_").
+		append("ratio:").append((float)CSG.HAUTEUR_ECRAN / (float)CSG.LARGEUR_ECRAN).append("_").
+		append("ppi:").append(Gdx.graphics.getDensity() * 160).append("_").
+		append("arme:").append(CSG.profil.getArmeSelectionnee().getLabel()).append("_").
+		append("arme niveau-balayage:").append(CSG.profil.NvArmeBalayage).append("_").
+		append("arme niveau-de-base:").append(CSG.profil.NvArmeDeBase).append("_").
+		append("arme niveau-hantee:").append(CSG.profil.NvArmeHantee).append("_").
+		append("arme niveau-trois:").append(CSG.profil.NvArmeTrois).append("_").
+		append("musique:").append("Outside Norm").append("_").
+		
+		append("volume musique:").append(CSG.profil.volumeMusique).append("_").
+		append("volume bruitage:").append(CSG.profil.volumeBruitages).append("_").
+		append("volume arme:").append(CSG.profil.volumeArme).append("_").
+		append("jeu:").append("ESG_");
+		Iterator it = Ennemis.ennemisTues.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			sb.append(pair.getKey()).append(":").append(pair.getValue()).append("_");
+		}
+		c.send(sb.toString());
 	}
 
 	private float prevDelta;
@@ -338,22 +390,22 @@ public class EndlessMode implements Screen {
 		// ****  A F F I C H E R   S T O P  ****
 		switch(nbBonusStop) {
 		default :
-		case 3:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO + Bonus.LARGEUR *2 + Bonus.DEMI_LARGEUR *2, HAUTEUR_POLICE*2, Bonus.LARGEUR, Bonus.LARGEUR);
-		case 2:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO + Bonus.LARGEUR + Bonus.DEMI_LARGEUR, HAUTEUR_POLICE*2, Bonus.LARGEUR, Bonus.LARGEUR);
-		case 1:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO, HAUTEUR_POLICE*2, Bonus.LARGEUR, Bonus.LARGEUR);
+		case 3:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO + Bonus.WIDTH *2 + Bonus.HALF_WIDTH *2, HAUTEUR_POLICE*2, Bonus.WIDTH, Bonus.WIDTH);
+		case 2:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO + Bonus.WIDTH + Bonus.HALF_WIDTH, HAUTEUR_POLICE*2, Bonus.WIDTH, Bonus.WIDTH);
+		case 1:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO, HAUTEUR_POLICE*2, Bonus.WIDTH, Bonus.WIDTH);
 		case 0:
 		}
 		switch(nbBombes) {
 		default :
-		case 3:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.LARGEUR *3 + Bonus.DEMI_LARGEUR *3, Bonus.DEMI_LARGEUR, Bonus.LARGEUR, Bonus.LARGEUR);
-		case 2:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.LARGEUR *2 + Bonus.DEMI_LARGEUR *2, Bonus.DEMI_LARGEUR, Bonus.LARGEUR, Bonus.LARGEUR);
-		case 1:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.LARGEUR *1 + Bonus.DEMI_LARGEUR *1, Bonus.DEMI_LARGEUR, Bonus.LARGEUR, Bonus.LARGEUR);
+		case 3:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.WIDTH *3 + Bonus.HALF_WIDTH *3, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
+		case 2:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.WIDTH *2 + Bonus.HALF_WIDTH *2, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
+		case 1:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.WIDTH *1 + Bonus.HALF_WIDTH *1, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
 		case 0:
 		}
 	}
 
 	private void affichageNonPerdu() {
-		Bonus.affichageEtMouvement(batch);
+		Bonus.drawAndMove(batch);
 		ship.draw(batch);
 		Ennemis.affichageEtMouvement(batch);
 		Particules.render(batch);
@@ -408,14 +460,14 @@ public class EndlessMode implements Screen {
 
 	private static void pasTouche() {
 		if (afficherMenuRadial)	{
-			if (nbBonusStop > 0) batch.draw(AssetMan.bonusetoile,(menuX - Bonus.AFFICHAGE) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.AFFICHAGE, Bonus.AFFICHAGE);
-			else batch.draw(AssetMan.bonusetoileGris,(menuX - Bonus.AFFICHAGE) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.AFFICHAGE, Bonus.AFFICHAGE);
+			if (nbBonusStop > 0) batch.draw(AssetMan.bonusetoile,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
+			else batch.draw(AssetMan.bonusetoileGris,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			
-			if (chronoRalentir > .01f) batch.draw(AssetMan.temps, menuX + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY + Bonus.AFFICHAGE, Bonus.AFFICHAGE,Bonus.AFFICHAGE);
-			else batch.draw(AssetMan.tempsGris, menuX + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY + Bonus.AFFICHAGE, Bonus.AFFICHAGE,Bonus.AFFICHAGE);
+			if (chronoRalentir > .01f) batch.draw(AssetMan.temps, menuX + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY + Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
+			else batch.draw(AssetMan.tempsGris, menuX + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY + Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
 			
-			if (nbBombes > 0) batch.draw(AssetMan.bombe, (menuX + Bonus.AFFICHAGE) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.AFFICHAGE,Bonus.AFFICHAGE);
-			else batch.draw(AssetMan.bombeGris, (menuX + Bonus.AFFICHAGE) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.AFFICHAGE,Bonus.AFFICHAGE);
+			if (nbBombes > 0) batch.draw(AssetMan.bombe, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
+			else batch.draw(AssetMan.bombeGris, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
 		}
 		else if (!onAchoisis) {
 			afficherMenuRadial = true;
@@ -446,14 +498,15 @@ public class EndlessMode implements Screen {
 			VaisseauJoueur.prevY = Gdx.input.getY();
 		}
 		if (afficherMenuRadial) { 		// ---- SELECTION
-			if (nbBonusStop > 0 && Physique.pointDansRectangle(Gdx.input.getX(), CSG.HAUTEUR_ECRAN - Gdx.input.getY(), (menuX - Bonus.AFFICHAGE) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.AFFICHAGE, Bonus.AFFICHAGE)) {
+			if (nbBonusStop > 0 && Physique.pointDansRectangle(Gdx.input.getX(), CSG.HAUTEUR_ECRAN - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
 				onVaStopper = true;
 				onAchoisis = true;
-			} else if (chronoRalentir > 0.01 && Physique.pointDansRectangle(Gdx.input.getX(), CSG.HAUTEUR_ECRAN - Gdx.input.getY(), (menuX) - VaisseauJoueur.DEMI_LARGEUR, menuY + Bonus.AFFICHAGE, Bonus.AFFICHAGE, Bonus.AFFICHAGE)) {
+			} else if (chronoRalentir > 0.01 && Physique.pointDansRectangle(Gdx.input.getX(), CSG.HAUTEUR_ECRAN - Gdx.input.getY(), (menuX) - VaisseauJoueur.DEMI_LARGEUR, menuY + Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
 				onVaRalentir = true;
 				onAchoisis = true;
-			} else if (nbBombes > 0 && Physique.pointDansRectangle(Gdx.input.getX(), CSG.HAUTEUR_ECRAN - Gdx.input.getY(), (menuX + Bonus.AFFICHAGE) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.AFFICHAGE,Bonus.AFFICHAGE)) {
+			} else if (nbBombes > 0 && Physique.pointDansRectangle(Gdx.input.getX(), CSG.HAUTEUR_ECRAN - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH)) {
 				Ennemis.bombe();
+				CSG.google.unlockAchievementGPGS(Strings.ACH_BOMB);
 				nbBombes--;
 				onAchoisis = true;
 			}
@@ -500,7 +553,7 @@ public class EndlessMode implements Screen {
 	public void pause() {	}
 
 	@Override
-	public void resume() { 		CSG.assetMan.reload();	}
+	public void resume() { 		CSG.assetMan.reload(true);	}
 
 	@Override
 	public void dispose() {	}
@@ -518,7 +571,7 @@ public class EndlessMode implements Screen {
 	
 	private void afficherConseil(String s, TextureRegion tr, SpriteBatch batch) {
 		CSG.menuFontPetite.draw(batch, s, ((cam.position.x-CSG.DEMI_LARGEUR_ECRAN)) + ((CSG.DEMI_LARGEUR_ECRAN - CSG.menuFontPetite.getBounds(s).width/2)),	CSG.DEMI_HAUTEUR_ECRAN - CSG.menuFontPetite.getBounds(s).height * 4);
-		batch.draw(tr, ((cam.position.x-CSG.DEMI_LARGEUR_ECRAN) + CSG.DEMI_LARGEUR_ECRAN) - Bonus.AFFICHAGE/2 , CSG.DEMI_HAUTEUR_ECRAN - CSG.menuFontPetite.getBounds(s).height * 12, Bonus.AFFICHAGE, Bonus.AFFICHAGE);
+		batch.draw(tr, ((cam.position.x-CSG.DEMI_LARGEUR_ECRAN) + CSG.DEMI_LARGEUR_ECRAN) - Bonus.DISPLAY_WIDTH/2 , CSG.DEMI_HAUTEUR_ECRAN - CSG.menuFontPetite.getBounds(s).height * 12, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 	}
 
 	private void afficherConseil(String s) {

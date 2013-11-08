@@ -4,7 +4,7 @@ import menu.CSG;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class AnimationEnnemiDeBase{
+public class AnimationEnnemiDeBase {
 	
 	private static final float TPS_ANIM = .15f;
 	public static Animation animation; 

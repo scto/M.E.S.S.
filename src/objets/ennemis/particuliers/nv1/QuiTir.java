@@ -134,4 +134,6 @@ public class QuiTir extends Ennemis implements Tireur{
 		return getDerive();
 		else return 0;
 	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

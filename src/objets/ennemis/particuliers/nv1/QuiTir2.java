@@ -60,4 +60,6 @@ public class QuiTir2 extends QuiTir implements Tireur {
 	}
 	@Override
 	public TextureRegion getTexture() {		return AnimationQuiTir.getTexture(pv);	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

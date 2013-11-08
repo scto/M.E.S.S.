@@ -159,5 +159,6 @@ public class PorteRaisin extends Ennemis implements TireurPlusieurFois {
 	public float getDirectionY() {
 		return -Stats.V_ENN_PORTE_RAISIN;
 	}
-
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

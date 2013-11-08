@@ -156,4 +156,9 @@ public class EnnemiPorteNef extends Ennemis{
 	public float getDirectionY() {		return 0;	}
 	@Override
 	public float getDirectionX() {		return -dirX;	}
+	
+	@Override
+	protected String getLabel() {
+		return getClass().toString();
+	}
 }

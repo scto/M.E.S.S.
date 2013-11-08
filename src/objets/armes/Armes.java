@@ -22,6 +22,7 @@ public abstract class Armes extends Objet implements Poolable{
 
 	public static void affichageEtMouvement(SpriteBatch batch) {
 		for (ArmeJoueur a : liste) {
+			a.maintenant += EndlessMode.delta;
 			a.afficher(batch);
 			if (a.mouvementEtVerif() == false) {
 				liste.removeValue(a, true);
@@ -31,6 +32,7 @@ public abstract class Armes extends Objet implements Poolable{
 		
 		testCollision = !testCollision;
 		for (ArmeEnnemi a : listeTirsDesEnnemis) {
+			a.maintenant += EndlessMode.delta;
 			a.afficher(batch);
 			if (testCollision) {
 				if (a.testCollisionVaisseau()) {
@@ -53,7 +55,6 @@ public abstract class Armes extends Objet implements Poolable{
 	}
 
 	public void afficher(SpriteBatch batch) {
-		maintenant += EndlessMode.delta;
 		batch.draw(getTexture(), position.x, position.y,
 		// CENTRE DE LA ROTATION EN X													// CENTRE DE LA ROTATION EN Y
 		getDemiLargeur(), getDemiHauteur(),
@@ -81,8 +82,12 @@ public abstract class Armes extends Objet implements Poolable{
 	}
 
 	public static void affichage(SpriteBatch batch) {
-		for (ArmeJoueur a : liste)				a.afficher(batch);
-		for (Armes a : listeTirsDesEnnemis)		a.afficher(batch);
+		for (ArmeJoueur a : liste) {
+			a.afficher(batch);
+			a.maintenant += EndlessMode.delta;
+		}
+		for (Armes a : listeTirsDesEnnemis)
+			a.afficher(batch);
 	}
 
 	/**

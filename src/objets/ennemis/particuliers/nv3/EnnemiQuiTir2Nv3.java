@@ -31,5 +31,6 @@ public class EnnemiQuiTir2Nv3 extends QuiTir2 {
 	public int getXp() {
 		return CoutsEnnemis.EnnemiQuiTir2Nv3.COUT;
 	}
-	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

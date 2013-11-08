@@ -28,5 +28,8 @@ public class EnnemiCylonNv3 extends Cylon {
 
 	@Override
 	public int getXp() {		return CoutsEnnemis.EnnemiCylonNv3.COUT;	}
+	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 
 }

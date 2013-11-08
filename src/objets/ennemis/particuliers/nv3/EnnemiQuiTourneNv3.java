@@ -29,4 +29,6 @@ public class EnnemiQuiTourneNv3 extends QuiTourne {
 	protected float getDemiVitesse() {	return Stats.DEMI_V_ENN_QUI_TOURNE3;	}
 	@Override
 	public int getXp() {				return CoutsEnnemis.EnnemiQuiTourneNv3.COUT;	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

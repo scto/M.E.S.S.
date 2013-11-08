@@ -22,4 +22,6 @@ public class ZigZagNv3 extends ZigZag {
 	public int getXp() {			return CoutsEnnemis.EnnemiZigZagNv3.COUT;	}
 	@Override
 	protected float getVitesse() {	return Stats.V_ENN_ZIGZAG_NV3;	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

@@ -135,5 +135,8 @@ public class Cylon extends Ennemis implements TireurAngle {
 	public float getDirectionX() {
 		return direction.x;
 	}
+	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 
 }

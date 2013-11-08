@@ -119,4 +119,7 @@ public class Rocher extends Ennemis{
 	
 	@Override
 	public float getDirectionY() {		return -vitesse;	}
+	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

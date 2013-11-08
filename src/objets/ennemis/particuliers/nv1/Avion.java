@@ -93,4 +93,6 @@ public class Avion extends DeBase implements DoubleTireur {
 	protected void tir() {				tir.doubleTirVersBas(this, mort, maintenant, prochainTir);	}
 	@Override
 	public int getXp() {				return CoutsEnnemis.EnnemiAvion.COUT;	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

@@ -8,10 +8,20 @@ public class Stats {
 	public static final float VNV3 = 1.3f;
 	public static final float PVNV3 = 2;
 	
-	public static final float V_BONUS = 4 * U;
-	public static final float V_BONUS_BOMBE = V_BONUS/2;
-	public static final float V_BONUS_BOUCLIER = (V_BONUS * 1.1f);
 	public static final float V_JOUEUR = (int) CSG.HAUTEUR_ECRAN + CSG.LARGEUR_ECRAN + ((CSG.HAUTEUR_ECRAN + CSG.LARGEUR_ECRAN)/10);
+	
+	// ***********************************************************************************
+	// ******************************   B O N U S   **************************************
+	// ***********************************************************************************
+	
+	public static final float V_BONUS = 4 * U;
+	public static final float V_BONUS_XP = V_BONUS/1.5f;
+	public static final float V_BONUS_BOMBE = V_BONUS/2;
+	public static final float V_BONUS_STOP = V_BONUS/1.6f;
+	public static final float V_BONUS_TEMPS = V_BONUS/1.4f;
+	public static final float V_BONUS_BOUCLIER = (V_BONUS * 1.1f);
+	public static final float BONUS_WIDTH = U * 2, DEMI_LARGEUR = BONUS_WIDTH/2;
+	public static final float V_BONUS_ADD = V_BONUS/1.8f, BONUS_ADD_ACCELERATION = 15;
 	
 	// ***********************************************************************************
 	// **********************   E  N  N  E  M  I  S   ************************************

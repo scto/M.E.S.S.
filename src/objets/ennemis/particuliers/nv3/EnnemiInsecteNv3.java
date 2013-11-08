@@ -32,4 +32,7 @@ public class EnnemiInsecteNv3 extends Insecte {
 	public int getXp() {
 		return CoutsEnnemis.EnnemiInsecteNv3.COUT;
 	}
+	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

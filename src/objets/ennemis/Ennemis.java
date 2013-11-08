@@ -1,5 +1,8 @@
 package objets.ennemis;
 
+import java.util.HashMap;
+
+import menu.CSG;
 import objets.Objet;
 import objets.armes.joueur.ArmeJoueur;
 import objets.bonus.Bonus;
@@ -16,6 +19,7 @@ import objets.ennemis.particuliers.nv1.Toupie;
 import objets.ennemis.particuliers.nv1.ZigZag;
 import jeu.EndlessMode;
 import jeu.Physique;
+import jeu.Strings;
 import assets.SoundMan;
 import assets.animation.AnimationArmeFusee;
 import assets.animation.AnimationExplosion1;
@@ -33,6 +37,7 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable{
 	
 	// voir a quelle taille l'initialiser
 	public final static Array<Ennemis> LISTE = new Array<Ennemis>(30);
+	public static final HashMap<String, Integer> ennemisTues = new HashMap<String, Integer>(20);
 	protected static final Vector2 TMP_POS = new Vector2(), TMP_DIR = new Vector2();
 	private static float derniereApparition = 0;
 	protected static Rectangle collision = new Rectangle();
@@ -119,7 +124,7 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable{
 	 */
 	public boolean touche(int force) {
 		pv -= force;
-		if (pv <= 0 && !mort) {			mourrir();		}
+		if (pv <= 0 && !mort) {			die();		}
 		return !mort;
 	}
 
@@ -129,13 +134,20 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable{
 	 * initialise les bonus
 	 * appele mort()
 	 */
-	public void mourrir() {
+	public void die() {
+		if (ennemisTues.containsKey(getLabel())) {
+			ennemisTues.put(getLabel(), ennemisTues.get(getLabel()) + 1);
+		} else {
+			ennemisTues.put(getLabel(), 1);
+		}
 		Particules.explosion(this);
 		mort = true;
-		Bonus.ajoutBonus(position.x + getDemiLargeur(), position.y - Bonus.DEMI_LARGEUR, getXp());
+		Bonus.addBonus(position.x + getDemiLargeur(), position.y + getDemiHauteur(), getXp());
 		tpsAnimation = 0;
 		SoundMan.playBruitage(getSonExplosion());
 	}
+
+	protected abstract String getLabel();
 
 	/**
 	 * Reset mort, tpsAnimationExplosion et pv
@@ -180,9 +192,12 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable{
 	}
 
 	public static void bombe() {
+		if (LISTE.size > 25) {
+			CSG.google.unlockAchievementGPGS(Strings.ACH_25_ENEMY);
+		}
 		for (Ennemis e : LISTE)
 			if (e.mort == false)
-				e.mourrir();
+				e.die();
 		EndlessMode.effetBloom();
 	}
 
@@ -196,8 +211,10 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable{
 
 	public static void clear() {
 		derniereApparition = 0;
-		for(Ennemis e : LISTE) e.free();
+		for (Ennemis e : LISTE) 
+			e.free();
 		LISTE.clear();
+		ennemisTues.clear();
 	}
 
 	public abstract float getDirectionY();
@@ -210,7 +227,8 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable{
 	 * @return true = collision 
 	 */
 	public boolean checkBullet(ArmeJoueur a) {
-		if (mort) return false;
+		if (mort)
+			return false;
 		return Physique.rectangleDansRectangle(a.getRectangleCollision(), getRectangleCollision());
 	}
 	

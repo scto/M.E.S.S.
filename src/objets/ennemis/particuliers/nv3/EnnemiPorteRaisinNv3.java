@@ -31,4 +31,7 @@ public class EnnemiPorteRaisinNv3 extends PorteRaisin {
 	public int getXp() {
 		return CoutsEnnemis.EnnemiPorteRaisinNv3.COUT;
 	}
+	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

@@ -37,4 +37,7 @@ public class EnnemiDeBaseNv3 extends DeBase {
 		LISTE.add(pool.obtain());
 		LISTE.add(pool.obtain());
 	}
+	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

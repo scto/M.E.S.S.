@@ -36,4 +36,7 @@ public class EnnemiToupieNv3 extends Toupie {
 
 	@Override
 	public int getXp() {		return CoutsEnnemis.EnnemiToupieNv3.COUT;	}
+	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

@@ -140,4 +140,6 @@ public class BouleTirCote extends Ennemis implements TireurAngle {
 	public float getDirectionY() {		return direction.y;	}
 	@Override
 	public float getDirectionX() {		return direction.x;	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

@@ -43,7 +43,7 @@ public class Loading implements Screen {
 			CSG.menuFontPetite.draw(batch, loading, CSG.DEMI_LARGEUR_ECRAN - CSG.menuFontPetite.getBounds("Loading -").width / 2, CSG.DEMI_HAUTEUR_ECRAN - CSG.menuFontPetite.getBounds(loading).height / 2);
 			batch.end();
 		} else { // si il a fini le loading on change le menu
-			CSG.assetMan.loadPartie2();
+			CSG.assetMan.loadPartie2(true);
 			Menu menu = new Menu(game);
 			game.setScreen(menu);
 		}

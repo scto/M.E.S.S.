@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pools;
 
 public class ArmeLaser extends ArmeEnnemi implements Poolable{
 	
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 23;
+	public static final int LARGEUR = CSG.LARGEUR_ECRAN / 23;
 	public static final int DEMI_LARGEUR = LARGEUR/2;
 	public static Pool<ArmeLaser> pool = Pools.get(ArmeLaser.class);
 

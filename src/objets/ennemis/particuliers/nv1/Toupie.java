@@ -200,4 +200,6 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	public float getDirectionX() {
 		return direction.x;
 	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

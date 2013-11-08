@@ -13,10 +13,14 @@ public interface GoogleInterface {
     /**
      * submit a score to a leaderboard
      */
-    public void submitScore(int score);
+    public void submitScore(String leaderboard, int score);
    
     /**
      * gets the scores and displays them threw googles default widget
+     */
+    public void getAchievements();
+    /**
+     * gets the achievements and displays them threw googles default widget
      */
     public void getScores();
    
@@ -25,4 +29,5 @@ public interface GoogleInterface {
      */
     public void getScoresData();
     
+    public void unlockAchievementGPGS(String achievementId);
 }

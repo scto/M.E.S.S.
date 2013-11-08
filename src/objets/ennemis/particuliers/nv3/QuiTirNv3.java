@@ -44,4 +44,6 @@ public class QuiTirNv3 extends QuiTir {
 		TMP_POS.y = position.y - BouleFeu.HAUTEUR + BouleFeu.DEMI_HAUTEUR;
 		return TMP_POS;
 	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }

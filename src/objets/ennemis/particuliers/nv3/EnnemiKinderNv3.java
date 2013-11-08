@@ -31,5 +31,8 @@ public class EnnemiKinderNv3 extends Kinder {
 	public int getXp() {
 		return CoutsEnnemis.EnnemiKinderNv3.COUT;
 	}
+	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }
 

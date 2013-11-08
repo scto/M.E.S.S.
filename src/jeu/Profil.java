@@ -126,6 +126,7 @@ public class Profil implements Serializable{
 	 * decremente l'xp du coup de l'amelioration et augmente le niveau de l'arme selectionnee.
 	 */
 	public void upArme() {
+		System.out.println("UP ? ");
 		if (armeSelectionnee.equals(ArmesBalayage.LABEL) && NvArmeBalayage < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();
 			NvArmeBalayage++;
@@ -134,8 +135,10 @@ public class Profil implements Serializable{
 			return;
 		} 
 		if (armeSelectionnee.equals(ArmesDeBase.LABEL) && NvArmeDeBase < NV_ARME_MAX) {
+			System.out.println("UP, cout : " + getCoutUpArme() + " Niveau : " + NvArmeDeBase);
 			xpDispo -= getCoutUpArme();
 			NvArmeDeBase++;
+			System.out.println("    UP, cout : " + getCoutUpArme() + " Niveau : " + NvArmeDeBase);
 			ArmesDeBase.updateDimensions();
 			champXp = "XP : " + xpDispo;
 			return;
@@ -180,9 +183,9 @@ public class Profil implements Serializable{
 	 * @return <code>TypesArmes</code>
 	 */
 	private static ManagerArme convertArme(String arme){
+		if (ArmesBalayage.LABEL.equals(arme))	return new ManagerArmeBalayage();
 		if (ArmesDeBase.LABEL.equals(arme))	    return new ManagerArmeDeBase();
 		if (ArmesTrois.LABEL.equals(arme))	    return new ManagerArmeTrois();
-		if (ArmesBalayage.LABEL.equals(arme))	return new ManagerArmeBalayage();
 		return new ManagerArmeHantee();
 	}
 
@@ -198,14 +201,16 @@ public class Profil implements Serializable{
 
 	public void chgControle() {
 		typeControle++;
-		if (CSG.CONTROLE_MAX < typeControle)	typeControle = 0;
+		if (CSG.CONTROLE_MAX < typeControle)
+			typeControle = 0;
 	}
 
 	/**
 	 * Augmente et persiste
 	 */
 	public void augmenterVolumeArme() {
-		if (volumeArme < 1)			volumeArme += STEP_VOL;
+		if (volumeArme < 1)
+			volumeArme += STEP_VOL;
 		CSG.profilManager.persist();
 	}
 
@@ -213,7 +218,8 @@ public class Profil implements Serializable{
 	 * Diminue et persiste
 	 */
 	public void diminuerVolumeArme() {
-		if (volumeArme > 0)			volumeArme -= STEP_VOL;
+		if (volumeArme > 0)
+			volumeArme -= STEP_VOL;
 		CSG.profilManager.persist();
 	}
 
@@ -221,7 +227,8 @@ public class Profil implements Serializable{
 	 * Diminue et persiste
 	 */
 	public void diminuerVolumeBruitage() {
-		if (volumeBruitages > 0)	volumeBruitages -= STEP_VOL;
+		if (volumeBruitages > 0)
+			volumeBruitages -= STEP_VOL;
 		CSG.profilManager.persist();
 	}
 	
@@ -229,7 +236,8 @@ public class Profil implements Serializable{
 	 * Augmente et persiste
 	 */
 	public void augmenterVolumeBruitage() {
-		if (volumeBruitages < 1)	volumeBruitages += STEP_VOL;
+		if (volumeBruitages < 1)
+			volumeBruitages += STEP_VOL;
 		CSG.profilManager.persist();
 	}
 
@@ -237,7 +245,8 @@ public class Profil implements Serializable{
 	 * Augmente et persiste
 	 */
 	public void augmenterVolumeMusique() {
-		if (volumeMusique < 1)		volumeMusique += STEP_VOL;
+		if (volumeMusique < 1)
+			volumeMusique += STEP_VOL;
 		CSG.profilManager.persist();
 	}
 	
@@ -245,7 +254,8 @@ public class Profil implements Serializable{
 	 * Augmente et persiste
 	 */
 	public void diminuerVolumeMusique() {
-		if (volumeMusique > 0)		volumeMusique -= STEP_VOL;
+		if (volumeMusique > 0)
+			volumeMusique -= STEP_VOL;
 		CSG.profilManager.persist();
 	}
 }

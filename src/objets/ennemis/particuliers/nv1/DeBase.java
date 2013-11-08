@@ -96,5 +96,7 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	protected void free() { 				pool.free(this);	}
 	@Override
 	public float getDirectionY() {			return -Stats.V_ENN_DE_BASE;	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 	
 }

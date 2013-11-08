@@ -1,12 +1,18 @@
 package menu;
 
+import java.util.Random;
+
 import jeu.Physique;
+import jeu.Stats;
+import assets.AssetMan;
+import assets.particules.Particules;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.moribitotech.mtx.AbstractScreen;
 
 public class Bouton {
@@ -15,17 +21,22 @@ public class Bouton {
 	private String texte;
 	private boolean versDroite = false, rapetisser = false, fade = false;
 	private float vitesse = 50;
+	private static final float PADDING = Stats.U * 2, DEMI_PADDING = PADDING / 2;
 	private final AbstractScreen parent;
 	private Sprite sprite;
 	private OnClick click;
 	private boolean faitBouger = false;
+	private static final Vector2 tmpPos = new Vector2(), tmpGeneralDirection = new Vector2();
+	private int cptPosition = 0;
+	private static final Random rand = new Random();
 
 	public Bouton(String s, boolean panneau, BitmapFont menuFont, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent, OnClick click, boolean faitBouger) {
-		sprite = new Sprite(CSG.assetMan.bouton);
+//		sprite = new Sprite(CSG.assetMan.bouton);
+		sprite = new Sprite();
 		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
 		this.font = menuFont;
 		fontShadow = new BitmapFont(font.getData(), font.getRegion(), font.isFlipped());
-		fontShadow.setColor(Color.BLACK);
+		fontShadow.setColor(Color.WHITE);
 		this.parent = parent;
 		texte = s;
 		this.click = click;
@@ -33,7 +44,8 @@ public class Bouton {
 	}
 	
 	public Bouton(String s, boolean panneau, BitmapFont menuFont, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent) {
-		sprite = new Sprite(CSG.assetMan.bouton);
+//		sprite = new Sprite(CSG.assetMan.bouton);
+		sprite = new Sprite();
 		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
 		this.font = menuFont;
 		fontShadow = new BitmapFont(font.getData(), font.getRegion(), font.isFlipped());
@@ -47,20 +59,18 @@ public class Bouton {
 	}
 
 	public void draw(SpriteBatch batch) {
-		if (texte.equals(AbstractScreen.BACK)) {
-			if(Gdx.input.justTouched()) {
-				System.err.println(Physique.pointIn(sprite));
-				
-			}
-		}
-		sprite.draw(batch);
-		fontShadow.draw(batch, texte, ((sprite.getX() + (sprite.getWidth()/2)) - font.getBounds(texte).width/2) + CSG.LARGEUR_ECRAN/100,
-				(sprite.getY() + font.getBounds(texte).height + sprite.getHeight()/2 - font.getBounds(texte).height/2) - CSG.LARGEUR_ECRAN/150);
-		font.draw(batch, texte, ((sprite.getX() + (sprite.getWidth()/2)) - font.getBounds(texte).width/2),
+		initVectorsParticule();
+		Particules.ajoutPanneau(tmpPos, tmpGeneralDirection);
+//		sprite.draw(batch);
+		batch.draw(AssetMan.noir, sprite.getX() + DEMI_PADDING, sprite.getY() + DEMI_PADDING, sprite.getWidth() - PADDING, sprite.getHeight() - PADDING);
+//		fontShadow.draw(batch, texte,
+//				((sprite.getX() + (sprite.getWidth()/2)) - font.getBounds(texte).width/2) + CSG.LARGEUR_ECRAN/100,
+//				(sprite.getY() + font.getBounds(texte).height + sprite.getHeight()/2 - font.getBounds(texte).height/2) - CSG.LARGEUR_ECRAN/150);
+		font.draw(batch, texte, 
+				((sprite.getX() + (sprite.getWidth()/2)) - font.getBounds(texte).width/2),
 				(sprite.getY() + font.getBounds(texte).height + sprite.getHeight()/2 - font.getBounds(texte).height/2) );
 		
-		if (Gdx.input.justTouched() && Physique.pointIn(sprite)) {
-			
+		if (Gdx.input.justTouched() && Physique.pointIn(sprite)) {		
 			if (faitBouger) {
 				parent.touche();
 				fade = false;
@@ -72,6 +82,45 @@ public class Bouton {
 		act();
 	}
 	
+	private void initVectorsParticule() {
+		switch (cptPosition) {
+		case 1:
+		case 2:
+		case 3:
+			// ligne du haut
+			tmpPos.y = sprite.getY() + sprite.getHeight();
+			tmpPos.x = sprite.getX() + (rand.nextFloat() * sprite.getWidth());
+			tmpGeneralDirection.y = 1;
+			tmpGeneralDirection.x = 0;
+			break;
+		case 4:
+			// ligne de droite
+			tmpPos.y = sprite.getY() + (rand.nextFloat() * sprite.getHeight());
+			tmpPos.x = sprite.getX() + sprite.getWidth();
+			tmpGeneralDirection.y = 0;
+			tmpGeneralDirection.x = 1;
+			break;
+		case 5:
+		case 6:
+		case 7:
+			// ligne du bas
+			tmpPos.y = sprite.getY();
+			tmpPos.x = sprite.getX() + (rand.nextFloat() * sprite.getWidth());
+			tmpGeneralDirection.y = -1;
+			tmpGeneralDirection.x = 0;
+			break;
+		case 8:
+			// ligne de gauche
+			tmpPos.y = sprite.getY() + (rand.nextFloat() * sprite.getHeight());
+			tmpPos.x = sprite.getX();
+			tmpGeneralDirection.y = 0;
+			tmpGeneralDirection.x = -1;
+			break;
+		}
+		if (++cptPosition > 8)
+			cptPosition = 1;
+	}
+
 	public void act() {
 		float delta = Gdx.graphics.getDeltaTime();
 		if (versDroite || fade || rapetisser)
@@ -111,6 +160,5 @@ public class Bouton {
 	}
 	
 	public void setRapetisser(boolean b) {		rapetisser = b;	}
-	
 	
 }

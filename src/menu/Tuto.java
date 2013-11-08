@@ -1,13 +1,16 @@
 package menu;
 
+import jeu.Stats;
+import jeu.Strings;
 import objets.bonus.BonusBombe;
 import objets.bonus.BonusStop;
 import objets.bonus.BonusTemps;
 import objets.bonus.XP;
 import objets.ennemis.particuliers.nv1.DeBase;
-import jeu.Stats;
 import assets.AssetMan;
 import assets.animation.AnimationEnnemiDeBase;
+import assets.particules.Particule;
+import assets.particules.Particules;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -32,10 +35,12 @@ public class Tuto implements Screen {
 	private final BitmapFont font;
 
 	public Tuto(Game game) {
+		CSG.google.unlockAchievementGPGS(Strings.ACH_LISTEN);
 		this.game = game;
 		font = new BitmapFont(Gdx.files.internal("default.fnt"), false);
 		font.setScale(Stats.U / 20);
 		font.setColor(.82f, .82f, 0.1f, 1);
+		Gdx.input.setCatchBackKey(true);
 	}
 
 	@Override
@@ -43,16 +48,17 @@ public class Tuto implements Screen {
 		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		CSG.batch.begin();
+		Particules.background(CSG.batch);
 		// SHIP
 		ligne(AnimationEnnemiDeBase.getTexture(0), 1, DeBase.LARGEUR, DeBase.HAUTEUR, enemy);
 		// XP
-		ligne(AssetMan.XP, 3, XP.LARGEUR, XP.LARGEUR, xp);
+		ligne(AssetMan.XP, 3, XP.WIDTH, XP.WIDTH, xp);
 		// BOMB
-		ligne(AssetMan.bombe, 5, BonusBombe.LARGEUR, BonusBombe.LARGEUR, bomb);
+		ligne(AssetMan.bombe, 5, BonusBombe.WIDTH, BonusBombe.WIDTH, bomb);
 
-		ligne(AssetMan.temps, 7, BonusTemps.LARGEUR, BonusTemps.LARGEUR, stop);
+		ligne(AssetMan.temps, 7, BonusTemps.WIDTH, BonusTemps.WIDTH, stop);
 
-		ligne(AssetMan.bonusetoile, 9, BonusStop.LARGEUR, BonusStop.LARGEUR, slow);
+		ligne(AssetMan.bonusetoile, 9, BonusStop.WIDTH, BonusStop.WIDTH, slow);
 		                           
 		// TITRE
 		font.draw(CSG.batch, stay, CSG.DEMI_LARGEUR_ECRAN - (font.getBounds(stay).width/2) , CSG.HAUTEUR_ECRAN - 5);

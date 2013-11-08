@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Physique {
-
 	/**
 	 * Test si c'est touchï¿½ dans le sprite
 	 * @param s
@@ -154,6 +153,11 @@ public class Physique {
 	public static boolean pointDansRectangle(float x, float y, float rectX, float rectY, float rectLarg, float rectHaut) {
 		 return rectX <= x && rectX + rectLarg >= x && rectY <= y && rectY + rectHaut >= y;
 	}
+	
+	public static boolean vaisseauDansRectangle(float rectX, float rectY, float rectLarg, float rectHaut) {
+		return rectX <= VaisseauJoueur.centreX && rectX + rectLarg >= VaisseauJoueur.centreX && rectY <= VaisseauJoueur.centreY && rectY + rectHaut >= VaisseauJoueur.centreY;
+	}
+	
 	// 1.94 - 4
 	public static boolean pointDansCarre(float x, float y, float rectX, float rectY, float rectLarg) {
 		 return rectX <= x && rectX + rectLarg >= x && rectY <= y && rectY + rectLarg >= y;
@@ -168,6 +172,9 @@ public class Physique {
         return r.x <= p.x && r.x + r.width >= p.x && r.y <= p.y && r.y + r.height >= p.y;
     }
     
+    /**
+     * Si il y est on considère que c'est perdu
+     */
 	public static boolean pointDansVaisseau(Vector2 position, int rectLarg, int rectHaut) {
 		if (position.x <= VaisseauJoueur.centreX && position.x + rectLarg >= VaisseauJoueur.centreX && position.y <= VaisseauJoueur.centreY && position.y + rectHaut >= VaisseauJoueur.centreY) {
 			VaisseauJoueur.perdu();
@@ -361,4 +368,5 @@ public class Physique {
 		positionBalle.y = vecteurPosition.y + demiHauteur;
 		return positionCible.sub(positionBalle).angle();
 	}
+
 }

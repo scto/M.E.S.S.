@@ -34,5 +34,7 @@ public class Kinder2 extends Kinder {
 	public int getXp() {
 		return CoutsEnnemis.KINDER2.COUT;
 	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }
 

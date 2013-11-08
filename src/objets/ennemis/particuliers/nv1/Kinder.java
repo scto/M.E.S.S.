@@ -147,5 +147,8 @@ public class Kinder extends Ennemis implements TireurAngle {
 			return direction.x;
 		return 0;
 	}
+	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }
 

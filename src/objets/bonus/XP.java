@@ -1,4 +1,4 @@
- package objets.bonus;
+package objets.bonus;
 
 import jeu.EndlessMode;
 import jeu.Stats;
@@ -10,49 +10,53 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-public class XP extends Bonus implements Poolable{
+public class XP extends Bonus implements Poolable {
+
 	public int valeur;
 	private float tps = 0;
 	private boolean gauche;
 	public static Pool<XP> pool = Pools.get(XP.class);
-	
-	public void init(float x, float y, int xp){
-		valeur = xp;
+	private static final float SPEED = Stats.V_BONUS_XP;
+
+	public void init(float x, float y, int xp) {
 		posX = x;
 		posY = y;
-		if(posX < CSG.DEMI_LARGEUR_ZONE_JEU) gauche = false;
-		else gauche = true;
-		liste.add(this);
+		valeur = xp;
+		if (posX < CSG.DEMI_LARGEUR_ZONE_JEU)
+			gauche = false;
+		else
+			gauche = true;
+		list.add(this);
 	}
 
-
 	@Override
-	boolean afficherEtMvt(SpriteBatch batch) {
-		if (valeur < 49) batch.draw(AssetMan.XP, posX, posY, LARGEUR, LARGEUR);
-		else batch.draw(AssetMan.XP2, posX, posY, LARGEUR, LARGEUR);
-		tps += EndlessMode.delta;
-		// Le fait descendre
-		posY -= Stats.V_BONUS * EndlessMode.delta;
-		// le fait aller � gauche ou � droite de plus en plus suivant le temps �coul�
-		if (gauche)		posX -= ( (tps*tps) * EndlessMode.delta);
-		else			posX += ( (tps*tps) * EndlessMode.delta);
+	boolean drawMeMoveMe(SpriteBatch batch) {
+		if (valeur < 49)
+			batch.draw(AssetMan.XP, posX, posY, WIDTH, WIDTH);
+		else
+			batch.draw(AssetMan.XP2, posX, posY, WIDTH, WIDTH);
 		
+		tps += EndlessMode.delta;
+		posY -= SPEED * EndlessMode.delta;
+		
+		if (gauche)
+			posX -= ((tps) * EndlessMode.delta);
+		else
+			posX += ((tps) * EndlessMode.delta);
+
 		return true;
 	}
 
 	@Override
-	public void prisEtFree() {
+	public void taken() {
 		EndlessMode.score += valeur;
-//		CSG.profil.addXp(valeur);
 		pool.free(this);
 	}
-
 
 	@Override
 	public void reset() {
 		tps = 0;
 	}
-
 
 	@Override
 	public void free() {

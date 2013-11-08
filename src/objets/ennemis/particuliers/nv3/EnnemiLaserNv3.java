@@ -35,4 +35,7 @@ public class EnnemiLaserNv3 extends Laser {
 
 	@Override
 	public int getXp() {		return CoutsEnnemis.EnnemiLaserNv3.COUT;	}
+	
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
 }
