@@ -7,9 +7,9 @@ import objets.armes.typeTir.TireurPlusieurFois;
 import objets.armes.typeTir.Tirs;
 import objets.ennemis.CoutsEnnemis;
 import objets.ennemis.Ennemis;
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
-import menu.CSG;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiTourne;
 

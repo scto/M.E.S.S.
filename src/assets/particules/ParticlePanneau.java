@@ -2,8 +2,8 @@ package assets.particules;
 
 import java.util.Random;
 
+import jeu.CSG;
 import jeu.EndlessMode;
-import menu.CSG;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.Color;
@@ -42,7 +42,7 @@ public class ParticlePanneau {
 
 	public boolean mouvementEtVerif() {
 		deplacement = (largeur - largeur/1.05f);
-		demiDeplacement = demiDeplacement/2;
+		demiDeplacement = deplacement/2;
 		posX += (direction.x * EndlessMode.delta15) + demiDeplacement;
 		posY += (direction.y * EndlessMode.delta15) + demiDeplacement;
 		largeur -= deplacement;

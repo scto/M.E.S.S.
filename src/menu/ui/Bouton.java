@@ -1,7 +1,10 @@
-package menu;
+package menu.ui;
 
 import java.util.Random;
 
+import menu.Menu;
+import menu.OnClick;
+import jeu.CSG;
 import jeu.Physique;
 import jeu.Stats;
 import assets.AssetMan;
@@ -17,7 +20,7 @@ import com.moribitotech.mtx.AbstractScreen;
 
 public class Bouton {
 
-	private BitmapFont font, fontShadow;
+	private BitmapFont font;
 	private String texte;
 	private boolean versDroite = false, rapetisser = false, fade = false;
 	private float vitesse = 50;
@@ -30,30 +33,37 @@ public class Bouton {
 	private int cptPosition = 0;
 	private static final Random rand = new Random();
 
-	public Bouton(String s, boolean panneau, BitmapFont menuFont, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent, OnClick click, boolean faitBouger) {
+	public Bouton(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent, OnClick click, boolean faitBouger) {
 //		sprite = new Sprite(CSG.assetMan.bouton);
 		sprite = new Sprite();
 		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
-		this.font = menuFont;
-		fontShadow = new BitmapFont(font.getData(), font.getRegion(), font.isFlipped());
-		fontShadow.setColor(Color.WHITE);
+		this.font = font;
 		this.parent = parent;
 		texte = s;
 		this.click = click;
 		this.faitBouger = faitBouger;
 	}
 	
-	public Bouton(String s, boolean panneau, BitmapFont menuFont, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent) {
+	public Bouton(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, Menu parent, OnClick click, boolean faitBouger) {
 //		sprite = new Sprite(CSG.assetMan.bouton);
 		sprite = new Sprite();
 		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
-		this.font = menuFont;
-		fontShadow = new BitmapFont(font.getData(), font.getRegion(), font.isFlipped());
-		fontShadow.setColor(Color.BLACK);
+		this.font = font;
+		this.parent = parent;
+		texte = s;
+		this.click = click;
+		this.faitBouger = faitBouger;
+	}
+	
+	public Bouton(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent) {
+//		sprite = new Sprite(CSG.assetMan.bouton);
+		sprite = new Sprite();
+		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
+		this.font = font;
 		this.parent = parent;
 		texte = s;
 	}
-	
+
 	public void setClick(OnClick click) {
 		this.click = click;
 	}
@@ -61,18 +71,15 @@ public class Bouton {
 	public void draw(SpriteBatch batch) {
 		initVectorsParticule();
 		Particules.ajoutPanneau(tmpPos, tmpGeneralDirection);
-//		sprite.draw(batch);
 		batch.draw(AssetMan.noir, sprite.getX() + DEMI_PADDING, sprite.getY() + DEMI_PADDING, sprite.getWidth() - PADDING, sprite.getHeight() - PADDING);
-//		fontShadow.draw(batch, texte,
-//				((sprite.getX() + (sprite.getWidth()/2)) - font.getBounds(texte).width/2) + CSG.LARGEUR_ECRAN/100,
-//				(sprite.getY() + font.getBounds(texte).height + sprite.getHeight()/2 - font.getBounds(texte).height/2) - CSG.LARGEUR_ECRAN/150);
 		font.draw(batch, texte, 
 				((sprite.getX() + (sprite.getWidth()/2)) - font.getBounds(texte).width/2),
 				(sprite.getY() + font.getBounds(texte).height + sprite.getHeight()/2 - font.getBounds(texte).height/2) );
 		
 		if (Gdx.input.justTouched() && Physique.pointIn(sprite)) {		
 			if (faitBouger) {
-				parent.touche();
+				if (parent != null)
+					parent.touche();
 				fade = false;
 				versDroite = true;
 			} else {
@@ -160,5 +167,9 @@ public class Bouton {
 	}
 	
 	public void setRapetisser(boolean b) {		rapetisser = b;	}
+
+	public BitmapFont font() {
+		return font;
+	}
 	
 }

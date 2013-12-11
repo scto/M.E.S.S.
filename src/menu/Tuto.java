@@ -1,5 +1,6 @@
 package menu;
 
+import jeu.CSG;
 import jeu.Stats;
 import jeu.Strings;
 import objets.bonus.BonusBombe;

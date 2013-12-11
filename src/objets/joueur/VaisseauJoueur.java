@@ -1,8 +1,8 @@
 package objets.joueur;
 
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
-import menu.CSG;
 import objets.Objet;
 import objets.armes.joueur.ArmeAdd;
 import objets.armes.joueur.ManagerArme;

@@ -1,20 +1,19 @@
-package menu;
+package jeu;
 
-import jeu.EndlessMode;
-import jeu.GlyphHelper;
-import jeu.GoogleInterface;
-import jeu.Profil;
-import jeu.ProfilManager;
+import menu.IActivityRequestHandler;
+import menu.Loading;
 import objets.armes.Armes;
 import objets.bonus.Bonus;
 import objets.ennemis.Ennemis;
 import objets.ennemis.Progression;
 import assets.AssetMan;
 import assets.particules.Particules;
+import bloom.Bloom;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -53,17 +52,33 @@ public class CSG extends Game implements ApplicationListener {
 
 	@Override
 	public void create() {
-		batch = new SpriteBatch(10000);
+		log("Create");
+		batch = new SpriteBatch(5460);
 		assetMan = new AssetMan();
 		// **************  V A R I A B L E S   C O N S T A N T E S  :) ********************
 		if (Gdx.app.getVersion() != 0)
 			CSG.myRequestHandler.showAds(true);
 		dimensions();
 		// ***********************  P R O F I L  ****************************
+		log("Chargement profil");
 		profilManager = new ProfilManager();
 		profil = profilManager.retrieveProfile();
-		// ************************ P O L I C E S ****************************
-		menuFont = new BitmapFont(Gdx.files.internal("default.fnt"), false);
+		log("Chargement profil terminé");
+		initFonts("default.fnt", "petite.fnt");
+		// ***** Une fois que toutes les variables globales sont chargees on lance le loading pour charger les assets
+		log("Creation loading");
+		Loading loading = new Loading(this);
+		log("Set screen loading");
+		setScreen(loading);
+	}
+
+	public static void log(String s ) {
+		Gdx.app.log("ESGLOG", s);
+	}
+
+	public static void initFonts(String normalFont, String petiteFont) {
+		System.out.println("CSG.initFonts()");
+		menuFont = new BitmapFont(Gdx.files.internal(normalFont), false);
 		float x = LARGEUR_ECRAN / 250;
 		float y = HAUTEUR_ECRAN / 500;
 		if (x < 1)	x = 1.0f;
@@ -75,15 +90,12 @@ public class CSG extends Game implements ApplicationListener {
 		y = HAUTEUR_ECRAN / 480;
 		if (x < 1)	x = 1.0f;
 		if (y < 1)	y = 1.0f;
-		menuFontPetite = new BitmapFont(Gdx.files.internal("petite.fnt"), false);
+		menuFontPetite = new BitmapFont(Gdx.files.internal(petiteFont), false);
 		menuFontPetite.setScale(x, y);
 		menuFontPetite.setColor(.32f, .52f, 0.99f, 1);
-		// ***** Une fois que toutes les variables globales sont chargees on lance le loading pour charger les assets
-		Loading loading = new Loading(this);
-		setScreen(loading);
 	}
 
-	private void dimensions() {
+	public static void dimensions() {
 		DEMI_LARGEUR_ECRAN = Gdx.graphics.getWidth() / 2;
 		DEMI_HAUTEUR_ECRAN = Gdx.graphics.getHeight() / 2;
 		LARGEUR_ECRAN = Gdx.graphics.getWidth();
@@ -128,5 +140,37 @@ public class CSG extends Game implements ApplicationListener {
 
 	public static GlyphHelper getGlyph() {
 		return glyph;
+	}
+
+	public static Bloom bloom;
+	
+	public static void initBloom() {
+		CSG.log("On va charger le bloom");
+		if (CSG.profil.bloom) {
+			try {
+				bloom = new Bloom();
+				bloom.setBloomIntesity(CSG.profil.intensiteBloom);
+			} catch (Exception e) {
+				e.printStackTrace();
+				CSG.log("PLANTE DANS LE CHARGEMENT DU BLOOM");
+				CSG.profil.bloom = false;
+			}
+		} 
+	}
+
+	public static void begin(float delta) {
+		EndlessMode.delta = delta;
+		EndlessMode.delta15 = delta * 15;
+		EndlessMode.maintenant += delta;
+		if (CSG.profil.bloom)
+			bloom.capture();
+		else
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	}
+
+	public static void end() {
+		batch.end();
+		if (CSG.profil.bloom)
+			bloom.render();
 	}
 }

@@ -1,7 +1,8 @@
 package assets.animation;
 
-import menu.CSG;
+import jeu.CSG;
 import jeu.EndlessMode;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationVaisseau{

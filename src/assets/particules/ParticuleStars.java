@@ -1,7 +1,7 @@
 package assets.particules;
 
+import jeu.CSG;
 import jeu.EndlessMode;
-import menu.CSG;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

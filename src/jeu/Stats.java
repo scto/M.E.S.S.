@@ -1,6 +1,5 @@
 package jeu;
 
-import menu.CSG;
 
 public class Stats {
 	

@@ -1,5 +1,6 @@
 package menu;
 
+import jeu.CSG;
 import assets.particules.Particules;
 
 import com.badlogic.gdx.Game;
@@ -19,34 +20,41 @@ public class Loading implements Screen {
 		this.game = csg;
 		CSG.assetMan.load();
 		batch = CSG.batch;
+		Gdx.graphics.setVSync(true);
 	}
 
 	@Override
 	public void render(float delta) {
 		if (!CSG.assetMan.fini()) {
-			Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
-			batch.begin();
-			if (++alterner > 10) { // on bouge toutes les 10 frames pour le pas bouger trop vite
-				alterner = 0;
-				switch(orientation) {
-				case 0:					loading = "Loading";					break;
-				case 1:					loading = "lOading";					break;
-				case 2:					loading = "loAding";					break;
-				case 3:					loading = "loaDing";					break;
-				case 4:					loading = "loadIng";					break;
-				case 5:					loading = "loadiNg";					break;
-				case 6:					loading = "loadinG";					break;
-				case 7:					loading = "loading";					break;
-				}
-				if (++orientation > 7) orientation = 0;
-			}
-			CSG.menuFontPetite.draw(batch, loading, CSG.DEMI_LARGEUR_ECRAN - CSG.menuFontPetite.getBounds("Loading -").width / 2, CSG.DEMI_HAUTEUR_ECRAN - CSG.menuFontPetite.getBounds(loading).height / 2);
-			batch.end();
+			afficherLoading();
 		} else { // si il a fini le loading on change le menu
 			CSG.assetMan.loadPartie2(true);
 			Menu menu = new Menu(game);
+			CSG.log("Set screen sur menu - " + Gdx.graphics.getFramesPerSecond());
 			game.setScreen(menu);
+//			afficherLoading();
 		}
+	}
+
+	private void afficherLoading() {
+		if (++alterner > 10) { // on bouge toutes les 10 frames pour le pas bouger trop vite
+			alterner = 0;
+			switch(orientation) {
+			case 0:					loading = "Loading";					break;
+			case 1:					loading = "lOading";					break;
+			case 2:					loading = "loAding";					break;
+			case 3:					loading = "loaDing";					break;
+			case 4:					loading = "loadIng";					break;
+			case 5:					loading = "loadiNg";					break;
+			case 6:					loading = "loadinG";					break;
+			case 7:					loading = "loading";					break;
+			}
+			if (++orientation > 7) orientation = 0;
+		}
+		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		CSG.menuFont.draw(batch, loading, CSG.DEMI_LARGEUR_ECRAN - CSG.menuFont.getBounds("Loading -").width / 2, CSG.DEMI_HAUTEUR_ECRAN - CSG.menuFontPetite.getBounds(loading).height / 2);
+		batch.end();
 	}
 
 	@Override

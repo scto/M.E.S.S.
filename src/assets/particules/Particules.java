@@ -26,6 +26,7 @@ public class Particules {
 	public static Array<Particule> particules = new Array<Particule>(false, MAX*4);
 	public static Array<Particule> background = new Array<Particule>(false, 300);
 	public static Array<ParticlePanneau> boutons = new Array<ParticlePanneau>(false, 300);
+	public static Array<ParticleUiElement> uiElement = new Array<ParticleUiElement>();
 	private static float yVaisseau = 0;
 	private static int fps = 0;
 	private static int frame = 0;
@@ -43,14 +44,19 @@ public class Particules {
 	 */
 	public static void background(SpriteBatch batch) {
 		ParticuleStars.mightAdd();
-		for (int i = 0; i < 1; i++) {
-			for (Particule p : background) {
-				p.display(batch);
-				if (p.mouvementEtVerif() == false) {
-					background.removeValue(p, true);
-				}
+		drawUi(batch);
+		for (Particule p : background) {
+			p.display(batch);
+			if (p.mouvementEtVerif() == false) {
+				background.removeValue(p, true);
 			}
 		}
+		fps += Gdx.graphics.getFramesPerSecond();
+		frame++;
+//		Gdx.app.log(String.valueOf(fps / frame), String.valueOf(EndlessMode.maintenant));
+	}
+
+	public static void drawUi(SpriteBatch batch) {
 		for (ParticlePanneau p : boutons) {
 			p.display(batch);
 			if (p.mouvementEtVerif() == false) {
@@ -58,9 +64,13 @@ public class Particules {
 				ParticlePanneau.pool.free(p);
 			}
 		}
-		fps += Gdx.graphics.getFramesPerSecond();
-		frame++;
-//		Gdx.app.log(String.valueOf(fps / frame), String.valueOf(EndlessMode.maintenant));
+		for (ParticleUiElement p : uiElement){
+			p.display(batch);
+			if (p.mouvementEtVerif() == false) {
+				uiElement.removeValue(p, true);
+				ParticleUiElement.pool.free(p);
+			}
+		}
 	}
 	
 	public static void render(SpriteBatch batch) {
@@ -194,5 +204,17 @@ public class Particules {
 		ParticlePanneau p = ParticlePanneau.pool.obtain();
 		p.init(posParticule, baseDirection);
 		boutons.add(p);
+	}
+	
+	public static void ajoutUiElement(float x, float y, boolean selected) {
+		ParticleUiElement p = ParticleUiElement.pool.obtain();
+		p.init(x, y, selected);
+		uiElement.add(p);
+		ParticleUiElement p2 = ParticleUiElement.pool.obtain();
+		p2.init(x, y, selected);
+		uiElement.add(p2);
+		ParticleUiElement p3 = ParticleUiElement.pool.obtain();
+		p3.init(x, y, selected);
+		uiElement.add(p3);
 	}
 }

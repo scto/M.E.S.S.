@@ -1,9 +1,9 @@
 package assets.particules;
 
 import objets.armes.joueur.ArmeJoueur;
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
-import menu.CSG;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

@@ -5,8 +5,8 @@ import objets.armes.ennemi.BouleFeu;
 import objets.armes.typeTir.DoubleTireur;
 import objets.armes.typeTir.Tirs;
 import objets.ennemis.CoutsEnnemis;
+import jeu.CSG;
 import jeu.Stats;
-import menu.CSG;
 import assets.SoundMan;
 import assets.animation.AnimationAvion;
 

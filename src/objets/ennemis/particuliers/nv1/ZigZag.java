@@ -2,9 +2,9 @@ package objets.ennemis.particuliers.nv1;
 
 import objets.ennemis.CoutsEnnemis;
 import objets.ennemis.Ennemis;
+import jeu.CSG;
 import jeu.Physique;
 import jeu.Stats;
-import menu.CSG;
 import assets.SoundMan;
 import assets.animation.AnimationRouli;
 

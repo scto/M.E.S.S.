@@ -1,7 +1,7 @@
 package assets.particules;
 
 import objets.armes.joueur.ArmeAdd;
-import menu.CSG;
+import jeu.CSG;
 import jeu.EndlessMode;
 import assets.AssetMan;
 

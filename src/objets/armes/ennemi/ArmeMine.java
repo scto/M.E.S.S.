@@ -1,7 +1,7 @@
 package objets.armes.ennemi;
 
+import jeu.CSG;
 import jeu.Stats;
-import menu.CSG;
 import assets.animation.AnimationMine;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

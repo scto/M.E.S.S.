@@ -3,8 +3,8 @@ package objets.ennemis.particuliers.nv3;
 import objets.armes.ennemi.BouleFeu;
 import objets.ennemis.CoutsEnnemis;
 import objets.ennemis.particuliers.nv1.QuiTir;
+import jeu.CSG;
 import jeu.Stats;
-import menu.CSG;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;

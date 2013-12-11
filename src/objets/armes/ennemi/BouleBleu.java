@@ -1,8 +1,9 @@
 package objets.armes.ennemi;
 
+import jeu.CSG;
 import jeu.Stats;
-import menu.CSG;
 import assets.animation.AnimationBouleBleu;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;

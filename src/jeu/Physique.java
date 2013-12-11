@@ -4,7 +4,6 @@ import objets.armes.Armes;
 import objets.armes.joueur.ArmeJoueur;
 import objets.ennemis.Ennemis;
 import objets.joueur.VaisseauJoueur;
-import menu.CSG;
 import assets.particules.Particules;
 
 import com.badlogic.gdx.Gdx;
@@ -122,13 +121,13 @@ public class Physique {
 	public static void testCollisions() {
 		// On parcourt la liste des ennemis
 		for(Ennemis ennemi : Ennemis.LISTE){
-			// Si le centre du vaisseau est dans un ennemi
-			if (pointDansRectangle(VaisseauJoueur.centreX, VaisseauJoueur.centreY, ennemi.getRectangleCollision())) {
+			
+			if (ennemi.checkJoueur())
 				EndlessMode.perdu();
-			}
+			
 			for (ArmeJoueur a : Armes.liste) {
-				// Le tir touche l'ennemie
-				if (ennemi.checkBullet(a)) { //rectangleDansRectangle(a.position.x, a.position.y, a.getLargeur(), a.getHauteur(), ennemi.getRectangleCollision())) {
+				// Le tir touche l'ennemi
+				if (ennemi.checkBullet(a)) {
 					// on decompte suivant la puissance de l'arme et en plus ca fait un free
 					Particules.ajoutDebris(a); 
 					if (ennemi.touche(a.getForce())){
@@ -162,16 +161,7 @@ public class Physique {
 	public static boolean pointDansCarre(float x, float y, float rectX, float rectY, float rectLarg) {
 		 return rectX <= x && rectX + rectLarg >= x && rectY <= y && rectY + rectLarg >= y;
 	}
-	
-	 public static boolean pointDansRectangle(float x, float y, Rectangle r) {
-		 return r.x <= x && r.x + r.width >= x && r.y <= y && r.y + r.height >= y;
-	}
 
-	// True si touchï¿½, false sinon
-    public static boolean pointDansRectangle(Vector2 p, Rectangle r) {
-        return r.x <= p.x && r.x + r.width >= p.x && r.y <= p.y && r.y + r.height >= p.y;
-    }
-    
     /**
      * Si il y est on considère que c'est perdu
      */
@@ -191,16 +181,6 @@ public class Physique {
 		return false;
 	}
     
-    /**
-     * Si les rectangles se touchent. True si oui, false si non
-     * @param r1
-     * @param r2
-     * @return
-     */
-    public static boolean rectangleDansRectangle(Rectangle r1, Rectangle r2) {
-        if(r1.x < r2.x + r2.width && r1.x + r1.width > r2.x && r1.y < r2.y + r2.height && r1.y + r1.height > r2.y)     return true;
-        else            return false;
-    }
 	public static float rotation(float angleRotation, float vitesseRotation) {
 		return angleRotation + (EndlessMode.delta * vitesseRotation);
 	}

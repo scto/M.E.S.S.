@@ -1,8 +1,8 @@
 package objets.armes.ennemi;
 
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
-import menu.CSG;
 import assets.AssetMan;
 import assets.animation.AnimationTirTrois;
 

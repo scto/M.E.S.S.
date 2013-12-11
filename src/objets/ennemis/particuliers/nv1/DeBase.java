@@ -4,9 +4,9 @@ import objets.PatternHorizontalPositionnable;
 import objets.Positionnement;
 import objets.ennemis.CoutsEnnemis;
 import objets.ennemis.Ennemis;
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
-import menu.CSG;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiDeBase;
 

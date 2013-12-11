@@ -14,5 +14,8 @@ public class Strings {
 	public static final String ACH_25_ENEMY = "CgkIrsqv7rIVEAIQHA";
 	public static final String ACH_FAVORITE_SHOP = "CgkIrsqv7rIVEAIQHQ";
 	public static final String ACH_LVL6 = "CgkIrsqv7rIVEAIQHg";
+	public static final String CREATE = "Create";
+	public static final String FILE = "File";
+	public static final String SELECT_FRAME = "Let's pick a frame";
 	
 }

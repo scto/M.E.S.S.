@@ -32,8 +32,8 @@ import objets.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
 import objets.ennemis.particuliers.nv3.EnnemiToupieNv3;
 import objets.ennemis.particuliers.nv3.QuiTirNv3;
 import objets.ennemis.particuliers.nv3.ZigZagNv3;
+import jeu.CSG;
 import jeu.EndlessMode;
-import menu.CSG;
 
 public class Progression {
 

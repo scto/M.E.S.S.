@@ -2,9 +2,9 @@ package objets.ennemis.particuliers.boss;
 
 import objets.ennemis.CoutsEnnemis;
 import objets.ennemis.Ennemis;
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
-import menu.CSG;
 import assets.SoundMan;
 import assets.animation.AnimationPorteNef;
 

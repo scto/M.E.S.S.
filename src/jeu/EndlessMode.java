@@ -4,13 +4,13 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
 
-import menu.CSG;
 import menu.Menu;
 import objets.armes.Armes;
 import objets.bonus.Bonus;
 import objets.bonus.XP;
 import objets.ennemis.Ennemis;
-import objets.ennemis.particuliers.Projet;
+import objets.ennemis.particuliers.boss.EnnemiBossMine;
+//import objets.ennemis.particuliers.Projet;
 import objets.ennemis.particuliers.nv1.Cylon;
 import objets.ennemis.particuliers.nv1.DeBase;
 import objets.ennemis.particuliers.nv1.Insecte;
@@ -72,7 +72,7 @@ public class EndlessMode implements Screen {
 	private static final float HAUTEUR_FLECHE = CSG.HAUTEUR_ECRAN/30, DEMI_HAUTEUR_FLECHE = HAUTEUR_FLECHE/2, LARGEUR_FLECHE = HAUTEUR_FLECHE, DEMI_LARGEUR_FLECHE = LARGEUR_FLECHE/2;
 
 	DecimalFormat df = new DecimalFormat();
-	public static OrthographicCamera cam = new OrthographicCamera(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);;
+	public static OrthographicCamera cam = new OrthographicCamera(CSG.LARGEUR_ECRAN, CSG.HAUTEUR_ECRAN);
 	public static int modeDifficulte, nbBonusStop = 0, nbBombes = 0;
 	public static float color = 0, colorRapide, intensiteBloomOrigin = 1, camXmoinsDemiEcran, delta = 0, tempsBonusStop = 0, delta15 = 0;
 	public static boolean sensCouleurGlobale = false, sensCouleurRapide = false, effetBloom = false, xpAjout = false;
@@ -84,10 +84,10 @@ public class EndlessMode implements Screen {
 	private static int menuY = 0;
 	private int conseil = 0;
 	public static boolean konamiCode = false;
-	Client c = new Client("beyondpixels.no-ip.biz");
+//	Client c = new Client("beyondpixels.no-ip.biz");
 //	Client c = new Client("127.0.0.1");
-	private float fps = 0, minFPS = 200, maxFPS = 0, currentFPS = 0;
-	private int frameCounter = 0;
+//	private float fps = 0, minFPS = 200, maxFPS = 0, currentFPS = 0;
+//	private int frameCounter = 0;
 
 	public EndlessMode(Game game, SpriteBatch batch, int level) {
 		super();
@@ -102,7 +102,7 @@ public class EndlessMode implements Screen {
 	}
 
 	private void init() {
-		fps = 0;
+//		fps = 0;
 		ship.reInit(); // Pour remettre les positions mais garder shield et adds
 		if (Gdx.app.getVersion() != 0) CSG.myRequestHandler.showAds(false); // desactiver adds. A VIRER POUR LA RELEASE
 		// ** DEPLACEMENT ZONE DE JEU
@@ -139,13 +139,13 @@ public class EndlessMode implements Screen {
 
 	}
 
-	Projet projet = new Projet();
+//	Projet projet = new Projet();
 	@Override
 	public void render(float delta) {
 		
-		if (Gdx.input.isKeyPressed(Keys.A)) {
-			Ennemis.LISTE.add(DeBase.pool.obtain());
-		}
+//		if (Gdx.input.isKeyPressed(Keys.A)) {
+//			Ennemis.LISTE.add(DeBase.pool.obtain());
+//		}
 //		if (Gdx.input.isKeyPressed(Keys.Z)) 	Ennemis.LISTE.add(Insecte.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.E))		Ennemis.LISTE.add(Kinder.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.R))		Ennemis.LISTE.add(Laser.pool.obtain());
@@ -154,13 +154,14 @@ public class EndlessMode implements Screen {
 //		if (Gdx.input.isKeyPressed(Keys.U))		Ennemis.LISTE.add(QuiTir2.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.I))		Ennemis.LISTE.add(QuiTourne.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.O))		Ennemis.LISTE.add(Toupie.pool.obtain());
-		if (Gdx.input.isKeyPressed(Keys.P))		Ennemis.LISTE.add(ZigZag.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.P))		Ennemis.LISTE.add(ZigZag.pool.obtain());
 //		
 //		if (Gdx.input.isKeyPressed(Keys.Q))		Ennemis.LISTE.add(BouleTirCote.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.S))		Ennemis.LISTE.add(BouleTirCoteRotation.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.D))		XP.pool.obtain().init(400, 400, 30);
 //		if (Gdx.input.isKeyPressed(Keys.F))		Ennemis.LISTE.add(EnnemiQuiTourneNv3.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.G))		Ennemis.LISTE.add(Cylon.pool.obtain());
+//		if (Gdx.input.justTouched())		Ennemis.LISTE.add(EnnemiBossMine.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.H))
 //			try {
 //				sendInfos();
@@ -218,13 +219,14 @@ public class EndlessMode implements Screen {
 		batch.end();
 		if (CSG.profil.bloom) bloom.render();
 		maintenant += EndlessMode.delta;
-		frameCounter++;
-		currentFPS = Gdx.graphics.getFramesPerSecond();
-		fps += currentFPS;
-		if (currentFPS > maxFPS)
-			maxFPS = currentFPS;
-		if (currentFPS < minFPS)
-			minFPS = currentFPS;
+		
+//		frameCounter++;
+//		currentFPS = Gdx.graphics.getFramesPerSecond();
+//		fps += currentFPS;
+//		if (currentFPS > maxFPS)
+//			maxFPS = currentFPS;
+//		if (currentFPS < minFPS)
+//			minFPS = currentFPS;
 //		Gdx.app.log(String.valueOf(frameCounter), String.valueOf(fps/frameCounter));
 	}
 
@@ -289,18 +291,18 @@ public class EndlessMode implements Screen {
 //			Thread t = new Thread(new Runnable() {
 //				@Override
 //				public void run() {
-					try {
-						sendInfos();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+//					try {
+//						sendInfos();
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
 //				}
 //			});
 //			t.start();
-			fps = 0;
-			frameCounter = 0;
-			minFPS = 60;
-			maxFPS = 0;
+//			fps = 0;
+//			frameCounter = 0;
+//			minFPS = 60;
+//			maxFPS = 0;
 		} 
 		
 		if (score < 3000) {
@@ -325,44 +327,44 @@ public class EndlessMode implements Screen {
 	}
 
 	private void sendInfos() throws Exception {
-		final StringBuilder sb = new StringBuilder(1550);
-		sb.append("_score:").append(score).append("_").
-		append("time:").append(maintenant).append("_").
-		append("bloomIntensity:").append(CSG.profil.intensiteBloom).append("_").
-		append("niveau:").append(modeDifficulte).append("_").
-		append("version:").append(CSG.profil.VERSION).append("_").
-		append("averageFPS:").append(fps/frameCounter).append("_").
-		append("minFPS:").append(minFPS).append("_").
-		append("maxFPS:").append(maxFPS).append("_").
-		append("date:").append(Calendar.getInstance().getTime().toString()).append("_").
-		append("control:").append(CSG.profil.getNomControle()).append("_").
-		
-		append("androidVersion:").append(Gdx.app.getVersion()).append("_").
-		append("modele:").append(CSG.getGlyph().getDeviceName()).append("_").
-		append("cpu:").append(CSG.getGlyph().readCPUinfo()).append("_").
-		append("gpu renderer:").append(gl.glGetString(GL20.GL_RENDERER)).append("_").
-		append("gpu vendor:").append(gl.glGetString(GL20.GL_VENDOR)).append("_").
-		append("largeur:").append(CSG.LARGEUR_ECRAN).append("_").
-		append("hauteur:").append(CSG.HAUTEUR_ECRAN).append("_").
-		append("ratio:").append((float)CSG.HAUTEUR_ECRAN / (float)CSG.LARGEUR_ECRAN).append("_").
-		append("ppi:").append(Gdx.graphics.getDensity() * 160).append("_").
-		append("arme:").append(CSG.profil.getArmeSelectionnee().getLabel()).append("_").
-		append("arme niveau-balayage:").append(CSG.profil.NvArmeBalayage).append("_").
-		append("arme niveau-de-base:").append(CSG.profil.NvArmeDeBase).append("_").
-		append("arme niveau-hantee:").append(CSG.profil.NvArmeHantee).append("_").
-		append("arme niveau-trois:").append(CSG.profil.NvArmeTrois).append("_").
-		append("musique:").append("Outside Norm").append("_").
-		
-		append("volume musique:").append(CSG.profil.volumeMusique).append("_").
-		append("volume bruitage:").append(CSG.profil.volumeBruitages).append("_").
-		append("volume arme:").append(CSG.profil.volumeArme).append("_").
-		append("jeu:").append("ESG_");
-		Iterator it = Ennemis.ennemisTues.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			sb.append(pair.getKey()).append(":").append(pair.getValue()).append("_");
-		}
-		c.send(sb.toString());
+//		final StringBuilder sb = new StringBuilder(1550);
+//		sb.append("_score:").append(score).append("_").
+//		append("time:").append(maintenant).append("_").
+//		append("bloomIntensity:").append(CSG.profil.intensiteBloom).append("_").
+//		append("niveau:").append(modeDifficulte).append("_").
+//		append("version:").append(CSG.profil.VERSION).append("_").
+//		append("averageFPS:").append(fps/frameCounter).append("_").
+//		append("minFPS:").append(minFPS).append("_").
+//		append("maxFPS:").append(maxFPS).append("_").
+//		append("date:").append(Calendar.getInstance().getTime().toString()).append("_").
+//		append("control:").append(CSG.profil.getNomControle()).append("_").
+//		
+//		append("androidVersion:").append(Gdx.app.getVersion()).append("_").
+//		append("modele:").append(CSG.getGlyph().getDeviceName()).append("_").
+//		append("cpu:").append(CSG.getGlyph().readCPUinfo()).append("_").
+//		append("gpu renderer:").append(gl.glGetString(GL20.GL_RENDERER)).append("_").
+//		append("gpu vendor:").append(gl.glGetString(GL20.GL_VENDOR)).append("_").
+//		append("largeur:").append(CSG.LARGEUR_ECRAN).append("_").
+//		append("hauteur:").append(CSG.HAUTEUR_ECRAN).append("_").
+//		append("ratio:").append((float)CSG.HAUTEUR_ECRAN / (float)CSG.LARGEUR_ECRAN).append("_").
+//		append("ppi:").append(Gdx.graphics.getDensity() * 160).append("_").
+//		append("arme:").append(CSG.profil.getArmeSelectionnee().getLabel()).append("_").
+//		append("arme niveau-balayage:").append(CSG.profil.NvArmeBalayage).append("_").
+//		append("arme niveau-de-base:").append(CSG.profil.NvArmeDeBase).append("_").
+//		append("arme niveau-hantee:").append(CSG.profil.NvArmeHantee).append("_").
+//		append("arme niveau-trois:").append(CSG.profil.NvArmeTrois).append("_").
+//		append("musique:").append("Outside Norm").append("_").
+//		
+//		append("volume musique:").append(CSG.profil.volumeMusique).append("_").
+//		append("volume bruitage:").append(CSG.profil.volumeBruitages).append("_").
+//		append("volume arme:").append(CSG.profil.volumeArme).append("_").
+//		append("jeu:").append("ESG_");
+//		Iterator it = Ennemis.ennemisTues.entrySet().iterator();
+//		while (it.hasNext()) {
+//			Map.Entry pair = (Map.Entry) it.next();
+//			sb.append(pair.getKey()).append(":").append(pair.getValue()).append("_");
+//		}
+//		c.send(sb.toString());
 	}
 
 	private float prevDelta;

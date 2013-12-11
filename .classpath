@@ -11,11 +11,9 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="libs/gdx.jar" sourcepath="libs/gdx-sources.jar"/>
 	<classpathentry kind="lib" path="libs"/>
 	<classpathentry exported="true" kind="lib" path="/CheapestShootingGame-android/assets/bloom.jar"/>
-	<classpathentry kind="lib" path="libs/Swarm.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="libs/mockito-all-1.9.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/gdx.jar" sourcepath="libs/gdx-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -2,6 +2,7 @@ package menu;
 
 import objets.armes.Armes;
 import objets.joueur.VaisseauJoueur;
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Physique;
 import jeu.Stats;

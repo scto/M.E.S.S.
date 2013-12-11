@@ -1,9 +1,9 @@
 package objets.armes.joueur;
 
 import objets.armes.Armes;
+import jeu.CSG;
 import jeu.Physique;
 import jeu.Stats;
-import menu.CSG;
 import assets.AssetMan;
 import assets.particules.Particules;
 

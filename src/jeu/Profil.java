@@ -1,6 +1,5 @@
 package jeu;
 
-import menu.CSG;
 import objets.armes.joueur.ArmeAdd;
 import objets.armes.joueur.ArmeHantee;
 import objets.armes.joueur.ArmesBalayage;
@@ -100,6 +99,25 @@ public class Profil implements Serializable{
 		particules = false;
 		intensiteBloom = json.readValue(STR_INTENSITE_BLOOM, Float.class, jsonData);
 	}
+//	@Override
+//	public void read(Json json, JsonValue jsonData) {
+//		premiereFois = false;
+//		xpDispo = json.readValue(strXP, Integer.class, jsonData);
+//		cadenceAdd = json.readValue(STR_CADENCE_ADD, Integer.class, jsonData);
+//		NvArmeTrois = json.readValue(STR_ARME_TROIS_NV, Integer.class, jsonData);
+//		NvArmeHantee = json.readValue(STR_ARME_HANTEE_NV, Integer.class, jsonData);
+//		NvArmeDeBase = json.readValue(STR_ARME_DE_BASE_NV, Integer.class, jsonData);
+//		NvArmeBalayage = json.readValue(STR_ARME_BALAYAGE_NV, Integer.class, jsonData);
+//		armeSelectionnee = json.readValue(STR_ARME_SELECT, String.class, jsonData);
+//		volumeArme = json.readValue(STR_VOLUME_ARME, Float.class, jsonData);
+//		volumeBruitages = json.readValue(STR_VOLUME_BRUITAGES, Float.class, jsonData);
+//		volumeMusique = json.readValue(STR_VOLUME_MUSIQUE, Float.class, jsonData);
+//		champXp = "XP : " + xpDispo;
+//		typeControle = json.readValue(STR_TYPE_CONTROLE, Integer.class, jsonData);
+//		bloom = json.readValue(STR_BLOOM, Boolean.class, jsonData);
+//		particules = false;
+//		intensiteBloom = json.readValue(STR_INTENSITE_BLOOM, Float.class, jsonData);
+//	}
 
 	/**
 	 * decremente l'xp disponible. Attention on doit verifier avant si on peut faire le up
@@ -258,4 +276,5 @@ public class Profil implements Serializable{
 			volumeMusique -= STEP_VOL;
 		CSG.profilManager.persist();
 	}
+
 }

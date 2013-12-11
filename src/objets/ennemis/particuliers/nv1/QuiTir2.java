@@ -5,8 +5,8 @@ import objets.armes.ennemi.ArmeFusee;
 import objets.armes.typeTir.Tireur;
 import objets.armes.typeTir.Tirs;
 import objets.ennemis.CoutsEnnemis;
+import jeu.CSG;
 import jeu.Stats;
-import menu.CSG;
 import assets.animation.AnimationQuiTir;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

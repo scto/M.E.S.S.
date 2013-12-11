@@ -1,6 +1,9 @@
 package menu;
 
+import menu.ui.Bouton;
+import jeu.CSG;
 import jeu.EndlessMode;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;

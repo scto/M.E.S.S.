@@ -1,6 +1,6 @@
 package objets.armes.joueur;
+import jeu.CSG;
 import objets.joueur.VaisseauJoueur;
-import menu.CSG;
 import assets.SoundMan;
 
 import com.badlogic.gdx.Gdx;

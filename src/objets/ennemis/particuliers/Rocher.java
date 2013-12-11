@@ -1,8 +1,8 @@
 package objets.ennemis.particuliers;
 
 import objets.ennemis.Ennemis;
+import jeu.CSG;
 import jeu.EndlessMode;
-import menu.CSG;
 import assets.AssetMan;
 import assets.SoundMan;
 

@@ -1,7 +1,7 @@
 package objets.armes.joueur;
 
+import jeu.CSG;
 import jeu.Stats;
-import menu.CSG;
 import assets.AssetMan;
 import assets.particules.Particules;
 

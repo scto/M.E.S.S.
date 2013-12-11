@@ -1,5 +1,6 @@
 package assets;
 
+import jeu.CSG;
 import objets.armes.joueur.ArmeHantee;
 import objets.armes.joueur.ArmesBalayage;
 import objets.armes.joueur.ArmesDeBase;
@@ -37,6 +38,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.NumberUtils;
 
@@ -54,9 +56,6 @@ public class AssetMan {
 		man.clear();
 		
 		man.load("textures.atlas", TextureAtlas.class);
-//		man.setLoader(ParticleEffect.class, new ParticleEffectManager(new InternalFileHandleResolver()));
-//		man.load("explosiongros.p", ParticleEffect.class);
-//		man.load("explosionportenef.p", ParticleEffect.class);
 		
 		man.load("sons/162792__timgormly__8-bit-explosion1.wav", Sound.class);
 		man.load("sons/explosionpetittetechercheuse.wav", Sound.class);
@@ -170,7 +169,6 @@ public class AssetMan {
 		atlas = null;
 		load();
 		while (!fini()){
-			System.out.println("reload");
 		}
 		loadPartie2(dimension);
 	}

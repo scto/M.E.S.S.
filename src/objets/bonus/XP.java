@@ -1,10 +1,10 @@
 package objets.bonus;
 
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
-
-import menu.CSG;
 import assets.AssetMan;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;

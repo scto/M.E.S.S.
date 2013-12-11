@@ -1,9 +1,9 @@
 package assets.particules;
 
 import objets.ennemis.Ennemis;
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
-import menu.CSG;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

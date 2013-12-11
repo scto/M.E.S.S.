@@ -1,6 +1,6 @@
 package assets.animation;
 
-import menu.CSG;
+import jeu.CSG;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;

@@ -1,10 +1,9 @@
 package objets;
 
+import jeu.CSG;
 import objets.ennemis.Ennemis;
 
 import com.badlogic.gdx.math.Vector2;
-
-import menu.CSG;
 
 public class Positionnement {
 	

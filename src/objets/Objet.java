@@ -1,6 +1,6 @@
 package objets;
 
-import menu.CSG;
+import jeu.CSG;
 
 import com.badlogic.gdx.math.Vector2;
 public abstract class Objet {

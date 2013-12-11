@@ -1,12 +1,11 @@
 package objets.armes.joueur;
 
+import jeu.CSG;
 import objets.joueur.VaisseauJoueur;
 import assets.SoundMan;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-
-import menu.CSG;
 
 public class ManagerArmeHantee extends ManagerArme {
 	

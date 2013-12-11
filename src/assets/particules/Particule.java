@@ -2,8 +2,8 @@ package assets.particules;
 
 import java.util.Random;
 
+import jeu.CSG;
 import jeu.EndlessMode;
-import menu.CSG;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
