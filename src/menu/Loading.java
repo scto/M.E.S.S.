@@ -1,8 +1,6 @@
 package menu;
 
 import jeu.CSG;
-import assets.particules.Particules;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

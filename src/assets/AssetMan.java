@@ -1,6 +1,5 @@
 package assets;
 
-import jeu.CSG;
 import objets.armes.joueur.ArmeHantee;
 import objets.armes.joueur.ArmesBalayage;
 import objets.armes.joueur.ArmesDeBase;
@@ -38,7 +37,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.NumberUtils;
 

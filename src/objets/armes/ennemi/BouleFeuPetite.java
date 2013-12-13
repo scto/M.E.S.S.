@@ -1,12 +1,6 @@
 package objets.armes.ennemi;
 
 import jeu.CSG;
-import jeu.EndlessMode;
-import jeu.Stats;
-import assets.AssetMan;
-import assets.animation.AnimationTirTrois;
-
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;

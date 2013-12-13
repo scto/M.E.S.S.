@@ -4,7 +4,6 @@ import menu.ui.Bouton;
 import objets.armes.joueur.ArmeAdd;
 import jeu.CSG;
 import jeu.EndlessMode;
-import assets.AssetMan;
 import assets.SoundMan;
 import assets.particules.Particules;
 

@@ -1,12 +1,9 @@
 package objets.ennemis.particuliers.boss;
 
 import objets.Positionnement;
-import objets.armes.ennemi.ArmeBouleEnergie;
 import objets.armes.ennemi.ArmeEnnemi;
-import objets.armes.ennemi.ArmeKinder;
 import objets.armes.ennemi.BouleFeu;
 import objets.armes.ennemi.BouleFeuPetite;
-import objets.armes.typeTir.Tireur;
 import objets.armes.typeTir.TireurAngle;
 import objets.armes.typeTir.Tirs;
 import objets.ennemis.Ennemis;

@@ -4,13 +4,14 @@ import java.util.Random;
 
 import jeu.CSG;
 import jeu.Physique;
+import menu.OnChange;
 import menu.OnClick;
 import assets.particules.Particules;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class UiBean {
+public class UiComponent {
 
 	private float x, y, width, height;
 	private String text;
@@ -19,6 +20,7 @@ public class UiBean {
 	private Random rand = new Random();
 	private float yText = y;
 	private OnClick click = null;
+	private OnChange onChange = null;
 	private boolean selected = false;
 	private int number = 0;
 	private int alreadyEnteredNumber = 0;
@@ -34,10 +36,12 @@ public class UiBean {
 		}
 	}
 
-	public UiBean text(String text) {
+	public UiComponent text(String text) {
 		height = CSG.menuFont.getBounds(text).height;
 		width = CSG.menuFont.getBounds(text).width;
 		this.text = text;
+		if (onChange != null)
+			onChange.change();
 		return this;
 	}
 
@@ -94,7 +98,6 @@ public class UiBean {
 	}
 
 	public void numberPressed(int i) {
-		System.out.println(this + " " + selected);
 		if (selected && inactive < System.currentTimeMillis()) {
 			switch (alreadyEnteredNumber++) {
 			case 1:
@@ -108,7 +111,6 @@ public class UiBean {
 				break;
 			}
 			inactive = System.currentTimeMillis() + 200;
-			System.out.println(number + " " + numericButton + " " + this);
 			if (numericButton) {
 				float f = height;
 				text(String.valueOf(number));
@@ -149,28 +151,35 @@ public class UiBean {
 		return text;
 	}
 
-	public UiBean height(float height) {
+	public UiComponent height(float height) {
 		this.height = height;
 		return this;
 	}
 
-	public UiBean width(float width) {
+	public UiComponent width(float width) {
 		this.width = width;
 		return this;
 	}
 
-	public UiBean x(float x) {
+	public UiComponent x(float x) {
 		this.x = x;
 		return this;
 	}
 
-	public UiBean y(float y) {
+	public UiComponent y(float y) {
 		this.y = y;
 		return this;
 	}
 
 	public void numericButton(boolean b) {
-		System.out.println("on met : " + b + " dans " + this);
 		numericButton = b;
+	}
+
+	public void onChange(OnChange onChange) {
+		this.onChange = onChange;
+	}
+
+	public boolean isNumeric() {
+		return numericButton;
 	}
 }

@@ -17,7 +17,6 @@
 package com.moribitotech.mtx;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import menu.Credits;
 import menu.Menu;
 import menu.OnClick;
@@ -27,10 +26,8 @@ import bloom.Bloom;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;

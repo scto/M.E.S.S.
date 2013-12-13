@@ -79,19 +79,21 @@ public class CSG extends Game implements ApplicationListener {
 	public static void initFonts(String normalFont, String petiteFont) {
 		System.out.println("CSG.initFonts()");
 		menuFont = new BitmapFont(Gdx.files.internal(normalFont), false);
-		float x = LARGEUR_ECRAN / 250;
-		float y = HAUTEUR_ECRAN / 500;
-		if (x < 1)	x = 1.0f;
-		if (y < 1)	y = 1.0f;
-		menuFont.setScale(x, y);
+		float dimension = CSG.HAUTEUR_ECRAN + CSG.LARGEUR_ECRAN;
+//		if (x < 1)	x = 1.0f;
+//		if (y < 1)	y = 1.0f;
+		dimension = dimension / 500;
+		if (dimension < 1f)
+			dimension = 1f;
+		menuFont.setScale(dimension);
 		menuFont.setColor(.32f, .52f, 0.99f, 1);
+		
 		menuFontPetite = new BitmapFont();
-		x = LARGEUR_ECRAN / 440;
-		y = HAUTEUR_ECRAN / 480;
-		if (x < 1)	x = 1.0f;
-		if (y < 1)	y = 1.0f;
+		dimension /= 2;
+		if (dimension < 1f)
+			dimension = 1f;
 		menuFontPetite = new BitmapFont(Gdx.files.internal(petiteFont), false);
-		menuFontPetite.setScale(x, y);
+		menuFontPetite.setScale(dimension);
 		menuFontPetite.setColor(.32f, .52f, 0.99f, 1);
 	}
 

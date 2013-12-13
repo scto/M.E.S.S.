@@ -6,7 +6,6 @@ import jeu.Stats;
 import objets.Objet;
 import objets.armes.joueur.ArmeAdd;
 import objets.armes.joueur.ManagerArme;
-import objets.bonus.Bonus;
 import assets.AssetMan;
 import assets.animation.AnimationVaisseau;
 import assets.particules.Particules;

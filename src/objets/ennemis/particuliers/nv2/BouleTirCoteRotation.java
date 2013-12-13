@@ -1,6 +1,5 @@
 package objets.ennemis.particuliers.nv2;
 
-import objets.armes.ennemi.ArmeBouleTir;
 import objets.ennemis.CoutsEnnemis;
 
 import com.badlogic.gdx.math.Vector2;

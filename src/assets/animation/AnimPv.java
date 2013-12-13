@@ -2,7 +2,6 @@ package assets.animation;
 
 import jeu.TriggerUser;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 

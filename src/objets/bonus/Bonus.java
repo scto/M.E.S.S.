@@ -1,10 +1,7 @@
 package objets.bonus;
 
-import objets.joueur.VaisseauJoueur;
 import jeu.Physique;
 import jeu.Stats;
-import assets.AssetMan;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 

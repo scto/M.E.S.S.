@@ -1,6 +1,5 @@
 package assets.particules;
 
-import jeu.EndlessMode;
 import objets.armes.Armes;
 import objets.armes.joueur.ArmeAdd;
 import objets.armes.joueur.ArmeJoueur;

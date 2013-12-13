@@ -14,9 +14,9 @@ public class UI {
 	// pourcentage de la largeur
 	public static final int PORTION_VIGNETTE = 10;
 	public static int facteurParticules = 10;
-	private ArrayList<UiBean> elements = new ArrayList<UiBean>();
+	private ArrayList<UiComponent> elements = new ArrayList<UiComponent>();
 
-	public void add(UiBean element) {
+	public void add(UiComponent element) {
 		elements.add(element);
 	}
 
@@ -24,18 +24,18 @@ public class UI {
 		EndlessMode.delta = Gdx.graphics.getDeltaTime();
 		EndlessMode.delta15 = EndlessMode.delta * 15;
 		Particules.drawUi(batch);
-		for (UiBean e : elements)
+		for (UiComponent e : elements)
 			e.draw(batch);
 	}
 
 	public void majDimensions(int width, int height) {
-		for (UiBean bean : elements) {
+		for (UiComponent bean : elements) {
 			bean.updateDimensions(width, height);
 		}
 	}
 
 	public void numberPressed(int i) {
-		for (UiBean bean : elements)
+		for (UiComponent bean : elements)
 			bean.numberPressed(i);
 	}
 }
