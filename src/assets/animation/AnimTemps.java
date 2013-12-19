@@ -1,5 +1,7 @@
 package assets.animation;
 
+import java.text.DecimalFormat;
+
 import jeu.TriggerUser;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -72,6 +74,8 @@ public class AnimTemps extends Anim {
 		this.step = step;
 		if (this.step < 0)
 			this.step = 0;
+		DecimalFormat twoDForm = new DecimalFormat("#,##");
+		step = Float.valueOf(twoDForm.format(step));
 	}
 
 	public float step() {
@@ -84,5 +88,10 @@ public class AnimTemps extends Anim {
 		if (keyFrames.length >= 0)
 			frameNumber = 0;
 		inc = true;
+	}
+
+	public String stepAsString() {
+		DecimalFormat twoDForm = new DecimalFormat("0.00");
+		return twoDForm.format(step);
 	}
 }

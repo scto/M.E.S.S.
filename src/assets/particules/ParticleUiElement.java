@@ -17,6 +17,7 @@ public class ParticleUiElement {
 	private static final Random rand = new Random();
 	public static Pool<ParticleUiElement> pool = Pools.get(ParticleUiElement.class);
 	private static float deplacement = 0, demiDeplacement = 0;
+	private static final Random r = new Random();
 	
 	public ParticleUiElement() {
 		color = AssetMan.convertARGB(1, rand.nextFloat(), rand.nextFloat(), 1);
@@ -39,7 +40,8 @@ public class ParticleUiElement {
 	}
 
 	public boolean mouvementEtVerif() {
-		deplacement = (largeur - largeur/1.2f);
+		deplacement = (r.nextFloat() - 0.36f) * largeur;
+//		deplacement = (largeur - largeur/1.2f);
 		demiDeplacement = deplacement/2;
 		posX += demiDeplacement;
 		posY += demiDeplacement;

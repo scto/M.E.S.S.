@@ -30,7 +30,6 @@ public class Loading implements Screen {
 			Menu menu = new Menu(game);
 			CSG.log("Set screen sur menu - " + Gdx.graphics.getFramesPerSecond());
 			game.setScreen(menu);
-//			afficherLoading();
 		}
 	}
 

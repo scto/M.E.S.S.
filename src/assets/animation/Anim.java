@@ -12,16 +12,16 @@ public abstract class Anim {
 	protected int mode = Animation.NORMAL;
 	protected int frameNumber;
 	
-	protected int mode() {
+	public int mode() {
 		return mode;
 	}
 	
 	public abstract TextureRegion frame(TriggerUser user);
 
-	public void init(Array<TextureRegion> keyFrames) {
-		this.keyFrames = new TextureRegion[keyFrames.size];
-		for (int i = 0, n = keyFrames.size; i < n; i++)
-			this.keyFrames[i] = keyFrames.get(i);
+	public void init(Array<TextureRegion> textures) {
+		this.keyFrames = new TextureRegion[textures.size];
+		for (int i = 0, n = textures.size; i < n; i++)
+			this.keyFrames[i] = textures.get(i);
 	}
 	
 	public void reset() {
@@ -39,4 +39,5 @@ public abstract class Anim {
 		default:					mode = Animation.NORMAL;			return "NORMAL";
 		}
 	}
+
 }

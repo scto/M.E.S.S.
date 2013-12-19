@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class AnimPv extends Anim {
 	
-	private static Array<Float> palliers = new Array<Float>();
+	private Array<Float> palliers = new Array<Float>();
 	private int currentPallier = 0;
 
 	/**
@@ -40,6 +40,11 @@ public class AnimPv extends Anim {
 	public void reset() {
 		super.reset();
 		currentPallier = 0;
+	}
+
+	public void addPallier(float pallier, TriggerUser user) {
+		palliers.add(user.pvMax() * pallier);
+		
 	}
 
 }

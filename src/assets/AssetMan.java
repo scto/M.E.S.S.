@@ -47,7 +47,7 @@ public class AssetMan {
 	private static AssetManager man = new AssetManager();
 	public static TextureRegion[] animationVaisseau;
 //	public static TextureRegion panneau, bouton;
-	public TextureAtlas atlas;
+	private TextureAtlas atlas;
 	public static float WHITE = convertARGB(1, 1, 1, 1);
 	
 	public void load() {
@@ -157,8 +157,9 @@ public class AssetMan {
 	}
 
 	public TextureAtlas getAtlas() {
-		if (atlas == null)
+		if (atlas == null) {
 			atlas = man.get("textures.atlas", TextureAtlas.class);
+		}
 		return atlas;
 	}
 

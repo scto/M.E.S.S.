@@ -25,6 +25,7 @@ public class CSG extends Game implements ApplicationListener {
 	public static int DEMI_CAMERA, LARGEUR_ZONE_MOINS_LARGEUR_BORD, LARGEUR_ZONE_MOINS_LARGEUR_BORD_MUL2, HAUTEUR_ECRAN, DIXIEME_LARGEUR, DIXIEME_HAUTEUR;
 	public static int CINQUIEME_ECRAN, DEUX_CINQUIEME_ECRAN, TROIS_CINQUIEME_ECRAN, QUATRE_CINQUIEME_ECRAN;
 	public static int CINQUIEME_ZONE, DEUX_CINQUIEME_ZONE, TROIS_CINQUIEME_ZONE, QUATRE_CINQUIEME_ZONE;
+	public static float RATIO;
 	// ********  P A L I E R S  P O U R   E N N E M I S  ***********
 	public static int HAUTEUR_ECRAN_PALLIER_1, HAUTEUR_ECRAN_PALLIER_2, HAUTEUR_ECRAN_PALLIER_3 = 0, HAUTEUR_ECRAN_PALLIER_7;
 	// ********  C O N T R O L E S  ********
@@ -60,15 +61,11 @@ public class CSG extends Game implements ApplicationListener {
 			CSG.myRequestHandler.showAds(true);
 		dimensions();
 		// ***********************  P R O F I L  ****************************
-		log("Chargement profil");
 		profilManager = new ProfilManager();
 		profil = profilManager.retrieveProfile();
-		log("Chargement profil terminé");
-		initFonts("default.fnt", "petite.fnt");
+		initFonts();
 		// ***** Une fois que toutes les variables globales sont chargees on lance le loading pour charger les assets
-		log("Creation loading");
 		Loading loading = new Loading(this);
-		log("Set screen loading");
 		setScreen(loading);
 	}
 
@@ -76,13 +73,12 @@ public class CSG extends Game implements ApplicationListener {
 		Gdx.app.log("ESGLOG", s);
 	}
 
-	public static void initFonts(String normalFont, String petiteFont) {
-		System.out.println("CSG.initFonts()");
-		menuFont = new BitmapFont(Gdx.files.internal(normalFont), false);
+	public static void initFonts() {
+		menuFont = new BitmapFont(Gdx.files.internal("default.fnt"), false);
 		float dimension = CSG.HAUTEUR_ECRAN + CSG.LARGEUR_ECRAN;
 //		if (x < 1)	x = 1.0f;
 //		if (y < 1)	y = 1.0f;
-		dimension = dimension / 500;
+		dimension = dimension / 560;
 		if (dimension < 1f)
 			dimension = 1f;
 		menuFont.setScale(dimension);
@@ -92,7 +88,7 @@ public class CSG extends Game implements ApplicationListener {
 		dimension /= 2;
 		if (dimension < 1f)
 			dimension = 1f;
-		menuFontPetite = new BitmapFont(Gdx.files.internal(petiteFont), false);
+		menuFontPetite = new BitmapFont(Gdx.files.internal("petite.fnt"), false);
 		menuFontPetite.setScale(dimension);
 		menuFontPetite.setColor(.32f, .52f, 0.99f, 1);
 	}
@@ -102,6 +98,7 @@ public class CSG extends Game implements ApplicationListener {
 		DEMI_HAUTEUR_ECRAN = Gdx.graphics.getHeight() / 2;
 		LARGEUR_ECRAN = Gdx.graphics.getWidth();
 		HAUTEUR_ECRAN = Gdx.graphics.getHeight();
+		RATIO = LARGEUR_ECRAN / HAUTEUR_ECRAN;
 		LARGEUR_ZONE_JEU = (int) (LARGEUR_ECRAN * 1.5f);
 		LARGEUR_BORD = LARGEUR_ECRAN / 3;
 		TIER_LARGEUR_ECRAN = LARGEUR_ECRAN / 3;

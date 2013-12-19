@@ -2,6 +2,8 @@ package menu.ui;
 
 import java.util.ArrayList;
 
+import assets.particules.Particules;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -9,6 +11,7 @@ public class TopBar extends UiComponent {
 
 	private ArrayList<UiComponent> elements = new ArrayList<UiComponent>();
 	private ArrayList<LigneParticuleGenerator> generators = new ArrayList<LigneParticuleGenerator>();
+	private int decalage = 0, max = 40;
 	
 	public TopBar() {
 		for (int i = 0; i < UI.facteurParticules; i++) {
@@ -24,12 +27,18 @@ public class TopBar extends UiComponent {
 	public void draw(SpriteBatch batch) {
 		for (UiComponent e : elements)
 			e.draw(batch);
-		for (LigneParticuleGenerator generator : generators)
-			generator.effet(y());
+//		for (LigneParticuleGenerator generator : generators)
+//			generator.effet(y());
+		decalage++;
+		for (int i = decalage; i < width(); i = i + max) 
+			Particules.ajoutUiElement(i, y(), false);
+		if (decalage > max)
+			decalage = 0;
 	}
 
 	@Override
 	public void updateDimensions(int widthScreen, int heightScreen) {
+		max = widthScreen / 10;
 		width((float)widthScreen);
 		height(heightScreen / UI.TOP_BAR);
 		y(heightScreen - height());
@@ -43,6 +52,9 @@ public class TopBar extends UiComponent {
 		}
 		for (UiComponent e : elements)
 			e.updateDimensions(widthScreen, heightScreen);
+		for (LigneParticuleGenerator generator : generators) {
+			generator.majDimensions(widthScreen);
+		}
 	}
 	
 	@Override

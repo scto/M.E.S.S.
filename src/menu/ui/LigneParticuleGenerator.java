@@ -8,7 +8,7 @@ public class LigneParticuleGenerator {
 
 	private boolean effetVersDroite = true;
 	private float x;
-	private final float min, max;
+	private float min, max;
 	private final boolean horizontal;
 	
 	public LigneParticuleGenerator(int x, int min, int max, boolean horizontal) {
@@ -37,5 +37,9 @@ public class LigneParticuleGenerator {
 		if (x < min)
 			effetVersDroite = true;
 		Particules.ajoutUiElement(x, y, false);
+	}
+
+	public void majDimensions(int widthScreen) {
+		this.max = widthScreen;
 	} 
 }

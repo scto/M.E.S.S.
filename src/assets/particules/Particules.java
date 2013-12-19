@@ -212,8 +212,8 @@ public class Particules {
 		ParticleUiElement p2 = ParticleUiElement.pool.obtain();
 		p2.init(x, y, selected);
 		uiElement.add(p2);
-		ParticleUiElement p3 = ParticleUiElement.pool.obtain();
-		p3.init(x, y, selected);
-		uiElement.add(p3);
+//		ParticleUiElement p3 = ParticleUiElement.pool.obtain();
+//		p3.init(x, y, selected);
+//		uiElement.add(p3);
 	}
 }

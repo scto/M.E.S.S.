@@ -6,4 +6,5 @@ public interface TriggerUser {
 	public void temps(float f);
 	public float pv();
 	public float pvMax();
+	public float getCentreX();
 }
