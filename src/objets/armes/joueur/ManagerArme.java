@@ -25,4 +25,6 @@ public abstract class ManagerArme {
 		return new ManagerArmeTrois();
 	}
 
+	public abstract int nv();
+
 }

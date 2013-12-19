@@ -47,10 +47,6 @@ public class Stats {
 	public static final float V_ENN_ZIGZAG = 7 * U;
 	public static final float V_ENN_ZIGZAG_NV3 = V_ENN_ZIGZAG * VNV3;
 	
-	// A I L E S    D E P L O Y E E S
-	public static final float V_ENN_AILES_DEPLOYEE = 9 * U;
-	public static final int PV_AILES_DEPLOYEE = 20;
-	
 	// B O U L E    Q U I    S ' A R R E T E
 	public static final float V_ENN_BOULE_QUI_SARRETE = 9 * U;
 	public static final int PV_BOULE_QUI_SARRETE = 30;
@@ -58,8 +54,9 @@ public class Stats {
 	
 	// P O R T E   N E F
 	public static final float V_ENN_PORTE_NEF = 2 * U;
-	public static final int PV_PORTE_NEF = 115;
-	public static final int DEMI_PV_PORTE_NEF = PV_PORTE_NEF/2;
+	public static final int PV_BOSS_SAT = 115;
+	public static final int DEMI_PV_PORTE_NEF = PV_BOSS_SAT/2;
+	public static final int LARGEUR_BOSS_SAT = (int) (U * 8);
 	
 	// Q U I   T O U R N E
 	public static final float V_ENN_QUI_TOURNE = 13 * U;
@@ -94,6 +91,8 @@ public class Stats {
 	public static final int PV_BOSS_QUAD = 430;
 	public static final int DEUXTIERS_PV_ENN_BOSS_QUAD = 280;
 	public static final int PRESQUE_MORT_PV_BOSS_QUAD = 125;
+	public static final int LARGEUR_BOSS_QUAD = (int) (11 * U);
+	public static final int HAUTEUR_BOSS_QUAD = (int) ((float)LARGEUR_BOSS_QUAD * CSG.RATIO * 1.25f);
 	public static final float V_ENN_BOSS_QUAD = 11 * U;
 	
 	// P O R T E   R A I S I N
@@ -119,6 +118,8 @@ public class Stats {
 	public static final int PV_BOSS_MINE = 730;
 	public static final int DEUXTIERS_PV_BOSS_MINE = (PV_BOSS_MINE / 3) * 2;
 	public static final int PRESQUE_MORT_PV_BOSS_MINE = (PV_BOSS_MINE / 3);
+	public static final int LARGEUR_BOOS_MINE = (int) (U * 4);
+	public static final int HAUTEUR_BOOS_MINE = (int) (LARGEUR_BOOS_MINE * LARGEUR_BOOS_MINE * CSG.RATIO * 4);
 	public static final float V_ENN_BOSS_MINE = 5 * U;
 	
 	// L A S E R   
@@ -143,6 +144,11 @@ public class Stats {
 	// O M B R E L L E
 	public static final float V_ENN_OMBRELLE = 26 * U;
 	public static final int PV_OMBRELLE = 250;
+	
+	// A D D   B O S S   S A T
+	public static final float LARGEUR_ADD_BOSS_SAT = U * 2;
+	public static final float V_ADD_BOSS_SAT = 9 * U;
+	public static final int PV_ADD_BOSS_SAT = 20;
 	
 	// ***********************************************************************************
 	// ***********************   A   R   M   E   S   *************************************

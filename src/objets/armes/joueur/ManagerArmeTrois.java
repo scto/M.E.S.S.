@@ -49,5 +49,10 @@ public class ManagerArmeTrois extends ManagerArme {
 	public String getLabel() {
 		return ArmesTrois.LABEL;
 	}
+
+	@Override
+	public int nv() {
+		return CSG.profil.NvArmeTrois;
+	}
 	
 }

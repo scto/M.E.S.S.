@@ -91,4 +91,9 @@ public class ManagerArmeBalayage extends ManagerArme {
 	public String getLabel() {
 		return ArmesBalayage.LABEL;
 	}
+
+	@Override
+	public int nv() {
+		return CSG.profil.NvArmeBalayage;
+	}
 }

@@ -5,8 +5,8 @@ import java.util.HashMap;
 import objets.Objet;
 import objets.armes.joueur.ArmeJoueur;
 import objets.bonus.Bonus;
-import objets.ennemis.particuliers.boss.EnnemiBossQuad;
-import objets.ennemis.particuliers.boss.EnnemiPorteNef;
+import objets.ennemis.particuliers.boss.BossQuad;
+import objets.ennemis.particuliers.boss.BossSat;
 import objets.ennemis.particuliers.nv1.BouleQuiSArrete;
 import objets.ennemis.particuliers.nv1.Cylon;
 import objets.ennemis.particuliers.nv1.DeBase;
@@ -20,6 +20,7 @@ import objets.joueur.VaisseauJoueur;
 import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Physique;
+import jeu.Stats;
 import jeu.Strings;
 import assets.SoundMan;
 import assets.animation.AnimationArmeFusee;
@@ -206,7 +207,7 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable {
 	public static void randomApparition() {
 		double f = Math.random();
 		if (f < 0.1) {
-			LISTE.add(EnnemiPorteNef.pool.obtain());
+			LISTE.add(BossSat.pool.obtain());
 		} else if (f < .2) {
 			LISTE.add(BouleQuiSArrete.pool.obtain());
 		} else if (f < .3) {
@@ -239,7 +240,7 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable {
 	}
 
 	public static void initLevelBoss(int level) {
-		EnnemiBossQuad.setLevel(level);
+		BossQuad.setLevel(level);
 	}
 
 	public Vector2 getPosition() {
@@ -280,6 +281,10 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable {
 
 	public boolean isMort() {
 		return mort;
+	}
+
+	public static int getPvBoss(int pvDeBase) {
+		return pvDeBase + (pvDeBase *  (VaisseauJoueur.arme.nv() / 3) );
 	}
 
 }

@@ -1,9 +1,9 @@
 package objets.ennemis;
 
 import objets.ennemis.particuliers.Rocher;
-import objets.ennemis.particuliers.boss.EnnemiBossMine;
-import objets.ennemis.particuliers.boss.EnnemiBossQuad;
-import objets.ennemis.particuliers.boss.EnnemiPorteNef;
+import objets.ennemis.particuliers.boss.BossMine;
+import objets.ennemis.particuliers.boss.BossQuad;
+import objets.ennemis.particuliers.boss.BossSat;
 import objets.ennemis.particuliers.nv1.Avion;
 import objets.ennemis.particuliers.nv1.BouleQuiSArrete;
 import objets.ennemis.particuliers.nv1.Cylon;
@@ -203,20 +203,20 @@ public class Progression {
 		// D'abord 1 porte nef, puis 2, puis un boss quad puis un mine.
 		switch (nbBoss) {
 		case 0:
-			Ennemis.LISTE.add(EnnemiPorteNef.pool.obtain());		// 1 porte nef
+			Ennemis.LISTE.add(BossSat.pool.obtain());		// 1 porte nef
 			break;
 		case 1:														// 2 portes nefs
-			Ennemis.LISTE.add(EnnemiPorteNef.pool.obtain());
-			EnnemiPorteNef e = EnnemiPorteNef.pool.obtain();			// celui ci plus et plus tard
-			e.position.x += EnnemiPorteNef.LARGEUR;
-			e.position.y += EnnemiPorteNef.DEMI_LARGEUR;
+			Ennemis.LISTE.add(BossSat.pool.obtain());
+			BossSat e = BossSat.pool.obtain();			// celui ci plus et plus tard
+			e.position.x += BossSat.LARGEUR;
+			e.position.y += BossSat.DEMI_LARGEUR;
 			Ennemis.LISTE.add(e);
 			break;
 		case 2:
-			Ennemis.LISTE.add(EnnemiBossQuad.pool.obtain());
+			Ennemis.LISTE.add(BossQuad.pool.obtain());
 			break;
 		default:
-			Ennemis.LISTE.add(EnnemiBossMine.pool.obtain());
+			Ennemis.LISTE.add(BossMine.pool.obtain());
 			break;
 		}
 		etat = EtatProgression.TempsDeGrace;
@@ -231,10 +231,10 @@ public class Progression {
 		// D'abord 2 porte nef,puis un boss quad puis un mine.
 		switch (nbBoss) {
 		case 0:
-			Ennemis.LISTE.add(EnnemiPorteNef.pool.obtain());
-			EnnemiPorteNef e = EnnemiPorteNef.pool.obtain();
-			e.position.x += EnnemiPorteNef.LARGEUR;
-			e.position.y += EnnemiPorteNef.DEMI_LARGEUR;
+			Ennemis.LISTE.add(BossSat.pool.obtain());
+			BossSat e = BossSat.pool.obtain();
+			e.position.x += BossSat.LARGEUR;
+			e.position.y += BossSat.DEMI_LARGEUR;
 			Ennemis.LISTE.add(e);
 
 			Rocher rocher = Rocher.pool.obtain();
@@ -247,12 +247,12 @@ public class Progression {
 			Rocher.pool.obtain();
 			break;
 		case 1:
-			Ennemis.LISTE.add(EnnemiBossQuad.pool.obtain());
+			Ennemis.LISTE.add(BossQuad.pool.obtain());
 			Rocher.pool.obtain();
 			Rocher.pool.obtain();
 			break;
 		default:
-			Ennemis.LISTE.add(EnnemiBossMine.pool.obtain());
+			Ennemis.LISTE.add(BossMine.pool.obtain());
 			break;
 		}
 		etat = EtatProgression.TempsDeGrace;
@@ -264,8 +264,8 @@ public class Progression {
 	private static void popBoss3() {
 		// Fait apparaitre un boss quad puis un mine
 		switch (nbBoss) {
-		case 0:			Ennemis.LISTE.add(EnnemiBossQuad.pool.obtain());			break;
-		default:		Ennemis.LISTE.add(EnnemiBossMine.pool.obtain());			break;
+		case 0:			Ennemis.LISTE.add(BossQuad.pool.obtain());			break;
+		default:		Ennemis.LISTE.add(BossMine.pool.obtain());			break;
 		}
 		etat = EtatProgression.TempsDeGrace;
 		nbAppels = 0;

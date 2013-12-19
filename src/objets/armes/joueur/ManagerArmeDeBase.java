@@ -73,4 +73,9 @@ public class ManagerArmeDeBase extends ManagerArme {
 	public String getLabel() {
 		return ArmesDeBase.LABEL;
 	}
+
+	@Override
+	public int nv() {
+		return CSG.profil.NvArmeDeBase;
+	}
 }

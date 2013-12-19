@@ -24,17 +24,16 @@ public class VaisseauJoueur extends Objet {
 
 	// ** ** dimensions du vaisseau et autre
 	public static final int LARGEUR = (int) (CSG.LARGEUR_ECRAN / 9.5f), DEMI_LARGEUR = LARGEUR/2, LARGEUR_ADD = LARGEUR/3, DEMI_LARGEUR_ADD = LARGEUR_ADD/2;
-	public static final int HAUTEUR = CSG.HAUTEUR_ECRAN / 12, DEMI_HAUTEUR = HAUTEUR / 2, HAUTEUR_MAX_ADD = HAUTEUR + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = DEMI_HAUTEUR / 2;
+	public static final int HAUTEUR = (int) ((LARGEUR * 1.5f) * CSG.RATIO), DEMI_HAUTEUR = HAUTEUR / 2, HAUTEUR_MAX_ADD = HAUTEUR + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = DEMI_HAUTEUR / 2;
 	public static final int DECALAGE_ADD = LARGEUR + DEMI_LARGEUR - LARGEUR_ADD;
 	public static final int DECALAGE_TIR_ADD_X_GAUCHE = -DEMI_LARGEUR - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
 	public static final int DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
 	// ** ** limites dans l'espace
 	private static final int LIMITE_X_GAUCHE = 0 - DEMI_LARGEUR, LIMITE_X_DROITE = CSG.LARGEUR_ZONE_JEU - DEMI_LARGEUR, LIMITE_Y_GAUCHE = 0 - DEMI_HAUTEUR, LIMITE_Y_DROITE = CSG.HAUTEUR_ECRAN - DEMI_HAUTEUR;
 	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.LARGEUR_ECRAN + CSG.HAUTEUR_ECRAN) / 600;
-	// ** ** parametres pouvant etre modifi�s par des bonus
-	@SuppressWarnings("unused")
+	// ** ** parametres pouvant etre modifies par des bonus
 	private static float vitesseMax = 0;
-	private static ManagerArme arme = CSG.profil.getArmeSelectionnee();
+	public static ManagerArme arme = CSG.profil.getArmeSelectionnee();
 //	private static TypesArmes[] typeArmePossible = TypesArmes.LISTE_ARME_JOUEUR;
 	public static float centreX = 0, centreY = 0, prochainTir = 0, dernierTirAdd = 0;
 	public static Vector2 position = new Vector2();

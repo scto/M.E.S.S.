@@ -21,20 +21,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-public class EnnemiBossMine extends Ennemis implements TireurAngle {
+public class BossMine extends Ennemis implements TireurAngle {
 
-	// ** ** caracteristiques gï¿½nï¿½rales
-	public static final int LARGEUR = (int) (CSG.LARGEUR_ECRAN / 9);
-	public static final int DEMI_LARGEUR = LARGEUR / 2;
-	public static final int HAUTEUR = LARGEUR * 4;
-	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
-	public static final Tirs tirPhase1 = new Tirs(.1f);
-	public static final Tirs tirPhase2 = new Tirs(ArmeMine.CADENCETIR);
-	// ** ** caracteristiques variables.
+	private static final int LARGEUR = Stats.LARGEUR_BOOS_MINE, DEMI_LARGEUR = LARGEUR / 2;
+	private static final int HAUTEUR = Stats.HAUTEUR_BOOS_MINE, DEMI_HAUTEUR = HAUTEUR / 2;
+	private static final Tirs tirPhase1 = new Tirs(.1f);
+	private static final Tirs tirPhase2 = new Tirs(ArmeMine.CADENCETIR);
 	private static final Vector2 tmpDirectionTir = new Vector2();
 	private float tpsP2 = 0;
 	private float prochainTir = 3f;
-	public static Pool<EnnemiBossMine> pool = Pools.get(EnnemiBossMine.class);
+	public static Pool<BossMine> pool = Pools.get(BossMine.class);
 	// direction
 	private float dirY = 1;
 	private float angle;
@@ -43,25 +39,12 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle {
 	private static Random r = new Random();
 	private int nbMinesEtDisspersion = 5;
 
-	public EnnemiBossMine() {
+	public BossMine() {
 		angle = 0;
 		position.x = CSG.DEMI_LARGEUR_ZONE_JEU - DEMI_LARGEUR;
 		position.y = CSG.HAUTEUR_ECRAN;
 	}
-
-	@Override
-	protected int getPvMax() {
-		return Stats.PV_BOSS_MINE + (CSG.profil.getCoutUpArme() / 30);
-	}
-
-	protected void free() {
-		pool.free(this);
-	}
-
-	protected Sound getSonExplosion() {
-		return SoundMan.explosionGrosse;
-	}
-
+	
 	public void reset() {
 		angle = 0;
 		versDroite = false;
@@ -73,11 +56,6 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle {
 		position.y = CSG.HAUTEUR_ECRAN;
 		super.reset();
 	}
-
-	/**
-	 * Exactement la mï¿½me que dans la super classe mais ï¿½a ï¿½vite de faire
-	 * des getter largeur hauteur...
-	 */
 
 	public boolean mouvementEtVerif() {
 		if (phase == 1) {
@@ -92,11 +70,6 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle {
 		return super.mouvementEtVerif();
 	}
 
-	/**
-	 * Exactement la mï¿½me que dans la super classe mais ï¿½a ï¿½vite de faire
-	 * des getter largeur hauteur...
-	 */
-
 	public void afficher(SpriteBatch batch) {
 		maintenant += EndlessMode.delta;
 		if (pv > Stats.DEUXTIERS_PV_BOSS_MINE)
@@ -107,8 +80,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle {
 					DEMI_LARGEUR, DEMI_HAUTEUR,
 					// LARGEUR DU RECTANGLE AFFICHE HAUTEUR DU RECTANGLE
 					LARGEUR, HAUTEUR,
-					// scaleX the scale of the rectangle around originX/originY
-					// in x ET Y
+					// scaleX the scale of the rectangle around originX/originY in x ET Y
 					4, 0.25f,
 					// L'ANGLE DE ROTATION
 					angle - 90,
@@ -120,6 +92,7 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle {
 	
 	@Override
 	public boolean checkJoueur() {
+		// pendant deux secondes au début de la phase deux on ne check pas la collision avec le joueur, c'était la façon la plus simple de ne pas s'embeter avec le rectangle de collision qui ne coincide plus avec le sprite qui lui fait une rotation 
 		if (phase == 1 || tpsP2 > 2)
 			return super.checkJoueur();
 		return false;
@@ -157,44 +130,14 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle {
 		return super.touche(force);
 	}
 
-	public int getXp() {
-		return CoutsEnnemis.EnnemiBossMine.COUT;
-	}
-
-	public int getHauteur() {
-		return HAUTEUR;
-	}
-
-	public int getLargeur() {
-		return LARGEUR;
-	}
-
-	public int getDemiHauteur() {
-		return DEMI_HAUTEUR;
-	}
-
-	public int getDemiLargeur() {
-		return DEMI_LARGEUR;
-	}
-
 	public ArmeEnnemi getArme() {
-		if (phase == 1) {
-			return ArmeBossMine.pool.obtain();
-		} else
-			return ArmeMine.pool.obtain();
+		if (phase == 1)		return ArmeBossMine.pool.obtain();
+		else				return ArmeMine.pool.obtain();
 	}
 
 	public void setProchainTir(float f) {
 		SoundMan.playBruitage(SoundMan.tirRocket);
 		prochainTir = f;
-	}
-
-	public float getModifVitesse() {
-		return 1;
-	}
-
-	public float getAngleTir() {
-		return angle;
 	}
 
 	public Vector2 getDirectionTir() {
@@ -215,17 +158,20 @@ public class EnnemiBossMine extends Ennemis implements TireurAngle {
 		return TMP_POS;
 	}
 
-	public void invoquer() {
-		LISTE.add(pool.obtain());
-	}
-
+	public int getXp() {					return CoutsEnnemis.EnnemiBossMine.COUT;	}
+	public int getHauteur() {				return HAUTEUR;	}
+	public int getLargeur() {				return LARGEUR;	}
+	public int getDemiHauteur() {			return DEMI_HAUTEUR;	}
+	public int getDemiLargeur() {			return DEMI_LARGEUR;	}
+	public float getModifVitesse() {		return 1;	}
+	public float getAngleTir() {			return angle;	}
+	public void invoquer() {				LISTE.add(pool.obtain());	}
 	@Override
-	public float getDirectionY() {
-		return -dirY * Stats.V_ENN_KINDER;
-	}
-
+	public float getDirectionY() {			return -dirY * Stats.V_ENN_KINDER;	}
 	@Override
-	protected String getLabel() {
-		return getClass().toString();
-	}
+	protected String getLabel() {			return getClass().toString();	}
+	@Override
+	protected int getPvMax() {				return super.getPvBoss(Stats.PV_BOSS_MINE);	}
+	protected void free() {					pool.free(this);	}
+	protected Sound getSonExplosion() {		return SoundMan.explosionGrosse;	}
 }
