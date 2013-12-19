@@ -12,27 +12,12 @@ import jeu.Stats;
 public class BouleTirCoteRotation extends BouleTirCote {
 
 	public static final float VITESSE_ANGLE = 100f, CADENCETIR = .04f;
-
-	public static Pool<BouleTirCoteRotation> pool = Pools.get(BouleTirCoteRotation.class);
-	@Override
-	protected void free() {		pool.free(this);	}
-	@Override
-	public void invoquer() {	pool.obtain();	}
+	public static final Pool<BouleTirCoteRotation> POOL = Pools.get(BouleTirCoteRotation.class);
 	
 	@Override
 	public boolean mouvementEtVerif() {
 		angle += VITESSE_ANGLE * EndlessMode.delta;
 		return super.mouvementEtVerif();
-	}
-	
-	@Override
-	protected float getVitesse() {
-		return  Stats.V_BOULE_TIR_COTE_PETIT;
-	}
-	
-	@Override
-	public int getXp() {
-		return CoutsEnnemis.BouleTirCoteRotationNv2.COUT;
 	}
 
 	@Override
@@ -41,15 +26,21 @@ public class BouleTirCoteRotation extends BouleTirCote {
 		return TMP_DIR.rotate(angle);
 	}
 	
-	@Override
-	public float getModifVitesse() {
-		return 1.3f;
-	}
-	
 	public void setProchainTir(float f) {
 		if (++numeroTir > 10) numeroTir = 1;
 		prochainTir = f + CADENCETIR * numeroTir;
 	}
+	
+	@Override
+	protected float getVitesse() {		return  Stats.V_BOULE_TIR_COTE_PETIT;	}
+	@Override
+	public int getXp() {		return CoutsEnnemis.BOULE_TIR_COTE_ROTATION_NV2.COUT;	}
+	@Override
+	public float getModifVitesse() {		return 1.3f;	}
 	@Override
 	protected String getLabel() {			return getClass().toString();	}
+	@Override
+	protected void free() {		POOL.free(this);	}
+	@Override
+	public void invoquer() {	POOL.obtain();	}
 }

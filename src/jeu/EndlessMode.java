@@ -141,6 +141,7 @@ public class EndlessMode implements Screen {
 //		if (Gdx.input.isKeyPressed(Keys.F))		Ennemis.LISTE.add(EnnemiQuiTourneNv3.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.G))		Ennemis.LISTE.add(Cylon.pool.obtain());
 //		if (Gdx.input.justTouched())		Ennemis.LISTE.add(EnnemiBossMine.pool.obtain());
+//		if (Gdx.input.isKeyPressed(Keys.F1))	CSG.assetMan.reload(false);
 //		if (Gdx.input.isKeyPressed(Keys.H))
 //			try {
 //				sendInfos();

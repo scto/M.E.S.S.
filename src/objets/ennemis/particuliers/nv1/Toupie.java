@@ -22,33 +22,18 @@ import com.badlogic.gdx.utils.Pools;
 
 public class Toupie extends Ennemis implements TireurBalayage {
 	
-	// ** ** caracteristiques g�n�rales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 13;
-	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR;
-	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
-	public static final float VITESSE = Stats.V_ENN_TOUPIE;
-	public static final float CADENCE_TIR = .33f; 
-	public static final Tirs TIR = new Tirs(CADENCE_TIR);
+	private static final int LARGEUR = Stats.LARGEUR_TOUPIE, DEMI_LARGEUR = LARGEUR/2, HAUTEUR = Stats.HAUTEUR_TOUPIE, DEMI_HAUTEUR = HAUTEUR / 2;
+	private static final float VITESSE = Stats.V_ENN_TOUPIE;
+	private static final float CADENCE_TIR = .33f; 
+	private static final Tirs TIR = new Tirs(CADENCE_TIR);
 	private static int ecartTirs = 10;
 	private Vector2 direction = new Vector2(0,-VITESSE);
-	public static Pool<Toupie> pool = Pools.get(Toupie.class);
-	// ******************************************** T I R ********************************************************************
+	public static final Pool<Toupie> POOL = Pools.get(Toupie.class);
 	public float prochainTir = 0;
-	// ** ** caracteristiques variables.
-	private boolean versDroite = true;
-	private boolean aGaucheEcran;
+	private boolean versDroite = true, aGaucheEcran;
 	private float angleAffichage = 270;
 	private int numeroTir = 0;
 
-	@Override
-	protected void free() {
-		pool.free(this);
-	}
-	
-	/**
-	 * Contructeur sans argument, appel� par le pool
-	 */
 	public Toupie() {
 		super();
 		Positionnement.hautLarge(position, getLargeur(), getHauteur());
@@ -69,19 +54,6 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	}
 
 	@Override
-	protected Sound getSonExplosion() {		return SoundMan.explosiontoupie;	}
-
-	@Override
-	protected TextureRegion getTexture() {
-		return AnimationEnnemiToupie.getTexture(maintenant);
-	}
-	
-	@Override
-	public float getAngle() {
-		return angleAffichage + 90;
-	}
-
-	@Override
 	public boolean mouvementEtVerif() {
 		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_7) { // tout droit
 			if (aGaucheEcran) {
@@ -96,55 +68,6 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	}
 
 	@Override
-	protected void tir() {
-		TIR.tirBalayage(this, mort, maintenant, prochainTir);
-	}
-
-	@Override
-	public int getXp() {
-		return CoutsEnnemis.EnnemiToupie.COUT;
-	}
-
-	@Override
-	public int getHauteur() {
-		return HAUTEUR;
-	}
-
-	@Override
-	public int getLargeur() {
-		return LARGEUR;
-	}
-
-	@Override
-	public int getDemiHauteur() {
-		return DEMI_HAUTEUR;
-	}
-
-	@Override
-	public int getDemiLargeur() {
-		return DEMI_LARGEUR;
-	}
-	
-		@Override
-	public ArmeEnnemi getArme() {			return BouleBleueRapide.pool.obtain();	}
-
-	@Override
-	public void setProchainTir(float f) {
-		prochainTir = f;
-	}
-
-	@Override
-	public float getModifVitesse() {	return 0.010f;	}
-
-	@Override
-	public float getAngleTir() {			return 0;	}
-	
-	@Override
-	public Vector2 getDirectionTir() {
-		return direction;
-	}
-	
-	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
 		TMP_POS.x = (position.x + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR);
 		TMP_POS.y = (position.y + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR);
@@ -152,54 +75,55 @@ public class Toupie extends Ennemis implements TireurBalayage {
 	}
 
 	@Override
-	public int getNumeroTir() {
-		return numeroTir;
-	}
-
+	protected Sound getSonExplosion() {		return SoundMan.explosiontoupie;	}
 	@Override
-	public int getNombreTirsAvantChangement() {
-		return 5;
-	}
-
+	protected TextureRegion getTexture() {		return AnimationEnnemiToupie.getTexture(maintenant);	}
 	@Override
-	public float getEcartTirs() {
-		return ecartTirs;
-	}
-
+	public float getAngle() {		return angleAffichage + 90;	}
 	@Override
-	public void addNombresTirs(int i) {
-		numeroTir += i;
-	}
-
+	protected void tir() {		TIR.tirBalayage(this, mort, maintenant, prochainTir);	}
 	@Override
-	public boolean getSens() {
-		return versDroite;
-	}
-
+	public int getXp() {		return CoutsEnnemis.EnnemiToupie.COUT;	}
 	@Override
-	public void setSens(boolean b) {
-		versDroite = b;
-	}
-	
+	public int getHauteur() {		return HAUTEUR;	}
 	@Override
-	public void invoquer() {
-		LISTE.add(pool.obtain());
-	}
-
+	public int getLargeur() {		return LARGEUR;	}
 	@Override
-	protected int getPvMax() {
-		return Stats.PV_TOUPIE;
-	}
-	
+	public int getDemiHauteur() {		return DEMI_HAUTEUR;	}
 	@Override
-	public float getDirectionY() {
-		return direction.y;
-	}
-	
+	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
 	@Override
-	public float getDirectionX() {
-		return direction.x;
-	}
+	public ArmeEnnemi getArme() {			return BouleBleueRapide.pool.obtain();	}
+	@Override
+	public void setProchainTir(float f) {		prochainTir = f;	}
+	@Override
+	public float getModifVitesse() {	return 0.010f;	}
+	@Override
+	public float getAngleTir() {			return 0;	}
+	@Override
+	public Vector2 getDirectionTir() {		return direction;	}
+	@Override
+	public int getNumeroTir() {		return numeroTir;	}
+	@Override
+	public int getNombreTirsAvantChangement() {		return 5;	}
+	@Override
+	public float getEcartTirs() {		return ecartTirs;	}
+	@Override
+	public void addNombresTirs(int i) {		numeroTir += i;	}
+	@Override
+	public boolean getSens() {		return versDroite;	}
+	@Override
+	public void setSens(boolean b) {		versDroite = b;	}
+	@Override
+	public void invoquer() {		LISTE.add(POOL.obtain());	}
+	@Override
+	protected int getPvMax() {		return Stats.PV_TOUPIE;	}
+	@Override
+	public float getDirectionY() {		return direction.y;	}
+	@Override
+	protected void free() {		POOL.free(this);	}
+	@Override
+	public float getDirectionX() {		return direction.x;	}
 	@Override
 	protected String getLabel() {			return getClass().toString();	}
 }

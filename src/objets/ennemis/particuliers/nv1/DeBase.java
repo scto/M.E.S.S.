@@ -4,7 +4,6 @@ import objets.PatternHorizontalPositionnable;
 import objets.Positionnement;
 import objets.ennemis.CoutsEnnemis;
 import objets.ennemis.Ennemis;
-import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
 import assets.SoundMan;
@@ -22,15 +21,12 @@ import com.badlogic.gdx.utils.Pools;
  */
 public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 15, DEMI_LARGEUR = LARGEUR/2, HAUTEUR = LARGEUR + DEMI_LARGEUR, DEMI_HAUTEUR = HAUTEUR / 2;
+	private static final int LARGEUR = Stats.LARGEUR_DE_BASE, DEMI_LARGEUR = LARGEUR / 2, HAUTEUR = Stats.HAUTEUR_DE_BASE, DEMI_HAUTEUR = HAUTEUR / 2;
 	private static final int MAX_ENNEMIS_LIGNE = 4; 
-	public static Pool<DeBase> pool = Pools.get(DeBase.class);
+	public static final Pool<DeBase> POOL = Pools.get(DeBase.class);
 	private static int nbEnnemisAvant = 0;
 	private static float posXInitiale;
 	
-	/**
-	 * Contructeur sans argument, appel� par le pool
-	 */
 	public DeBase() {
 		super();
 		Positionnement.hautLarge(position, getLargeur(), getHauteur());
@@ -43,16 +39,13 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	}
 	
 	@Override
-	protected float getVitesse() {			return Stats.V_ENN_DE_BASE;	}
-	
-	@Override
 	public void invoquer() {
-		LISTE.add(pool.obtain());
-		if (EndlessMode.modeDifficulte == 2) {
-			LISTE.add(pool.obtain());
-			LISTE.add(pool.obtain());
-			LISTE.add(pool.obtain());
-			LISTE.add(pool.obtain());
+		LISTE.add(POOL.obtain());
+		if (EndlessMode.modeDifficulte > 1) {
+			LISTE.add(POOL.obtain());
+			LISTE.add(POOL.obtain());
+			LISTE.add(POOL.obtain());
+			LISTE.add(POOL.obtain());
 		}
 	}
 
@@ -93,10 +86,12 @@ public class DeBase extends Ennemis implements PatternHorizontalPositionnable {
 	@Override
 	protected TextureRegion getTexture() {	return AnimationEnnemiDeBase.getTexture(maintenant);	}
 	@Override
-	protected void free() { 				pool.free(this);	}
+	protected void free() { 				POOL.free(this);	}
 	@Override
 	public float getDirectionY() {			return -Stats.V_ENN_DE_BASE;	}
 	@Override
 	protected String getLabel() {			return getClass().toString();	}
+	@Override
+	protected float getVitesse() {			return Stats.V_ENN_DE_BASE;	}
 	
 }

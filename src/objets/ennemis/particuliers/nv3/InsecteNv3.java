@@ -1,27 +1,26 @@
 package objets.ennemis.particuliers.nv3;
 
 import objets.ennemis.CoutsEnnemis;
-import objets.ennemis.particuliers.nv1.ZigZag;
+import objets.ennemis.particuliers.nv1.Insecte;
 
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import jeu.Stats;
 
-public class ZigZagNv3 extends ZigZag {
 
-	public static final Pool<ZigZagNv3> POOL = Pools.get(ZigZagNv3.class);
+public class InsecteNv3 extends Insecte {
+	
+	public static final Pool<InsecteNv3> POOL = Pools.get(InsecteNv3.class);
 	
 	@Override
 	protected void free() {			POOL.free(this);	}
 	@Override
 	public void invoquer() {		LISTE.add(POOL.obtain());	}
 	@Override
-	protected int getPvMax() {		return Stats.PV_ZIGZAG_NV3;	}
+	protected int getPvMax() {		return Stats.PV_INSECTE3;	}
 	@Override
-	public int getXp() {			return CoutsEnnemis.ZIG_ZAG3.COUT;	}
-	@Override
-	protected float getVitesse() {	return Stats.V_ENN_ZIGZAG_NV3;	}
+	public int getXp() {			return CoutsEnnemis.INSECTE3.COUT;	}
 	@Override
 	protected String getLabel() {	return getClass().toString();	}
 }

@@ -10,17 +10,12 @@ import jeu.Stats;
 
 public class AvionNv3 extends Avion {
 	
-	public static Pool<AvionNv3> pool = Pools.get(AvionNv3.class);
+	public static final Pool<AvionNv3> POOL = Pools.get(AvionNv3.class);
 	
 	@Override
-	protected void free() {
-		pool.free(this);
-	}
+	protected void free() {		POOL.free(this);	}
 	@Override
-	public void invoquer() {
-		LISTE.add(pool.obtain());
-	}
-	
+	public void invoquer() {		LISTE.add(POOL.obtain());	}
 	@Override
 	protected int getPvMax() {			return Stats.PV_AVION3;	}
 	@Override
@@ -28,7 +23,7 @@ public class AvionNv3 extends Avion {
 	@Override
 	public float getModifVitesse() {	return 1.3f;		}
 	@Override
-	public int getXp() {				return CoutsEnnemis.EnnemiAvionNv3.COUT;	}
+	public int getXp() {				return CoutsEnnemis.AVION3.COUT;	}
 	@Override
 	protected String getLabel() {			return getClass().toString();	}
 	

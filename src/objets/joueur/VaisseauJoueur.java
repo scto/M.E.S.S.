@@ -23,8 +23,8 @@ import com.badlogic.gdx.math.Vector2;
 public class VaisseauJoueur extends Objet {
 
 	// ** ** dimensions du vaisseau et autre
-	public static final int LARGEUR = (int) (CSG.LARGEUR_ECRAN / 9.5f), DEMI_LARGEUR = LARGEUR/2, LARGEUR_ADD = LARGEUR/3, DEMI_LARGEUR_ADD = LARGEUR_ADD/2;
-	public static final int HAUTEUR = (int) ((LARGEUR * 1.5f) * CSG.RATIO), DEMI_HAUTEUR = HAUTEUR / 2, HAUTEUR_MAX_ADD = HAUTEUR + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = DEMI_HAUTEUR / 2;
+	public static final int LARGEUR = (int) Stats.LARGEUR_JOUEUR, DEMI_LARGEUR = LARGEUR/2, LARGEUR_ADD = LARGEUR/3, DEMI_LARGEUR_ADD = LARGEUR_ADD/2;
+	public static final int HAUTEUR = (int) ((float)LARGEUR * 1.5f), DEMI_HAUTEUR = HAUTEUR / 2, HAUTEUR_MAX_ADD = HAUTEUR + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = DEMI_HAUTEUR / 2;
 	public static final int DECALAGE_ADD = LARGEUR + DEMI_LARGEUR - LARGEUR_ADD;
 	public static final int DECALAGE_TIR_ADD_X_GAUCHE = -DEMI_LARGEUR - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
 	public static final int DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;

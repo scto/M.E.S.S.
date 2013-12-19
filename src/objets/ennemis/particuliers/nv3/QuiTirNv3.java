@@ -12,21 +12,19 @@ import com.badlogic.gdx.utils.Pools;
 
 public class QuiTirNv3 extends QuiTir {
 	
-	public static final int LARGEUR = CSG.LARGEUR_ECRAN / 13, DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR, DEMI_HAUTEUR = HAUTEUR / 2; 
-
-	public static Pool<QuiTirNv3> pool = Pools.get(QuiTirNv3.class);
+	public static final int LARGEUR = Stats.LARGEUR_QUI_TIR3, DEMI_LARGEUR = LARGEUR/2, HAUTEUR = Stats.HAUTEUR_QUI_TIR3, DEMI_HAUTEUR = HAUTEUR / 2; 
+	public static final Pool<QuiTirNv3> POOL = Pools.get(QuiTirNv3.class);
 	
 	@Override
-	protected void free() {				pool.free(this);	}
+	protected void free() {				POOL.free(this);	}
 	@Override
-	public void invoquer() {			LISTE.add(pool.obtain());	}
+	public void invoquer() {			LISTE.add(POOL.obtain());	}
 	@Override
 	protected float getVitesse() {		return Stats.V_ENN_MAX_QUI_TIR3;	} 
 	@Override
 	protected void tir() {				tir.doubleTirVersBas(this, mort, maintenant, prochainTir);	}
 	@Override
-	public int getXp() {				return CoutsEnnemis.EnnemiDeBaseQuiTirNv3.COUT;	}
+	public int getXp() {				return CoutsEnnemis.DE_BASE_QUI_TIR_3.COUT;	}
 	@Override
 	public int getHauteur() {			return HAUTEUR;	}
 	@Override
@@ -35,6 +33,8 @@ public class QuiTirNv3 extends QuiTir {
 	public int getDemiHauteur() {		return DEMI_HAUTEUR;	}
 	@Override
 	public int getDemiLargeur() {		return DEMI_LARGEUR;	}
+	@Override
+	protected String getLabel() {		return getClass().toString();	}
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
@@ -44,6 +44,4 @@ public class QuiTirNv3 extends QuiTir {
 		TMP_POS.y = position.y - BouleFeu.HAUTEUR + BouleFeu.DEMI_HAUTEUR;
 		return TMP_POS;
 	}
-	@Override
-	protected String getLabel() {			return getClass().toString();	}
 }

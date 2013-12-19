@@ -23,29 +23,16 @@ import com.badlogic.gdx.utils.Pools;
 
 public class Laser extends Ennemis implements TireurAngle {
 	
-	// ** ** caracteristiques g�n�rales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 9;
-	public static final int DEMI_LARGEUR = LARGEUR/2;
+	private static final int LARGEUR = Stats.LARGEUR_LASER, DEMI_LARGEUR = LARGEUR/2;
 	private static final float VITESSE = Stats.V_ENN_LASER;
-	public static final Tirs TIR = new Tirs(1.1f);
-	// ** ** caracteristiques variables.
+	private static final Tirs TIR = new Tirs(1.1f);
+	public static final Pool<Laser> POOL = Pools.get(Laser.class);
 	protected float prochainTir = 1f;
-	public static Pool<Laser> pool = Pools.get(Laser.class);
 	private float angle = -90;
 	private Vector2 direction = new Vector2();
 	private boolean versGauche;
 	private static float tmp;
 
-	@Override
-	protected Sound getSonExplosion() {
-		return SoundMan.explosionennemidebasequitir;
-	}
-	
-	@Override
-	protected void free() {
-		pool.free(this);
-	}
-	
 	@Override
 	public void reset() {
 		Positionnement.hautLarge(position, getLargeur(), getHauteur());
@@ -60,11 +47,6 @@ public class Laser extends Ennemis implements TireurAngle {
 		initAngle();
 	}
 	
-	@Override
-	protected int getPvMax() {
-		return Stats.PV_LASER;
-	}
-
 	private void initAngle() {
 		if (position.x + DEMI_LARGEUR > CSG.DEMI_LARGEUR_ZONE_JEU) {
 			versGauche = true;
@@ -80,15 +62,6 @@ public class Laser extends Ennemis implements TireurAngle {
 	}
 	
 	@Override
-	protected float getVitesse() {
-		return VITESSE;
-	}
-
-	
-	/**
-	 * Exactement la m�me que dans la super classe mais �a �vite de faire des getter largeur hauteur...
-	 */
-	@Override
 	public boolean mouvementEtVerif() {
 		Physique.mvtSansVerif(position, direction);
 		tmp = maintenant * EndlessMode.delta * 5;
@@ -103,63 +76,6 @@ public class Laser extends Ennemis implements TireurAngle {
 		}
 		return super.mouvementEtVerif();
 	}
-
-	@Override
-	protected TextureRegion getTexture() {
-		return AnimationEnnemiAileDeployee.getTexture(3);
-	}
-	
-	@Override
-	public float getAngle() {
-		return angle+90;
-	}
-	
-	@Override
-	protected void tir() {
-		TIR.tirToutDroit(this, mort, maintenant, prochainTir);
-	}
-
-	@Override
-	public int getXp() {
-		return CoutsEnnemis.EnnemiLaser.COUT;
-	}
-	
-	@Override
-	public int getHauteur() {
-		return LARGEUR;
-	}
-
-	@Override
-	public int getLargeur() {
-		return LARGEUR;
-	}
-
-	@Override
-	public int getDemiHauteur() {
-		return DEMI_LARGEUR;
-	}
-
-	@Override
-	public int getDemiLargeur() {
-		return DEMI_LARGEUR;
-	}
-	
-	@Override
-	public ArmeEnnemi getArme() {			return ArmeLaser.pool.obtain();	}
-	
-	@Override
-	public void setProchainTir(float f) {		prochainTir = f;	}
-
-	@Override
-	public float getModifVitesse() {	return 0.017f;	}
-
-	@Override
-	public float getAngleTir() {			return angle+90;	}
-	
-	@Override
-	public Vector2 getDirectionTir() {
-		return direction;
-	}
 	
 	@Override
 	public Vector2 getPositionDuTir(int numeroTir) {
@@ -169,20 +85,45 @@ public class Laser extends Ennemis implements TireurAngle {
 	}
 	
 	@Override
-	public void invoquer() {
-		LISTE.add(pool.obtain());
-	}
-	
+	protected TextureRegion getTexture() {	return AnimationEnnemiAileDeployee.getTexture(3);	}
 	@Override
-	public float getDirectionY() {
-		return direction.y;
-	}
-	
+	public float getAngle() {				return angle+90;	}
 	@Override
-	public float getDirectionX() {
-		return direction.x;
-	}
-	
+	protected void tir() {					TIR.tirToutDroit(this, mort, maintenant, prochainTir);	}
+	@Override
+	public int getXp() {					return CoutsEnnemis.LASER.COUT;	}
+	@Override
+	public int getHauteur() {				return LARGEUR;	}
+	@Override
+	protected int getPvMax() {				return Stats.PV_LASER;	}
+	@Override
+	public int getLargeur() {				return LARGEUR;	}
+	@Override
+	public int getDemiHauteur() {			return DEMI_LARGEUR;	}
+	@Override
+	protected float getVitesse() {			return VITESSE;	}
+	@Override
+	public int getDemiLargeur() {			return DEMI_LARGEUR;	}
+	@Override
+	public ArmeEnnemi getArme() {			return ArmeLaser.pool.obtain();	}
+	@Override
+	public void setProchainTir(float f) {	prochainTir = f;	}
+	@Override
+	public float getModifVitesse() {		return 0.017f;	}
+	@Override
+	public float getAngleTir() {			return angle+90;	}
+	@Override
+	public Vector2 getDirectionTir() {		return direction;	}
+	@Override
+	public void invoquer() {				LISTE.add(POOL.obtain());	}
+	@Override
+	public float getDirectionY() {			return direction.y;	}
+	@Override
+	public float getDirectionX() {			return direction.x;	}
+	@Override
+	protected Sound getSonExplosion() {		return SoundMan.explosionennemidebasequitir;	}
+	@Override
+	protected void free() {					POOL.free(this);	}
 	@Override
 	protected String getLabel() {			return getClass().toString();	}
 }

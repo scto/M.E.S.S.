@@ -122,6 +122,9 @@ public class CSG extends Game implements ApplicationListener {
 		HAUTEUR_ECRAN_PALLIER_2 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 2);
 		HAUTEUR_ECRAN_PALLIER_3 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 3);
 		HAUTEUR_ECRAN_PALLIER_7 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 7);
+		log("u : " + Stats.U);
+		log("largeur de base : " + Stats.LARGEUR_DE_BASE);
+		log("hauteur de base : " + Stats.HAUTEUR_DE_BASE);
 	}
 	
 	public static void reset(){

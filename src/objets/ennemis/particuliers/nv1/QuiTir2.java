@@ -5,7 +5,6 @@ import objets.armes.ennemi.ArmeFusee;
 import objets.armes.typeTir.Tireur;
 import objets.armes.typeTir.Tirs;
 import objets.ennemis.CoutsEnnemis;
-import jeu.CSG;
 import jeu.Stats;
 import assets.animation.AnimationQuiTir;
 
@@ -17,13 +16,22 @@ import com.badlogic.gdx.utils.Pools;
 
 public class QuiTir2 extends QuiTir implements Tireur {
 	
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 9, DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = LARGEUR + DEMI_LARGEUR, DEMI_HAUTEUR = HAUTEUR / 2; 
+	private static final int LARGEUR = Stats.LARGEUR_QUI_TIR2, DEMI_LARGEUR = LARGEUR/2, HAUTEUR = Stats.HAUTEUR_QUI_TIR2, DEMI_HAUTEUR = HAUTEUR / 2; 
 	public static final Tirs TIR = new Tirs(0.7f);
-	public static Pool<QuiTir2> pool = Pools.get(QuiTir2.class);
+	public static final Pool<QuiTir2> POOL = Pools.get(QuiTir2.class);
 
 	@Override
-	protected void free() {				pool.free(this);	}
+	public Vector2 getPositionDuTir(int numeroTir) {
+		TMP_POS.x = position.x + DEMI_LARGEUR - ArmeFusee.DEMI_LARGEUR;
+		TMP_POS.y = position.y - ArmeFusee.LARGEUR;
+		return TMP_POS;
+	}
+	@Override
+	public TextureRegion getTexture() {		return AnimationQuiTir.getTexture(pv);	}
+	@Override
+	protected String getLabel() {			return getClass().toString();	}
+	@Override
+	protected void free() {				POOL.free(this);	}
 	@Override
 	protected int getPvMax() {			return Stats.PV_DE_BASE_QUI_TIR2;	}
 	@Override
@@ -51,15 +59,5 @@ public class QuiTir2 extends QuiTir implements Tireur {
 	@Override
 	public float getModifVitesse() {	return 1;	}
 	@Override
-	public void invoquer() {			LISTE.add(pool.obtain());	}
-	@Override
-	public Vector2 getPositionDuTir(int numeroTir) {
-		TMP_POS.x = position.x + DEMI_LARGEUR - ArmeFusee.DEMI_LARGEUR;
-		TMP_POS.y = position.y - ArmeFusee.LARGEUR;
-		return TMP_POS;
-	}
-	@Override
-	public TextureRegion getTexture() {		return AnimationQuiTir.getTexture(pv);	}
-	@Override
-	protected String getLabel() {			return getClass().toString();	}
+	public void invoquer() {			LISTE.add(POOL.obtain());	}
 }

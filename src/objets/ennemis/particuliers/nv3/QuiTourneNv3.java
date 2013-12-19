@@ -9,16 +9,16 @@ import com.badlogic.gdx.utils.Pools;
 
 import jeu.Stats;
 
-public class EnnemiQuiTourneNv3 extends QuiTourne {
+public class QuiTourneNv3 extends QuiTourne {
 	
-	public static Pool<EnnemiQuiTourneNv3> pool = Pools.get(EnnemiQuiTourneNv3.class);
+	public static final Pool<QuiTourneNv3> POOL = Pools.get(QuiTourneNv3.class);
 	public static final float CADENCE_TIR = .07f;
 	public static final Tirs TIR = new Tirs(CADENCE_TIR);
 	
 	@Override
-	protected void free() {				pool.free(this);	}
+	protected void free() {				POOL.free(this);	}
 	@Override
-	public void invoquer() {			LISTE.add(pool.obtain());	}
+	public void invoquer() {			LISTE.add(POOL.obtain());	}
 	@Override
 	protected void tir() {				TIR.tirEnRafale(this, 3, mort, maintenant, prochainTir);	}
 	@Override
@@ -30,5 +30,5 @@ public class EnnemiQuiTourneNv3 extends QuiTourne {
 	@Override
 	public int getXp() {				return CoutsEnnemis.EnnemiQuiTourneNv3.COUT;	}
 	@Override
-	protected String getLabel() {			return getClass().toString();	}
+	protected String getLabel() {		return getClass().toString();	}
 }

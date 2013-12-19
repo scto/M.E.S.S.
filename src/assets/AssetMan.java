@@ -1,5 +1,6 @@
 package assets;
 
+import jeu.CSG;
 import objets.armes.joueur.ArmeHantee;
 import objets.armes.joueur.ArmesBalayage;
 import objets.armes.joueur.ArmesDeBase;
@@ -168,6 +169,7 @@ public class AssetMan {
 		atlas = null;
 		load();
 		while (!fini()){
+			CSG.log("reload");
 		}
 		loadPartie2(dimension);
 	}

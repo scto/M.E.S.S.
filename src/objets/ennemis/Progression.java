@@ -5,7 +5,7 @@ import objets.ennemis.particuliers.boss.BossMine;
 import objets.ennemis.particuliers.boss.BossQuad;
 import objets.ennemis.particuliers.boss.BossSat;
 import objets.ennemis.particuliers.nv1.Avion;
-import objets.ennemis.particuliers.nv1.BouleQuiSArrete;
+import objets.ennemis.particuliers.nv1.Boule;
 import objets.ennemis.particuliers.nv1.Cylon;
 import objets.ennemis.particuliers.nv1.DeBase;
 import objets.ennemis.particuliers.nv1.Insecte;
@@ -21,15 +21,15 @@ import objets.ennemis.particuliers.nv2.BouleTirCote;
 import objets.ennemis.particuliers.nv2.BouleTirCoteRotation;
 import objets.ennemis.particuliers.nv2.Kinder2;
 import objets.ennemis.particuliers.nv3.AvionNv3;
-import objets.ennemis.particuliers.nv3.EnnemiBouleQuiSArreteNv3;
-import objets.ennemis.particuliers.nv3.EnnemiCylonNv3;
-import objets.ennemis.particuliers.nv3.EnnemiDeBaseNv3;
-import objets.ennemis.particuliers.nv3.EnnemiInsecteNv3;
-import objets.ennemis.particuliers.nv3.EnnemiKinderNv3;
-import objets.ennemis.particuliers.nv3.EnnemiPorteRaisinNv3;
-import objets.ennemis.particuliers.nv3.EnnemiQuiTir2Nv3;
-import objets.ennemis.particuliers.nv3.EnnemiQuiTourneNv3;
-import objets.ennemis.particuliers.nv3.EnnemiToupieNv3;
+import objets.ennemis.particuliers.nv3.BouleQuiSArreteNv3;
+import objets.ennemis.particuliers.nv3.CylonNv3;
+import objets.ennemis.particuliers.nv3.DeBaseNv3;
+import objets.ennemis.particuliers.nv3.InsecteNv3;
+import objets.ennemis.particuliers.nv3.KinderNv3;
+import objets.ennemis.particuliers.nv3.PorteRaisinNv3;
+import objets.ennemis.particuliers.nv3.QuiTir2Nv3;
+import objets.ennemis.particuliers.nv3.QuiTourneNv3;
+import objets.ennemis.particuliers.nv3.ToupieNv3;
 import objets.ennemis.particuliers.nv3.QuiTirNv3;
 import objets.ennemis.particuliers.nv3.ZigZagNv3;
 import jeu.CSG;
@@ -54,52 +54,52 @@ public class Progression {
 	// Ce sont les listes des ennemis
 	private final static Invocable[] LISTE_LV1 = {
 		Insecte.pool.obtain(),
-		Laser.pool.obtain(),
-		PorteRaisin.pool.obtain(),
-		Avion.pool.obtain(),
-		QuiTir2.pool.obtain(),
+		Laser.POOL.obtain(),
+		PorteRaisin.POOL.obtain(),
+		Avion.POOL.obtain(),
+		QuiTir2.POOL.obtain(),
 		Kinder.pool.obtain(),
 		Cylon.pool.obtain(),
-		Toupie.pool.obtain(),
+		Toupie.POOL.obtain(),
 		QuiTourne.pool.obtain(),
-		BouleQuiSArrete.pool.obtain(),
-		QuiTir.pool.obtain(),
-		ZigZag.pool.obtain(),
-		DeBase.pool.obtain(),
+		Boule.pool.obtain(),
+		QuiTir.POOL.obtain(),
+		ZigZag.POOL.obtain(),
+		DeBase.POOL.obtain(),
 		};
 	private final static Invocable[] LISTE_LV2 = {
 		Insecte.pool.obtain(),
-		Kinder2.pool.obtain(),
-		BouleTirCote.pool.obtain(),
-		Laser.pool.obtain(),
-		Kinder2.pool.obtain(),
-		BouleTirCoteRotation.pool.obtain(),
-		PorteRaisin.pool.obtain(),
-		Avion.pool.obtain(),
-		QuiTir2.pool.obtain(), 
+		Kinder2.POOL.obtain(),
+		BouleTirCote.POOL.obtain(),
+		Laser.POOL.obtain(),
+		Kinder2.POOL.obtain(),
+		BouleTirCoteRotation.POOL.obtain(),
+		PorteRaisin.POOL.obtain(),
+		Avion.POOL.obtain(),
+		QuiTir2.POOL.obtain(), 
 		Kinder.pool.obtain(), 
 		Cylon.pool.obtain(), 
-		Toupie.pool.obtain(), 
+		Toupie.POOL.obtain(), 
 		QuiTourne.pool.obtain(), 
-		BouleQuiSArrete.pool.obtain(),
-		QuiTir.pool.obtain(),
-		ZigZag.pool.obtain(),
-		DeBase.pool.obtain(),
+		Boule.pool.obtain(),
+		QuiTir.POOL.obtain(),
+		ZigZag.POOL.obtain(),
+		DeBase.POOL.obtain(),
 		};
 	private final static Invocable[] LISTE_LV3 = {
-		EnnemiInsecteNv3.pool.obtain(),
-		BouleTirCote.pool.obtain(), 
-		EnnemiPorteRaisinNv3.pool.obtain(), 
-		AvionNv3.pool.obtain(),
-		EnnemiQuiTir2Nv3.pool.obtain(), 
-		EnnemiKinderNv3.pool.obtain(), 
-		EnnemiCylonNv3.pool.obtain(), 
-		EnnemiToupieNv3.pool.obtain(), 
-		EnnemiQuiTourneNv3.pool.obtain(), 
-		EnnemiBouleQuiSArreteNv3.pool.obtain(),
-		QuiTirNv3.pool.obtain(),
-		ZigZagNv3.pool.obtain(),
-		EnnemiDeBaseNv3.pool.obtain(),
+		InsecteNv3.POOL.obtain(),
+		BouleTirCote.POOL.obtain(), 
+		PorteRaisinNv3.POOL.obtain(), 
+		AvionNv3.POOL.obtain(),
+		QuiTir2Nv3.POOL.obtain(), 
+		KinderNv3.POOL.obtain(), 
+		CylonNv3.POOL.obtain(), 
+		ToupieNv3.POOL.obtain(), 
+		QuiTourneNv3.POOL.obtain(), 
+		BouleQuiSArreteNv3.POOL.obtain(),
+		QuiTirNv3.POOL.obtain(),
+		ZigZagNv3.POOL.obtain(),
+		DeBaseNv3.POOL.obtain(),
 		};
 	
 	

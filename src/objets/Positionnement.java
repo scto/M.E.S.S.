@@ -93,4 +93,11 @@ public class Positionnement {
 		e.position.x = CSG.DEMI_LARGEUR_ZONE_JEU - e.getDemiLargeur();
 		e.position.y = CSG.HAUTEUR_ECRAN;
 	}
+	
+	public static float getGaucheDroite(int demiLargeur) {
+		if (Math.random() > .5f) {
+			return CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - demiLargeur;
+		}
+		return demiLargeur + CSG.LARGEUR_BORD;
+	}
 }

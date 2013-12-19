@@ -7,7 +7,7 @@ import objets.armes.joueur.ArmeJoueur;
 import objets.bonus.Bonus;
 import objets.ennemis.particuliers.boss.BossQuad;
 import objets.ennemis.particuliers.boss.BossSat;
-import objets.ennemis.particuliers.nv1.BouleQuiSArrete;
+import objets.ennemis.particuliers.nv1.Boule;
 import objets.ennemis.particuliers.nv1.Cylon;
 import objets.ennemis.particuliers.nv1.DeBase;
 import objets.ennemis.particuliers.nv1.Kinder;
@@ -209,23 +209,23 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable {
 		if (f < 0.1) {
 			LISTE.add(BossSat.pool.obtain());
 		} else if (f < .2) {
-			LISTE.add(BouleQuiSArrete.pool.obtain());
+			LISTE.add(Boule.pool.obtain());
 		} else if (f < .3) {
-			LISTE.add(QuiTir.pool.obtain());
+			LISTE.add(QuiTir.POOL.obtain());
 		} else if (f < .4) {
-			LISTE.add(ZigZag.pool.obtain());
+			LISTE.add(ZigZag.POOL.obtain());
 		} else if (f < .5) {
 			LISTE.add(Kinder.pool.obtain());
 		} else if (f < .6) {
-			LISTE.add(DeBase.pool.obtain());
+			LISTE.add(DeBase.POOL.obtain());
 		} else if (f < .7) {
 			LISTE.add(QuiTourne.pool.obtain());
 		} else if (f < .8) {
-			LISTE.add(Toupie.pool.obtain());
+			LISTE.add(Toupie.POOL.obtain());
 		} else if (f < .9) {
 			LISTE.add(Cylon.pool.obtain());
 		} else if (f < .95) {
-			LISTE.add(PorteRaisin.pool.obtain());
+			LISTE.add(PorteRaisin.POOL.obtain());
 		}
 	}
 

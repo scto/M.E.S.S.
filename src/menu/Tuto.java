@@ -50,7 +50,7 @@ public class Tuto implements Screen {
 		CSG.batch.begin();
 		Particules.background(CSG.batch);
 		// SHIP
-		ligne(AnimationEnnemiDeBase.getTexture(0), 1, DeBase.LARGEUR, DeBase.HAUTEUR, enemy);
+		ligne(AnimationEnnemiDeBase.getTexture(0), 1, Stats.LARGEUR_DE_BASE, Stats.HAUTEUR_DE_BASE, enemy);
 		// XP
 		ligne(AssetMan.XP, 3, XP.WIDTH, XP.WIDTH, xp);
 		// BOMB

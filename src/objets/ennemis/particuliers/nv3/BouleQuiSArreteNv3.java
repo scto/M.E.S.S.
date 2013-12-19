@@ -1,26 +1,21 @@
 package objets.ennemis.particuliers.nv3;
 
 import objets.ennemis.CoutsEnnemis;
-import objets.ennemis.particuliers.nv1.BouleQuiSArrete;
+import objets.ennemis.particuliers.nv1.Boule;
 
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import jeu.Stats;
 
-public class EnnemiBouleQuiSArreteNv3 extends BouleQuiSArrete {
+public class BouleQuiSArreteNv3 extends Boule {
 	
-	public static Pool<EnnemiBouleQuiSArreteNv3> pool = Pools.get(EnnemiBouleQuiSArreteNv3.class);
+	public static final Pool<BouleQuiSArreteNv3> POOL = Pools.get(BouleQuiSArreteNv3.class);
 	
 	@Override
-	protected void free() {
-		pool.free(this);
-	}
+	protected void free() {		POOL.free(this);	}
 	@Override
-	public void invoquer() {
-		LISTE.add(pool.obtain());
-	}
-	
+	public void invoquer() {		LISTE.add(POOL.obtain());	}
 	@Override
 	protected int getPvMax() {	return Stats.PV_BOULE_QUI_SARRETE3;	}
 	@Override

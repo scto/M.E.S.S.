@@ -20,20 +20,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-
-public class BouleQuiSArrete extends Ennemis implements Tireur {
+public class Boule extends Ennemis implements Tireur {
 	
-	// ** ** caracteristiques g�n�rales
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 17;
-	public static final int DEMI_LARGEUR = LARGEUR/2;
-	public static final float CADENCETIR = 1.6f;
-	public static final Tirs tir = new Tirs(CADENCETIR);
-	// ** ** caracteristiques variables.
+	private static final int LARGEUR = Stats.LARGEUR_BOULE, DEMI_LARGEUR = LARGEUR/2;
+	private static final float CADENCETIR = 1.6f;
+	private static final Tirs tir = new Tirs(CADENCETIR);
 	private float prochainTir = .1f;
-	public static Pool<BouleQuiSArrete> pool = Pools.get(BouleQuiSArrete.class);
+	public static Pool<Boule> pool = Pools.get(Boule.class);
 	
 	
-	public BouleQuiSArrete() {
+	public Boule() {
 		super();
 		Positionnement.hautLarge(position, getLargeur(), getHauteur());
 	}
@@ -47,7 +43,7 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	
 	@Override
 	public boolean mouvementEtVerif() {
-		Physique.mvtArretHauteur(position, -Stats.V_ENN_BOULE_QUI_SARRETE, maintenant);
+		Physique.mvtArretHauteur(position, -Stats.V_ENN_BOULE, maintenant);
 		return super.mouvementEtVerif();
 	}
 
@@ -56,6 +52,27 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 		TMP_POS.x = (position.x + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR);
 		TMP_POS.y = (position.y + DEMI_LARGEUR - BouleBleueRapide.DEMI_LARGEUR);
 		return TMP_POS;
+	}
+	
+	@Override
+	public float getDirectionY() {
+		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
+			// On ralentit
+			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
+				return -50;
+		} else {
+			return -Stats.V_ENN_BOULE;
+		}
+		return -Stats.V_ENN_BOULE;
+	}
+	
+	@Override
+	public float getDirectionX() {
+		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
+			return 0;
+		} else {
+			return -Stats.V_ENN_BOULE;
+		}
 	}
 	
 	@Override
@@ -69,9 +86,9 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	@Override
 	protected Sound getSonExplosion() {		return SoundMan.explosionboule;	}
 	@Override
-	protected int getPvMax() {				return Stats.PV_BOULE_QUI_SARRETE;	}
+	protected int getPvMax() {				return Stats.PV_BOULE;	}
 	@Override
-	public int getXp() {					return CoutsEnnemis.EnnemiBouleQuiSArrete.COUT;	}
+	public int getXp() {					return CoutsEnnemis.BOULE.COUT;	}
 	@Override
 	public int getHauteur() {				return LARGEUR;	}
 	@Override
@@ -81,32 +98,11 @@ public class BouleQuiSArrete extends Ennemis implements Tireur {
 	@Override
 	public int getDemiLargeur() {			return DEMI_LARGEUR;	}
 	@Override
-	public ArmeEnnemi getArme() {				return ArmesBouleBleu.pool.obtain();	}
+	public ArmeEnnemi getArme() {			return ArmesBouleBleu.pool.obtain();	}
 	@Override
 	public void setProchainTir(float f) {	prochainTir = f;	}
 	@Override
 	public float getModifVitesse() {		return 1;	}
-
-	@Override
-	public float getDirectionY() {
-		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
-			// On ralentit
-			if (position.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
-				return -50;
-		} else {
-			return -Stats.V_ENN_BOULE_QUI_SARRETE;
-		}
-		return -Stats.V_ENN_BOULE_QUI_SARRETE;
-	}
-	
-	@Override
-	public float getDirectionX() {
-		if (position.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
-			return 0;
-		} else {
-			return -Stats.V_ENN_BOULE_QUI_SARRETE;
-		}
-	}
 	@Override
 	protected String getLabel() {			return getClass().toString();	}
 }

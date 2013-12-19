@@ -1,5 +1,6 @@
 package objets.ennemis.particuliers.nv1;
 
+import objets.Positionnement;
 import objets.ennemis.CoutsEnnemis;
 import objets.ennemis.Ennemis;
 import jeu.CSG;
@@ -16,36 +17,27 @@ import com.badlogic.gdx.utils.Pools;
 
 public class ZigZag extends Ennemis {
 	
-	public static final int LARGEUR= CSG.LARGEUR_ECRAN / 9, DEMI_LARGEUR = LARGEUR/2;
-	public static final int HAUTEUR = (int) (LARGEUR*1.2), DEMI_HAUTEUR = HAUTEUR / 2; 
-	public static final float AMPLITUDE_HORIZONTALE = 160f, VITESSE = Stats.V_ENN_ZIGZAG;
-	private Vector2 direction;
+	private static final int LARGEUR = Stats.LARGEUR_ZIG_ZAG, DEMI_LARGEUR = LARGEUR/2, HAUTEUR = Stats.HAUTEUR_ZIG_ZAG, DEMI_HAUTEUR = HAUTEUR / 2; 
+	private static final float AMPLITUDE_HORIZONTALE = 160f, VITESSE = Stats.V_ENN_ZIGZAG;
+	private Vector2 direction = new Vector2(0, -getVitesse());
 	private boolean sens = true;
-	public static Pool<ZigZag> pool = Pools.get(ZigZag.class);
+	public static final Pool<ZigZag> POOL = Pools.get(ZigZag.class);
 
 	public ZigZag() {
 		super();
-		position.x = getRandX();
-		direction = new Vector2(0, -getVitesse());
+		position.x = Positionnement.getGaucheDroite(DEMI_LARGEUR);
 	}
 	
 	@Override
 	public void reset() {
 		super.reset();
-		position.x = getRandX();
+		position.x = Positionnement.getGaucheDroite(DEMI_LARGEUR);
 		position.y = CSG.HAUTEUR_ECRAN + HAUTEUR;
 		direction.x = 0;
 		direction.y = -getVitesse();
 		sens = true;
 	}
 	
-	private static float getRandX() {
-		if (Math.random() > .5f) {
-			return CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - DEMI_LARGEUR;
-		}
-		return DEMI_LARGEUR + CSG.LARGEUR_BORD;
-	}
-
 	@Override
 	public boolean mouvementEtVerif() {	
 		if (!mort)	sens = Physique.goToZigZagCentre(position, direction, DEMI_LARGEUR, sens, AMPLITUDE_HORIZONTALE, HAUTEUR, LARGEUR);
@@ -54,7 +46,7 @@ public class ZigZag extends Ennemis {
 	}
 
 	@Override
-	protected void free() {					pool.free(this);	}
+	protected void free() {					POOL.free(this);	}
 	@Override
 	protected int getPvMax() {				return Stats.PV_ZIGZAG;	}
 	@Override
@@ -70,7 +62,7 @@ public class ZigZag extends Ennemis {
 	@Override
 	public int getDemiLargeur() {			return DEMI_LARGEUR;	}
 	@Override
-	public void invoquer() {				LISTE.add(pool.obtain());	}
+	public void invoquer() {				LISTE.add(POOL.obtain());	}
 	@Override
 	public float getDirectionY() {			return direction.y;	}
 	@Override
