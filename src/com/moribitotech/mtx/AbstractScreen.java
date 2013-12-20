@@ -40,7 +40,7 @@ public abstract class AbstractScreen implements Screen {
 	protected SpriteBatch batch;
 	public static final String PLAY = "Play!", SHIP = "Upgrade", OPTION = "Options", HIGHSCORE = "Highscores", EXIT = "Exit", BACK = "BACK", WEAPON_VOL = "WEAPON VOL  ", MOINS = "-", PLUS = "+", BRUITAGE_VOL = "EFFECTS VOL  ", MUSIQUE_VOL = "MUSIC VOL  ", INTENSITY = "INTENSITY : ", OTHER_WEAP = "Next weapon", TUTO = "Tutorial" , ACHIEVEMENT = "Achievements";
 	protected Bloom bloom;
-	public final static int PADDING = 10, LARGEUR_BOUTON = (CSG.LARGEUR_ECRAN / PADDING) * 8, HAUTEUR_BOUTON = CSG.HAUTEUR_ECRAN / 18;
+	public final static int PADDING = 10, LARGEUR_BOUTON = (CSG.LARGEUR_ECRAN / PADDING) * 9, HAUTEUR_BOUTON = CSG.HAUTEUR_ECRAN / 18;
 	public final static int DEMI_LARGEUR_BOUTON = LARGEUR_BOUTON / 2, DEMI_HAUTEUR_BOUTON = HAUTEUR_BOUTON / 2;
 	public final static int LARGEUR_PETITBOUTON = (CSG.LARGEUR_ECRAN / PADDING) * 3, HAUTEUR_PETITBOUTON = CSG.HAUTEUR_ECRAN / 18;
 	public final static int LARGEUR_MINIBOUTON = LARGEUR_PETITBOUTON/2, HAUTEUR_MINIBOUTON = HAUTEUR_PETITBOUTON/2, decalageY = CSG.HAUTEUR_ECRAN/10;

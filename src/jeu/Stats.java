@@ -43,7 +43,7 @@ public class Stats {
 	public static final int PV_QUI_TIR3 = (int) (PV_QUI_TIR * PVNV3);
 	public static final int DEMI_PV_QUI_TIR = PV_QUI_TIR / 2;
 	public static final int DEMI_PV_QUI_TIR3 = PV_DE_BASE_NV3 / 2;
-	public static final int LARGEUR_QUI_TIR = (int) ((float)HAUTEUR_DE_BASE * 1.2f);
+	public static final int LARGEUR_QUI_TIR = (int) ((float)HAUTEUR_DE_BASE * 1.1f);
 	public static final int HAUTEUR_QUI_TIR = getHauteur(LARGEUR_QUI_TIR, 1.5f);
 	public static final int LARGEUR_QUI_TIR3 = (int) ((float)LARGEUR_QUI_TIR * 1.2f);
 	public static final int HAUTEUR_QUI_TIR3 = (int) ((float)HAUTEUR_QUI_TIR * 1.2f);
@@ -51,7 +51,7 @@ public class Stats {
 	// Z I G   Z A G
 	public static final int PV_ZIGZAG = 9;
 	public static final int PV_ZIGZAG_NV3 = (int) (PV_ZIGZAG * PVNV3);
-	public static final int LARGEUR_ZIG_ZAG = (int) ((float)LARGEUR_DE_BASE * 1.25f); 
+	public static final int LARGEUR_ZIG_ZAG = (int) ((float)LARGEUR_DE_BASE * 1.35f); 
 	public static final int HAUTEUR_ZIG_ZAG = getHauteur(LARGEUR_ZIG_ZAG, 1.2f); 
 	public static final float V_ENN_ZIGZAG = 7 * U;
 	public static final float V_ENN_ZIGZAG_NV3 = V_ENN_ZIGZAG * VNV3;
@@ -66,7 +66,7 @@ public class Stats {
 	public static final float V_ENN_PORTE_NEF = 2 * U;
 	public static final int PV_BOSS_SAT = 115;
 	public static final int DEMI_PV_PORTE_NEF = PV_BOSS_SAT/2;
-	public static final int LARGEUR_BOSS_SAT = (int) (U * 8);
+	public static final int LARGEUR_BOSS_SAT = (int) ((float)LARGEUR_DE_BASE * 3);
 	
 	// Q U I   T O U R N E
 	public static final float V_ENN_QUI_TOURNE = 13 * U;
@@ -106,8 +106,8 @@ public class Stats {
 	public static final int PV_BOSS_QUAD = 430;
 	public static final int DEUXTIERS_PV_ENN_BOSS_QUAD = 280;
 	public static final int PRESQUE_MORT_PV_BOSS_QUAD = 125;
-	public static final int LARGEUR_BOSS_QUAD = (int) (11 * U);
-	public static final int HAUTEUR_BOSS_QUAD = (int) ((float)LARGEUR_BOSS_QUAD * CSG.RATIO * 1.25f);
+	public static final int LARGEUR_BOSS_QUAD = (int) ((float)LARGEUR_DE_BASE * 3);
+	public static final int HAUTEUR_BOSS_QUAD = getHauteur(LARGEUR_BOSS_QUAD, 0.5f);
 	public static final float V_ENN_BOSS_QUAD = 11 * U;
 	
 	// P O R T E   R A I S I N

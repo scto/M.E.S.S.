@@ -20,7 +20,6 @@ import objets.joueur.VaisseauJoueur;
 import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Physique;
-import jeu.Stats;
 import jeu.Strings;
 import assets.SoundMan;
 import assets.animation.AnimationArmeFusee;
@@ -230,6 +229,7 @@ public abstract class Ennemis extends Objet implements Poolable, Invocable {
 	}
 
 	public static void bombe() {
+		CSG.google.unlockAchievementGPGS(Strings.ACH_BOMB);
 		if (LISTE.size > 25) {
 			CSG.google.unlockAchievementGPGS(Strings.ACH_25_ENEMY);
 		}

@@ -37,11 +37,11 @@ public class BonusAdd extends Bonus implements Poolable {
 		VaisseauJoueur.rajoutAdd();
 		pool.free(this);
 	}
+	
 	@Override
 	public void reset() {
 		tps = 0;
 	}
-
 
 	@Override
 	public void free() {

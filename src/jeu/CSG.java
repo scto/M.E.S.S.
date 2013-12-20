@@ -78,14 +78,14 @@ public class CSG extends Game implements ApplicationListener {
 		float dimension = CSG.HAUTEUR_ECRAN + CSG.LARGEUR_ECRAN;
 //		if (x < 1)	x = 1.0f;
 //		if (y < 1)	y = 1.0f;
-		dimension = dimension / 560;
+		dimension = dimension / 780;
 		if (dimension < 1f)
 			dimension = 1f;
 		menuFont.setScale(dimension);
 		menuFont.setColor(.32f, .52f, 0.99f, 1);
 		
 		menuFontPetite = new BitmapFont();
-		dimension /= 2;
+		dimension /= 2.0f;
 		if (dimension < 1f)
 			dimension = 1f;
 		menuFontPetite = new BitmapFont(Gdx.files.internal("petite.fnt"), false);
@@ -122,9 +122,6 @@ public class CSG extends Game implements ApplicationListener {
 		HAUTEUR_ECRAN_PALLIER_2 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 2);
 		HAUTEUR_ECRAN_PALLIER_3 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 3);
 		HAUTEUR_ECRAN_PALLIER_7 = HAUTEUR_ECRAN - (DIXIEME_HAUTEUR * 7);
-		log("u : " + Stats.U);
-		log("largeur de base : " + Stats.LARGEUR_DE_BASE);
-		log("hauteur de base : " + Stats.HAUTEUR_DE_BASE);
 	}
 	
 	public static void reset(){

@@ -27,13 +27,13 @@ public class Profil implements Serializable{
 	private static final String STR_ARME_BALAYAGE_NV = "abnv", STR_ARME_TROIS_NV = "tricheur", STR_ARME_HANTEE_NV = "trichur";
 	private static final String strXP = "XP", STR_VOLUME_ARME = "sjciuendk", STR_VOLUME_MUSIQUE = "sjciuend";
 	private static final String STR_VOLUME_BRUITAGES = "sjciuen", STR_TYPE_CONTROLE = "sfdsfiuen", STR_BLOOM = "bloom";
-	private static final String STR_PARTICULES = "particules", STR_INTENSITE_BLOOM = "intensitebloom";
+	private static final String STR_MANUAL_BONUS = "particules", STR_INTENSITE_BLOOM = "intensitebloom";
 	private static final float STEP_VOL = .1f;
 	// -- -- initialisation des champs
 	public int cadenceAdd, typeControle, NvArmeDeBase, NvArmeBalayage, NvArmeTrois,	NvArmeHantee, xpDispo;
 	public float volumeArme, volumeMusique, volumeBruitages, intensiteBloom;
 	private String armeSelectionnee;
-	public boolean bloom, particules;
+	public boolean bloom, manualBonus;
 	// -- -- string d'affichage
 	public String champXp = " XP : " + xpDispo;
 	public static boolean premiereFois = false;
@@ -49,7 +49,7 @@ public class Profil implements Serializable{
 		NvArmeHantee = 1;
 		cadenceAdd = 1;
 		xpDispo = 0;
-		volumeArme = .5f;
+		volumeArme = .1f;
 		volumeBruitages = 1;
 		volumeMusique = 1;
 		bloom = true; // Provoque dans de rares cas des bugs d'affichages
@@ -57,6 +57,7 @@ public class Profil implements Serializable{
 		typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
 		intensiteBloom = 2.0f;
 		premiereFois = true;
+		manualBonus = false;
 	}
 
 	/**
@@ -76,7 +77,7 @@ public class Profil implements Serializable{
 		json.writeValue(STR_VOLUME_MUSIQUE, volumeMusique);
 		json.writeValue(STR_TYPE_CONTROLE, typeControle);
 		json.writeValue(STR_BLOOM, bloom);
-		json.writeValue(STR_PARTICULES, particules);
+		json.writeValue(STR_MANUAL_BONUS, manualBonus);
 		json.writeValue(STR_INTENSITE_BLOOM, intensiteBloom);
 	}
 
@@ -96,7 +97,7 @@ public class Profil implements Serializable{
 		champXp = "XP : " + xpDispo;
 		typeControle = json.readValue(STR_TYPE_CONTROLE, Integer.class, jsonData);
 		bloom = json.readValue(STR_BLOOM, Boolean.class, jsonData);
-		particules = false;
+		manualBonus = json.readValue(STR_MANUAL_BONUS, Boolean.class, jsonData);
 		intensiteBloom = json.readValue(STR_INTENSITE_BLOOM, Float.class, jsonData);
 	}
 //	@Override

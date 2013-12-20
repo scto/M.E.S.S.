@@ -31,12 +31,13 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 	public static Pool<ArmeHantee> pool = Pools.get(ArmeHantee.class);
 	private static boolean alterner = false;
 	public static float[] couleurs = {
-		AssetMan.convertARGB(1, 0, 84f/255f, 73f/255f),
-		AssetMan.convertARGB(1, 0, 162f/255f, 140f/255f),
-		AssetMan.convertARGB(1, 0, 141f/255f, 239f/255f),
-		AssetMan.convertARGB(1, 0, 218f/255f, 228f/255f),
-		AssetMan.convertARGB(1, 0, 89f/255f, 252f/255f),
-		AssetMan.convertARGB(1, 0, 62f/255f, 254f/255f)};
+		AssetMan.convertARGB(1, 0, 84f  / 255f, 73f  / 255f),
+		AssetMan.convertARGB(1, 0, 162f / 255f, 140f / 255f),
+		AssetMan.convertARGB(1, 0, 141f / 255f, 239f / 255f),
+		AssetMan.convertARGB(1, 0, 218f / 255f, 228f / 255f),
+		AssetMan.convertARGB(1, 0, 89f  / 255f, 252f / 255f),
+		AssetMan.convertARGB(1, 0, 62f  / 255f, 254f / 255f)};
+	private static final float LIMITE = (CSG.HAUTEUR_ECRAN / 5) / Stats.V_ARME_HANTEE;
 	
 	public static void updateDimensions() {
 		LARGEUR = CSG.LARGEUR_ECRAN / 30 + (CSG.LARGEUR_ECRAN/100 * CSG.profil.NvArmeHantee);
@@ -71,9 +72,11 @@ public class ArmeHantee extends ArmeJoueur implements Poolable{
 	public boolean mouvementEtVerif() {
 		angle += VITESSE_ANGLE * EndlessMode.delta;
 		maintenant += EndlessMode.delta;
-		if (maintenant > .4f && direction.y != 0) {
-			if (alterner) direction.x = -direction.y;
-			else direction.x = direction.y;
+		if (maintenant > LIMITE && direction.y != 0) {
+			if (alterner)
+				direction.x = -direction.y;
+			else
+				direction.x = direction.y;
 			direction.y = 0;
 			alterner = !alterner;
 		}

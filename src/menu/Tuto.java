@@ -7,7 +7,6 @@ import objets.bonus.BonusBombe;
 import objets.bonus.BonusStop;
 import objets.bonus.BonusTemps;
 import objets.bonus.XP;
-import objets.ennemis.particuliers.nv1.DeBase;
 import assets.AssetMan;
 import assets.animation.AnimationEnnemiDeBase;
 import assets.particules.Particules;

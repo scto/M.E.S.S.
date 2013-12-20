@@ -110,14 +110,14 @@ public class Particules {
 			r.init(v);
 			particules.add(r);
 			
-			if (yVaisseau-1 < v.position.y) {
+			if (yVaisseau-1 < VaisseauJoueur.position.y) {
 				FlammesVaisseau r1 = FlammesVaisseau.pool.obtain();
 				r1.init(v);
 				particules.add(r1);
 				FlammesVaisseau r2 = FlammesVaisseau.pool.obtain();
 				r2.init(v);
 				particules.add(r2);
-				if (yVaisseau+1 < v.position.y) {
+				if (yVaisseau+1 < VaisseauJoueur.position.y) {
 					FlammesVaisseau r3 = FlammesVaisseau.pool.obtain();
 					r3.init(v);
 					particules.add(r3);
@@ -125,7 +125,7 @@ public class Particules {
 				}
 			}
 		}
-		yVaisseau = v.position.y;
+		yVaisseau = VaisseauJoueur.position.y;
 	}
 
 	public static void clear() {

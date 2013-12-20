@@ -18,4 +18,14 @@ public class Strings {
 	public static final String FILE = "File";
 	public static final String SELECT_FRAME = "Let's pick a frame";
 	
+	public static final String P1 = "HELLO, HERE IS THE BORING STUFF THAT WILL TEACH YOU HOW TO PLAY... THANKS FOR PLAYING ! \n     PAY ATTENTION TO THE BONUS THEY ARE VERY USEFUL";
+	public static final String SHIP = "Touch the screen to move your ship";
+	public static final String SHOOTHIM = "Shoot them !";
+	public static final String GG = "ENEMIES WILL GIVE YOU POINTS. \n USE THEM TO IMPROVE YOUR SHIP !";
+	public static final String TAKE_BONUS = "TAKE THIS BONUS";
+	public static final String USE_BONUS = "DO NOT TOUCH THE SCREEN TO MAKE THE BONUS MENU APPEAR \n THEN TOUCH THE BONUS YOU JUST GOT TO USE IT";
+	
+	public static final String LVL1 = "1. Piece of Cake";
+	public static final String LVL2 = "2. Let's Rock";
+	public static final String LVL3 = "3. Come get some";
 }

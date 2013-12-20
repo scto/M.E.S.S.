@@ -53,8 +53,8 @@ public class ParticuleArmeTrois extends Particule implements Poolable {
 	}
 
 	public void init(ArmesTrois a) {
-		posX = (a.position.x + a.DEMI_LARGEUR);
-		posY = a.position.y + a.DEMI_LARGEUR;
+		posX = (a.position.x + ArmesTrois.DEMI_LARGEUR);
+		posY = a.position.y + ArmesTrois.DEMI_LARGEUR;
 		angle = a.angle +90;
 		temps = (r.nextFloat() / 10) + .1f + EndlessMode.maintenant;
 		vitesseX = ((r.nextFloat() / 4f) - .125f) * 1000;

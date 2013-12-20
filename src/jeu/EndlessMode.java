@@ -1,8 +1,11 @@
 package jeu;
 import java.text.DecimalFormat;
+
 import menu.Menu;
 import objets.armes.Armes;
 import objets.bonus.Bonus;
+import objets.bonus.BonusStop;
+import objets.bonus.BonusTemps;
 import objets.ennemis.Ennemis;
 import objets.joueur.VaisseauJoueur;
 import assets.AssetMan;
@@ -62,7 +65,7 @@ public class EndlessMode implements Screen {
 	private static int menuX = 0;
 	private static int menuY = 0;
 	private int conseil = 0;
-	public static boolean konamiCode = false;
+	public static boolean konamiCode = false, transitionVersMouvement = false;
 //	Client c = new Client("beyondpixels.no-ip.biz");
 //	Client c = new Client("127.0.0.1");
 //	private float fps = 0, minFPS = 200, maxFPS = 0, currentFPS = 0;
@@ -142,6 +145,8 @@ public class EndlessMode implements Screen {
 //		if (Gdx.input.isKeyPressed(Keys.G))		Ennemis.LISTE.add(Cylon.pool.obtain());
 //		if (Gdx.input.justTouched())		Ennemis.LISTE.add(EnnemiBossMine.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.F1))	CSG.assetMan.reload(false);
+		if (Gdx.input.isKeyPressed(Keys.F2))	Bonus.list.add(BonusTemps.pool.obtain());
+		if (Gdx.input.isKeyPressed(Keys.F3))	Bonus.list.add(BonusStop.pool.obtain());
 //		if (Gdx.input.isKeyPressed(Keys.H))
 //			try {
 //				sendInfos();
@@ -154,13 +159,17 @@ public class EndlessMode implements Screen {
 		if (!pause) {
 			if (delta < 1) { 
 				EndlessMode.delta = delta;
-				if ((afficherMenuRadial || onAchoisis) && CSG.profil.typeControle != CSG.CONTROLE_ACCELEROMETRE) EndlessMode.delta = delta/7;
+				if ((afficherMenuRadial || onAchoisis) && CSG.profil.typeControle != CSG.CONTROLE_ACCELEROMETRE)
+					EndlessMode.delta = delta/7;
 				score += (EndlessMode.delta + EndlessMode.delta + EndlessMode.delta);
 				delta15 = EndlessMode.delta * 15;
 			}
 			// S I   O N   A   P A S   E N C O R E   P E R D U
 			if (!lost && !triggerStop) {
-				if (triggerSlowMotion) activerRalentissement(delta);
+				if (triggerSlowMotion)
+					activerRalentissement(delta);
+				if (transitionVersMouvement)
+					transitionVersMouvement(delta);
 				affichageNonPerdu();
 			} else {
 				if (triggerStop) {
@@ -209,13 +218,29 @@ public class EndlessMode implements Screen {
 //			minFPS = currentFPS;
 //		Gdx.app.log(String.valueOf(frameCounter), String.valueOf(fps/frameCounter));
 	}
+	
+	private float facteurTransition = 20;
+	private final float stepTransition = .1f;
+	private void transitionVersMouvement(float delta) {
+		// On ne décremente le chrono de ralentissement que quand on est au facteur de ralentissement max
+		if (facteurTransition > 1) {
+			facteurTransition -= stepTransition;
+		} else {
+			transitionVersMouvement = false;
+			facteurTransition = 20;
+		}
+		EndlessMode.delta /= facteurTransition;
+		EndlessMode.delta15 = EndlessMode.delta * 15;
+	}
 
 	private void affichageEtUpdateStop(float delta) {
 		tempsBonusStop -= delta;
 		batch.draw(rougefonce, (VaisseauJoueur.position.x + VaisseauJoueur.DEMI_LARGEUR) - (TIER_LARGEUR_JAUGE * tempsBonusStop)/2, VaisseauJoueur.position.y - HAUTEUR_JAUGE * 3, TIER_LARGEUR_JAUGE * tempsBonusStop, HAUTEUR_JAUGE);
 		if (tempsBonusStop < 0) {
 			triggerStop = false;
-			if (--nbBonusStop > 0)	tempsBonusStop += 3;
+			transitionVersMouvement = true;
+			if (--nbBonusStop > 0)
+				tempsBonusStop += 3;
 		}
 	}
 
@@ -223,19 +248,30 @@ public class EndlessMode implements Screen {
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
 		
-		if (CSG.profil.bloom) bloomActive();
-		else gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  //+10% de perfs !!. Si pas de bloom il faut le mettre
-	
+		if (CSG.profil.bloom)
+			bloomActive();
+		else
+			gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  //+10% de perfs !!. Si pas de bloom il faut le mettre
 		batch.begin();
 	}
 
+	private float facteurRalentissement = 3;
+	private final float stepRalentissement = .1f;
 	private void activerRalentissement(float delta) {
-		chronoRalentir -= delta/3;
-		EndlessMode.delta /= 3;
+		System.out.println("EndlessMode.activerRalentissement()");
+		// On ne décremente le chrono de ralentissement que quand on est au facteur de ralentissement max
+		EndlessMode.delta /= facteurRalentissement;
 		EndlessMode.delta15 = EndlessMode.delta * 15;
-		if (chronoRalentir < 0) {
-			triggerSlowMotion = false;
-			chronoRalentir = 0;
+		chronoRalentir -= delta / facteurRalentissement;
+		
+		if (chronoRalentir <= 0) {
+			if (facteurRalentissement >= 1) {
+				facteurRalentissement -= stepRalentissement;
+			} else {
+				triggerSlowMotion = false;
+				chronoRalentir = 0;
+				facteurRalentissement = 3;
+			}
 		}
 	}
 
@@ -367,22 +403,24 @@ public class EndlessMode implements Screen {
 	private void ui() {
 		// ***************                   P   O   L   I   C   E                  ***************
 		CSG.menuFontPetite.draw(batch, strScore, cam.position.x + X_CHRONO, HAUTEUR_POLICE);
-		// ******** J  A  U  G  E  *************
-		batch.draw(rougefonce, cam.position.x - X_SLOW, HAUTEUR_POLICE - HAUTEUR_JAUGE, DIXIEME_LARGEUR_JAUGE * chronoRalentir, HAUTEUR_JAUGE);
-		// ****  A F F I C H E R   S T O P  ****
-		switch(nbBonusStop) {
-		default :
-		case 3:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO + Bonus.WIDTH *2 + Bonus.HALF_WIDTH *2, HAUTEUR_POLICE*2, Bonus.WIDTH, Bonus.WIDTH);
-		case 2:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO + Bonus.WIDTH + Bonus.HALF_WIDTH, HAUTEUR_POLICE*2, Bonus.WIDTH, Bonus.WIDTH);
-		case 1:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO, HAUTEUR_POLICE*2, Bonus.WIDTH, Bonus.WIDTH);
-		case 0:
-		}
-		switch(nbBombes) {
-		default :
-		case 3:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.WIDTH *3 + Bonus.HALF_WIDTH *3, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
-		case 2:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.WIDTH *2 + Bonus.HALF_WIDTH *2, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
-		case 1:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.WIDTH *1 + Bonus.HALF_WIDTH *1, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
-		case 0:
+		if (CSG.profil.manualBonus) {
+			// ******** J  A  U  G  E  *************
+			batch.draw(rougefonce, cam.position.x - X_SLOW, HAUTEUR_POLICE - HAUTEUR_JAUGE, DIXIEME_LARGEUR_JAUGE * chronoRalentir, HAUTEUR_JAUGE);
+			// ****  A F F I C H E R   S T O P  ****
+			switch(nbBonusStop) {
+			default :
+			case 3:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO + Bonus.WIDTH *2 + Bonus.HALF_WIDTH *2, HAUTEUR_POLICE*2, Bonus.WIDTH, Bonus.WIDTH);
+			case 2:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO + Bonus.WIDTH + Bonus.HALF_WIDTH, HAUTEUR_POLICE*2, Bonus.WIDTH, Bonus.WIDTH);
+			case 1:	batch.draw(AssetMan.bonusetoile, cam.position.x + X_CHRONO, HAUTEUR_POLICE*2, Bonus.WIDTH, Bonus.WIDTH);
+			case 0:
+			}
+			switch(nbBombes) {
+			default :
+			case 3:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.WIDTH *3 + Bonus.HALF_WIDTH *3, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
+			case 2:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.WIDTH *2 + Bonus.HALF_WIDTH *2, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
+			case 1:	batch.draw(AssetMan.bombe, CSG.DEMI_LARGEUR_ECRAN + cam.position.x + X_CHRONO + Bonus.WIDTH *1 + Bonus.HALF_WIDTH *1, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
+			case 0:
+			}
 		}
 	}
 
@@ -441,7 +479,8 @@ public class EndlessMode implements Screen {
 	}
 
 	private static void pasTouche() {
-		if (afficherMenuRadial)	{
+		System.out.println(CSG.profil.manualBonus);
+		if (afficherMenuRadial && CSG.profil.manualBonus)	{
 			if (nbBonusStop > 0) batch.draw(AssetMan.bonusetoile,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			else batch.draw(AssetMan.bonusetoileGris,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.DEMI_LARGEUR_ECRAN) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			
@@ -488,7 +527,6 @@ public class EndlessMode implements Screen {
 				onAchoisis = true;
 			} else if (nbBombes > 0 && Physique.pointDansRectangle(Gdx.input.getX(), CSG.HAUTEUR_ECRAN - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - VaisseauJoueur.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH)) {
 				Ennemis.bombe();
-				CSG.google.unlockAchievementGPGS(Strings.ACH_BOMB);
 				nbBombes--;
 				onAchoisis = true;
 			}
@@ -541,15 +579,26 @@ public class EndlessMode implements Screen {
 	public void dispose() {	}
 
 	public static void addBonusStop() {
-		if (nbBonusStop < 2) {
+		if (CSG.profil.manualBonus) {
 			nbBonusStop++;
-			tempsBonusStop = 3;
+			if (nbBonusStop < 2) {
+				triggerStop = true;
+			}
+		} else {
+			triggerStop = true;
 		}
+		tempsBonusStop = 3;
 	}
 
 	public static void ralentir(int i) {		if (chronoRalentir < 10) chronoRalentir += i;	}
 
-	public static void ajoutBombe() {		if (nbBombes < 3) nbBombes++;	}
+	public static void ajoutBombe() {
+		if (CSG.profil.manualBonus && nbBombes < 3) {
+			nbBombes++;
+		} else {
+			Ennemis.bombe();
+		}
+	}
 	
 	private void afficherConseil(String s, TextureRegion tr, SpriteBatch batch) {
 		CSG.menuFontPetite.draw(batch, s, ((cam.position.x-CSG.DEMI_LARGEUR_ECRAN)) + ((CSG.DEMI_LARGEUR_ECRAN - CSG.menuFontPetite.getBounds(s).width/2)),	CSG.DEMI_HAUTEUR_ECRAN - CSG.menuFontPetite.getBounds(s).height * 4);

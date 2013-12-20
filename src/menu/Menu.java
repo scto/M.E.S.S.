@@ -1,9 +1,10 @@
 package menu;
 
-import menu.ui.Bouton;
-import objets.armes.joueur.ArmeAdd;
 import jeu.CSG;
 import jeu.EndlessMode;
+import menu.tuto.Tutorial;
+import menu.ui.Bouton;
+import objets.armes.joueur.ArmeAdd;
 import assets.SoundMan;
 import assets.particules.Particules;
 
@@ -52,9 +53,9 @@ public class Menu extends AbstractScreen {
 		}, true));
 		ajout(new Bouton(TUTO, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.LARGEUR_ECRAN / PADDING, (int) (CSG.HAUTEUR_ECRAN - (HAUTEUR_BOUTON * LIGNE_TUTO)), this, new OnClick() {
 			public void onClick() {
-				// Tutorial choix = new Tutorial(getGame());
-				Tuto choix = new Tuto(getGame());
-				getGame().setScreen(choix);
+//				 Tutorial tuto = new Tutorial(getGame());
+				Tuto tuto = new Tuto(getGame());
+				getGame().setScreen(tuto);
 			}
 		}, true));
 		swarm = new Bouton(HIGHSCORE, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.LARGEUR_ECRAN / PADDING, (int) (CSG.HAUTEUR_ECRAN - (HAUTEUR_BOUTON * LIGNE_HIGHSCORE)), this);

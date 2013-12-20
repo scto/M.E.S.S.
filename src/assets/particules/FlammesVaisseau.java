@@ -15,8 +15,9 @@ import com.badlogic.gdx.utils.Pools;
 public class FlammesVaisseau extends Particule implements Poolable {
 	
 	public static final float LARGEUR = CSG.LARGEUR_ECRAN / 60, DEMI_LARGEUR = LARGEUR / 2;
+//	private static float tmp = 0;
 	public static Pool<FlammesVaisseau> pool = Pools.get(FlammesVaisseau.class);
-	private float vitesseX, vitesseY, red, green, alpha;
+	private float vitesseX, vitesseY, red, green, alpha;//, largeur;
 	
 	// temps sert de vitesse de reduction de l'alpha
 	
@@ -37,10 +38,12 @@ public class FlammesVaisseau extends Particule implements Poolable {
 	
 	@Override
 	public boolean mouvementEtVerif() {
+//		tmp = (r.nextFloat() - 0.36f) * (largeur / 8);
 		alpha -= temps * EndlessMode.delta;
 		if (alpha < 0) return false;
-		posX += vitesseX * EndlessMode.delta;
-		posY += vitesseY * EndlessMode.delta;
+//		largeur -= tmp;
+		posX += (vitesseX * EndlessMode.delta);// + (tmp / 2f);
+		posY += (vitesseY * EndlessMode.delta);// + (tmp / 2f);
 		red /= (1 + EndlessMode.delta + EndlessMode.delta);
 		green /= (1 + EndlessMode.delta + EndlessMode.delta);
 		
@@ -62,12 +65,13 @@ public class FlammesVaisseau extends Particule implements Poolable {
 	}
 
 	public void init(VaisseauJoueur v) {
-		posX = (v.position.x + v.DEMI_LARGEUR - LARGEUR) + (r.nextFloat() * LARGEUR);
-		posY = v.position.y - (DEMI_LARGEUR + (DEMI_LARGEUR * r.nextFloat()));
+		posX = (VaisseauJoueur.position.x + VaisseauJoueur.DEMI_LARGEUR - LARGEUR) + (r.nextFloat() * LARGEUR);
+		posY = VaisseauJoueur.position.y - (DEMI_LARGEUR + (DEMI_LARGEUR * r.nextFloat()));
 		temps = 2f + (r.nextFloat() * 2);
 		alpha = 1;
 		red = r.nextFloat();
 		green = r.nextFloat();
+//		largeur = LARGEUR;
 		Particules.nbFlammes++;
 	}
 
@@ -90,6 +94,7 @@ public class FlammesVaisseau extends Particule implements Poolable {
 		alpha = 1;
 		red = r.nextFloat();
 		green = r.nextFloat();
+//		largeur = LARGEUR;
 		Particules.nbFlammes++;
 	}
 }

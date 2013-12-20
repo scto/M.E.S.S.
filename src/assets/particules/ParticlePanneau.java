@@ -20,6 +20,7 @@ public class ParticlePanneau {
 	public static Pool<ParticlePanneau> pool = Pools.get(ParticlePanneau.class);
 	private final Vector2 direction = new Vector2();
 	private static float deplacement = 0, demiDeplacement = 0;
+	private static Random r = new Random();
 	
 	public ParticlePanneau() {
 		color = AssetMan.convertARGB(1, rand.nextFloat(), rand.nextFloat(), 1);
@@ -41,7 +42,8 @@ public class ParticlePanneau {
 	}
 
 	public boolean mouvementEtVerif() {
-		deplacement = (largeur - largeur/1.05f);
+		deplacement = (r.nextFloat() - 0.36f) * (largeur / 2);
+//		deplacement = (largeur - largeur/1.05f);
 		demiDeplacement = deplacement/2;
 		posX += (direction.x * EndlessMode.delta15) + demiDeplacement;
 		posY += (direction.y * EndlessMode.delta15) + demiDeplacement;

@@ -16,7 +16,7 @@ public class BonusBombe extends Bonus implements Poolable{
 	private static int alreadyDropped = 1;
 	private static final float SPEED = Stats.V_BONUS_BOMBE;
 	
-	void init(float x, float y) {
+	public void init(float x, float y) {
 		posX = x - HALF_WIDTH;
 		posY = y - HALF_WIDTH;
 		list.add(this);

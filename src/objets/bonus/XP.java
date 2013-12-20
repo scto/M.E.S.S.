@@ -52,14 +52,8 @@ public class XP extends Bonus implements Poolable {
 		EndlessMode.score += valeur;
 		pool.free(this);
 	}
-
 	@Override
-	public void reset() {
-		tps = 0;
-	}
-
+	public void reset() {		tps = 0;	}
 	@Override
-	public void free() {
-		pool.free(this);
-	}
+	public void free() {		pool.free(this);	}
 }

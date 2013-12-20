@@ -18,7 +18,7 @@ public class AnimationQuiTir{
 	}
 	
 	public static TextureRegion getTexture(int pv) {
-		if (pv < Stats.PVMAX_AVION_AMOCHE) return mauvaisEtat;
+		if (pv < Stats.DEMI_PV_QUI_TIR) return mauvaisEtat;
 		return bonEtat;
 	}
 }

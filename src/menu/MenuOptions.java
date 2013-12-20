@@ -15,6 +15,7 @@ public class MenuOptions extends AbstractScreen {
 	private int ligne3 = 6;
 	private int ligne4 = 8;
 	private int ligne5 = 10;
+	private int ligne6 = 12;
 
 	public MenuOptions(final Game game) {
 		super(game);
@@ -110,8 +111,24 @@ public class MenuOptions extends AbstractScreen {
 				bloom.setTexte(INTENSITY + CSG.profil.intensiteBloom);
 			}
 		}, false));
+		// ****************************** B L O O M ************************************************************
+		String bonusTxt = "Automatic bonus";
+		if (CSG.profil.manualBonus)
+			bonusTxt = "Manual bonus";
+		final Bouton bonus = new Bouton(bonusTxt, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, (CSG.LARGEUR_ECRAN / 2) - Menu.LARGEUR_BOUTON / 2, -Menu.decalageY + CSG.HAUTEUR_ECRAN - Menu.HAUTEUR_BOUTON * ligne5, this);
+		bonus.setClick(new OnClick() {
+			@Override
+			public void onClick() {
+				CSG.profil.manualBonus = !CSG.profil.manualBonus;
+				if (CSG.profil.manualBonus)
+					bonus.setTexte("Manual bonus");
+				else 
+					bonus.setTexte("Automatic bonus");
+			}
+		});
+		ajout(bonus);
 		// ************************ C O N T R O L E S ********************************************************
-		final Bouton control = new Bouton(CSG.profil.getNomControle(), false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.LARGEUR_ECRAN / 2 - Menu.LARGEUR_BOUTON / 2, -Menu.decalageY + -2 * Menu.HAUTEUR_MINIBOUTON + CSG.HAUTEUR_ECRAN - Menu.HAUTEUR_BOUTON * ligne5, this);
+		final Bouton control = new Bouton(CSG.profil.getNomControle(), false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.LARGEUR_ECRAN / 2 - Menu.LARGEUR_BOUTON / 2, -Menu.decalageY + -2 * Menu.HAUTEUR_MINIBOUTON + CSG.HAUTEUR_ECRAN - Menu.HAUTEUR_BOUTON * ligne6, this);
 		control.setClick(new OnClick() {
 			public void onClick() {
 				CSG.profil.chgControle();

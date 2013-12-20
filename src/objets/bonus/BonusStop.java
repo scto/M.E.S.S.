@@ -16,7 +16,7 @@ public class BonusStop extends Bonus implements Poolable{
 	private static final float SPEED = Stats.V_BONUS_STOP;
 	private float tps = 0;
 
-	void init(float x, float y) {
+	public void init(float x, float y) {
 		posX = x - HALF_WIDTH;
 		posY = y - HALF_WIDTH;
 		list.add(this);

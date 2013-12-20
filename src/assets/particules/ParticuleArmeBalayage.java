@@ -47,8 +47,8 @@ public class ParticuleArmeBalayage extends ParticuleRGB implements Poolable {
 	}
 
 	public void init(ArmesBalayage a) {
-		posX = (a.position.x + a.DEMI_LARGEUR) + HAUTEUR;
-		posY = a.position.y + a.DEMI_LARGEUR;
+		posX = (a.position.x + ArmesBalayage.DEMI_LARGEUR) + HAUTEUR;
+		posY = a.position.y + ArmesBalayage.DEMI_LARGEUR;
 		angle = a.angle +90;
 		temps = (r.nextFloat() / 10) + .1f + EndlessMode.maintenant;
 		vitesseX = ((r.nextFloat() / 4f) - .125f) * VITESSE;
