@@ -8,16 +8,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationInsecte{
 	
-	public static AtlasRegion bonEtat, mauvaisEtat;
+	public static AtlasRegion goodShape, badShape;
 	
 	
 	public static TextureRegion getTexture(int pv) {
-		if (pv < Stats.PV_INSECTE) return mauvaisEtat;
-		return bonEtat;
+		if (pv < Stats.PV_INSECTE) return badShape;
+		return goodShape;
 	}
 	
 	public static void initAnimation(){
-		bonEtat = CSG.getAssetMan().getAtlas().findRegion("insecte");
-		mauvaisEtat = CSG.getAssetMan().getAtlas().findRegion("insectecasse");
+		goodShape = CSG.getAssetMan().getAtlas().findRegion("insecte");
+		badShape = CSG.getAssetMan().getAtlas().findRegion("insectecasse");
 	}
 }

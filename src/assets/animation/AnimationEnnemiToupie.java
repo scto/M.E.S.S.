@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationEnnemiToupie {
 	
-	private static final float TPS_ANIM = .04f;
+	private static final float TIME = .04f;
 	public static Animation anim;
 
 	public static TextureRegion getTexture(float tps) {
@@ -26,7 +26,7 @@ public class AnimationEnnemiToupie {
 		tr[6] = CSG.getAssetMan().getAtlas().findRegion("ennemirotation7");
 		tr[7] = CSG.getAssetMan().getAtlas().findRegion("ennemirotation8");
 		
-	    anim = new Animation(TPS_ANIM, tr);
+	    anim = new Animation(TIME, tr);
 	    anim.setPlayMode(Animation.NORMAL);
 	}	
 }

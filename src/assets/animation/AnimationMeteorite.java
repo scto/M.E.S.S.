@@ -5,13 +5,13 @@ import jeu.CSG;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class AnimationMeteorite{
+public class AnimationMeteorite implements Animated{
 
-	public static final float TPS_ANIM = .8f;
-	public static final float TPS_ANIM_TOTAL = 3.2f;
+	public static final float TIME = .8f;
+	public static final float TIME_TOTAL = 3.2f;
 	public static Animation animation; 
 	
-	public static TextureRegion getTexture(float tps) {
+	public TextureRegion getTexture(float tps) {
 		return animation.getKeyFrame(tps, false);
 	}
 	
@@ -23,7 +23,7 @@ public class AnimationMeteorite{
 		tr[2] = CSG.getAssetMan().getAtlas().findRegion("meteorite3");
 		tr[3] = CSG.getAssetMan().getAtlas().findRegion("meteorite4");
 
-	    animation = new Animation(TPS_ANIM, tr);
+	    animation = new Animation(TIME, tr);
 		animation.setPlayMode(Animation.LOOP_PINGPONG);
 	}	
 }

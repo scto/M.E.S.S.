@@ -2,10 +2,10 @@ package menu.ui;
 
 import java.util.ArrayList;
 
-import assets.particules.Particules;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import elements.particular.particles.Particles;
 
 public class TopBar extends UiComponent {
 
@@ -31,7 +31,7 @@ public class TopBar extends UiComponent {
 //			generator.effet(y());
 		decalage++;
 		for (int i = decalage; i < width(); i = i + max) 
-			Particules.ajoutUiElement(i, y(), false);
+			Particles.ajoutUiElement(i, y(), false);
 		if (decalage > max)
 			decalage = 0;
 	}

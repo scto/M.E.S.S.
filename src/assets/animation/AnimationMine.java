@@ -5,12 +5,12 @@ import jeu.CSG;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class AnimationMine {
+public class AnimationMine implements Animated {
 	
-	private static final float TPS_ANIM = .1f;
+	private static final float TIME = .1f;
 	public static Animation anim;
 
-	public static TextureRegion getTexture(float tps) {
+	public TextureRegion getTexture(float tps) {
 		return anim.getKeyFrame(tps, true);
 	}
 
@@ -21,7 +21,7 @@ public class AnimationMine {
 		tr[1] = CSG.getAssetMan().getAtlas().findRegion("mine2");
 		tr[2] = CSG.getAssetMan().getAtlas().findRegion("mine3");
 
-	    anim = new Animation(TPS_ANIM, tr);
+	    anim = new Animation(TIME, tr);
 	    anim.setPlayMode(Animation.LOOP_PINGPONG);
 	}	
 }

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationEnnemiDeBase {
 	
-	private static final float TPS_ANIM = .15f;
+	private static final float TIME = .15f;
 	public static Animation animation; 
 	
 	public static TextureRegion getTexture(float tps) {
@@ -21,7 +21,7 @@ public class AnimationEnnemiDeBase {
 		tr[1] = CSG.getAssetMan().getAtlas().findRegion("ennemidebase2");
 		tr[2] = CSG.getAssetMan().getAtlas().findRegion("ennemidebase3");
 		
-	    animation = new Animation(TPS_ANIM, tr);
+	    animation = new Animation(TIME, tr);
 	    animation.setPlayMode(Animation.LOOP_PINGPONG);
 	}	
 }

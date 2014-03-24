@@ -1,18 +1,18 @@
 package menu;
 
-import objets.armes.Armes;
-import objets.joueur.VaisseauJoueur;
 import jeu.CSG;
-import jeu.EndlessMode;
-import jeu.Physique;
+import jeu.Physic;
 import jeu.Stats;
-import assets.particules.Particules;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import elements.generic.Player;
+import elements.generic.weapons.Weapons;
+import elements.particular.particles.Particles;
+
 public class JeuBackground {
 	
-	private VaisseauJoueur vaisseau = new VaisseauJoueur();
+	private Player vaisseau = new Player();
 	private boolean alterner = true;
 
 	public void reset() {
@@ -20,26 +20,24 @@ public class JeuBackground {
 	}
 
 	public void render(SpriteBatch batch, float delta) {
-		EndlessMode.maintenant += delta;
-
 		vaisseau.draw(batch);
-		Armes.affichageEtMouvement(batch);
-		Particules.render(batch);		
-		VaisseauJoueur.centreX = VaisseauJoueur.position.x + VaisseauJoueur.DEMI_LARGEUR;
-		VaisseauJoueur.centreY = VaisseauJoueur.position.y + VaisseauJoueur.DEMI_HAUTEUR;
+		Weapons.drawAndMove(batch);
+		Particles.draw(batch);		
+		Player.xCenter = Player.POS.x + Player.DEMI_LARGEUR;
+		Player.yCenter = Player.POS.y + Player.DEMI_HAUTEUR;
 
 		// ** ** ** ** ** UPDATE ** ** ** ** **
 		if (alterner) {
-			Physique.testCollisions();
+			Physic.collisionsTest();
 			vaisseau.tir();
 		}
-		if (VaisseauJoueur.position.y > VaisseauJoueur.HAUTEUR) 	vaisseau.mvtLimiteVitesse(0, -Stats.V_ARME_BOSS_QUAD);
-		else			VaisseauJoueur.position.y = VaisseauJoueur.HAUTEUR;
+		if (Player.POS.y > Player.HAUTEUR) 	vaisseau.mvtLimiteVitesse(0, -Stats.V_ARME_BOSS_QUAD);
+		else			Player.POS.y = Player.HAUTEUR;
 		
 		alterner = !alterner;
 	}
 
-	public VaisseauJoueur getVaisseau() {
+	public Player getVaisseau() {
 		return vaisseau;
 	}
 }

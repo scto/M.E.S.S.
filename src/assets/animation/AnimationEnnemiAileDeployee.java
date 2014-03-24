@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationEnnemiAileDeployee {
 	
-	private static final float TPS_ANIM = .3f;
+	private static final float TIME = .3f;
 	public static Animation animation; 
 	
 	public static TextureRegion getTexture(float tps) {
@@ -21,7 +21,7 @@ public class AnimationEnnemiAileDeployee {
 		tr[1] = CSG.getAssetMan().getAtlas().findRegion("ennemiailesdeployees2");
 		tr[2] = CSG.getAssetMan().getAtlas().findRegion("ennemiailesdeployees1");
 		
-	    animation = new Animation(TPS_ANIM, tr);
+	    animation = new Animation(TIME, tr);
 		animation.setPlayMode(Animation.NORMAL);
 	}
 }

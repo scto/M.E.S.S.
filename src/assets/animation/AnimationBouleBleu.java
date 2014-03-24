@@ -1,16 +1,15 @@
 package assets.animation;
 
 import jeu.CSG;
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class AnimationBouleBleu{
+public class AnimationBouleBleu implements Animated {
 
-	private static final float TPS_ANIM = .03f;
-	public static Animation animation; 
+	private static final float TIME = .03f;
+	public static Animation animation;
 	
-	public static TextureRegion getTexture(float tps) {
+	public TextureRegion getTexture(float tps) {
 		return animation.getKeyFrame(tps, true);
 	}
 	
@@ -19,8 +18,7 @@ public class AnimationBouleBleu{
 		
 		tr[0] = CSG.getAssetMan().getAtlas().findRegion("boulebleu1");
 		tr[1] = CSG.getAssetMan().getAtlas().findRegion("boulebleu2");
-
-	    animation = new Animation(TPS_ANIM, tr);
+	    animation = new Animation(TIME, tr);
 		animation.setPlayMode(Animation.LOOP_PINGPONG);
 	}	
 }

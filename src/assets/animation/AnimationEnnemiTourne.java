@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AnimationEnnemiTourne {
 	
 
-	private static final float TPS_ANIM = .05f;
+	private static final float TIME = .05f;
 	public static Animation anim;
 
 	public static TextureRegion getTexture(float tps) {
@@ -27,7 +27,7 @@ public class AnimationEnnemiTourne {
 		tr[6] = CSG.getAssetMan().getAtlas().findRegion("ennemitourne7");
 		tr[7] = CSG.getAssetMan().getAtlas().findRegion("ennemitourne8");
 		
-	    anim = new Animation(TPS_ANIM, tr);
+	    anim = new Animation(TIME, tr);
 	    anim.setPlayMode(Animation.NORMAL);
 	}	
 }

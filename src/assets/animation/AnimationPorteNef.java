@@ -8,16 +8,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationPorteNef {
 
-	public static AtlasRegion bonEtat, mauvaisEtat;
+	public static AtlasRegion goodShape, badShape;
 
 	public static void initAnimation() {
-		bonEtat = CSG.getAssetMan().getAtlas().findRegion("portenef1");
-		mauvaisEtat = CSG.getAssetMan().getAtlas().findRegion("portenef2");
+		goodShape = CSG.getAssetMan().getAtlas().findRegion("portenef1");
+		badShape = CSG.getAssetMan().getAtlas().findRegion("portenef2");
 	}
 
 	public static TextureRegion getTexture(int pv) {
 		if (pv < Stats.DEMI_PV_PORTE_NEF)
-			return mauvaisEtat;
-		return bonEtat;
+			return badShape;
+		return goodShape;
 	}
 }

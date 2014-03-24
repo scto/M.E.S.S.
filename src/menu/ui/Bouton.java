@@ -2,20 +2,22 @@ package menu.ui;
 
 import java.util.Random;
 
-import menu.Menu;
-import menu.OnClick;
 import jeu.CSG;
-import jeu.Physique;
+import jeu.Physic;
 import jeu.Stats;
+import menu.screens.AbstractScreen;
+import menu.screens.Menu;
+import menu.tuto.OnClick;
 import assets.AssetMan;
-import assets.particules.Particules;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.moribitotech.mtx.AbstractScreen;
+
+import elements.particular.particles.ParticlePanneau;
+import elements.particular.particles.Particles;
 
 public class Bouton {
 
@@ -23,17 +25,18 @@ public class Bouton {
 	private String texte;
 	private boolean versDroite = false, rapetisser = false, fade = false;
 	private float vitesse = 50;
-	private static final float PADDING = Stats.U * 2, DEMI_PADDING = PADDING / 2;
-	private final AbstractScreen parent;
-	private Sprite sprite;
-	private OnClick click;
+	private AbstractScreen parent;
+	public Sprite sprite;
+	public OnClick click;
 	private boolean faitBouger = false;
 	private static final Vector2 tmpPos = new Vector2(), tmpGeneralDirection = new Vector2();
 	private int cptPosition = 0;
 	private static final Random rand = new Random();
+	private final Vector2 generator = new Vector2();
+	private int generatorSide = 0;
+	private final float speed = Stats.u;
 
 	public Bouton(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent, OnClick click, boolean faitBouger) {
-//		sprite = new Sprite(CSG.assetMan.bouton);
 		sprite = new Sprite();
 		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
 		this.font = font;
@@ -41,10 +44,16 @@ public class Bouton {
 		texte = s;
 		this.click = click;
 		this.faitBouger = faitBouger;
+		initGenerator();
+	}
+
+	private void initGenerator() {
+		generator.x = sprite.getX();
+		generator.y = sprite.getY() - ParticlePanneau.LARGEUR;
+		Particles.BOUTONS.clear();
 	}
 	
 	public Bouton(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, Menu parent, OnClick click, boolean faitBouger) {
-//		sprite = new Sprite(CSG.assetMan.bouton);
 		sprite = new Sprite();
 		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
 		this.font = font;
@@ -52,15 +61,25 @@ public class Bouton {
 		texte = s;
 		this.click = click;
 		this.faitBouger = faitBouger;
+		initGenerator();
 	}
 	
 	public Bouton(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent) {
-//		sprite = new Sprite(CSG.assetMan.bouton);
 		sprite = new Sprite();
 		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
 		this.font = font;
 		this.parent = parent;
 		texte = s;
+		initGenerator();
+	}
+
+	public Bouton(String s, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, OnClick onClick) {
+		sprite = new Sprite();
+		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
+		this.font = font;
+		texte = s;
+		click = onClick;
+		initGenerator();
 	}
 
 	public void setClick(OnClick click) {
@@ -68,14 +87,19 @@ public class Bouton {
 	}
 
 	public void draw(SpriteBatch batch) {
-		initVectorsParticule();
-		Particules.ajoutPanneau(tmpPos, tmpGeneralDirection);
-		batch.draw(AssetMan.noir, sprite.getX() + DEMI_PADDING, sprite.getY() + DEMI_PADDING, sprite.getWidth() - PADDING, sprite.getHeight() - PADDING);
+//		for (int i = 0; i < 100; i++) {
+//			moveGenerator(speed);
+//			Particles.ajoutPanneau(generator, tmpGeneralDirection);
+//		}
+		batch.setColor(0,0,0,1);
+		batch.draw(AssetMan.dust, sprite.getX(), sprite.getY() - ParticlePanneau.LARGEUR, sprite.getWidth(), sprite.getHeight() + ParticlePanneau.DOUBLE_LARGEUR);
+		batch.setColor(AssetMan.WHITE);
+		
 		font.draw(batch, texte, 
 				((sprite.getX() + (sprite.getWidth()/2)) - font.getBounds(texte).width/2),
 				(sprite.getY() + font.getBounds(texte).height + sprite.getHeight()/2 - font.getBounds(texte).height/2) );
 		
-		if (Gdx.input.justTouched() && Physique.pointIn(sprite)) {		
+		if (Gdx.input.justTouched() && Physic.pointIn(sprite)) {
 			if (faitBouger) {
 				if (parent != null)
 					parent.touche();
@@ -88,42 +112,77 @@ public class Bouton {
 		act();
 	}
 	
-	private void initVectorsParticule() {
+	private void moveGenerator(float speed) {
+		switch (generatorSide) {
+		case 0:
+			generator.x += speed;
+			if (generator.x > sprite.getX() + sprite.getWidth()) {
+				generatorSide++;
+				generator.x = sprite.getX() + sprite.getWidth();
+			}
+			break;
+		case 1:
+			generator.y += speed;
+			if (generator.y > sprite.getY() + sprite.getHeight()) {
+				generatorSide++;
+				generator.y = sprite.getY() + sprite.getHeight();
+			}
+			break;
+		case 2:
+			generator.x -= speed;
+			if (generator.x < sprite.getX()) {
+				generatorSide++;
+				generator.x = sprite.getX();
+			}
+			break;
+		case 3:
+			generator.y -= speed;
+			if (generator.y < sprite.getY() - ParticlePanneau.LARGEUR) {
+				generatorSide = 0;
+				generator.y = sprite.getY() - ParticlePanneau.LARGEUR;
+			}
+			break;
+		}
+	}
+
+	public void initVectorsParticule() {
 		switch (cptPosition) {
 		case 1:
 		case 2:
 		case 3:
+		case 4:
 			// ligne du haut
 			tmpPos.y = sprite.getY() + sprite.getHeight();
-			tmpPos.x = sprite.getX() + (rand.nextFloat() * sprite.getWidth());
+			tmpPos.x = (sprite.getX() + (rand.nextFloat() * (sprite.getWidth()+ParticlePanneau.TRIPLE_LARGEUR))) - ParticlePanneau.DOUBLE_LARGEUR;
 			tmpGeneralDirection.y = 1;
 			tmpGeneralDirection.x = 0;
 			break;
-		case 4:
+		case 5:
 			// ligne de droite
 			tmpPos.y = sprite.getY() + (rand.nextFloat() * sprite.getHeight());
-			tmpPos.x = sprite.getX() + sprite.getWidth();
+			tmpPos.x = sprite.getX() + sprite.getWidth() + ParticlePanneau.LARGEUR;
 			tmpGeneralDirection.y = 0;
 			tmpGeneralDirection.x = 1;
 			break;
-		case 5:
 		case 6:
 		case 7:
+		case 8:
+		case 9:
 			// ligne du bas
-			tmpPos.y = sprite.getY();
-			tmpPos.x = sprite.getX() + (rand.nextFloat() * sprite.getWidth());
+			tmpPos.y = sprite.getY() - ParticlePanneau.LARGEUR;
+			tmpPos.x = (sprite.getX() + (rand.nextFloat() * (sprite.getWidth()+ParticlePanneau.TRIPLE_LARGEUR))) - ParticlePanneau.DOUBLE_LARGEUR;
 			tmpGeneralDirection.y = -1;
 			tmpGeneralDirection.x = 0;
 			break;
-		case 8:
+		case 10:
 			// ligne de gauche
 			tmpPos.y = sprite.getY() + (rand.nextFloat() * sprite.getHeight());
-			tmpPos.x = sprite.getX();
+			tmpPos.x = sprite.getX() - ParticlePanneau.DOUBLE_LARGEUR;
 			tmpGeneralDirection.y = 0;
 			tmpGeneralDirection.x = -1;
 			break;
 		}
-		if (++cptPosition > 8)
+		if (++cptPosition > 10)
 			cptPosition = 1;
 	}
 
@@ -140,7 +199,7 @@ public class Bouton {
 			sprite.setScale((delta * getVitesse()));
 		}
 		
-		if (versDroite && sprite.getX() > CSG.LARGEUR_ECRAN) {
+		if (versDroite && sprite.getX() > CSG.screenWidth) {
 			click.onClick();
 		}
 	}
@@ -169,6 +228,19 @@ public class Bouton {
 
 	public BitmapFont font() {
 		return font;
+	}
+
+	public void camMoveY(float y) {
+		sprite.setY(sprite.getY()+y);
+	}
+	
+	public void camMoveX(float x) {
+		sprite.setY(sprite.getY()+x);
+	}
+
+	public void camZoom(float f) {
+		sprite.scale(f);
+		font.scale(f);
 	}
 	
 }

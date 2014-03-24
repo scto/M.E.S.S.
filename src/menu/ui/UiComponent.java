@@ -3,13 +3,14 @@ package menu.ui;
 import java.util.Random;
 
 import jeu.CSG;
-import jeu.Physique;
+import jeu.Physic;
 import menu.OnChange;
-import menu.OnClick;
-import assets.particules.Particules;
+import menu.tuto.OnClick;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+
+import elements.particular.particles.Particles;
 
 public class UiComponent {
 
@@ -32,7 +33,7 @@ public class UiComponent {
 		CSG.menuFont.draw(batch, text, x + UI.PADDING, yText);
 		for (int i = 0; i < UI.facteurParticules; i++) {
 			initVectorsParticule();
-			Particules.ajoutUiElement(tmpPos.x, tmpPos.y, selected);
+			Particles.ajoutUiElement(tmpPos.x, tmpPos.y, selected);
 		}
 	}
 
@@ -87,7 +88,7 @@ public class UiComponent {
 	}
 
 	public boolean testClick(int x, int y) {
-		if (Physique.pointDansRectangle(x, y, this.x, this.y, width, height)) {
+		if (Physic.isPointInRect(x, y, this.x, this.y, width, height)) {
 			selected = true;
 			if (click != null)
 				click.onClick();

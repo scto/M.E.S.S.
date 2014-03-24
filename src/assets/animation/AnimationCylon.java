@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationCylon {
 	
-	private static final float TPS_ANIM = .02f;
+	private static final float TIME = .02f;
 	public static Animation anim;
 
 	public static TextureRegion getTexture(float tps) {
@@ -20,7 +20,7 @@ public class AnimationCylon {
 		tr[0] = CSG.getAssetMan().getAtlas().findRegion("cylon1");
 		tr[1] = CSG.getAssetMan().getAtlas().findRegion("cylon2");
 
-	    anim = new Animation(TPS_ANIM, tr);
+	    anim = new Animation(TIME, tr);
 	    anim.setPlayMode(Animation.NORMAL);
 	}	
 }

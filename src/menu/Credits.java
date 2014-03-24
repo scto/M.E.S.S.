@@ -1,28 +1,37 @@
 package menu;
 
 import jeu.CSG;
+import jeu.Stats;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Credits {
 	
 	private float posX = 0;
-	private final String CREDIT =    "                                                    DEVELOPER : JULIEN BERTOZZI,   GAME DESIGN : JULIEN BERTOZZI, CHRISTIAN BRUYERE   GRAPHICS : TYRIAN,   MUSIC : OLIVIER LAHAYE.   DONE WITH THE LIBGDX FRAMEWORK...         THANKS FOR PLAYING !  YOU CAN FOLLOW US ON TWITTER : @BEYONDPIXELSTM";
-	private final String PATCHNOTE = "                                                    PATCHNOTE 0.905 : THE DIMENSIONS OF VARIOUS ENNEMIES HAVE BEEN ADJUSTED." + 
-									 "    YOU CAN CHOOSE TO USE YOUR BONUSES AUTOMATICALLY." +
-									 "    SLOWMOTION AND STOP TRANSITION IS SMOOTHER." +
-									 "    BOSSES PV HAVE BEEN ADJUSTED." +
-									 "    THE 4/3 AND 5/4 SCREEN SHOULD BE BETTER HANDLED." +
-									 "    YOU CAN FOLLOW US ON TWITTER : @BEYONDPIXELSTM";
+	private final static String BEER = "WE GOT BEERS FROM POLAND, US, KOREA, JAPAN AND BELGIUM !";
+	private final static String ADV = "                                 IF YOU LIKE THIS GAME, PLEASE RATE IT, HELP ME MAKING IT BETTER AND TALK ABOUT IT ! THANKS FOR YOUR DONATIONS, " + BEER;
+	private final static String END = "                             THANKS FOR YOUR DONATIONS. " + BEER + " AND THANKS FOR PLAYING, SERIOUSLY YOU ARE AWESOME, I AM REALLY HAPPY THAT YOU LIKE IT !" +
+	ADV;
+	private final static String CREDIT = "                DEVELOPER : JULIEN BERTOZZI,   GAME DESIGN : JULIEN BERTOZZI, CHRISTIAN BRUYERE, THE COMMUNITY   GRAPHICS : TYRIAN,   MUSIC : OLIVIER LAHAYE.   DONE WITH THE LIBGDX FRAMEWORK..." +
+											END;
+	private final static String PATCHNOTE = 
+"                                                    PATCHNOTE 0.922 :  SECRET WEAPONS ARE SLIGHTLY MORE POWERFUL.  BETTER GRAPHICS" + 
+									 		END;
 	private final String str;
 	
 	public Credits() {
-		if (Math.random() > .5f) str = CREDIT;
-		else str = PATCHNOTE;
+		final double d = Math.random();
+		if (d < .3)	str = CREDIT;
+		else if (d < .6)	str = ADV; 
+		else 				str = PATCHNOTE;
+	}
+	
+	public Credits(String s) {
+		str = s;
 	}
 
 	public void render(SpriteBatch batch, float delta) {
-		posX -= delta * 30;
+		posX -= delta * Stats.UUU;
 		CSG.menuFontPetite.draw(batch, str, posX, CSG.menuFontPetite.getBounds(str).height + 2);
 	}
 }

@@ -1,8 +1,8 @@
 package menu.ui;
 
-import assets.particules.Particules;
-
 import com.badlogic.gdx.Gdx;
+
+import elements.particular.particles.Particles;
 
 public class LigneParticuleGenerator {
 
@@ -36,7 +36,7 @@ public class LigneParticuleGenerator {
 			effetVersDroite = false;
 		if (x < min)
 			effetVersDroite = true;
-		Particules.ajoutUiElement(x, y, false);
+		Particles.ajoutUiElement(x, y, false);
 	}
 
 	public void majDimensions(int widthScreen) {

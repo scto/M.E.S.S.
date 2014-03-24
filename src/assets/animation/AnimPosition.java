@@ -9,8 +9,6 @@ import com.badlogic.gdx.utils.Array;
 public class AnimPosition extends Anim {
 	
 	private Array<Float> palliers = new Array<Float>(true, 5);
-	private int currentPallier = 0;
-
 	/**
 	 * Les pourcentages sont passés dans l'ordre genre 0.75, 0.5, 0.1
 	 * @param user
@@ -35,7 +33,6 @@ public class AnimPosition extends Anim {
 
 	public void reset() {
 		super.reset();
-		currentPallier = 0;
 	}
 
 	public void addPallier(float pallier, TriggerUser user) {

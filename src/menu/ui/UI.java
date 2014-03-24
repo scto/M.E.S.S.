@@ -3,10 +3,11 @@ package menu.ui;
 import java.util.ArrayList;
 
 import jeu.EndlessMode;
-import assets.particules.Particules;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import elements.particular.particles.Particles;
 
 public class UI {
 	public static final float BOTTOM_BAR = 10, TOP_BAR = 10;
@@ -23,7 +24,7 @@ public class UI {
 	public void draw(SpriteBatch batch) {
 		EndlessMode.delta = Gdx.graphics.getDeltaTime();
 		EndlessMode.delta15 = EndlessMode.delta * 15;
-		Particules.drawUi(batch);
+		Particles.drawUi(batch);
 		for (UiComponent e : elements)
 			e.draw(batch);
 	}
