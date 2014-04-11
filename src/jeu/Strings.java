@@ -41,5 +41,6 @@ public class Strings {
 	
 	public static final String SENSITIVITY = "SENSITIVITY  ";
 	public static final String TWITTER = "Twitter";
+	public static final String CHOOSE_WEAPON = "Choose your weapon";
 	
 }

@@ -2,13 +2,10 @@ package elements.generic;
 
 import jeu.CSG;
 import jeu.db.Requests;
-import assets.animation.AnimTWeapon;
 import assets.animation.Animated;
 import assets.animation.AnimationBouleBleu;
 import assets.animation.AnimationMeteorite;
 import assets.animation.AnimationMine;
-import assets.animation.AnimationTirFeu;
-
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -43,9 +40,9 @@ public abstract class Element {
 	private static Animated detectAnimation(int b) {
 		switch (b) {
 		case Animated.BLUE_BULLET: 			return new AnimationBouleBleu();
-		case Animated.FIREBALL: 			return new AnimationTirFeu();
+//		case Animated.FIREBALL: 			return new AnimationTirFeu();
 		case Animated.METEORITE: 			return new AnimationMeteorite();
-		case Animated.T_WEAPON: 			return new AnimTWeapon();
+//		case Animated.T_WEAPON: 			return new AnimTWeapon();
 		case Animated.MINE: 				return new AnimationMine();
 		}
 		return null;

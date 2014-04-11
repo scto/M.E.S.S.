@@ -1,6 +1,7 @@
 package assets.animation;
 
 import jeu.CSG;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -10,11 +11,11 @@ public class AnimationRouli {
 	
 	public static void initAnimation() {
 		tr = new TextureRegion[5];
-		tr[0] = CSG.getAssetMan().getAtlas().findRegion("ennemizigzag1");
-		tr[1] = CSG.getAssetMan().getAtlas().findRegion("ennemizigzag2");
-		tr[2] = CSG.getAssetMan().getAtlas().findRegion("ennemizigzag3");
-		tr[3] = CSG.getAssetMan().getAtlas().findRegion("ennemizigzag4");
-		tr[4] = CSG.getAssetMan().getAtlas().findRegion("ennemizigzag5");
+		tr[0] = AssetMan.getTextureRegion("ennemizigzag1");
+		tr[1] = AssetMan.getTextureRegion("ennemizigzag2");
+		tr[2] = AssetMan.getTextureRegion("ennemizigzag3");
+		tr[3] = AssetMan.getTextureRegion("ennemizigzag4");
+		tr[4] = AssetMan.getTextureRegion("ennemizigzag5");
 	}	
 
 	/**

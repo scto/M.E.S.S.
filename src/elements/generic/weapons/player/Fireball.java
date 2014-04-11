@@ -1,6 +1,5 @@
 package elements.generic.weapons.player;
 
-import jeu.CSG;
 import jeu.Stats;
 import assets.AssetMan;
 

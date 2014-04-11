@@ -10,7 +10,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
-import elements.generic.Player;
 import elements.generic.weapons.player.ArmeAdd;
 import elements.particular.particles.Particles;
 
@@ -23,11 +22,11 @@ public class Menu extends AbstractScreen {
 	private static final float 	LIGNE_PLAY = 1.9f, 
 								LIGNE_SHIP = LIGNE_PLAY + ECART, 
 								LIGNE_OPTION = LIGNE_SHIP + ECART, 
-								LIGNE_TUTO = LIGNE_OPTION + ECART, 
-								LIGNE_HIGHSCORE = LIGNE_TUTO + ECART, 
+//								LIGNE_TUTO = LIGNE_OPTION + ECART, 
+								LIGNE_HIGHSCORE = LIGNE_OPTION + ECART, 
 								LIGNE_ACHIEVEMENT = LIGNE_HIGHSCORE + ECART, 
 								LIGNE_SUPPORT = LIGNE_ACHIEVEMENT + ECART, 
-								LIGNE_EXIT = LIGNE_SUPPORT + ECART * 1.5f;
+								LIGNE_EXIT = LIGNE_SUPPORT + ECART * 2.5f;
 //	private final Skin skin;
 //    private final Stage stage;
 
@@ -58,11 +57,11 @@ public class Menu extends AbstractScreen {
 				changeMenu(new MenuOptions(game));
 			}
 		}, true));
-		ajout(new Bouton(TUTO, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_TUTO)), this, new OnClick() {
-			public void onClick() {
-				changeMenu(new Tuto(game));
-			}
-		}, true));
+//		ajout(new Bouton(TUTO, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_TUTO)), this, new OnClick() {
+//			public void onClick() {
+//				changeMenu(new Tuto(game));
+//			}
+//		}, true));
 		highscores = new Bouton(HIGHSCORE, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_HIGHSCORE)), this);
 		ajout(highscores);
 

@@ -14,8 +14,9 @@ public class MenuOptions extends AbstractScreen {
 	private static final int LINE2 = 4;
 	private static final int LINE3 = 6;
 	private static final int LINE4 = 8;
-	private static final int LINE5 = 10;
-	private static final int LINE7 = 15;
+	private static final int LINE5 = 14;
+	private static final int LINE6 = 12;
+	private static final int LINE7 = 10;
 //	private static final Credits BOTTOM_TXT = new Credits("    SENSITIVITY WILL APPLY TO ANY CONTROL YOU CHOOSE, 1 IS NEUTRAL, ABOVE 1 IS MORE SENSITIVE   ");
 
 	public MenuOptions(final Game game) {
@@ -107,6 +108,21 @@ public class MenuOptions extends AbstractScreen {
 			}
 		});
 		ajout(bonus);
+		String screenshaketxt = "Screenshake : on";
+		if (CSG.profile.screenshake == false)
+			screenshaketxt = "Screenshake : off";
+		final Bouton screenshake = new Bouton(screenshaketxt, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, (CSG.screenWidth / 2) - Menu.LARGEUR_BOUTON / 2, -Menu.decalageY + CSG.SCREEN_HEIGHT - Menu.HAUTEUR_BOUTON * LINE6, this);
+		screenshake.setClick(new OnClick() {
+			@Override
+			public void onClick() {
+				CSG.profile.screenshake = !CSG.profile.screenshake;
+				if (CSG.profile.screenshake)
+					screenshake.setTexte("Screenshake : on");
+				else 
+					screenshake.setTexte("Screenshake : off");
+			}
+		});
+		ajout(screenshake);
 		// ************************ C O N T R O L E S ********************************************************
 //		final Bouton control = new Bouton(CSG.profile.getNomControle(), false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / 2 - Menu.LARGEUR_BOUTON / 2, (int) (-Menu.decalageY + -2 * Menu.HAUTEUR_MINIBOUTON + CSG.SCREEN_HEIGHT - Menu.HAUTEUR_BOUTON * LINE6), this);
 //		control.setClick(new OnClick() {

@@ -34,12 +34,17 @@ public class SpaceInvaderParticle implements Poolable {
 
 	public static void init(SpaceInvaderWeapon e) {
 		final SpaceInvaderParticle p = POOL.obtain();
-		p.x = e.pos.x + SpaceInvaderWeapon.halfWidth;
-		p.y = e.pos.y + SpaceInvaderWeapon.halfWidth;
 		Particles.SPACE_INVADER.add(p);
-		p.dir.y = Stats.U270;
-		p.dir.x = 0;
+		p.dir.y = Stats.U90;
+		p.dir.x = Stats.U90;
 		p.dir.rotate(CSG.R.nextFloat()*360);
+		if (EndlessMode.triggerStop) {
+			p.x = (e.pos.x + SpaceInvaderWeapon.halfWidth) + p.dir.x * Stats.microUSur6;
+			p.y = (e.pos.y + SpaceInvaderWeapon.halfWidth) + p.dir.y * Stats.microUSur6;
+		} else {
+			p.x = (e.pos.x + SpaceInvaderWeapon.halfWidth) + p.dir.x * EndlessMode.deltaDiv3;
+			p.y = (e.pos.y + SpaceInvaderWeapon.halfWidth) + p.dir.y * EndlessMode.deltaDiv3;
+		}
 		p.a = 1;
 		p.g = 1;
 		p.b = sb / (((CSG.R.nextFloat()+1)/2) + 3);
@@ -51,31 +56,43 @@ public class SpaceInvaderParticle implements Poolable {
 		else 					sb -= 0.001f;
 		if (sb >= 3.99f)		upB = false;
 		else if (sb <= 3.01f)	upB = true;
-	}
+	} 
 	
 	public static void act(Array<SpaceInvaderParticle> explosions, SpriteBatch batch) {
 		colors();
-		for (final SpaceInvaderParticle p : explosions) {
-			batch.setColor(0, p.g, p.b, p.a);
-			p.a -= 0.04f;
-			p.g *= 0.9f; 
-			batch.draw(AssetMan.dust, p.x, p.y, SpaceInvaderWeapon.particle, SpaceInvaderWeapon.particle);
-			
-			if (EndlessMode.triggerStop)
-				continue;
-			
-			p.x += p.dir.x * EndlessMode.deltaDiv3;
-			p.y += p.dir.y * EndlessMode.deltaDiv3;
-			
-   			if (p.clockwise)	p.dir.rotate(40);
-			else				p.dir.rotate(-40);
-   			p.dir.scl(0.90f);
-   			
-			if (p.a < 0.4f) {
-				POOL.free(p);
-				explosions.removeValue(p, true);
+//		if (EndlessMode.alternate) {
+//			for (final SpaceInvaderParticle p : explosions) {
+//				batch.setColor(0, p.g, p.b, p.a);
+//				batch.draw(AssetMan.dust, p.x, p.y, SpaceInvaderWeapon.particle, SpaceInvaderWeapon.particle);
+//				
+//				if (p.a < 0.7f) {
+//					POOL.free(p);
+//					explosions.removeValue(p, true);
+//				}
+//			}	
+//		} else {
+			for (final SpaceInvaderParticle p : explosions) {
+				batch.setColor(0, p.g, p.b, p.a);
+				p.a -= 0.08f;
+				p.g *= 0.9f; 
+				batch.draw(AssetMan.dust, p.x, p.y, SpaceInvaderWeapon.particle, SpaceInvaderWeapon.particle);
+				
+//				if (EndlessMode.triggerStop)
+//					continue;
+				
+				p.x += p.dir.x * EndlessMode.delta;
+				p.y += p.dir.y * EndlessMode.delta;
+				
+				if (p.clockwise)	p.dir.rotate(70);
+				else				p.dir.rotate(-70);
+				p.dir.scl(0.8f);
+				
+				if (p.a < 0.3f) {
+					POOL.free(p);
+					explosions.removeValue(p, true);
+				}
 			}
-		}
+//		}
 		batch.setColor(AssetMan.WHITE);
 	}
 

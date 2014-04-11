@@ -1,7 +1,6 @@
 package elements.generic.weapons.player;
 
 import jeu.CSG;
-import jeu.Stats;
 import assets.AssetMan;
 //import assets.animation.AnimationTirBleu;
 
@@ -71,12 +70,11 @@ public class BlueSweepWeapon extends PlayerWeapon implements Poolable {
 	}
 
 	@Override	public void draw(SpriteBatch batch) {		Particles.ajoutArmeBalayage(this);	}
-	@Override	public int getWidth() {				return width;	}
-	@Override	public int getHeight() {			return width;	}
-	@Override	public void free() {				POOL.free(this);	}
-	@Override	public float getColor() {			return COLORS[R.nextInt(COLORS.length)];	}
-	@Override	public int getHalfWidth() {			return halfWidth;	}
-	@Override	public int getHalfHeight() {		return halfWidth;	}
-
+	@Override	public int getWidth() {						return width;	}
+	@Override	public int getHeight() {					return width;	}
+	@Override	public void free() {						POOL.free(this);	}
+	@Override	public float getColor() {					return COLORS[R.nextInt(COLORS.length)];	}
+	@Override	public int getHalfWidth() {					return halfWidth;	}
+	@Override	public int getHalfHeight() {				return halfWidth;	}
 	public static Object getLabel() {	return "ArmeBalayage";	}
 }

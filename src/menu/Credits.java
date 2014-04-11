@@ -12,10 +12,11 @@ public class Credits {
 	private final static String ADV = "                                 IF YOU LIKE THIS GAME, PLEASE RATE IT, HELP ME MAKING IT BETTER AND TALK ABOUT IT ! THANKS FOR YOUR DONATIONS, " + BEER;
 	private final static String END = "                             THANKS FOR YOUR DONATIONS. " + BEER + " AND THANKS FOR PLAYING, SERIOUSLY YOU ARE AWESOME, I AM REALLY HAPPY THAT YOU LIKE IT !" +
 	ADV;
-	private final static String CREDIT = "                DEVELOPER : JULIEN BERTOZZI,   GAME DESIGN : JULIEN BERTOZZI, CHRISTIAN BRUYERE, THE COMMUNITY   GRAPHICS : TYRIAN,   MUSIC : OLIVIER LAHAYE.   DONE WITH THE LIBGDX FRAMEWORK..." +
+	private final static String CREDIT = "                DEVELOPER : JULIEN BERTOZZI,     GAME DESIGN : JULIEN BERTOZZI, CHRISTIAN BRUYERE, THE COMMUNITY     GRAPHICS : TYRIAN, JULIEN BERTOZZI, A LOT OF PARTICLES     MUSIC : OLIVIER LAHAYE.     DONE WITH THE LIBGDX FRAMEWORK." +
 											END;
 	private final static String PATCHNOTE = 
-"                                                    PATCHNOTE 0.922 :  SECRET WEAPONS ARE SLIGHTLY MORE POWERFUL.  BETTER GRAPHICS" + 
+"                                                    "
++ "PATCHNOTE 0.926 :  Better explosions and your bomb is more powerful !" + 
 									 		END;
 	private final String str;
 	

@@ -6,12 +6,13 @@ import jeu.Stats;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
 
+import elements.generic.Player;
 import elements.generic.weapons.Weapons;
-import elements.particular.particles.Particles;
 import elements.particular.particles.individual.weapon.GreenAddParticle;
 
 /**
@@ -23,7 +24,7 @@ import elements.particular.particles.individual.weapon.GreenAddParticle;
 
 public class ArmeAdd extends PlayerWeapon implements Poolable{
 	
-	public static final int WIDTH = CSG.screenWidth / 40, DEMI_LARGEUR = WIDTH/2, HAUTEUR = WIDTH * 2, DEMI_HAUTEUR = HAUTEUR / 2; 
+	public static final int WIDTH = CSG.screenWidth / 26, DEMI_LARGEUR = WIDTH/2, HAUTEUR = WIDTH * 2, DEMI_HAUTEUR = HAUTEUR / 2; 
 	public static float CADENCETIR;
 	public static final Pool<ArmeAdd> POOL = Pools.get(ArmeAdd.class);
 	public static final float[] COLORS = {
@@ -54,29 +55,34 @@ public class ArmeAdd extends PlayerWeapon implements Poolable{
 		AssetMan.convertARGB(1, 0, 254f/255f, 191f/255f)};
 	
 	public static void determinerCadenceTir() {	CADENCETIR = 1.6f / CSG.profile.cadenceAdd;	}
-
-	public void init(float x, float y, float angle) {
-		pos.x = x;
-		pos.y = y;
+	private float angle;
+	private static final Vector2 decalage = new Vector2();
+	public void init(float x, float y, float angle, float decalage) {
+		pos.x = (x + Player.DEMI_LARGEUR_ADD) - DEMI_LARGEUR;
+		pos.y = (y + Player.HAUTEUR_DIV8) - DEMI_HAUTEUR;
 		dir.x = 0;
 		dir.y = 1;
 		dir.rotate(angle);
-		pos.x += dir.x * 25;
-		pos.y += dir.y * 25;
+		ArmeAdd.decalage.x = Player.LARGEUR_ADD;
+		ArmeAdd.decalage.y = Player.HAUTEUR_DIV4;
+		dir.rotate(decalage);
 		dir.scl(Stats.V_ARME_ADD);
 		Weapons.ADDS.add(this);
+		this.angle = (angle-180) + decalage;
+		ArmeAdd.decalage.rotate(angle+65);
+		pos.add(ArmeAdd.decalage);
 	}
 
 	@Override
 	public void draw(SpriteBatch batch) {
 		batch.setColor(GreenAddParticle.COLOR);
-		batch.draw(AssetMan.dust, pos.x, pos.y, WIDTH, WIDTH);
+		batch.draw(AssetMan.addBullet, pos.x, pos.y, DEMI_LARGEUR, DEMI_HAUTEUR, WIDTH, HAUTEUR, 1, 1, angle);
 		batch.setColor(AssetMan.WHITE);
 	}
 
 	@Override
 	public boolean mouvementEtVerif() {
-		Particles.ajoutAdd(this);
+//		Particles.ajoutAdd(this);
 		return Physic.mvt(HAUTEUR, WIDTH, dir, pos);
 	}
 
@@ -87,9 +93,8 @@ public class ArmeAdd extends PlayerWeapon implements Poolable{
 	@Override	public int getHalfWidth() {		return DEMI_LARGEUR;	}
 	@Override	public int getHalfHeight() {		return DEMI_HAUTEUR;	}
 
-	public static void add(float x, float y, float angle) {
-		ArmeAdd a = POOL.obtain();
-		a.init(x, y, angle + 90);
+	public static void add(float x, float y, float angle, float decalage) {
+		POOL.obtain().init(x, y, angle + 90, decalage);
 	}
 
 }

@@ -87,7 +87,7 @@ public class BlueSweepWeaponManager extends WeaponManager {
 
 	private void fire() {
 		boolean rotate = true;
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 9; i++) {
 			if (rotate) {
 				DIR.x = 0;
 				DIR.y = 1;

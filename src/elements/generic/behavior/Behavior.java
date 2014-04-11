@@ -13,6 +13,7 @@ public abstract class Behavior {
 	public static final int UTURN = 8;
 	public static final int ZIGZAG = 9;
 	public static final int HOMMING = 10;
+	public static final int UMBRELLA = 11;
 
 	public abstract void act(Enemy e);
 }

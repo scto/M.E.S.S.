@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.particular.particles.individual.Explosion;
+import elements.particular.particles.individual.explosions.Explosion;
 
 public class Meteorite extends EnemyWeapon implements Poolable, InvocableWeapon {
 	

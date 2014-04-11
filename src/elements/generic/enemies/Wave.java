@@ -137,7 +137,7 @@ public class Wave {
 		this.boss = boos;
 		this.freqSpawn = freq;
 		this.espaceActivation = espaceActivation;
-		this.ordered = ordered;
+		this.ordered = CSG.R.nextBoolean();
 		this.maxScore = maxScore;
 		this.scoreMin = scoreMin;
 		this.lignes = phases;

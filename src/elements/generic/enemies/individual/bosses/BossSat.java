@@ -52,7 +52,6 @@ public class BossSat extends Enemy {
 	}
 	
 	public void mouvementEtVerif() {
-		System.out.println(pos);
 		lancerEnnemi();
 		super.mouvementEtVerif();
 	}

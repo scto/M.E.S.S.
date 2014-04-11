@@ -1,9 +1,10 @@
 package assets.animation;
 
-import jeu.CSG;
 import jeu.EndlessMode;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import elements.particular.particles.Particles;
 
 public class AnimPlayer{
@@ -16,11 +17,11 @@ public class AnimPlayer{
 	public static TextureRegion[] initAnimation() {
 		tr = new TextureRegion[5];
 
-		tr[0] = CSG.getAssetMan().getAtlas().findRegion("joueur1");
-		tr[1] = CSG.getAssetMan().getAtlas().findRegion("joueur2");
-		tr[2] = CSG.getAssetMan().getAtlas().findRegion("joueur3");
-		tr[3] = CSG.getAssetMan().getAtlas().findRegion("joueur4");
-		tr[4] = CSG.getAssetMan().getAtlas().findRegion("joueur5");
+		tr[0] = AssetMan.getTextureRegion("joueur1");
+		tr[1] = AssetMan.getTextureRegion("joueur2");
+		tr[2] = AssetMan.getTextureRegion("joueur3");
+		tr[3] = AssetMan.getTextureRegion("joueur4");
+		tr[4] = AssetMan.getTextureRegion("joueur5");
 		return tr;
 	}
 

@@ -35,4 +35,6 @@ public interface TalkToTheWorld {
     void bragFacebook(String s);
     void followTwitter();
 	void buyUsABeer();
+	void toast(String string);
+	void buyXp();
 }

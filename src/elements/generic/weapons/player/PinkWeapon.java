@@ -12,7 +12,7 @@ import elements.particular.particles.Particles;
 public class PinkWeapon extends PlayerWeapon implements Poolable {
 	
 	public static int width = (int) Stats.U, halfWidth = (int) Stats.u;
-	public static final float CADENCETIR = initCadence(.13f, 3);
+	public static final float CADENCETIR = initCadence(.11f, 3);
 	public static final String LABEL = "armeTrois";
 	public static final Pool<PinkWeapon> POOL = new Pool<PinkWeapon>(30) {
 		@Override

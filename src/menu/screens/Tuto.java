@@ -43,7 +43,9 @@ public class Tuto extends AbstractScreen {
 		// SHIP
 		ligne(AnimationEnnemiDeBase.getTexture(0), 3, Stats.LARGEUR_DE_BASE, Stats.HAUTEUR_DE_BASE, enemy);
 		// XP
-		ligne(AssetMan.xp, 9, XP.WIDTH, XP.WIDTH, xp);
+		CSG.batch.setColor(0,1,1,1);
+		ligne(AssetMan.star, 9, (int)(XP.WIDTH * 1.5f), (int)(XP.WIDTH * 1.5f), xp);
+		CSG.batch.setColor(1,1,1,1);
 		// BOMB
 		ligne(AssetMan.bomb, 5, BonusBombe.WIDTH, BonusBombe.WIDTH, bomb);
 

@@ -9,14 +9,18 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
+import elements.particular.particles.Particles;
+
 public class BonusBombe extends BonusTimeMvt implements Poolable{
 
 	public static final Pool<BonusBombe> POOL = Pools.get(BonusBombe.class);
 	private static int alreadyDropped = 1;
 	private static final float SPEED = Stats.V_BONUS_BOMBE;
-
+	
+	
 	@Override
 	public void taken() {
+		Particles.bomb(this);
 		EndlessMode.ajoutBombe();
 		super.taken();
 	}

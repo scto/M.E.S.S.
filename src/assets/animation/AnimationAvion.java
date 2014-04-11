@@ -1,17 +1,16 @@
 package assets.animation;
 
-import jeu.CSG;
+import assets.AssetMan;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationAvion{
 	
-	public static AtlasRegion goodShape, badShape;
+	public static TextureRegion goodShape, badShape;
 	
 	public static void initAnimation(){
-		goodShape = CSG.getAssetMan().getAtlas().findRegion("avion");
-		badShape = CSG.getAssetMan().getAtlas().findRegion("avioncasse");
+		goodShape = AssetMan.getTextureRegion("avion");
+		badShape = AssetMan.getTextureRegion("avioncasse");
 	}
 	
 	public static TextureRegion getTexture(boolean goodShape2) {

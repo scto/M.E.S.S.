@@ -18,10 +18,12 @@ public abstract class Bonus {
 	
 
 	public static final Array<Bonus> LIST = new Array<Bonus>(40), TAKEN = new Array<Bonus>(16);
-	protected final Vector2 pos = new Vector2();
+	public static final Array<XP> XP_LIST = new Array<XP>(40);
+	public final Vector2 pos = new Vector2();
 	public static final int WIDTH = (int) Stats.BONUS_WIDTH;
 	public static final int HALF_WIDTH = (int) (Stats.BONUS_WIDTH / 2), WIDTH_MUL2 = WIDTH * 2, DISPLAY_WIDTH = (int) (WIDTH * 1.8f);
-	private static final float HITBOX = HALF_WIDTH, HITBOX_TOP_RIGHT = (HITBOX * 2) + WIDTH;
+	protected static final float HITBOX = HALF_WIDTH;
+	protected static final float HITBOX_TOP_RIGHT = (HITBOX * 2) + WIDTH;
 	protected static final int TIME_FREQ = 8, 
 			ADD_FREQ = (TIME_FREQ * 2)+1, 
 			BOMB_FREQ = (int) ((TIME_FREQ * 5.9f)+26), 
@@ -29,7 +31,7 @@ public abstract class Bonus {
 			SHIELD_FREQ = (int) ((TIME_FREQ * 3.8f)+1);
 	protected static final float INCREASE_FREQ = 1.35f;
 	public static int cptBonus = 1;
-	private static final int XPMINN = 10;
+	public static final int XPMINN = 50;
 	private float timeTaken;
 	private static float tmp, tmpY;
 	private static final float TRANSPARENCE = AssetMan.convertARGB(0.45f, .8f, 1, 1);
@@ -51,6 +53,7 @@ public abstract class Bonus {
 				b.free();
 			}
 		}
+		XP.act(XP_LIST, batch);
 		batch.setColor(AssetMan.WHITE);
 		for (final Bonus b : LIST) {
 			b.drawMeMoveMe(batch);
@@ -92,6 +95,9 @@ public abstract class Bonus {
 			b.free();
 		for (final Bonus b : TAKEN)
 			b.free();
+		for (final XP b : XP_LIST)
+			b.free();
+		Bonus.XP_LIST.clear();
 		Bonus.TAKEN.clear();
         Bonus.LIST.clear();
         BonusAdd.resetStats();
@@ -115,11 +121,11 @@ public abstract class Bonus {
 		BonusBombe.mightAppear(tmp, tmpY);
 		BonusBouclier.mightAppear(tmp, tmpY);
 		
-		if (EndlessMode.modeDifficulte > 1) {
+//		if (EndlessMode.modeDifficulte > 1) {
 			addXp(e.getXp(), tmp, tmpY);
-		} else { 
-			EndlessMode.score += e.getXp();
-		}
+//		} else { 
+//			EndlessMode.score += e.getXp();
+//		}
 	}
 
 	public static void addXp(int i, float tmp2, float tmpY2) {

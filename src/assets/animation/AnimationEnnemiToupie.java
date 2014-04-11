@@ -1,6 +1,6 @@
 package assets.animation;
 
-import jeu.CSG;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,14 +17,14 @@ public class AnimationEnnemiToupie {
 	public static void initAnimation() {
 		TextureRegion[] tr = new TextureRegion[8];
 		
-		tr[0] = CSG.getAssetMan().getAtlas().findRegion("ennemirotation1");
-		tr[1] = CSG.getAssetMan().getAtlas().findRegion("ennemirotation2");
-		tr[2] = CSG.getAssetMan().getAtlas().findRegion("ennemirotation3");
-		tr[3] = CSG.getAssetMan().getAtlas().findRegion("ennemirotation4");
-		tr[4] = CSG.getAssetMan().getAtlas().findRegion("ennemirotation5");
-		tr[5] = CSG.getAssetMan().getAtlas().findRegion("ennemirotation6");
-		tr[6] = CSG.getAssetMan().getAtlas().findRegion("ennemirotation7");
-		tr[7] = CSG.getAssetMan().getAtlas().findRegion("ennemirotation8");
+		tr[0] = AssetMan.getTextureRegion("ennemirotation1");
+		tr[1] = AssetMan.getTextureRegion("ennemirotation2");
+		tr[2] = AssetMan.getTextureRegion("ennemirotation3");
+		tr[3] = AssetMan.getTextureRegion("ennemirotation4");
+		tr[4] = AssetMan.getTextureRegion("ennemirotation5");
+		tr[5] = AssetMan.getTextureRegion("ennemirotation6");
+		tr[6] = AssetMan.getTextureRegion("ennemirotation7");
+		tr[7] = AssetMan.getTextureRegion("ennemirotation8");
 		
 	    anim = new Animation(TIME, tr);
 	    anim.setPlayMode(Animation.NORMAL);

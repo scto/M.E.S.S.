@@ -1,4 +1,4 @@
-package bloom;
+package shaders;
 
 import java.io.Serializable;
 

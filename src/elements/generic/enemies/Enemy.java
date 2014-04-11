@@ -8,7 +8,7 @@ import jeu.Strings;
 import jeu.db.Requests;
 import assets.AssetMan;
 import assets.SoundMan;
-import assets.animation.AnimationFragWeapon;
+import assets.animation.AnimationCylon;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,6 +30,7 @@ import elements.generic.behavior.Sink;
 import elements.generic.behavior.Slash;
 import elements.generic.behavior.StraightOn;
 import elements.generic.behavior.TurnAround;
+import elements.generic.behavior.Umbrella;
 import elements.generic.behavior.Uturn;
 import elements.generic.behavior.ZigZag;
 import elements.generic.weapons.Weapons;
@@ -49,7 +50,9 @@ import elements.generic.weapons.enemies.Tournante;
 import elements.generic.weapons.enemies.VicousBullet;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.bonuses.Bonus;
+import elements.particular.bonuses.BonusBombe;
 import elements.particular.bonuses.XP;
+import elements.particular.other.WaveEffect;
 import elements.particular.particles.Particles;
 
 public abstract class Enemy extends Element implements Poolable, Invocable {
@@ -112,12 +115,32 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		batch.draw(getTexture(), pos.x, pos.y, getHalfWidth(), getHalfHeight(), getWidth(), getHeight(), 1, 1, angle+90);
 	}
 
+	public static float f = 0;
 	public static void draw(SpriteBatch batch) {
 //		if (EndlessMode.modeDifficulte == 4)
 //			batch.setColor(lvl4);
 		for (final Enemy e : LIST) 
 			e.afficher(batch);
-//		batch.setColor(AssetMan.WHITE);
+//		if (EndlessMode.triggerStop) {
+//			batch.setColor(0, 1, 0, 1);
+//			for (final Enemy e : LIST) { 
+////				batch.draw(AssetMan.star, xp.pos.x, xp.pos.y, xp.getHalfWidth(), xp.getHalfHeight(), xp.getWidth(), xp.getHeight(), 1, 1, xp.angle);
+//				batch.draw(AssetMan.star, e.pos.x						, e.pos.y											, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
+//				batch.draw(AssetMan.star, e.pos.x + e.getHalfWidth()	, e.pos.y - e.getHalfHeight()						, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
+//				batch.draw(AssetMan.star, e.pos.x + e.getHalfWidth()	, e.pos.y + e.getHeight() + e.getHalfHeight()		, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
+//				batch.draw(AssetMan.star, e.pos.x + e.getWidth()		, e.pos.y											, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
+//				batch.draw(AssetMan.star, e.pos.x + e.getWidth()		, e.pos.y + e.getHeight()	, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
+//				batch.draw(AssetMan.star, e.pos.x						, e.pos.y + e.getHeight()	, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
+//				
+//				batch.draw(AssetMan.star, e.pos.x						, e.pos.y											, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
+//				batch.draw(AssetMan.star, e.pos.x + e.getHalfWidth()	, e.pos.y - e.getHalfHeight()						, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
+//				batch.draw(AssetMan.star, e.pos.x + e.getHalfWidth()	, e.pos.y + e.getHeight() + e.getHalfHeight()		, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
+//				batch.draw(AssetMan.star, e.pos.x + e.getWidth()		, e.pos.y											, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
+//				batch.draw(AssetMan.star, e.pos.x + e.getWidth()		, e.pos.y + e.getHeight()	, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
+//				batch.draw(AssetMan.star, e.pos.x						, e.pos.y + e.getHeight()	, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
+//			}
+//			f++;
+//		} 
 	}
 
 
@@ -146,7 +169,7 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		deltaMulImpact = EndlessMode.delta * Stats.IMPACT;
 		pos.x += (a.dir.x * deltaMulImpact);
 		pos.y += (a.dir.y * deltaMulImpact);
-		Particles.addFragment(a, this);
+		Particles.addPartEnemyTouched(a, this);
 		pv -= a.getPower();
 //		pourcentage = getPvMax() / pv;
 //		color = (int) (pvsColors.length / pourcentage);
@@ -174,12 +197,16 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		if (dead)
 			return;
 		Bonus.addBonus(this);
-		Particles.explosion(this);
+		explode();
 		SoundMan.playBruitage(getSonExplosion());
 //		SoundMan.playBruitage(getSonExplosion(), (pos.x + getHalfWidth()) - Player.xCenter);
 		EndlessMode.screenShake(getXp());
 		EndlessMode.explosions++;
 		dead = true;
+	}
+
+	protected void explode() {
+		Particles.explosion(this);
 	}
 	
 	@Override
@@ -196,20 +223,28 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		if (LIST.size >= 15) {
 			CSG.google.unlockAchievementGPGS(Strings.ACH_15_ENEMY);
 		}
+		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.convertARGB(1, 1f, 	(CSG.R.nextFloat() + .8f) / 1.6f, 	CSG.R.nextFloat()/8));
+		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.convertARGB(1, 1f, 	(CSG.R.nextFloat() + .8f) / 1.6f, 	CSG.R.nextFloat()/8));
 		attackAllEnemies(bomb);
 	}
 
-	public static void attackAllEnemies(PlayerWeapon bomb) {
+	private static final BonusBombe mockBomb = new BonusBombe();
+	public static void attackAllEnemies(PlayerWeapon a) {
 		for (final Enemy e : LIST) {
-			e.stillAlive(bomb);
-		}
-		EndlessMode.effetBloom();
-		for (int i = 0; i < Bonus.LIST.size; i++) {
-			if (Bonus.LIST.get(i) instanceof XP) {
-				final XP xp = (XP) Bonus.LIST.get(i);
-				xp.activate();
+			a.dir.x = ((e.pos.x + e.getHalfWidth())) - Player.xCenter;
+			a.dir.y = ((e.pos.y + e.getHalfWidth())) - Player.yCenter;
+			if (e.dead == false) {
+				e.stillAlive(a);
+				a.dir.nor();
+				a.dir.scl(250);
+				e.pos.x += (a.dir.x * Stats.IMPACT);
+				e.pos.y += (a.dir.y * Stats.IMPACT);
 			}
 		}
+		EndlessMode.effetBloom();
+		Particles.bombExplosion(a);
+		for (XP xp : Bonus.XP_LIST)
+			xp.state = XP.HOMMING;
 	}
 
 	public static void clear() {
@@ -240,7 +275,7 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		this.pos.x = pos.x - getHalfWidth();
 	}
 	
-	protected TextureRegion getTexture() {				return AnimationFragWeapon.getTexture(now);											}
+	protected TextureRegion getTexture() {				return AnimationCylon.getTexture(now);											}
 	protected Sound getSonExplosion() {					return null;																		}
 	public float getVitesse() {							return 3333;																		}
 	public Vector2 getPosition() {						return pos;																			}
@@ -285,7 +320,7 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		@Override
 		public float getColor() {				return 0;		}
 		@Override
-		public int getPower() { 				return 200;		}
+		public int getPower() { 				return 250;		}
 	};
 	
 	public static final PlayerWeapon superBomb = new PlayerWeapon() {
@@ -317,7 +352,7 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 	
 	protected static float initFirerate(float def, int pk) {
 		if (CSG.updateNeeded)
-			return Requests.getFireRate(pk, def);
+			return Requests.getFireRateEnemy(pk, def);
 		return def;
 	}
 	
@@ -380,6 +415,7 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		case Behavior.UTURN :			return new Uturn();
 		case Behavior.ZIGZAG :			return new ZigZag();
 		case Behavior.HOMMING :			return new Homming();
+		case Behavior.UMBRELLA :		return new Umbrella();
 		}
 		return new StraightOn();
 	}

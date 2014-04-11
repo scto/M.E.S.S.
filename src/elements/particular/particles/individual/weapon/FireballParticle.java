@@ -42,9 +42,7 @@ public class FireballParticle implements Poolable {
 		while (w >= Stats.u) {
 			tmp.add(w);
 			w *= 0.75f;
-			System.out.println(w);
 		}
-		System.out.println("width fireball particles size : " + tmp.size);
 		return CSG.convert(tmp);
 	}
 	
@@ -58,7 +56,6 @@ public class FireballParticle implements Poolable {
 			g -= step;
 			cpt++;
 		}
-		System.out.println("colors fireball particles size : " + tmp.size);
 		return CSG.convert(tmp);
 	}
 

@@ -22,6 +22,7 @@ import elements.generic.weapons.enemies.InvocableWeapon;
 import elements.generic.weapons.patterns.Tireur;
 import elements.generic.weapons.patterns.Tirs;
 import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.particles.Particles;
 import elements.positionning.Pos;
 import elements.positionning.UpWide;
 
@@ -72,6 +73,7 @@ public class Boule extends Enemy implements Tireur {
 		return angle;
 	}
 	
+	@Override	protected void explode() {					Particles.explosionBlue(this);	}
 	@Override	public float getDirectionY() {				return dir.y;	}
 	@Override	public float getDirectionX() {				return dir.x;	}
 	@Override	public void free() {						POOL.free(this);	}

@@ -20,6 +20,7 @@ import elements.generic.weapons.enemies.KinderWeapon;
 import elements.generic.weapons.patterns.TireurPlusieurFois;
 import elements.generic.weapons.patterns.Tirs;
 import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.particles.Particles;
 import elements.positionning.Pos;
 import elements.positionning.UpWide;
 
@@ -32,7 +33,7 @@ public class PorteRaisin extends Enemy implements TireurPlusieurFois {
 	protected static final float INIT_NEXT_SHOT = initNextShot(3, PK);
 	protected static final float SPEED = initSpeed(4, PK);
 	private static final int PV = initPv(Stats.PV_PORTE_RAISIN, PK), HALF_HP = PV/2;
-	private static final int EXPLOSION = initExplosion(60, PK);
+	private static final int EXPLOSION = initExplosion(40, PK);
 	protected static final int BASE_XP = Enemy.initXp(91, PK);
 	private static final int XP = getXp(BASE_XP, 1);
 	private static final Behavior behavior = initBehavior(PK, Behavior.STRAIGHT);
@@ -102,6 +103,10 @@ public class PorteRaisin extends Enemy implements TireurPlusieurFois {
 		return super.stillAlive(p);
 	}
 	
+	@Override	protected void explode() {
+		Particles.explosionBlue(this);
+		Particles.explosionGreen(this);
+	}
 	@Override	public float getModifVitesse() {		return 1;	}
 	@Override	public float getAngleTir() {			return angleTir;	}
 	@Override	public int getNumeroTir() {				return numeroTir;	}

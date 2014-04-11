@@ -21,8 +21,8 @@ import elements.particular.particles.Particles;
 
 public final class Player extends Element {
 
-	public static final int LARGEUR = (int) Stats.LARGEUR_JOUEUR, DEMI_LARGEUR = LARGEUR/2, LARGEUR_ADD = LARGEUR/3, DEMI_LARGEUR_ADD = LARGEUR_ADD/2;
-	public static final int HAUTEUR = (int) ((float)LARGEUR * 1.3f), DEMI_HAUTEUR = HAUTEUR / 2, HAUTEUR_MAX_ADD = HAUTEUR + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = DEMI_HAUTEUR / 2;
+	public static final int LARGEUR = (int) Stats.LARGEUR_JOUEUR, DEMI_LARGEUR = LARGEUR/2, LARGEUR_ADD = (int) (LARGEUR/1.5f), DEMI_LARGEUR_ADD = LARGEUR_ADD/2, WIDTH_DIV_10 = LARGEUR / 10;
+	public static final int HAUTEUR = (int) ((float)LARGEUR * 1.2f), DEMI_HAUTEUR = HAUTEUR / 2, HAUTEUR_MAX_ADD = HAUTEUR + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = HAUTEUR / 8, HAUTEUR_DIV4 = HAUTEUR / 4, HAUTEUR_DIV8 = HAUTEUR/8;
 	public static final int DECALAGE_ADD = LARGEUR + DEMI_LARGEUR - LARGEUR_ADD;
 	public static final int DECALAGE_TIR_ADD_X_GAUCHE = -DEMI_LARGEUR - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
 	public static final int DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
@@ -40,7 +40,11 @@ public final class Player extends Element {
 	public static float angleAdd = -90, angleAddDroite = -90;
 	public static boolean bouclier = false;
 	public static float alphaShield = .5f;
+	private float shotTime = 0;
 	private boolean sensAlpha = true;
+//	private boolean addShot = false;
+	private int addShotNbr = 0;
+	private final static int LEFT_ADD1 = 0x0001, LEFT_ADD2 = 0x0002, RIGHT_ADD1 = 0x0004, RIGHT_ADD2 = 0x0008;
 	
 	public Player() {
 		super();
@@ -81,7 +85,7 @@ public final class Player extends Element {
 		tpsBouclierHs = 0;
 	}
 	
-	private static final OvaleParticuleGenerator bouclierParticules = new OvaleParticuleGenerator(HAUTEUR);
+	private static final OvaleParticuleGenerator bouclierParticules = new OvaleParticuleGenerator(HAUTEUR * 2);
 	private static boolean bouclierHS = false;
 	private static float tpsBouclierHs = 0;
 	private float r = 1, g = 1, b = 1;
@@ -106,25 +110,37 @@ public final class Player extends Element {
 			batch.draw(AnimPlayer.getTexture(), POS.x, POS.y, LARGEUR, HAUTEUR);
 		}
 		
-		shield();
+		shield(batch);
+		if (leftAdd) 	batch.draw(AssetMan.addShip, addX - DEMI_LARGEUR, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
+		if (rightAdd) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
+		if (leftAdd2) 	batch.draw(AssetMan.addShip, addX - LARGEUR, 						addY - HAUTEUR, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
+		if (rightAdd2) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD + DEMI_LARGEUR, 	addY - HAUTEUR, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
 		// ** ** A D D S
-		if (leftAdd) 	batch.draw(AssetMan.addShip, addX - DEMI_LARGEUR, addY - DEMI_HAUTEUR, DEMI_LARGEUR_ADD, DEMI_HAUTEUR/2, LARGEUR_ADD, DEMI_HAUTEUR, 2f, 0.5f, angleAdd, false);
-		if (rightAdd) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD, addY - DEMI_HAUTEUR, DEMI_LARGEUR_ADD, DEMI_HAUTEUR/2, LARGEUR_ADD, DEMI_HAUTEUR, 2f, 0.5f, angleAddDroite, false);
-		if (leftAdd2) 	batch.draw(AssetMan.addShip, addX - LARGEUR, addY - HAUTEUR, DEMI_LARGEUR_ADD, DEMI_HAUTEUR/2, LARGEUR_ADD, DEMI_HAUTEUR, 2f, 0.5f, angleAdd, false);
-		if (rightAdd2) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD + DEMI_LARGEUR, addY - HAUTEUR, DEMI_LARGEUR_ADD, DEMI_HAUTEUR/2, LARGEUR_ADD, DEMI_HAUTEUR, 2f, 0.5f, angleAddDroite, false);
+		if (shotTime > 0) {
+			if (leftAdd)	batch.draw(AssetMan.addShipShot, addX - DEMI_LARGEUR, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
+			if (leftAdd2) 	batch.draw(AssetMan.addShipShot, addX - LARGEUR, 						addY - HAUTEUR, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
+			if (rightAdd)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
+			if (rightAdd2)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD + DEMI_LARGEUR, 	addY - HAUTEUR, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
+			shotTime -= EndlessMode.delta;
+			if (shotTime < 0)
+				addShotNbr = 0x0000;
+		}
 	}
 
-	private void shield() {
+	private void shield(SpriteBatch batch) {
 		if (bouclier) {
-			bouclierParticules.add(xCenter , yCenter - Stats.U);
+//			Shield.drawShield(batch);
+			bouclierParticules.add(xCenter , yCenter - Stats.u);
 			colorShield();
+//			Shield.drawAndExpand(batch);
 		} else if (bouclierHS) {
+//			Shield.drawAndExpand(batch);
 			colorShield();
 			tpsBouclierHs += EndlessMode.delta;
 			if (tpsBouclierHs > 1f)
 				bouclierHS = false;
 			bouclierParticules.grow(EndlessMode.unPlusDelta3);
-			bouclierParticules.add(xCenter , yCenter - Stats.U);
+			bouclierParticules.add(xCenter , yCenter - Stats.u);
 		}
 	}
 
@@ -333,28 +349,34 @@ public final class Player extends Element {
 	 * @param listeTir
 	 */
 	public void tir(){
+//		leftAdd = true;
 		prochainTir = weapon.init(prochainTir);
 		// ** ** A D D S
 		if (EndlessMode.now > prochainTirAdd) {
+			shotTime += ArmeAdd.CADENCETIR/10f;
 			if (leftAdd) {
-				ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_GAUCHE , addY - DEMI_HAUTEUR, angleAdd);
+				addShotNbr = addShotNbr | LEFT_ADD1;
+				ArmeAdd.add(addX - DEMI_LARGEUR, addY - DEMI_HAUTEUR, angleAdd, 0);
 				if (CSG.profile.cadenceAdd > 3) 
-					ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_GAUCHE , addY - DEMI_HAUTEUR, angleAdd + 10);
+					ArmeAdd.add(addX - DEMI_LARGEUR, addY - DEMI_HAUTEUR, angleAdd, 10);
 			}
 			if (rightAdd) {
-				ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_DROITE , addY - DEMI_HAUTEUR, angleAddDroite);
+				addShotNbr = addShotNbr | RIGHT_ADD1;
+				ArmeAdd.add(addX + DECALAGE_ADD, addY - DEMI_HAUTEUR, angleAddDroite, 0);
 				if (CSG.profile.cadenceAdd > 3) 
-					ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_DROITE , addY - DEMI_HAUTEUR, angleAddDroite - 10);
+					ArmeAdd.add(addX + DECALAGE_ADD, addY - DEMI_HAUTEUR, angleAddDroite, -10);
 			}
 			if (leftAdd2) {
-				ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_GAUCHE - DEMI_LARGEUR , addY - HAUTEUR, angleAdd);
+				addShotNbr = addShotNbr | LEFT_ADD2;
+				ArmeAdd.add(addX - LARGEUR, addY - HAUTEUR, angleAdd, 0);
 				if (CSG.profile.cadenceAdd > 6)
-					ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_GAUCHE - DEMI_LARGEUR , addY - HAUTEUR, angleAdd+10);
+					ArmeAdd.add(addX - LARGEUR, addY - HAUTEUR, angleAdd, 10);
 			}
 			if (rightAdd2) {
-				ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_DROITE + DEMI_LARGEUR , addY - HAUTEUR, angleAddDroite);
+				addShotNbr = addShotNbr | RIGHT_ADD2;
+				ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR , addY - HAUTEUR, angleAddDroite, 0);
 				if (CSG.profile.cadenceAdd > 6)
-					ArmeAdd.add(addX + DECALAGE_TIR_ADD_X_DROITE + DEMI_LARGEUR , addY - HAUTEUR, angleAddDroite-10);
+					ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR , addY - HAUTEUR, angleAddDroite, -10);
 			}
 			prochainTirAdd = EndlessMode.now + ArmeAdd.CADENCETIR;
 		}
@@ -436,7 +458,7 @@ public final class Player extends Element {
 
 	@Override
 	protected TextureRegion getTexture() {
-		return AssetMan.blueBullet;
+		return AssetMan.shield;
 	}
 
 	public static void touchedEnnemy(Enemy enemy) {

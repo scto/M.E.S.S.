@@ -1,7 +1,6 @@
 package elements.generic.enemies.individual.bosses;
 
 import jeu.CSG;
-import jeu.Physic;
 import jeu.Stats;
 import assets.SoundMan;
 import assets.animation.AnimationOmbrelle;
@@ -29,11 +28,11 @@ public class Ombrelle extends Enemy implements TireurAngle {
 	public static final int HAUTEUR = (int) (LARGEUR - (DEMI_LARGEUR/1.5f)), DEMI_HAUTEUR = HAUTEUR / 2;
 	public static final float CADENCE = 0.5f;
 	public static final Tirs tir = new Tirs(CADENCE);
-	private Vector2 direction = new Vector2();
 	protected float prochainTir = .1f;
 	public static Pool<Ombrelle> pool = Pools.get(Ombrelle.class);
-	private float angle = 0;
 	private static final Pos positionnement = new Middle();
+	public static final Invocable ref = new Ombrelle();
+	private static final Behavior behavior = initBehavior(99, Behavior.UMBRELLA);
 	
 	public Ombrelle() {
 		super();
@@ -41,8 +40,8 @@ public class Ombrelle extends Enemy implements TireurAngle {
 	}
 	
 	public void init() {
-		direction.x = 0;
-		direction.y = -Stats.V_ENN_OMBRELLE;
+		dir.x = 0;
+		dir.y = -CSG.halfHeight;
 		prochainTir = .1f;
 		positionnement.set(this);
 	}
@@ -54,19 +53,15 @@ public class Ombrelle extends Enemy implements TireurAngle {
 	}
 	
 	@Override
-	public void mouvementEtVerif() {
-		angle = Physic.mvtOmbrelle(this, direction);
-		super.mouvementEtVerif();
-	}
-	
-	@Override
 	protected void tir() {
 		tir.tirOmbrelle(this, 11, 10.8f, now, prochainTir, 7);
 	}
 	@Override
 	protected float getAngle() {		return angle + 90;	}
 	@Override
-	protected TextureRegion getTexture() {		return AnimationOmbrelle.getTexture(pv);	}
+	protected TextureRegion getTexture() {
+		return AnimationOmbrelle.getTexture(pv);
+	}
 	@Override
 	protected int getPvMax() {					return Stats.PV_OMBRELLE;	}
 	@Override
@@ -84,13 +79,14 @@ public class Ombrelle extends Enemy implements TireurAngle {
 	@Override
 	public Invocable invoquer() {
 		Ombrelle l = pool.obtain();
+		l.init();
 		LIST.add(l);
 		return l;
 	}
 	@Override
 	public void free() { pool.free(this);	}
 	@Override
-	public float getDirectionY() {		return direction.y;	}
+	public float getDirectionY() {		return dir.y;	}
 	@Override
 	public EnemyWeapon getArme() {		return HalfSizeFireball.POOL.obtain();	}
 	@Override
@@ -107,8 +103,8 @@ public class Ombrelle extends Enemy implements TireurAngle {
 		TMP_DIR.x = 0;
 		// On additionne pour partir du haut de l'ennemi
 		TMP_DIR.rotate(angle+90);
-		TMP_POS.x += TMP_DIR.x;
-		TMP_POS.y += TMP_DIR.y;
+		TMP_POS.x += (TMP_DIR.x * (Stats.u/4f));
+		TMP_POS.y += (TMP_DIR.y * (Stats.u/4f));
 		return TMP_POS;
 	}
 	@Override
@@ -119,8 +115,8 @@ public class Ombrelle extends Enemy implements TireurAngle {
 	public float getAngleTir() {		return angle - 90;	}
 	@Override
 	public Vector2 getDirectionTir() {		
-		TMP_DIR.x = direction.x;
-		TMP_DIR.y = direction.y;
+		TMP_DIR.x = dir.x;
+		TMP_DIR.y = dir.y;
 		TMP_DIR.nor();
 		return TMP_DIR;
 	}
@@ -137,11 +133,11 @@ public class Ombrelle extends Enemy implements TireurAngle {
 
 	@Override
 	public int getExplosionCount() {
-		return 50;
+		return 100;
 	}
 
 	@Override
 	public Behavior getBehavior() {
-		return null;
+		return behavior;
 	}
 }

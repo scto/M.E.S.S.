@@ -22,8 +22,6 @@ import elements.generic.weapons.enemies.InvocableWeapon;
 import elements.generic.weapons.enemies.Tournante;
 import elements.generic.weapons.patterns.TireurPlusieurFois;
 import elements.generic.weapons.patterns.Tirs;
-import elements.positionning.Pos;
-import elements.positionning.UpWide;
 
 public class Group extends Enemy implements Poolable, Invocable, TireurPlusieurFois {
 	

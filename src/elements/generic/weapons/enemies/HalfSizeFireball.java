@@ -1,8 +1,7 @@
 package elements.generic.weapons.enemies;
 
 import jeu.CSG;
-import assets.animation.Animated;
-
+import assets.AssetMan;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -15,7 +14,7 @@ public class HalfSizeFireball extends Fireball implements Poolable, InvocableWea
 	public final float color = elements.generic.weapons.player.Fireball.couleurs[CSG.R.nextInt(elements.generic.weapons.player.Fireball.couleurs.length)];
 	public static final int PK = 15;
 	private static final float SPEED = initSpeed(36, PK);
-	private static final Animated ANIMATED = initAnimation(2, PK);
+//	private static final Animated ANIMATED = initAnimation(2, PK);
 	
 	@Override	public void free() {					POOL.free(this);	}
 	@Override	public int getWidth() {					return WIDTH;	}
@@ -23,6 +22,7 @@ public class HalfSizeFireball extends Fireball implements Poolable, InvocableWea
 	@Override	public int getHalfHeight() {			return HALF_HEIGHT;	}
 	@Override	public int getHalfWidth() {				return HALF_WIDTH;	}
 	@Override	protected float getSpeed() {			return SPEED;	}
-	@Override	public TextureRegion getTexture() {		return ANIMATED.getTexture(now);	}
+//	@Override	public TextureRegion getTexture() {		return ANIMATED.getTexture(now);	}
+	@Override	public TextureRegion getTexture() {		return AssetMan.fireball;	}
 	@Override	public EnemyWeapon invoke() {			return POOL.obtain();	}
 }

@@ -1,4 +1,4 @@
-package bloom;
+package shaders;
 
 import java.io.Serializable;
 
@@ -21,8 +21,7 @@ public final class BloomShaderLoader implements Serializable {
 		if (!shader.isCompiled()) {
 			System.out.println(shader.getLog());
 			Gdx.app.exit();
-		} else
-			Gdx.app.log("shader compiled", shader.getLog());
+		} 
 		return shader;
 	}
 }

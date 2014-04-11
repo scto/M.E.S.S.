@@ -25,6 +25,7 @@ import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.patterns.TireurAngle;
 import elements.generic.weapons.patterns.Tirs;
 import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.particles.Particles;
 
 public class BossMine extends Enemy implements TireurAngle {
 
@@ -155,6 +156,7 @@ public class BossMine extends Enemy implements TireurAngle {
 		return TMP_POS;
 	}
 
+	@Override	protected void explode() {				Particles.explosionBlue(this);	}
 	@Override	public int getXp() {					return 200;	}
 	@Override	public int getHeight() {				return HAUTEUR;	}
 	@Override	public int getWidth() {					return LARGEUR;	}

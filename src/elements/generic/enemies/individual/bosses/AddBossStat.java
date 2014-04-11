@@ -1,5 +1,6 @@
 package elements.generic.enemies.individual.bosses;
 
+import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.Stats;
 import assets.SoundMan;
@@ -55,7 +56,10 @@ public class AddBossStat extends Enemy implements TireurAngle {
 	
 	@Override
 	public void mouvementEtVerif() {
-		angle = Physic.mvtToPlayerWithAngle(dir, pos, getVitesse(), (int)LARGEUR, (int)DEMI_LARGEUR);
+		if (EndlessMode.alternate) 
+			Physic.mvtNoCheck(pos, dir);
+		else
+			angle = Physic.mvtToPlayerWithAngle(dir, pos, getVitesse(), (int)LARGEUR, (int)DEMI_LARGEUR);
 		super.mouvementEtVerif();
 	}
 

@@ -1,6 +1,6 @@
 package assets.animation;
 
-import jeu.CSG;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,10 +18,10 @@ public class AnimationMeteorite implements Animated{
 	public static void initAnimation() {
 		TextureRegion[] tr = new TextureRegion[4];
 		
-		tr[0] = CSG.getAssetMan().getAtlas().findRegion("meteorite1");
-		tr[1] = CSG.getAssetMan().getAtlas().findRegion("meteorite2");
-		tr[2] = CSG.getAssetMan().getAtlas().findRegion("meteorite3");
-		tr[3] = CSG.getAssetMan().getAtlas().findRegion("meteorite4");
+		tr[0] = AssetMan.getTextureRegion("meteorite1");
+		tr[1] = AssetMan.getTextureRegion("meteorite2");
+		tr[2] = AssetMan.getTextureRegion("meteorite3");
+		tr[3] = AssetMan.getTextureRegion("meteorite4");
 
 	    animation = new Animation(TIME, tr);
 		animation.setPlayMode(Animation.LOOP_PINGPONG);

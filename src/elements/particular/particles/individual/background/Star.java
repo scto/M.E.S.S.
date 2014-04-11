@@ -1,38 +1,50 @@
-package elements.particular.particles.individual;
+package elements.particular.particles.individual.background;
 
 import java.util.Random;
 
 import jeu.CSG;
 import jeu.EndlessMode;
-import jeu.Stats;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
-import elements.generic.enemies.Progression;
 import elements.particular.particles.Particles;
 
 public class Star implements Poolable {
 	
-	private static final int WIDTH = CSG.screenWidth/280;
+	private static final int WIDTH = CSG.screenWidth/130, MINWIDTH = (int) (WIDTH / 2.5f);
 	private static final Pool<Star> POOL = new Pool<Star>(Particles.MAX_BACKGROUND) {
 		@Override
 		protected Star newObject() {
 			return new Star();
 		}
 	};
-	private final float w;
+	private final float w, speed, color;
 	private float y, x;
 	private static final Random R = new Random();
 	
 	public Star() {
-		float tmp = Math.abs((float) (R.nextGaussian() * WIDTH));
-		while (tmp < Stats.U / 30)
-			tmp = Math.abs((float) (R.nextGaussian() * WIDTH));
+		float tmp = Math.abs((float) (R.nextFloat() * WIDTH));
+		while (tmp < MINWIDTH)
+			tmp = Math.abs((float) (R.nextFloat() * WIDTH));
 		w = tmp;
 		x = (R.nextFloat() * CSG.gameZoneWidth + w) - w/2;
+		final float f = R.nextFloat();
+		if (f > .99f) {
+//			speed = R.nextFloat() * 2 * CSG.SCREEN_HEIGHT;
+			color = AssetMan.WHITE;
+		} else {
+			if (f > .9f)
+				color = AssetMan.convertARGB(1, 1, .7f+ R.nextFloat() / 4, 1);
+			else if (f > .7f) {
+				color = AssetMan.convertARGB(1, .5f, .5f+ R.nextFloat() / 4, 1);
+			} else {
+				color = AssetMan.WHITE;
+			}
+		}
+		speed = (w * w) * 0.5f;
 	}
 
 	@Override 
@@ -42,10 +54,10 @@ public class Star implements Poolable {
 	}
 
 	public static void initBackground(Array<Star> stars) {
-		for (int i = 0; i < Particles.MAX_BACKGROUND; i++) {
+		while (stars.size < Particles.MAX_BACKGROUND) {
 			final Star p = Star.POOL.obtain();
 			do {
-				p.y = (float) (R.nextGaussian() * CSG.SCREEN_HEIGHT * p.w * p.w);
+				p.y = (float) (R.nextFloat() * CSG.SCREEN_HEIGHT);
 			} while (p.y <= 0);
 			stars.add(p);
 		}
@@ -55,20 +67,24 @@ public class Star implements Poolable {
 		if (stars.size < Particles.MAX_BACKGROUND)
 			stars.add(Star.POOL.obtain());
 		
-		for (final Star star : stars) {
-			batch.draw(AssetMan.dust, star.x, star.y, star.w, star.w);
-			star.y -= (star.w * EndlessMode.delta2);
-			if (star.y < 0) {
-				POOL.free(star);
-				stars.removeValue(star, true);
-			}
-		}
-		if (Progression.bossJustPoped) {
+
+		if (EndlessMode.triggerStop) {
 			for (final Star star : stars) {
+				batch.setColor(star.color);
 				batch.draw(AssetMan.dust, star.x, star.y, star.w, star.w);
-				star.y += (star.w * EndlessMode.delta2);
+			}
+		} else {
+			for (final Star star : stars) {
+				batch.setColor(star.color);
+				batch.draw(AssetMan.dust, star.x, star.y, star.w, star.w);
+				star.y -= (star.speed * EndlessMode.delta2);
+				if (star.y < 0) {
+					POOL.free(star);
+					stars.removeValue(star, true);
+				}
 			}
 		}
+		batch.setColor(CSG.assetMan.WHITE);
 	}
 
 	public static void clear(Array<Star> stars) {

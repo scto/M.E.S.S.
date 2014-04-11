@@ -19,18 +19,34 @@ public class OvaleParticuleGenerator {
 	}
 
 	public void init(float hauteur) {
-		positionEmiter.x = hauteur/2;
+		positionEmiter.x = hauteur / 1.6f;
 		positionEmiter.y = 0;
 	}
 
 	public void add(float centreX, float centreY) {
 		positionEmiter.rotate(EndlessMode.delta15 * 80);
 		ShieldParticle.add(
-				(centreX - ShieldParticle.HALF_WIDTH/2) + positionEmiter.x,
+				(centreX - ShieldParticle.HALF_WIDTH) + positionEmiter.x,
 				centreY + positionEmiter.y);
 		ShieldParticle.add(
-				(centreX - ShieldParticle.HALF_WIDTH/2) - positionEmiter.x,
+				(centreX - ShieldParticle.HALF_WIDTH) - positionEmiter.x,
 				centreY - positionEmiter.y);
+		
+		ShieldParticle.add(
+				(centreX - ShieldParticle.HALF_WIDTH) - positionEmiter.x * 0.75f,
+				centreY - positionEmiter.y);
+		
+		ShieldParticle.add(
+				(centreX - ShieldParticle.HALF_WIDTH) - positionEmiter.x * 0.5f,
+				centreY - positionEmiter.y);
+		
+		ShieldParticle.add(
+				(centreX - ShieldParticle.HALF_WIDTH) + positionEmiter.x * 0.75f,
+				centreY + positionEmiter.y);
+		
+		ShieldParticle.add(
+				(centreX - ShieldParticle.HALF_WIDTH) + positionEmiter.x * 0.5f,
+				centreY + positionEmiter.y);
 	}
 	
 	

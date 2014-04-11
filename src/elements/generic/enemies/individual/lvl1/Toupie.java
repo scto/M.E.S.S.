@@ -19,6 +19,7 @@ import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.enemies.InvocableWeapon;
 import elements.generic.weapons.patterns.TireurBalayage;
 import elements.generic.weapons.patterns.Tirs;
+import elements.particular.particles.Particles;
 import elements.positionning.Pos;
 import elements.positionning.UpWide;
 
@@ -80,6 +81,7 @@ public class Toupie extends Enemy implements TireurBalayage {
 		return t;
 	}
 	
+	@Override	protected void explode() {					Particles.explosionGreen(this);	}
 	@Override	public float getVitesse() {					return SPEED;	}
 	@Override	protected Sound getSonExplosion() {			return SoundMan.explosion6;	}
 	@Override	protected TextureRegion getTexture() {		return AnimationEnnemiToupie.getTexture(now);	}

@@ -1,16 +1,15 @@
 package assets.animation;
 
-import jeu.CSG;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 public class AnimationOmbrelle {
 	
-	public static AtlasRegion goodShape;
+	public static TextureRegion goodShape;
 	
 	public static void initAnimation(){
-		goodShape = CSG.getAssetMan().getAtlas().findRegion("ombrelleboss");
+		goodShape = AssetMan.getTextureRegion("ombrelleboss");
 	}
 	
 	public static TextureRegion getTexture(int pv) {

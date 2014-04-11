@@ -19,6 +19,7 @@ import elements.generic.weapons.enemies.InvocableWeapon;
 import elements.generic.weapons.patterns.Tireur;
 import elements.generic.weapons.patterns.Tirs;
 import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.particles.Particles;
 import elements.positionning.Pos;
 import elements.positionning.UpWide;
 
@@ -88,6 +89,7 @@ public class QuiTir extends Enemy implements Tireur{
 		return super.stillAlive(a);
 	}
 	
+	@Override	protected void explode() {				Particles.explosionBlue(this);	}
 	@Override	protected String getLabel() {			return getClass().toString();	}
 	@Override	public void free() {					POOL.free(this);	}
 	@Override	protected Sound getSonExplosion() {		return SoundMan.explosion5;	}

@@ -31,14 +31,14 @@ public class Profil implements Serializable{
 	private static final String STR_ARME_BALAYAGE_NV = "abnv", STR_ARME_TROIS_NV = "tricheur", STR_ARME_HANTEE_NV = "trichur";
 	private static final String strXP = "XP", STR_VOLUME_ARME = "sjciuendk", STR_VOLUME_MUSIQUE = "sjciuend";
 	private static final String STR_VOLUME_BRUITAGES = "sjciuen", STR_TYPE_CONTROLE = "sfdsfiuen", STR_BLOOM = "bloom";
-	private static final String STR_MANUAL_BONUS = "particules", STR_INTENSITE_BLOOM = "intensitebloom", BFG = "bfg", STR_ARME_SUN = "pointculture", STR_SPACE_INVADER_WEAPON = "spaceInvader";
+	private static final String STR_MANUAL_BONUS = "particules", STR_INTENSITE_BLOOM = "intensitebloom", BFG = "bfg", STR_ARME_SUN = "pointculture", STR_SPACE_INVADER_WEAPON = "spaceInvader", STR_SCREENSHAKE = "screens";
 	private static final float STEP_VOL = .1f;
 	// -- -- initialisation des champs
 	public short cadenceAdd = 1, typeControle = CSG.CONTROLE_TOUCH_RELATIVE, NvArmeDeBase = 2, NvArmeBalayage = 2, lvlPinkWeapon = 2, NvArmeHantee = 2, NvArmeSun = 2, NvSpaceInvadersWeapon = 2;
 	public int xpDispo;
 	public float weaponVolume = 0.5f, musicVolume = 0.5f, effectsVolume = 0.5f, intensiteBloom = 2.1f, sensitivity = 1.5f;
-	private String armeSelectionnee;
-	public boolean bloom, manualBonus, bfg;
+	public String armeSelectionnee;
+	public boolean bloom, manualBonus, bfg, screenshake;
 	// -- -- string d'affichage
 	public String champXp = " XP : " + xpDispo;
 	public static boolean premiereFois = false;
@@ -63,11 +63,12 @@ public class Profil implements Serializable{
 		bloom = true; // Provoque dans de rares cas des bugs d'affichages
 		armeSelectionnee = PinkWeapon.LABEL;
 		typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
-		intensiteBloom = 2.1f;
+		intensiteBloom = 2.4f;
 		premiereFois = true;
 		manualBonus = false;
 		sensitivity = 1.5f;
 		bfg = false;
+		screenshake = true;
 	}
 
 	/**
@@ -91,6 +92,7 @@ public class Profil implements Serializable{
 		json.writeValue(STR_TYPE_CONTROLE, typeControle);
 		json.writeValue(STR_BLOOM, bloom);
 		json.writeValue(STR_MANUAL_BONUS, manualBonus);
+		json.writeValue(STR_SCREENSHAKE, screenshake);
 		json.writeValue(STR_INTENSITE_BLOOM, intensiteBloom);
 		json.writeValue(BFG, bfg);
 	}
@@ -148,6 +150,10 @@ public class Profil implements Serializable{
 		if (json.readValue(STR_SPACE_INVADER_WEAPON, Integer.class, jsonData) != null) 	NvSpaceInvadersWeapon = json.readValue(STR_SPACE_INVADER_WEAPON, Integer.class, jsonData).shortValue();
 		else 																			NvSpaceInvadersWeapon = 1;
 		typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
+		if (json.readValue(STR_SCREENSHAKE, Boolean.class, jsonData) != null)
+			bfg = json.readValue(STR_SCREENSHAKE, Boolean.class, jsonData);
+		else
+			bfg = true;
 		checkAchievementWeapons();
 	}
 
@@ -163,7 +169,7 @@ public class Profil implements Serializable{
 	}
 	
 	public int getCoutCadenceAdd() {
-		return (int) (((cadenceAdd+cadenceAdd) * cadenceAdd * cadenceAdd * 100) * CSG.mulSCORE);
+		return (int) (((cadenceAdd+cadenceAdd) * cadenceAdd * cadenceAdd * 120) * CSG.mulSCORE);
 	}
 	
 	/**
@@ -190,7 +196,7 @@ public class Profil implements Serializable{
 		} else if (armeSelectionnee.equals(TWeapon.LABEL) && NvArmeHantee < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();
 			NvArmeHantee++;
-			TWeapon.updateDimensions();
+//			TWeapon.updateDimensions();
 			champXp = "XP : " + xpDispo;
 		} else if (armeSelectionnee.equals(PinkWeapon.LABEL) && lvlPinkWeapon < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();
@@ -210,12 +216,20 @@ public class Profil implements Serializable{
 	}
 
 	private void checkAchievementWeapons() {
-		if (NvArmeBalayage >= 6 || NvArmeDeBase >= 6 || NvArmeHantee >= 6 || NvArmeSun >= 6 || lvlPinkWeapon >= 6 || NvSpaceInvadersWeapon >= 6)
+		if (areWeaponsLvl6())
 			CSG.google.unlockAchievementGPGS(Strings.ACH_LVL6);
-		if (NvArmeBalayage >= NV_MIN_SUN && NvArmeDeBase >= NV_MIN_SUN && NvArmeHantee >= NV_MIN_SUN && lvlPinkWeapon >= NV_MIN_SUN)
+		if (areWeaponsUnlocked())
 			CSG.google.unlockAchievementGPGS(Strings.ACH_UNLOCK_SUN);
 		if (NvArmeBalayage >= 8 || NvArmeDeBase >= 8 || NvArmeHantee >= 8 || NvArmeSun >= 8 || lvlPinkWeapon >= 8 || NvSpaceInvadersWeapon >= 8)
 			CSG.google.unlockAchievementGPGS(Strings.ACH_LVL8);
+	}
+
+	public boolean areWeaponsUnlocked() {
+		return NvArmeBalayage >= NV_MIN_SUN && NvArmeDeBase >= NV_MIN_SUN && NvArmeHantee >= NV_MIN_SUN && lvlPinkWeapon >= NV_MIN_SUN;
+	}
+
+	public boolean areWeaponsLvl6() {
+		return NvArmeBalayage >= 6 || NvArmeDeBase >= 6 || NvArmeHantee >= 6 || NvArmeSun >= 6 || lvlPinkWeapon >= 6 || NvSpaceInvadersWeapon >= 6;
 	}
 	
 	public int getCoutUpArme() {
@@ -226,7 +240,7 @@ public class Profil implements Serializable{
 		else if (PinkWeapon.LABEL.equals(armeSelectionnee))				nv = lvlPinkWeapon;
 		else if (SunWeapon.LABEL.equals(armeSelectionnee))				nv = NvArmeSun;
 		else if (SpaceInvaderWeapon.LABEL.equals(armeSelectionnee))		nv = NvSpaceInvadersWeapon;
-		return (int) (((nv+nv) * nv * nv * 100) * CSG.mulSCORE);
+		return (int) (((nv+nv) * nv * nv * 120) * CSG.mulSCORE);
 	}
 
 	public void addXp(int i) {

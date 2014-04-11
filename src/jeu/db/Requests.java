@@ -31,22 +31,23 @@ import elements.generic.enemies.individual.lvl1.ZigZag;
 public class Requests {
 	
 	private static final String WEAPON_FIRERATE = "Select firerate from weapons where pk = "; 
-	private static final String ENEMY_SPEED = "Select speed from enemies where pk = "; 
-	private static final String ENEMY_WEAPON = "Select fk_weapons from enemies where pk = "; 
+	private static final String ENEMY_SPEED = "Select speed from enemy where pk = "; 
+	private static final String ENEMY_WEAPON = "Select fk_weapons from enemy where pk = "; 
 	private static final String ENEMY_WEAPON_SPEED = "Select speed from weapons where pk = "; 
-	private static final String ENEMY_FIRERATE = "Select firerate from enemies where pk = "; 
+	private static final String ENEMY_FIRERATE = "Select firerate from enemy where pk = "; 
 	private static final String ENEMY_WEAPON_ANIMATION = "Select fk_animation from weapons where pk = "; 
-	private static final String ENEMY_BEHAVIOR = "Select fk_behavior from enemies where pk = "; 
-	private static final String ENEMY_NEXTSHOT = "Select nextShot from enemies where pk = "; 
-	private static final String ENEMY_POSITIONNEMENT = "Select fk_positionning from enemies where pk = "; 
-	private static final String ENEMY_PV = "Select pv from enemies where pk = "; 
-	private static final String ENEMY_XP = "Select xp from enemies where pk = "; 
-	private static final String ENEMY_EXPLOSION = "Select explosion from enemies where pk = "; 
+	private static final String ENEMY_BEHAVIOR = "Select fk_behavior from enemy where pk = "; 
+	private static final String ENEMY_NEXTSHOT = "Select nextShot from enemy where pk = "; 
+	private static final String ENEMY_POSITIONNEMENT = "Select fk_positionning from enemy where pk = "; 
+	private static final String ENEMY_PV = "Select pv from enemy where pk = "; 
+	private static final String ENEMY_XP = "Select xp from enemy where pk = "; 
+	private static final String ENEMY_EXPLOSION = "Select explosion from enemy where pk = "; 
 	public static final String WAVE = "select scoremin, interval, boss, freq, ordered, scoremax, order_spawn, fk_enemies, fk_position from wave " + 
 									"inner join wave_spawn on wave.pk = ? and wave_spawn.fk_wave = wave.pk " +
 									"inner join spawn on spawn.pk = wave_spawn.fk_spawn " +
 									"inner join spawn_enemies_position on spawn_enemies_position.fk_spawn = spawn.pk "+
-									"inner join enemies_position on enemies_position.pk = spawn_enemies_position.fk_enemies_position"; 
+									"inner join enemy_position on enemy_position.pk = spawn_enemies_position.fk_enemies_position"
+									+ " order by order_spawn asc"; 
 	
 	public static float getFireRate(int pk, float def) {
 		return CSG.dbManager.getFloat(WEAPON_FIRERATE + pk, def);
@@ -99,10 +100,31 @@ public class Requests {
 	public static Wave getWave(int pk, Wave def) {
 		final Wave wave = CSG.dbManager.getWave(pk, def);
 		if (wave != null) {
+			printWave(pk, wave);
 			return wave;
 		}
 		System.err.println("wave null");
 		return def;
+	}
+
+	private static void printWave(int pk, final Wave wave) {
+		System.out.println("------------------------------------------------- " + pk + " score min : " + wave.scoreMin + " / max " + wave.maxScore);
+		SpawnEnemyPosition[] spawns = wave.lignes;
+		for (SpawnEnemyPosition spawnEnemyPosition : spawns) {
+			if (spawnEnemyPosition.enemies.length == 0)
+				System.out.println("pause");
+			int i = 1;
+			for (Vector2 pos : spawnEnemyPosition.positions) {
+				System.out.println(i + " pos : " + pos.toString());
+				i++;
+			}
+			int j = 1;
+			for (Invocable pos : spawnEnemyPosition.enemies) {
+				System.out.println(j + " inv : " + pos.getXp());
+				j++;
+			}
+		}
+		System.out.println(pk + " -------------------------------------------------");
 	}
 
 	public static void waveDb(Wave def) {

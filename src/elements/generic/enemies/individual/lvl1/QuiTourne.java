@@ -33,7 +33,7 @@ public class QuiTourne extends Enemy implements TireurPlusieurFois {
 	
 	public static final int PK = 12;
 	protected static final float CADENCE = initFirerate(1.2f, PK);
-	protected static final float INIT_NEXT_SHOT = initNextShot(3, PK);
+	protected static final float INIT_NEXT_SHOT = initNextShot(2, PK);
 	protected static final float SPEED = initSpeed(26, PK);
 	private static final int PV = initPv(Stats.PV_QUI_TOURNE, PK);
 	private static final int EXPLOSION = initExplosion(25, PK);
@@ -74,9 +74,9 @@ public class QuiTourne extends Enemy implements TireurPlusieurFois {
 	@Override	protected TextureRegion getTexture() {	return AnimationEnnemiTourne.getTexture(now);	}
 	@Override	protected int getPvMax() {				return PV;						}
 	@Override	public void free() {					POOL.free(this);								}
-	@Override	protected void tir() {					TIR.tirEnRafale(this, 4, now, prochainTir);		}
-	@Override	public int getXp() {					return XP;				}
-	@Override	public int getValeurBonus() {			return BASE_XP;		}
+	@Override	protected void tir() {					TIR.tirEnRafale(this, 3, now, prochainTir);		}
+	@Override	public int getXp() {					return XP;										}
+	@Override	public int getValeurBonus() {			return BASE_XP;									}
 	@Override	public int getHeight() {				return LARGEUR;									}
 	@Override	public int getWidth() {					return LARGEUR;									}
 	@Override	public int getHalfHeight() {			return DEMI_LARGEUR;							}

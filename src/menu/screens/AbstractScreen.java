@@ -22,8 +22,6 @@ import menu.Credits;
 import menu.DeBaseMenu;
 import menu.tuto.OnClick;
 import menu.ui.Bouton;
-import assets.AssetMan;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -38,7 +36,7 @@ public abstract class AbstractScreen implements Screen {
 	protected Game game;
 	protected Array<Bouton> boutons = new Array<Bouton>();
 	private Credits credits;
-	public static final String PLAY = "Play!", SHIP = "Upgrade", OPTION = "Options", HIGHSCORE = "Highscores", EXIT = "Exit", BACK = "BACK", WEAPON_VOL = "WEAPON VOL  ", MOINS = "-", PLUS = "+", BRUITAGE_VOL = "EFFECTS VOL  ", MUSIQUE_VOL = "MUSIC VOL  ", INTENSITY = "INTENSITY : ", OTHER_WEAP = "Next weapon", TUTO = "Tutorial" , ACHIEVEMENT = "Achievements", SUPPORT_US = " Buy us a beer";
+	public static final String PLAY = "Play!", SHIP = "Weapon", OPTION = "Options", HIGHSCORE = "Highscores", EXIT = "Exit", BACK = "BACK", WEAPON_VOL = "WEAPON VOL  ", MOINS = "-", PLUS = "+", BRUITAGE_VOL = "EFFECTS VOL  ", MUSIQUE_VOL = "MUSIC VOL  ", INTENSITY = "INTENSITY : ", OTHER_WEAP = "Next weapon", TUTO = "Tutorial" , ACHIEVEMENT = "Achievements", SUPPORT_US = "Remove ads & support us";
 	public final static int PADDING = 11, LARGEUR_BOUTON = (CSG.screenWidth / PADDING) * 9, HAUTEUR_BOUTON = CSG.SCREEN_HEIGHT / 25;
 	public final static int DEMI_LARGEUR_BOUTON = LARGEUR_BOUTON / 2, DEMI_HAUTEUR_BOUTON = HAUTEUR_BOUTON / 2;
 	public final static int LARGEUR_PETITBOUTON = (CSG.screenWidth / PADDING) * 4, HAUTEUR_PETITBOUTON = CSG.SCREEN_HEIGHT / 18;

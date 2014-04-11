@@ -1,6 +1,8 @@
 package elements.particular.particles.individual.weapon;
 
 import jeu.EndlessMode;
+import jeu.Stats;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -18,7 +20,7 @@ public final class TWeaponParticles implements Poolable {
 			return new TWeaponParticles();
 		}
 	};
-	private float angle, x, y, w = WIDTH, halfWidth;
+	private float angle, x, y, w = WIDTH, halfWidth, h = TWeapon.height, halfHeight;
 	private static boolean alternate = false;
 	private static float tmp = 0;
 	
@@ -30,31 +32,36 @@ public final class TWeaponParticles implements Poolable {
 	}
 
 	public static void add(Array<TWeaponParticles> pArmeHantee, TWeapon a) {
-		if (pArmeHantee.size > 2048) {
-			alternate = !alternate;
-			if (alternate)
-				return;
-		}
+//		if (pArmeHantee.size > 2048) {
+//			alternate = !alternate;
+//			if (alternate)
+//				return;
+//		}
 		final TWeaponParticles p = POOL.obtain();
-		p.halfWidth = p.w / 2;
+		p.w = WIDTH;
+		p.h = TWeapon.height;
+		p.halfWidth = TWeapon.halfWidth;
+		p.halfHeight = TWeapon.halfHeight;
 		p.x = a.pos.x;
 		p.y = a.pos.y;
 		p.angle = a.angle;
 		pArmeHantee.add(p);
 	}
-
+	private static float tmpDecrease = 100;
 	public static void act(Array<TWeaponParticles> pArmeHantee, SpriteBatch batch) {
+		tmp = EndlessMode.delta * Stats.U90;
+		if (tmp < Stats.microU)
+			tmp = Stats.microU;
+		tmpDecrease = tmp / 2;
 		for (final TWeaponParticles p : pArmeHantee) {
-			batch.draw(TWeapon.ANIMATED.getTexture(1), p.x, p.y, p.halfWidth, p.halfWidth, p.w, p.w, 1, 1, p.angle);
-			
-			tmp = (p.w*28) * (EndlessMode.delta);
+			batch.draw(AssetMan.tWeapon, p.x, p.y, p.halfWidth, p.halfHeight, p.w, p.h, 1, 1, p.angle);
 			p.w -= tmp;
-			tmp /= 2;
-
-			p.x += tmp;
-			p.y += tmp;
-			p.halfWidth = p.w / 2;
-			if (p.w < 6) {
+			p.h -= tmp;
+			p.x += tmpDecrease;
+			p.y += tmpDecrease;
+			p.halfWidth -= tmpDecrease;
+			p.halfHeight -= tmpDecrease;
+			if (p.w < Stats.u) {
 				POOL.free(p);
 				pArmeHantee.removeValue(p, true);
 			}

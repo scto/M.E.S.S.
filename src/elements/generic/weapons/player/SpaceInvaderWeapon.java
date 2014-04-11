@@ -74,10 +74,10 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 		pos.y = y;
 		PLAYER_LIST.add(this);
 		dir.x = 0;
-		dir.y = Stats.V_ARME_SPACE_INVADER + (CSG.profile.NvSpaceInvadersWeapon * CSG.HEIGHT_DIV10);
+		dir.y = Stats.V_ARME_SPACE_INVADER + (CSG.profile.NvSpaceInvadersWeapon * CSG.HEIGHT_DIV20);
 	}
 	@Override
 	public int getPower() {
-		return 50 * (CSG.profile.NvSpaceInvadersWeapon/2);
+		return (int) ((50f * (CSG.profile.NvSpaceInvadersWeapon/2f)) + 50f);
 	}
 }

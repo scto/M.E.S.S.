@@ -1,7 +1,7 @@
 package elements.particular.particles.individual.weapon;
 
-import java.util.Random;
-
+import jeu.CSG;
+import jeu.Stats;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,15 +21,9 @@ public class GreenAddParticle implements Poolable {
 	};
 	private static final int WIDTH = ArmeAdd.WIDTH;
 	private float w, x, y;
-	private static final Random R = new Random();
-	private final float angle;
-	public static float COLOR = ArmeAdd.COLORS[R.nextInt(ArmeAdd.COLORS.length)];
-	private static float tmp;
+	public static float COLOR = ArmeAdd.COLORS[CSG.R.nextInt(ArmeAdd.COLORS.length)];
+	private static float tmp, half;
 	
-	public GreenAddParticle() {
-		angle = R.nextFloat() * 360;
-	}
-
 	@Override
 	public void reset() {}
 
@@ -43,15 +37,14 @@ public class GreenAddParticle implements Poolable {
 
 	public static void act(Array<GreenAddParticle> GreenAddParticles, SpriteBatch batch) {
 		batch.setColor(COLOR);
+		tmp = Stats.uSur2;
+		half = tmp/2;
 		for (final GreenAddParticle p : GreenAddParticles) {
-			tmp = p.w / 2;
-			batch.draw(AssetMan.debris, p.x, p.y, tmp, tmp, p.w, p.w, 1, 1, p.angle);
-			
-			p.w -= 2;
-			p.x++;
-			p.y++;
-			
-			if (p.w < 6) {
+			p.w -= tmp;
+			p.x += half;
+			p.y += half;
+			batch.draw(AssetMan.dust, p.x, p.y, p.w, p.w);
+			if (p.w < Stats.u) {
 				GreenAddParticles.removeValue(p, true);
 				POOL.free(p);
 			}

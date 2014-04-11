@@ -53,13 +53,16 @@ public class MenuXP extends AbstractScreen{
 		boutonUpgrade = new Bouton("", false, CSG.menuFontPetite, LARGEUR_PETITBOUTON, HAUTEUR_PETITBOUTON,
 				CSG.screenWidth - (CSG.screenWidth / Menu.PADDING) - Menu.LARGEUR_PETITBOUTON,	Menu.HAUTEUR_BOUTON, this, new OnClick() {
 					public void onClick() {	
-						if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo){
+						if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
 							save();
 							CSG.profile.upArme();
 							updateTexteUpgrade();
 							CSG.profilManager.persist();
 							updateTexteXp();
 							ajoutUndo();
+						} else {
+							CSG.google.buyXp();
+							System.out.println("MenuXP.MenuXP(...).new OnClick() {...}.onClick()");
 						}
 					}}, false);
 		ajout(boutonUpgrade);
@@ -75,6 +78,9 @@ public class MenuXP extends AbstractScreen{
 							updateTexteCadence();
 							updateTexteXp();
 							ajoutUndo();
+						} else {
+							System.out.println("MenuXP.MenuXP(...).new OnClick() {...}.onClick()");
+							CSG.google.buyXp();
 						}
 					}}, false);
 		updateTexteCadence();
@@ -99,9 +105,9 @@ public class MenuXP extends AbstractScreen{
 		CSG.batch.begin();
 		Particles.background(CSG.batch);
 		jeu.render(CSG.batch, delta);
-		for (int i = 0; i < boutons.size; i++) {
-			if (boutons.get(i) != null) boutons.get(i).draw(CSG.batch);
-		}
+		for (int i = 0; i < boutons.size; i++) 
+			if (boutons.get(i) != null)
+				boutons.get(i).draw(CSG.batch);
 		Particles.drawUi(CSG.batch);
 		CSG.menuFontPetite.draw(CSG.batch, "Weapon level : " + CSG.profile.getArmeSelectionnee().nv(), 4, 4 + CSG.menuFontPetite.getBounds("W").height);
 		CSG.end();

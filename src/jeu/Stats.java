@@ -4,17 +4,20 @@ package jeu;
 public class Stats {
 	
 	// 0.507cm 20 sur s3
-	public static final float U = (CSG.SCREEN_HEIGHT + CSG.screenWidth) / 100f;
+	public static final float U = (CSG.SCREEN_HEIGHT + CSG.screenWidth) / 150f;
 	public static final float UU = U * 2;
 	public static final float UUU = U * 3;
 	public static final float U4 = U * 4;
 	public static final float U5 = U * 5;
+	public static final float U10 = U * 10;
 	public static final float U12 = U * 12;
+	public static final float U20 = U * 20;
 	public static final float U90 = U * 90;
 	public static final float U270 = U * 270;
 	public static final float u = U / 2;
 	public static final float microU = U / 150;
 	public static final float microUSur6 = microU / 6;
+	public static final float uSur2 = u / 2;
 	public static final float uSur4 = u / 4;
 	public static final float uSur8 = u / 8;
 	public static final float IMPACT = U / 240;
@@ -243,13 +246,13 @@ public class Stats {
 	public static final float V_INSECTE = 3 * U;
 	// =======================  J  O  U  E  U  R  ==============================
 	// A R M E   H  A N T E E
-	public static final float V_ARME_HANTEE = 100 * U;
+	public static final float V_ARME_HANTEE = 120 * U;
 	// A R M E   B A L A Y A G E
 	public static final float V_ARME_BALAYAGE = 45 * U;
 	// A R M E   D E   B A S E
 	public static final float V_ARME_DE_BASE = 65 * U;
 	// A R M E   T R O I S
-	public static final float SPEED_PINK_WEAPON = 60 * U;
+	public static final float SPEED_PINK_WEAPON = 90 * U;
 	// A R M E   A D D  
 	public static final float V_ARME_ADD = 50 * U;
 	public static final float V_ARME_SUN = 75 * U;
@@ -260,7 +263,7 @@ public class Stats {
 	// ***********************************************************************************
 	
 	public static final float V_PARTICULE_EXPLOSION = 9 * U;
-	public static final float V_PARTICULE_EXPLOSION_SLOW = 3 * U;
+	public static final float V_PARTICULE_EXPLOSION_SLOW = 4 * U;
 	public static final float SPEED_DEBRIS = 2 * U;
 	
 	public static final int WIDTH_WEAPON_SMALL = CSG.screenWidth / 20;
@@ -269,6 +272,7 @@ public class Stats {
 	public static final int WIDTH_WEAPON_BIG = CSG.screenWidth / 13;
 	public static final int WIDTH_FIREBALL = CSG.screenWidth / 15;
 	public static final int THRUSTER = (int) (U * 14);
+	
 	
 	private static int getHauteur(float largeur, float f) {
 		return (int) (largeur * f);

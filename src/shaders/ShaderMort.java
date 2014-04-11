@@ -1,4 +1,4 @@
-package assets.shaders;
+package shaders;
 
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 

@@ -31,6 +31,15 @@ public abstract class WeaponManager {
 		if (arme.getLabel() == SpaceInvaderWeapon.LABEL)	return new TWeaponManager();
 		return new PinkWeaponManager();
 	}
+	
+	public static WeaponManager getWeaponManager(String label) {
+		if (label == BlueSweepWeapon.LABEL) 	return new BlueSweepWeaponManager();
+		if (label == TWeapon.LABEL) 			return new TWeaponManager();
+		if (label == Fireball.LABEL) 			return new FireballManager();
+		if (label == SpaceInvaderWeapon.LABEL) 	return new SpaceInvaderManager();
+		if (label == SunWeapon.LABEL) 			return new SunManager();
+		return new PinkWeaponManager();
+	}
 
 	protected abstract float getCadenceTir();
 	public abstract float[] getColors();

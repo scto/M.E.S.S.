@@ -1,18 +1,17 @@
 package assets.animation;
 
-import jeu.CSG;
+import assets.AssetMan;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationBossQuad{
 	
-	public static AtlasRegion goodShape, moyenEtat, badShape;
+	public static TextureRegion goodShape, moyenEtat, badShape;
 	
 	public static void initAnimation(){
-		goodShape = CSG.getAssetMan().getAtlas().findRegion("bossquad1");
-		moyenEtat = CSG.getAssetMan().getAtlas().findRegion("bossquad2");
-		badShape = CSG.getAssetMan().getAtlas().findRegion("bossquad3");
+		goodShape = AssetMan.getTextureRegion("bossquad1");
+		moyenEtat = AssetMan.getTextureRegion("bossquad2");
+		badShape = AssetMan.getTextureRegion("bossquad3");
 	}
 	
 	public static TextureRegion getTexture(int phase) {

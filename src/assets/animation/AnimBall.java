@@ -1,6 +1,6 @@
 package assets.animation;
 
-import jeu.CSG;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,9 +21,9 @@ public class AnimBall {
 	public static void initAnimation() {
 		TextureRegion[] tr = new TextureRegion[3];
 		
-		tr[0] = CSG.getAssetMan().getAtlas().findRegion("ennemiboulebleubanderouge1");
-		tr[1] = CSG.getAssetMan().getAtlas().findRegion("ennemiboulebleubanderouge2");
-		tr[2] = CSG.getAssetMan().getAtlas().findRegion("ennemiboulebleubanderouge3");
+		tr[0] = AssetMan.getTextureRegion("ennemiboulebleubanderouge1");
+		tr[1] = AssetMan.getTextureRegion("ennemiboulebleubanderouge2");
+		tr[2] = AssetMan.getTextureRegion("ennemiboulebleubanderouge3");
 		
 	    animation = new Animation(TIME, tr);
 		animation.setPlayMode(Animation.LOOP_PINGPONG);

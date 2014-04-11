@@ -2,11 +2,10 @@ package jeu;
 
 import java.util.Random;
 
-import jeu.db.DataCursor;
+import shaders.Bloom;
 import jeu.db.DataManager;
 import menu.screens.Loading;
 import assets.AssetMan;
-import bloom.Bloom;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
@@ -39,7 +38,7 @@ public class CSG extends Game implements ApplicationListener {
 	// ********  A U T R E S  *********
 	public static ProfilManager profilManager;
 	public static Profil profile;
-	public static BitmapFont menuFont, menuFontPetite;
+	public static BitmapFont menuFont, menuFontPetite, scoreFont, outlineScoreFont;
 	public static AssetMan assetMan;
 	public static SpriteBatch batch;
 	public static TalkToTheWorld google;
@@ -48,6 +47,7 @@ public class CSG extends Game implements ApplicationListener {
 	public static DataManager dbManager;
 	public static final int dbVersion = 2;
 	public static boolean updateNeeded = false;
+	public static float originalScoreFontScale;
 	
 	public CSG(Adds handler, TalkToTheWorld google) {
 		updateNeeded = false;
@@ -64,6 +64,7 @@ public class CSG extends Game implements ApplicationListener {
 			updateNeeded = false;
 //		else
 //			updateNeeded = true;
+		
 		System.out.println("Update needed : " + updateNeeded);
 	}
 
@@ -97,8 +98,6 @@ public class CSG extends Game implements ApplicationListener {
 			dimension = 1f;
 		menuFont.setScale(dimension);
 		menuFont.setColor(.32f, .52f, 0.99f, 1);
-//		defaultBitmapFont = new BitmapFont(Gdx.files.internal("data/tahoma32.fnt"), Gdx.files.internal("data/tahoma32_0.png"), false);
-//		defaultBitmapFont.setUseIntegerPositions(false);
 		menuFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		menuFontPetite = new BitmapFont();
 		dimension /= 2.2f;
@@ -107,6 +106,17 @@ public class CSG extends Game implements ApplicationListener {
 		menuFontPetite = new BitmapFont();//Gdx.files.internal("default.fnt"), false);
 		menuFontPetite.setScale(dimension);
 		menuFontPetite.setColor(.32f, .52f, 0.99f, 1);
+		
+		originalScoreFontScale = dimension * 1.2f;
+		scoreFont = new BitmapFont();//Gdx.files.internal("default.fnt"), false);
+		scoreFont.setScale(originalScoreFontScale);
+		scoreFont.setColor(0, 0, 1, 1);
+		scoreFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		outlineScoreFont = new BitmapFont();//Gdx.files.internal("default.fnt"), false);
+		outlineScoreFont.setScale(originalScoreFontScale * 1.2f);
+		outlineScoreFont.setColor(0, 0, 1, 0.65f);
+		outlineScoreFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
 	public static void dimensions() {

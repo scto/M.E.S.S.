@@ -1,6 +1,6 @@
 package assets.animation;
 
-import jeu.CSG;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,9 +17,9 @@ public class AnimationEnnemiAileDeployee {
 	public static void initAnimation() {
 		TextureRegion[] tr = new TextureRegion[3];
 		
-		tr[0] = CSG.getAssetMan().getAtlas().findRegion("ennemiailesdeployees3");
-		tr[1] = CSG.getAssetMan().getAtlas().findRegion("ennemiailesdeployees2");
-		tr[2] = CSG.getAssetMan().getAtlas().findRegion("ennemiailesdeployees1");
+		tr[0] = AssetMan.getTextureRegion("ennemiailesdeployees3");
+		tr[1] = AssetMan.getTextureRegion("ennemiailesdeployees2");
+		tr[2] = AssetMan.getTextureRegion("ennemiailesdeployees1");
 		
 	    animation = new Animation(TIME, tr);
 		animation.setPlayMode(Animation.NORMAL);

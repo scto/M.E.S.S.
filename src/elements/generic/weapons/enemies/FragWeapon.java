@@ -2,19 +2,16 @@ package elements.generic.weapons.enemies;
 
 import jeu.CSG;
 import assets.animation.Animated;
-import assets.animation.AnimationFragWeapon;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.particular.particles.Particles;
-
 public class FragWeapon extends EnemyWeapon implements Poolable, InvocableWeapon{
 	
 	public static final int WIDTH = CSG.screenWidth / 30, HALF_WIDTH = WIDTH/2;
-	public static final float CADENCETIR = .2f;
+	public static final float CADENCETIR = .2f, TIME = 2;
 	public static final Pool<FragWeapon> POOL = Pools.get(FragWeapon.class);
 	public static final int PK = 3;
 	private static final float SPEED = initSpeed(26, PK);
@@ -22,8 +19,8 @@ public class FragWeapon extends EnemyWeapon implements Poolable, InvocableWeapon
 	
 	@Override
 	public boolean mouvementEtVerif() {
-		if (AnimationFragWeapon.TOTAL_TIME < now) {
-			Particles.addSparkle(this);
+		if (TIME < now) {
+//			Particles.addSparkle(this);
 			final FragWeapon a = FragWeapon.POOL.obtain();
 			a.pos.x = pos.x;
 			a.pos.y = pos.y;

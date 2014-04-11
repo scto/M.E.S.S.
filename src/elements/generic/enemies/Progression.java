@@ -164,7 +164,7 @@ public final class Progression {
 	static int tmp = 0;
 	static boolean tmpCheck = false;
 	private static void remplissage(Wave[] waves) {
-		if (Enemy.LIST.size < 2 + EndlessMode.score / 5000 && EndlessMode.score > 20 && !bossJustPoped) {
+		if (Enemy.LIST.size < 2 + EndlessMode.score / 10000 && EndlessMode.score > 20 && !bossJustPoped) {
 			switch (EndlessMode.modeDifficulte) {
 			case 1 :	tmpCheck = hasAnActiveWave(wavesLvl1);		break;
 			case 2 :	tmpCheck = hasAnActiveWave(wavesLvl2);		break;

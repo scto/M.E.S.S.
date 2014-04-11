@@ -1,17 +1,16 @@
 package assets.animation;
 
-import jeu.CSG;
+import assets.AssetMan;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationBossMine{
 	
-	public static AtlasRegion goodShape, moyenEtat;
+	public static TextureRegion moyenEtat, goodShape;
 	
 	public static void initAnimation(){
-		goodShape = CSG.getAssetMan().getAtlas().findRegion("bossmine");
-		moyenEtat = CSG.getAssetMan().getAtlas().findRegion("bossminecasse");
+		goodShape =	AssetMan.getTextureRegion("bossmine");
+		moyenEtat = AssetMan.getTextureRegion("bossminecasse");
 	}
 	
 	public static TextureRegion getTexture(int pv, int pvPhase2) {

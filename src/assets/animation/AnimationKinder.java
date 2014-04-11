@@ -1,6 +1,6 @@
 package assets.animation;
 
-import jeu.CSG;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,9 +18,9 @@ public class AnimationKinder {
 	public static void initAnimation() {
 		TextureRegion[] tr = new TextureRegion[3];
 		
-		tr[0] = CSG.getAssetMan().getAtlas().findRegion("kinder3");
-		tr[1] = CSG.getAssetMan().getAtlas().findRegion("kinder2");
-		tr[2] = CSG.getAssetMan().getAtlas().findRegion("kinder1");
+		tr[0] = AssetMan.getTextureRegion("kinder3");
+		tr[1] = AssetMan.getTextureRegion("kinder2");
+		tr[2] = AssetMan.getTextureRegion("kinder1");
 
 	    anim = new Animation(TIME, tr);
 	    anim.setPlayMode(Animation.NORMAL);

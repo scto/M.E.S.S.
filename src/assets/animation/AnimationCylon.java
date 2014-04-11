@@ -1,6 +1,7 @@
 package assets.animation;
 
 import jeu.CSG;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,8 +18,8 @@ public class AnimationCylon {
 	public static void initAnimation() {
 		TextureRegion[] tr = new TextureRegion[2];
 		
-		tr[0] = CSG.getAssetMan().getAtlas().findRegion("cylon1");
-		tr[1] = CSG.getAssetMan().getAtlas().findRegion("cylon2");
+		tr[0] = AssetMan.getTextureRegion("cylon1");
+		tr[1] = AssetMan.getTextureRegion("cylon2");
 
 	    anim = new Animation(TIME, tr);
 	    anim.setPlayMode(Animation.NORMAL);

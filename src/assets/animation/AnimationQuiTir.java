@@ -1,17 +1,16 @@
 package assets.animation;
 
-import jeu.CSG;
+import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationQuiTir{
 	
-	// Animation
-	public static AtlasRegion goodShape;
-	public static AtlasRegion badShape;
+	public static TextureRegion goodShape, badShape;
 	
 	public static void initAnimation(){
-		goodShape = CSG.getAssetMan().getAtlas().findRegion("fusee");
-		badShape = CSG.getAssetMan().getAtlas().findRegion("fuseeamochee");
+		goodShape = AssetMan.getTextureRegion("fusee");
+		badShape = AssetMan.getTextureRegion("fuseeamochee");
 	}
 }

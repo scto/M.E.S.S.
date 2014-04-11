@@ -17,7 +17,7 @@ public class KinderWeapon extends EnemyWeapon implements Poolable, InvocableWeap
 	private static final float COLOR = AssetMan.convertARGB(1, 1, 1, 0.65f);
 	public static final int PK = 12;
 	private static final float SPEED = initSpeed(26, PK);
-	private static final Animated ANIMATED = initAnimation(4, PK);
+	private static final Animated ANIMATED = initAnimation(Animated.BLUE_BULLET, PK);
 
 	@Override
 	public void draw(SpriteBatch batch) {
