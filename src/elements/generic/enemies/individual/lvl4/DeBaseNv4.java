@@ -1,5 +1,6 @@
 package elements.generic.enemies.individual.lvl4;
 
+import jeu.Stats;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,8 +13,7 @@ import elements.generic.behavior.StraightOnDetect;
 import elements.generic.enemies.individual.lvl1.DeBase;
 import elements.generic.enemies.individual.lvl3.DeBaseNv3;
 import elements.particular.particles.Particles;
-import elements.particular.particles.individual.MovingSmoke;
-import jeu.Stats;
+import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class DeBaseNv4 extends DeBaseNv3 {
 	
@@ -32,7 +32,7 @@ public class DeBaseNv4 extends DeBaseNv3 {
 		return l;
 	}
 	@Override	protected void explode() {				Particles.explosionGreen(this);	}
-	@Override	protected float[] getColor() {			return MovingSmoke.colorsGreen;	}
+	@Override	protected float[] getColor() {			return PrecalculatedParticles.colorsGreen;	}
 	@Override	public TextureRegion getTexture() {		return AssetMan.basicenemygreen;	}
 	@Override	protected String getLabel() {			return getClass().toString();				}
 	@Override	public void free() {					POOL.free(this);							}

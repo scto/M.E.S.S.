@@ -58,19 +58,6 @@ public class Explosion implements Poolable {
 		}
 	}
 	
-	private Explosion initSpark(Enemy e) {
-		x = (e.pos.x + (e.getWidth() * R.nextFloat()) );
-		y = (e.pos.y + (e.getHeight() * R.nextFloat()) );
-
-		speedY = (float) (((R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionY() * R.nextFloat());
-		speedX = (float) (((R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionX() * R.nextFloat());
-		
-		width = Math.abs((float) ((R.nextGaussian() * WIDTH))) + MIN_WIDTH;
-		ttl = Math.abs((int) (R.nextGaussian() * GAUSSIAN_FACTOR)) + 15;
-		return this;
-	}
-
-	
 	public static void add(int max, EnemyWeapon e) {
 		for (int i = -EndlessMode.fps; i < max; i++) 
 			Particles.EXPLOSIONS.add(POOL_STANDARD.obtain().init(e));

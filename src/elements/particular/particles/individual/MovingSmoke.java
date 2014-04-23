@@ -2,7 +2,6 @@ package elements.particular.particles.individual;
 
 import jeu.CSG;
 import jeu.EndlessMode;
-import jeu.Stats;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

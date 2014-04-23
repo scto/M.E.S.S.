@@ -14,7 +14,7 @@ import elements.generic.Invocable;
 import elements.generic.behavior.Behavior;
 import elements.generic.enemies.Enemy;
 import elements.particular.particles.Particles;
-import elements.particular.particles.individual.MovingSmoke;
+import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.positionning.Pos;
 import elements.positionning.UpWide;
 
@@ -65,7 +65,7 @@ public class ZigZag extends Enemy {
 		return z;
 	}
 
-	protected float[] getColor() {						return MovingSmoke.colorsRed;	}
+	protected float[] getColor() {						return PrecalculatedParticles.colorsRed;	}
 	@Override	public void free() {					POOL.free(this);	}
 	@Override	protected int getPvMax() {				return PV;	}
 	@Override	protected TextureRegion getTexture() {	return AnimationZigZag.getTexture(pos.x + DEMI_LARGEUR);	}

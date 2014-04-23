@@ -1,5 +1,6 @@
 package elements.generic.enemies.individual.lvl3;
 
+import jeu.Stats;
 import assets.animation.AnimationZigZag;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,8 +10,7 @@ import com.badlogic.gdx.utils.Pools;
 import elements.generic.Invocable;
 import elements.generic.enemies.individual.lvl1.ZigZag;
 import elements.particular.particles.Particles;
-import elements.particular.particles.individual.MovingSmoke;
-import jeu.Stats;
+import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class ZigZagNv3 extends ZigZag {
 
@@ -30,7 +30,7 @@ public class ZigZagNv3 extends ZigZag {
 	}
 	@Override	protected TextureRegion getTexture() {	return AnimationZigZag.getTextureBlue(pos.x + DEMI_LARGEUR);	}
 	@Override	protected void explode() {				Particles.explosionBlue(this);	}
-	@Override	protected float[] getColor() {			return MovingSmoke.colorsBlue;	}
+	@Override	protected float[] getColor() {			return PrecalculatedParticles.colorsBlue;	}
 	@Override	public void free() {					POOL.free(this);	}
 	@Override	protected int getPvMax() {				return PV;	}
 	@Override	public int getXp() {					return XP;	}

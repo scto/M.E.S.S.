@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.particular.particles.individual.MovingSmoke;
+import elements.generic.enemies.Enemy;
 import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class ExplosionColorOverTime implements Poolable{
@@ -35,6 +35,11 @@ public class ExplosionColorOverTime implements Poolable{
 			e.x -= PrecalculatedParticles.halfWidths[e.index];
 			e.y -= PrecalculatedParticles.halfWidths[e.index];
 			
+			e.x += e.speedX * EndlessMode.delta;
+			e.y += e.speedY * EndlessMode.delta;
+			
+			e.speedX /= EndlessMode.UnPlusDelta;
+			e.speedY /= EndlessMode.UnPlusDelta;
 			if (++e.index >= PrecalculatedParticles.widths.length) {
 				explosions.removeValue(e, true);
 				POOL.free(e);
@@ -47,18 +52,26 @@ public class ExplosionColorOverTime implements Poolable{
 	@Override
 	public void reset() {}
 	
-	public void init(float x, float y, boolean rnd, float[] colors) {
-		if (rnd)
-			this.x = (x - INITIAL_HALF_WIDTH) + ((CSG.R.nextFloat() - .5f) * INITIAL_HALF_WIDTH);
-		else
-			this.x = x - INITIAL_HALF_WIDTH;
+	public ExplosionColorOverTime init(float x, float y,  float[] colors) {
+		this.x = x - INITIAL_HALF_WIDTH;
 		this.y = y - INITIAL_HALF_WIDTH;
-		index = 0;
 		this.colors = colors;
+		index = 0;
+		
+		speedY = (float) ((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW);
+		speedX = (float) ((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW);
+		return this;
 	}
 	public static void clear(Array<ExplosionColorOverTime> explosions) {
 		POOL.freeAll(explosions);
 		explosions.clear();
+	}
+
+
+	public static void add(Array<ExplosionColorOverTime> explosionColorOverTime, Enemy e, float[] colorsred) {
+		for (int i = 0; i < EndlessMode.fps; i++) {
+			explosionColorOverTime.add(POOL.obtain().init(e.pos.x + e.getHalfWidth(), e.pos.y + e.getHalfHeight(), colorsred));
+		}
 	}
 
 }

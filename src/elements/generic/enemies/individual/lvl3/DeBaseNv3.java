@@ -1,5 +1,6 @@
 package elements.generic.enemies.individual.lvl3;
 
+import jeu.Stats;
 import menu.DeBaseMenu;
 import assets.AssetMan;
 
@@ -10,9 +11,7 @@ import com.badlogic.gdx.utils.Pools;
 import elements.generic.Invocable;
 import elements.generic.enemies.individual.lvl1.DeBase;
 import elements.particular.particles.Particles;
-import elements.particular.particles.individual.MovingSmoke;
-import jeu.EndlessMode;
-import jeu.Stats;
+import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class DeBaseNv3 extends DeBaseMenu {
 	
@@ -32,7 +31,7 @@ public class DeBaseNv3 extends DeBaseMenu {
 	
 	@Override	protected void explode() {			Particles.explosionBlue(this);	}
 	@Override	public TextureRegion getTexture() {	return AssetMan.basicenemyblue;	}
-	@Override	protected float[] getColor() {		return MovingSmoke.colorsBlue;	}
+	@Override	protected float[] getColor() {		return PrecalculatedParticles.colorsBlue;	}
 	@Override	public void free() {				POOL.free(this);	}
 	@Override	protected int getPvMax() {			return PV;	}
 	@Override	public float getVitesse() {			return SPEED;	}

@@ -4,7 +4,6 @@ import jeu.EndlessMode;
 import jeu.Stats;
 import assets.AssetMan;
 import assets.SoundMan;
-import assets.animation.AnimationEnnemiDeBase;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,7 +14,7 @@ import elements.generic.Invocable;
 import elements.generic.behavior.Behavior;
 import elements.generic.enemies.Enemy;
 import elements.particular.particles.Particles;
-import elements.particular.particles.individual.MovingSmoke;
+import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.positionning.Pos;
 import elements.positionning.Up;
 
@@ -80,7 +79,7 @@ public class DeBase extends Enemy implements PatternHorizontalPositionnable {
 		dir.y = -getVitesse();
 		angle = dir.angle();
 	}
-	protected float[] getColor() {						return MovingSmoke.colorsRed;	}
+	protected float[] getColor() {						return PrecalculatedParticles.colorsRed;	}
 	@Override	protected Sound getSonExplosion() {		return SoundMan.explosion6;	}
 	@Override	public int getXp() {					return XP;	}
 	@Override	public int getValeurBonus() {			return BASE_XP;	}

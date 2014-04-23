@@ -1,7 +1,6 @@
 package elements.particular.particles;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,6 +24,7 @@ import elements.particular.particles.individual.BlueSparkles;
 import elements.particular.particles.individual.Debris;
 import elements.particular.particles.individual.Ghost;
 import elements.particular.particles.individual.MovingSmoke;
+import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.ShieldParticle;
 import elements.particular.particles.individual.Smoke;
 import elements.particular.particles.individual.ThrusterParticle;
@@ -35,6 +35,7 @@ import elements.particular.particles.individual.background.Star;
 import elements.particular.particles.individual.explosions.BlueExplosion;
 import elements.particular.particles.individual.explosions.DebrisExplosion;
 import elements.particular.particles.individual.explosions.Explosion;
+import elements.particular.particles.individual.explosions.ExplosionColorOverTime;
 import elements.particular.particles.individual.explosions.ExplosionImpactBullet;
 import elements.particular.particles.individual.explosions.GreenExplosion;
 import elements.particular.particles.individual.explosions.Spark;
@@ -67,6 +68,8 @@ public class Particles {
 	public static final Array<DebrisExplosion> DEBRIS_EXPLOSIONS = new Array<DebrisExplosion>();
 	public static final Array<Explosion> EXPLOSIONS_IMPACT = new Array<Explosion>();
 	public static final Array<ExplosionImpactBullet> EXPLOSION_IMPACT_BULLET = new Array<ExplosionImpactBullet>();
+	
+	private static final Array<ExplosionColorOverTime> EXPLOSION_COLOR_OVER_TIME = new Array<ExplosionColorOverTime>();
 	
 	private static final Array<GreenAddParticle> ADD = new Array<GreenAddParticle>();
 	private static final Array<ParticleUiElement> UI = new Array<ParticleUiElement>();
@@ -105,6 +108,7 @@ public class Particles {
 		Explosion.act(EXPLOSIONS, batch);
 		BlueExplosion.act(BLUE_EXPLOSION, batch);
 		GreenExplosion.act(EXPLOSIONS_GREENS, batch);
+		ExplosionColorOverTime.act(EXPLOSION_COLOR_OVER_TIME, batch);
 	}
 
 	public static void drawUi(SpriteBatch batch) {
@@ -264,6 +268,7 @@ public class Particles {
 		BlueSparkles.clear(SPARKLES);
 		ExplosionImpactBullet.clear(EXPLOSION_IMPACT_BULLET);
 		TimeParticle.clear(TIME);
+		ExplosionColorOverTime.clear(EXPLOSION_COLOR_OVER_TIME);
 		nbFlammes = 0;
 		Dust.next = 0;
 	}
@@ -272,22 +277,25 @@ public class Particles {
 		GreenExplosion.add(max, EXPLOSIONS_GREENS, posX, posY);
 	}
 	
-	public static void explosion(Enemy ennemis) {
-		Explosion.add(EXPLOSIONS, ennemis);
-		DebrisExplosion.add(DEBRIS_EXPLOSIONS, ennemis);
-		Spark.add(SPARKS, ennemis);
+	public static void explosion(Enemy e) {
+		Explosion.add(EXPLOSIONS, e);
+		DebrisExplosion.add(DEBRIS_EXPLOSIONS, e);
+		Spark.add(SPARKS, e);
+		ExplosionColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, PrecalculatedParticles.colorsRed);
 	}
 
 	public static void explosionBlue(Enemy e) {
 		DebrisExplosion.add(DEBRIS_EXPLOSIONS, e);
 		BlueExplosion.add(BLUE_EXPLOSION, e);
 		SparkBlue.add(SPARKS_BLUE, e);
+		ExplosionColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, PrecalculatedParticles.colorsBlue);
 	}
 
 	public static void explosionGreen(Enemy e) {
 		DebrisExplosion.add(DEBRIS_EXPLOSIONS, e);
 		GreenExplosion.add(EXPLOSIONS_GREENS, e);
 		SparkGreen.add(SPARKS_GREEN, e);
+		ExplosionColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, PrecalculatedParticles.colorsGreen);
 	}
 
 	public static void armeHantee(TWeapon a) {
