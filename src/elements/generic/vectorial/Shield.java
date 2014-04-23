@@ -12,14 +12,14 @@ import elements.generic.Player;
 public class Shield {
 
 	private static final ShapeRenderer renderer = new ShapeRenderer();
-	private static float angle = 0, antiAngle = 0, expantion = Player.HAUTEUR;
+	private static float angle = 0, antiAngle = 0, expantion = Player.HEIGHT;
 
 	public static void drawShield(SpriteBatch batch) {
 		angle += EndlessMode.delta15 * 2;
 		antiAngle -= EndlessMode.delta15 * 2;
 		batch.end();
 		renderer.begin(ShapeType.Line);
-		draw(Player.POS.x - Player.WIDTH_DIV_10, Player.POS.y - Player.WIDTH_DIV_10, Player.HAUTEUR, Player.DEMI_HAUTEUR);
+		draw(Player.POS.x - Player.WIDTH_DIV_10, Player.POS.y - Player.WIDTH_DIV_10, Player.HEIGHT, Player.DEMI_HAUTEUR);
 		batch.begin();
 	}
 
@@ -54,7 +54,7 @@ public class Shield {
 		batch.end();
 		renderer.begin(ShapeType.Line);
 //		draw((Player.POS.x, Player.POS.y - (expantion/10), expantion, expantion/2);
-		draw(Player.POS.x - Player.WIDTH_DIV_10, Player.POS.y - Player.WIDTH_DIV_10, Player.HAUTEUR, Player.DEMI_HAUTEUR);
+		draw(Player.POS.x - Player.WIDTH_DIV_10, Player.POS.y - Player.WIDTH_DIV_10, Player.HEIGHT, Player.DEMI_HAUTEUR);
 		batch.begin();
 	}
 

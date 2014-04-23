@@ -305,10 +305,6 @@ public class Particles {
 		FireballParticle.add(a, FIREBALL);
 	}
 
-	public static void ajoutArmeBalayage(BlueSweepWeapon a) {
-		BlueSweepParticle.add(a, BLUE_SWEEP_WEAPON);
-	}
-
 	public static void pinkParticle(PinkWeapon a) {
 		final PinkParticle p = PinkParticle.POOL.obtain();
 		p.init(a);

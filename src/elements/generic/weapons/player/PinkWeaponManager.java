@@ -20,7 +20,7 @@ public class PinkWeaponManager extends WeaponManager {
 	
 	public void init(){
 		posX = Player.xCenter - PinkWeapon.halfWidth / 3;
-		posY = Player.POS.y + Player.HAUTEUR;
+		posY = Player.POS.y + Player.HEIGHT;
 		alternate = !alternate;
 		if (EndlessMode.alternate)
 			SoundMan.playBulletSound(SOUND);

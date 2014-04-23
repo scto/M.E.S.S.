@@ -22,7 +22,7 @@ import elements.particular.particles.Particles;
 public final class Player extends Element {
 
 	public static final int LARGEUR = (int) Stats.LARGEUR_JOUEUR, DEMI_LARGEUR = LARGEUR/2, LARGEUR_ADD = (int) (LARGEUR/1.5f), DEMI_LARGEUR_ADD = LARGEUR_ADD/2, WIDTH_DIV_10 = LARGEUR / 10;
-	public static final int HAUTEUR = (int) ((float)LARGEUR * 1.2f), DEMI_HAUTEUR = HAUTEUR / 2, HAUTEUR_MAX_ADD = HAUTEUR + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = HAUTEUR / 8, HAUTEUR_DIV4 = HAUTEUR / 4, HAUTEUR_DIV8 = HAUTEUR/8;
+	public static final int HEIGHT = (int) ((float)LARGEUR * 1.2f), DEMI_HAUTEUR = HEIGHT / 2, HAUTEUR_MAX_ADD = HEIGHT + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = HEIGHT / 8, HAUTEUR_DIV4 = HEIGHT / 4, HAUTEUR_DIV8 = HEIGHT/8;
 	public static final int DECALAGE_ADD = LARGEUR + DEMI_LARGEUR - LARGEUR_ADD;
 	public static final int DECALAGE_TIR_ADD_X_GAUCHE = -DEMI_LARGEUR - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
 	public static final int DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
@@ -70,7 +70,7 @@ public final class Player extends Element {
 	 */
 	public void reInit() {
 		POS.x = CSG.gameZoneHalfWidth - DEMI_LARGEUR;
-		POS.y = HAUTEUR/2;
+		POS.y = HEIGHT/2;
 		prochainTir = 0;
 		prevX = POS.x;
 		prevY = POS.y;
@@ -85,7 +85,7 @@ public final class Player extends Element {
 		tpsBouclierHs = 0;
 	}
 	
-	private static final OvaleParticuleGenerator bouclierParticules = new OvaleParticuleGenerator(HAUTEUR * 2);
+	private static final OvaleParticuleGenerator bouclierParticules = new OvaleParticuleGenerator(HEIGHT * 2);
 	private static boolean bouclierHS = false;
 	private static float tpsBouclierHs = 0;
 	private float r = 1, g = 1, b = 1;
@@ -100,23 +100,23 @@ public final class Player extends Element {
 				b = CSG.R.nextFloat();
 			}
 			batch.setColor(r,g,b,1);
-			batch.draw(AssetMan.player, POS.x, POS.y, LARGEUR, HAUTEUR);
+			batch.draw(AssetMan.player, POS.x, POS.y, LARGEUR, HEIGHT);
 			batch.setColor(AssetMan.WHITE);
 		} else {
-			batch.draw(AnimPlayer.getTexture(), POS.x, POS.y, LARGEUR, HAUTEUR);
+			batch.draw(AnimPlayer.getTexture(), POS.x, POS.y, LARGEUR, HEIGHT);
 		}
 		
 		shield(batch);
 		if (leftAdd) 	batch.draw(AssetMan.addShip, addX - DEMI_LARGEUR, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
 		if (rightAdd) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
-		if (leftAdd2) 	batch.draw(AssetMan.addShip, addX - LARGEUR, 						addY - HAUTEUR, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
-		if (rightAdd2) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD + DEMI_LARGEUR, 	addY - HAUTEUR, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
+		if (leftAdd2) 	batch.draw(AssetMan.addShip, addX - LARGEUR, 						addY - HEIGHT, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
+		if (rightAdd2) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD + DEMI_LARGEUR, 	addY - HEIGHT, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
 		// ** ** A D D S
 		if (shotTime > 0) {
 			if (leftAdd)	batch.draw(AssetMan.addShipShot, addX - DEMI_LARGEUR, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
-			if (leftAdd2) 	batch.draw(AssetMan.addShipShot, addX - LARGEUR, 						addY - HAUTEUR, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
+			if (leftAdd2) 	batch.draw(AssetMan.addShipShot, addX - LARGEUR, 						addY - HEIGHT, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
 			if (rightAdd)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
-			if (rightAdd2)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD + DEMI_LARGEUR, 	addY - HAUTEUR, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
+			if (rightAdd2)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD + DEMI_LARGEUR, 	addY - HEIGHT, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
 			shotTime -= EndlessMode.delta;
 			if (shotTime < 0)
 				addShotNbr = 0x0000;
@@ -297,10 +297,10 @@ public final class Player extends Element {
 			angleAdd = -angleAdd;	// Car il fait son flip autour de 0
 			angleAddDroite = -angleAddDroite; // Bon il doit y avoir moyen de se passer de ses inversions !
 		}
-		centerAdd2Y = (addY - HAUTEUR) + DEMI_HAUTEUR_ADD;
+		centerAdd2Y = (addY - HEIGHT) + DEMI_HAUTEUR_ADD;
 		centerRight2AddX = (addX + DECALAGE_ADD + DEMI_LARGEUR) + DEMI_LARGEUR_ADD;
 		
-		centerAdd2Y = (addY - HAUTEUR) + DEMI_HAUTEUR_ADD;
+		centerAdd2Y = (addY - HEIGHT) + DEMI_HAUTEUR_ADD;
 		centerLeft2AddX = (addX - LARGEUR) + DEMI_LARGEUR_ADD;
 		
 		centerRight1AddX = (addX + DECALAGE_ADD) + DEMI_LARGEUR_ADD;
@@ -364,15 +364,15 @@ public final class Player extends Element {
 			}
 			if (leftAdd2) {
 				addShotNbr = addShotNbr | LEFT_ADD2;
-				ArmeAdd.add(addX - LARGEUR, addY - HAUTEUR, angleAdd, 0);
+				ArmeAdd.add(addX - LARGEUR, addY - HEIGHT, angleAdd, 0);
 				if (CSG.profile.cadenceAdd > 6)
-					ArmeAdd.add(addX - LARGEUR, addY - HAUTEUR, angleAdd, 10);
+					ArmeAdd.add(addX - LARGEUR, addY - HEIGHT, angleAdd, 10);
 			}
 			if (rightAdd2) {
 				addShotNbr = addShotNbr | RIGHT_ADD2;
-				ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR , addY - HAUTEUR, angleAddDroite, 0);
+				ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR , addY - HEIGHT, angleAddDroite, 0);
 				if (CSG.profile.cadenceAdd > 6)
-					ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR , addY - HAUTEUR, angleAddDroite, -10);
+					ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR , addY - HEIGHT, angleAddDroite, -10);
 			}
 			prochainTirAdd = EndlessMode.now + ArmeAdd.CADENCETIR;
 		}
@@ -413,7 +413,7 @@ public final class Player extends Element {
 	public int getWidth() {		return LARGEUR;	}
 
 	@Override
-	public int getHeight() {		return HAUTEUR;	}
+	public int getHeight() {		return HEIGHT;	}
 
 	public void accelerometre() {
 		mvtLimiteVitesse(-((Gdx.input.getAccelerometerX()-originalAccelX) * 140 * CSG.profile.sensitivity), -((Gdx.input.getAccelerometerY()-originalAccelY) * 140 * CSG.profile.sensitivity));
@@ -429,16 +429,16 @@ public final class Player extends Element {
 		rightAdd = false;	
 	}
 	public static void removeLeftAdd2() {	
-		Particles.explosionGreen(addX - LARGEUR, addY - HAUTEUR, 10);
+		Particles.explosionGreen(addX - LARGEUR, addY - HEIGHT, 10);
 		leftAdd2 = false;	
 	}
 	public static void enleverAddDroite2() {	
-		Particles.explosionGreen(addX + DECALAGE_ADD + DEMI_LARGEUR, addY - HAUTEUR, 10);
+		Particles.explosionGreen(addX + DECALAGE_ADD + DEMI_LARGEUR, addY - HEIGHT, 10);
 		rightAdd2 = false;
 	}
 
 	public static void activateShield() {
-		bouclierParticules.init(HAUTEUR);
+		bouclierParticules.init(HEIGHT);
 		bouclier = true;
 	}
 

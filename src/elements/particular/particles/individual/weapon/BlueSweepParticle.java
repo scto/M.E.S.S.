@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.weapons.player.BlueSweepWeapon;
+import elements.particular.particles.Particles;
 
 public class BlueSweepParticle implements Poolable {
 	
@@ -31,12 +32,12 @@ public class BlueSweepParticle implements Poolable {
 	@Override
 	public void reset() {}
 
-	public static void add(BlueSweepWeapon a, Array<BlueSweepParticle> pArmeBalayage) {
+	public static void add(BlueSweepWeapon a) {
 		final BlueSweepParticle p = POOL.obtain();
 		p.x = a.pos.x + BlueSweepWeapon.halfWidth;
 		p.y = a.pos.y + BlueSweepWeapon.halfWidth;
-		p.ttl = 4;
-		pArmeBalayage.add(p);
+		p.ttl = 8;
+		Particles.BLUE_SWEEP_WEAPON.add(p);
 	}
 
 	public static void act(Array<BlueSweepParticle> pArmeBalayage, SpriteBatch batch) {

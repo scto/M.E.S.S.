@@ -23,7 +23,7 @@ public class Ghost implements Poolable{
 		public static void act(Array<Ghost> ghosts, SpriteBatch batch) {
 			for (Ghost ghost : ghosts) {
 				batch.setColor(1, 1, 1, ghost.alpha);
-				batch.draw(AnimPlayer.tr[ghost.numero], ghost.x, ghost.y, Player.LARGEUR, Player.HAUTEUR);
+				batch.draw(AnimPlayer.tr[ghost.numero], ghost.x, ghost.y, Player.LARGEUR, Player.HEIGHT);
 				ghost.alpha -= 0.048f;
 				if (ghost.alpha <= 0) {
 					ghosts.removeValue(ghost, true);

@@ -91,7 +91,7 @@ public class XP extends Bonus implements Poolable {
 				case HOMMING:
 					xp.angle += xp.valeur;
 					Physic.mvtToPlayer(xp.direction, xp.pos, Stats.U20 + xp.valeur*2, WIDTH, HALF);
-					analyzeDistance(xp, INFLATE, Player.HAUTEUR);
+					analyzeDistance(xp, INFLATE, Player.HEIGHT);
 					drawStandard(batch, xp, xp.angle);
 					break;
 				case INFLATE:

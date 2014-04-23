@@ -15,7 +15,7 @@ public class FireballManager extends WeaponManager {
 
 	public void init() {
 		posX = Player.xCenter - Fireball.halfWidth;
-		posY = Player.POS.y + Player.HAUTEUR;
+		posY = Player.POS.y + Player.HEIGHT;
 		if (EndlessMode.alternate)
 			SoundMan.playBulletSound(SOUND);
 		switch (CSG.profile.NvArmeDeBase) {

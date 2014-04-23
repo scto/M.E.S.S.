@@ -4,11 +4,13 @@ import jeu.CSG;
 import assets.AssetMan;
 //import assets.animation.AnimationTirBleu;
 
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.particular.particles.Particles;
+import elements.particular.particles.individual.weapon.BlueSweepParticle;
 
 /**
  * Arme tirant en balyant l'�cran de gauche � droite, d'o� le nom
@@ -69,7 +71,7 @@ public class BlueSweepWeapon extends PlayerWeapon implements Poolable {
 		PLAYER_LIST.add(this);
 	}
 
-	@Override	public void draw(SpriteBatch batch) {		Particles.ajoutArmeBalayage(this);	}
+	@Override	public void draw(SpriteBatch batch) {		BlueSweepParticle.add(this);	}
 	@Override	public int getWidth() {						return width;	}
 	@Override	public int getHeight() {					return width;	}
 	@Override	public void free() {						POOL.free(this);	}

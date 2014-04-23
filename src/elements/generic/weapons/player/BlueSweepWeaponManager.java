@@ -17,8 +17,6 @@ import elements.generic.Player;
  */
 public class BlueSweepWeaponManager extends WeaponManager {
 	
-	private static boolean versDroite;
-	private static int placeBalle = 0;
 	private static final Sound SOUND = Gdx.audio.newSound(Gdx.files.internal("sons/164102__bmaczero__laser.wav"));
 	private static final Vector2 DIR = new Vector2(0, 1);
 	private static float posX, posY;
@@ -26,14 +24,8 @@ public class BlueSweepWeaponManager extends WeaponManager {
 	public void init(){
 		if (EndlessMode.alternate)
 			SoundMan.playBulletSound(SOUND);
-		posX = Player.xCenter;
-		posY = Player.POS.y + Player.HAUTEUR;
-		
-		DIR.x = 0;
-		DIR.y = 1;
-		
-		changerAngle();
-		posX -= BlueSweepWeapon.halfWidth;
+		posX = Player.xCenter - BlueSweepWeapon.halfWidth;
+		posY = Player.POS.y + Player.HEIGHT;
 		
 		for (int i = 0; i < CSG.profile.NvArmeBalayage; i++) {
 			fire();	
@@ -53,17 +45,6 @@ public class BlueSweepWeaponManager extends WeaponManager {
 //			}
 //			rotate = !rotate;
 			BlueSweepWeapon.POOL.obtain().init(posX, posY, DIR.x, DIR.y);
-		}
-	}
-
-	private static void changerAngle() {
-		// si le rayon se deplace vers la droite
-		if (versDroite){
-			placeBalle++;
-			if (placeBalle >= 4)	versDroite = false;
-		} else {
-			placeBalle--;
-			if (placeBalle <= -4)	versDroite = true;
 		}
 	}
 

@@ -31,8 +31,8 @@ public class JeuBackground {
 			Physic.collisionsTest();
 			vaisseau.tir();
 		}
-		if (Player.POS.y > Player.HAUTEUR) 	vaisseau.mvtLimiteVitesse(0, -Stats.V_ARME_BOSS_QUAD);
-		else			Player.POS.y = Player.HAUTEUR;
+		if (Player.POS.y > Player.HEIGHT) 	vaisseau.mvtLimiteVitesse(0, -Stats.V_ARME_BOSS_QUAD);
+		else			Player.POS.y = Player.HEIGHT;
 		
 		alterner = !alterner;
 	}
