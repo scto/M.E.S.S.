@@ -25,11 +25,10 @@ public class ThrusterParticle implements Poolable {
 		}
 	};
 	private float alpha, x, y;
-	private final float vitesseX, vitesseY, red, green, tps;//, angle;
+	private final float vitesseX, vitesseY, red, green, tps;
 	private static final Random r = new Random();
 	
 	public ThrusterParticle() {
-//		angle = r.nextFloat() * 360;
 		vitesseY =  ((r.nextFloat()+.5f) * -Stats.THRUSTER) - CSG.QUATR_HAUTEUR;
 		vitesseX = (r.nextFloat()-.5f) * Stats.THRUSTER;
 		red = r.nextFloat();
@@ -52,7 +51,6 @@ public class ThrusterParticle implements Poolable {
 		for (final ThrusterParticle f : flammes) {
 			batch.setColor(f.red, f.green, 1, f.alpha);
 			batch.draw(AssetMan.dust, f.x, f.y, LARGEUR, LARGEUR);
-//			batch.draw(AssetMan.debris, f.posX, f.posY, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, f.angle);
 			f.alpha -= f.tps * EndlessMode.delta;
 			f.x += (f.vitesseX * EndlessMode.delta);
 			f.y += (f.vitesseY * EndlessMode.delta);

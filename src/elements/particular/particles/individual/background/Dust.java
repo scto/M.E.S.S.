@@ -1,10 +1,7 @@
 package elements.particular.particles.individual.background;
 
-import java.util.Random;
-
 import jeu.CSG;
 import jeu.EndlessMode;
-import jeu.Stats;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,40 +22,29 @@ public class Dust implements Poolable {
 	};
 	private final float w, h, speed, color;
 	private float y, x;
-	private static final Random R = new Random();
 	public static float next = 0;
 
 	public Dust() {
-		float tmp = Math.abs((float) (R.nextFloat() * WIDTH));
+		float tmp = Math.abs((float) (CSG.R.nextFloat() * WIDTH));
 		while (tmp < MINWIDTH)
-			tmp = Math.abs((float) (R.nextFloat() * WIDTH));
+			tmp = Math.abs((float) (CSG.R.nextFloat() * WIDTH));
 		w = tmp;
-		x = (R.nextFloat() * CSG.gameZoneWidth + w) - w / 2;
-		final float f = (R.nextFloat() / 2) + 0.35f;
+		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w / 2;
+		final float f = (CSG.R.nextFloat() / 2) + 0.35f;
 		color = AssetMan.convertARGB(1, f, f, f);
-		speed = (R.nextFloat() / 2) * 14 * CSG.SCREEN_HEIGHT;
+		speed = (CSG.R.nextFloat() / 2) * 14 * CSG.SCREEN_HEIGHT;
 		h = speed / 20;
-	}
-
-	private float[] initWidths(float w) {
-		Array<Float> widths = new Array<Float>();
-		float tmp = w;
-		while (tmp > Stats.uSur8) {
-			widths.add(tmp);
-			tmp -= (w / 10);
-		}
-		return CSG.convert(widths);
 	}
 
 	@Override
 	public void reset() {
-		x = (R.nextFloat() * CSG.gameZoneWidth + w) - w / 2;
+		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w / 2;
 		y = CSG.SCREEN_HEIGHT + w;
 	}
 
 	public static void act(SpriteBatch batch, Array<Dust> dust) {
 		if (dust.size < Particles.MAX_DUST && next < EndlessMode.now) {
-			next = EndlessMode.now + .5f;
+			next = EndlessMode.now + CSG.R.nextFloat();
 			dust.add(POOL.obtain());
 		}
 
@@ -78,7 +64,7 @@ public class Dust implements Poolable {
 				}
 			}
 		}
-		batch.setColor(CSG.assetMan.WHITE);
+		batch.setColor(AssetMan.WHITE);
 	}
 
 	public static void clear(Array<Dust> stars) {

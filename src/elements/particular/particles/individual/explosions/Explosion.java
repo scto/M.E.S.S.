@@ -1,7 +1,5 @@
 package elements.particular.particles.individual.explosions;
 
-import java.util.Random;
-
 import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
@@ -32,8 +30,7 @@ public class Explosion implements Poolable {
 	private float speedX, speedY, x, y;
 	private float width;
 	private int ttl;
-	protected final float color = AssetMan.convertARGB(1, 1f, 					(R.nextFloat() + .8f) / 1.6f, 			R.nextFloat()/8);
-	protected static final Random R = new Random();
+	protected final float color = AssetMan.convertARGB(1, 1f, 					(CSG.R.nextFloat() + .8f) / 1.6f, 			CSG.R.nextFloat()/8);
 	private static int bigger = 0;
 	public static final int GAUSSIAN_FACTOR = 50;
 	public static final int STANDARD_EXPLOSION = 1, BLUE_EXPLOSION = 2, GREEN_EXPLOSION = 3;
@@ -65,26 +62,26 @@ public class Explosion implements Poolable {
 	
 	
 	private Explosion init(EnemyWeapon e) {
-		x = (e.pos.x + (e.getWidth() * R.nextFloat()) );
-		y = (e.pos.y + (e.getHeight() * R.nextFloat()) );
+		x = (e.pos.x + (e.getWidth() * CSG.R.nextFloat()) );
+		y = (e.pos.y + (e.getHeight() * CSG.R.nextFloat()) );
 		
-		speedY = (float) ((R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW);
-		speedX = (float) ((R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW);
+		speedY = (float) ((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW);
+		speedX = (float) ((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW);
 		
-		width = Math.abs((float) ((R.nextGaussian() * WIDTH))) + MIN_WIDTH;
-		ttl = (int) (R.nextFloat() * 15) + 10;
+		width = Math.abs((float) ((CSG.R.nextGaussian() * WIDTH))) + MIN_WIDTH;
+		ttl = (int) (CSG.R.nextFloat() * 15) + 10;
 		return this;
 	}
 	
 	private Explosion init(Enemy e) {
-		x = (e.pos.x + (e.getWidth() * R.nextFloat()) );
-		y = (e.pos.y + (e.getHeight() * R.nextFloat()) );
+		x = (e.pos.x + (e.getWidth() * CSG.R.nextFloat()) );
+		y = (e.pos.y + (e.getHeight() * CSG.R.nextFloat()) );
 
-		speedY = (float) (((R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionY() * R.nextFloat());
-		speedX = (float) (((R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionX() * R.nextFloat());
+		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionY() * CSG.R.nextFloat());
+		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionX() * CSG.R.nextFloat());
 		
-		width = Math.abs((float) ((R.nextGaussian() * WIDTH))) + MIN_WIDTH;
-		ttl = Math.abs((int) (R.nextGaussian() * GAUSSIAN_FACTOR)) + 15;
+		width = Math.abs((float) ((CSG.R.nextGaussian() * WIDTH))) + MIN_WIDTH;
+		ttl = Math.abs((int) (CSG.R.nextGaussian() * GAUSSIAN_FACTOR)) + 15;
 		return this;
 	}
 

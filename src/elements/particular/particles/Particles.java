@@ -21,7 +21,6 @@ import elements.generic.weapons.player.TWeapon;
 import elements.particular.bonuses.BonusBombe;
 import elements.particular.particles.individual.BlueSmoke;
 import elements.particular.particles.individual.BlueSparkles;
-import elements.particular.particles.individual.Debris;
 import elements.particular.particles.individual.Ghost;
 import elements.particular.particles.individual.MovingSmoke;
 import elements.particular.particles.individual.PrecalculatedParticles;
@@ -73,7 +72,6 @@ public class Particles {
 	
 	private static final Array<GreenAddParticle> ADD = new Array<GreenAddParticle>();
 	private static final Array<ParticleUiElement> UI = new Array<ParticleUiElement>();
-	private static final Array<Debris> DEBRIS = new Array<Debris>(false, MAX_THRUSTER/4);
 	private static final Array<FireballParticle> FIREBALL = new Array<FireballParticle>();
 	private static final Array<TWeaponParticles> T_WEAPON = new Array<TWeaponParticles>();
 	public static final Array<ParticlePanneau> BOUTONS = new Array<ParticlePanneau>(false, 300);
@@ -133,7 +131,6 @@ public class Particles {
 			tWeapon = 0, spaceInv = 0, fireball = 0, blueSweep = 0, sunWeapon = 0, ghost = 0, smoke = 0, movingSmoke = 0, blueSmoke = 0, sparkles = 0,
 			explosionImpactBullet = 0;
 	public static void draw(SpriteBatch batch) {
-		Debris.act(DEBRIS, batch);
 		ThrusterParticle.act(THRUSTER, batch);
 		ThrusterSideParticle.act(THRUSTER_S, batch);
 		PinkParticle.act(PINK_WEAPON, batch);
@@ -151,15 +148,14 @@ public class Particles {
 		BlueSparkles.act(SPARKLES, batch);
 		Dust.act(batch, DUST);
 		DebrisExplosion.act(DEBRIS_EXPLOSIONS, batch);
-		TimeParticle.act(TIME, batch);
 		Spark.act(SPARKS, batch);
 		SparkBlue.act(SPARKS_BLUE, batch);
 		SparkGreen.act(SPARKS_GREEN, batch);
+		TimeParticle.act(TIME, batch);
 //		tests();
 	}
 
 	private static void tests() {
-		debris = compare(DEBRIS, debris);
 		thruster = compare(THRUSTER, thruster);
 		pinkWeapon = compare(PINK_WEAPON, pinkWeapon);
 		explosionsGreen = compare(EXPLOSIONS_GREENS, explosionsGreen);
@@ -241,7 +237,6 @@ public class Particles {
 	}
 
 	public static void clear() {
-		Debris.clear(DEBRIS);
 		GreenAddParticle.clear(ADD);
 		Spark.clear(SPARKS);
 		SparkBlue.clear(SPARKS_BLUE);
@@ -366,9 +361,10 @@ public class Particles {
 		BLUESMOKE.add(s);
 	}
 
+	private final static float LONG = .4f;
 	public static void popOutWeapon(EnemyWeapon w) {
 		for (int i = 0; i < 10; i++)
-			ShieldParticle.addLong(w.pos.x + w.getWidth() * CSG.R.nextFloat(), w.pos.y + w.getHeight() * CSG.R.nextFloat());
+			ShieldParticle.add(w.pos.x + w.getWidth() * CSG.R.nextFloat(), w.pos.y + w.getHeight() * CSG.R.nextFloat(), LONG);
 	}
 
 	public static void addSparkle(Weapons e) {

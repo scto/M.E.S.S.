@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 public class Smoke implements Poolable{
 	
-	private float x, y;//, alpha, width;
+	private float x, y;
 	private int index;
 
 	public static final Pool<Smoke> POOL = new Pool<Smoke>() {

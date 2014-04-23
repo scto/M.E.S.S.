@@ -9,6 +9,7 @@ import elements.particular.particles.individual.ShieldParticle;
 public class OvaleParticuleGenerator {
 	
 	private Vector2 positionEmiter = new Vector2();
+	private final float SHORT = .1f;
 	
 	public void grow(float f) {
 		positionEmiter.scl(f);
@@ -27,28 +28,33 @@ public class OvaleParticuleGenerator {
 		positionEmiter.rotate(EndlessMode.delta15 * 80);
 		ShieldParticle.add(
 				(centreX - ShieldParticle.HALF_WIDTH) + positionEmiter.x,
-				centreY + positionEmiter.y);
+				centreY + positionEmiter.y,
+				SHORT)
+				;
 		ShieldParticle.add(
 				(centreX - ShieldParticle.HALF_WIDTH) - positionEmiter.x,
-				centreY - positionEmiter.y);
+				centreY - positionEmiter.y,
+				SHORT);
 		
 		ShieldParticle.add(
 				(centreX - ShieldParticle.HALF_WIDTH) - positionEmiter.x * 0.75f,
-				centreY - positionEmiter.y);
+				centreY - positionEmiter.y,
+				SHORT);
 		
 		ShieldParticle.add(
 				(centreX - ShieldParticle.HALF_WIDTH) - positionEmiter.x * 0.5f,
-				centreY - positionEmiter.y);
+				centreY - positionEmiter.y,
+				SHORT);
 		
 		ShieldParticle.add(
 				(centreX - ShieldParticle.HALF_WIDTH) + positionEmiter.x * 0.75f,
-				centreY + positionEmiter.y);
+				centreY + positionEmiter.y,
+				SHORT);
 		
 		ShieldParticle.add(
 				(centreX - ShieldParticle.HALF_WIDTH) + positionEmiter.x * 0.5f,
-				centreY + positionEmiter.y);
+				centreY + positionEmiter.y,
+				SHORT);
 	}
 	
-	
-	// x + (positionEmiter.x - (hauteur - positionEmiter.y) / 2) 
 }

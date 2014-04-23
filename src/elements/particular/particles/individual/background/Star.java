@@ -1,7 +1,5 @@
 package elements.particular.particles.individual.background;
 
-import java.util.Random;
-
 import jeu.CSG;
 import jeu.EndlessMode;
 import assets.AssetMan;
@@ -23,23 +21,21 @@ public class Star implements Poolable {
 	};
 	private final float w, speed, color;
 	private float y, x;
-	private static final Random R = new Random();
 	
 	public Star() {
-		float tmp = Math.abs((float) (R.nextFloat() * WIDTH));
+		float tmp = Math.abs((float) (CSG.R.nextFloat() * WIDTH));
 		while (tmp < MINWIDTH)
-			tmp = Math.abs((float) (R.nextFloat() * WIDTH));
+			tmp = Math.abs((float) (CSG.R.nextFloat() * WIDTH));
 		w = tmp;
-		x = (R.nextFloat() * CSG.gameZoneWidth + w) - w/2;
-		final float f = R.nextFloat();
+		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w/2;
+		final float f = CSG.R.nextFloat();
 		if (f > .99f) {
-//			speed = R.nextFloat() * 2 * CSG.SCREEN_HEIGHT;
 			color = AssetMan.WHITE;
 		} else {
 			if (f > .9f)
-				color = AssetMan.convertARGB(1, 1, .7f+ R.nextFloat() / 4, 1);
+				color = AssetMan.convertARGB(1, 1, .7f+ CSG.R.nextFloat() / 4, 1);
 			else if (f > .7f) {
-				color = AssetMan.convertARGB(1, .5f, .5f+ R.nextFloat() / 4, 1);
+				color = AssetMan.convertARGB(1, .5f, .5f+ CSG.R.nextFloat() / 4, 1);
 			} else {
 				color = AssetMan.WHITE;
 			}
@@ -49,7 +45,7 @@ public class Star implements Poolable {
 
 	@Override 
 	public void reset() {
-		x = (R.nextFloat() * CSG.gameZoneWidth + w) - w/2;
+		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w/2;
 		y = CSG.SCREEN_HEIGHT + w;
 	}
 
@@ -57,7 +53,7 @@ public class Star implements Poolable {
 		while (stars.size < Particles.MAX_BACKGROUND) {
 			final Star p = Star.POOL.obtain();
 			do {
-				p.y = (float) (R.nextFloat() * CSG.SCREEN_HEIGHT);
+				p.y = (float) (CSG.R.nextFloat() * CSG.SCREEN_HEIGHT);
 			} while (p.y <= 0);
 			stars.add(p);
 		}
@@ -66,7 +62,6 @@ public class Star implements Poolable {
 	public static void act(SpriteBatch batch, Array<Star> stars) {
 		if (stars.size < Particles.MAX_BACKGROUND)
 			stars.add(Star.POOL.obtain());
-		
 
 		if (EndlessMode.triggerStop) {
 			for (final Star star : stars) {
@@ -84,7 +79,7 @@ public class Star implements Poolable {
 				}
 			}
 		}
-		batch.setColor(CSG.assetMan.WHITE);
+		batch.setColor(AssetMan.WHITE);
 	}
 
 	public static void clear(Array<Star> stars) {
