@@ -304,41 +304,25 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 	}
 	
 	public static final PlayerWeapon bomb = new PlayerWeapon() {
-		@Override
-		public int getWidth() {					return 0;		}
-		@Override
-		protected TextureRegion getTexture() {	return AssetMan.add;	}
-		@Override
-		public int getHeight() {				return 0;		}
-		@Override
-		public int getHalfWidth() {				return 0;		}
-		@Override
-		public int getHalfHeight() {			return 0;		}
-		@Override
-		public void free() {		}		
-		@Override
-		public float getColor() {				return 0;		}
-		@Override
-		public int getPower() { 				return 250;		}
+		@Override		public int getWidth() {					return 0;		}
+		@Override		protected TextureRegion getTexture() {	return AssetMan.add;	}
+		@Override		public int getHeight() {				return 0;		}
+		@Override		public int getHalfWidth() {				return 0;		}
+		@Override		public int getHalfHeight() {			return 0;		}
+		@Override		public void free() {		}		
+		@Override		public float getColor() {				return 0;		}
+		@Override		public int getPower() { 				return 250;		}
 	};
 	
 	public static final PlayerWeapon superBomb = new PlayerWeapon() {
-		@Override
-		public int getWidth() {					return 0;		}
-		@Override
-		protected TextureRegion getTexture() {	return AssetMan.add;	}
-		@Override
-		public int getHeight() {				return 0;		}
-		@Override
-		public int getHalfWidth() {				return 0;		}
-		@Override
-		public int getHalfHeight() {			return 0;		}
-		@Override
-		public void free() {		}		
-		@Override
-		public float getColor() {				return 0;		}
-		@Override
-		public int getPower() { 				return 380;		}
+		@Override		public int getWidth() {					return 0;		}
+		@Override		protected TextureRegion getTexture() {	return AssetMan.add;	}
+		@Override		public int getHeight() {				return 0;		}
+		@Override		public int getHalfWidth() {				return 0;		}
+		@Override		public int getHalfHeight() {			return 0;		}
+		@Override		public void free() {		}		
+		@Override		public float getColor() {				return 0;		}
+		@Override		public int getPower() { 				return 380;		}
 	};
 
 	public void addAngle(float f) {

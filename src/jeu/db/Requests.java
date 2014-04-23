@@ -154,58 +154,64 @@ public class Requests {
 
 	private static Integer getEnemyPos(Integer enemy, Integer pos) {
 //		System.out.println("Enemy : " + enemy + "  pos : " + pos);
-		if (enemy == 1 && pos == 1)		return 5;
-		if (enemy == 1 && pos == 3)		return 42;
-		if (enemy == 1 && pos == 4)		return 46;
-		if (enemy == 1 && pos == 5)		return 6;
-		if (enemy == 1 && pos == 6)		return 7;
-		if (enemy == 1 && pos == 9)		return 9;
-		if (enemy == 1 && pos == 10)	return 47;
-		if (enemy == 1 && pos == 11)	return 8;
+		switch (enemy) {
+		case 1:
+			switch (pos) {
+				case 1:		return 5;
+				case 3:		return 42;
+				case 4:		return 46;
+				case 5:		return 6;
+				case 6:		return 7;
+				case 9:		return 9;
+				case 10:	return 47;
+				case 11:	return 8;
+			}
+		case 2:
+			if (pos == 1)		return 45;
+		case 3:
+			if (pos == 1)		return 10;
+			if (pos == 3)		return 11;
+			if (pos == 4)		return 12;
+			if (pos == 5)		return 13;
+			if (pos == 6)		return 14;
+			if (pos == 8)		return 15;
+			if (pos == 9)		return 16;
+			if (pos == 10)		return 17;
+			if (pos == 11)		return 18;
+		case 8:
+			if (pos == 1)		return 50;
+		case 10:
+			if (pos == 0)		return 19;
+			if (pos == 1)		return 20;
+			if (pos == 2)		return 49;
+			if (pos == 3)		return 21;
+			if (pos == 4)		return 22;
+			if (pos == 5)		return 23;
+			if (pos == 6)		return 24;
+			if (pos == 8)		return 25;
+			if (pos == 9)		return 26;
+			if (pos == 10)		return 27;
+			if (pos == 11)		return 28;
+			if (pos == 12)		return 49;
+		case 13:
+			if (pos == 0)		return 29;
+			if (pos == 1)		return 43;
+			if (pos == 9)		return 30;
+			if (pos == 10)		return 44;
+		case 15:
+			if (pos == 1)		return 31;
+			if (pos == 2)		return 32;
+			if (pos == 3)		return 33;
+			if (pos == 4)		return 34;
+			if (pos == 5)		return 35;
+			if (pos == 6)		return 36;
+			if (pos == 8)		return 37;
+			if (pos == 9)		return 38;
+			if (pos == 10)		return 39;
+			if (pos == 11)		return 40;
+			if (pos == 12)		return 41;
+		}
 		
-		if (enemy == 2 && pos == 1)		return 45;
-		
-		if (enemy == 3 && pos == 1)		return 10;
-		if (enemy == 3 && pos == 3)		return 11;
-		if (enemy == 3 && pos == 4)		return 12;
-		if (enemy == 3 && pos == 5)		return 13;
-		if (enemy == 3 && pos == 6)		return 14;
-		if (enemy == 3 && pos == 8)		return 15;
-		if (enemy == 3 && pos == 9)		return 16;
-		if (enemy == 3 && pos == 10)	return 17;
-		if (enemy == 3 && pos == 11)	return 18;
-		
-		if (enemy == 8 && pos == 1)		return 50;
-		
-		if (enemy == 10 && pos == 0)		return 19;
-		if (enemy == 10 && pos == 1)		return 20;
-		if (enemy == 10 && pos == 2)		return 49;
-		if (enemy == 10 && pos == 3)		return 21;
-		if (enemy == 10 && pos == 4)		return 22;
-		if (enemy == 10 && pos == 5)		return 23;
-		if (enemy == 10 && pos == 6)		return 24;
-		if (enemy == 10 && pos == 8)		return 25;
-		if (enemy == 10 && pos == 9)		return 26;
-		if (enemy == 10 && pos == 10)		return 27;
-		if (enemy == 10 && pos == 11)		return 28;
-		if (enemy == 10 && pos == 12)		return 49;
-		
-		if (enemy == 13 && pos == 0)		return 29;
-		if (enemy == 13 && pos == 1)		return 43;
-		if (enemy == 13 && pos == 9)		return 30;
-		if (enemy == 13 && pos == 10)		return 44;
-		
-		if (enemy == 15 && pos == 1)		return 31;
-		if (enemy == 15 && pos == 2)		return 32;
-		if (enemy == 15 && pos == 3)		return 33;
-		if (enemy == 15 && pos == 4)		return 34;
-		if (enemy == 15 && pos == 5)		return 35;
-		if (enemy == 15 && pos == 6)		return 36;
-		if (enemy == 15 && pos == 8)		return 37;
-		if (enemy == 15 && pos == 9)		return 38;
-		if (enemy == 15 && pos == 10)		return 39;
-		if (enemy == 15 && pos == 11)		return 40;
-		if (enemy == 15 && pos == 12)		return 41;
 		return -1;
 	}
 
@@ -216,16 +222,16 @@ public class Requests {
 	}
 
 	private static Integer getPkPosition(Vector2 pos) {
-		if (pos == SpawnEnemyPosition.middle) return 1;
+		if (pos == SpawnEnemyPosition.middle) 	return 1;
 		if (pos == SpawnEnemyPosition._05sur10) return 2;
-		if (pos == SpawnEnemyPosition._1sur10) return 3;
-		if (pos == SpawnEnemyPosition._2sur10) return 4;
-		if (pos == SpawnEnemyPosition._3sur10) return 5;
-		if (pos == SpawnEnemyPosition._4sur10) return 6;
-		if (pos == SpawnEnemyPosition._6sur10) return 8;
-		if (pos == SpawnEnemyPosition._7sur10) return 9;
-		if (pos == SpawnEnemyPosition._8sur10) return 10;
-		if (pos == SpawnEnemyPosition._9sur10) return 11;
+		if (pos == SpawnEnemyPosition._1sur10) 	return 3;
+		if (pos == SpawnEnemyPosition._2sur10) 	return 4;
+		if (pos == SpawnEnemyPosition._3sur10) 	return 5;
+		if (pos == SpawnEnemyPosition._4sur10) 	return 6;
+		if (pos == SpawnEnemyPosition._6sur10) 	return 8;
+		if (pos == SpawnEnemyPosition._7sur10) 	return 9;
+		if (pos == SpawnEnemyPosition._8sur10) 	return 10;
+		if (pos == SpawnEnemyPosition._9sur10) 	return 11;
 		if (pos == SpawnEnemyPosition._95sur10) return 12;
 		return 1;
 	}
