@@ -19,6 +19,7 @@ public class ExplosionColorOverTime implements Poolable {
 	private int index;
 	private static final float INITIAL_WIDTH = ((float) Stats.LARGEUR_DE_BASE / 4), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
 	private float[] colors;
+	private final int maxIndex = PrecalculatedParticles.widths.length /2;
 
 	public static final Pool<ExplosionColorOverTime> POOL = new Pool<ExplosionColorOverTime>() {
 		@Override
@@ -56,7 +57,7 @@ public class ExplosionColorOverTime implements Poolable {
 		this.x = x - INITIAL_HALF_WIDTH;
 		this.y = y - INITIAL_HALF_WIDTH;
 		this.colors = colors;
-		index = 0;
+		index = CSG.R.nextInt(maxIndex);
 
 		speedY = (float) ((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW);
 		speedX = (float) ((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW);
