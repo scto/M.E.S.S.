@@ -121,11 +121,7 @@ public abstract class Bonus {
 		BonusBombe.mightAppear(tmp, tmpY);
 		BonusBouclier.mightAppear(tmp, tmpY);
 		
-//		if (EndlessMode.modeDifficulte > 1) {
-			addXp(e.getXp(), tmp, tmpY);
-//		} else { 
-//			EndlessMode.score += e.getXp();
-//		}
+		addXp(e.getXp(), tmp, tmpY);
 	}
 
 	public static void addXp(int i, float tmp2, float tmpY2) {

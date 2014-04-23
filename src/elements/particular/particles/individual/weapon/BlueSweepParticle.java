@@ -1,7 +1,5 @@
 package elements.particular.particles.individual.weapon;
 
-import java.util.Random;
-
 import jeu.CSG;
 import assets.AssetMan;
 
@@ -24,11 +22,10 @@ public class BlueSweepParticle implements Poolable {
 	private float x, y, angle;
 	private int ttl;
 	private final float color, height;
-	private static final Random R = new Random();
 	public BlueSweepParticle() {
-		height = (WIDTH + ( (R.nextFloat() / 6) * WIDTH)) * 3;
-		angle = (float) (R.nextGaussian() * 360f);
-		color = BlueSweepWeapon.COLORS[R.nextInt(BlueSweepWeapon.COLORS.length)];
+		height = (WIDTH + ( (CSG.R.nextFloat() / 6) * WIDTH)) * 3;
+		angle = (float) (CSG.R.nextGaussian() * 360f);
+		color = BlueSweepWeapon.COLORS[CSG.R.nextInt(BlueSweepWeapon.COLORS.length)];
 	}
 
 	@Override
@@ -45,11 +42,6 @@ public class BlueSweepParticle implements Poolable {
 	public static void act(Array<BlueSweepParticle> pArmeBalayage, SpriteBatch batch) {
 		for (final BlueSweepParticle p : pArmeBalayage) {
 			batch.setColor(p.color);
-//			p.angle += 120;
-//			batch.draw(AssetMan.debris, p.x, p.y, 0, 0, WIDTH, p.height, 1, 1, p.angle);
-//			p.angle += 120;
-//			batch.draw(AssetMan.debris, p.x, p.y, 0, 0, WIDTH, p.height, 1, 1, p.angle);
-//			p.angle += 120;
 			batch.draw(AssetMan.debris, p.x, p.y, 0, 0, WIDTH, p.height, 1, 1, p.angle);
 			p.angle += 10;
 			if (0 > --p.ttl) {

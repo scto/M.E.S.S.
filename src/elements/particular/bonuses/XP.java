@@ -98,7 +98,7 @@ public class XP extends Bonus implements Poolable {
 					xp.angle += xp.valeur;
 					xp.inflate += EndlessMode.delta * Stats.U20;
 					tmpFloat = xp.inflate/2;
-					drawMultiple(batch, xp, xp.angle);
+					drawMultipleTimes(batch, xp, xp.angle);
 					if (xp.inflate >= WIDTH_INF) {
 						xp.color = AssetMan.setAlpha(xp.color, 0.5f);
 						xp.state = SHOOTING_STAR;
@@ -115,32 +115,21 @@ public class XP extends Bonus implements Poolable {
 				}
 			} else {
 				switch (xp.state) {
-				case WANDERER:
-					drawStandard(batch, xp, -xp.angle);
-					move(xp);
-					break;
-				case HOMMING:
-					drawStandard(batch, xp, -xp.angle);
-					move(xp);
-					break;
+				case WANDERER:					drawAndMove(batch, xp, -xp.angle);					break;
+				case HOMMING:					drawAndMove(batch, xp, -xp.angle);					break;
 				case INFLATE:
 					tmpFloat = xp.inflate/2;
-					drawMultiple(batch, xp, xp.angle);
+					drawMultipleTimes(batch, xp, xp.angle);
 					break;
 				case SHOOTING_STAR:
-					batch.draw(AssetMan.star, xp.pos.x, xp.pos.y, HALF_INF_WIDTH, HALF_INF_WIDTH, WIDTH_INF, WIDTH_INF, 1, 1, -xp.angle);
-					move(xp);
-					batch.draw(AssetMan.star, xp.pos.x, xp.pos.y, HALF_INF_WIDTH, HALF_INF_WIDTH, WIDTH_INF, WIDTH_INF, 1, 1, xp.angle);
-					move(xp);
-					batch.draw(AssetMan.star, xp.pos.x, xp.pos.y, HALF_INF_WIDTH, HALF_INF_WIDTH, WIDTH_INF, WIDTH_INF, 1, 1, -xp.angle);
-					move(xp);
-					batch.draw(AssetMan.star, xp.pos.x, xp.pos.y, HALF_INF_WIDTH, HALF_INF_WIDTH, WIDTH_INF, WIDTH_INF, 1, 1, xp.angle);
-					move(xp);
+					drawAndMove(batch, xp, -xp.angle);
+					drawAndMove(batch, xp, xp.angle);
+					drawAndMove(batch, xp, -xp.angle);
+					drawAndMove(batch, xp, xp.angle);
+					drawAndMove(batch, xp, -xp.angle);
+					drawAndMove(batch, xp, xp.angle);
 					if (Math.abs(CSG.screenHalfWidth - xp.pos.x) < Stats.U && xp.pos.y < CSG.HEIGHT_DIV20) {
-						SoundMan.playBruitage(SoundMan.xp);
-						EndlessMode.upScore(xp.valeur);
-						XP_LIST.removeValue(xp, false);
-						POOL.free(xp);
+						taken(xp);
 					}
 					break;
 				}
@@ -153,13 +142,23 @@ public class XP extends Bonus implements Poolable {
 		batch.setColor(AssetMan.WHITE);
 	}
 
-	private static void drawMultiple(SpriteBatch batch, XP xp, float angle) {
+	private static void taken(XP xp) {
+		SoundMan.playBruitage(SoundMan.xp);
+		EndlessMode.upScore(xp.valeur);
+		XP_LIST.removeValue(xp, false);
+		POOL.free(xp);
+	}
+
+	private static void drawAndMove(SpriteBatch batch, XP xp, float angle) {
+		batch.draw(AssetMan.star, xp.pos.x, xp.pos.y, HALF_INF_WIDTH, HALF_INF_WIDTH, WIDTH_INF, WIDTH_INF, 1, 1, angle);
+		move(xp);
+	}
+
+	private static void drawMultipleTimes(SpriteBatch batch, XP xp, float angle) {
 		batch.setColor(AssetMan.BLACK);
 		batch.draw(AssetMan.star, xp.pos.x - HALF, xp.pos.y - HALF, WIDTH, WIDTH, WIDTH2, WIDTH2, 1, 1, angle);
 		batch.draw(AssetMan.star, xp.pos.x - HALF, xp.pos.y - HALF, WIDTH, WIDTH, WIDTH2, WIDTH2, 1, 1, -angle);
 		batch.setColor(xp.color);
-		batch.draw(AssetMan.star, xp.pos.x - tmpFloat, xp.pos.y - tmpFloat, HALF + tmpFloat, HALF + tmpFloat, WIDTH + xp.inflate, WIDTH + xp.inflate, 1, 1, angle);
-		batch.draw(AssetMan.star, xp.pos.x - tmpFloat, xp.pos.y - tmpFloat, HALF + tmpFloat, HALF + tmpFloat, WIDTH + xp.inflate, WIDTH + xp.inflate, 1, 1, -angle);
 		batch.draw(AssetMan.star, xp.pos.x - tmpFloat, xp.pos.y - tmpFloat, HALF + tmpFloat, HALF + tmpFloat, WIDTH + xp.inflate, WIDTH + xp.inflate, 1, 1, angle);
 		batch.draw(AssetMan.star, xp.pos.x - tmpFloat, xp.pos.y - tmpFloat, HALF + tmpFloat, HALF + tmpFloat, WIDTH + xp.inflate, WIDTH + xp.inflate, 1, 1, -angle);
 	}
