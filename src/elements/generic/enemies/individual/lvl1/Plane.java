@@ -23,6 +23,7 @@ import elements.generic.weapons.patterns.Tireur;
 import elements.generic.weapons.patterns.Tirs;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.particles.Particles;
+import elements.particular.particles.individual.MovingSmoke;
 import elements.positionning.Pos;
 import elements.positionning.Up;
 
@@ -62,8 +63,8 @@ public class Plane extends Enemy implements Tireur {
 
 	@Override
 	public void mouvementEtVerif() {
-		if (EndlessMode.alternate)	Particles.smokeMoving(pos.x + OFFSET_SMOKE_LEFT, pos.y + OFFSET_SMOKE, true);
-		else						Particles.smokeMoving(pos.x + OFFSET_SMOKE_RIGHT, pos.y + OFFSET_SMOKE, true);
+		if (EndlessMode.alternate)	Particles.smokeMoving(pos.x + OFFSET_SMOKE_LEFT, pos.y + OFFSET_SMOKE, true, MovingSmoke.colorsRed);
+		else						Particles.smokeMoving(pos.x + OFFSET_SMOKE_RIGHT, pos.y + OFFSET_SMOKE, true, MovingSmoke.colorsRed);
 		super.mouvementEtVerif();
 	}
 	

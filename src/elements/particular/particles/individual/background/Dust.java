@@ -26,6 +26,7 @@ public class Dust implements Poolable {
 	private final float w, h, speed, color;
 	private float y, x;
 	private static final Random R = new Random();
+	public static float next = 0;
 
 	public Dust() {
 		float tmp = Math.abs((float) (R.nextFloat() * WIDTH));
@@ -56,8 +57,10 @@ public class Dust implements Poolable {
 	}
 
 	public static void act(SpriteBatch batch, Array<Dust> dust) {
-		if (dust.size < Particles.MAX_DUST)
+		if (dust.size < Particles.MAX_DUST && next < EndlessMode.now) {
+			next = EndlessMode.now + .5f;
 			dust.add(POOL.obtain());
+		}
 
 		if (EndlessMode.triggerStop) {
 			for (final Dust d : dust) {

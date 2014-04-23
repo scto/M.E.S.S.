@@ -228,7 +228,6 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		attackAllEnemies(bomb);
 	}
 
-	private static final BonusBombe mockBomb = new BonusBombe();
 	public static void attackAllEnemies(PlayerWeapon a) {
 		for (final Enemy e : LIST) {
 			a.dir.x = ((e.pos.x + e.getHalfWidth())) - Player.xCenter;

@@ -50,7 +50,7 @@ import elements.particular.particles.individual.weapon.TWeaponParticles;
 
 public class Particles {
 	 	
-	public static final int MAX_THRUSTER = 240, MAX_BACKGROUND = 300, MAX_DUST = 5;
+	public static final int MAX_THRUSTER = 300, MAX_BACKGROUND = 300, MAX_DUST = 5;
 	public static int nbFlammes = 0;
 	
 	private static final Array<Dust> DUST = new Array<Dust>(false, MAX_DUST);
@@ -215,33 +215,25 @@ public class Particles {
 		ExplosionImpactBullet.add(EXPLOSION_IMPACT_BULLET, a);
 	}
 
-	public static void ajoutFlammes(Player v) {
+	public static void addThrusterParticles(Player v) {
 		if (nbFlammes < Particles.MAX_THRUSTER) {
-			addThrusterParticle(v);
+			THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
 			if (yShip-1 < Player.POS.y) {
-				addThrusterParticle(v);
-				addThrusterParticle(v);
+				THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+				THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+				THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
 				if (yShip+1 < Player.POS.y) {
-					addThrusterParticle(v);
+					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
 				}
 			}
 		}
-		for (int i = 0; i < EndlessMode.explosions * 10; i++) {
-			addThrusterParticle(v);
-		}
 		yShip = Player.POS.y;
-	}
-
-	private static void addThrusterParticle(Player v) {
-		final ThrusterParticle r = ThrusterParticle.POOL.obtain();
-		r.init(v);
-		THRUSTER.add(r);
-	}
-	
-	public static void addThrusterParticle(float posX, float posY, boolean toLeft) {
-		final ThrusterSideParticle r = ThrusterSideParticle.POOL.obtain();
-		r.init(posX, posY, toLeft);
-		THRUSTER_S.add(r);
 	}
 
 	public static void clear() {
@@ -273,6 +265,7 @@ public class Particles {
 		ExplosionImpactBullet.clear(EXPLOSION_IMPACT_BULLET);
 		TimeParticle.clear(TIME);
 		nbFlammes = 0;
+		Dust.next = 0;
 	}
 	
 	public static void explosionGreen(float posX, float posY, int max) {
@@ -347,9 +340,9 @@ public class Particles {
 		GHOSTS.add(g);
 	}
 	
-	public static void smokeMoving(float x, float y, boolean rnd) {
+	public static void smokeMoving(float x, float y, boolean rnd, float[] colors) {
 		final MovingSmoke s = MovingSmoke.POOL.obtain();
-		s.init(x, y, rnd);
+		s.init(x, y, rnd, colors);
 		MOVING_SMOKE.add(s);
 	}
 

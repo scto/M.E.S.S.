@@ -15,13 +15,13 @@ public class AnimationEnnemiDeBase {
 	}
 
 	public static void initAnimation() {
-		TextureRegion[] tr = new TextureRegion[3];
-		
-		tr[0] = AssetMan.getTextureRegion("ennemidebase1");
-		tr[1] = AssetMan.getTextureRegion("ennemidebase2");
-		tr[2] = AssetMan.getTextureRegion("ennemidebase3");
-		
-	    animation = new Animation(TIME, tr);
-	    animation.setPlayMode(Animation.LOOP_PINGPONG);
+//		TextureRegion[] tr = new TextureRegion[3];
+//		
+//		tr[0] = AssetMan.getTextureRegion("ennemidebase1");
+//		tr[1] = AssetMan.getTextureRegion("ennemidebase2");
+//		tr[2] = AssetMan.getTextureRegion("ennemidebase3");
+//		
+//	    animation = new Animation(TIME, tr);
+//	    animation.setPlayMode(Animation.LOOP_PINGPONG);
 	}	
 }

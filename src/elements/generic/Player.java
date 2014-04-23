@@ -91,17 +91,13 @@ public final class Player extends Element {
 	private float r = 1, g = 1, b = 1;
 	private int cpt = 0;
 	public void draw(SpriteBatch batch) {
-		Particles.ajoutFlammes(this);
+		Particles.addThrusterParticles(this);
 		if (CSG.alternateGraphics) {
 			if (++cpt > 60) {
 				cpt = 0;
 				r = CSG.R.nextFloat();
 				g = CSG.R.nextFloat();
 				b = CSG.R.nextFloat();
-			}
-			switch (AnimPlayer.etat) {
-			case 0:		case 1:		Particles.addThrusterParticle(POS.x + LARGEUR, pos.y + DEMI_HAUTEUR_ADD, false);	break;
-			case 3:		case 4:		Particles.addThrusterParticle(POS.x, pos.y + DEMI_HAUTEUR_ADD, true);				break;
 			}
 			batch.setColor(r,g,b,1);
 			batch.draw(AssetMan.player, POS.x, POS.y, LARGEUR, HAUTEUR);

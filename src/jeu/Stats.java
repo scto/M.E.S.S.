@@ -4,7 +4,7 @@ package jeu;
 public class Stats {
 	
 	// 0.507cm 20 sur s3
-	public static final float U = (CSG.SCREEN_HEIGHT + CSG.screenWidth) / 150f;
+	public static final float U = (CSG.SCREEN_HEIGHT + CSG.screenWidth) / 110f;
 	public static final float UU = U * 2;
 	public static final float UUU = U * 3;
 	public static final float U4 = U * 4;
@@ -55,7 +55,7 @@ public class Stats {
 	public static final int PV_DE_BASE_NV3 = (int) (PV_DE_BASE * PVNV3);
 	public static final int PV_DE_BASE_NV4 = (int) (PV_DE_BASE * PVNV4);
 	public static final int LARGEUR_DE_BASE = (int) (2.7f * U);
-	public static final int HAUTEUR_DE_BASE = getHauteur(LARGEUR_DE_BASE, 1.3f);
+	public static final int HAUTEUR_DE_BASE = getHauteur(LARGEUR_DE_BASE, 1.4f);
 	
 	// G R O U P
 	public static final float V_GROUP = 5 * U;

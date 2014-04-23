@@ -1,11 +1,16 @@
 package elements.generic.enemies.individual.lvl4;
 
+import assets.animation.AnimationZigZag;
+
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.Invocable;
 import elements.generic.enemies.individual.lvl1.ZigZag;
 import elements.generic.enemies.individual.lvl3.ZigZagNv3;
+import elements.particular.particles.Particles;
+import elements.particular.particles.individual.MovingSmoke;
 import jeu.Stats;
 
 public class ZigZagNv4 extends ZigZagNv3 {
@@ -24,10 +29,13 @@ public class ZigZagNv4 extends ZigZagNv3 {
 		l.init();
 		return l;
 	}
-	@Override	public void free() {			POOL.free(this);	}
-	@Override	protected int getPvMax() {		return PV;	}
-	@Override	public int getXp() {			return XP;	}
-	@Override	public int getValeurBonus() {	return BASE_XP;	}
-	@Override	public float getVitesse() {		return SPEED;	}
-	@Override	protected String getLabel() {	return getClass().toString();	}
+	@Override	protected TextureRegion getTexture() {	return AnimationZigZag.getTextureGreen(pos.x + DEMI_LARGEUR);	}
+	@Override	protected void explode() {				Particles.explosionGreen(this);	}
+	@Override	protected float[] getColor() {			return MovingSmoke.colorsGreen;	}
+	@Override	public void free() {					POOL.free(this);	}
+	@Override	protected int getPvMax() {				return PV;	}
+	@Override	public int getXp() {					return XP;	}
+	@Override	public int getValeurBonus() {			return BASE_XP;	}
+	@Override	public float getVitesse() {				return SPEED;	}
+	@Override	protected String getLabel() {			return getClass().toString();	}
 }

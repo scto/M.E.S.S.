@@ -2,6 +2,7 @@ package elements.generic.enemies.individual.lvl1;
 
 import jeu.EndlessMode;
 import jeu.Stats;
+import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationEnnemiDeBase;
 
@@ -14,6 +15,7 @@ import elements.generic.Invocable;
 import elements.generic.behavior.Behavior;
 import elements.generic.enemies.Enemy;
 import elements.particular.particles.Particles;
+import elements.particular.particles.individual.MovingSmoke;
 import elements.positionning.Pos;
 import elements.positionning.Up;
 
@@ -46,10 +48,11 @@ public class DeBase extends Enemy implements PatternHorizontalPositionnable {
 	@Override
 	public void mouvementEtVerif() {
 		if (EndlessMode.alternate)
-			Particles.smokeMoving(pos.x + DEMI_LARGEUR, pos.y + OFFSET_SMOKE, true);
+			Particles.smokeMoving(pos.x + DEMI_LARGEUR, pos.y + OFFSET_SMOKE, true, getColor());
 		super.mouvementEtVerif();
 	}
 	
+
 	@Override
 	public Invocable invoquer() {
 		final DeBase e = POOL.obtain();
@@ -77,6 +80,7 @@ public class DeBase extends Enemy implements PatternHorizontalPositionnable {
 		dir.y = -getVitesse();
 		angle = dir.angle();
 	}
+	protected float[] getColor() {						return MovingSmoke.colorsRed;	}
 	@Override	protected Sound getSonExplosion() {		return SoundMan.explosion6;	}
 	@Override	public int getXp() {					return XP;	}
 	@Override	public int getValeurBonus() {			return BASE_XP;	}
@@ -88,7 +92,7 @@ public class DeBase extends Enemy implements PatternHorizontalPositionnable {
 	@Override	public void setPosXInitiale(float x) {	posXInitiale = x;	}
 	@Override	public float getPosXInitiale() {		return posXInitiale;	}
 	@Override	protected int getPvMax() {				return PV;	}
-	@Override	public TextureRegion getTexture() {		return AnimationEnnemiDeBase.getTexture(now);	}
+	@Override	public TextureRegion getTexture() {		return AssetMan.basicenemyred;	}
 	@Override	public void free() {					POOL.free(this);	}
 	@Override	public float getDirectionY() {			return -SPEED;	}
 	@Override	protected String getLabel() {			return getClass().toString();	}

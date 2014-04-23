@@ -37,11 +37,12 @@ public class ThrusterParticle implements Poolable {
 		tps = 3f + (r.nextFloat() * 10f);
 	}
 
-	public void init(Player v) {
+	public ThrusterParticle init(Player v) {
 		x = (Player.POS.x + OFFSET_X) + (r.nextFloat() * LARGEUR);
 		y = Player.POS.y - (DEMI_LARGEUR + (DEMI_LARGEUR * r.nextFloat()));
 		alpha = 1;
 		Particles.nbFlammes++;
+		return this;
 	}
 	
 	@Override

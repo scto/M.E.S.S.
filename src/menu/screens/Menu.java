@@ -104,10 +104,10 @@ public class Menu extends AbstractScreen {
 		if (Gdx.input.isTouched()
 				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() > highscores.sprite.getY() 
 				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() < highscores.sprite.getY() + highscores.sprite.getHeight()) {
-			if (CSG.google.getSignedIn())
+//			if (CSG.google.getSignedIn())
 				CSG.google.getScores();
-			else
-				CSG.google.Login();
+//			else
+//				CSG.google.Login();
 		}
 		if (Gdx.input.isTouched() 
 				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() > achievements.sprite.getY() 

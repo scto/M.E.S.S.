@@ -3,7 +3,7 @@ package elements.generic.enemies.individual.lvl1;
 import jeu.EndlessMode;
 import jeu.Stats;
 import assets.SoundMan;
-import assets.animation.AnimationRouli;
+import assets.animation.AnimationZigZag;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,12 +14,19 @@ import elements.generic.Invocable;
 import elements.generic.behavior.Behavior;
 import elements.generic.enemies.Enemy;
 import elements.particular.particles.Particles;
+import elements.particular.particles.individual.MovingSmoke;
 import elements.positionning.Pos;
 import elements.positionning.UpWide;
 
 public class ZigZag extends Enemy {
 	
-	private static final int LARGEUR = Stats.LARGEUR_ZIG_ZAG, DEMI_LARGEUR = LARGEUR/2, HAUTEUR = Stats.HAUTEUR_ZIG_ZAG, DEMI_HAUTEUR = HAUTEUR / 2;
+	private static final int LARGEUR = Stats.LARGEUR_ZIG_ZAG;
+
+	protected static final int DEMI_LARGEUR = LARGEUR/2;
+
+	private static final int HAUTEUR = Stats.HAUTEUR_ZIG_ZAG, OFFSET_SMOKE = (int) (HAUTEUR * 0.8f);
+
+	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
 	
 	public static final int PK = 15;
 	protected static final float SPEED = initSpeed(24, PK);
@@ -46,7 +53,7 @@ public class ZigZag extends Enemy {
 	@Override
 	public void mouvementEtVerif() {
 		if (EndlessMode.alternate)
-			Particles.smokeMoving(pos.x + DEMI_LARGEUR, pos.y + HAUTEUR, true);
+			Particles.smokeMoving(pos.x + DEMI_LARGEUR, pos.y + OFFSET_SMOKE, true, getColor());
 		super.mouvementEtVerif();
 	}
 	
@@ -58,9 +65,10 @@ public class ZigZag extends Enemy {
 		return z;
 	}
 
+	protected float[] getColor() {						return MovingSmoke.colorsRed;	}
 	@Override	public void free() {					POOL.free(this);	}
 	@Override	protected int getPvMax() {				return PV;	}
-	@Override	protected TextureRegion getTexture() {	return AnimationRouli.getTexture(pos.x + DEMI_LARGEUR);	}
+	@Override	protected TextureRegion getTexture() {	return AnimationZigZag.getTexture(pos.x + DEMI_LARGEUR);	}
 	@Override	public int getHeight() {				return HAUTEUR;	}
 	@Override	public int getWidth() {					return LARGEUR;	}
 	@Override	public int getHalfHeight() {			return DEMI_HAUTEUR;	}

@@ -20,7 +20,7 @@ import assets.animation.AnimationMine;
 import assets.animation.AnimationOmbrelle;
 import assets.animation.AnimationPorteNef;
 import assets.animation.AnimationQuiTir;
-import assets.animation.AnimationRouli;
+import assets.animation.AnimationZigZag;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -42,6 +42,7 @@ public final class AssetMan implements AssetErrorListener {
 
 	public static TextureRegion add, addShip, bomb, bombGrey, blueDestroyer, blueDestroyerBroken, shield, stopBonus, stopBonusGrey, dust, debris, background, player, backgroundButton, shootingStar;
 	public static TextureRegion iconDefaultW, iconTW, iconFireballW, iconSpreadW, iconSunW, iconSpaceInvW, tWeapon, fireball, star, effect, addBullet, addShipShot;
+	public static TextureRegion basicenemyred, basicenemygreen, basicenemyblue;
 	public final static AssetManager MAN = new AssetManager();
 	private TextureAtlas atlas;
 	public final static float WHITE = convertARGB(1, 1, 1, 1), ALPHA40 = convertARGB(.4f, 1, 1, 1), BLACK = convertARGB(1, 0, 0, 0), ALPHA70 = convertARGB(.70f, 1, 1, 1), RED = convertARGB(1, 1, 0, 0),
@@ -119,7 +120,7 @@ public final class AssetMan implements AssetErrorListener {
 //		AnimTWeapon.initAnimation();
 		AnimationMine.initAnimation();
 		AnimationAvion.initAnimation();
-		AnimationRouli.initAnimation();
+		AnimationZigZag.initAnimation();
 		AnimationCylon.initAnimation();
 		AnimationQuiTir.initAnimation();
 		AnimationKinder.initAnimation();
@@ -161,6 +162,9 @@ public final class AssetMan implements AssetErrorListener {
 		stopBonusGrey = getTextureRegion("bonusetoilegris");
 		blueDestroyerBroken = getTextureRegion("porteraisin2");
 		backgroundButton = getTextureRegion("backgroundbutton");
+		basicenemyblue = getTextureRegion("basicenemyblue");
+		basicenemygreen = getTextureRegion("basicenemygreen");
+		basicenemyred = getTextureRegion("basicenemyred");
 		
 		iconTW = getTextureRegion("tweapon80");
 		iconSpreadW = getTextureRegion("spread80");

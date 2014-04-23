@@ -15,10 +15,11 @@ public class MovingSmoke implements Poolable{
 	private float x, y;//, alpha, width;
 	private int index;
 	private static final float INITIAL_WIDTH = ((float)Stats.LARGEUR_DE_BASE / 4), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
-	private static final float[] colors = initAlphas();
+	public static final float[] colorsRed = initAlphas(), colorsBlue = initAlphasBlue(), colorsGreen = initAlphasGreen();
 	private static final float[] widths = initWidths();
 	private static final float[] halfWidths = CSG.getHalf(widths);
 	private static final float[] dirY = initDirY(widths);
+	private float[] colors;
 	public static final Pool<MovingSmoke> POOL = new Pool<MovingSmoke>() {
 		@Override
 		protected MovingSmoke newObject() {
@@ -27,7 +28,7 @@ public class MovingSmoke implements Poolable{
 	};
 	public static void act(Array<MovingSmoke> smoke, SpriteBatch batch) {
 		for (MovingSmoke s : smoke) {
-			batch.setColor(colors[s.index]);
+			batch.setColor(s.colors[s.index]);
 			batch.draw(AssetMan.dust, s.x, s.y, widths[s.index], widths[s.index]);
 			if (EndlessMode.triggerStop)
 				continue;
@@ -55,9 +56,29 @@ public class MovingSmoke implements Poolable{
 	private static float[] initWidths() {
 		float f = INITIAL_WIDTH;
 		Array<Float> tmp = new Array<Float>();
-		for (int i = 0; i < colors.length; i++) {
+		for (int i = 0; i < colorsRed.length; i++) {
 			tmp.add(f);
 			f += Stats.uSur4;
+		}
+		return CSG.convert(tmp);
+	}
+	
+	private static float[] initAlphasGreen() {
+		float alpha = 1;
+		Array<Float> tmp = new Array<Float>();
+		while (alpha > 0) {
+			tmp.add(AssetMan.convertARGB(alpha, 0.05f, 1, alpha));
+			alpha -= 0.075f;
+		}
+		return CSG.convert(tmp);
+	}
+	
+	private static float[] initAlphasBlue() {
+		float alpha = 1;
+		Array<Float> tmp = new Array<Float>();
+		while (alpha > 0) {
+			tmp.add(AssetMan.convertARGB(alpha, 0.05f, alpha, 1));
+			alpha -= 0.075f;
 		}
 		return CSG.convert(tmp);
 	}
@@ -75,13 +96,14 @@ public class MovingSmoke implements Poolable{
 	@Override
 	public void reset() {}
 	
-	public void init(float x, float y, boolean rnd) {
+	public void init(float x, float y, boolean rnd, float[] colors) {
 		if (rnd)
 			this.x = (x - INITIAL_HALF_WIDTH) + ((CSG.R.nextFloat() - .5f) * INITIAL_HALF_WIDTH);
 		else
 			this.x = x - INITIAL_HALF_WIDTH;
 		this.y = y - INITIAL_HALF_WIDTH;
 		index = 0;
+		this.colors = colors;
 	}
 	public static void clear(Array<MovingSmoke> smoke) {
 		POOL.freeAll(smoke);

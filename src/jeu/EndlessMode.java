@@ -71,7 +71,6 @@ import elements.generic.enemies.individual.lvl4.ToupieNv4;
 import elements.generic.enemies.individual.lvl4.ZigZagNv4;
 import elements.generic.weapons.Weapons;
 import elements.particular.bonuses.Bonus;
-import elements.particular.bonuses.BonusBombe;
 import elements.particular.bonuses.BonusStop;
 import elements.particular.bonuses.XP;
 import elements.particular.other.WaveEffect;
@@ -248,9 +247,9 @@ public class EndlessMode implements Screen {
 							bloom.setBloomIntesity(-1f);
 						final int monScore = (int) score;
 						switch (modeDifficulte) {
-						case 1:		CSG.google.submitScore("CgkIrsqv7rIVEAIQAw", monScore );	break;
-						case 2:		CSG.google.submitScore("CgkIrsqv7rIVEAIQGA", monScore );	break;
-						case 3:		CSG.google.submitScore("CgkIrsqv7rIVEAIQGQ", monScore );	break;
+						case 1:		CSG.google.submitScore("CgkIrsqv7rIVEAIQKQ", monScore );	break;
+						case 2:		CSG.google.submitScore("CgkIrsqv7rIVEAIQKg", monScore );	break;
+						case 3:		CSG.google.submitScore("CgkIrsqv7rIVEAIQKw", monScore );	break;
 						case 4:		CSG.google.submitScore(Strings.LVL4LB, monScore );			break;
 						}
 						scoreSent = true;
