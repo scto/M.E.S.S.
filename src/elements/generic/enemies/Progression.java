@@ -25,7 +25,7 @@ public final class Progression {
 		resetWaves(remplissageLvl3);
 		resetWaves(remplissageLvl4);
 		resetWaves(bosses);
-		tempsDeGrace = 0;
+		graceTime = 0;
 	}
 
 	private static void resetWaves(Wave[] waves) {
@@ -122,7 +122,9 @@ public final class Progression {
 	private static float beginBossScore;
 	public static boolean bossJustPoped = false;
 	private static int nbEnemiesMax = 0;
-	private static float tempsDeGrace = 0;
+	private static float graceTime = 0;
+	// the minimum time between two wave activations
+	private static final float graceDelay = 4f;
 	public static void invoqueBaseOnScore() {
 		if (nextBoss < EndlessMode.now) {
 			if (bossJustPoped) {
@@ -131,7 +133,7 @@ public final class Progression {
 				activateRandomBoss();
 			}
 		} else if (nextNormalWavesCheck < EndlessMode.now) {
-			nbEnemiesMax = (int) (14 + (EndlessMode.score / 1000));
+			nbEnemiesMax = (int) (14 + (EndlessMode.score / 5000));
 			if (Enemy.LIST.size < nbEnemiesMax) {
 				if (bossJustPoped)
 					compensateForBossTime();
@@ -156,8 +158,8 @@ public final class Progression {
 		for (Wave wave : waves) {
 			if (wave.active)
 				wave.mightSpawn();
-			else if (tempsDeGrace < EndlessMode.now && wave.mightActivate())
-				tempsDeGrace = EndlessMode.now + 1.1f;
+			else if (graceTime < EndlessMode.now && wave.mightActivate())
+				graceTime = EndlessMode.now + graceDelay;
 		}
 	}
 
