@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.particular.particles.Particles;
 import elements.particular.particles.individual.weapon.BlueSweepParticle;
 
 /**

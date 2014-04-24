@@ -248,4 +248,12 @@ public class CSG extends Game implements ApplicationListener {
 	    }
 		return array2;
 	}
+
+	public static float[] getDouble(float[] array) {
+		final Array<Float> tmp = new Array<Float>();
+		tmp.add(0f);
+		for (int i = 1; i < array.length; i++)
+			tmp.add( (array[i]-array[i-1])*2);
+		return CSG.convert(tmp);
+	}
 }

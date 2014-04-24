@@ -24,6 +24,7 @@ import elements.particular.particles.individual.BlueSparkles;
 import elements.particular.particles.individual.Ghost;
 import elements.particular.particles.individual.MovingSmoke;
 import elements.particular.particles.individual.PrecalculatedParticles;
+import elements.particular.particles.individual.PrecalculatedParticlesLong;
 import elements.particular.particles.individual.ShieldParticle;
 import elements.particular.particles.individual.Smoke;
 import elements.particular.particles.individual.ThrusterParticle;
@@ -103,10 +104,10 @@ public class Particles {
 		batch.draw(AssetMan.background, -CSG.DIXIEME_LARGEUR, -CSG.HEIGHT_DIV10, CSG.gameZoneWidth + CSG.DIXIEME_LARGEUR, CSG.SCREEN_HEIGHT + CSG.HEIGHT_DIV10);
 //		batch.setColor(AssetMan.WHITE);
 		Star.act(batch, STAR);
+		ExplosionColorOverTime.act(EXPLOSION_COLOR_OVER_TIME, batch);
 		Explosion.act(EXPLOSIONS, batch);
 		BlueExplosion.act(BLUE_EXPLOSION, batch);
 		GreenExplosion.act(EXPLOSIONS_GREENS, batch);
-		ExplosionColorOverTime.act(EXPLOSION_COLOR_OVER_TIME, batch);
 	}
 
 	public static void drawUi(SpriteBatch batch) {
@@ -276,21 +277,21 @@ public class Particles {
 		Explosion.add(EXPLOSIONS, e);
 		DebrisExplosion.add(DEBRIS_EXPLOSIONS, e);
 		Spark.add(SPARKS, e);
-		ExplosionColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, PrecalculatedParticles.colorsRed);
+		ExplosionColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, PrecalculatedParticlesLong.colorsRed);
 	}
 
 	public static void explosionBlue(Enemy e) {
 		DebrisExplosion.add(DEBRIS_EXPLOSIONS, e);
 		BlueExplosion.add(BLUE_EXPLOSION, e);
 		SparkBlue.add(SPARKS_BLUE, e);
-		ExplosionColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, PrecalculatedParticles.colorsBlue);
+		ExplosionColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, PrecalculatedParticlesLong.colorsBlue);
 	}
 
 	public static void explosionGreen(Enemy e) {
 		DebrisExplosion.add(DEBRIS_EXPLOSIONS, e);
 		GreenExplosion.add(EXPLOSIONS_GREENS, e);
 		SparkGreen.add(SPARKS_GREEN, e);
-		ExplosionColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, PrecalculatedParticles.colorsGreen);
+		ExplosionColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, PrecalculatedParticlesLong.colorsGreen);
 	}
 
 	public static void armeHantee(TWeapon a) {
@@ -381,6 +382,7 @@ public class Particles {
 		GreenExplosion.blow(a, EXPLOSIONS_GREENS);
 		BlueExplosion.blow(a, BLUE_EXPLOSION);
 		ExplosionImpactBullet.blow(a, EXPLOSION_IMPACT_BULLET);
+		ExplosionColorOverTime.blow(a, EXPLOSION_COLOR_OVER_TIME);
 	}
 	
 }

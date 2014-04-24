@@ -6,7 +6,6 @@ import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Stats;
 import assets.AssetMan;
-import assets.SoundMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -15,9 +14,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.enemies.Enemy;
-import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.player.PlayerWeapon;
-import elements.particular.particles.Particles;
 
 public class Spark implements Poolable {
 	

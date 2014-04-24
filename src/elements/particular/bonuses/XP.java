@@ -25,7 +25,7 @@ public class XP extends Bonus implements Poolable {
 			return new XP();
 		}
 	};
-	public static final int WIDTH = (int) ((int) Stats.BONUS_WIDTH / 2.65f), HALF = WIDTH/2, WIDTH_INF = (int) (WIDTH + Stats.u), HALF_INF_WIDTH = WIDTH_INF / 2, WIDTH2 = WIDTH * 2;
+	public static final int WIDTH = (int) ((int) Stats.BONUS_WIDTH / 2.00f), HALF = WIDTH/2, WIDTH_INF = (int) (WIDTH + Stats.u), HALF_INF_WIDTH = WIDTH_INF / 2, WIDTH2 = WIDTH * 2;
 	public final Vector2 direction = new Vector2();
 	private float color, angle, inflate;
 	private static final int WANDERER = 1;
@@ -37,6 +37,8 @@ public class XP extends Bonus implements Poolable {
 	public void init(float x, float y, int xp) {
 		x -= HALF;
 		y -= HALF;
+		x += CSG.R.nextGaussian() * Stats.u;
+		y += CSG.R.nextGaussian() * Stats.u;
 		valeur = xp;
 		direction.x = (float) (EndlessMode.R.nextFloat() * Stats.u);
 		direction.y = (float) (EndlessMode.R.nextGaussian() * Stats.u);
@@ -115,8 +117,8 @@ public class XP extends Bonus implements Poolable {
 				}
 			} else {
 				switch (xp.state) {
-				case WANDERER:					drawAndMove(batch, xp, -xp.angle);					break;
-				case HOMMING:					drawAndMove(batch, xp, -xp.angle);					break;
+				case WANDERER:					drawStandard(batch, xp, -xp.angle);					break;
+				case HOMMING:					drawStandard(batch, xp, -xp.angle);					break;
 				case INFLATE:
 					tmpFloat = xp.inflate/2;
 					drawMultipleTimes(batch, xp, xp.angle);
@@ -150,22 +152,23 @@ public class XP extends Bonus implements Poolable {
 	}
 
 	private static void drawAndMove(SpriteBatch batch, XP xp, float angle) {
+		batch.setColor(xp.color);
 		batch.draw(AssetMan.star, xp.pos.x, xp.pos.y, HALF_INF_WIDTH, HALF_INF_WIDTH, WIDTH_INF, WIDTH_INF, 1, 1, angle);
 		move(xp);
 	}
 
 	private static void drawMultipleTimes(SpriteBatch batch, XP xp, float angle) {
-		batch.setColor(AssetMan.BLACK);
-		batch.draw(AssetMan.star, xp.pos.x - HALF, xp.pos.y - HALF, WIDTH, WIDTH, WIDTH2, WIDTH2, 1, 1, angle);
-		batch.draw(AssetMan.star, xp.pos.x - HALF, xp.pos.y - HALF, WIDTH, WIDTH, WIDTH2, WIDTH2, 1, 1, -angle);
+//		batch.setColor(AssetMan.BLACK);
+//		batch.draw(AssetMan.star, xp.pos.x - HALF, xp.pos.y - HALF, WIDTH, WIDTH, WIDTH2, WIDTH2, 1, 1, angle);
+//		batch.draw(AssetMan.star, xp.pos.x - HALF, xp.pos.y - HALF, WIDTH, WIDTH, WIDTH2, WIDTH2, 1, 1, -angle);
 		batch.setColor(xp.color);
 		batch.draw(AssetMan.star, xp.pos.x - tmpFloat, xp.pos.y - tmpFloat, HALF + tmpFloat, HALF + tmpFloat, WIDTH + xp.inflate, WIDTH + xp.inflate, 1, 1, angle);
 		batch.draw(AssetMan.star, xp.pos.x - tmpFloat, xp.pos.y - tmpFloat, HALF + tmpFloat, HALF + tmpFloat, WIDTH + xp.inflate, WIDTH + xp.inflate, 1, 1, -angle);
 	}
 
 	private static void drawStandard(SpriteBatch batch, XP xp, float angle) {
-		batch.setColor(AssetMan.BLACK);
-		batch.draw(AssetMan.star, xp.pos.x - HALF, xp.pos.y - HALF, WIDTH, WIDTH, WIDTH2, WIDTH2, 1, 1, angle);
+//		batch.setColor(AssetMan.BLACK);
+//		batch.draw(AssetMan.star, xp.pos.x - HALF, xp.pos.y - HALF, WIDTH, WIDTH, WIDTH2, WIDTH2, 1, 1, angle);
 		batch.setColor(xp.color);
 		batch.draw(AssetMan.star, xp.pos.x, xp.pos.y, HALF, HALF, WIDTH, WIDTH, 1, 1, angle);
 	}

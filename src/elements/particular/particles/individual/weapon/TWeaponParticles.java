@@ -13,32 +13,23 @@ import elements.generic.weapons.player.TWeapon;
 
 public final class TWeaponParticles implements Poolable {
 	
-	private static final float WIDTH = TWeapon.width;
 	private static final Pool<TWeaponParticles> POOL = new Pool<TWeaponParticles>(150) {
 		@Override
 		protected TWeaponParticles newObject() {
 			return new TWeaponParticles();
 		}
 	};
-	private float angle, x, y, w = WIDTH, halfWidth, h = TWeapon.height, halfHeight;
-	private static boolean alternate = false;
+	private float angle, x, y, w, halfWidth, h = TWeapon.height, halfHeight;
 	private static float tmp = 0;
 	
 	public TWeaponParticles() {}
 	
 	@Override
-	public void reset() {
-		w = WIDTH;
-	}
+	public void reset() {}
 
 	public static void add(Array<TWeaponParticles> pArmeHantee, TWeapon a) {
-//		if (pArmeHantee.size > 2048) {
-//			alternate = !alternate;
-//			if (alternate)
-//				return;
-//		}
 		final TWeaponParticles p = POOL.obtain();
-		p.w = WIDTH;
+		p.w = TWeapon.width;
 		p.h = TWeapon.height;
 		p.halfWidth = TWeapon.halfWidth;
 		p.halfHeight = TWeapon.halfHeight;

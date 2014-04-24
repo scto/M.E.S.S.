@@ -16,7 +16,7 @@ public class Credits {
 											END;
 	private final static String PATCHNOTE = 
 "                                                    "
-+ "PATCHNOTE 0.926 :  Better explosions and your bomb is more powerful ! Everything is a little sharper. New sprites !!! They actually are the first from our artist Emma Payne ! And sorry for the delay of this new version, I've been sick and basically lost a week. Sorry, I had to reset all leaderboards" + 
++ "PATCHNOTE 0.927 :  Better explosions" + 
 									 		END;
 	private final String str;
 	

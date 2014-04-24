@@ -26,7 +26,7 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 		}
 	};
 	private static boolean alterner = false;
-	private static final float MULT_SIZE = 3;
+	private static final float MULT_SIZE = 2;
 	public float angle;
 //	public static final Animated ANIMATED = initAnimation(4, 12);
 	public static final float[] COLORS = {
@@ -56,14 +56,14 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 		
 		AssetMan.convertARGB(1, 0, 62f  / 255f, 254f / 255f)};
 	private static final float LIMITE = (CSG.SCREEN_HEIGHT / 4) / Stats.V_ARME_HANTEE;
-	
+
 	public static void upgraded() {
 		width = initWidth();
-		halfWidth = width/2;
+		halfWidth = width / 2;
 		height = (int) (width * 1.3f);
 		halfHeight = height / 2;
 	}
-	
+
 	private static int initWidth() {
 		if (CSG.profile.NvArmeHantee > 7) {
 			return (int) (MINWIDTH * MULT_SIZE);
@@ -92,9 +92,9 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 	public void draw(SpriteBatch batch) {
 		if (alterner && EndlessMode.triggerStop == false)
 			Particles.armeHantee(this);
-		batch.draw(AssetMan.tWeapon, pos.x, pos.y, halfWidth, halfHeight, width, height, 1f,1f, angle);
+		batch.draw(AssetMan.tWeapon, pos.x, pos.y, halfWidth, halfHeight, width, height, 1f, 1f, angle);
 	}
-	
+
 	@Override
 	public boolean mouvementEtVerif() {
 		angle += VITESSE_ANGLE * EndlessMode.delta;
