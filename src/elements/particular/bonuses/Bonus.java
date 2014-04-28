@@ -31,7 +31,7 @@ public abstract class Bonus {
 			SHIELD_FREQ = (int) ((TIME_FREQ * 3.8f)+1);
 	protected static final float INCREASE_FREQ = 1.35f;
 	public static int cptBonus = 1;
-	public static final int XPMINN = 50;
+	public static final int XPMINN = 10, XPMIN2 = XPMINN * 2;
 	private float timeTaken;
 	private static float tmp, tmpY;
 	private static final float TRANSPARENCE = AssetMan.convertARGB(0.45f, .8f, 1, 1);

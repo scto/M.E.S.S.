@@ -1,4 +1,4 @@
-package elements.particular.particles.individual;
+package elements.particular.particles.individual.trhuster;
 
 import java.util.Random;
 
@@ -25,15 +25,16 @@ public class ThrusterParticle implements Poolable {
 		}
 	};
 	private float alpha, x, y;
-	private final float vitesseX, vitesseY, red, green, tps;
+	private final float vitesseX, vitesseY, red, diminish;
 	private static final Random r = new Random();
 	
 	public ThrusterParticle() {
 		vitesseY =  ((r.nextFloat()+.5f) * -Stats.THRUSTER) - CSG.QUATR_HAUTEUR;
 		vitesseX = (r.nextFloat()-.5f) * Stats.THRUSTER;
 		red = r.nextFloat();
-		green = r.nextFloat();
-		tps = 3f + (r.nextFloat() * 10f);
+		diminish = 6f + (r.nextFloat() * 6f);
+		// 3 - 13
+		// 6 - 12
 	}
 
 	public ThrusterParticle init(Player v) {
@@ -48,16 +49,23 @@ public class ThrusterParticle implements Poolable {
 	public void reset() {	}
 	
 	public static void act(Array<ThrusterParticle> flammes, SpriteBatch batch) {
-		for (final ThrusterParticle f : flammes) {
-			batch.setColor(f.red, f.green, 1, f.alpha);
-			batch.draw(AssetMan.dust, f.x, f.y, LARGEUR, LARGEUR);
-			f.alpha -= f.tps * EndlessMode.delta;
-			f.x += (f.vitesseX * EndlessMode.delta);
-			f.y += (f.vitesseY * EndlessMode.delta);
-			if (f.alpha < 0) {
-				POOL.free(f);
-				flammes.removeValue(f, true);
-				Particles.nbFlammes--;
+		if (EndlessMode.alternate) {
+			for (final ThrusterParticle f : flammes) {
+				batch.setColor(f.alpha, f.alpha, 1, f.alpha);
+				batch.draw(AssetMan.dust, f.x, f.y, LARGEUR, LARGEUR);
+				f.alpha -= f.diminish * EndlessMode.delta;
+				f.x += (f.vitesseX * EndlessMode.delta);
+				f.y += (f.vitesseY * EndlessMode.delta);
+				if (f.alpha < 0) {
+					POOL.free(f);
+					flammes.removeValue(f, true);
+					Particles.nbFlammes--;
+				}
+			}
+		} else {
+			for (final ThrusterParticle f : flammes) {
+				batch.setColor(f.alpha, f.red, 1, f.alpha);
+				batch.draw(AssetMan.dust, f.x, f.y, LARGEUR, LARGEUR);
 			}
 		}
 		batch.setColor(AssetMan.WHITE);

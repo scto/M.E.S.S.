@@ -1,4 +1,4 @@
-package elements.particular.particles.individual;
+package elements.particular.particles.individual.smoke;
 
 import jeu.CSG;
 import jeu.EndlessMode;

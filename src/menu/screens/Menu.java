@@ -80,7 +80,7 @@ public class Menu extends AbstractScreen {
 			}
 		}, true));
 		
-		ajout(new Bouton(Strings.TWITTER, false, CSG.menuFontPetite, LARGEUR_MINIBOUTON, HAUTEUR_MINIBOUTON / 2, (int) (CSG.screenWidth - ((CSG.menuFontPetite.getBounds(Strings.TWITTER).width * 2)) - PADDING * 3), (int) (4 + CSG.menuFont.getBounds("T").height*2), this, new OnClick() {
+		ajout(new Bouton(Strings.TWITTER, false, CSG.menuFontSmall, LARGEUR_MINIBOUTON, HAUTEUR_MINIBOUTON / 2, (int) (CSG.screenWidth - ((CSG.menuFontSmall.getBounds(Strings.TWITTER).width * 2)) - PADDING * 3), (int) (4 + CSG.menuFont.getBounds("T").height*2), this, new OnClick() {
 			public void onClick() {
 				CSG.google.followTwitter();
 			}

@@ -10,6 +10,7 @@ import assets.AssetMan;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -33,12 +34,12 @@ public class CSG extends Game implements ApplicationListener {
 	public static int CINQUIEME_ECRAN, DEUX_CINQUIEME_ECRAN, TROIS_CINQUIEME_ECRAN, QUATRE_CINQUIEME_ECRAN, QUATR_HAUTEUR;
 	public static int CINQUIEME_ZONE, DEUX_CINQUIEME_ZONE, TROIS_CINQUIEME_ZONE, QUATRE_CINQUIEME_ZONE;
 	public static float RATIO;
-	public static int HAUTEUR_ECRAN_PALLIER_1, HAUTEUR_ECRAN_PALLIER_2, HAUTEUR_ECRAN_PALLIER_3 = 0, HAUTEUR_ECRAN_PALLIER_7;
+	public static int HEIGHT_9_10, HEIGHT_8_10, HAUTEUR_ECRAN_PALLIER_3 = 0, HAUTEUR_ECRAN_PALLIER_7;
 	public static final int CONTROLE_TOUCH_NON_RELATIVE = 0, CONTROLE_DPAD = 1, CONTROLE_ACCELEROMETRE = 2, CONTROLE_TOUCH_RELATIVE = 3, CONTROLE_MAX = 3;
 	// ********  A U T R E S  *********
 	public static ProfilManager profilManager;
 	public static Profil profile;
-	public static BitmapFont menuFont, menuFontPetite, scoreFont, outlineScoreFont;
+	public static BitmapFont menuFont, menuFontSmall, menuFontBlack, scoreFont, outlineScoreFont;
 	public static AssetMan assetMan;
 	public static SpriteBatch batch;
 	public static TalkToTheWorld google;
@@ -99,13 +100,19 @@ public class CSG extends Game implements ApplicationListener {
 		menuFont.setScale(dimension);
 		menuFont.setColor(.32f, .52f, 0.99f, 1);
 		menuFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		menuFontPetite = new BitmapFont();
+		
+		menuFontBlack = new BitmapFont();
+		menuFontBlack.setColor(Color.BLACK);
+		menuFontBlack.setScale(dimension);
+		
+		menuFontSmall = new BitmapFont();
 		dimension /= 2.2f;
 		if (dimension < 1f)
 			dimension = 1f;
-		menuFontPetite = new BitmapFont();//Gdx.files.internal("default.fnt"), false);
-		menuFontPetite.setScale(dimension);
-		menuFontPetite.setColor(.32f, .52f, 0.99f, 1);
+		menuFontSmall = new BitmapFont();//Gdx.files.internal("default.fnt"), false);
+		menuFontSmall.setScale(dimension);
+		menuFontSmall.setColor(.32f, .52f, 0.99f, 1);
+		
 		
 		originalScoreFontScale = dimension * 1.2f;
 		scoreFont = new BitmapFont();//Gdx.files.internal("default.fnt"), false);
@@ -151,8 +158,8 @@ public class CSG extends Game implements ApplicationListener {
 		TROIS_CINQUIEME_ZONE = CINQUIEME_ZONE * 3;
 		QUATRE_CINQUIEME_ZONE = CINQUIEME_ZONE * 4;
 		HEIGHT_PLUS_4 = SCREEN_HEIGHT + 4;
-		HAUTEUR_ECRAN_PALLIER_1 = SCREEN_HEIGHT - HEIGHT_DIV10;
-		HAUTEUR_ECRAN_PALLIER_2 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 2);
+		HEIGHT_9_10 = SCREEN_HEIGHT - HEIGHT_DIV10;
+		HEIGHT_8_10 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 2);
 		HAUTEUR_ECRAN_PALLIER_3 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 3);
 		HAUTEUR_ECRAN_PALLIER_7 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 7);
 	}
@@ -253,7 +260,7 @@ public class CSG extends Game implements ApplicationListener {
 		final Array<Float> tmp = new Array<Float>();
 		tmp.add(0f);
 		for (int i = 1; i < array.length; i++)
-			tmp.add( (array[i]-array[i-1])*2);
+			tmp.add(array[i]*2);
 		return CSG.convert(tmp);
 	}
 }

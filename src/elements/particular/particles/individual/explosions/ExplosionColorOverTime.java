@@ -68,14 +68,14 @@ public class ExplosionColorOverTime implements Poolable {
 		batch.setColor(AssetMan.WHITE);
 	}
 
-	private final Vector2 tmpVector = new Vector2();
+	private static final Vector2 tmpVector = new Vector2();
 	public ExplosionColorOverTime init(float x, float y, float[] colors, Enemy e) {
 		this.x = x - INITIAL_HALF_WIDTH;
 		this.y = y - INITIAL_HALF_WIDTH;
 		this.colors = colors;
 		index = CSG.R.nextInt(maxIndex);
-		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionY() * CSG.R.nextFloat());
-		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionX() * CSG.R.nextFloat());
+		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionY() * CSG.R.nextFloat()) * 1.5f;
+		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionX() * CSG.R.nextFloat()) * 1.5f;
 		tmpVector.x = speedX;
 		tmpVector.y = speedY;
 		angle = tmpVector.angle();
@@ -101,6 +101,9 @@ public class ExplosionColorOverTime implements Poolable {
 			a.dir.scl(Explosion.BOMB_SCALE);
 			e.speedX += a.dir.x;
 			e.speedY += a.dir.y;
+			tmpVector.x = e.speedX;
+			tmpVector.y = e.speedY;
+			e.angle = tmpVector.angle();
 		}
 	}
 

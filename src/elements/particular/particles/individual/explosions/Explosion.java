@@ -35,12 +35,13 @@ public class Explosion implements Poolable {
 	public static final int GAUSSIAN_FACTOR = 50;
 	public static final int STANDARD_EXPLOSION = 1, BLUE_EXPLOSION = 2, GREEN_EXPLOSION = 3;
 	public static final float BOMB_SCALE = Stats.U * 15;
+	public static final int LIMIT_BIGGER = 600;
 	
 	@Override
 	public void reset() {	}
 
 	public static void add(Array<Explosion> explosions, Enemy e) {
-		if (++bigger > 4 && explosions.size < 300 && EndlessMode.perf > 2) {
+		if (++bigger > 4 && explosions.size < LIMIT_BIGGER && EndlessMode.perf > 2) {
 			bigger = 0;
 			create(e.getExplosionCount()*4, explosions, e);
 			SoundMan.playBruitage(SoundMan.bigExplosion);

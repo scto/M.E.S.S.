@@ -28,7 +28,7 @@ public class Meteorite extends EnemyWeapon implements Poolable, InvocableWeapon 
 		if (AnimationMeteorite.TIME_TOTAL < now) {
 			SoundMan.playBruitage(SoundMan.explosion1);
 			Explosion.add(HALF_WIDTH, this);
-			for (int i = CSG.R.nextInt(6 - EndlessMode.modeDifficulte); i < 10; i++) {
+			for (int i = CSG.R.nextInt(6 - EndlessMode.difficulty); i < 10; i++) {
 				FragmentedMeteorite.POOL.obtain().init(pos.x + HALF_WIDTH,  pos.y + HALF_WIDTH, tmp_dir.rotate(CSG.R.nextFloat() * 360));
 			}
 			return false;

@@ -62,7 +62,7 @@ public class BossSat extends Enemy {
 			if (pos.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - DEMI_LARGEUR) {
 				AddBossStat.pool.obtain().lancer(-1, 0, pos.x, pos.y + Y_1, 180);
 				AddBossStat.pool.obtain().lancer(-0.76604444f, 0.6427876f, pos.x + X_2, pos.y + Y_2, ANGLE_2);
-				if (EndlessMode.modeDifficulte > 1) {
+				if (EndlessMode.difficulty > 1) {
 					AddBossStat.pool.obtain().lancer(0, 1, pos.x + X_3, pos.y + Y_3, ANGLE_3);
 				}
 				nbLance++;
@@ -72,7 +72,7 @@ public class BossSat extends Enemy {
 			if (pos.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - LARGEUR) {
 				AddBossStat.pool.obtain().lancer(-1, 0, pos.x, pos.y + Y_1, 180);
 				AddBossStat.pool.obtain().lancer(-0.76604444f, 0.6427876f, pos.x + X_2, pos.y + Y_2, ANGLE_2);
-				if (EndlessMode.modeDifficulte > 1) {
+				if (EndlessMode.difficulty > 1) {
 					AddBossStat.pool.obtain().lancer(0, 1, pos.x + X_3, pos.y + Y_3, ANGLE_3);
 					AddBossStat.pool.obtain().lancer(0.76604444f, 0.6427876f, pos.x + X_4, pos.y + Y_4, ANGLE_4);
 				}
@@ -83,7 +83,7 @@ public class BossSat extends Enemy {
 			if (pos.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - (LARGEUR + DEMI_LARGEUR)) {
 				AddBossStat.pool.obtain().lancer(0, 1, pos.x + X_3, pos.y + Y_3, ANGLE_3);
 				AddBossStat.pool.obtain().lancer(0.76604444f, 0.6427876f, pos.x + X_4, pos.y + Y_4, ANGLE_4);
-				if (EndlessMode.modeDifficulte > 1) {
+				if (EndlessMode.difficulty > 1) {
 					AddBossStat.pool.obtain().lancer(-1, 0, pos.x, pos.y + Y_1, 180);
 					AddBossStat.pool.obtain().lancer(-0.76604444f, 0.6427876f, pos.x + X_2, pos.y + Y_2, ANGLE_2);
 				}
@@ -94,7 +94,7 @@ public class BossSat extends Enemy {
 			if (pos.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - DEMI_LARGEUR) {
 				AddBossStat.pool.obtain().lancer(0.76604444f, 0.6427876f, pos.x + X_4, pos.y + Y_4, ANGLE_4);
 				AddBossStat.pool.obtain().lancer(0, 1, pos.x + X_3, pos.y + Y_3, ANGLE_3);
-				if (EndlessMode.modeDifficulte > 1) {
+				if (EndlessMode.difficulty > 1) {
 					AddBossStat.pool.obtain().lancer(-1, 0, pos.x, pos.y + Y_1, 180);
 					AddBossStat.pool.obtain().lancer(-0.76604444f, 0.6427876f, pos.x + X_2, pos.y + Y_2, ANGLE_2);
 				}
@@ -103,7 +103,7 @@ public class BossSat extends Enemy {
 		case 4:
 			if (pos.x < CSG.LARGEUR_ZONE_MOINS_LARGEUR_BORD - LARGEUR) {
 				AddBossStat.pool.obtain().lancer(1, 0, pos.x + X_5, pos.y + Y_5, ANGLE_5);
-				if (EndlessMode.modeDifficulte > 1) {
+				if (EndlessMode.difficulty > 1) {
 					AddBossStat.pool.obtain().lancer(0, 1, pos.x + X_3, pos.y + Y_3, ANGLE_3);
 					AddBossStat.pool.obtain().lancer(0.76604444f, 0.6427876f, pos.x + X_4, pos.y + Y_4, ANGLE_4);
 				}

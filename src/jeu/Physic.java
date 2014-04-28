@@ -171,7 +171,7 @@ public class Physic {
 	}
 	
 	public static void mvtHeightLimit(final Vector2 pos, final float speed, final float time) {
-		if (pos.y < CSG.HAUTEUR_ECRAN_PALLIER_2) {
+		if (pos.y < CSG.HEIGHT_8_10) {
 			// slow down
 			if (pos.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
 				pos.y += (-Stats.PLANE_HEIGHT * EndlessMode.delta);

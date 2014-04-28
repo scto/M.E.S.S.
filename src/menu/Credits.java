@@ -16,7 +16,7 @@ public class Credits {
 											END;
 	private final static String PATCHNOTE = 
 "                                                    "
-+ "PATCHNOTE 0.927 :  Better explosions" + 
++ "PATCHNOTE 0.927 :  Better explosions. Better thruster effect. New spawn system with a less crowded screen ! The T weapon at level 8 has been altered." + 
 									 		END;
 	private final String str;
 	
@@ -33,6 +33,6 @@ public class Credits {
 
 	public void render(SpriteBatch batch, float delta) {
 		posX -= delta * Stats.UUU;
-		CSG.menuFontPetite.draw(batch, str, posX, CSG.menuFontPetite.getBounds(str).height + 2);
+		CSG.menuFontSmall.draw(batch, str, posX, CSG.menuFontSmall.getBounds(str).height + 2);
 	}
 }

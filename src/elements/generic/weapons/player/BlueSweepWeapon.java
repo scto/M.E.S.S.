@@ -20,7 +20,7 @@ import elements.particular.particles.individual.weapon.BlueSweepParticle;
 public class BlueSweepWeapon extends PlayerWeapon implements Poolable {
 	
 	public static int width, halfWidth;
-	public static final float CADENCETIR = initCadence(.99f, 2);
+	public static final float CADENCETIR = initCadence(1.5f, 2);
 	public static final String LABEL = "ArmeBalayage";
 	public static final Pool<BlueSweepWeapon> POOL = new Pool<BlueSweepWeapon>() {
 		@Override

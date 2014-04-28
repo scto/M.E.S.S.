@@ -39,7 +39,7 @@ public class BlueExplosion implements Poolable {
 	public void reset() {	}
 
 	public static void add(Array<BlueExplosion> explosions, Enemy e) {
-		if (++bigger > 4 && explosions.size < 400 && EndlessMode.perf > 2) {
+		if (++bigger > 4 && explosions.size < Explosion.LIMIT_BIGGER && EndlessMode.perf > 2) {
 			bigger = 0;
 			create(e.getExplosionCount()*4, explosions, e);
 			SoundMan.playBruitage(SoundMan.bigExplosion);

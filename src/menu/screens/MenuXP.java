@@ -50,7 +50,7 @@ public class MenuXP extends AbstractScreen{
 						updateTexteUpgrade();
 					}}, false));
 		// ** ** ** BOUTON UPGRADE ** **
-		boutonUpgrade = new Bouton("", false, CSG.menuFontPetite, LARGEUR_PETITBOUTON, HAUTEUR_PETITBOUTON,
+		boutonUpgrade = new Bouton("", false, CSG.menuFontSmall, LARGEUR_PETITBOUTON, HAUTEUR_PETITBOUTON,
 				CSG.screenWidth - (CSG.screenWidth / Menu.PADDING) - Menu.LARGEUR_PETITBOUTON,	Menu.HAUTEUR_BOUTON, this, new OnClick() {
 					public void onClick() {	
 						if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
@@ -68,7 +68,7 @@ public class MenuXP extends AbstractScreen{
 		ajout(boutonUpgrade);
 		updateTexteUpgrade();
 		// ** ** ** BOUTON CADENCE ** ** **
-		boutonCadence = new Bouton("", false, CSG.menuFontPetite, Menu.LARGEUR_PETITBOUTON, Menu.HAUTEUR_PETITBOUTON,
+		boutonCadence = new Bouton("", false, CSG.menuFontSmall, Menu.LARGEUR_PETITBOUTON, Menu.HAUTEUR_PETITBOUTON,
 				CSG.screenWidth - (CSG.screenWidth / Menu.PADDING) - Menu.LARGEUR_PETITBOUTON,	Menu.HAUTEUR_BOUTON * 3, this, new OnClick() {
 					public void onClick() {
 						if (CSG.profile.getCoutCadenceAdd() <= CSG.profile.xpDispo){
@@ -109,9 +109,10 @@ public class MenuXP extends AbstractScreen{
 			if (boutons.get(i) != null)
 				boutons.get(i).draw(CSG.batch);
 		Particles.drawUi(CSG.batch);
-		CSG.menuFontPetite.draw(CSG.batch, "Weapon level : " + CSG.profile.getArmeSelectionnee().nv(), 4, 4 + CSG.menuFontPetite.getBounds("W").height);
+		CSG.menuFontSmall.draw(CSG.batch, "Weapon level : " + CSG.profile.getArmeSelectionnee().nv(), 4, 4 + CSG.menuFontSmall.getBounds("W").height);
 		CSG.end();
 		EndlessMode.majDeltas();
+		EndlessMode.alternate = !EndlessMode.alternate;
 		EndlessMode.fps = Gdx.graphics.getFramesPerSecond();
 		EndlessMode.perf = EndlessMode.fps / 6;
 //		Particles.background(CSG.batch);
@@ -125,7 +126,7 @@ public class MenuXP extends AbstractScreen{
 	private void ajoutUndo() {
 		if (boutonUndo == null) {
 			CSG.google.unlockAchievementGPGS(Strings.ACH_FAVORITE_SHOP);
-			boutonUndo = new Bouton("UNDO", false, CSG.menuFontPetite, Menu.LARGEUR_PETITBOUTON, Menu.HAUTEUR_PETITBOUTON, CSG.screenWidth / Menu.PADDING, Menu.HAUTEUR_BOUTON * 3, this,
+			boutonUndo = new Bouton("UNDO", false, CSG.menuFontSmall, Menu.LARGEUR_PETITBOUTON, Menu.HAUTEUR_PETITBOUTON, CSG.screenWidth / Menu.PADDING, Menu.HAUTEUR_BOUTON * 3, this,
 			new OnClick()  {
 				public void onClick() {		undo();		}
 			}, false);

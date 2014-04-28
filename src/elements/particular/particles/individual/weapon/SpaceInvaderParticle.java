@@ -35,8 +35,8 @@ public class SpaceInvaderParticle implements Poolable {
 	public static void init(SpaceInvaderWeapon e) {
 		final SpaceInvaderParticle p = POOL.obtain();
 		Particles.SPACE_INVADER.add(p);
-		p.dir.y = Stats.U90;
-		p.dir.x = Stats.U90;
+		p.dir.y = Stats.U20;
+		p.dir.x = Stats.U50;
 		p.dir.rotate(CSG.R.nextFloat()*360);
 		if (EndlessMode.triggerStop) {
 			p.x = (e.pos.x + SpaceInvaderWeapon.halfWidth) + p.dir.x * Stats.microUSur6;
@@ -60,39 +60,25 @@ public class SpaceInvaderParticle implements Poolable {
 	
 	public static void act(Array<SpaceInvaderParticle> explosions, SpriteBatch batch) {
 		colors();
-//		if (EndlessMode.alternate) {
-//			for (final SpaceInvaderParticle p : explosions) {
-//				batch.setColor(0, p.g, p.b, p.a);
-//				batch.draw(AssetMan.dust, p.x, p.y, SpaceInvaderWeapon.particle, SpaceInvaderWeapon.particle);
-//				
-//				if (p.a < 0.7f) {
-//					POOL.free(p);
-//					explosions.removeValue(p, true);
-//				}
-//			}	
-//		} else {
-			for (final SpaceInvaderParticle p : explosions) {
-				batch.setColor(0, p.g, p.b, p.a);
-				p.a -= 0.08f;
-				p.g *= 0.9f; 
-				batch.draw(AssetMan.dust, p.x, p.y, SpaceInvaderWeapon.particle, SpaceInvaderWeapon.particle);
-				
-//				if (EndlessMode.triggerStop)
-//					continue;
-				
-				p.x += p.dir.x * EndlessMode.delta;
-				p.y += p.dir.y * EndlessMode.delta;
-				
-				if (p.clockwise)	p.dir.rotate(70);
-				else				p.dir.rotate(-70);
-				p.dir.scl(0.8f);
-				
-				if (p.a < 0.3f) {
-					POOL.free(p);
-					explosions.removeValue(p, true);
-				}
+		for (final SpaceInvaderParticle p : explosions) {
+			batch.setColor(0, p.g, p.b, p.a);
+			p.a -= 0.055f;
+			p.g *= 0.9f;
+			batch.draw(AssetMan.dust, p.x, p.y, SpaceInvaderWeapon.particle, SpaceInvaderWeapon.particle);
+
+			p.x += p.dir.x * EndlessMode.delta;
+			p.y += p.dir.y * EndlessMode.delta;
+
+			if (p.clockwise)
+				p.dir.rotate(40);
+			else
+				p.dir.rotate(-40);
+
+			if (p.a < 0.3f) {
+				POOL.free(p);
+				explosions.removeValue(p, true);
 			}
-//		}
+		}
 		batch.setColor(AssetMan.WHITE);
 	}
 

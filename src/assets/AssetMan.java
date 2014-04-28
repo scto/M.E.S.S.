@@ -225,7 +225,7 @@ public final class AssetMan implements AssetErrorListener {
 			if (SoundMan.sunWeapon != null)				SoundMan.sunWeapon.dispose();
 			if (SoundMan.outsideNorm != null)			SoundMan.outsideNorm.dispose();
 			CSG.menuFont.dispose();
-			CSG.menuFontPetite.dispose();
+			CSG.menuFontSmall.dispose();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

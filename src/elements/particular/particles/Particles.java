@@ -1,6 +1,7 @@
 package elements.particular.particles;
 
 import jeu.CSG;
+import jeu.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,16 +20,11 @@ import elements.generic.weapons.player.PlayerWeapon;
 import elements.generic.weapons.player.SunWeapon;
 import elements.generic.weapons.player.TWeapon;
 import elements.particular.bonuses.BonusBombe;
-import elements.particular.particles.individual.BlueSmoke;
 import elements.particular.particles.individual.BlueSparkles;
 import elements.particular.particles.individual.Ghost;
-import elements.particular.particles.individual.MovingSmoke;
 import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.PrecalculatedParticlesLong;
 import elements.particular.particles.individual.ShieldParticle;
-import elements.particular.particles.individual.Smoke;
-import elements.particular.particles.individual.ThrusterParticle;
-import elements.particular.particles.individual.ThrusterSideParticle;
 import elements.particular.particles.individual.TimeParticle;
 import elements.particular.particles.individual.background.Dust;
 import elements.particular.particles.individual.background.Star;
@@ -41,6 +37,11 @@ import elements.particular.particles.individual.explosions.GreenExplosion;
 import elements.particular.particles.individual.explosions.Spark;
 import elements.particular.particles.individual.explosions.SparkBlue;
 import elements.particular.particles.individual.explosions.SparkGreen;
+import elements.particular.particles.individual.smoke.BlueSmoke;
+import elements.particular.particles.individual.smoke.MovingSmoke;
+import elements.particular.particles.individual.smoke.Smoke;
+import elements.particular.particles.individual.trhuster.ThrusterParticle;
+import elements.particular.particles.individual.trhuster.ThrusterSideParticle;
 import elements.particular.particles.individual.weapon.BlueSweepParticle;
 import elements.particular.particles.individual.weapon.FireballParticle;
 import elements.particular.particles.individual.weapon.GreenAddParticle;
@@ -51,7 +52,7 @@ import elements.particular.particles.individual.weapon.TWeaponParticles;
 
 public class Particles {
 	 	
-	public static final int MAX_THRUSTER = 300, MAX_BACKGROUND = 300, MAX_DUST = 5;
+	public static final int MAX_THRUSTER = 600, MAX_BACKGROUND = 300, MAX_DUST = 5;
 	public static int nbFlammes = 0;
 	
 	private static final Array<Dust> DUST = new Array<Dust>(false, MAX_DUST);
@@ -113,17 +114,13 @@ public class Particles {
 	public static void drawUi(SpriteBatch batch) {
 		for (final ParticlePanneau p : BOUTONS) {
 			p.display(batch);
-//			if (p.mouvementEtVerif() == false) {
 			BOUTONS.removeValue(p, true);
 			ParticlePanneau.pool.free(p);
-//			}
 		}
 		for (final ParticleUiElement p : UI){
 			p.display(batch);
-//			if (p.mouvementEtVerif() == false) {
 			UI.removeValue(p, true);
 			ParticleUiElement.pool.free(p);
-//			}
 		}
 	}
 	
@@ -218,19 +215,13 @@ public class Particles {
 
 	public static void addThrusterParticles(Player v) {
 		if (nbFlammes < Particles.MAX_THRUSTER) {
-			THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+//			THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
 			if (yShip-1 < Player.POS.y) {
 				THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
 				THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-				THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
 				if (yShip+1 < Player.POS.y) {
-					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+					for (int i = 0; i < EndlessMode.fps; i++)
+						THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
 				}
 			}
 		}

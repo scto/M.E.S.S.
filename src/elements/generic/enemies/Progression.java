@@ -137,7 +137,7 @@ public final class Progression {
 			if (Enemy.LIST.size < nbEnemiesMax) {
 				if (bossJustPoped)
 					compensateForBossTime();
-				switch (EndlessMode.modeDifficulte) {
+				switch (EndlessMode.difficulty) {
 				case 1 :	checkWaves(wavesLvl1);	break;
 				case 2 :	checkWaves(wavesLvl2);	break;
 				case 3 :	checkWaves(wavesLvl3);	break;
@@ -146,7 +146,7 @@ public final class Progression {
 			} 
 			nextNormalWavesCheck = EndlessMode.now + 0.10f;
 		}
-		switch (EndlessMode.modeDifficulte) {
+		switch (EndlessMode.difficulty) {
 		case 1 :
 		case 2 :	remplissage(remplissage);		break;
 		case 3 :	remplissage(remplissageLvl3);	break;
@@ -167,7 +167,7 @@ public final class Progression {
 	static boolean tmpCheck = false;
 	private static void remplissage(Wave[] waves) {
 		if (Enemy.LIST.size < 2 + EndlessMode.score / 10000 && EndlessMode.score > 20 && !bossJustPoped) {
-			switch (EndlessMode.modeDifficulte) {
+			switch (EndlessMode.difficulty) {
 			case 1 :	tmpCheck = hasAnActiveWave(wavesLvl1);		break;
 			case 2 :	tmpCheck = hasAnActiveWave(wavesLvl2);		break;
 			case 3 :	tmpCheck = hasAnActiveWave(wavesLvl3);		break;
@@ -185,7 +185,7 @@ public final class Progression {
 
 	private static void compensateForBossTime() {
 		bossJustPoped = false;
-		switch(EndlessMode.modeDifficulte) {
+		switch(EndlessMode.difficulty) {
 		case 1:	compensateBoss(EndlessMode.score - beginBossScore, wavesLvl1);		break;
 		case 2:	compensateBoss(EndlessMode.score - beginBossScore, wavesLvl2);		break;
 		case 3:	compensateBoss(EndlessMode.score - beginBossScore, wavesLvl3);		break;

@@ -1,4 +1,4 @@
-package elements.particular.particles.individual;
+package elements.particular.particles.individual.smoke;
 
 import jeu.CSG;
 import jeu.EndlessMode;
@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
+
+import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class MovingSmoke implements Poolable{
 	

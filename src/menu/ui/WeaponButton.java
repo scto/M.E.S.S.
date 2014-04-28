@@ -111,14 +111,14 @@ public class WeaponButton {
 		}
 		
 		if ( (num == 5 || num == 4) && CSG.profile.areWeaponsUnlocked() == false) {
-			CSG.menuFontPetite.draw(CSG.batch, "Unlock the 2 remaining weapons by getting the others at level 6 or higher ", xText, 4 + CSG.menuFontPetite.getBounds("W").height);
+			CSG.menuFontSmall.draw(CSG.batch, "Unlock the 2 remaining weapons by getting the others at level 6 or higher ", xText, 4 + CSG.menuFontSmall.getBounds("W").height);
 			xText -= 0.3f;
 			batch.setColor(AssetMan.RED);
 //			batch.draw(AssetMan.dust, (num * width), y, 0, 		0, width*1.2f, 	Stats.u, 1, 1, 40);
 //			batch.draw(AssetMan.dust, (num * width), y, width, 	0, width, 		Stats.u, 1, 1, -35);
 			batch.draw(AssetMan.dust, x, y, 0, 		0, width*1.2f, 	Stats.u, 1, 1, 40);
 			batch.draw(AssetMan.dust, x, y, width, 	0, width, 		Stats.u, 1, 1, -35);
-			if (-CSG.menuFontPetite.getBounds("Unlock the 2 remaining weapons by getting the others at level 6 or higher ").width > xText)
+			if (-CSG.menuFontSmall.getBounds("Unlock the 2 remaining weapons by getting the others at level 6 or higher ").width > xText)
 				xText = CSG.screenWidth;
 		} else {
 			if (Gdx.input.justTouched()) {

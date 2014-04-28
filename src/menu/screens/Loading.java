@@ -35,7 +35,7 @@ public class Loading extends AbstractScreen {
 		}
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
 		CSG.batch.begin();
-		CSG.menuFont.draw(CSG.batch, loading[cpt], CSG.screenHalfWidth - CSG.menuFont.getBounds("Loading -").width / 2, CSG.halfHeight - CSG.menuFontPetite.getBounds("Loading -").height / 2);
+		CSG.menuFont.draw(CSG.batch, loading[cpt], CSG.screenHalfWidth - CSG.menuFont.getBounds("Loading -").width / 2, CSG.halfHeight - CSG.menuFontSmall.getBounds("Loading -").height / 2);
 		CSG.batch.end();
 	}
 

@@ -54,7 +54,7 @@ public class Tuto extends AbstractScreen {
 		ligne(AssetMan.stopBonus, 7, BonusStop.WIDTH, BonusStop.WIDTH, slow);
 		                           
 		// TITRE
-		CSG.menuFontPetite.draw(CSG.batch, stay, CSG.screenHalfWidth - (CSG.menuFontPetite.getBounds(stay).width/2) , CSG.SCREEN_HEIGHT - 5);
+		CSG.menuFontSmall.draw(CSG.batch, stay, CSG.screenHalfWidth - (CSG.menuFontSmall.getBounds(stay).width/2) , CSG.SCREEN_HEIGHT - 5);
 		boutonBack.draw(CSG.batch);
 		CSG.end();
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
@@ -65,7 +65,7 @@ public class Tuto extends AbstractScreen {
 
 	private void ligne(TextureRegion r, int l, int largeur, int hauteur, String text) {
 		CSG.batch.draw(r, colonne, ligne * l, largeur, hauteur);
-		CSG.menuFontPetite.draw(CSG.batch, text, CSG.screenWidth - (colonne + CSG.menuFontPetite.getBounds(text).width) , (ligne*l) + (hauteur/2));
+		CSG.menuFontSmall.draw(CSG.batch, text, CSG.screenWidth - (colonne + CSG.menuFontSmall.getBounds(text).width) , (ligne*l) + (hauteur/2));
 	}
 
 	@Override

@@ -73,7 +73,7 @@ public abstract class Weapons extends Element implements Poolable {
 		if (shieldHs) {
 			for (final EnemyWeapon w : LIST) {
 				Particles.popOutWeapon(w);
-				if (EndlessMode.modeDifficulte > 1)
+				if (EndlessMode.difficulty > 1)
 					Bonus.addXp(5, w.pos.x + w.getHalfWidth(), w.pos.y + w.getHalfHeight());
 				w.free();
 			}
@@ -152,4 +152,5 @@ public abstract class Weapons extends Element implements Poolable {
 		TMP_RECT.width = getWidth();
 		return TMP_RECT;
 	}
+
 }

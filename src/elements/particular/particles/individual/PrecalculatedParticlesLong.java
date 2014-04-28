@@ -13,7 +13,7 @@ public class PrecalculatedParticlesLong {
 	public static final float[] colorsRed = initAlphasRed(), colorsBlue = initAlphasBlue(), colorsGreen = initAlphasGreen();
 	public static final float[] widths = initWidths(), widths2 = CSG.getDouble(widths);
 	public static final float[] halfWidths = CSG.getHalf(widths);
-	private static final float step = 0.010f, min = 0.15f;
+	private static final float step = 0.017f, min = 0.15f;
 	
 	private static float[] initWidths() {
 		float f = INITIAL_WIDTH;

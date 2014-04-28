@@ -44,7 +44,7 @@ public class Dust implements Poolable {
 
 	public static void act(SpriteBatch batch, Array<Dust> dust) {
 		if (dust.size < Particles.MAX_DUST && next < EndlessMode.now) {
-			next = EndlessMode.now + CSG.R.nextFloat();
+			next = EndlessMode.now + CSG.R.nextFloat() + 1;
 			dust.add(POOL.obtain());
 		}
 

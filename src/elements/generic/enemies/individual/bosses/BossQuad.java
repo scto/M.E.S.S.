@@ -147,9 +147,9 @@ public class BossQuad extends Enemy implements Tireur {
 	public int getWidth() {					return LARGEUR;	}
 	@Override
 	protected int getPvMax() {			
-		tirPhase1 = new Tirs(.9f - (0.09f * EndlessMode.modeDifficulte));
-		tirPhase2 = new Tirs(.5f - (0.05f * EndlessMode.modeDifficulte));
-		tirPhase3 = new Tirs(.3f - (0.03f * EndlessMode.modeDifficulte));
+		tirPhase1 = new Tirs(.9f - (0.09f * EndlessMode.difficulty));
+		tirPhase2 = new Tirs(.5f - (0.05f * EndlessMode.difficulty));
+		tirPhase3 = new Tirs(.3f - (0.03f * EndlessMode.difficulty));
 		pvMaxPhase2 = getPvBoss(Stats.PV_BOSS_QUAD) / 3 * 2;
 		pvMinPhase2 = getPvBoss(Stats.PV_BOSS_QUAD) / 3;
 		return super.getPvBoss(Stats.PV_BOSS_QUAD);

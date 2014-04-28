@@ -1,5 +1,6 @@
 package menu.ui;
 
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.Stats;
@@ -262,7 +263,13 @@ public class Bouton {
 		sprite.scale(f);
 		font.scale(f);
 	}
-	
+
+	public static void testClick(Bouton b, float xOffset) {
+		if (b != null && Physic.isPointInRect(Gdx.input.getX() + xOffset, CSG.SCREEN_HEIGHT - Gdx.input.getY(), 0, b.sprite.getY() - Stats.U, CSG.gameZoneWidth, b.sprite.getHeight() + Stats.UU)) {
+			if (b.click != null)
+				b.click.onClick();
+		}
+	}
 }
 
 

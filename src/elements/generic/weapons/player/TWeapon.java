@@ -15,8 +15,8 @@ import elements.particular.particles.Particles;
 
 public class TWeapon extends PlayerWeapon implements Poolable{
 	
-	public static int width = initWidth(), halfWidth = width/2, height = (int) (width * 1.3f), halfHeight = height / 2;
-	public static final float CADENCETIR = initCadence(.099f, 6), CADENCETIRLVL8 = initCadence(.01f, 7);
+	public static final int width = (int) MINWIDTH, halfWidth = width/2, height = (int) (width * 1.3f), halfHeight = height / 2;
+	public static final float CADENCETIR = initCadence(.099f, 6), CADENCETIRLVL8 = initCadence(.03f, 7);
 	public static final int VITESSE_ANGLE = 5000;
 	public static final String LABEL = "armeHantee";
 	public static final Pool<TWeapon> POOL = new Pool<TWeapon>(30) {
@@ -26,7 +26,6 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 		}
 	};
 	private static boolean alterner = false;
-	private static final float MULT_SIZE = 2;
 	public float angle;
 //	public static final Animated ANIMATED = initAnimation(4, 12);
 	public static final float[] COLORS = {
@@ -56,20 +55,6 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 		
 		AssetMan.convertARGB(1, 0, 62f  / 255f, 254f / 255f)};
 	private static final float LIMITE = (CSG.SCREEN_HEIGHT / 4) / Stats.V_ARME_HANTEE;
-
-	public static void upgraded() {
-		width = initWidth();
-		halfWidth = width / 2;
-		height = (int) (width * 1.3f);
-		halfHeight = height / 2;
-	}
-
-	private static int initWidth() {
-		if (CSG.profile.NvArmeHantee > 7) {
-			return (int) (MINWIDTH * MULT_SIZE);
-		}
-		return (int) (MINWIDTH);
-	}
 
 	public void init(float posX, float posY) {
 		pos.x = posX;

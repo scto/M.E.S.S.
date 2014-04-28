@@ -5,19 +5,19 @@ import com.badlogic.gdx.utils.Json.Serializable;
 import com.badlogic.gdx.utils.JsonValue;
 
 import elements.generic.weapons.player.ArmeAdd;
+import elements.generic.weapons.player.BlueSweepWeapon;
+import elements.generic.weapons.player.BlueSweepWeaponManager;
+import elements.generic.weapons.player.Fireball;
+import elements.generic.weapons.player.FireballManager;
+import elements.generic.weapons.player.PinkWeapon;
+import elements.generic.weapons.player.PinkWeaponManager;
 import elements.generic.weapons.player.SpaceInvaderManager;
 import elements.generic.weapons.player.SpaceInvaderWeapon;
 import elements.generic.weapons.player.SunManager;
 import elements.generic.weapons.player.SunWeapon;
 import elements.generic.weapons.player.TWeapon;
-import elements.generic.weapons.player.BlueSweepWeapon;
-import elements.generic.weapons.player.Fireball;
-import elements.generic.weapons.player.WeaponManager;
-import elements.generic.weapons.player.BlueSweepWeaponManager;
-import elements.generic.weapons.player.FireballManager;
 import elements.generic.weapons.player.TWeaponManager;
-import elements.generic.weapons.player.PinkWeaponManager;
-import elements.generic.weapons.player.PinkWeapon;
+import elements.generic.weapons.player.WeaponManager;
 import elements.particular.particles.individual.weapon.GreenAddParticle;
 
 /**
@@ -41,7 +41,7 @@ public class Profil implements Serializable{
 	public boolean bloom, manualBonus, bfg, screenshake;
 	// -- -- string d'affichage
 	public String champXp = " XP : " + xpDispo;
-	public static boolean premiereFois = false;
+	private static boolean premiereFois = false;
 	public static final int NV_ARME_MAX = 8;
 	public static final int NV_MIN_SUN = 6;
 	
@@ -196,7 +196,6 @@ public class Profil implements Serializable{
 		} else if (armeSelectionnee.equals(TWeapon.LABEL) && NvArmeHantee < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();
 			NvArmeHantee++;
-			TWeapon.upgraded();
 			champXp = "XP : " + xpDispo;
 		} else if (armeSelectionnee.equals(PinkWeapon.LABEL) && lvlPinkWeapon < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();
@@ -348,10 +347,14 @@ public class Profil implements Serializable{
 	}
 
 	public String getSensitivityString() {
-		return EndlessMode.DF.format(sensitivity);
+		return Strings.DF.format(sensitivity);
 	}
 	
 	public String getBloomString() {
-		return EndlessMode.DF.format(intensiteBloom);
+		return Strings.DF.format(intensiteBloom);
+	}
+
+	public boolean isFirstTime() {
+		return premiereFois;
 	}
 }

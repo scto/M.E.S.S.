@@ -28,13 +28,9 @@ public class Kinder extends Enemy implements TireurAngle {
 	public static Pool<Kinder> pool = Pools.get(Kinder.class);
 	
 	public static final int PK = 6;
-	protected static final float CADENCE = initFirerate(0.45f, PK);
-	protected static final float INIT_NEXT_SHOT = initNextShot(AnimationKinder.TIME_OUVERT, PK);
-	protected static final float SPEED = initSpeed(12, PK);
-	private static final int PV = initPv(Stats.PV_KINDER, PK);
-	private static final int EXPLOSION = initExplosion(45, PK);
 	protected static final int BASE_XP = Enemy.initXp(32, PK);
-	private static final int XP = getXp(BASE_XP, 1);
+	protected static final float CADENCE = initFirerate(0.45f, PK), INIT_NEXT_SHOT = initNextShot(AnimationKinder.TIME_OUVERT, PK), SPEED = initSpeed(10, PK);
+	private static final int PV = initPv(Stats.PV_KINDER, PK), EXPLOSION = initExplosion(45, PK), XP = getXp(BASE_XP, 1);
 	private static final Behavior behavior = initBehavior(PK,Behavior.KINDER);
 	protected static final Tirs tir = new Tirs(CADENCE);
 	protected float prochainTir = INIT_NEXT_SHOT;

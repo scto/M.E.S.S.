@@ -1,5 +1,4 @@
 package jeu;
-import java.text.DecimalFormat;
 import java.util.Random;
 
 import menu.screens.Menu;
@@ -86,53 +85,45 @@ public class EndlessMode implements Screen {
 	private static SpriteBatch batch = CSG.batch;
 	private Bloom bloom = CSG.bloom;
 	private GL20 gl;
-	public static boolean alternate = true;
-	// states
-	public static boolean pause = false, scoreSent = false, triggerStop = false, lost = false;
+	public static boolean alternate = true, pause = false, scoreSent = false, triggerStop = false, lost = false;
 	
 	private static Player ship;
+	
 	public static String strScore = "0";
 	public static float now = 0, score = 0;
-	private float vientDEtreTouche = 0;
-	public static final int X_CHRONO = CSG.DIXIEME_LARGEUR/2 - CSG.screenHalfWidth;
-	public static final int HAUTEUR_POLICE = CSG.HEIGHT_DIV10/3;
-	// *************************  J  A  U  G  E  *************************
-	private final TextureRegion red;
-	private static final int MAX_LARGEUR_JAUGE = CSG.screenWidth/6, TIER_LARGEUR_JAUGE = MAX_LARGEUR_JAUGE/3, HAUTEUR_JAUGE = CSG.SCREEN_HEIGHT/75;
-	// *************************  D  P  A  D  ****************************
-	private static final float HAUTEUR_FLECHE = CSG.SCREEN_HEIGHT/30, DEMI_HAUTEUR_FLECHE = HAUTEUR_FLECHE/2, LARGEUR_FLECHE = HAUTEUR_FLECHE, DEMI_LARGEUR_FLECHE = LARGEUR_FLECHE/2;
-
-	static final DecimalFormat DF = new DecimalFormat();
-	private static final OrthographicCamera cam = new OrthographicCamera(CSG.screenWidth, CSG.SCREEN_HEIGHT);
-	public static int modeDifficulte, nbBonusStop = 0, nbBombes = 0;
-	public static float color = 0, colorRapide, intensiteBloomOrigin = 1, camXmoinsDemiEcran, delta = 0, tempsBonusStop = 0, delta15 = 0, deltaDiv3, delta2, deltaU, deltaMicroU, UnPlusDelta, unPlusDelta2, unPlusDelta3, deltaPlusExplosion;
-	public static boolean effetBloom = false, xpAjout = false, afficherMenuRadial = false, konamiCode = false, transitionVersMouvement = false;
-	private static boolean onAchoisis = false, onVaStopper = false;
-	private static int menuX = 0, menuY = 0;
-	private int conseil = 0;
-	private static final Vector2 TMP_POS = new Vector2(), TMP_DIR = new Vector2();
-	private Bouton boutonUpgradeOrRestart = null;
-	private Bouton boutonTwitter = null;
-	private static Bouton boutonBack = null;
-	// screenshake
-	private static boolean shake = false;
-	private static float chronoShake = 0;
-	public static final Random R = new Random();
-	private static float mvtTotalX, mvtTotalY;
-	private static float force = 0;
-//	private static ShaderProgram shaderMort = ShaderMort.init(), originalShader;
-	public static ShaderProgram originalShader;
-	private static Matrix4 tmpCombined; 
-	public static float originalDelta = 0;
-	public static int fps;
-	public static int perf = 3;
-	public static int explosions = 0;
-	private boolean toastSent = false;
-	private float nextScore = 0;
 	private static float rScore;
 	private static int multi;
 	private static String strMulti = "x1";
-	private static final float scoreMax = 10f;
+	
+	public static final int X_CHRONO = CSG.DIXIEME_LARGEUR/2 - CSG.screenHalfWidth;
+	public static final int FONT_HEIGHT = CSG.HEIGHT_DIV10/3;
+	// *************************  J  A  U  G  E  *************************
+	private final TextureRegion red;
+	private static final int TIER_LARGEUR_JAUGE =  CSG.screenWidth/18, HAUTEUR_JAUGE = CSG.SCREEN_HEIGHT/75;
+	// *************************  D  P  A  D  ****************************
+
+	private static final OrthographicCamera cam = new OrthographicCamera(CSG.screenWidth, CSG.SCREEN_HEIGHT);
+	public static int difficulty, nbBonusStop = 0, nbBombes = 0;
+	public static float bloomOriginalIntensity = 1, delta = 0, timeStopBonus = 0, delta15 = 0, deltaDiv3, delta2, deltaU, deltaMicroU, UnPlusDelta, unPlusDelta2, unPlusDelta3, deltaPlusExplosion;
+	public static boolean effetBloom = false, xpAjout = false, drawMenu = false, konamiCode = false, movementTransition = false;
+	private static boolean choosen = false, willUseStopBonus = false;
+	private static int menuX = 0, menuY = 0;
+	private int advice = 0;
+	private static final Vector2 TMP_POS = new Vector2(), TMP_DIR = new Vector2();
+	private Bouton boutonUpgrade = null, boutonTwitter = null, boutonRestart = null;
+	private static Bouton boutonBack = null;
+	// screenshake
+	private static boolean shake = false;
+	private static float chronoShake = 0, shakeTmpForce = 0, shakeTotalMvtX, shakeTotalMvtY;
+	public static final Random R = new Random();
+	
+//	private static ShaderProgram shaderMort = ShaderMort.init(), originalShader;
+	public static ShaderProgram originalShader;
+	private static Matrix4 tmpCombined; 
+	public static float originalDelta = 0, timeSinceLost = 0;
+	public static int fps, perf = 3, explosions = 0;
+	private boolean toastSent = false;
+	private float nextScore = 0, justTouched = 0;
 	public static final float STOP = 3;
 	public static boolean invicibility = false, freeze = false;
 
@@ -143,12 +134,9 @@ public class EndlessMode implements Screen {
 		originalShader = SpriteBatch.createDefaultShader();
 		this.game = game;
 		ship = new Player();
-		modeDifficulte = level;
+		difficulty = level;
 		init();
 		ship.initialiser();
-		DF.setMaximumFractionDigits(1);
-		DF.setMinimumFractionDigits(1);	
-		DF.setDecimalSeparatorAlwaysShown(true);
 		gl = Gdx.graphics.getGL20();
 		gl.glViewport(0, 0, CSG.screenWidth, CSG.SCREEN_HEIGHT);
 		red = AssetMan.getTextureRegion("rougefonce");
@@ -175,16 +163,18 @@ public class EndlessMode implements Screen {
         lost = false;
         score = 0;
         now = 0;
+        timeSinceLost = 0;
         Enemy.clear();
         Gdx.graphics.setVSync(true);
         SoundMan.playMusic();
 		strScore = String.valueOf(score);
-		tempsBonusStop = 0;
+		timeStopBonus = 0;
 		nbBonusStop = 0;
 		triggerStop = false;
 		nbBombes = 0;
-		boutonUpgradeOrRestart = null;
+		boutonUpgrade = null;
 		boutonTwitter = null;
+		boutonRestart = null;
 		boutonBack = null;
 		
 		shake = false;
@@ -192,7 +182,7 @@ public class EndlessMode implements Screen {
 		Weapons.clear();
 		Progression.reset();
 		cam.position.z = 1;
-		if (modeDifficulte == 1)
+		if (difficulty == 1)
 			Player.activateShield();
 		Progression.reset();
 		toastSent = false;
@@ -227,14 +217,16 @@ public class EndlessMode implements Screen {
 		if (!pause && !freeze) {
 			if (delta < 1) { 
 				EndlessMode.delta = delta;
-				if ( (afficherMenuRadial || onAchoisis) && CSG.profile.typeControle != CSG.CONTROLE_ACCELEROMETRE)
+				if ( (drawMenu || choosen) && CSG.profile.typeControle != CSG.CONTROLE_ACCELEROMETRE)
 					EndlessMode.delta = delta / 7;
+				if (CSG.profile.isFirstTime()) 
+					Tutorial.act(batch);
 //				score += (EndlessMode.delta + EndlessMode.delta + EndlessMode.delta);
 				majDeltas();
 			}
 			// S I   O N   A   P A S   E N C O R E   P E R D U
 			if (!lost && !triggerStop) {
-				if (transitionVersMouvement)
+				if (movementTransition)
 					transitionVersMouvement();
 				affichageNonPerdu();
 			} else {
@@ -246,7 +238,7 @@ public class EndlessMode implements Screen {
 						if (CSG.profile.bloom)
 							bloom.setBloomIntesity(-1f);
 						final int monScore = (int) score;
-						switch (modeDifficulte) {
+						switch (difficulty) {
 						case 1:		CSG.google.submitScore("CgkIrsqv7rIVEAIQKQ", monScore );	break;
 						case 2:		CSG.google.submitScore("CgkIrsqv7rIVEAIQKg", monScore );	break;
 						case 3:		CSG.google.submitScore("CgkIrsqv7rIVEAIQKw", monScore );	break;
@@ -256,28 +248,30 @@ public class EndlessMode implements Screen {
 					}
 				}
 				affichagePerdu();
-				if (!triggerStop && lost) scoreEtConseils(batch);
+				if (!triggerStop && lost) drawFinalScoreAndAdvices(batch);
 			}					 
 			update();
 		} else { // D O N C   E N   P A U S E
-			if (Gdx.input.isKeyPressed(Keys.BACK) && (now > vientDEtreTouche + .1)) {
+			if (Gdx.input.isKeyPressed(Keys.BACK) && (now > justTouched + .1)) {
 				goToMenu();
 			}
 			affichagePerdu();
 			afficherResume();
 			if (Gdx.input.justTouched()) {
-				afficherMenuRadial = false;
+				drawMenu = false;
 				pause = false;
 //				if (now - vientDEtreTouche < .4) {
 //					pause = false;
 //					SoundMan.playMusic();
 //				}
-				vientDEtreTouche = now;
+				justTouched = now;
 			}
 		}
 		WaveEffect.draw(batch);
 		if (triggerStop)
 			stopActivated();
+		if (CSG.profile.isFirstTime()) 
+			Tutorial.act(batch);
 		batch.end();
 		if (CSG.profile.bloom)
 			bloom.render();
@@ -325,21 +319,21 @@ public class EndlessMode implements Screen {
 //			else if (cam.position.x > CSG.DEMI_CAMERA)
 //				cam.position.x = CSG.DEMI_CAMERA;
 		} else {
-			force = (float) ((R.nextFloat()/2) * (chronoShake*Stats.U));//SHAKE_MUL)) * Stats.u;
-			if (mvtTotalX < 0) {
-				cam.position.x += force;
-				mvtTotalX += force;
+			shakeTmpForce = (float) ((R.nextFloat()/2) * (chronoShake*Stats.U));//SHAKE_MUL)) * Stats.u;
+			if (shakeTotalMvtX < 0) {
+				cam.position.x += shakeTmpForce;
+				shakeTotalMvtX += shakeTmpForce;
 			} else {
-				cam.position.x -= force;
-				mvtTotalX -= force;
+				cam.position.x -= shakeTmpForce;
+				shakeTotalMvtX -= shakeTmpForce;
 			}
-			force = (float) ((R.nextFloat()/2) * (chronoShake*Stats.U));//SHAKE_MUL)) * Stats.u;
-			if (mvtTotalY < 0) {
-				cam.position.y += force;
-				mvtTotalY += force;
+			shakeTmpForce = (float) ((R.nextFloat()/2) * (chronoShake*Stats.U));//SHAKE_MUL)) * Stats.u;
+			if (shakeTotalMvtY < 0) {
+				cam.position.y += shakeTmpForce;
+				shakeTotalMvtY += shakeTmpForce;
 			} else {
-				cam.position.y -= force;
-				mvtTotalY -= force;
+				cam.position.y -= shakeTmpForce;
+				shakeTotalMvtY -= shakeTmpForce;
 			}
 			
 			// avant game zone
@@ -443,7 +437,7 @@ public class EndlessMode implements Screen {
 			SoundMan.transitionUp(((20 - facteurTransition)/20));
 		} else {
 			SoundMan.setOriginalVolume();
-			transitionVersMouvement = false;
+			movementTransition = false;
 			facteurTransition = 20;
 		}
 		EndlessMode.delta /= facteurTransition;
@@ -452,19 +446,19 @@ public class EndlessMode implements Screen {
 	}
 
 	private void affichageEtUpdateStop() {
-		tempsBonusStop -= delta;
-		batch.draw(red, (Player.POS.x + Player.DEMI_LARGEUR) - (TIER_LARGEUR_JAUGE * tempsBonusStop)/2, Player.POS.y - HAUTEUR_JAUGE * 3, TIER_LARGEUR_JAUGE * tempsBonusStop, HAUTEUR_JAUGE);
-		if (tempsBonusStop < 0) {
+		timeStopBonus -= delta;
+		batch.draw(red, (Player.POS.x + Player.DEMI_LARGEUR) - (TIER_LARGEUR_JAUGE * timeStopBonus)/2, Player.POS.y - HAUTEUR_JAUGE * 3, TIER_LARGEUR_JAUGE * timeStopBonus, HAUTEUR_JAUGE);
+		if (timeStopBonus < 0) {
 			triggerStop = false;
-			transitionVersMouvement = true;
+			movementTransition = true;
 			if (--nbBonusStop > 0)
-				tempsBonusStop += STOP;
+				timeStopBonus += STOP;
 		}
 	}
 
 	private void bloomActive() {
 		if (triggerStop) {
-			bloom.setBloomIntesity(CSG.profile.intensiteBloom + (tempsBonusStop*2));
+			bloom.setBloomIntesity(CSG.profile.intensiteBloom + (timeStopBonus*2));
 		} else {
 			if (!shake) {
 				bloom.setBloomIntesity(CSG.profile.intensiteBloom);
@@ -514,7 +508,11 @@ public class EndlessMode implements Screen {
 		CSG.profilManager.persist();
 	}
 	
-	private void scoreEtConseils(SpriteBatch batch) {
+	private void drawFinalScoreAndAdvices(SpriteBatch batch) {
+		timeSinceLost += originalDelta;
+		
+		if (timeSinceLost < 0.7f)
+			return;
 		if (Gdx.app.getVersion() != 0)
 			CSG.myRequestHandler.showAds(true);
 		
@@ -522,27 +520,9 @@ public class EndlessMode implements Screen {
 			CSG.profile.addXp((int) score);
 			xpAjout = true;
 		}
-		
 //		batch.setShader(originalShader);
-		if (CSG.profile.xpDispo > CSG.profile.getCoutUpArme() && Player.weapon.nv() < Profil.NV_ARME_MAX) {
-			if (boutonUpgradeOrRestart == null) {
-				Particles.ajoutPanneau(TMP_POS, TMP_DIR);
-				boutonUpgradeOrRestart = new Bouton(Strings.UPGRADE_BUTTON, CSG.menuFont, 
-						(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width, 
-						(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).height, 
-						(int) ((cam.position.x) - CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width / 2),
-						Menu.HAUTEUR_BOUTON,
-						new OnClick() {
-						public void onClick() {
-							CSG.profile.upArme();
-							CSG.profilManager.persist();
-							boutonUpgradeOrRestart = null;
-						}
-				});
-			}
-		} else if (boutonUpgradeOrRestart == null) {
-			Particles.ajoutPanneau(TMP_POS, TMP_DIR);
-			boutonUpgradeOrRestart = new Bouton(Strings.RESTART_BUTTON, CSG.menuFont, 
+		if (boutonRestart == null) {
+			boutonRestart = new Bouton(Strings.RESTART_BUTTON, CSG.menuFont, 
 					(int) CSG.menuFont.getBounds(Strings.RESTART_BUTTON).width, 
 					(int) CSG.menuFont.getBounds(Strings.RESTART_BUTTON).height, 
 					(int) ((cam.position.x) - CSG.menuFont.getBounds(Strings.RESTART_BUTTON).width / 2),
@@ -550,31 +530,56 @@ public class EndlessMode implements Screen {
 					new OnClick() {
 					public void onClick() {
 						init();
-						boutonUpgradeOrRestart = null;
 					}
 			});
+		} else {
+			boutonRestart.draw(batch);
 		}
+		if (Player.weapon.nv() < Profil.NV_ARME_MAX) {
+			if (boutonUpgrade == null) {
+				boutonUpgrade = new Bouton(Strings.UPGRADE_BUTTON, CSG.menuFont, 
+						(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width, 
+						(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).height, 
+						(int) ((cam.position.x) - CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width / 2),
+						(int) (Menu.HAUTEUR_BOUTON * 2.5f),
+						new OnClick() {
+					public void onClick() {
+						if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
+							CSG.profile.upArme();
+							CSG.profilManager.persist();
+							init();
+						} else {
+							CSG.google.buyXp();
+						}
+					}
+				});
+			} else {
+				boutonUpgrade.draw(batch);
+			}
+		} 
 		if (boutonTwitter == null) {
+			Particles.ajoutPanneau(TMP_POS, TMP_DIR);
 			boutonTwitter = new Bouton(Strings.BRAG_TWITTER, CSG.menuFont, 
 					(int) CSG.menuFont.getBounds(Strings.BRAG_TWITTER).width, 
 					(int) CSG.menuFont.getBounds(Strings.BRAG_TWITTER).height, 
 					(int) ((cam.position.x) - CSG.menuFont.getBounds(Strings.BRAG_TWITTER).width / 2),
-					Menu.HAUTEUR_BOUTON * 6,
+					Menu.HAUTEUR_BOUTON * 4,
 					new OnClick() {
 					public void onClick() {
-						CSG.google.bragTwitter("I made " + (int)score + " on #MESS" + modeDifficulte);
+						CSG.google.bragTwitter("I made " + (int)score + " on #MESS" + difficulty + " #androidgames");
 					}
 			});
+		} else {
+			boutonTwitter.draw(batch);
 		}
 		
 		if (score < 1000) {
-			if (conseil == 0)
-				conseil = (int) (1 + Math.random() * 5);
+			if (advice == 0)
+				advice = (int) (1 + Math.random() * 5);
 			switch (4) {
 				case 3:		afficherConseil(Strings.ADVICE3);								break;
 				case 4:		afficherConseil(Strings.ADVICE4, AssetMan.bomb, batch);			break;
 				case 5:		afficherConseil(Strings.ADVICE5, AssetMan.stopBonus, batch);	break;
-				
 			}
 		}
 		float width = CSG.menuFont.getBounds(strScore).width;
@@ -585,13 +590,13 @@ public class EndlessMode implements Screen {
 		batch.draw(AssetMan.dust, 0, CSG.halfHeight - CSG.menuFont.getBounds(strScore).height*2, CSG.screenWidth, CSG.menuFont.getBounds(strScore).height * 6);
 		batch.setColor(AssetMan.WHITE);
 		CSG.menuFont.draw(batch, Strings.DEAD, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - (CSG.menuFont.getBounds(Strings.DEAD).width)/2)),
-				CSG.halfHeight + CSG.menuFontPetite.getBounds(Strings.DEAD).height * 3);
+				CSG.halfHeight + CSG.menuFontSmall.getBounds(Strings.DEAD).height * 3);
 		
 		CSG.menuFont.draw(batch, strScore, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - (CSG.menuFont.getBounds(strScore).width)/2)),
-				CSG.halfHeight + CSG.menuFontPetite.getBounds(strScore).height);
+				CSG.halfHeight + CSG.menuFontSmall.getBounds(strScore).height);
 		
-		if (boutonUpgradeOrRestart != null) {
-			boutonUpgradeOrRestart.draw(batch);
+		if (boutonUpgrade != null) {
+			boutonUpgrade.draw(batch);
 			if (boutonTwitter != null)
 				boutonTwitter.draw(batch);
 			Particles.drawUi(batch);
@@ -629,43 +634,43 @@ public class EndlessMode implements Screen {
 		cam.position.z -= f;
 		if (boutonBack != null)				boutonBack.camZoom(f);
 		if (boutonTwitter != null)			boutonTwitter.camZoom(f);
-		if (boutonUpgradeOrRestart != null)	boutonUpgradeOrRestart.camZoom(f);
+		if (boutonUpgrade != null)	boutonUpgrade.camZoom(f);
 	}
 
 	protected void moveCamY(float y) {
 		if (boutonBack != null)				boutonBack.camMoveY(y);
 		if (boutonTwitter != null)			boutonTwitter.camMoveY(y);
-		if (boutonUpgradeOrRestart != null)	boutonUpgradeOrRestart.camMoveY(y);
+		if (boutonUpgrade != null)	boutonUpgrade.camMoveY(y);
 		cam.position.y += y;
 	}
 	
 	protected void moveCamX(float x) {
 		if (boutonBack != null)				boutonBack.camMoveX(x);
 		if (boutonTwitter != null)			boutonTwitter.camMoveX(x);
-		if (boutonUpgradeOrRestart != null)	boutonUpgradeOrRestart.camMoveX(x);
+		if (boutonUpgrade != null)	boutonUpgrade.camMoveX(x);
 		cam.position.x += x;
 	}
 	
 	public static void effetBloom() {
 		effetBloom = true;
-		intensiteBloomOrigin = 50;
+		bloomOriginalIntensity = 50;
 	}
 
 	private void ui() {
-		// ***************                   P   O   L   I   C   E                  ***************
-		CSG.outlineScoreFont.draw(batch, strMulti, (cam.position.x - CSG.screenTierWidth) - CSG.outlineScoreFont.getBounds(strMulti).width/2, HAUTEUR_POLICE + CSG.outlineScoreFont.getBounds(strMulti).height/2);
-		CSG.scoreFont.draw(batch, strMulti, (cam.position.x - CSG.screenTierWidth) - CSG.scoreFont.getBounds(strMulti).width/2, HAUTEUR_POLICE + CSG.scoreFont.getBounds(strMulti).height/2);
+		CSG.outlineScoreFont.draw(batch, strMulti, (cam.position.x - CSG.screenTierWidth) - CSG.outlineScoreFont.getBounds(strMulti).width/2, FONT_HEIGHT + CSG.outlineScoreFont.getBounds(strMulti).height/2);
+		CSG.scoreFont.draw(batch, strMulti, (cam.position.x - CSG.screenTierWidth) - CSG.scoreFont.getBounds(strMulti).width/2, FONT_HEIGHT + CSG.scoreFont.getBounds(strMulti).height/2);
 		if (!lost) {
-			CSG.outlineScoreFont.draw(batch, strScore, (cam.position.x) - CSG.outlineScoreFont.getBounds(strScore).width/2, HAUTEUR_POLICE + CSG.outlineScoreFont.getBounds(strScore).height/2);
-			CSG.scoreFont.draw(batch, strScore, (cam.position.x) - CSG.scoreFont.getBounds(strScore).width/2, HAUTEUR_POLICE + CSG.scoreFont.getBounds(strScore).height/2);
+			// bottom score
+			CSG.outlineScoreFont.draw(batch, strScore, (cam.position.x) - CSG.outlineScoreFont.getBounds(strScore).width/2, FONT_HEIGHT + CSG.outlineScoreFont.getBounds(strScore).height/2);
+			CSG.scoreFont.draw(batch, strScore, (cam.position.x) - CSG.scoreFont.getBounds(strScore).width/2, FONT_HEIGHT + CSG.scoreFont.getBounds(strScore).height/2);
 		}
 		if (CSG.profile.manualBonus) {
 			// ****  A F F I C H E R   S T O P  ****
 			switch(nbBonusStop) {
 			default :
 //			case 3:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO + Bonus.WIDTH * 2 + Bonus.HALF_WIDTH * 2, HAUTEUR_POLICE * 2, Bonus.WIDTH, Bonus.WIDTH);
-			case 2:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO + Bonus.WIDTH + Bonus.HALF_WIDTH, HAUTEUR_POLICE * 2, Bonus.WIDTH, Bonus.WIDTH);
-			case 1:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO, HAUTEUR_POLICE * 2, Bonus.WIDTH, Bonus.WIDTH);
+			case 2:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO + Bonus.WIDTH + Bonus.HALF_WIDTH, FONT_HEIGHT * 2, Bonus.WIDTH, Bonus.WIDTH);
+			case 1:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO, FONT_HEIGHT * 2, Bonus.WIDTH, Bonus.WIDTH);
 			case 0:
 			}
 			switch(nbBombes) {
@@ -690,7 +695,7 @@ public class EndlessMode implements Screen {
 
 	private void update() {
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.POWER) || Gdx.input.isKeyPressed(Keys.HOME) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-			vientDEtreTouche = now;
+			justTouched = now;
 			mettrePause();
 		}
 		if (!lost) {
@@ -702,25 +707,16 @@ public class EndlessMode implements Screen {
 					Physic.collisionsTest();
 				score();
  			}
-			if (!afficherMenuRadial && !freeze)	ship.tir();
+			if (!drawMenu && !freeze)	ship.tir();
 		} else { // Donc si on a perdu
 			if (toastSent) {
 				CSG.google.toast("You might want to check the highscore menu !");
 				toastSent = false;
 			}
 			if (Gdx.input.justTouched()) {
-				if (boutonUpgradeOrRestart != null &&
-						Physic.isPointInRect(Gdx.input.getX() + cam.position.x / 2, CSG.SCREEN_HEIGHT - Gdx.input.getY(), 
-								0, boutonUpgradeOrRestart.sprite.getY() - Stats.U, CSG.gameZoneWidth, boutonUpgradeOrRestart.sprite.getHeight() + Stats.U * 2)) {
-					boutonUpgradeOrRestart.click.onClick();
-				}
-				if (boutonTwitter != null &&
-						Physic.isPointInRect(Gdx.input.getX() + cam.position.x / 2, CSG.SCREEN_HEIGHT - Gdx.input.getY(), 
-								0, boutonTwitter.sprite.getY() - Stats.U, CSG.gameZoneWidth, boutonTwitter.sprite.getHeight() + Stats.U * 2)) {
-					boutonTwitter.click.onClick();
-				} else {
-					init();
-				}
+				Bouton.testClick(boutonUpgrade, cam.position.x / 2);
+				Bouton.testClick(boutonRestart, cam.position.x / 2);
+				Bouton.testClick(boutonTwitter, cam.position.x / 2);
 			}
 		}
 	}
@@ -761,13 +757,13 @@ public class EndlessMode implements Screen {
 			else
 				pasTouche();
 		}	
-		if (CSG.profile.typeControle == CSG.CONTROLE_ACCELEROMETRE & !afficherMenuRadial)
+		if (CSG.profile.typeControle == CSG.CONTROLE_ACCELEROMETRE & !drawMenu)
 			ship.accelerometre();
 	}
 
 	private static void pasTouche() {
 		boutonBack = null;
-		if (afficherMenuRadial && CSG.profile.manualBonus)	{
+		if (drawMenu && CSG.profile.manualBonus)	{
 			if (nbBonusStop > 0 && !triggerStop) batch.draw(AssetMan.stopBonus,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			else batch.draw(AssetMan.stopBonusGrey,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			
@@ -776,20 +772,20 @@ public class EndlessMode implements Screen {
 			
 			if (nbBombes > 0) batch.draw(AssetMan.bomb, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
 			else batch.draw(AssetMan.bombGrey, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
-		} else if (!onAchoisis) {
-			afficherMenuRadial = true;
+		} else if (!choosen) {
+			drawMenu = true;
 			menuX = Gdx.input.getX();
 			menuY = CSG.SCREEN_HEIGHT - Gdx.input.getY();
 		}
 	}
 
 	private static void touche() {
-		if (!onAchoisis) {
+		if (!choosen) {
 			if (Gdx.app.getVersion() == 0) clavier();
 //			if (CSG.profile.typeControle == CSG.CONTROLE_DPAD) afficherDPAD();  
-			if (onVaStopper) {
+			if (willUseStopBonus) {
 				activateStop();
-				onVaStopper = false;
+				willUseStopBonus = false;
 			}
 		}
 	}
@@ -806,18 +802,18 @@ public class EndlessMode implements Screen {
 			Player.prevX = Gdx.input.getX();
 			Player.prevY = Gdx.input.getY();
 		}
-		if (afficherMenuRadial) { 		// ---- SELECTION
+		if (drawMenu) { 		// ---- SELECTION
 			if (nbBonusStop > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.SCREEN_HEIGHT - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - Player.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
-				onVaStopper = true;
-				onAchoisis = true;
+				willUseStopBonus = true;
+				choosen = true;
 			} else if (nbBombes > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.SCREEN_HEIGHT - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.DEMI_LARGEUR, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH)) {
 				Enemy.bombe();
 				nbBombes--;
-				onAchoisis = true;
+				choosen = true;
 			}
-			afficherMenuRadial = false;
+			drawMenu = false;
 		} else { 						// ---- REPRISE JEU
-			onAchoisis = false;
+			choosen = false;
 		}
 	}
 
@@ -839,7 +835,7 @@ public class EndlessMode implements Screen {
 //	}
 
 	private static void clavier() {
-		if (!afficherMenuRadial & !onAchoisis) 	ship.mouvements();
+		if (!drawMenu & !choosen) 	ship.mouvements();
 		if (Gdx.input.isKeyPressed(Keys.LEFT)) 	ship.mvtLimiteVitesse(-500, 0);
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) ship.mvtLimiteVitesse(500, 0);
 		if (Gdx.input.isKeyPressed(Keys.UP)) 	ship.mvtLimiteVitesse(0, 500);
@@ -874,7 +870,7 @@ public class EndlessMode implements Screen {
 		} else {
 			activateStop();
 		}
-		tempsBonusStop = STOP;
+		timeStopBonus = STOP;
 	}
 
 	public static void ajoutBombe() {
@@ -883,21 +879,22 @@ public class EndlessMode implements Screen {
 	}
 	
 	private void afficherConseil(String s, TextureRegion tr, SpriteBatch batch) {
-		CSG.menuFontPetite.draw(batch, s, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - CSG.menuFontPetite.getBounds(s).width/2)),	
-				CSG.halfHeight * 1.5f - CSG.menuFontPetite.getBounds(s).height * 4);
+		CSG.menuFontSmall.draw(batch, s, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - CSG.menuFontSmall.getBounds(s).width/2)),	
+				CSG.halfHeight * 1.5f - CSG.menuFontSmall.getBounds(s).height * 4);
 		batch.draw(tr, ((cam.position.x-CSG.screenHalfWidth) + CSG.screenHalfWidth) - Bonus.DISPLAY_WIDTH/2 ,
 				CSG.halfHeight * 1.5f,
 				Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 	}
 
 	private void afficherConseil(String s) {
-		CSG.menuFontPetite.draw(batch, s, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - CSG.menuFontPetite.getBounds(s).width/2)),	CSG.halfHeight - CSG.menuFontPetite.getBounds(s).height * 4);
+		CSG.menuFontSmall.draw(batch, s, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - CSG.menuFontSmall.getBounds(s).width/2)),	CSG.halfHeight - CSG.menuFontSmall.getBounds(s).height * 4);
 	}
 
 	public static void lost() {
 		if (!invicibility) {
 			lost = true;
 			strScore = "Score : " + (int) score;
+			timeSinceLost = 0;
 		}
 	}
 
@@ -907,10 +904,10 @@ public class EndlessMode implements Screen {
 	
 	public static void reset() {
 		Particles.clear();
-		afficherMenuRadial = false;
-		onAchoisis = false;
+		drawMenu = false;
+		choosen = false;
 		ship = new Player();
-		onVaStopper = false;
+		willUseStopBonus = false;
 		menuX = (int) Player.POS.x;
 		menuY = (int) Player.POS.y;
 		triggerStop = false;
@@ -921,8 +918,8 @@ public class EndlessMode implements Screen {
 		if (CSG.profile.screenshake == false)
 			return;
 		if (shake == false) {
-			mvtTotalX = 0;
-			mvtTotalY = 0;
+			shakeTotalMvtX = 0;
+			shakeTotalMvtY = 0;
 		}
 		shake = true;
 		chronoShake += (float)xp / 50;
@@ -948,7 +945,6 @@ public class EndlessMode implements Screen {
 			if (rScore > 1) {
 				if (multi < 10) {
 					multi++;
-	//				strMulti = String.valueOf(multi);
 					strMulti = "x" + multi;
 					rScore = (float)multi / 5f;
 				} else {
@@ -957,6 +953,7 @@ public class EndlessMode implements Screen {
 			}
 			score += valeur * multi;
 			strScore = String.valueOf((int)score);
+			Tutorial.xpTaken();
 		}
 	}
 }

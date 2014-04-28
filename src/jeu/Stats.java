@@ -4,7 +4,7 @@ package jeu;
 public class Stats {
 	
 	// 0.507cm 20 sur s3
-	public static final float U = (CSG.SCREEN_HEIGHT + CSG.screenWidth) / 110f;
+	public static final float U = (CSG.SCREEN_HEIGHT + CSG.screenWidth) / 115f;
 	public static final float UU = U * 2;
 	public static final float UUU = U * 3;
 	public static final float U4 = U * 4;
@@ -12,6 +12,7 @@ public class Stats {
 	public static final float U10 = U * 10;
 	public static final float U12 = U * 12;
 	public static final float U20 = U * 20;
+	public static final float U50 = U * 50;
 	public static final float U90 = U * 90;
 	public static final float U270 = U * 270;
 	public static final float u = U / 2;

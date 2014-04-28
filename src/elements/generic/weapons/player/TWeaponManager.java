@@ -22,17 +22,12 @@ public class TWeaponManager extends WeaponManager {
 		switch (CSG.profile.NvArmeHantee) {
 		case 1:			nv1();			break;
 		case 2:			nv2();			break;
-		case 3:			nv3();			break;
 		case 4:			nv4();			break;
 		case 5:			nv5();			break;
 		case 6:			nv6();			break;
 		case 7:			nv7();			break;
-		default:		nv8();			break;
+		default:		nv3();			break;
 		}
-	}
-
-	private void nv8() {
-		TWeapon.POOL.obtain().init(posX, posY);
 	}
 
 	private void nv7() {

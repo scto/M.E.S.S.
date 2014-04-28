@@ -25,7 +25,7 @@ public class XP extends Bonus implements Poolable {
 			return new XP();
 		}
 	};
-	public static final int WIDTH = (int) ((int) Stats.BONUS_WIDTH / 2.00f), HALF = WIDTH/2, WIDTH_INF = (int) (WIDTH + Stats.u), HALF_INF_WIDTH = WIDTH_INF / 2, WIDTH2 = WIDTH * 2;
+	public static final int WIDTH = (int) ((int) Stats.BONUS_WIDTH / 1.50f), HALF = WIDTH/2, WIDTH_INF = (int) (WIDTH + Stats.u), HALF_INF_WIDTH = WIDTH_INF / 2, WIDTH2 = WIDTH * 2;
 	public final Vector2 direction = new Vector2();
 	private float color, angle, inflate;
 	private static final int WANDERER = 1;
@@ -37,8 +37,8 @@ public class XP extends Bonus implements Poolable {
 	public void init(float x, float y, int xp) {
 		x -= HALF;
 		y -= HALF;
-		x += CSG.R.nextGaussian() * Stats.u;
-		y += CSG.R.nextGaussian() * Stats.u;
+		x += CSG.R.nextGaussian() * Stats.U;
+		y += CSG.R.nextGaussian() * Stats.U;
 		valeur = xp;
 		direction.x = (float) (EndlessMode.R.nextFloat() * Stats.u);
 		direction.y = (float) (EndlessMode.R.nextGaussian() * Stats.u);
@@ -55,7 +55,7 @@ public class XP extends Bonus implements Poolable {
 	}
 	
 	private float getColor(float xp) {
-		return AssetMan.convertARGB(1, 0, xp / 50f, 1);
+		return AssetMan.convertARGB(1, 0.2f, 0.5f + (xp / XPMINN), 1);
 	}
 
 	private void limites() {
@@ -89,6 +89,7 @@ public class XP extends Bonus implements Poolable {
 					xp.direction.y -= EndlessMode.deltaMicroU;
 					xp.limites();
 					drawStandard(batch, xp, xp.angle);
+					xp.angle++;
 					break;
 				case HOMMING:
 					xp.angle += xp.valeur;

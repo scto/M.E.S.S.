@@ -51,7 +51,7 @@ public class PorteRaisin extends Enemy implements TireurPlusieurFois {
 	protected void init() {
 		positionning.set(this);
 		prochainTir = INIT_NEXT_SHOT;
-		angleTir = 90;
+		angleTir = 180;
 		goodShape = true;
 		TIR.cadence = CADENCE;
 		dir.x = 0;
