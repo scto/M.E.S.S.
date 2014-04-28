@@ -33,8 +33,6 @@ public class ThrusterParticle implements Poolable {
 		vitesseX = (r.nextFloat()-.5f) * Stats.THRUSTER;
 		red = r.nextFloat();
 		diminish = 6f + (r.nextFloat() * 6f);
-		// 3 - 13
-		// 6 - 12
 	}
 
 	public ThrusterParticle init(Player v) {

@@ -13,7 +13,7 @@ import elements.generic.Element;
 import elements.generic.enemies.Enemy;
 
 public class TimeParticle implements Poolable {
-	
+
 	private static final float LARGEUR = CSG.screenWidth / 55, DEMI_LARGEUR = LARGEUR / 2;
 	public static final Pool<TimeParticle> POOL = new Pool<TimeParticle>() {
 		@Override
@@ -23,7 +23,7 @@ public class TimeParticle implements Poolable {
 	};
 	private float x, y, time;
 	private final float color = AssetMan.convertARGB(1, 0, 1, CSG.R.nextFloat());
-	
+
 	public TimeParticle init(Element e) {
 		x = (e.pos.x + e.getHalfWidth()) - DEMI_LARGEUR;
 		y = (e.pos.y + e.getHalfHeight()) - DEMI_LARGEUR;
@@ -52,7 +52,8 @@ public class TimeParticle implements Poolable {
 	}
 
 	@Override
-	public void reset() {	}
+	public void reset() {
+	}
 
 	public static void generate(Enemy e, Array<TimeParticle> time) {
 		for (int i = 0; i < EndlessMode.fps; i++)

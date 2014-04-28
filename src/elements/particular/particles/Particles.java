@@ -19,7 +19,6 @@ import elements.generic.weapons.player.PlayerWeapon;
 import elements.generic.weapons.player.SunWeapon;
 import elements.generic.weapons.player.TWeapon;
 import elements.particular.bonuses.BonusBombe;
-import elements.particular.particles.individual.BlueSparkles;
 import elements.particular.particles.individual.Ghost;
 import elements.particular.particles.individual.PrecalculatedParticlesLong;
 import elements.particular.particles.individual.ShieldParticle;
@@ -85,7 +84,6 @@ public class Particles {
 	public static final Array<PinkParticle> PINK_WEAPON = new Array<PinkParticle>(false, MAX_THRUSTER);
 	public static final Array<BlueSweepParticle> BLUE_SWEEP_WEAPON = new Array<BlueSweepParticle>();
 	public static final Array<ShieldParticle> SHIELD = new Array<ShieldParticle>(43);
-	public static final Array<BlueSparkles> SPARKLES = new Array<BlueSparkles>(20);
 	public static final Array<SpaceInvaderParticle> SPACE_INVADER = new Array<SpaceInvaderParticle>(300);
 	public static final Array<TimeParticle> TIME = new Array<TimeParticle>(40);
 	private static float yShip = 0;
@@ -141,7 +139,6 @@ public class Particles {
 		Smoke.act(SMOKE, batch);
 		MovingSmoke.act(MOVING_SMOKE, batch);
 		BlueSmoke.act(BLUESMOKE, batch);
-		BlueSparkles.act(SPARKLES, batch);
 		Dust.act(batch, DUST);
 		DebrisExplosion.act(DEBRIS_EXPLOSIONS, batch);
 		Spark.act(SPARKS, batch);
@@ -169,7 +166,6 @@ public class Particles {
 		smoke = compare(SMOKE, smoke);
 		movingSmoke = compare(MOVING_SMOKE, movingSmoke);
 		blueSmoke = compare(BLUESMOKE, blueSmoke);
-		sparkles = compare(SPARKLES, sparkles);
 		explosionImpactBullet = compare(EXPLOSION_IMPACT_BULLET, explosionImpactBullet);
 		System.out.println("------------------------------");
 		System.out.println("- debris                " + debris);
@@ -250,7 +246,6 @@ public class Particles {
 		Smoke.clear(SMOKE);
 		MovingSmoke.clear(MOVING_SMOKE);
 		BlueSmoke.clear(BLUESMOKE);
-		BlueSparkles.clear(SPARKLES);
 		ExplosionImpactBullet.clear(EXPLOSION_IMPACT_BULLET);
 		TimeParticle.clear(TIME);
 		ExplosionColorOverTime.clear(EXPLOSION_COLOR_OVER_TIME);
@@ -351,10 +346,6 @@ public class Particles {
 	public static void popOutWeapon(EnemyWeapon w) {
 		for (int i = 0; i < 10; i++)
 			ShieldParticle.add(w.pos.x + w.getWidth() * CSG.R.nextFloat(), w.pos.y + w.getHeight() * CSG.R.nextFloat(), LONG);
-	}
-
-	public static void addSparkle(Weapons e) {
-		BlueSparkles.add(e, SPARKLES);
 	}
 
 	public static void bomb(BonusBombe bonusBombe) {

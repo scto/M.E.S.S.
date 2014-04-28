@@ -34,7 +34,7 @@ public class FireballParticle implements Poolable {
 
 	public static void act(Array<FireballParticle> fireballs, SpriteBatch batch) {
 		for (final FireballParticle p : fireballs) {
-			batch.setColor(PrecalculatedParticles.colorsFireball[p.index]);
+			batch.setColor(PrecalculatedParticles.colorsPinkWeapon[p.index]);
 			p.x -= PrecalculatedParticles.halfWidthsFireballParticules[p.index];
 			batch.draw(AssetMan.dust, p.x, p.y, PrecalculatedParticles.widthsFireballParticules[p.index], PrecalculatedParticles.widthsFireballParticules[p.index]);
 			

@@ -45,9 +45,11 @@ public class Strings {
 		TWITTER = "Twitter",
 		CHOOSE_WEAPON = "Choose your weapon",
 		TUTO_TOUCH = "When you don't touch the screen,\n the game slows down\n but your ship won't shoot",
-		TUTO_XP = "Those blue things are points \n Collect them to improve your score !";
+		TUTO_XP = "Those blue things are points \n Collect them to improve your score !",
+		GET_READY = "Get ready !";
 	
 	public static final DecimalFormat DF = initDf();
+
 
 	private static DecimalFormat initDf() {
 		DecimalFormat DF = new DecimalFormat();

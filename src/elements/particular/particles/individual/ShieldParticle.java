@@ -14,7 +14,7 @@ import elements.generic.Player;
 import elements.particular.particles.Particles;
 
 public class ShieldParticle implements Poolable {
-	
+
 	private float x, y, time;
 	private final static float WIDTH = Stats.u;
 	public static final float HALF_WIDTH = WIDTH / 2;
@@ -29,7 +29,8 @@ public class ShieldParticle implements Poolable {
 	}
 
 	@Override
-	public void reset() {}
+	public void reset() {
+	}
 
 	public static void act(SpriteBatch batch, Array<ShieldParticle> particles) {
 		batch.setColor(.9f, .9f - Player.alphaShield, 1, 1);
@@ -42,8 +43,7 @@ public class ShieldParticle implements Poolable {
 		}
 		batch.setColor(AssetMan.WHITE);
 	}
-	
-	
+
 	public static void clear(Array<ShieldParticle> particles) {
 		POOL.freeAll(particles);
 		particles.clear();

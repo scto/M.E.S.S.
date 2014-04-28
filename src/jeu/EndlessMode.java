@@ -1,6 +1,8 @@
 package jeu;
 import java.util.Random;
 
+import jeu.dynamicTutorial.TemporaryText;
+import jeu.dynamicTutorial.Tutorial;
 import menu.screens.Menu;
 import menu.tuto.OnClick;
 import menu.ui.Bouton;
@@ -126,6 +128,9 @@ public class EndlessMode implements Screen {
 	private float nextScore = 0, justTouched = 0;
 	public static final float STOP = 3;
 	public static boolean invicibility = false, freeze = false;
+	private Tutorial tuto = new Tutorial();
+	private TemporaryText getReady = new TemporaryText(Strings.GET_READY);
+	private boolean started = false;
 
 	public EndlessMode(Game game, SpriteBatch batch, int level) {
 		super();
@@ -190,6 +195,8 @@ public class EndlessMode implements Screen {
 		rScore = 0;
 		multi = 1;
 		strMulti = "x1";
+		getReady.reset();
+		started = false;
 	}
 
 	@Override
@@ -220,7 +227,7 @@ public class EndlessMode implements Screen {
 				if ( (drawMenu || choosen) && CSG.profile.typeControle != CSG.CONTROLE_ACCELEROMETRE)
 					EndlessMode.delta = delta / 7;
 				if (CSG.profile.isFirstTime()) 
-					Tutorial.act(batch);
+					tuto.act(batch);
 //				score += (EndlessMode.delta + EndlessMode.delta + EndlessMode.delta);
 				majDeltas();
 			}
@@ -260,10 +267,6 @@ public class EndlessMode implements Screen {
 			if (Gdx.input.justTouched()) {
 				drawMenu = false;
 				pause = false;
-//				if (now - vientDEtreTouche < .4) {
-//					pause = false;
-//					SoundMan.playMusic();
-//				}
 				justTouched = now;
 			}
 		}
@@ -271,7 +274,12 @@ public class EndlessMode implements Screen {
 		if (triggerStop)
 			stopActivated();
 		if (CSG.profile.isFirstTime()) 
-			Tutorial.act(batch);
+			tuto.act(batch);
+		if (!started) {
+			getReady.act(batch, true);
+			if (Gdx.input.isTouched())
+				started = true;
+		}
 		batch.end();
 		if (CSG.profile.bloom)
 			bloom.render();
@@ -521,6 +529,39 @@ public class EndlessMode implements Screen {
 			xpAjout = true;
 		}
 //		batch.setShader(originalShader);
+		initAndDrawButtons(batch);
+		
+		if (score < 1000) {
+			if (advice == 0)
+				advice = (int) (1 + Math.random() * 5);
+			switch (4) {
+				case 3:		afficherConseil(Strings.ADVICE3);								break;
+				case 4:		afficherConseil(Strings.ADVICE4, AssetMan.bomb, batch);			break;
+				case 5:		afficherConseil(Strings.ADVICE5, AssetMan.stopBonus, batch);	break;
+			}
+		}
+		float width = CSG.menuFont.getBounds(strScore).width;
+		if (width < CSG.menuFont.getBounds(strScore).width) {
+			width = CSG.menuFont.getBounds(strScore).width;
+		}
+		batch.setColor(AssetMan.BLACK);
+		batch.draw(AssetMan.dust, 0, CSG.halfHeight - CSG.menuFont.getBounds(strScore).height*2, CSG.screenWidth, CSG.menuFont.getBounds(strScore).height * 6);
+		batch.setColor(AssetMan.WHITE);
+		CSG.menuFont.draw(batch, Strings.DEAD, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - (CSG.menuFont.getBounds(Strings.DEAD).width)/2)),
+				CSG.halfHeight + CSG.menuFontSmall.getBounds(Strings.DEAD).height * 3);
+		
+		CSG.menuFont.draw(batch, strScore, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - (CSG.menuFont.getBounds(strScore).width)/2)),
+				CSG.halfHeight + CSG.menuFontSmall.getBounds(strScore).height);
+		
+		if (boutonUpgrade != null) {
+			boutonUpgrade.draw(batch);
+			if (boutonTwitter != null)
+				boutonTwitter.draw(batch);
+			Particles.drawUi(batch);
+		}
+	}
+
+	private void initAndDrawButtons(SpriteBatch batch) {
 		if (boutonRestart == null) {
 			boutonRestart = new Bouton(Strings.RESTART_BUTTON, CSG.menuFont, 
 					(int) CSG.menuFont.getBounds(Strings.RESTART_BUTTON).width, 
@@ -572,35 +613,6 @@ public class EndlessMode implements Screen {
 		} else {
 			boutonTwitter.draw(batch);
 		}
-		
-		if (score < 1000) {
-			if (advice == 0)
-				advice = (int) (1 + Math.random() * 5);
-			switch (4) {
-				case 3:		afficherConseil(Strings.ADVICE3);								break;
-				case 4:		afficherConseil(Strings.ADVICE4, AssetMan.bomb, batch);			break;
-				case 5:		afficherConseil(Strings.ADVICE5, AssetMan.stopBonus, batch);	break;
-			}
-		}
-		float width = CSG.menuFont.getBounds(strScore).width;
-		if (width < CSG.menuFont.getBounds(strScore).width) {
-			width = CSG.menuFont.getBounds(strScore).width;
-		}
-		batch.setColor(AssetMan.BLACK);
-		batch.draw(AssetMan.dust, 0, CSG.halfHeight - CSG.menuFont.getBounds(strScore).height*2, CSG.screenWidth, CSG.menuFont.getBounds(strScore).height * 6);
-		batch.setColor(AssetMan.WHITE);
-		CSG.menuFont.draw(batch, Strings.DEAD, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - (CSG.menuFont.getBounds(Strings.DEAD).width)/2)),
-				CSG.halfHeight + CSG.menuFontSmall.getBounds(Strings.DEAD).height * 3);
-		
-		CSG.menuFont.draw(batch, strScore, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - (CSG.menuFont.getBounds(strScore).width)/2)),
-				CSG.halfHeight + CSG.menuFontSmall.getBounds(strScore).height);
-		
-		if (boutonUpgrade != null) {
-			boutonUpgrade.draw(batch);
-			if (boutonTwitter != null)
-				boutonTwitter.draw(batch);
-			Particles.drawUi(batch);
-		}
 	}
 
 	private float prevDelta;
@@ -614,27 +626,7 @@ public class EndlessMode implements Screen {
 		Particles.drawImpacts(batch);
 		Weapons.affichage(batch);
 		ui();
-//		camZoom();
-	}
-
-	protected void camZoom() {
-//		if (cam.position.x < Player.xCenter) {
-//			moveCamX(CSG.screenWidth / 0.98f);
-//		} else if (cam.position.x > Player.xCenter)	{
-//			moveCamX(-CSG.screenWidth / 0.98f);
-//		}
-//		
-//		if (cam.position.y < Player.xCenter) {
-//			moveCamY(CSG.SCREEN_HEIGHT / 0.98f);
-//		} else if (cam.position.y > Player.xCenter)	{
-//			moveCamY(-CSG.SCREEN_HEIGHT / 0.98f);
-//		}
-		
-		final float f = (cam.position.z) - (cam.position.z / .98f);
-		cam.position.z -= f;
-		if (boutonBack != null)				boutonBack.camZoom(f);
-		if (boutonTwitter != null)			boutonTwitter.camZoom(f);
-		if (boutonUpgrade != null)	boutonUpgrade.camZoom(f);
+		initAndDrawButtons(batch);
 	}
 
 	protected void moveCamY(float y) {
@@ -694,6 +686,8 @@ public class EndlessMode implements Screen {
 	}
 
 	private void update() {
+		if (!started)
+			return;
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.POWER) || Gdx.input.isKeyPressed(Keys.HOME) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			justTouched = now;
 			mettrePause();

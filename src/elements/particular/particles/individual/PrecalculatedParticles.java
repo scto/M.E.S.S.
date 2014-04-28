@@ -15,7 +15,8 @@ public class PrecalculatedParticles {
 	public static final float[] widths = initWidths();
 	public final static float[] widthsFireballParticules = initWidths(Stats.u, 0.75f, Fireball.WIDTH);
 	public final static float[] halfWidthsFireballParticules = CSG.getHalf(widths);
-	public final static float[] colorsFireball = initColorsFireball(widthsFireballParticules.length);
+	public final static float[] colorsFireball = initColors(widthsFireballParticules.length, 1, 0.9f, 0);
+	public final static float[] colorsPinkWeapon = initColors(7, 4, 1, 1);
 	public static final float[] halfWidths = CSG.getHalf(widths);
 	public static final float[] dirY = initDirY(widths);
 	
@@ -48,14 +49,13 @@ public class PrecalculatedParticles {
 		}
 		return CSG.convert(tmp);
 	}
-
-	private static float[] initColorsFireball(int limit) {
+	
+	private static float[] initColors(int nbFrames, int div, float g, float b) {
 		int cpt = 0;
-		float g = .9f;
-		final float step = 0.95f / widths.length;
+		final float step = 0.95f / nbFrames;
 		Array<Float> tmp = new Array<Float>();
-		while (cpt < limit) {
-			tmp.add(AssetMan.convertARGB(1, 1, g, 0));
+		while (cpt < nbFrames) {
+			tmp.add(AssetMan.convertARGB(1, 1, g / div, b));
 			g -= step;
 			cpt++;
 		}
