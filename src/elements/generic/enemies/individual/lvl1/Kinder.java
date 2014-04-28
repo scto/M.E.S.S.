@@ -1,5 +1,6 @@
 package elements.generic.enemies.individual.lvl1;
 
+import jeu.CSG;
 import jeu.Stats;
 import assets.SoundMan;
 import assets.animation.AnimationKinder;
@@ -18,6 +19,7 @@ import elements.generic.weapons.enemies.InvocableWeapon;
 import elements.generic.weapons.enemies.KinderWeapon;
 import elements.generic.weapons.patterns.TireurAngle;
 import elements.generic.weapons.patterns.Tirs;
+import elements.generic.weapons.player.PlayerWeapon;
 import elements.positionning.Pos;
 
 
@@ -65,13 +67,14 @@ public class Kinder extends Enemy implements TireurAngle {
 		return l;
 	}
 	
-	protected Tirs getTir() {								return tir;	}
-	@Override	public void setProchainTir(float f) {		prochainTir = f;	}
 	@Override	public Vector2 getDirectionTir() {
 		TMP_DIR.x = -dir.x;
 		TMP_DIR.y = -dir.y;
 		return TMP_DIR;	
 	}
+	
+	protected Tirs getTir() {								return tir;	}
+	@Override	public void setProchainTir(float f) {		prochainTir = f;	}
 	@Override	protected void tir() {						getTir().tirToutDroit(this, now, prochainTir);	}
 	@Override	protected TextureRegion getTexture() {		return AnimationKinder.getTexture(now);	}
 	@Override	public int getXp() {						return XP;	}

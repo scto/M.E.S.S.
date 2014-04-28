@@ -191,7 +191,6 @@ public class Profil implements Serializable{
 		} else if (armeSelectionnee.equals(Fireball.LABEL) && NvArmeDeBase < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();
 			NvArmeDeBase++;
-			Fireball.updateDimensions();
 			champXp = "XP : " + xpDispo;
 		} else if (armeSelectionnee.equals(TWeapon.LABEL) && NvArmeHantee < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();

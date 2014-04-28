@@ -30,12 +30,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.NumberUtils;
 
 import elements.generic.weapons.player.BlueSweepWeapon;
-import elements.generic.weapons.player.Fireball;
 import elements.generic.weapons.player.SunWeapon;
 
 public final class AssetMan implements AssetErrorListener {
@@ -109,26 +107,22 @@ public final class AssetMan implements AssetErrorListener {
 	}
 
 	private void updateDimensions() {
-//		TWeapon.updateDimensions();
-		Fireball.updateDimensions();
 		BlueSweepWeapon.updateDimensions();
 		SunWeapon.updateDimensions();
 	}
 
 	private void loadAnims() {
 		AnimBall.initAnimation();
-//		AnimTWeapon.initAnimation();
+		AnimPlayer.initAnimation();
 		AnimationMine.initAnimation();
 		AnimationAvion.initAnimation();
 		AnimationZigZag.initAnimation();
 		AnimationCylon.initAnimation();
 		AnimationQuiTir.initAnimation();
 		AnimationKinder.initAnimation();
-//		AnimationTirFeu.initAnimation();
 		AnimationInsecte.initAnimation();
 		AnimationOmbrelle.initAnimation();
 		AnimationBossMine.initAnimation();
-		AnimPlayer.initAnimation();
 		AnimationBossQuad.initAnimation();
 		AnimationPorteNef.initAnimation();
 		AnimationMeteorite.initAnimation();

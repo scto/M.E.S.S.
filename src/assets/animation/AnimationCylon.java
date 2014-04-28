@@ -1,6 +1,5 @@
 package assets.animation;
 
-import jeu.CSG;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.Animation;

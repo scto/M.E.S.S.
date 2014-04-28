@@ -67,7 +67,7 @@ public abstract class EnemyWeapon extends Weapons {
 
 	protected abstract float getSpeed();
 
-	public void init(Vector2 position, float modifVitesse, Vector2 direction, boolean boss) { //, float angle) {
+	public void init(Vector2 position, float modifVitesse, Vector2 direction, boolean boss) { 
 		this.pos.x = position.x;
 		this.pos.y = position.y;
 		this.dir.x = direction.x * modifVitesse;
@@ -86,7 +86,6 @@ public abstract class EnemyWeapon extends Weapons {
 		this.dir.x = 0;
 		this.dir.y = 1 * modifVitesse;
 		dir.rotate(angle);
-//		this.angle = angle;
 		this.pos.x += dir.x / 1.35f;
 		this.pos.y += dir.y / 1.35f;
 		ENEMIES_LIST.add(this);

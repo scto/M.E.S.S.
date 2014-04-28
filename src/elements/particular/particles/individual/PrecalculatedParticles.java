@@ -4,6 +4,7 @@ import assets.AssetMan;
 
 import com.badlogic.gdx.utils.Array;
 
+import elements.generic.weapons.player.Fireball;
 import jeu.CSG;
 import jeu.Stats;
 
@@ -12,8 +13,21 @@ public class PrecalculatedParticles {
 	public static final float INITIAL_WIDTH = ((float)Stats.LARGEUR_DE_BASE / 4), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
 	public static final float[] colorsRed = initAlphasRed(), colorsBlue = initAlphasBlue(), colorsGreen = initAlphasGreen();
 	public static final float[] widths = initWidths();
+	public final static float[] widthsFireballParticules = initWidths(Stats.u, 0.75f, Fireball.WIDTH);
+	public final static float[] halfWidthsFireballParticules = CSG.getHalf(widths);
+	public final static float[] colorsFireball = initColorsFireball(widthsFireballParticules.length);
 	public static final float[] halfWidths = CSG.getHalf(widths);
 	public static final float[] dirY = initDirY(widths);
+	
+	private static float[] initWidths(float max, float mult, float initial) {
+		Array<Float> tmp = new Array<Float>();
+		float w = initial;
+		while (w >= max) {
+			tmp.add(w);
+			w *= mult;
+		}
+		return CSG.convert(tmp);
+	}
 	
 	private static float[] initWidths() {
 		float f = INITIAL_WIDTH;
@@ -35,6 +49,18 @@ public class PrecalculatedParticles {
 		return CSG.convert(tmp);
 	}
 
+	private static float[] initColorsFireball(int limit) {
+		int cpt = 0;
+		float g = .9f;
+		final float step = 0.95f / widths.length;
+		Array<Float> tmp = new Array<Float>();
+		while (cpt < limit) {
+			tmp.add(AssetMan.convertARGB(1, 1, g, 0));
+			g -= step;
+			cpt++;
+		}
+		return CSG.convert(tmp);
+	}
 	
 	private static float[] initAlphasGreen() {
 		float alpha = 1;

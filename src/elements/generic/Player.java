@@ -21,11 +21,11 @@ import elements.particular.particles.Particles;
 
 public final class Player extends Element {
 
-	public static final int LARGEUR = (int) Stats.LARGEUR_JOUEUR, DEMI_LARGEUR = LARGEUR/2, LARGEUR_ADD = (int) (LARGEUR/1.5f), DEMI_LARGEUR_ADD = LARGEUR_ADD/2, WIDTH_DIV_10 = LARGEUR / 10;
-	public static final int HEIGHT = (int) ((float)LARGEUR * 1.2f), DEMI_HAUTEUR = HEIGHT / 2, HAUTEUR_MAX_ADD = HEIGHT + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = HEIGHT / 8, HAUTEUR_DIV4 = HEIGHT / 4, HAUTEUR_DIV8 = HEIGHT/8;
-	public static final int DECALAGE_ADD = LARGEUR + DEMI_LARGEUR - LARGEUR_ADD;
-	public static final int DECALAGE_TIR_ADD_X_GAUCHE = -DEMI_LARGEUR - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
-	public static final int DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
+	public static final int LARGEUR = (int) Stats.LARGEUR_JOUEUR, DEMI_LARGEUR = LARGEUR/2, LARGEUR_ADD = (int) (LARGEUR/1.5f), DEMI_LARGEUR_ADD = LARGEUR_ADD/2, WIDTH_DIV_10 = LARGEUR / 10,
+		HEIGHT = (int) ((float)LARGEUR * 1.2f), DEMI_HAUTEUR = HEIGHT / 2, HAUTEUR_MAX_ADD = HEIGHT + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = HEIGHT / 8, HAUTEUR_DIV4 = HEIGHT / 4, HAUTEUR_DIV8 = HEIGHT/8,
+		DECALAGE_ADD = LARGEUR + DEMI_LARGEUR - LARGEUR_ADD,
+		DECALAGE_TIR_ADD_X_GAUCHE = -DEMI_LARGEUR - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR,
+		DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
 	private static final int LIMITE_X_GAUCHE = 0 - DEMI_LARGEUR, LIMITE_X_DROITE = CSG.gameZoneWidth - DEMI_LARGEUR, LIMITE_Y_GAUCHE = 0 - DEMI_HAUTEUR, LIMITE_Y_DROITE = CSG.SCREEN_HEIGHT - DEMI_HAUTEUR;
 	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.screenWidth + CSG.SCREEN_HEIGHT) / 600;
 	private static float vitesseMax = 0;
@@ -42,7 +42,6 @@ public final class Player extends Element {
 	public static float alphaShield = .5f;
 	private float shotTime = 0;
 	private boolean sensAlpha = true;
-//	private boolean addShot = false;
 	private int addShotNbr = 0;
 	private final static int LEFT_ADD1 = 0x0001, LEFT_ADD2 = 0x0002, RIGHT_ADD1 = 0x0004, RIGHT_ADD2 = 0x0008;
 	
@@ -345,21 +344,20 @@ public final class Player extends Element {
 	 * @param listeTir
 	 */
 	public void tir(){
-//		leftAdd = true;
 		prochainTir = weapon.init(prochainTir);
 		// ** ** A D D S
 		if (EndlessMode.now > prochainTirAdd) {
-			shotTime += ArmeAdd.CADENCETIR/10f;
+			shotTime += ArmeAdd.CADENCETIR / 10f;
 			if (leftAdd) {
 				addShotNbr = addShotNbr | LEFT_ADD1;
 				ArmeAdd.add(addX - DEMI_LARGEUR, addY - DEMI_HAUTEUR, angleAdd, 0);
-				if (CSG.profile.cadenceAdd > 3) 
+				if (CSG.profile.cadenceAdd > 3)
 					ArmeAdd.add(addX - DEMI_LARGEUR, addY - DEMI_HAUTEUR, angleAdd, 10);
 			}
 			if (rightAdd) {
 				addShotNbr = addShotNbr | RIGHT_ADD1;
 				ArmeAdd.add(addX + DECALAGE_ADD, addY - DEMI_HAUTEUR, angleAddDroite, 0);
-				if (CSG.profile.cadenceAdd > 3) 
+				if (CSG.profile.cadenceAdd > 3)
 					ArmeAdd.add(addX + DECALAGE_ADD, addY - DEMI_HAUTEUR, angleAddDroite, -10);
 			}
 			if (leftAdd2) {
@@ -370,9 +368,9 @@ public final class Player extends Element {
 			}
 			if (rightAdd2) {
 				addShotNbr = addShotNbr | RIGHT_ADD2;
-				ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR , addY - HEIGHT, angleAddDroite, 0);
+				ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR, addY - HEIGHT, angleAddDroite, 0);
 				if (CSG.profile.cadenceAdd > 6)
-					ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR , addY - HEIGHT, angleAddDroite, -10);
+					ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR, addY - HEIGHT, angleAddDroite, -10);
 			}
 			prochainTirAdd = EndlessMode.now + ArmeAdd.CADENCETIR;
 		}

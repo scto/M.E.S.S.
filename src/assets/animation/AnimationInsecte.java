@@ -3,7 +3,6 @@ package assets.animation;
 import jeu.Stats;
 import assets.AssetMan;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationInsecte{

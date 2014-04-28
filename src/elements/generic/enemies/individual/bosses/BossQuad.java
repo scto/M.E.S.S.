@@ -26,9 +26,8 @@ import elements.particular.particles.Particles;
 
 public class BossQuad extends Enemy implements Tireur {
 
-	private static final int LARGEUR = Stats.LARGEUR_BOSS_QUAD, DEMI_LARGEUR = LARGEUR/2;
-	private static final int HAUTEUR = Stats.HAUTEUR_BOSS_QUAD, DEMI_HAUTEUR = HAUTEUR / 2;
-	private static final int DECALAGE_ARME_2 = (LARGEUR /6), DECALAGE_ARME_3 = (LARGEUR /3)*2, DECALAGE_ARME_EXTERIEUR_Y = HAUTEUR / 3;
+	private static final int LARGEUR = Stats.LARGEUR_BOSS_QUAD, DEMI_LARGEUR = LARGEUR/2, HAUTEUR = Stats.HAUTEUR_BOSS_QUAD, DEMI_HAUTEUR = HAUTEUR / 2,
+			DECALAGE_ARME_2 = (LARGEUR /6), DECALAGE_ARME_3 = (LARGEUR /3)*2, DECALAGE_ARME_EXTERIEUR_Y = HAUTEUR / 3;
 	public static final Invocable ref = new BossQuad();
 	private static int pvMaxPhase2, pvMinPhase2;
 	private static Tirs tirPhase1, tirPhase2, tirPhase3;
@@ -41,14 +40,14 @@ public class BossQuad extends Enemy implements Tireur {
 		super();
 		init();
 	}
-	
+
 	public void init() {
 		pos.x = CSG.screenHalfWidth - DEMI_LARGEUR;
 		pos.y = CSG.SCREEN_HEIGHT;
 		dir.y = -getVitesse();
-		dir.x = -getVitesse()*2;
+		dir.x = -getVitesse() * 2;
 	}
-	
+
 	public void reset() {
 		super.reset();
 		phase = 1;
@@ -61,20 +60,29 @@ public class BossQuad extends Enemy implements Tireur {
 	}
 
 	protected void tir() {
-		switch(phase) {
-		case 1:			tirPhase1.tirMultiplesVersBas(this, 4, now, prochainTir, false);			break;
-		case 2:			tirPhase2.tirMultiplesVersBas(this, 2, now, prochainTir, false);			break;
-		case 3:			tirPhase3.tirMultiplesVersBas(this, 2, now, prochainTir, false);			break;
+		if (EndlessMode.difficulty < 3) {
+			switch(phase) {
+			case 1:			tirPhase1.tirMultiplesVersBas(this, 4, now, prochainTir, false);			break;
+			case 2:			tirPhase2.tirMultiplesVersBas(this, 2, now, prochainTir, false);			break;
+			case 3:			tirPhase3.tirMultiplesVersBas(this, 2, now, prochainTir, false);			break;
+			}
+		} else {
+			switch(phase) {
+			case 1:			tirPhase1.tirMultiplesVersBasRandomize(this, 4, now, prochainTir, false);			break;
+			case 2:			tirPhase2.tirMultiplesVersBasRandomize(this, 2, now, prochainTir, false);			break;
+			case 3:			tirPhase3.tirMultiplesVersBasRandomize(this, 2, now, prochainTir, false);			break;
+			}
 		}
 	}
 
 	private static boolean tmp;
+
 	@Override
 	public boolean stillAlive(PlayerWeapon p) {
 		tmp = super.stillAlive(p);
-		
-		switch(phase) {
-		case 1:		
+
+		switch (phase) {
+		case 1:
 			if (pv < pvMaxPhase2)
 				incrementPhase();
 			break;
@@ -88,13 +96,13 @@ public class BossQuad extends Enemy implements Tireur {
 
 	private void incrementPhase() {
 		phase++;
-		for (int i = 0; i < 15 * phase; i++)
+		for (int i = -EndlessMode.fps; i < 15 * phase; i++)
 			Particles.smoke(pos.x + (CSG.R.nextFloat() * LARGEUR), pos.y + (CSG.R.nextFloat() * HAUTEUR), false);
 	}
 
 	public Vector2 getPositionDuTir(int numeroTir) {
 		switch (numeroTir) {
-		// Attention on donne en premier les exterieurs 
+		// Attention on donne en premier les exterieurs
 		case 1:
 			SoundMan.playBruitage(SoundMan.tirRocket);
 			dir.y += getVitesse();
@@ -122,7 +130,6 @@ public class BossQuad extends Enemy implements Tireur {
 		}
 		return TMP_POS;
 	}
-	
 
 	@Override
 	public Invocable invoquer() {
@@ -130,23 +137,15 @@ public class BossQuad extends Enemy implements Tireur {
 		LIST.add(l);
 		return l;
 	}
-	@Override
-	public float getDirectionY() {			return -dir.y;	}
-	@Override
-	public float getDirectionX() {			return dir.x;	}
-	@Override
-	public int getXp() {					return 200;	}
+
 	@Override
 	public void free() {
 		pool.free(this);
 		Progression.nextNormalWavesCheck = EndlessMode.now;
 	}
+
 	@Override
-	public int getHeight() {				return HAUTEUR;	}
-	@Override
-	public int getWidth() {					return LARGEUR;	}
-	@Override
-	protected int getPvMax() {			
+	protected int getPvMax() {
 		tirPhase1 = new Tirs(.9f - (0.09f * EndlessMode.difficulty));
 		tirPhase2 = new Tirs(.5f - (0.05f * EndlessMode.difficulty));
 		tirPhase3 = new Tirs(.3f - (0.03f * EndlessMode.difficulty));
@@ -154,40 +153,28 @@ public class BossQuad extends Enemy implements Tireur {
 		pvMinPhase2 = getPvBoss(Stats.PV_BOSS_QUAD) / 3;
 		return super.getPvBoss(Stats.PV_BOSS_QUAD);
 	}
-	@Override
-	protected String getLabel() {			return getClass().toString();	}
-	@Override
-	public int getHalfHeight() {			return DEMI_HAUTEUR;			}
-	@Override
-	public int getHalfWidth() {				return DEMI_LARGEUR;			}
-	@Override
-	public EnemyWeapon getArme() {			return Fireball.POOL.obtain();	}
-	@Override
-	public float getModifVitesse() {		return 1;						}
-	@Override
-	protected Sound getSonExplosion() {		return SoundMan.bigExplosion;	}
-	@Override
-	public void setProchainTir(float f) {	prochainTir = f;				}
-	@Override
-	public int getValeurBonus() {			return 200;	}
+
 	public void die() {
 		Progression.nextNormalWavesCheck = EndlessMode.now;
 		Progression.bossJustPoped = false;
 		super.die();
 	}
 
-	@Override
-	public int getExplosionCount() {
-		return 180;
-	}
-
-	@Override
-	public Behavior getBehavior() {
-		return behavior;
-	}
-	@Override
-	public float getVitesse() {
-		return Stats.V_ENN_BOSS_QUAD;
-	}
+	@Override	public float getDirectionY() {			return -dir.y;					}
+	@Override	public float getDirectionX() {			return dir.x;					}
+	@Override	public int getXp() {					return 200;						}
+	@Override	public int getHeight() {				return HAUTEUR;					}
+	@Override	public int getWidth() {					return LARGEUR;					}
+	@Override	protected String getLabel() {			return getClass().toString();	}
+	@Override	public int getHalfHeight() {			return DEMI_HAUTEUR;			}
+	@Override	public int getHalfWidth() {				return DEMI_LARGEUR;			}
+	@Override	public EnemyWeapon getArme() {			return Fireball.POOL.obtain();	}
+	@Override	public float getModifVitesse() {		return 1;						}
+	@Override	protected Sound getSonExplosion() {		return SoundMan.bigExplosion;	}
+	@Override	public void setProchainTir(float f) {	prochainTir = f;				}
+	@Override	public int getValeurBonus() {			return 200;						}
+	@Override	public int getExplosionCount() {		return 180;						}
+	@Override	public Behavior getBehavior() {			return behavior;				}
+	@Override	public float getVitesse() {				return Stats.V_ENN_BOSS_QUAD;	}
 }
 

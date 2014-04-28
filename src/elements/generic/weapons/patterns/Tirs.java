@@ -1,5 +1,6 @@
 package elements.generic.weapons.patterns;
 
+import jeu.CSG;
 import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.Stats;
@@ -39,6 +40,17 @@ public class Tirs {
 		if (maintenant > prochainTir) {
 			for (int i = 1; i <= tirs; i++) {
 				t.getArme().init(t.getPositionDuTir(i), t.getModifVitesse(), boss);
+			}
+			t.setProchainTir(maintenant + cadence);
+		}
+	}
+	
+	public void tirMultiplesVersBasRandomize(Tireur t, int tirs, float maintenant, float prochainTir, boolean boss) {
+		if (maintenant > prochainTir) {
+			for (int i = 1; i <= tirs; i++) {
+				tmpDir.x = 0;
+				tmpDir.y = -1;
+				t.getArme().init(t.getPositionDuTir(i), t.getModifVitesse(), tmpDir.rotate((float) CSG.R.nextGaussian()*2f), boss);
 			}
 			t.setProchainTir(maintenant + cadence);
 		}
@@ -222,5 +234,6 @@ public class Tirs {
 			t.setProchainTir(now + cadence);
 		}
 	}
+
 
 }

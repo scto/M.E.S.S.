@@ -50,7 +50,6 @@ import elements.generic.weapons.enemies.Tournante;
 import elements.generic.weapons.enemies.VicousBullet;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.bonuses.Bonus;
-import elements.particular.bonuses.BonusBombe;
 import elements.particular.bonuses.XP;
 import elements.particular.other.WaveEffect;
 import elements.particular.particles.Particles;
@@ -164,7 +163,7 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 	 * @return return true si vivant.
 	 */
 //	private static float pourcentage;
-	private static float deltaMulImpact;
+	protected static float deltaMulImpact;
 	public boolean stillAlive(PlayerWeapon a) {
 		deltaMulImpact = EndlessMode.delta * Stats.IMPACT;
 		pos.x += (a.dir.x * deltaMulImpact);

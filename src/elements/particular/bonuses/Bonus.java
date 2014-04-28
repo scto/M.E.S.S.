@@ -24,7 +24,7 @@ public abstract class Bonus {
 	public static final int HALF_WIDTH = (int) (Stats.BONUS_WIDTH / 2), WIDTH_MUL2 = WIDTH * 2, DISPLAY_WIDTH = (int) (WIDTH * 1.8f);
 	protected static final float HITBOX = HALF_WIDTH;
 	protected static final float HITBOX_TOP_RIGHT = (HITBOX * 2) + WIDTH;
-	protected static final int TIME_FREQ = 8, 
+	protected static final int TIME_FREQ = 9, 
 			ADD_FREQ = (TIME_FREQ * 2)+1, 
 			BOMB_FREQ = (int) ((TIME_FREQ * 5.9f)+26), 
 			STOP_FREQ = (int) ((TIME_FREQ * 6.7f)+50), 

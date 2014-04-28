@@ -1,5 +1,6 @@
 package elements.generic.weapons.player;
 
+import jeu.CSG;
 import jeu.Stats;
 import assets.AssetMan;
 
@@ -8,7 +9,6 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.particular.particles.Particles;
-import elements.particular.particles.individual.weapon.FireballParticle;
 
 /**
  * Arme de base qui fait une boule de feu
@@ -17,8 +17,9 @@ import elements.particular.particles.individual.weapon.FireballParticle;
  */
 public class Fireball extends PlayerWeapon implements Poolable{
 	
-	public static int width, halfWidth, width066, width033, width05, width10, width15, width20, width25, width30, width35, width40;
-	public static final float CADENCETIR = initCadence(.13f, 1);
+	public static final int WIDTH = (int) MINWIDTH, halfWidth = WIDTH/2, width033 = (int) (WIDTH * .33f), WIDTH066 = (int) (WIDTH * .66f), WIDTH05 = (int) (WIDTH*.03f), WIDTH10 = (int) (WIDTH*.06f),
+			WIDTH15 = (int) (WIDTH*.09f), WIDTH20 = (int) (WIDTH*.12f), WIDTH25 = (int) (WIDTH*.15f), WIDTH30 = (int) (WIDTH*.18f), WIDTH35 = (int) (WIDTH*.21f), WIDTH40 = (int) (WIDTH*.24f);
+	public static final float CADENCETIR = initCadence(.12f, 1);
 	public static final String LABEL = "ArmeDeBase";
 	public static final Pool<Fireball> POOL = new Pool<Fireball>(10) {
 		@Override
@@ -26,6 +27,12 @@ public class Fireball extends PlayerWeapon implements Poolable{
 			return new Fireball();
 		}
 	};
+	
+	public Fireball() {
+		dir.x = 0;
+		dir.y = Stats.V_ARME_DE_BASE;
+		dir.rotate((float) CSG.R.nextGaussian() * 2);
+	}
 	
 	public static float[] couleurs = {
 		AssetMan.convertARGB(1, 108f/255f, 24f/255f, 	0),
@@ -54,24 +61,6 @@ public class Fireball extends PlayerWeapon implements Poolable{
 		
 		AssetMan.convertARGB(1, 252f/255f, 248f/255f, 148/255f)};
 	
-	public static void updateDimensions() {
-//		width = (int) (MINWIDTH + (UPDATEWIDTH * CSG.profile.NvArmeDeBase));
-		width = (int) (MINWIDTH + (UPDATEWIDTH * 3)); 
-		halfWidth = width/2;
-		width033 = (int) (width * .33f);
-		width066 = (int) (width * .66f);
-		width05 = (int) (width*.03f);
-		width10 = (int) (width*.06f);
-		width15 = (int) (width*.09f);
-		width20 = (int) (width*.12f);
-		width25 = (int) (width*.15f);
-		width30 = (int) (width*.18f);
-		width35 = (int) (width*.21f);
-		width40 = (int) (width*.24f);
-		
-		FireballParticle.width = width;
-	}
-
 	/**
 	 * ATTENTION ici le init s'occupe d'ajouter � la bonne liste
 	 */
@@ -79,12 +68,15 @@ public class Fireball extends PlayerWeapon implements Poolable{
 		pos.x = posX;
 		pos.y = posY;
 		PLAYER_LIST.add(this);
-		dir.y = Stats.V_ARME_DE_BASE;
 	}
 
-	@Override	public void draw(SpriteBatch batch) {		Particles.ajoutArmeDeBase(this);	}
-	@Override	public int getWidth() {						return width;	}	
-	@Override	public int getHeight() {					return width;	}
+	@Override	public void draw(SpriteBatch batch) {
+		Particles.ajoutArmeDeBase(this);	
+		Particles.ajoutArmeDeBase(this);	
+		Particles.ajoutArmeDeBase(this);	
+	}
+	@Override	public int getWidth() {						return WIDTH;	}	
+	@Override	public int getHeight() {					return WIDTH;	}
 	@Override	public void free() {						POOL.free(this);	}
 	@Override	public float getColor() {					return couleurs[R.nextInt(couleurs.length)];	}
 	@Override	public int getHalfWidth() {					return halfWidth;	}
