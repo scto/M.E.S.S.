@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
+import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.weapon.SpaceInvaderParticle;
 
 
@@ -66,6 +67,7 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 	@Override	public float getColor() {					return COLORS[R.nextInt(COLORS.length)];	}
 	@Override	public int getHalfWidth() {					return halfWidth;	}
 	@Override	public int getHalfHeight() {				return halfWidth;	}
+	@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeBlue;		}
 
 	public static Object getLabel() {			return LABEL;	}
 

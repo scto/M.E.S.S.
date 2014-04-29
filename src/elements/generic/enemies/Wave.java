@@ -178,8 +178,8 @@ public class Wave {
 		if (maxScore < EndlessMode.score)
 			nextActivation = Progression.MAX;
 		if (boss) {
-			Progression.nextBoss = EndlessMode.now + 120;
-			Progression.nextNormalWavesCheck = EndlessMode.now + 25;
+			Progression.incrementNextBoss(120f);
+			Progression.incrementWavesCheck(25f);
 		}
 	}
 	

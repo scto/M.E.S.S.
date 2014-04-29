@@ -11,14 +11,21 @@ import jeu.Stats;
 public class PrecalculatedParticles {
 
 	public static final float INITIAL_WIDTH = ((float)Stats.LARGEUR_DE_BASE / 4), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
-	public static final float[] colorsRed = initAlphasRed(), colorsBlue = initAlphasBlue(), colorsGreen = initAlphasGreen();
-	public static final float[] widths = initWidths();
+	private static final float stepSparkles = 0.075f;
+	public static final float[] colorsRed = initAlphasRed(stepSparkles, 0), colorsBlue = initAlphasBlue(stepSparkles, 0), colorsGreen = initAlphasGreen(stepSparkles, 0);
+	public static final float[] widths = initWidths(Stats.uSur4, colorsRed.length);
 	public final static float[] widthsFireballParticules = initWidths(Stats.u, 0.75f, Fireball.WIDTH);
-	public final static float[] halfWidthsFireballParticules = CSG.getHalf(widths);
+	public final static float[] halfWidthsFireballParticules = CSG.getHalf(widthsFireballParticules);
 	public final static float[] colorsFireball = initColors(widthsFireballParticules.length, 1, 0.9f, 0);
 	public final static float[] colorsPinkWeapon = initColors(7, 4, 1, 1);
 	public static final float[] halfWidths = CSG.getHalf(widths);
 	public static final float[] dirY = initDirY(widths);
+	
+	
+	private static final float stepColorsOverTime = 0.065f;
+	public static final float[] colorsOverTimeRed = initAlphasRed(stepColorsOverTime, 0.15f), colorsOverTimeBlue = initAlphasBlue(stepColorsOverTime, 0.15f), colorsOverTimeGreen = initAlphasGreen(stepColorsOverTime, 0.15f);
+	public static final float[] widthsColorOverTime = initWidths((1 / colorsOverTimeRed.length) / 2, colorsOverTimeRed.length), widthsColorOVerTime2 = CSG.getDouble(widthsColorOverTime);
+	public static final float[] halfWidthsColorOverTime = CSG.getHalf(widthsColorOverTime);
 	
 	private static float[] initWidths(float max, float mult, float initial) {
 		Array<Float> tmp = new Array<Float>();
@@ -30,12 +37,16 @@ public class PrecalculatedParticles {
 		return CSG.convert(tmp);
 	}
 	
-	private static float[] initWidths() {
+	private static float[] initAlphasPink(float stepcolorsovertime2, float f) {
+		return null;
+	}
+
+	private static float[] initWidths(float step, int max) {
 		float f = INITIAL_WIDTH;
 		Array<Float> tmp = new Array<Float>();
-		for (int i = 0; i < colorsRed.length; i++) {
+		for (int i = 0; i < max; i++) {
 			tmp.add(f);
-			f += Stats.uSur4;
+			f += step;
 		}
 		return CSG.convert(tmp);
 	}
@@ -62,33 +73,35 @@ public class PrecalculatedParticles {
 		return CSG.convert(tmp);
 	}
 	
-	private static float[] initAlphasGreen() {
+	private static float[] initAlphasGreen(float step, float min) {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
-		while (alpha > 0) {
+		while (alpha > min) {
 			tmp.add(AssetMan.convertARGB(alpha, 0.05f, 1, alpha));
-			alpha -= 0.075f;
+			alpha -= step;
 		}
 		return CSG.convert(tmp);
 	}
 	
-	private static float[] initAlphasBlue() {
+	private static float[] initAlphasBlue(float step, float min) {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
-		while (alpha > 0) {
+		while (alpha > min) {
 			tmp.add(AssetMan.convertARGB(alpha, 0.05f, alpha, 1));
-			alpha -= 0.075f;
+			alpha -= step;
 		}
 		return CSG.convert(tmp);
 	}
 
-	private static float[] initAlphasRed() {
+	private static float[] initAlphasRed(float step, float min) {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
-		while (alpha > 0) {
+		while (alpha > min) {
 			tmp.add(AssetMan.convertARGB(alpha, 1, alpha, 0.05f));
-			alpha -= 0.075f;
+			alpha -= step;
 		}
 		return CSG.convert(tmp);
 	}
+	
+	
 }

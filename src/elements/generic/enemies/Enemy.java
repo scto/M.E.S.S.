@@ -53,6 +53,7 @@ import elements.particular.bonuses.Bonus;
 import elements.particular.bonuses.XP;
 import elements.particular.other.WaveEffect;
 import elements.particular.particles.Particles;
+import elements.particular.particles.individual.PrecalculatedParticles;
 
 public abstract class Enemy extends Element implements Poolable, Invocable {
 
@@ -311,6 +312,7 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		@Override		public void free() {		}		
 		@Override		public float getColor() {				return 0;		}
 		@Override		public int getPower() { 				return 250;		}
+		@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeRed;		}
 	};
 	
 	public static final PlayerWeapon superBomb = new PlayerWeapon() {
@@ -322,6 +324,7 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		@Override		public void free() {		}		
 		@Override		public float getColor() {				return 0;		}
 		@Override		public int getPower() { 				return 380;		}
+		@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeRed;		}
 	};
 
 	public void addAngle(float f) {

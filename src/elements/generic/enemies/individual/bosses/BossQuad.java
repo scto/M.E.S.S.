@@ -141,7 +141,6 @@ public class BossQuad extends Enemy implements Tireur {
 	@Override
 	public void free() {
 		pool.free(this);
-		Progression.nextNormalWavesCheck = EndlessMode.now;
 	}
 
 	@Override
@@ -155,8 +154,7 @@ public class BossQuad extends Enemy implements Tireur {
 	}
 
 	public void die() {
-		Progression.nextNormalWavesCheck = EndlessMode.now;
-		Progression.bossJustPoped = false;
+		Progression.bossDied();
 		super.die();
 	}
 

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.Player;
+import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.weapon.SunParticle;
 
 public class SunWeapon extends PlayerWeapon implements Poolable {
@@ -77,6 +78,7 @@ public class SunWeapon extends PlayerWeapon implements Poolable {
 	@Override	public TextureRegion getTexture() {			return null;	}
 	@Override	public int getHalfWidth() {					return halfWidth;	}
 	@Override	public int getHalfHeight() {				return halfWidth;	}
+	@Override	public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeGreen;		}
 
 	public static Object getLabel() {			return LABEL;	}
 

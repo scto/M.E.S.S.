@@ -42,7 +42,7 @@ public class PorteRaisin extends Enemy implements TireurPlusieurFois {
 	protected final Tirs TIR = new Tirs(CADENCE);
 	public static final Invocable ref = new PorteRaisin();
 	private static final float ROTATION_BETWEEN_SHOTS = 4;
-	private float angleTir = 65;
+	private float angleTir;
 	private int numeroTir = 3;
 	private boolean goodShape;
 	private static final InvocableWeapon weapon = initEnemyWeapon(KinderWeapon.PK, PK);
@@ -51,7 +51,7 @@ public class PorteRaisin extends Enemy implements TireurPlusieurFois {
 	protected void init() {
 		positionning.set(this);
 		prochainTir = INIT_NEXT_SHOT;
-		angleTir = 180;
+		angleTir = 0;
 		goodShape = true;
 		TIR.cadence = CADENCE;
 		dir.x = 0;

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.Player;
 import elements.generic.weapons.Weapons;
+import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.weapon.GreenAddParticle;
 
 /**
@@ -96,6 +97,7 @@ public class ArmeAdd extends PlayerWeapon implements Poolable{
 	public static void add(float x, float y, float angle, float decalage) {
 		POOL.obtain().init(x, y, angle + 90, decalage);
 	}
-
+	
+	@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeGreen;		}
 }
 

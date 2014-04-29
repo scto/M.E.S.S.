@@ -106,7 +106,7 @@ public class EndlessMode implements Screen {
 
 	private static final OrthographicCamera cam = new OrthographicCamera(CSG.screenWidth, CSG.SCREEN_HEIGHT);
 	public static int difficulty, nbBonusStop = 0, nbBombes = 0;
-	public static float bloomOriginalIntensity = 1, delta = 0, timeStopBonus = 0, delta15 = 0, deltaDiv3, delta2, deltaU, deltaMicroU, UnPlusDelta, unPlusDelta2, unPlusDelta3, deltaPlusExplosion;
+	public static float bloomOriginalIntensity = 1, delta = 0, timeStopBonus = 0, delta15 = 0, deltaDiv3, delta2, deltaU, deltaMicroU, UnPlusDelta, unPlusDelta2, unPlusDelta3, deltaPlusExplosion, delta25;
 	public static boolean effetBloom = false, xpAjout = false, drawMenu = false, konamiCode = false, movementTransition = false;
 	private static boolean choosen = false, willUseStopBonus = false;
 	private static int menuX = 0, menuY = 0;
@@ -129,8 +129,8 @@ public class EndlessMode implements Screen {
 	public static final float STOP = 3;
 	public static boolean invicibility = false, freeze = false;
 	private Tutorial tuto = new Tutorial();
-	private TemporaryText getReady = new TemporaryText(Strings.GET_READY);
-	private boolean started = false;
+//	private TemporaryText getReady = new TemporaryText(Strings.GET_READY);
+//	private boolean started = false;
 
 	public EndlessMode(Game game, SpriteBatch batch, int level) {
 		super();
@@ -195,8 +195,8 @@ public class EndlessMode implements Screen {
 		rScore = 0;
 		multi = 1;
 		strMulti = "x1";
-		getReady.reset();
-		started = false;
+//		getReady.reset();
+//		started = false;
 	}
 
 	@Override
@@ -275,11 +275,11 @@ public class EndlessMode implements Screen {
 			stopActivated();
 		if (CSG.profile.isFirstTime()) 
 			tuto.act(batch);
-		if (!started) {
-			getReady.act(batch, true);
-			if (Gdx.input.isTouched())
-				started = true;
-		}
+//		if (!started) {
+//			getReady.act(batch, true);
+//			if (Gdx.input.isTouched())
+//				started = true;
+//		}
 		batch.end();
 		if (CSG.profile.bloom)
 			bloom.render();
@@ -314,6 +314,7 @@ public class EndlessMode implements Screen {
 		UnPlusDelta = 1 + delta;
 		unPlusDelta2 = 1 + delta2;
 		unPlusDelta3 = UnPlusDelta + delta2;
+		delta25 = delta * 25;
 	}
 
 	private static final float SHAKE_MIN = 1.1f, SHAKE_MAX = 4;//, SHAKE_MUL = 2;
@@ -582,7 +583,7 @@ public class EndlessMode implements Screen {
 						(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width, 
 						(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).height, 
 						(int) ((cam.position.x) - CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width / 2),
-						(int) (Menu.HAUTEUR_BOUTON * 2.5f),
+						(int) (Menu.HAUTEUR_BOUTON * 3f),
 						new OnClick() {
 					public void onClick() {
 						if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
@@ -604,7 +605,7 @@ public class EndlessMode implements Screen {
 					(int) CSG.menuFont.getBounds(Strings.BRAG_TWITTER).width, 
 					(int) CSG.menuFont.getBounds(Strings.BRAG_TWITTER).height, 
 					(int) ((cam.position.x) - CSG.menuFont.getBounds(Strings.BRAG_TWITTER).width / 2),
-					Menu.HAUTEUR_BOUTON * 4,
+					Menu.HAUTEUR_BOUTON * 5,
 					new OnClick() {
 					public void onClick() {
 						CSG.google.bragTwitter("I made " + (int)score + " on #MESS" + difficulty + " #androidgames");
@@ -626,7 +627,7 @@ public class EndlessMode implements Screen {
 		Particles.drawImpacts(batch);
 		Weapons.affichage(batch);
 		ui();
-		initAndDrawButtons(batch);
+//		initAndDrawButtons(batch);
 	}
 
 	protected void moveCamY(float y) {
@@ -686,8 +687,8 @@ public class EndlessMode implements Screen {
 	}
 
 	private void update() {
-		if (!started)
-			return;
+//		if (!started)
+//			return;
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.POWER) || Gdx.input.isKeyPressed(Keys.HOME) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			justTouched = now;
 			mettrePause();

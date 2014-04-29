@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.particular.particles.Particles;
+import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class PinkWeapon extends PlayerWeapon implements Poolable {
 	
@@ -63,4 +64,5 @@ public class PinkWeapon extends PlayerWeapon implements Poolable {
 	@Override	public int getHalfWidth() {			return halfWidth;	}
 	@Override	public int getHalfHeight() {		return halfWidth;	}
 	@Override	public float getColor() {			return COLORS[color];	}
+	@Override	public float[] getColors() {		return PrecalculatedParticles.colorsPinkWeapon;		}
 }

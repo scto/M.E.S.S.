@@ -27,7 +27,7 @@ public class Tournante extends LaserWeapon implements Poolable, InvocableWeapon{
 
 	@Override
 	public boolean mouvementEtVerif() {
-		EndlessMode.rotate(dir, EndlessMode.delta15);
+		EndlessMode.rotate(dir, EndlessMode.delta25);
 		return super.mouvementEtVerif();
 	}
 	

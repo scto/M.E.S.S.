@@ -44,7 +44,7 @@ public class ExplosionImpactBullet implements Poolable {
 		width = Math.abs((float) ((CSG.R.nextGaussian() * WIDTH_SMALL))) + MIN_WIDTH;
 		x = (pw.pos.x - width/2) + (pw.getWidth()*CSG.R.nextFloat());
 		y = (pw.pos.y - width/2) + (pw.getHeight()*CSG.R.nextFloat());
-		ttl = (int) (CSG.R.nextFloat() * 5) + 6;
+		ttl = (int) (CSG.R.nextFloat() * 5) + 5;
 		color = pw.getColor();
 		return this;
 	}

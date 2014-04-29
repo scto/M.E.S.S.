@@ -189,8 +189,7 @@ public class BossMine extends Enemy implements TireurAngle {
 	
 	@Override
 	public void die() {
-		Progression.nextNormalWavesCheck = EndlessMode.now;
-		Progression.bossJustPoped = false;
+		Progression.bossDied();
 		super.die();
 	}
 

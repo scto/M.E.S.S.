@@ -29,5 +29,6 @@ public abstract class PlayerWeapon extends Weapons {
 	protected TextureRegion getTexture() {
 		return AssetMan.debris;
 	}
+	public abstract float[] getColors();
 }
 

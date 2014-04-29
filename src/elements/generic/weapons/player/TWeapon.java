@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.particular.particles.Particles;
+import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class TWeapon extends PlayerWeapon implements Poolable{
 	
@@ -101,4 +102,5 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 	@Override	public TextureRegion getTexture() {		return null;	}
 	@Override	public int getHalfWidth() {				return halfWidth;	}
 	@Override	public int getHalfHeight() {			return halfHeight;	}
+	@Override	public float[] getColors() {		return PrecalculatedParticles.colorsOverTimeBlue;		}
 }

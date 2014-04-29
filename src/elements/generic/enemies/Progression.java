@@ -1,47 +1,25 @@
 package elements.generic.enemies;
 
-import java.util.Random;
-
+import jeu.CSG;
 import jeu.EndlessMode;
 
 public final class Progression {
 
 	
-	public static EtatProgression etat = EtatProgression.Normal;
-	// La frequence d'apparition en secondes
 	public static final float FREQ_APPARATION = 1;
-	static final int MAX = 99999999;
-	private Progression() {	}
-	
-	public static void reset() {
-		nextNormalWavesCheck = 0;
-		nextBoss = 90;
-		
-		resetWaves(wavesLvl1);
-		resetWaves(wavesLvl2);
-		resetWaves(wavesLvl3);
-		resetWaves(wavesLvl4);
-		resetWaves(remplissage);
-		resetWaves(remplissageLvl3);
-		resetWaves(remplissageLvl4);
-		resetWaves(bosses);
-		graceTime = 0;
-	}
-
-	private static void resetWaves(Wave[] waves) {
-		for (Wave wave : waves)
-			wave.reset();
-	}
+	public static final int MAX = 999999999;
+	private static boolean poped, bossJustPoped = false;
+	private static float nextNormalWavesCheck = 0, nextBoss = 0, beginBossScore, graceTime = 0;
+	private static int nbEnemiesMax = 0;
+	// the minimum time between two wave activations
+	private static final float graceDelay = 4f;
 	
 	private final static Wave[] remplissage = {
-		Wave.remplissageCylon, Wave.remplissageDeBase10, Wave.remplissageKinder, Wave.remplissageQuiTourne, Wave.group, Wave.remplissageVicous
-		};
+		Wave.remplissageCylon, Wave.remplissageDeBase10, Wave.remplissageKinder, Wave.remplissageQuiTourne, Wave.group, Wave.remplissageVicous		};
 	private final static Wave[] remplissageLvl3 = {
-		Wave.remplissageCylon3, Wave.remplissageDeBase310, Wave.remplissageKinder3, Wave.remplissageQuiTourne3, Wave.remplissageBouleRotation, Wave.group3, Wave.remplissageVicous
-		};
+		Wave.remplissageCylon3, Wave.remplissageDeBase310, Wave.remplissageKinder3, Wave.remplissageQuiTourne3, Wave.remplissageBouleRotation, Wave.group3, Wave.remplissageVicous		};
 	private final static Wave[] remplissageLvl4 = {
-		Wave.remplissageCylon4, Wave.remplissageDeBase410, Wave.remplissageKinder4, Wave.group4, Wave.remplissageVicous
-		};
+		Wave.remplissageCylon4, Wave.remplissageDeBase410, Wave.remplissageKinder4, Wave.group4, Wave.remplissageVicous		};
 	private final static Wave[] wavesLvl1 = {
 		Wave.lvl1_3,
 		Wave.lvl1_170,
@@ -116,15 +94,29 @@ public final class Progression {
 	};
 	private final static Wave[] bosses = {Wave.bossMine, Wave.bossQuad	};
 	
-	public static float nextNormalWavesCheck = 0;
-	public static float nextBoss = 0;
-	private static final Random R = new Random(System.currentTimeMillis());
-	private static float beginBossScore;
-	public static boolean bossJustPoped = false;
-	private static int nbEnemiesMax = 0;
-	private static float graceTime = 0;
-	// the minimum time between two wave activations
-	private static final float graceDelay = 4f;
+	private Progression() {
+	}
+
+	public static void reset() {
+		nextNormalWavesCheck = 0;
+		nextBoss = 90;
+
+		resetWaves(wavesLvl1);
+		resetWaves(wavesLvl2);
+		resetWaves(wavesLvl3);
+		resetWaves(wavesLvl4);
+		resetWaves(remplissage);
+		resetWaves(remplissageLvl3);
+		resetWaves(remplissageLvl4);
+		resetWaves(bosses);
+		graceTime = 0;
+	}
+
+	private static void resetWaves(Wave[] waves) {
+		for (Wave wave : waves)
+			wave.reset();
+	}
+
 	public static void invoqueBaseOnScore() {
 		if (nextBoss < EndlessMode.now) {
 			if (bossJustPoped) {
@@ -174,7 +166,7 @@ public final class Progression {
 			case 4 :	tmpCheck = hasAnActiveWave(wavesLvl4);		break;
 			}
 			if (!tmpCheck) {
-				tmp = R.nextInt(waves.length);
+				tmp = CSG.R.nextInt(waves.length);
 				waves[tmp].activate();
 			}
 		}
@@ -186,10 +178,10 @@ public final class Progression {
 	private static void compensateForBossTime() {
 		bossJustPoped = false;
 		switch(EndlessMode.difficulty) {
-		case 1:	compensateBoss(EndlessMode.score - beginBossScore, wavesLvl1);		break;
-		case 2:	compensateBoss(EndlessMode.score - beginBossScore, wavesLvl2);		break;
-		case 3:	compensateBoss(EndlessMode.score - beginBossScore, wavesLvl3);		break;
-		case 4:	compensateBoss(EndlessMode.score - beginBossScore, wavesLvl4);		break;
+		case 1:		compensateBoss(EndlessMode.score - beginBossScore, wavesLvl1);		break;
+		case 2:		compensateBoss(EndlessMode.score - beginBossScore, wavesLvl2);		break;
+		case 3:		compensateBoss(EndlessMode.score - beginBossScore, wavesLvl3);		break;
+		case 4:		compensateBoss(EndlessMode.score - beginBossScore, wavesLvl4);		break;
 		}
 	}
 
@@ -211,13 +203,25 @@ public final class Progression {
 		return false;
 	}
 
-	private static boolean poped;
 	private static void activateRandomBoss() {
 		Enemy.attackAllEnemies(Enemy.superBomb);
 		poped = false;
 		while (!poped)
-			poped = bosses[R.nextInt(bosses.length)].mightActivate();
+			poped = bosses[CSG.R.nextInt(bosses.length)].mightActivate();
 		bossJustPoped = true;
 		beginBossScore = EndlessMode.score;
+	}
+
+	public static void incrementNextBoss(float time) {
+		nextBoss = EndlessMode.now + time;
+	}
+
+	public static void incrementWavesCheck(float f) {
+		nextNormalWavesCheck = EndlessMode.now + f;
+	}
+
+	public static void bossDied() {
+		nextNormalWavesCheck = EndlessMode.now;
+		bossJustPoped = false;
 	}
 }
