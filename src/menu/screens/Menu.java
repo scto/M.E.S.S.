@@ -70,7 +70,7 @@ public class Menu extends AbstractScreen {
 		
 		ajout(new Bouton(SUPPORT_US, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_SUPPORT)), this, new OnClick() {
 			public void onClick() {
-				CSG.google.buyUsABeer();
+				CSG.talkToTheWorld.buyUsABeer();
 			}
 		}, false));
 
@@ -82,12 +82,12 @@ public class Menu extends AbstractScreen {
 		
 		ajout(new Bouton(Strings.TWITTER, false, CSG.menuFontSmall, LARGEUR_MINIBOUTON, HAUTEUR_MINIBOUTON / 2, (int) (CSG.screenWidth - ((CSG.menuFontSmall.getBounds(Strings.TWITTER).width * 2)) - PADDING * 3), (int) (4 + CSG.menuFont.getBounds("T").height*2), this, new OnClick() {
 			public void onClick() {
-				CSG.google.followTwitter();
+				CSG.talkToTheWorld.followTwitter();
 			}
 		}, false));
 		
 		if (Gdx.app.getVersion() != 0)
-			CSG.myRequestHandler.showAds(true);
+			CSG.talkToTheWorld.showAds(true);
 	}
 
 	@Override
@@ -105,17 +105,17 @@ public class Menu extends AbstractScreen {
 				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() > highscores.sprite.getY() 
 				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() < highscores.sprite.getY() + highscores.sprite.getHeight()) {
 //			if (CSG.google.getSignedIn())
-				CSG.google.getScores();
+				CSG.talkToTheWorld.getScores();
 //			else
 //				CSG.google.Login();
 		}
 		if (Gdx.input.isTouched() 
 				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() > achievements.sprite.getY() 
 				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() < achievements.sprite.getY() + achievements.sprite.getHeight()) {
-			if (CSG.google.getSignedIn())
-				CSG.google.getAchievements();
+			if (CSG.talkToTheWorld.getSignedIn())
+				CSG.talkToTheWorld.getAchievements();
 			else
-				CSG.google.Login();
+				CSG.talkToTheWorld.Login();
 		}
 		temps += delta;
 		detectiopnKonamiCode();

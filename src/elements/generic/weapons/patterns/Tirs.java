@@ -1,9 +1,9 @@
 package elements.generic.weapons.patterns;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -203,10 +203,10 @@ public class Tirs {
 	private static int tmpInt;
 	public void tirShotgun(Tireur t, float now, float prochainTir, int rnd, int min, float angle) {
 		if (now > prochainTir) {
-			tmpInt = min + EndlessMode.R.nextInt(rnd);
+			tmpInt = min + CSG.R.nextInt(rnd);
 			for (int i =0; i < tmpInt; i++) {
-				tmpDir.x = (float) (EndlessMode.R.nextGaussian() * Stats.UU);
-				tmpDir.y = ((float) -Math.abs(EndlessMode.R.nextGaussian() * Stats.UUU)) - Stats.UUU;
+				tmpDir.x = (float) (CSG.R.nextGaussian() * Stats.UU);
+				tmpDir.y = ((float) -Math.abs(CSG.R.nextGaussian() * Stats.UUU)) - Stats.UUU;
 				tmpDir.rotate(angle);
 				tmpPos = t.getPositionDuTir(0);
 				tmp2.x = 0;
@@ -224,12 +224,12 @@ public class Tirs {
 			tmpDir.x = 0;
 			tmpDir.y = -1;
 			t.getArme().init(t.getPositionDuTir(1), t.getModifVitesse(), tmpDir.rotate(
-					(EndlessMode.R.nextFloat() - 0.5f) * dispersion
+					(CSG.R.nextFloat() - 0.5f) * dispersion
 					), false);
 			tmpDir.x = 0;
 			tmpDir.y = -1;
 			t.getArme().init(t.getPositionDuTir(2), t.getModifVitesse(), tmpDir.rotate(
-					(EndlessMode.R.nextFloat() - 0.5f) * dispersion
+					(CSG.R.nextFloat() - 0.5f) * dispersion
 					), false);
 			t.setProchainTir(now + cadence);
 		}

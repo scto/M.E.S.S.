@@ -2,8 +2,8 @@ package elements.generic.enemies;
 
 import elements.generic.Invocable;
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.db.Requests;
+import jeu.mode.EndlessMode;
 
 public class Wave {
 	

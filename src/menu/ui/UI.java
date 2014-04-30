@@ -2,7 +2,7 @@ package menu.ui;
 
 import java.util.ArrayList;
 
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

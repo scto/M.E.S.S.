@@ -1,11 +1,12 @@
 package elements.generic.enemies;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.Stats;
 import jeu.Strings;
 import jeu.db.Requests;
+import jeu.mode.EndlessMode;
+import jeu.mode.extensions.ScreenShake;
 import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationCylon;
@@ -200,7 +201,7 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		explode();
 		SoundMan.playBruitage(getSonExplosion());
 //		SoundMan.playBruitage(getSonExplosion(), (pos.x + getHalfWidth()) - Player.xCenter);
-		EndlessMode.screenShake(getXp());
+		ScreenShake.screenShake(getXp());
 		EndlessMode.explosions++;
 		dead = true;
 	}
@@ -219,9 +220,9 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 	}
 
 	public static void bombe() {
-		CSG.google.unlockAchievementGPGS(Strings.ACH_BOMB);
+		CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_BOMB);
 		if (LIST.size >= 15) {
-			CSG.google.unlockAchievementGPGS(Strings.ACH_15_ENEMY);
+			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_15_ENEMY);
 		}
 		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.convertARGB(1, 1f, 	(CSG.R.nextFloat() + .8f) / 1.6f, 	CSG.R.nextFloat()/8));
 		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.convertARGB(1, 1f, 	(CSG.R.nextFloat() + .8f) / 1.6f, 	CSG.R.nextFloat()/8));

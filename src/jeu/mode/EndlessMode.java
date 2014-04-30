@@ -1,8 +1,12 @@
-package jeu;
-import java.util.Random;
-
-import jeu.dynamicTutorial.TemporaryText;
-import jeu.dynamicTutorial.Tutorial;
+package jeu.mode;
+import jeu.CSG;
+import jeu.Physic;
+import jeu.Profil;
+import jeu.Stats;
+import jeu.Strings;
+import jeu.mode.extensions.DesktopTests;
+import jeu.mode.extensions.ScreenShake;
+import jeu.mode.extensions.Tutorial;
 import menu.screens.Menu;
 import menu.tuto.OnClick;
 import menu.ui.Bouton;
@@ -26,54 +30,8 @@ import com.badlogic.gdx.math.Vector2;
 import elements.generic.Player;
 import elements.generic.enemies.Enemy;
 import elements.generic.enemies.Progression;
-import elements.generic.enemies.individual.bosses.BossMine;
-import elements.generic.enemies.individual.bosses.BossQuad;
-import elements.generic.enemies.individual.bosses.BossSat;
-import elements.generic.enemies.individual.bosses.Ombrelle;
-import elements.generic.enemies.individual.lvl1.Boule;
-import elements.generic.enemies.individual.lvl1.Cylon;
-import elements.generic.enemies.individual.lvl1.DeBase;
-import elements.generic.enemies.individual.lvl1.Insecte;
-import elements.generic.enemies.individual.lvl1.Kinder;
-import elements.generic.enemies.individual.lvl1.Laser;
-import elements.generic.enemies.individual.lvl1.Plane;
-import elements.generic.enemies.individual.lvl1.PorteRaisin;
-import elements.generic.enemies.individual.lvl1.QuiTir;
-import elements.generic.enemies.individual.lvl1.QuiTirTriangle;
-import elements.generic.enemies.individual.lvl1.Toupie;
-import elements.generic.enemies.individual.lvl1.Vicious;
-import elements.generic.enemies.individual.lvl1.ZigZag;
-import elements.generic.enemies.individual.lvl2.BouleTirCoteRotation;
-import elements.generic.enemies.individual.lvl3.BouleNv3;
-import elements.generic.enemies.individual.lvl3.CylonNv3;
-import elements.generic.enemies.individual.lvl3.DeBaseNv3;
-import elements.generic.enemies.individual.lvl3.Group3;
-import elements.generic.enemies.individual.lvl3.InsecteNv3;
-import elements.generic.enemies.individual.lvl3.KinderNv3;
-import elements.generic.enemies.individual.lvl3.LaserNv3;
-import elements.generic.enemies.individual.lvl3.Plane3;
-import elements.generic.enemies.individual.lvl3.PorteRaisinNv3;
-import elements.generic.enemies.individual.lvl3.QuiTirNv3;
-import elements.generic.enemies.individual.lvl3.QuiTirTriangle3;
-import elements.generic.enemies.individual.lvl3.QuiTourneNv3;
-import elements.generic.enemies.individual.lvl3.ToupieNv3;
-import elements.generic.enemies.individual.lvl3.ZigZagNv3;
-import elements.generic.enemies.individual.lvl4.BouleNv4;
-import elements.generic.enemies.individual.lvl4.CylonNv4;
-import elements.generic.enemies.individual.lvl4.DeBaseNv4;
-import elements.generic.enemies.individual.lvl4.InsecteNv4;
-import elements.generic.enemies.individual.lvl4.KinderNv4;
-import elements.generic.enemies.individual.lvl4.LaserNv4;
-import elements.generic.enemies.individual.lvl4.Plane4;
-import elements.generic.enemies.individual.lvl4.PorteRaisinNv4;
-import elements.generic.enemies.individual.lvl4.QuiTirNv4;
-import elements.generic.enemies.individual.lvl4.QuiTirTriangle4;
-import elements.generic.enemies.individual.lvl4.ToupieNv4;
-import elements.generic.enemies.individual.lvl4.ZigZagNv4;
 import elements.generic.weapons.Weapons;
 import elements.particular.bonuses.Bonus;
-import elements.particular.bonuses.BonusStop;
-import elements.particular.bonuses.XP;
 import elements.particular.other.WaveEffect;
 import elements.particular.particles.Particles;
 
@@ -85,7 +43,7 @@ public class EndlessMode implements Screen {
 	
 	private Game game;
 	private static SpriteBatch batch = CSG.batch;
-	private Bloom bloom = CSG.bloom;
+	public static Bloom bloom = CSG.bloom;
 	private GL20 gl;
 	public static boolean alternate = true, pause = false, scoreSent = false, triggerStop = false, lost = false;
 	
@@ -104,7 +62,7 @@ public class EndlessMode implements Screen {
 	private static final int TIER_LARGEUR_JAUGE =  CSG.screenWidth/18, HAUTEUR_JAUGE = CSG.SCREEN_HEIGHT/75;
 	// *************************  D  P  A  D  ****************************
 
-	private static final OrthographicCamera cam = new OrthographicCamera(CSG.screenWidth, CSG.SCREEN_HEIGHT);
+	public static final OrthographicCamera cam = new OrthographicCamera(CSG.screenWidth, CSG.SCREEN_HEIGHT);
 	public static int difficulty, nbBonusStop = 0, nbBombes = 0;
 	public static float bloomOriginalIntensity = 1, delta = 0, timeStopBonus = 0, delta15 = 0, deltaDiv3, delta2, deltaU, deltaMicroU, UnPlusDelta, unPlusDelta2, unPlusDelta3, deltaPlusExplosion, delta25;
 	public static boolean effetBloom = false, xpAjout = false, drawMenu = false, konamiCode = false, movementTransition = false;
@@ -114,10 +72,6 @@ public class EndlessMode implements Screen {
 	private static final Vector2 TMP_POS = new Vector2(), TMP_DIR = new Vector2();
 	private Bouton boutonUpgrade = null, boutonTwitter = null, boutonRestart = null;
 	private static Bouton boutonBack = null;
-	// screenshake
-	private static boolean shake = false;
-	private static float chronoShake = 0, shakeTmpForce = 0, shakeTotalMvtX, shakeTotalMvtY;
-	public static final Random R = new Random();
 	
 //	private static ShaderProgram shaderMort = ShaderMort.init(), originalShader;
 	public static ShaderProgram originalShader;
@@ -157,7 +111,7 @@ public class EndlessMode implements Screen {
 		}
 		ship.reInit(); // Pour remettre les positions mais garder shield et adds
 		if (Gdx.app.getVersion() != 0)
-			CSG.myRequestHandler.showAds(false); // desactiver adds. A VIRER POUR LA RELEASE
+			CSG.talkToTheWorld.showAds(false); // desactiver adds. A VIRER POUR LA RELEASE
 		// ** DEPLACEMENT ZONE DE JEU
 		cam.position.set(CSG.gameZoneWidth/2, CSG.SCREEN_HEIGHT / 2, 0);
 		
@@ -182,8 +136,6 @@ public class EndlessMode implements Screen {
 		boutonRestart = null;
 		boutonBack = null;
 		
-		shake = false;
-		chronoShake = 0;
 		Weapons.clear();
 		Progression.reset();
 		cam.position.z = 1;
@@ -201,6 +153,7 @@ public class EndlessMode implements Screen {
 
 	@Override
 	public void render(float delta) {
+		alternate = !alternate;
 		if (freeze) {
 			delta = 0;
 		}
@@ -208,7 +161,7 @@ public class EndlessMode implements Screen {
 			ship.mouvements();
 		originalDelta = delta;
 		if (Gdx.app.getVersion() == 0)
-			tests();
+			DesktopTests.debug();
 		cam();
 		
 		if (CSG.profile.bloom)
@@ -246,10 +199,10 @@ public class EndlessMode implements Screen {
 							bloom.setBloomIntesity(-1f);
 						final int monScore = (int) score;
 						switch (difficulty) {
-						case 1:		CSG.google.submitScore("CgkIrsqv7rIVEAIQKQ", monScore );	break;
-						case 2:		CSG.google.submitScore("CgkIrsqv7rIVEAIQKg", monScore );	break;
-						case 3:		CSG.google.submitScore("CgkIrsqv7rIVEAIQKw", monScore );	break;
-						case 4:		CSG.google.submitScore(Strings.LVL4LB, monScore );			break;
+						case 1:		CSG.talkToTheWorld.submitScore("CgkIrsqv7rIVEAIQKQ", monScore );	break;
+						case 2:		CSG.talkToTheWorld.submitScore("CgkIrsqv7rIVEAIQKg", monScore );	break;
+						case 3:		CSG.talkToTheWorld.submitScore("CgkIrsqv7rIVEAIQKw", monScore );	break;
+						case 4:		CSG.talkToTheWorld.submitScore(Strings.LVL4LB, monScore );			break;
 						}
 						scoreSent = true;
 					}
@@ -284,8 +237,7 @@ public class EndlessMode implements Screen {
 		if (CSG.profile.bloom)
 			bloom.render();
 		now += EndlessMode.delta;
-		if (shake)
-			screenShake();
+		ScreenShake.act();
 		Enemy.deadBodiesEverywhere();
 		fps = Gdx.graphics.getFramesPerSecond();
 		perf = fps / 10;
@@ -296,7 +248,7 @@ public class EndlessMode implements Screen {
 		ship.draw(batch);
 	}
 
-	private void cam() {
+	public static void cam() {
 		cam.update();
 		tmpCombined = cam.combined;
 		if (tmpCombined != null)
@@ -304,7 +256,6 @@ public class EndlessMode implements Screen {
 	}
 
 	public static void majDeltas() {
-		alternate = !alternate;
 		deltaPlusExplosion = EndlessMode.delta + explosions;
 		delta15 = delta * 15;
 		deltaDiv3 = delta / 3;
@@ -317,126 +268,6 @@ public class EndlessMode implements Screen {
 		delta25 = delta * 25;
 	}
 
-	private static final float SHAKE_MIN = 1.1f, SHAKE_MAX = 4;//, SHAKE_MUL = 2;
-	private void screenShake() {
-		if (chronoShake <= SHAKE_MIN) {
-			shake = false;
-			cam.position.y = CSG.halfHeight;
-			
-//			if (cam.position.x < CSG.screenHalfWidth) 	
-			cam.position.x = CSG.screenHalfWidth;
-//			else if (cam.position.x > CSG.DEMI_CAMERA)
-//				cam.position.x = CSG.DEMI_CAMERA;
-		} else {
-			shakeTmpForce = (float) ((R.nextFloat()/2) * (chronoShake*Stats.U));//SHAKE_MUL)) * Stats.u;
-			if (shakeTotalMvtX < 0) {
-				cam.position.x += shakeTmpForce;
-				shakeTotalMvtX += shakeTmpForce;
-			} else {
-				cam.position.x -= shakeTmpForce;
-				shakeTotalMvtX -= shakeTmpForce;
-			}
-			shakeTmpForce = (float) ((R.nextFloat()/2) * (chronoShake*Stats.U));//SHAKE_MUL)) * Stats.u;
-			if (shakeTotalMvtY < 0) {
-				cam.position.y += shakeTmpForce;
-				shakeTotalMvtY += shakeTmpForce;
-			} else {
-				cam.position.y -= shakeTmpForce;
-				shakeTotalMvtY -= shakeTmpForce;
-			}
-			
-			// avant game zone
-//			if (cam.position.x < CSG.screenHalfWidth) 	
-//				cam.position.x = CSG.screenHalfWidth;
-//			else if (cam.position.x > CSG.screenHalfWidth)
-//				cam.position.x = CSG.screenHalfWidth;
-			chronoShake /= 1.01f + delta2;
-		}
-	}
-	
-	private void tests() {
-		//		if (Gdx.input.isKeyPressed(Keys.A)) {
-//			Ennemis.LISTE.add(DeBase.pool.obtain());
-//		}
-//		CSG.profil.NvArmeBalayage = 1;
-//		CSG.profil.NvArmeDeBase = 1;
-//		CSG.profil.NvArmeHantee = 1;
-//		CSG.profil.NvArmeTrois = 1;
-		if (Gdx.input.isKeyPressed(Keys.PAGE_DOWN))	{
-			cam.translate(0, 0, 1);
-			cam();
-			SoundMan.playBruitage(SoundMan.bonusTaken);
-		}
-		if (Gdx.input.isKeyPressed(Keys.END))	Group3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.A)) 	BossSat.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Z)) 	DeBase.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Z)) 	DeBaseNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Z)) 	DeBaseNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.E))		ZigZag.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.E))		ZigZagNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.E))		ZigZagNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.R))		addBonusStop();
-		if (Gdx.input.isKeyPressed(Keys.T))		QuiTir.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.T))		QuiTirNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.T))		QuiTirNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Y))		QuiTirTriangle.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Y))		QuiTirTriangle3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Y))		QuiTirTriangle4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.U))		Boule.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.U))		BouleNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.U))		BouleNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.O))		Ombrelle.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.P))		BouleTirCoteRotation.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Q))		Toupie.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Q))		ToupieNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Q))		ToupieNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.D))		XP.POOL.obtain().init(400, 400, 300);
-//		if (Gdx.input.isKeyPressed(Keys.F))		QuiTourne.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F))		QuiTourneNv3.ref.invoquer();
-//		if (Gdx.input.isKeyPressed(Keys.F))		QuiTourneNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.J))		Kinder.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.J))		KinderNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.J))		KinderNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.M))		Cylon.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.M))		CylonNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.M))		CylonNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.X))		Plane.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.X))		Plane3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.X))		Plane4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.V))		Laser.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.V))		LaserNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.V))		LaserNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.N))		PorteRaisin.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.N))	PorteRaisinNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.N))	PorteRaisinNv4.ref.invoquer();
-		
-		
-		if (Gdx.input.isKeyPressed(Keys.F1))	invicibility = true;
-		if (Gdx.input.isKeyPressed(Keys.F2))	invicibility = false;
-		if (Gdx.input.isKeyPressed(Keys.F3))	freeze = true;
-		if (Gdx.input.isKeyPressed(Keys.F4))	freeze = false;
-		if (Gdx.input.isKeyPressed(Keys.F5))	Enemy.bombe();
-		if (Gdx.input.isKeyPressed(Keys.F6))	Insecte.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F6))	InsecteNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F6))	InsecteNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F9))	BossMine.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F10))	BossQuad.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F11))	Vicious.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F12))	DeBaseNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F3))	Bonus.LIST.add(BonusStop.POOL.obtain());
-		if (Gdx.input.isKeyPressed(Keys.F4)) {
-			Bonus.LIST.add(XP.POOL.obtain());
-			CSG.profile.bfg = true;
-		}
-//		if (Gdx.input.isKeyPressed(Keys.H))
-//			try {
-//				sendInfos();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-		if (Gdx.input.isKeyPressed(Keys.F5)) score++;
-	}
-	
 	private float facteurTransition = 20;
 	private final static float stepTransition = .1f;
 	private void transitionVersMouvement() {
@@ -451,7 +282,6 @@ public class EndlessMode implements Screen {
 		}
 		EndlessMode.delta /= facteurTransition;
 		majDeltas();
-		alternate = !alternate;
 	}
 
 	private void affichageEtUpdateStop() {
@@ -469,11 +299,7 @@ public class EndlessMode implements Screen {
 		if (triggerStop) {
 			bloom.setBloomIntesity(CSG.profile.intensiteBloom + (timeStopBonus*2));
 		} else {
-			if (!shake) {
-				bloom.setBloomIntesity(CSG.profile.intensiteBloom);
-			} else {
-				bloom.setBloomIntesity(CSG.profile.intensiteBloom + (chronoShake * 1.9f) );
-			}
+			ScreenShake.bloomEffect();
 		}
 		bloom.capture();
 	}
@@ -508,7 +334,7 @@ public class EndlessMode implements Screen {
 		game.setScreen(new Menu(game));
 		Enemy.clear();
 		if (CSG.profile.xpDispo >= 30000) {
-			CSG.google.unlockAchievementGPGS(Strings.ACH_30k_XP);
+			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_30k_XP);
 		}
 	}
 
@@ -523,7 +349,7 @@ public class EndlessMode implements Screen {
 		if (timeSinceLost < 0.7f)
 			return;
 		if (Gdx.app.getVersion() != 0)
-			CSG.myRequestHandler.showAds(true);
+			CSG.talkToTheWorld.showAds(true);
 		
 		if (!xpAjout && !konamiCode) {
 			CSG.profile.addXp((int) score);
@@ -579,22 +405,41 @@ public class EndlessMode implements Screen {
 		}
 		if (Player.weapon.nv() < Profil.NV_ARME_MAX) {
 			if (boutonUpgrade == null) {
-				boutonUpgrade = new Bouton(Strings.UPGRADE_BUTTON, CSG.menuFont, 
-						(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width, 
-						(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).height, 
-						(int) ((cam.position.x) - CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width / 2),
-						(int) (Menu.HAUTEUR_BOUTON * 3f),
-						new OnClick() {
-					public void onClick() {
-						if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
-							CSG.profile.upArme();
-							CSG.profilManager.persist();
-							init();
-						} else {
-							CSG.google.buyXp();
+				if (CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
+					boutonUpgrade = new Bouton(Strings.UPGRADE_BUTTON, CSG.menuFont, 
+							(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width, 
+							(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).height, 
+							(int) ((cam.position.x) - CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width / 2),
+							(int) (Menu.HAUTEUR_BOUTON * 3f),
+							new OnClick() {
+						public void onClick() {
+							if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
+								CSG.profile.upArme();
+								CSG.profilManager.persist();
+								init();
+							} else {
+								CSG.talkToTheWorld.buyXp();
+							}
 						}
-					}
-				});
+					});
+				} else {
+					boutonUpgrade = new Bouton(Strings.BUY_XP_BUTTON, CSG.menuFont, 
+							(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width, 
+							(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).height, 
+							(int) ((cam.position.x) - CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width / 2),
+							(int) (Menu.HAUTEUR_BOUTON * 3f),
+							new OnClick() {
+						public void onClick() {
+							if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
+								CSG.profile.upArme();
+								CSG.profilManager.persist();
+								init();
+							} else {
+								CSG.talkToTheWorld.buyXp();
+							}
+						}
+					});
+				}
 			} else {
 				boutonUpgrade.draw(batch);
 			}
@@ -608,7 +453,7 @@ public class EndlessMode implements Screen {
 					Menu.HAUTEUR_BOUTON * 5,
 					new OnClick() {
 					public void onClick() {
-						CSG.google.bragTwitter("I made " + (int)score + " on #MESS" + difficulty + " #androidgames");
+						CSG.talkToTheWorld.bragTwitter("I made " + (int)score + " on #MESS" + difficulty + " #androidgames");
 					}
 			});
 		} else {
@@ -705,7 +550,7 @@ public class EndlessMode implements Screen {
 			if (!drawMenu && !freeze)	ship.tir();
 		} else { // Donc si on a perdu
 			if (toastSent) {
-				CSG.google.toast("You might want to check the highscore menu !");
+				CSG.talkToTheWorld.toast("You might want to check the highscore menu !");
 				toastSent = false;
 			}
 			if (Gdx.input.justTouched()) {
@@ -909,21 +754,6 @@ public class EndlessMode implements Screen {
 		pause = false;
 	}
 
-	public static void screenShake(int xp) {
-		if (CSG.profile.screenshake == false)
-			return;
-		if (shake == false) {
-			shakeTotalMvtX = 0;
-			shakeTotalMvtY = 0;
-		}
-		shake = true;
-		chronoShake += (float)xp / 50;
-		if (chronoShake < SHAKE_MIN)
-			chronoShake += SHAKE_MIN;
-		else if (chronoShake > SHAKE_MAX)
-			chronoShake = SHAKE_MAX;
-	}
-
 	public static Camera getCam() {
 		return cam;
 	}
@@ -952,28 +782,5 @@ public class EndlessMode implements Screen {
 		}
 	}
 }
-//	public static void mvtCamPositive(float x) {
-//		if (EndlessMode.cam.position.x > CSG.screenHalfWidth) {
-//			EndlessMode.cam.position.x += x;
-//			x *= 0.15f;
-//			Player.camXmoinsDemiEcran = EndlessMode.cam.position.x - CSG.screenHalfWidth;
-//			Player.POS.x -= x; // On doit d'office decrementer de ce que la camera s'est déplacée pour ne pas additionner les deux vitesses !
-//		}
-//	}
-//
-//	public static void mvtCamNegative(float x) {
-//		if (EndlessMode.cam.position.x < CSG.DEMI_CAMERA) {
-//			EndlessMode.cam.position.x += x;
-//			x *= 0.15f;
-//			Player.camXmoinsDemiEcran = EndlessMode.cam.position.x - CSG.screenHalfWidth;
-//			Player.POS.x -= x; // On doit d'office decrementer de ce que la camera s'est déplacée pour ne pas additionner les deux vitesses !
-//		}
-//	}
-//	
-//	public static void mvtCamSuivantDeplacement() {
-//		EndlessMode.cam.position.x += EndlessMode.delta * Player.destX * 0.18f;
-//		Player.camXmoinsDemiEcran = EndlessMode.cam.position.x - CSG.screenHalfWidth;
-//		Player.destX -= EndlessMode.delta * Player.destX * 0.125f; // On doit d'office decrementer de ce que la camera s'est déplacée pour ne pas additionner les deux vitesses !
-//	}
 
 

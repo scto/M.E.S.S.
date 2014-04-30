@@ -1,15 +1,17 @@
 package elements.particular.particles;
 
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.math.Vector2;
 
-import elements.particular.particles.individual.ShieldParticle;
+import elements.particular.particles.individual.PrecalculatedParticles;
+import elements.particular.particles.individual.explosions.SparklesColorOverTime;
 
 public class OvaleParticuleGenerator {
 	
 	private Vector2 positionEmiter = new Vector2();
 	private final float SHORT = .1f;
+	private float angle;
 	
 	public void grow(float f) {
 		positionEmiter.scl(f);
@@ -25,36 +27,30 @@ public class OvaleParticuleGenerator {
 	}
 
 	public void add(float centreX, float centreY) {
-		positionEmiter.rotate(EndlessMode.delta15 * 80);
-		ShieldParticle.add(
-				(centreX - ShieldParticle.HALF_WIDTH) + positionEmiter.x,
+		positionEmiter.rotate(EndlessMode.delta15 * 40);
+		angle = positionEmiter.angle();
+		SparklesColorOverTime.add(
+				(centreX - SparklesColorOverTime.HALF_HEIGHT) + positionEmiter.x,
 				centreY + positionEmiter.y,
-				SHORT)
-				;
-		ShieldParticle.add(
-				(centreX - ShieldParticle.HALF_WIDTH) - positionEmiter.x,
+				angle,
+				PrecalculatedParticles.colorsOverTimeBlue);
+		SparklesColorOverTime.add(
+				(centreX - SparklesColorOverTime.HALF_HEIGHT) - positionEmiter.x,
 				centreY - positionEmiter.y,
-				SHORT);
-		
-		ShieldParticle.add(
-				(centreX - ShieldParticle.HALF_WIDTH) - positionEmiter.x * 0.75f,
-				centreY - positionEmiter.y,
-				SHORT);
-		
-		ShieldParticle.add(
-				(centreX - ShieldParticle.HALF_WIDTH) - positionEmiter.x * 0.5f,
-				centreY - positionEmiter.y,
-				SHORT);
-		
-		ShieldParticle.add(
-				(centreX - ShieldParticle.HALF_WIDTH) + positionEmiter.x * 0.75f,
-				centreY + positionEmiter.y,
-				SHORT);
-		
-		ShieldParticle.add(
-				(centreX - ShieldParticle.HALF_WIDTH) + positionEmiter.x * 0.5f,
-				centreY + positionEmiter.y,
-				SHORT);
+				angle,
+				PrecalculatedParticles.colorsOverTimeGreen);
+		if (!EndlessMode.triggerStop) {
+			SparklesColorOverTime.add(
+					(centreX - SparklesColorOverTime.HALF_HEIGHT) - positionEmiter.x,
+					centreY + positionEmiter.y,
+					angle,
+					PrecalculatedParticles.colorsOverTimeBlue);
+			SparklesColorOverTime.add(
+					(centreX - SparklesColorOverTime.HALF_HEIGHT) + positionEmiter.x,
+					centreY - positionEmiter.y,
+					angle,
+					PrecalculatedParticles.colorsOverTimeGreen);
+		}
 	}
 	
 }

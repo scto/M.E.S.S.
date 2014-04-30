@@ -1,6 +1,6 @@
 package elements.generic.weapons.enemies;
 
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.animation.Animated;
 

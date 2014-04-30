@@ -1,7 +1,7 @@
 package elements.generic.enemies.individual.lvl1;
 
-import jeu.EndlessMode;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.SoundMan;
 import assets.animation.AnimationInsecte;
@@ -43,6 +43,8 @@ public class Vicious extends Enemy implements Tireur {
 	private static final InvocableWeapon weapon = initEnemyWeapon(VicousBullet.PK, PK);
 	private static final Pos positionning = initPositionnement(Middle.PK, PK);
 	
+	private int xp, pv;
+	
 	@Override
 	public void afficher(SpriteBatch batch) {
 		batch.setColor(VicousBullet.COLOR);
@@ -56,6 +58,8 @@ public class Vicious extends Enemy implements Tireur {
 		dir.x = 0;
 		dir.y = -getVitesse();
 		positionning.set(this);
+		xp = (int) (EndlessMode.score / 80f);
+		pv = xp / 2 ;
 	}
 
 	@Override
@@ -78,10 +82,10 @@ public class Vicious extends Enemy implements Tireur {
 	@Override	public void setProchainTir(float f) {		prochainTir = f;													}
 	@Override	protected Sound getSonExplosion() {			return SoundMan.explosion5;											}
 	@Override	protected TextureRegion getTexture() {		return AnimationInsecte.getTexture(pv);								}
-	@Override	public int getXp() {						return (int)EndlessMode.score / 80;									}
-	@Override	public int getValeurBonus() {				return (int)EndlessMode.score / 80;									}
+	@Override	public int getXp() {						return xp;															}
+	@Override	public int getValeurBonus() {				return xp;															}
 	@Override	protected String getLabel() {				return getClass().toString();										}
-	@Override	protected int getPvMax() {					return (int)EndlessMode.score / 40;									}
+	@Override	protected int getPvMax() {					return pv;															}
 	@Override	public float getModifVitesse() {			return 1;															}
 	@Override	public float getAngle() {					return angle;														}
 	@Override	public void free() {						POOL.free(this);													}

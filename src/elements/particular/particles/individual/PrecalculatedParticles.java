@@ -23,7 +23,8 @@ public class PrecalculatedParticles {
 	
 	
 	private static final float stepColorsOverTime = 0.065f;
-	public static final float[] colorsOverTimeRed = initAlphasRed(stepColorsOverTime, 0.15f), colorsOverTimeBlue = initAlphasBlue(stepColorsOverTime, 0.15f), colorsOverTimeGreen = initAlphasGreen(stepColorsOverTime, 0.15f);
+	public static final float[] colorsOverTimeRed = initAlphasRed(stepColorsOverTime, 0.15f), colorsOverTimeBlue = initAlphasBlue(stepColorsOverTime, 0.15f), colorsOverTimeGreen = initAlphasGreen(stepColorsOverTime, 0.15f),
+			colorsOverTimeBlueLong = initAlphasBlue(stepColorsOverTime / 2, 0.1f), colorsOverTimeGreenLong = initAlphasGreen(stepColorsOverTime / 2, 0.10f);
 	public static final float[] widthsColorOverTime = initWidths((1 / colorsOverTimeRed.length) / 2, colorsOverTimeRed.length), widthsColorOVerTime2 = CSG.getDouble(widthsColorOverTime);
 	public static final float[] halfWidthsColorOverTime = CSG.getHalf(widthsColorOverTime);
 	

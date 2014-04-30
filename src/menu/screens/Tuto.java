@@ -29,7 +29,7 @@ public class Tuto extends AbstractScreen {
 
 	public Tuto(Game game) {
 		super(game);
-		CSG.google.unlockAchievementGPGS(Strings.ACH_LISTEN);
+		CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_LISTEN);
 		ajout(boutonBack);
 		Gdx.input.setCatchBackKey(true);
 		renderBackground = false;

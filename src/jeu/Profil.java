@@ -97,25 +97,6 @@ public class Profil implements Serializable{
 		json.writeValue(BFG, bfg);
 	}
 
-//	@Override
-//	public void read(Json json, OrderedMap<String, Object> jsonData) {
-//		premiereFois = false;
-//		xpDispo = json.readValue(strXP, Integer.class, jsonData);
-//		cadenceAdd = json.readValue(STR_CADENCE_ADD, Integer.class, jsonData);
-//		NvArmeTrois = json.readValue(STR_ARME_TROIS_NV, Integer.class, jsonData);
-//		NvArmeHantee = json.readValue(STR_ARME_HANTEE_NV, Integer.class, jsonData);
-//		NvArmeDeBase = json.readValue(STR_ARME_DE_BASE_NV, Integer.class, jsonData);
-//		NvArmeBalayage = json.readValue(STR_ARME_BALAYAGE_NV, Integer.class, jsonData);
-//		armeSelectionnee = json.readValue(STR_ARME_SELECT, String.class, jsonData);
-//		volumeArme = json.readValue(STR_VOLUME_ARME, Float.class, jsonData);
-//		volumeBruitages = json.readValue(STR_VOLUME_BRUITAGES, Float.class, jsonData);
-//		volumeMusique = json.readValue(STR_VOLUME_MUSIQUE, Float.class, jsonData);
-//		champXp = "XP : " + xpDispo;
-//		typeControle = json.readValue(STR_TYPE_CONTROLE, Integer.class, jsonData);
-//		bloom = json.readValue(STR_BLOOM, Boolean.class, jsonData);
-//		manualBonus = json.readValue(STR_MANUAL_BONUS, Boolean.class, jsonData);
-//		intensiteBloom = json.readValue(STR_INTENSITE_BLOOM, Float.class, jsonData);
-//	}
 	@Override
 	public void read(Json json, JsonValue jsonData) {
 		premiereFois = false;
@@ -151,9 +132,9 @@ public class Profil implements Serializable{
 		else 																			NvSpaceInvadersWeapon = 1;
 		typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
 		if (json.readValue(STR_SCREENSHAKE, Boolean.class, jsonData) != null)
-			bfg = json.readValue(STR_SCREENSHAKE, Boolean.class, jsonData);
+			screenshake = json.readValue(STR_SCREENSHAKE, Boolean.class, jsonData);
 		else
-			bfg = true;
+			screenshake = true;
 		checkAchievementWeapons();
 	}
 
@@ -215,11 +196,11 @@ public class Profil implements Serializable{
 
 	private void checkAchievementWeapons() {
 		if (areWeaponsLvl6())
-			CSG.google.unlockAchievementGPGS(Strings.ACH_LVL6);
+			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_LVL6);
 		if (areWeaponsUnlocked())
-			CSG.google.unlockAchievementGPGS(Strings.ACH_UNLOCK_SUN);
+			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_UNLOCK_SUN);
 		if (NvArmeBalayage >= 8 || NvArmeDeBase >= 8 || NvArmeHantee >= 8 || NvArmeSun >= 8 || lvlPinkWeapon >= 8 || NvSpaceInvadersWeapon >= 8)
-			CSG.google.unlockAchievementGPGS(Strings.ACH_LVL8);
+			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_LVL8);
 	}
 
 	public boolean areWeaponsUnlocked() {

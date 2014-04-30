@@ -1,13 +1,14 @@
 package elements.particular.particles.individual.background;
 
 import jeu.CSG;
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
+
 import elements.particular.particles.Particles;
 
 public class Star implements Poolable {

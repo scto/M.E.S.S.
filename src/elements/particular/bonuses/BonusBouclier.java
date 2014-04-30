@@ -1,7 +1,7 @@
 package elements.particular.bonuses;
 
-import jeu.EndlessMode;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

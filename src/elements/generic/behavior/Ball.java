@@ -1,7 +1,7 @@
 package elements.generic.behavior;
 
-import jeu.EndlessMode;
 import jeu.Physic;
+import jeu.mode.EndlessMode;
 import elements.generic.enemies.Enemy;
 
 public class Ball extends Behavior {

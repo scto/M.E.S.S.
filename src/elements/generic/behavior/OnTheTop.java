@@ -1,7 +1,7 @@
 package elements.generic.behavior;
 
 import jeu.CSG;
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 import elements.generic.enemies.Enemy;
 
 public class OnTheTop extends Behavior {

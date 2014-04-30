@@ -37,4 +37,5 @@ public interface TalkToTheWorld {
 	void buyUsABeer();
 	void toast(String string);
 	void buyXp();
+	void showAds(boolean show);
 }

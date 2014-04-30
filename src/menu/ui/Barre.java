@@ -1,8 +1,8 @@
 package menu.ui;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

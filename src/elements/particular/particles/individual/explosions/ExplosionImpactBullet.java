@@ -1,8 +1,8 @@
 package elements.particular.particles.individual.explosions;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -38,8 +38,8 @@ public class ExplosionImpactBullet implements Poolable {
 
 	
 	private ExplosionImpactBullet init(PlayerWeapon pw) {
-		speedY = (float) ((CSG.R.nextGaussian()) * SPEED) + (pw.getDirection().y/10);
-		speedX = (float) ((CSG.R.nextGaussian()) * SPEED) + (pw.getDirection().x/10);
+		speedY = (float) ((CSG.R.nextGaussian()) * SPEED) + (pw.dir.y/10);
+		speedX = (float) ((CSG.R.nextGaussian()) * SPEED) + (pw.dir.x/10);
 		
 		width = Math.abs((float) ((CSG.R.nextGaussian() * WIDTH_SMALL))) + MIN_WIDTH;
 		x = (pw.pos.x - width/2) + (pw.getWidth()*CSG.R.nextFloat());

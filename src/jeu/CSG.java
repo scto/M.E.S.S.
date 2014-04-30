@@ -4,6 +4,7 @@ import java.util.Random;
 
 import shaders.Bloom;
 import jeu.db.DataManager;
+import jeu.mode.EndlessMode;
 import menu.screens.Loading;
 import assets.AssetMan;
 
@@ -27,7 +28,6 @@ import elements.particular.particles.Particles;
 
 public class CSG extends Game implements ApplicationListener {
 
-	public static Adds myRequestHandler;
 	// ---- champs globaux ---- Je ne trouve pas comment mettre final car Gdx n'est pas encore initialise
 	public static int screenHalfWidth = 0, screenTierWidth, gameZoneHalfWidth, halfHeight, screenWidth, gameZoneWidth, borderWidth, gameZoneWidthDiv20, gameZoneWidthDiv100;
 	public static int LARGEUR_ZONE_MOINS_LARGEUR_BORD, LARGEUR_ZONE_MOINS_LARGEUR_BORD_MUL2, SCREEN_HEIGHT, DIXIEME_LARGEUR, HEIGHT_DIV10, CENTIEME_HAUTEUR, HEIGHT_DIV50, HEIGHT_DIV20, HEIGHT_PLUS_4, HEIGHT_DIV8;
@@ -42,7 +42,7 @@ public class CSG extends Game implements ApplicationListener {
 	public static BitmapFont menuFont, menuFontSmall, menuFontBlack, scoreFont, outlineScoreFont;
 	public static AssetMan assetMan;
 	public static SpriteBatch batch;
-	public static TalkToTheWorld google;
+	public static TalkToTheWorld talkToTheWorld;
 	public static final Random R = new Random();
 	public static final float mulLvl1 = 1, mulLvl2 = 1.15f, mulLvl3 = 2.2f, mulLvl4 = 4f, mulSCORE = 1.1f;
 	public static DataManager dbManager;
@@ -50,14 +50,13 @@ public class CSG extends Game implements ApplicationListener {
 	public static boolean updateNeeded = false;
 	public static float originalScoreFontScale;
 	
-	public CSG(Adds handler, TalkToTheWorld google) {
+	public CSG(TalkToTheWorld google) {
 		updateNeeded = false;
-		myRequestHandler = handler;
-		CSG.google = google;
+		CSG.talkToTheWorld = google;
 	}
 
 	public CSG(TalkToTheWorld google, DataManager dbManager) { // Constructeur desktop
-		CSG.google = google;
+		CSG.talkToTheWorld = google;
 		CSG.dbManager = dbManager;
 //		dbManager.setupDatabase();
 //		CSG.dbManager.openOrCreateDatabase();
@@ -76,7 +75,7 @@ public class CSG extends Game implements ApplicationListener {
 		assetMan = new AssetMan();
 		// **************  V A R I A B L E S   C O N S T A N T E S  :) ********************
 		if (Gdx.app.getVersion() != 0)
-			CSG.myRequestHandler.showAds(true);
+			CSG.talkToTheWorld.showAds(true);
 		dimensions();
 		// ***********************  P R O F I L  ****************************
 		profilManager = new ProfilManager();

@@ -1,8 +1,8 @@
 package elements.particular.particles.individual.explosions;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 import elements.generic.Player;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.particles.Particles;
 import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class SparklesColorOverTime implements Poolable {
@@ -21,6 +22,7 @@ public class SparklesColorOverTime implements Poolable {
 	private float x, y, speedX, speedY, angle;
 	private int index;
 	private static final float INITIAL_WIDTH = ((float) Stats.LARGEUR_DE_BASE / 4), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
+	public static final float HEIGHT = Stats.U, HALF_HEIGHT = HEIGHT / 2;
 	private float[] colors;
 	private final int maxIndex = PrecalculatedParticles.widthsColorOverTime.length /2;
 	private static final Vector2 tmpVector = new Vector2();
@@ -40,8 +42,8 @@ public class SparklesColorOverTime implements Poolable {
 			for (SparklesColorOverTime e : explosions) {
 				batch.setColor(e.colors[e.index]);
 				batch.draw(AssetMan.dust, e.x, e.y,
-						Stats.u, Stats.uSur4,
-						Stats.U, Stats.uSur2,
+						HALF_HEIGHT, Stats.uSur4,
+						HEIGHT, Stats.uSur2,
 						1f, 1f,
 						e.angle);
 				e.x += e.speedX * EndlessMode.delta;
@@ -56,8 +58,8 @@ public class SparklesColorOverTime implements Poolable {
 			for (SparklesColorOverTime e : explosions) {
 				batch.setColor(e.colors[e.index]);
 				batch.draw(AssetMan.dust, e.x, e.y,
-						Stats.u, Stats.uSur4,
-						Stats.U, Stats.uSur2,
+						HALF_HEIGHT, Stats.uSur4,
+						HEIGHT, Stats.uSur2,
 						1f, 1f,
 						e.angle);
 			}
@@ -124,6 +126,33 @@ public class SparklesColorOverTime implements Poolable {
 			tmpVector.y = e.speedY;
 			e.angle = tmpVector.angle();
 		}
+	}
+
+	public static void add(float x, float y, float angle, float[] colors) {
+		final SparklesColorOverTime p = POOL.obtain();
+		p.x = x;
+		p.y = y;
+		p.angle = angle;
+		p.speedX = 0;
+		p.speedY = 0;
+		p.colors = colors;
+		p.index = 0;
+		Particles.COLOR_OVER_TIME.add(p);
+	}
+
+	public static void add(float x, float y, float angle, float[] colors, float speed) {
+		final SparklesColorOverTime p = POOL.obtain();
+		p.x = x;
+		p.y = y;
+		p.angle = angle;
+		tmpVector.x = speed;
+		tmpVector.y = 0;
+		tmpVector.rotate(angle);
+		p.speedX = tmpVector.x;
+		p.speedY = tmpVector.y;
+		p.colors = colors;
+		p.index = 0;
+		Particles.COLOR_OVER_TIME.add(p);
 	}
 
 }

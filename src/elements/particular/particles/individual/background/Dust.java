@@ -1,7 +1,7 @@
 package elements.particular.particles.individual.background;
 
 import jeu.CSG;
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

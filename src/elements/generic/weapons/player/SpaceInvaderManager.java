@@ -4,7 +4,7 @@ import assets.SoundMan;
 import elements.generic.Player;
 import elements.generic.weapons.Weapons;
 import jeu.CSG;
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 
 public class SpaceInvaderManager extends WeaponManager {
 	

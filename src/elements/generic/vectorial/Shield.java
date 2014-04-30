@@ -1,6 +1,6 @@
 package elements.generic.vectorial;
 
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

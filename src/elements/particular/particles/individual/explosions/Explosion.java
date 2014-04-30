@@ -1,8 +1,8 @@
 package elements.particular.particles.individual.explosions;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.SoundMan;
 

@@ -1,7 +1,7 @@
 package elements.generic.behavior;
 
-import jeu.EndlessMode;
 import jeu.Physic;
+import jeu.mode.EndlessMode;
 import assets.animation.AnimationKinder;
 import elements.generic.enemies.Enemy;
 

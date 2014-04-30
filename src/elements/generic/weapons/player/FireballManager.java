@@ -1,6 +1,6 @@
 package elements.generic.weapons.player;
 import jeu.CSG;
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 import assets.SoundMan;
 
 import com.badlogic.gdx.Gdx;

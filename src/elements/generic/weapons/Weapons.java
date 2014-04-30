@@ -1,9 +1,9 @@
 package elements.generic.weapons;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.db.Requests;
+import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -20,14 +20,13 @@ import elements.particular.particles.Particles;
 public abstract class Weapons extends Element implements Poolable {
 	
 	public static final Array<PlayerWeapon> PLAYER_LIST = new Array<PlayerWeapon>(false, 50);
-	public static final Array<EnemyWeapon> ENEMIES_LIST = new Array<EnemyWeapon>(false, 50);
-	public static final Array<EnemyWeapon> BOSSES_LIST = new Array<EnemyWeapon>(false, 50);
+	public static final Array<EnemyWeapon> ENEMIES_LIST = new Array<EnemyWeapon>(false, 50), BOSSES_LIST = new Array<EnemyWeapon>(false, 50);
 	public static final Array<PlayerWeapon> ADDS = new Array<PlayerWeapon>(false, 10);
 	protected static final Rectangle TMP_RECT = new Rectangle();
 	public final Vector2 dir = new Vector2();
-	private static boolean testCollision = false;
+	private static boolean testCollision = false, shieldHs = false;
 	public static int color = 0;
-	private static boolean shieldHs = false;
+	private static final int XP_WITH_SHIELD = 7;
 
 	public static void drawAndMove(SpriteBatch batch) {
 		for (final PlayerWeapon pWeapon : PLAYER_LIST) {
@@ -73,8 +72,7 @@ public abstract class Weapons extends Element implements Poolable {
 		if (shieldHs) {
 			for (final EnemyWeapon w : LIST) {
 				Particles.popOutWeapon(w);
-				if (EndlessMode.difficulty > 1)
-					Bonus.addXp(5, w.pos.x + w.getHalfWidth(), w.pos.y + w.getHalfHeight());
+				Bonus.addXp(XP_WITH_SHIELD, w.pos.x + w.getHalfWidth(), w.pos.y + w.getHalfHeight());
 				w.free();
 			}
 			shieldHs = false;
@@ -112,10 +110,6 @@ public abstract class Weapons extends Element implements Poolable {
 	}
 
 	public abstract void free();
-
-	public Vector2 getDirection() {
-		return dir;
-	}
 
 	public static void clear() {
 		for (final Weapons a : ADDS)

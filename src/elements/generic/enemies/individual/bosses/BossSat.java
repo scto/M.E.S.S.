@@ -1,8 +1,8 @@
 package elements.generic.enemies.individual.bosses;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.animation.AnimationPorteNef;
 

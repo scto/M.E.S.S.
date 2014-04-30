@@ -1,7 +1,7 @@
 package elements.generic.enemies;
 
 import jeu.CSG;
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 
 public final class Progression {
 
@@ -12,7 +12,7 @@ public final class Progression {
 	private static float nextNormalWavesCheck = 0, nextBoss = 0, beginBossScore, graceTime = 0;
 	private static int nbEnemiesMax = 0;
 	// the minimum time between two wave activations
-	private static final float graceDelay = 4f;
+	private static final float graceDelay = 2f;
 	
 	private final static Wave[] remplissage = {
 		Wave.remplissageCylon, Wave.remplissageDeBase10, Wave.remplissageKinder, Wave.remplissageQuiTourne, Wave.group, Wave.remplissageVicous		};
@@ -158,7 +158,10 @@ public final class Progression {
 	static int tmp = 0;
 	static boolean tmpCheck = false;
 	private static void remplissage(Wave[] waves) {
-		if (Enemy.LIST.size < 2 + EndlessMode.score / 10000 && EndlessMode.score > 20 && !bossJustPoped) {
+		if (Enemy.LIST.size < 2 + EndlessMode.score / 10000 &&
+				EndlessMode.score > 20 &&
+				!bossJustPoped &&
+				graceTime < EndlessMode.now) {
 			switch (EndlessMode.difficulty) {
 			case 1 :	tmpCheck = hasAnActiveWave(wavesLvl1);		break;
 			case 2 :	tmpCheck = hasAnActiveWave(wavesLvl2);		break;

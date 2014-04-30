@@ -1,6 +1,7 @@
 package elements.particular.bonuses;
 
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class BonusTimeMvt extends Bonus {

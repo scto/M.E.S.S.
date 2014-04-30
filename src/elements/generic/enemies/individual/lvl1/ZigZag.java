@@ -1,7 +1,7 @@
 package elements.generic.enemies.individual.lvl1;
 
-import jeu.EndlessMode;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.animation.AnimationZigZag;
 

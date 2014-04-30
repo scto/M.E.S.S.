@@ -1,9 +1,9 @@
 package menu.ui;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import menu.screens.AbstractScreen;
 import menu.screens.Menu;
 import menu.tuto.OnClick;

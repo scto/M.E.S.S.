@@ -5,7 +5,7 @@ import assets.SoundMan;
 import com.badlogic.gdx.math.Vector2;
 
 import jeu.CSG;
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 
 public class SunManager extends WeaponManager {
 	

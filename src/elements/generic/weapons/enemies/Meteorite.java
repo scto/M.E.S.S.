@@ -1,7 +1,7 @@
 package elements.generic.weapons.enemies;
 
 import jeu.CSG;
-import jeu.EndlessMode;
+import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.animation.Animated;
 import assets.animation.AnimationMeteorite;

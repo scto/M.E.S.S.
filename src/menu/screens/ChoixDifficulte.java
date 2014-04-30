@@ -1,8 +1,8 @@
 package menu.screens;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Strings;
+import jeu.mode.EndlessMode;
 import menu.tuto.OnClick;
 import menu.ui.Bouton;
 import menu.ui.WeaponButton;
@@ -57,7 +57,7 @@ public class ChoixDifficulte extends AbstractScreen {
 		}, true);
 		ajout(lvl3);
 		if (Gdx.app.getVersion() != 0) {
-			CSG.myRequestHandler.showAds(true);
+			CSG.talkToTheWorld.showAds(true);
 		}
 		final Bouton lvl4 = new Bouton(Strings.LVL4, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - HAUTEUR_BOUTON * 12.5f, this, new OnClick() {
 			public void onClick() {

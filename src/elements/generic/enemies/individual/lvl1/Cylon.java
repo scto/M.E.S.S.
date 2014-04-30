@@ -1,8 +1,8 @@
 package elements.generic.enemies.individual.lvl1;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.animation.AnimationCylon;
 import assets.animation.AnimationCylonCasse;
@@ -90,7 +90,7 @@ public class Cylon extends Enemy implements TireurAngle {
 	public boolean stillAlive(PlayerWeapon p) {
 		if (p.getPower() < getDemiPv() && goodShape) {
 			goodShape = false;
-			dir.rotate(EndlessMode.R.nextInt(30)-15);
+			dir.rotate(CSG.R.nextInt(30)-15);
 			angle = dir.angle();
 		}
 		return super.stillAlive(p);

@@ -1,10 +1,10 @@
 package elements.generic.weapons.enemies;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.Stats;
 import jeu.db.Requests;
+import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -120,7 +120,7 @@ public abstract class EnemyWeapon extends Weapons {
 		for (int i = 1; i < nbTirs; i++) {
 			tmpV.x = direction.x;
 			tmpV.y = direction.y;
-			tmpV.rotate( (EndlessMode.R.nextFloat()-.5f) * dispersion);
+			tmpV.rotate( (CSG.R.nextFloat()-.5f) * dispersion);
 			t.getArme().init(position, modifVitesse, direction, false);
 		}
 	}

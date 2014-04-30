@@ -4,9 +4,9 @@ import menu.JeuBackground;
 import menu.tuto.OnClick;
 import menu.ui.Bouton;
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Profil;
 import jeu.Strings;
+import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -61,7 +61,7 @@ public class MenuXP extends AbstractScreen{
 							updateTexteXp();
 							ajoutUndo();
 						} else {
-							CSG.google.buyXp();
+							CSG.talkToTheWorld.buyXp();
 							System.out.println("MenuXP.MenuXP(...).new OnClick() {...}.onClick()");
 						}
 					}}, false);
@@ -80,7 +80,7 @@ public class MenuXP extends AbstractScreen{
 							ajoutUndo();
 						} else {
 							System.out.println("MenuXP.MenuXP(...).new OnClick() {...}.onClick()");
-							CSG.google.buyXp();
+							CSG.talkToTheWorld.buyXp();
 						}
 					}}, false);
 		updateTexteCadence();
@@ -125,7 +125,7 @@ public class MenuXP extends AbstractScreen{
 	}
 	private void ajoutUndo() {
 		if (boutonUndo == null) {
-			CSG.google.unlockAchievementGPGS(Strings.ACH_FAVORITE_SHOP);
+			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_FAVORITE_SHOP);
 			boutonUndo = new Bouton("UNDO", false, CSG.menuFontSmall, Menu.LARGEUR_PETITBOUTON, Menu.HAUTEUR_PETITBOUTON, CSG.screenWidth / Menu.PADDING, Menu.HAUTEUR_BOUTON * 3, this,
 			new OnClick()  {
 				public void onClick() {		undo();		}

@@ -1,7 +1,7 @@
-package jeu.dynamicTutorial;
+package jeu.mode.extensions;
 
-import jeu.EndlessMode;
 import jeu.Strings;
+import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

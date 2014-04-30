@@ -1,5 +1,8 @@
 package elements.generic.enemies.individual.lvl4;
 
+import jeu.CSG;
+import jeu.Stats;
+
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
@@ -7,8 +10,6 @@ import elements.generic.Invocable;
 import elements.generic.enemies.individual.lvl1.PorteRaisin;
 import elements.generic.enemies.individual.lvl3.PorteRaisinNv3;
 import elements.generic.weapons.patterns.Tirs;
-import jeu.EndlessMode;
-import jeu.Stats;
 
 public class PorteRaisinNv4 extends PorteRaisinNv3 {
 
@@ -32,6 +33,6 @@ public class PorteRaisinNv4 extends PorteRaisinNv3 {
 	@Override	public int getValeurBonus() {			return BASE_XP;	}
 	@Override	protected int getPallierPv() {			return DEMI_PV;	}
 	@Override	protected String getLabel() {			return getClass().toString();	}
-	@Override	protected void tir() {					TIR.tirEnRafaleGaucheEtDroite(this, 4 + EndlessMode.R.nextInt(10), now, prochainTir);	}
+	@Override	protected void tir() {					TIR.tirEnRafaleGaucheEtDroite(this, 4 + CSG.R.nextInt(10), now, prochainTir);	}
 	@Override	protected Tirs getTir() {				return TIR;								}
 }

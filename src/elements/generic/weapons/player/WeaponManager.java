@@ -1,8 +1,8 @@
 package elements.generic.weapons.player;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Profil;
+import jeu.mode.EndlessMode;
 import elements.generic.weapons.Weapons;
 
 public abstract class WeaponManager {

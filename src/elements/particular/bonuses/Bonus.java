@@ -1,9 +1,9 @@
 package elements.particular.bonuses;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.SoundMan;
 
@@ -133,7 +133,7 @@ public abstract class Bonus {
 		}
 	}
 
-	protected void init(float x, float y) {
+	public void init(float x, float y) {
 		if (y > CSG.SCREEN_HEIGHT)
 			y = CSG.SCREEN_HEIGHT;
 		pos.x = x - HALF_WIDTH;

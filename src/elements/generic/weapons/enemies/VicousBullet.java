@@ -1,9 +1,9 @@
 package elements.generic.weapons.enemies;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.animation.Animated;
 

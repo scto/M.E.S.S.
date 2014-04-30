@@ -1,8 +1,8 @@
 package elements.generic.weapons.player;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.animation.Animated;
 

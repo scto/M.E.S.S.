@@ -1,6 +1,6 @@
 package elements.generic.enemies.individual.lvl1;
 
-import jeu.EndlessMode;
+import jeu.CSG;
 import jeu.Stats;
 import assets.AssetMan;
 import assets.SoundMan;
@@ -116,7 +116,7 @@ public class PorteRaisin extends Enemy implements TireurPlusieurFois {
 	@Override	protected int getPvMax() {				return PV;	}
 	@Override	protected Sound getSonExplosion() {		return SoundMan.explosion6;	}
 	@Override	public void free() {					POOL.free(this);	}
-	@Override	protected void tir() {					TIR.tirEnRafaleGaucheEtDroite(this, 3 + EndlessMode.R.nextInt(3), now, prochainTir);	}
+	@Override	protected void tir() {					TIR.tirEnRafaleGaucheEtDroite(this, 3 + CSG.R.nextInt(3), now, prochainTir);	}
 	@Override	public int getXp() {					return XP;	}
 	@Override	public int getValeurBonus() {			return BASE_XP;	}
 	@Override	public int getHeight() {				return HAUTEUR;	}

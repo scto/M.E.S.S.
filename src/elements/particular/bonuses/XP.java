@@ -1,9 +1,9 @@
 package elements.particular.bonuses;
 
 import jeu.CSG;
-import jeu.EndlessMode;
 import jeu.Physic;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.SoundMan;
 
@@ -40,8 +40,8 @@ public class XP extends Bonus implements Poolable {
 		x += CSG.R.nextGaussian() * Stats.U;
 		y += CSG.R.nextGaussian() * Stats.U;
 		valeur = xp;
-		direction.x = (float) (EndlessMode.R.nextFloat() * Stats.u);
-		direction.y = (float) (EndlessMode.R.nextGaussian() * Stats.u);
+		direction.x = (float) (CSG.R.nextFloat() * Stats.u);
+		direction.y = (float) (CSG.R.nextGaussian() * Stats.u);
 		pos.x = x - HALF_WIDTH;
 		pos.y = y - HALF_WIDTH;
 		pos.x = x;
