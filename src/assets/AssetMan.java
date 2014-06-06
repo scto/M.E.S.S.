@@ -1,27 +1,8 @@
 package assets;
 
 import jeu.CSG;
-import assets.animation.AnimBall;
-import assets.animation.AnimPlayer;
-import assets.animation.AnimationAvion;
-import assets.animation.AnimationBossMine;
-import assets.animation.AnimationBossQuad;
-import assets.animation.AnimationBouleBleu;
-import assets.animation.AnimationCylon;
-import assets.animation.AnimationCylonCasse;
-import assets.animation.AnimationEnnemiAileDeployee;
-import assets.animation.AnimationEnnemiDeBase;
-import assets.animation.AnimationEnnemiToupie;
-import assets.animation.AnimationEnnemiTourne;
-import assets.animation.AnimationInsecte;
-import assets.animation.AnimationKinder;
-import assets.animation.AnimationMeteorite;
-import assets.animation.AnimationMine;
-import assets.animation.AnimationOmbrelle;
-import assets.animation.AnimationPorteNef;
-import assets.animation.AnimationQuiTir;
-import assets.animation.AnimationZigZag;
-
+import assets.sprites.AnimPlayer;
+import assets.sprites.Animations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
@@ -38,9 +19,8 @@ import elements.generic.weapons.player.SunWeapon;
 
 public final class AssetMan implements AssetErrorListener {
 
-	public static TextureRegion add, addShip, bomb, bombGrey, blueDestroyer, blueDestroyerBroken, shield, stopBonus, stopBonusGrey, dust, debris, background, player, backgroundButton, shootingStar;
-	public static TextureRegion iconDefaultW, iconTW, iconFireballW, iconSpreadW, iconSunW, iconSpaceInvW, tWeapon, fireball, star, effect, addBullet, addShipShot;
-	public static TextureRegion basicenemyred, basicenemygreen, basicenemyblue;
+	public static TextureRegion add, addShip, bomb, bombGrey, shield, stopBonus, stopBonusGrey, dust, debris, background, player, backgroundButton, shootingStar;
+	public static TextureRegion iconDefaultW, iconTW, iconFireballW, iconSpreadW, iconSunW, iconSpaceInvW, tWeapon, star, effect, addBullet, addShipShot, xp;
 	public final static AssetManager MAN = new AssetManager();
 	private TextureAtlas atlas;
 	public final static float WHITE = convertARGB(1, 1, 1, 1), ALPHA40 = convertARGB(.4f, 1, 1, 1), BLACK = convertARGB(1, 0, 0, 0), ALPHA70 = convertARGB(.70f, 1, 1, 1), RED = convertARGB(1, 1, 0, 0),
@@ -79,7 +59,7 @@ public final class AssetMan implements AssetErrorListener {
 		MAN.load("sons/explosionboule.wav", Sound.class);
 		MAN.load("sons/explosioncylon.wav", Sound.class);
 		
-		MAN.load("sons/explosionennemibasequitir.wav", Sound.class);
+		MAN.load("sons/explosionennemibasequishot.wav", Sound.class);
 		MAN.load("sons/explosionkinder.wav", Sound.class);
 		MAN.load("sons/47252__nthompson__rocketexpl.wav", Sound.class);
 		MAN.load("sons/sun weapon.wav", Sound.class);
@@ -112,29 +92,12 @@ public final class AssetMan implements AssetErrorListener {
 	}
 
 	private void loadAnims() {
-		AnimBall.initAnimation();
 		AnimPlayer.initAnimation();
-		AnimationMine.initAnimation();
-		AnimationAvion.initAnimation();
-		AnimationZigZag.initAnimation();
-		AnimationCylon.initAnimation();
-		AnimationQuiTir.initAnimation();
-		AnimationKinder.initAnimation();
-		AnimationInsecte.initAnimation();
-		AnimationOmbrelle.initAnimation();
-		AnimationBossMine.initAnimation();
-		AnimationBossQuad.initAnimation();
-		AnimationPorteNef.initAnimation();
-		AnimationMeteorite.initAnimation();
-		AnimationBouleBleu.initAnimation();
-		AnimationCylonCasse.initAnimation();
-		AnimationEnnemiToupie.initAnimation();
-		AnimationEnnemiTourne.initAnimation();
-		AnimationEnnemiDeBase.initAnimation();
-		AnimationEnnemiAileDeployee.initAnimation();
+		Animations.initAnimations();
 	}
 
 	private static void loadTextureRegions() {
+		xp = getTextureRegion("xp");
 		add = getTextureRegion("add");
 		star = getTextureRegion("star");
 		bomb = getTextureRegion("bombe");
@@ -143,23 +106,16 @@ public final class AssetMan implements AssetErrorListener {
 		effect = getTextureRegion("effect");
 		dust = getTextureRegion("rondblanc");
 		shield = getTextureRegion("bouclier");
-		fireball = getTextureRegion("fireball");
 		tWeapon = getTextureRegion("bluebullet");
 		bombGrey = getTextureRegion("bombegris");
 		addShip = getTextureRegion("addvaisseau");
 		addBullet = getTextureRegion("addbullet");
 		stopBonus = getTextureRegion("bonusetoile");
 		background = getTextureRegion("spacefield");
-		blueDestroyer = getTextureRegion("porteraisin1");
 		shootingStar = getTextureRegion("etoilefilante");
 		addShipShot = getTextureRegion("addvaisseaushot");
 		stopBonusGrey = getTextureRegion("bonusetoilegris");
-		blueDestroyerBroken = getTextureRegion("porteraisin2");
 		backgroundButton = getTextureRegion("backgroundbutton");
-		basicenemyblue = getTextureRegion("basicenemyblue");
-		basicenemygreen = getTextureRegion("basicenemygreen");
-		basicenemyred = getTextureRegion("basicenemyred");
-		
 		iconTW = getTextureRegion("tweapon80");
 		iconSpreadW = getTextureRegion("spread80");
 		iconSunW = getTextureRegion("secretsun80");
@@ -171,7 +127,13 @@ public final class AssetMan implements AssetErrorListener {
 	public static TextureRegion getTextureRegion(String string) {
 		if (Gdx.app.getVersion() > 0) 
 			return CSG.assetMan.getAtlas().findRegion(string);
-		return new TextureRegion(new Texture(Gdx.files.local("c:\\mess\\" + string + ".png")));
+		TextureRegion tr;
+		try {
+			tr = new TextureRegion(new Texture(Gdx.files.local("c:\\mess\\" + string + ".png")));
+		} catch (Exception e) {
+			tr = CSG.assetMan.getAtlas().findRegion(string);
+		}
+		return tr;
 	}
 
 	private TextureAtlas getAtlas() {
@@ -198,10 +160,18 @@ public final class AssetMan implements AssetErrorListener {
 		return NumberUtils.intToFloatColor(((int)(MAX * a) << A) | ((int)(MAX * b) << R) | ((int)(MAX * g) << G) | ((int)(MAX * r)));
 	}
 	
+	public static Float convertARGB(float a, float all) {
+		return NumberUtils.intToFloatColor(((int)(MAX * a) << A) | ((int)(MAX * all) << R) | ((int)(MAX * all) << G) | ((int)(MAX * all)));
+	}
+	
 	public static int tmpInt;
 	public static float setAlpha(float color, float alpha) {
 		tmpInt = NumberUtils.floatToIntColor(color);
 		return convertARGB(alpha, (tmpInt & 0xff) / 255f, ((tmpInt >>> 8) & 0xff) / 255f, ((tmpInt >>> 16) & 0xff) / 255f);
+	}
+	public static float setBlue(float color, float blue) {
+		tmpInt = NumberUtils.floatToIntColor(color);
+		return convertARGB((tmpInt & 0xff) / 255f, (tmpInt & 0xff) / 255f, ((tmpInt >>> 8) & 0xff) / 255f, blue);
 	}
 
 	public static void unload() {
@@ -214,7 +184,7 @@ public final class AssetMan implements AssetErrorListener {
 			if (SoundMan.explosion4 != null)			SoundMan.explosion4.dispose();
 			if (SoundMan.explosion5 != null)			SoundMan.explosion5.dispose();
 			if (SoundMan.explosion6 != null)			SoundMan.explosion6.dispose();
-			if (SoundMan.tirRocket != null)				SoundMan.tirRocket.dispose();
+			if (SoundMan.shotRocket != null)				SoundMan.shotRocket.dispose();
 			if (SoundMan.bonusTaken != null)			SoundMan.bonusTaken.dispose();
 			if (SoundMan.sunWeapon != null)				SoundMan.sunWeapon.dispose();
 			if (SoundMan.outsideNorm != null)			SoundMan.outsideNorm.dispose();
@@ -231,13 +201,16 @@ public final class AssetMan implements AssetErrorListener {
 		SoundMan.bigExplosion = MAN.get("sons/80500__ggctuk__exp-obj-large03.wav", Sound.class);
 		SoundMan.explosion3 = MAN.get("sons/explosionboule.wav", Sound.class);
 		SoundMan.explosion4 = MAN.get("sons/explosioncylon.wav", Sound.class);
+		
 		SoundMan.sunWeapon = MAN.get("sons/sun weapon.wav", Sound.class);
 		SoundMan.bonusTaken = MAN.get("sons/bonus.wav", Sound.class);
-		SoundMan.explosion5 = MAN.get("sons/explosionennemibasequitir.wav", Sound.class);
-		SoundMan.tirRocket = MAN.get("sons/47252__nthompson__rocketexpl.wav", Sound.class);
+		SoundMan.explosion5 = MAN.get("sons/explosionennemibasequishot.wav", Sound.class);
+		SoundMan.shotRocket = MAN.get("sons/47252__nthompson__rocketexpl.wav", Sound.class);
 		SoundMan.explosion6 = MAN.get("sons/explosionkinder.wav", Sound.class);
+		
 		SoundMan.xp = MAN.get("sons/xp.wav", Sound.class);
 		
+
 		SoundMan.outsideNorm = MAN.get("sons/OutsideNorm.ogg", Music.class);
 	}
 
@@ -254,6 +227,7 @@ public final class AssetMan implements AssetErrorListener {
 	public void error(AssetDescriptor asset, Throwable throwable) {
 		System.out.println("Probleme pour asset " + asset + " -------- " + throwable.getMessage());
 	}
+
 
 }
 

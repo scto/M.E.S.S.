@@ -6,52 +6,10 @@ import assets.SoundMan;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Vector2;
 
+import elements.generic.components.enemies.Merlin;
 import elements.generic.enemies.Enemy;
-import elements.generic.enemies.individual.bosses.BossMine;
-import elements.generic.enemies.individual.bosses.BossQuad;
-import elements.generic.enemies.individual.bosses.BossSat;
-import elements.generic.enemies.individual.bosses.Ombrelle;
-import elements.generic.enemies.individual.lvl1.Boule;
-import elements.generic.enemies.individual.lvl1.Cylon;
-import elements.generic.enemies.individual.lvl1.DeBase;
-import elements.generic.enemies.individual.lvl1.Insecte;
-import elements.generic.enemies.individual.lvl1.Kinder;
-import elements.generic.enemies.individual.lvl1.Laser;
-import elements.generic.enemies.individual.lvl1.Plane;
-import elements.generic.enemies.individual.lvl1.PorteRaisin;
-import elements.generic.enemies.individual.lvl1.QuiTir;
-import elements.generic.enemies.individual.lvl1.QuiTirTriangle;
-import elements.generic.enemies.individual.lvl1.Toupie;
-import elements.generic.enemies.individual.lvl1.Vicious;
-import elements.generic.enemies.individual.lvl1.ZigZag;
-import elements.generic.enemies.individual.lvl2.BouleTirCoteRotation;
-import elements.generic.enemies.individual.lvl3.BouleNv3;
-import elements.generic.enemies.individual.lvl3.CylonNv3;
-import elements.generic.enemies.individual.lvl3.DeBaseNv3;
-import elements.generic.enemies.individual.lvl3.Group3;
-import elements.generic.enemies.individual.lvl3.InsecteNv3;
-import elements.generic.enemies.individual.lvl3.KinderNv3;
-import elements.generic.enemies.individual.lvl3.LaserNv3;
-import elements.generic.enemies.individual.lvl3.Plane3;
-import elements.generic.enemies.individual.lvl3.PorteRaisinNv3;
-import elements.generic.enemies.individual.lvl3.QuiTirNv3;
-import elements.generic.enemies.individual.lvl3.QuiTirTriangle3;
-import elements.generic.enemies.individual.lvl3.QuiTourneNv3;
-import elements.generic.enemies.individual.lvl3.ToupieNv3;
-import elements.generic.enemies.individual.lvl3.ZigZagNv3;
-import elements.generic.enemies.individual.lvl4.BouleNv4;
-import elements.generic.enemies.individual.lvl4.CylonNv4;
-import elements.generic.enemies.individual.lvl4.DeBaseNv4;
-import elements.generic.enemies.individual.lvl4.InsecteNv4;
-import elements.generic.enemies.individual.lvl4.KinderNv4;
-import elements.generic.enemies.individual.lvl4.LaserNv4;
-import elements.generic.enemies.individual.lvl4.Plane4;
-import elements.generic.enemies.individual.lvl4.PorteRaisinNv4;
-import elements.generic.enemies.individual.lvl4.QuiTirNv4;
-import elements.generic.enemies.individual.lvl4.QuiTirTriangle4;
-import elements.generic.enemies.individual.lvl4.ToupieNv4;
-import elements.generic.enemies.individual.lvl4.ZigZagNv4;
 import elements.particular.bonuses.Bonus;
 import elements.particular.bonuses.BonusBouclier;
 import elements.particular.bonuses.BonusStop;
@@ -60,75 +18,84 @@ import elements.particular.bonuses.XP;
 public class DesktopTests {
 	
 	
+	private static final Vector2 tmp = new Vector2(0, CSG.SCREEN_HEIGHT);
 
 	public static void debug() {
-			//		if (Gdx.input.isKeyPressed(Keys.A)) {
-	//		Ennemis.LISTE.add(DeBase.pool.obtain());
-	//	}
 	//	CSG.profil.NvArmeBalayage = 1;
 	//	CSG.profil.NvArmeDeBase = 1;
 	//	CSG.profil.NvArmeHantee = 1;
 	//	CSG.profil.NvArmeTrois = 1;
+		if (Gdx.input.justTouched()) {
+//			Merlin.BOSS_QUAD.incantation.invoke();
+		}
+			
+		
+		if (EndlessMode.oneToFour != 2)
+			return;
 		if (Gdx.input.isKeyPressed(Keys.PAGE_DOWN))	{
 			EndlessMode.cam.translate(0, 0, 1);
 			EndlessMode.cam();
 			SoundMan.playBruitage(SoundMan.bonusTaken);
 		}
-		if (Gdx.input.isKeyPressed(Keys.END))	Group3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.A)) 	BossSat.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Z)) 	DeBase.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Z)) 	DeBaseNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Z)) 	DeBaseNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.E))		ZigZag.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.E))		ZigZagNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.E))		ZigZagNv4.ref.invoquer();
+		
+		if (Gdx.input.isKeyPressed(Keys.END))	Merlin.GROUP.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.END))	Merlin.GROUP3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.END))	Merlin.GROUP4.incantation.invoke();
+//		if (Gdx.input.isKeyPressed(Keys.A)) 	BossSat.ref.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Z)) 	Merlin.DE_BASE.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Z)) 	Merlin.DE_BASE3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Z)) 	Merlin.DE_BASE4.incantation.invoke();
+//		if (Gdx.input.isKeyPressed(Keys.E))		Merlin.ZIGZAG.incantation.invoke();
+//		if (Gdx.input.isKeyPressed(Keys.E))		Merlin.ZIGZAG3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.E))		Merlin.ZIGZAG4.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.R))		EndlessMode.addBonusStop();
-		if (Gdx.input.isKeyPressed(Keys.T))		QuiTir.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.T))		QuiTirNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.T))		QuiTirNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Y))		QuiTirTriangle.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Y))		QuiTirTriangle3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Y))		QuiTirTriangle4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.U))		Boule.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.U))		BouleNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.U))		BouleNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.O))		Ombrelle.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.P))		BouleTirCoteRotation.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Q))		Toupie.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Q))		ToupieNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.Q))		ToupieNv4.ref.invoquer();
+		if (Gdx.input.isKeyPressed(Keys.T))		Merlin.QUI_TIR.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.T))		Merlin.QUI_TIR3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.T))		Merlin.QUI_TIR4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Y))		Merlin.QUI_TIR_TRIANGLE.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Y))		Merlin.QUI_TIR_TRIANGLE3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Y))		Merlin.QUI_TIR_TRIANGLE4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.U))		Merlin.BALL.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.U))		Merlin.BALL3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.U))		Merlin.BALL4.incantation.invoke();
+//		if (Gdx.input.isKeyPressed(Keys.O))		Ombrelle.ref.invoke();
+		if (Gdx.input.isKeyPressed(Keys.P))		Merlin.BOULE_TIR_COTE_ROTATION.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Q))		Merlin.ROUND_N_ROUND.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Q))		Merlin.ROUND_N_ROUND3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Q))		Merlin.ROUND_N_ROUND4.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.D))		XP.POOL.obtain().init(400, 400, 300);
-		if (Gdx.input.isKeyPressed(Keys.F))		QuiTourneNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.J))		Kinder.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.J))		KinderNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.J))		KinderNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.M))		Cylon.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.M))		CylonNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.M))		CylonNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.X))		Plane.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.X))		Plane3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.X))		Plane4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.V))		Laser.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.V))		LaserNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.V))		LaserNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.N))		PorteRaisin.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.N))		PorteRaisinNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.N))		PorteRaisinNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.B))		BonusBouclier.POOL.obtain().init(400, 200);
+		if (Gdx.input.isKeyPressed(Keys.F))		Merlin.QUI_TOURNE.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.F))		Merlin.QUI_TOURNE3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.F))		Merlin.QUI_TOURNE4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.J))		Merlin.KINDER.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.J))		Merlin.KINDER3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.J))		Merlin.KINDER4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.M))		Merlin.CYLON.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.M))		Merlin.CYLON3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.M))		Merlin.CYLON4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.X))		Merlin.PLANE.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.X))		Merlin.PLANE3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.X))		Merlin.PLANE4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.V))		Merlin.LASER.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.V))		Merlin.LASER3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.V))		Merlin.LASER4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.N))		Merlin.CRUSADER.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.B))		BonusBouclier.POOL.obtain().init(CSG.R.nextFloat() * CSG.gameZoneWidth, 200);
 		
 		
 		if (Gdx.input.isKeyPressed(Keys.F1))	EndlessMode.invicibility = true;
 		if (Gdx.input.isKeyPressed(Keys.F2))	EndlessMode.invicibility = false;
 		if (Gdx.input.isKeyPressed(Keys.F3))	EndlessMode.freeze = true;
 		if (Gdx.input.isKeyPressed(Keys.F4))	EndlessMode.freeze = false;
-		if (Gdx.input.isKeyPressed(Keys.F5))	Enemy.bombe();
-		if (Gdx.input.isKeyPressed(Keys.F6))	Insecte.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F6))	InsecteNv3.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F6))	InsecteNv4.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F9))	BossMine.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F10))	BossQuad.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F11))	Vicious.ref.invoquer();
-		if (Gdx.input.isKeyPressed(Keys.F12))	DeBaseNv4.ref.invoquer();
+		if (Gdx.input.isKeyPressed(Keys.F5))	EndlessMode.frameByFrame = true;
+		if (Gdx.input.isKeyPressed(Keys.F6))	EndlessMode.frameByFrame = false;
+		if (Gdx.input.isKeyPressed(Keys.F7))	Enemy.attackAllEnemies(Enemy.bomb);
+		if (Gdx.input.isKeyPressed(Keys.F8))	Merlin.INSECT.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.F8))	Merlin.INSECT3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.F8))	Merlin.INSECT4.incantation.invoke();
+//		if (Gdx.input.isKeyPressed(Keys.F9))	BossMine.ref.invoke();
+//		if (Gdx.input.isKeyPressed(Keys.F10))	BossQuad.ref.invoke();
+		if (Gdx.input.isKeyPressed(Keys.F11))	Merlin.VICIOUS.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.F3))	Bonus.LIST.add(BonusStop.POOL.obtain());
 		if (Gdx.input.isKeyPressed(Keys.F4)) {
 			Bonus.LIST.add(XP.POOL.obtain());
@@ -140,7 +107,7 @@ public class DesktopTests {
 	//		} catch (Exception e) {
 	//			e.printStackTrace();
 	//		}
-		if (Gdx.input.isKeyPressed(Keys.F5)) EndlessMode.score++;
+		if (Gdx.input.isKeyPressed(Keys.F5)) Score.score++;
 	}
 
 }

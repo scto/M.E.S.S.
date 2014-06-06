@@ -2,12 +2,11 @@ package menu.screens;
 
 import menu.JeuBackground;
 import menu.tuto.OnClick;
-import menu.ui.Bouton;
+import menu.ui.Button;
 import jeu.CSG;
 import jeu.Profil;
 import jeu.Strings;
 import jeu.mode.EndlessMode;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -20,8 +19,8 @@ import elements.particular.particles.individual.weapon.GreenAddParticle;
 
 public class MenuXP extends AbstractScreen{
 	
-	private Bouton boutonUpgrade, boutonCadence, boutonUndo;
-	private final Bouton boutonXP;
+	private Button boutonUpgrade, boutonCadence, boutonUndo;
+	private final Button boutonXP;
 	private final JeuBackground jeu = new JeuBackground();
 	private static short prevNvArmeDeBase = CSG.profile.NvArmeDeBase;
 	private static short prevNvArmeBalayage = CSG.profile.NvArmeBalayage;
@@ -33,25 +32,24 @@ public class MenuXP extends AbstractScreen{
 
 	public MenuXP(final Game game) {
 		super(game);
-		Gdx.graphics.setVSync(true);
 		Gdx.input.setCatchBackKey(true);
-		ajout(boutonBack);
+		ajout(buttonBack);
 		// **       B O U T O N   X P       **
-		boutonXP = new Bouton(CSG.profile.xpDispo + "xp", false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_PETITBOUTON,
-				(CSG.screenWidth / 2) - Menu.LARGEUR_BOUTON/2, - Menu.decalageY + CSG.SCREEN_HEIGHT - Menu.HAUTEUR_BOUTON * 2, this, new OnClick() {
+		boutonXP = new Button(CSG.profile.xpDispo + "xp", false, CSG.menuFont, BUTTON_WIDTH, SMALL_BUTTON_HEIGHT,
+				(CSG.screenWidth / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.SCREEN_HEIGHT - Menu.BUTTON_HEIGHT * 2, this, new OnClick() {
 					public void onClick() {	}}, false);
 		ajout(boutonXP);
 		// ** ** ** BOUTON WEAPON ** ** **
-		ajout(new Bouton(OTHER_WEAP, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_PETITBOUTON,
-				(CSG.screenWidth / 2) - Menu.LARGEUR_BOUTON/2, - Menu.decalageY + CSG.SCREEN_HEIGHT - Menu.HAUTEUR_BOUTON * 4, this, new OnClick() {
+		ajout(new Button(OTHER_WEAP, false, CSG.menuFont, BUTTON_WIDTH, SMALL_BUTTON_HEIGHT,
+				(CSG.screenWidth / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.SCREEN_HEIGHT - Menu.BUTTON_HEIGHT * 4, this, new OnClick() {
 					public void onClick() {	
 						Player.changerArme();
 						CSG.profilManager.persist();
 						updateTexteUpgrade();
 					}}, false));
 		// ** ** ** BOUTON UPGRADE ** **
-		boutonUpgrade = new Bouton("", false, CSG.menuFontSmall, LARGEUR_PETITBOUTON, HAUTEUR_PETITBOUTON,
-				CSG.screenWidth - (CSG.screenWidth / Menu.PADDING) - Menu.LARGEUR_PETITBOUTON,	Menu.HAUTEUR_BOUTON, this, new OnClick() {
+		boutonUpgrade = new Button("", false, CSG.menuFontSmall, SMALL_BUTTON_WIDTH, SMALL_BUTTON_HEIGHT,
+				CSG.screenWidth - (CSG.screenWidth / Menu.PADDING) - Menu.SMALL_BUTTON_WIDTH,	Menu.BUTTON_HEIGHT, this, new OnClick() {
 					public void onClick() {	
 						if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
 							save();
@@ -67,9 +65,9 @@ public class MenuXP extends AbstractScreen{
 					}}, false);
 		ajout(boutonUpgrade);
 		updateTexteUpgrade();
-		// ** ** ** BOUTON CADENCE ** ** **
-		boutonCadence = new Bouton("", false, CSG.menuFontSmall, Menu.LARGEUR_PETITBOUTON, Menu.HAUTEUR_PETITBOUTON,
-				CSG.screenWidth - (CSG.screenWidth / Menu.PADDING) - Menu.LARGEUR_PETITBOUTON,	Menu.HAUTEUR_BOUTON * 3, this, new OnClick() {
+		// ** ** ** BOUTON FIRERATE ** ** **
+		boutonCadence = new Button("", false, CSG.menuFontSmall, Menu.SMALL_BUTTON_WIDTH, Menu.SMALL_BUTTON_HEIGHT,
+				CSG.screenWidth - (CSG.screenWidth / Menu.PADDING) - Menu.SMALL_BUTTON_WIDTH,	Menu.BUTTON_HEIGHT * 3, this, new OnClick() {
 					public void onClick() {
 						if (CSG.profile.getCoutCadenceAdd() <= CSG.profile.xpDispo){
 							save();
@@ -79,14 +77,13 @@ public class MenuXP extends AbstractScreen{
 							updateTexteXp();
 							ajoutUndo();
 						} else {
-							System.out.println("MenuXP.MenuXP(...).new OnClick() {...}.onClick()");
 							CSG.talkToTheWorld.buyXp();
 						}
 					}}, false);
 		updateTexteCadence();
 		ajout(boutonCadence);
 		Player.POS.y = CSG.SCREEN_HEIGHT / 3;
-		Player.POS.x = (CSG.screenWidth / 2) - Player.DEMI_LARGEUR; 
+		Player.POS.x = (CSG.screenWidth / 2) - Player.HALF_WIDTH; 
 		Player.rajoutAdd();
 		Player.rajoutAdd();
 		Player.rajoutAdd();
@@ -105,9 +102,9 @@ public class MenuXP extends AbstractScreen{
 		CSG.batch.begin();
 		Particles.background(CSG.batch);
 		jeu.render(CSG.batch, delta);
-		for (int i = 0; i < boutons.size; i++) 
-			if (boutons.get(i) != null)
-				boutons.get(i).draw(CSG.batch);
+		for (int i = 0; i < buttons.size; i++) 
+			if (buttons.get(i) != null)
+				buttons.get(i).draw(CSG.batch);
 		Particles.drawUi(CSG.batch);
 		CSG.menuFontSmall.draw(CSG.batch, "Weapon level : " + CSG.profile.getArmeSelectionnee().nv(), 4, 4 + CSG.menuFontSmall.getBounds("W").height);
 		CSG.end();
@@ -126,7 +123,7 @@ public class MenuXP extends AbstractScreen{
 	private void ajoutUndo() {
 		if (boutonUndo == null) {
 			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_FAVORITE_SHOP);
-			boutonUndo = new Bouton("UNDO", false, CSG.menuFontSmall, Menu.LARGEUR_PETITBOUTON, Menu.HAUTEUR_PETITBOUTON, CSG.screenWidth / Menu.PADDING, Menu.HAUTEUR_BOUTON * 3, this,
+			boutonUndo = new Button("UNDO", false, CSG.menuFontSmall, Menu.SMALL_BUTTON_WIDTH, Menu.SMALL_BUTTON_HEIGHT, CSG.screenWidth / Menu.PADDING, Menu.BUTTON_HEIGHT * 3, this,
 			new OnClick()  {
 				public void onClick() {		undo();		}
 			}, false);
@@ -171,7 +168,7 @@ public class MenuXP extends AbstractScreen{
 		updateTexteXp();
 		ArmeAdd.determinerCadenceTir();
 		GreenAddParticle.COLOR = ArmeAdd.COLORS[CSG.R.nextInt(ArmeAdd.COLORS.length)];
-		boutons.removeValue(boutonUndo, true);
+		buttons.removeValue(boutonUndo, true);
 	}
 
 	private void updateTexteUpgrade() {

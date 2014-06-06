@@ -3,7 +3,6 @@ package shaders;
 import java.io.Serializable;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -205,8 +204,8 @@ public final class Bloom implements Serializable {
 			capturing = true;
 			frameBuffer.begin();
 			Gdx.gl.glClearColor(r, g, b, a);
-			Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-
+//			Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		}
 	}
 
@@ -237,15 +236,19 @@ public final class Bloom implements Serializable {
 			frameBuffer.end();
 		}
 
-		Gdx.gl.glDisable(GL10.GL_BLEND);
-		Gdx.gl.glDisable(GL10.GL_DEPTH_TEST);
+//		Gdx.gl.glDisable(GL10.GL_BLEND);
+//		Gdx.gl.glDisable(GL10.GL_DEPTH_TEST);
+		Gdx.gl.glDisable(GL20.GL_BLEND);
+		Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
 		Gdx.gl.glDepthMask(false);
 
 		gaussianBlur();
 
 		if (blending) {
-			Gdx.gl.glEnable(GL10.GL_BLEND);
-			Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+			Gdx.gl.glEnable(GL20.GL_BLEND);
+			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+//			Gdx.gl.glEnable(GL10.GL_BLEND);
+//			Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		}
 
 		pingPongTex1.bind(1);

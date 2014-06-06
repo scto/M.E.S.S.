@@ -14,7 +14,7 @@ import elements.generic.enemies.Enemy;
 
 public class TimeParticle implements Poolable {
 
-	private static final float LARGEUR = CSG.screenWidth / 55, DEMI_LARGEUR = LARGEUR / 2;
+	private static final float WIDTH = CSG.screenWidth / 55, HALF_WIDTH = WIDTH / 2;
 	public static final Pool<TimeParticle> POOL = new Pool<TimeParticle>() {
 		@Override
 		protected TimeParticle newObject() {
@@ -25,8 +25,8 @@ public class TimeParticle implements Poolable {
 	private final float color = AssetMan.convertARGB(1, 0, 1, CSG.R.nextFloat());
 
 	public TimeParticle init(Element e) {
-		x = (e.pos.x + e.getHalfWidth()) - DEMI_LARGEUR;
-		y = (e.pos.y + e.getHalfHeight()) - DEMI_LARGEUR;
+		x = (e.pos.x + e.getHalfWidth()) - HALF_WIDTH;
+		y = (e.pos.y + e.getHalfHeight()) - HALF_WIDTH;
 		x += (CSG.R.nextGaussian() / 2) * e.getHalfWidth();
 		y += (CSG.R.nextGaussian() / 2) * e.getHalfHeight();
 		time = .5f + (EndlessMode.STOP - .5f) * CSG.R.nextFloat();
@@ -36,7 +36,7 @@ public class TimeParticle implements Poolable {
 	public static void act(Array<TimeParticle> time, SpriteBatch batch) {
 		for (TimeParticle t : time) {
 			batch.setColor(t.color);
-			batch.draw(AssetMan.dust, t.x, t.y, LARGEUR, LARGEUR);
+			batch.draw(AssetMan.dust, t.x, t.y, WIDTH, WIDTH);
 			t.time -= EndlessMode.delta;
 			if (t.time < 0) {
 				time.removeValue(t, false);

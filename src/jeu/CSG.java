@@ -2,44 +2,45 @@ package jeu;
 
 import java.util.Random;
 
-import shaders.Bloom;
 import jeu.db.DataManager;
 import jeu.mode.EndlessMode;
 import menu.screens.Loading;
+import shaders.Bloom;
 import assets.AssetMan;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import elements.generic.Invocable;
 import elements.generic.enemies.Enemy;
 import elements.generic.enemies.SpawnEnemyPosition;
-import elements.generic.weapons.Weapons;
+import elements.generic.weapons.Weapon;
 import elements.particular.bonuses.Bonus;
 import elements.particular.particles.Particles;
 
 public class CSG extends Game implements ApplicationListener {
 
 	// ---- champs globaux ---- Je ne trouve pas comment mettre final car Gdx n'est pas encore initialise
-	public static int screenHalfWidth = 0, screenTierWidth, gameZoneHalfWidth, halfHeight, screenWidth, gameZoneWidth, borderWidth, gameZoneWidthDiv20, gameZoneWidthDiv100;
-	public static int LARGEUR_ZONE_MOINS_LARGEUR_BORD, LARGEUR_ZONE_MOINS_LARGEUR_BORD_MUL2, SCREEN_HEIGHT, DIXIEME_LARGEUR, HEIGHT_DIV10, CENTIEME_HAUTEUR, HEIGHT_DIV50, HEIGHT_DIV20, HEIGHT_PLUS_4, HEIGHT_DIV8;
-	public static int CINQUIEME_ECRAN, DEUX_CINQUIEME_ECRAN, TROIS_CINQUIEME_ECRAN, QUATRE_CINQUIEME_ECRAN, QUATR_HAUTEUR;
+	public static int screenHalfWidth = 0, screenTierWidth, gameZoneHalfWidth, halfHeight, screenWidth, gameZoneWidth, borderWidth, gameZoneWidthDiv20, gameZoneWidthDiv100, screenWidth2Thirds;
+	public static int WIDTH_ZONE_MOINS_WIDTH_BORD, WIDTH_ZONE_MOINS_WIDTH_BORD_MUL2, SCREEN_HEIGHT, DIXIEME_WIDTH, HEIGHT_DIV10, CENTIEME_HEIGHT, HEIGHT_DIV50, HEIGHT_DIV20, HEIGHT_PLUS_4, HEIGHT_DIV8;
+	public static int CINQUIEME_ECRAN, DEUX_CINQUIEME_ECRAN, TROIS_CINQUIEME_ECRAN, QUATRE_CINQUIEME_ECRAN, QUATR_HEIGHT;
 	public static int CINQUIEME_ZONE, DEUX_CINQUIEME_ZONE, TROIS_CINQUIEME_ZONE, QUATRE_CINQUIEME_ZONE;
 	public static float RATIO;
-	public static int HEIGHT_9_10, HEIGHT_8_10, HAUTEUR_ECRAN_PALLIER_3 = 0, HAUTEUR_ECRAN_PALLIER_7;
+	public static int HEIGHT_9_10, HEIGHT_8_10, HEIGHT_ECRAN_PALLIER_3 = 0, HEIGHT_ECRAN_PALLIER_7;
 	public static final int CONTROLE_TOUCH_NON_RELATIVE = 0, CONTROLE_DPAD = 1, CONTROLE_ACCELEROMETRE = 2, CONTROLE_TOUCH_RELATIVE = 3, CONTROLE_MAX = 3;
 	// ********  A U T R E S  *********
 	public static ProfilManager profilManager;
 	public static Profil profile;
-	public static BitmapFont menuFont, menuFontSmall, menuFontBlack, scoreFont, outlineScoreFont;
+	public static BitmapFont menuFont, menuFontSmall, menuFontBlack, scoreFont;//, outlineScoreFont;
 	public static AssetMan assetMan;
 	public static SpriteBatch batch;
 	public static TalkToTheWorld talkToTheWorld;
@@ -47,8 +48,14 @@ public class CSG extends Game implements ApplicationListener {
 	public static final float mulLvl1 = 1, mulLvl2 = 1.15f, mulLvl3 = 2.2f, mulLvl4 = 4f, mulSCORE = 1.1f;
 	public static DataManager dbManager;
 	public static final int dbVersion = 2;
+	public static final int NO_CHEAT = 0, BEGIN_70K = 1;
 	public static boolean updateNeeded = false;
 	public static float originalScoreFontScale;
+	public static final Vector2 vecteurPosition = new Vector2(), tmpPos = new Vector2(), tmpDir = new Vector2(), tmp2 = new Vector2();
+	public static Vector2 vecteurCible = new Vector2();
+	public static int tmpInt;
+//	public static RayHandler rayHandler;
+//	public static World world;
 	
 	public CSG(TalkToTheWorld google) {
 		updateNeeded = false;
@@ -58,18 +65,22 @@ public class CSG extends Game implements ApplicationListener {
 	public CSG(TalkToTheWorld google, DataManager dbManager) { // Constructeur desktop
 		CSG.talkToTheWorld = google;
 		CSG.dbManager = dbManager;
-//		dbManager.setupDatabase();
-//		CSG.dbManager.openOrCreateDatabase();
-//		if (dbManager.getInt("select id from version", dbVersion) == dbVersion)
+		dbManager.setupDatabase();
+		CSG.dbManager.openOrCreateDatabase();
+		if (dbManager.getInt("select id from version", dbVersion) == dbVersion)
 			updateNeeded = false;
-//		else
-//			updateNeeded = true;
+		else
+			updateNeeded = true;
 		
-		System.out.println("Update needed : " + updateNeeded);
+		updateNeeded = false;
 	}
 
 	@Override
 	public void create() {
+//		world = new World(Vector2.Zero, true);
+//		rayHandler = new RayHandler(world);
+//		CSG.rayHandler.setAmbientLight(0,0,0,0.8f);
+		
 		log("Create");
 		batch = new SpriteBatch(5460);
 		assetMan = new AssetMan();
@@ -91,38 +102,32 @@ public class CSG extends Game implements ApplicationListener {
 	}
 
 	public static void initFonts() {
-		menuFont = new BitmapFont();//Gdx.files.internal("default.fnt"), false);
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Polentical Neon Regular.ttf"));
+		FreeTypeFontParameter param = new FreeTypeFontParameter();
+		
 		float dimension = CSG.SCREEN_HEIGHT + CSG.screenWidth;
-		dimension = dimension / 700;
+		dimension = dimension / 900;
 		if (dimension < 1f)
 			dimension = 1f;
-		menuFont.setScale(dimension);
-		menuFont.setColor(.32f, .52f, 0.99f, 1);
-		menuFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		menuFontBlack = new BitmapFont();
-		menuFontBlack.setColor(Color.BLACK);
-		menuFontBlack.setScale(dimension);
+		menuFontBlack = setFont((int) (25 * dimension),			dimension, generator, param, AssetMan.BLACK);
+		originalScoreFontScale = dimension * 0.75f;
+		scoreFont = setFont((int) (13 * dimension), 			dimension, generator, param, AssetMan.convertARGB(1, 0, 0, 1));
+		scoreFont.setScale(0.5f);
 		
-		menuFontSmall = new BitmapFont();
-		dimension /= 2.2f;
-		if (dimension < 1f)
-			dimension = 1f;
-		menuFontSmall = new BitmapFont();//Gdx.files.internal("default.fnt"), false);
-		menuFontSmall.setScale(dimension);
-		menuFontSmall.setColor(.32f, .52f, 0.99f, 1);
+		menuFontSmall = setFont((int) (12 * dimension), 		dimension, generator, param, AssetMan.convertARGB(1, .32f, .52f, 0.99f));
+		menuFont = setFont((int) (23 * dimension), 		dimension, generator, param, AssetMan.convertARGB(1, .32f, .52f, 0.99f));
 		
-		
-		originalScoreFontScale = dimension * 1.2f;
-		scoreFont = new BitmapFont();//Gdx.files.internal("default.fnt"), false);
-		scoreFont.setScale(originalScoreFontScale);
-		scoreFont.setColor(0, 0, 1, 1);
-		scoreFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		outlineScoreFont = new BitmapFont();//Gdx.files.internal("default.fnt"), false);
-		outlineScoreFont.setScale(originalScoreFontScale * 1.2f);
-		outlineScoreFont.setColor(0, 0, 1, 0.65f);
-		outlineScoreFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		generator.dispose(); // don't forget to dispose to avoid memory leaks!
+	}
+
+	private static BitmapFont setFont(int size, float dimension, FreeTypeFontGenerator generator, FreeTypeFontParameter param, float color) {
+		BitmapFont font = new BitmapFont();
+		param.size = size;
+		font = generator.generateFont(param);
+		font.setColor(color);
+		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		return font;
 	}
 
 	public static void dimensions() {
@@ -136,21 +141,21 @@ public class CSG extends Game implements ApplicationListener {
 		gameZoneWidthDiv100 = gameZoneWidth / 100;
 		borderWidth = screenWidth / 3;
 		screenTierWidth = screenWidth / 3;
-		LARGEUR_ZONE_MOINS_LARGEUR_BORD = gameZoneWidth - borderWidth;
-		LARGEUR_ZONE_MOINS_LARGEUR_BORD_MUL2 = gameZoneWidth - (borderWidth*2);
+		WIDTH_ZONE_MOINS_WIDTH_BORD = gameZoneWidth - borderWidth;
+		WIDTH_ZONE_MOINS_WIDTH_BORD_MUL2 = gameZoneWidth - (borderWidth*2);
 		gameZoneHalfWidth = gameZoneWidth / 2;
 //		DEMI_CAMERA = (gameZoneWidth - screenWidth) * 2;
-		DIXIEME_LARGEUR = screenWidth / 10;
+		DIXIEME_WIDTH = screenWidth / 10;
 		HEIGHT_DIV10 = SCREEN_HEIGHT / 10;
-		CENTIEME_HAUTEUR = SCREEN_HEIGHT / 100;
+		CENTIEME_HEIGHT = SCREEN_HEIGHT / 100;
 		HEIGHT_DIV50 = SCREEN_HEIGHT / 50;
 		HEIGHT_DIV8 = SCREEN_HEIGHT / 8;
 		HEIGHT_DIV20 = SCREEN_HEIGHT / 20;
-		CINQUIEME_ECRAN = DIXIEME_LARGEUR * 2;
+		CINQUIEME_ECRAN = DIXIEME_WIDTH * 2;
 		DEUX_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 2;
 		TROIS_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 3;
 		QUATRE_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 4;
-		QUATR_HAUTEUR = SCREEN_HEIGHT / 4;
+		QUATR_HEIGHT = SCREEN_HEIGHT / 4;
 		
 		CINQUIEME_ZONE = gameZoneWidth / 5;
 		DEUX_CINQUIEME_ZONE = CINQUIEME_ZONE * 2;
@@ -159,13 +164,15 @@ public class CSG extends Game implements ApplicationListener {
 		HEIGHT_PLUS_4 = SCREEN_HEIGHT + 4;
 		HEIGHT_9_10 = SCREEN_HEIGHT - HEIGHT_DIV10;
 		HEIGHT_8_10 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 2);
-		HAUTEUR_ECRAN_PALLIER_3 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 3);
-		HAUTEUR_ECRAN_PALLIER_7 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 7);
+		HEIGHT_ECRAN_PALLIER_3 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 3);
+		HEIGHT_ECRAN_PALLIER_7 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 7);
+		
+		screenWidth2Thirds = (screenWidth / 2) * 3;
 	}
 	
 	public static void reset(){
 		Enemy.clear();
-		Weapons.clear();
+		Weapon.clear();
 		// Progression.reset(); 
         Bonus.resetAll();
         Particles.clear();
@@ -217,7 +224,7 @@ public class CSG extends Game implements ApplicationListener {
 		return array2;
 	}
 	
-	public static float[] getHalf(float[] array) {
+	public static float[] getDifferences(float[] array) {
 		final Array<Float> tmp = new Array<Float>();
 		tmp.add(0f);
 		for (int i = 1; i < array.length; i++)

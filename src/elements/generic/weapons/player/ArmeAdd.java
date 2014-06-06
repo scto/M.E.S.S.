@@ -8,25 +8,24 @@ import assets.AssetMan;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.Player;
-import elements.generic.weapons.Weapons;
+import elements.generic.weapons.Weapon;
 import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.weapon.GreenAddParticle;
 
 /**
- * Arme tirant en balyant l'�cran de gauche � droite, d'o� le nom
+ * Arme shotant en balyant l'�cran de gauche � droite, d'o� le nom
  * C'est celle qui est verte
  * @author Julien
  *
  */
 
-public class ArmeAdd extends PlayerWeapon implements Poolable{
+public class ArmeAdd extends PlayerWeapon {
 	
-	public static final int WIDTH = CSG.screenWidth / 26, DEMI_LARGEUR = WIDTH/2, HAUTEUR = WIDTH * 2, DEMI_HAUTEUR = HAUTEUR / 2; 
-	public static float CADENCETIR;
+	public static final int WIDTH = CSG.screenWidth / 26, HALF_WIDTH = WIDTH/2, HEIGHT = WIDTH * 2, HALF_HEIGHT = HEIGHT / 2; 
+	public static float FIRERATETIR;
 	public static final Pool<ArmeAdd> POOL = Pools.get(ArmeAdd.class);
 	public static final float[] COLORS = {
 		AssetMan.convertARGB(1, 27f/255f, 124f/255f, 0),
@@ -55,20 +54,20 @@ public class ArmeAdd extends PlayerWeapon implements Poolable{
 		
 		AssetMan.convertARGB(1, 0, 254f/255f, 191f/255f)};
 	
-	public static void determinerCadenceTir() {	CADENCETIR = 1.6f / CSG.profile.cadenceAdd;	}
+	public static void determinerCadenceTir() {	FIRERATETIR = 1.6f / CSG.profile.cadenceAdd;	}
 	private float angle;
 	private static final Vector2 decalage = new Vector2();
 	public void init(float x, float y, float angle, float decalage) {
-		pos.x = (x + Player.DEMI_LARGEUR_ADD) - DEMI_LARGEUR;
-		pos.y = (y + Player.HAUTEUR_DIV8) - DEMI_HAUTEUR;
+		pos.x = (x + Player.HALF_WIDTH_ADD) - HALF_WIDTH;
+		pos.y = (y + Player.HEIGHT_DIV8) - HALF_HEIGHT;
 		dir.x = 0;
 		dir.y = 1;
 		dir.rotate(angle);
-		ArmeAdd.decalage.x = Player.LARGEUR_ADD;
-		ArmeAdd.decalage.y = Player.HAUTEUR_DIV4;
+		ArmeAdd.decalage.x = Player.WIDTH_ADD;
+		ArmeAdd.decalage.y = Player.HEIGHT_DIV4;
 		dir.rotate(decalage);
 		dir.scl(Stats.V_ARME_ADD);
-		Weapons.ADDS.add(this);
+		Weapon.ADDS.add(this);
 		this.angle = (angle-180) + decalage;
 		ArmeAdd.decalage.rotate(angle+65);
 		pos.add(ArmeAdd.decalage);
@@ -77,27 +76,28 @@ public class ArmeAdd extends PlayerWeapon implements Poolable{
 	@Override
 	public void draw(SpriteBatch batch) {
 		batch.setColor(GreenAddParticle.COLOR);
-		batch.draw(AssetMan.addBullet, pos.x, pos.y, DEMI_LARGEUR, DEMI_HAUTEUR, WIDTH, HAUTEUR, 1, 1, angle);
+		batch.draw(AssetMan.addBullet, pos.x, pos.y, HALF_WIDTH, HALF_HEIGHT, WIDTH, HEIGHT, 1, 1, angle);
 		batch.setColor(AssetMan.WHITE);
 	}
 
 	@Override
 	public boolean mouvementEtVerif() {
 //		Particles.ajoutAdd(this);
-		return Physic.mvt(HAUTEUR, WIDTH, dir, pos);
+		return Physic.mvt(HEIGHT, WIDTH, dir, pos);
 	}
 
-	@Override	public int getWidth() {	return WIDTH;	}
-	@Override	public int getHeight() {	return HAUTEUR;	}
+	@Override	public float getWidth() {	return WIDTH;	}
+	@Override	public float getHeight() {	return HEIGHT;	}
 	@Override	public void free() {		POOL.free(this);	}
 	@Override	public float getColor() {	return COLORS[R.nextInt(COLORS.length)];	}
-	@Override	public int getHalfWidth() {		return DEMI_LARGEUR;	}
-	@Override	public int getHalfHeight() {		return DEMI_HAUTEUR;	}
+	@Override	public float getHalfWidth() {		return HALF_WIDTH;	}
+	@Override	public float getHalfHeight() {		return HALF_HEIGHT;	}
 
 	public static void add(float x, float y, float angle, float decalage) {
 		POOL.obtain().init(x, y, angle + 90, decalage);
 	}
 	
-	@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeGreen;		}
+	@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeYellowToGreen;		}
+
 }
 

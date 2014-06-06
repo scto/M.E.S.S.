@@ -4,104 +4,113 @@ import jeu.CSG;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
-import assets.animation.AnimationEnnemiAileDeployee;
+import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.Invocable;
-import elements.generic.behavior.Behavior;
+import elements.generic.components.Phase;
+import elements.generic.components.behavior.Behavior;
+import elements.generic.components.shots.Gatling;
+import elements.generic.components.shots.Shot;
 import elements.generic.enemies.Enemy;
-import elements.generic.weapons.enemies.EnemyWeapon;
-import elements.generic.weapons.enemies.InvocableWeapon;
 import elements.generic.weapons.enemies.LaserWeapon;
-import elements.generic.weapons.patterns.TireurAngle;
-import elements.generic.weapons.patterns.Tirs;
 
 
-public class Laser extends Enemy implements TireurAngle {
+public class Laser extends Enemy {
 	
-	private static final int LARGEUR = Stats.LARGEUR_LASER, DEMI_LARGEUR = LARGEUR/2;
+	private static final int 
+		WIDTH = Stats.LASER_WIDTH,
+		HALF_WIDTH = WIDTH/2;
 	public static final Pool<Laser> POOL = Pools.get(Laser.class);
-	protected float rotation = 0;
-	private boolean versGauche;
-	public static final  Invocable ref = new Laser();
 	public static final int PK = 7;
-	protected static final float CADENCE = initFirerate(0.5f, PK);
-	protected static final float INIT_NEXT_SHOT = initNextShot(1, PK);
-	protected static final float SPEED = initSpeed(16, PK);
-	private static final int PV = initPv(Stats.PV_LASER, PK);
-	private static final int EXPLOSION = initExplosion(45, PK);
 	protected static final int BASE_XP = Enemy.initXp(32, PK);
-	private static final int XP = getXp(BASE_XP, 1);
-	private static final Behavior behavior = initBehavior(PK,Behavior.SINK);
-	protected static final Tirs tir = new Tirs(CADENCE);
-	protected float prochainTir = INIT_NEXT_SHOT;
-	private static final InvocableWeapon weapon = initEnemyWeapon(LaserWeapon.PK, PK);
+	protected static final float 
+		FIRERATE = initFirerate(0.5f, PK),
+		INIT_NEXT_SHOT = initNextShot(1, PK),
+		SPEED = initSpeed(14, PK);
+	private static final int 
+		HP = initHp(Stats.LASER_HP, PK),
+		EXPLOSION = initExplosion(45, PK),
+		XP = getXp(BASE_XP, 1);
+	protected static final Phase[] PHASES = {
+		new Phase(				Behavior.SINK,				Gatling.LASER,				Shot.TIR_TOUT_DROIT,				Animations.AILE_DEPLOYEES				), 
+		new Phase(				Behavior.GO_AWAY,			Gatling.LASER,				Shot.TIR_TOUT_DROIT,				Animations.AILE_DEPLOYEES				)		};
+	protected float rotation = 0;
+	private boolean left;
+	private static final float PHASE_DURATION = 12;
 	
-	protected void init() {
-		if (EndlessMode.alternate)
-			pos.x = (CSG.gameZoneHalfWidth - DEMI_LARGEUR) - LARGEUR;
+	public void init() {
+		if (CSG.R.nextBoolean())
+			pos.x = (CSG.gameZoneHalfWidth - HALF_WIDTH) - WIDTH;
 		else
-			pos.x = (CSG.gameZoneHalfWidth - DEMI_LARGEUR) + LARGEUR;
+			pos.x = (CSG.gameZoneHalfWidth - HALF_WIDTH) + WIDTH;
 		pos.y = CSG.SCREEN_HEIGHT;
-		prochainTir = 1f;
+		nextShot = 1f;
 		
-		if (pos.x + DEMI_LARGEUR > CSG.gameZoneHalfWidth) {
-			versGauche = true;
+		if (pos.x + HALF_WIDTH > CSG.gameZoneHalfWidth) {
+			left = true;
 			dir.x = -1;
 			angle = -135;
 		} else {
 			dir.x = 1;
-			versGauche = false;
+			left = false;
 			angle = -45;
 		}
 		dir.y = -1;
-		dir.scl(getVitesse());
+		dir.scl(getSpeed());
+		index = 0;
 	}
 	
 	@Override
-	public Vector2 getPositionDuTir(int numeroTir) {
-		TMP_POS.x = (pos.x + DEMI_LARGEUR - LaserWeapon.HALF_WIDTH) + (dir.x / 3);
-		TMP_POS.y = (pos.y + DEMI_LARGEUR - LaserWeapon.HALF_WIDTH) + (dir.y / 3);
+	protected void isMoving() {
+		if (!EndlessMode.alternate)
+			angle = dir.angle();
+	}
+	
+	@Override
+	public Vector2 getShotPosition(int numeroTir) {
+		if (phaseTime > getPhaseDuration())
+			index = 1;
+		TMP_POS.x = (pos.x + HALF_WIDTH - LaserWeapon.HALF_WIDTH) + (dir.x / 3);
+		TMP_POS.y = (pos.y + HALF_WIDTH - LaserWeapon.HALF_WIDTH) + (dir.y / 3);
 		return TMP_POS;
 	}
 	
-	@Override
-	public Invocable invoquer() {
-		Laser l = POOL.obtain();
-		LIST.add(l);
-		l.init();
-		return l;
+	/**
+	 * Is used for the rotation
+	 */
+	@Override	public float getFloatFactor() {
+		if (left)
+			return 4;
+		return -4;
 	}
-	
-	@Override	protected TextureRegion getTexture() {	return AnimationEnnemiAileDeployee.getTexture(3);	}
-	@Override	public float getAngle() {				return angle+90;	}
-	@Override	protected void tir() {					tir.tirToutDroit(this, now, prochainTir);	}
-	@Override	public int getXp() {					return XP;	}
-	@Override	public int getValeurBonus() {			return BASE_XP;	}
-	@Override	public int getHeight() {				return LARGEUR;	}
-	@Override	protected int getPvMax() {				return PV;	}
-	@Override	public int getWidth() {					return LARGEUR;	}
-	@Override	public int getHalfHeight() {			return DEMI_LARGEUR;	}
-	@Override	public float getVitesse() {				return SPEED;	}
-	@Override	public int getHalfWidth() {				return DEMI_LARGEUR;	}
-	@Override	public EnemyWeapon getArme() {			return weapon.invoke();	}
-	@Override	public void setProchainTir(float f) {	prochainTir = f;	}
-	@Override	public float getModifVitesse() {		return 0.010f;	}
-	@Override	public float getAngleTir() {			return angle+90;	}
-	@Override	public Vector2 getDirectionTir() {		return dir;	}
-	@Override	public float getDirectionY() {			return dir.y;	}
-	@Override	public float getDirectionX() {			return dir.x;	}
-	@Override	protected Sound getSonExplosion() {		return SoundMan.explosion5;	}
-	@Override	public void free() {					POOL.free(this);	}
-	@Override	protected String getLabel() {			return getClass().toString();	}
+	@Override	public Phase[] getPhases() {			return PHASES;						}
+	@Override	protected String getLabel() {			return getClass().toString();						}		
+	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion5;							}
+	@Override	public float getHalfHeight() {			return HALF_WIDTH;									}
+	@Override	public float getHalfWidth() {			return HALF_WIDTH;									}
 	@Override	public int getExplosionCount() {		return EXPLOSION;									}
-	@Override	public Behavior getBehavior() {			return behavior;	}
-	@Override	public boolean toLeft() {				return versGauche;	}
-	@Override	public float getRotation() {			return rotation;	}
-	@Override	public void setRotation(float f) {		rotation = f;	}
+	@Override	public float getAngle() {				return angle+90;									}
+	@Override	public float getShootingAngle() {		return angle+90;									}
+	@Override	public void free() {					POOL.free(this);									}
+	@Override	public float getRotation() {			return rotation;									}
+	@Override	public int getBonusValue() {			return BASE_XP;										}
+	@Override	public float getBulletSpeedMod() {		return 0.010f;										}
+	@Override	public float getHeight() {				return WIDTH;										}
+	@Override	public float getWidth() {				return WIDTH;										}
+	@Override	public float getSpeed() {				return SPEED;										}
+	@Override	public float getDirectionY() {			return dir.y;										}
+	@Override	public float getDirectionX() {			return dir.x;										}
+	@Override	public void setRotation(float f) {		rotation = f;										}
+	@Override	public boolean toLeft() {				return left;										}
+	@Override	public Vector2 getShootingDir() {		return dir;											}
+	@Override	public int getXp() {					return XP;											}
+	@Override	protected int getMaxHp() {				return HP;											}
+	@Override	public float getFirerate() {			return FIRERATE;									}
+	public float getPhaseDuration() {
+		return PHASE_DURATION;
+	}
 }

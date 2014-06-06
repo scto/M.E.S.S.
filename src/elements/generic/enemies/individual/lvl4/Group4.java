@@ -4,14 +4,11 @@ import jeu.CSG;
 import jeu.Stats;
 
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.Invocable;
 import elements.generic.enemies.individual.lvl1.Group;
 import elements.generic.enemies.individual.lvl3.Group3;
-import elements.generic.weapons.patterns.TireurPlusieurFois;
 
-public class Group4 extends Group3 implements Poolable, Invocable, TireurPlusieurFois {
+public class Group4 extends Group3 {
 	
 	public static final Pool<Group4> POOL = new Pool<Group4>() {
 		@Override
@@ -19,23 +16,25 @@ public class Group4 extends Group3 implements Poolable, Invocable, TireurPlusieu
 			return new Group4();
 		}
 	};
-	public static final Invocable ref = new Group4();
-	private static final int PV = getModulatedPv(Stats.PV_GROUP, 4);
+	private static final int HP = getModulatedPv(Stats.HP_GROUP, 4);
 	private static final int XP = getXp(BASE_XP, 4);
-	private static final float SPEED = getModulatedSpeed(Group.SPEED, 4);
+	private static final float SPEED = getModulatedSpeed(Group.SPEED, 4), FIRERATE = Group.FIRERATE * 0.8f;
 	
-	@Override
-	public Invocable invoquer() {
-		init(POOL.obtain(), CSG.gameZoneWidth);
-		init(POOL.obtain(), CSG.gameZoneWidth - LARGEUR);
-		init(POOL.obtain(), CSG.gameZoneWidth - LARGEUR * 2f);
-		return ref;
+	public static Group4 initAll() {
+		Group4 e = POOL.obtain();
+		Group4 f = POOL.obtain();
+		Group4 g = POOL.obtain();
+		e.init(CSG.gameZoneWidth - WIDTH);
+		f.init(CSG.gameZoneWidth - WIDTH * 2.1f);
+		g.init(CSG.gameZoneWidth - WIDTH * 3.2f);
+		return e;
 	}
+	@Override	public float getFirerate() {							return FIRERATE;							}
+	@Override	public int getNumberOfShots() {							return 5;	}
 	@Override	public int getXp() {									return XP;	}
-	@Override	public int getValeurBonus() {							return BASE_XP;	}
-	@Override	protected int getPvMax() {								return PV;	}
+	@Override	public int getBonusValue() {							return BASE_XP;	}
+	@Override	protected int getMaxHp() {								return HP;	}
 	@Override	public void free() {									POOL.free(this);	}
-	@Override	protected void tir() {									TIR.tirEnRafale(this, 3, now, prochainTir);	}
-	@Override	public float getVitesse() {								return SPEED;	}
+	@Override	public float getSpeed() {								return SPEED;	}
 	
 }

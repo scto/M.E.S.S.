@@ -4,38 +4,34 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.Invocable;
 import jeu.Stats;
 
 public class BouleTirCoteRotation extends BouleTirCote {
 
-	public static final float VITESSE_ANGLE = 100f, CADENCETIR = .04f;
 	public static final Pool<BouleTirCoteRotation> POOL = Pools.get(BouleTirCoteRotation.class);
-	public static final Invocable ref = new BouleTirCoteRotation();
+	private float rotation = 0;
+	private static final float FIRERATE = .15f, SPEED = Stats.V_BOULE_TIR_COTE * 0.75f;
 	
 	@Override
-	public Vector2 getDirectionTir() {
-		super.getDirectionTir();
-		return TMP_DIR.rotate(angle);
-	}
-	
-	public void setProchainTir(float f) {
-		if (++numeroTir > 10) numeroTir = 1;
-		prochainTir = f + CADENCETIR * numeroTir;
+	public Vector2 getShootingDir() {
+		super.getShootingDir();
+		angle += 10;
+		rotation += 10;
+		return TMP_DIR.rotate(rotation);
 	}
 	
 	@Override
-	public Invocable invoquer() {
-		final BouleTirCoteRotation l = POOL.obtain();
-		LIST.add(l);
-		l.placement();
-		return l;
+	public void reset() {
+		rotation = 0;
+		super.reset();
 	}
 	
-	@Override	public float getVitesse() {				return  Stats.V_BOULE_TIR_COTE;	}
+	@Override	public int getNumberOfShots() {			return 5;	}
+	@Override	public float getBulletSpeedMod() {		return 0.013f;	}
+	@Override	public float getFirerate() {			return FIRERATE;	}
+	@Override	public float getSpeed() {				return SPEED;	}
 	@Override	public int getXp() {					return 61;	}
-	@Override	public int getValeurBonus() {			return 70;	}
-	@Override	public float getModifVitesse() {		return 1.3f;	}
+	@Override	public int getBonusValue() {			return 70;	}
 	@Override	protected String getLabel() {			return getClass().toString();	}
 	@Override	public void free() {					POOL.free(this);	}
 }

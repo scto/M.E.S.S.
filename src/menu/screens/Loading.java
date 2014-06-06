@@ -13,7 +13,6 @@ public class Loading extends AbstractScreen {
 	public Loading(Game csg) {
 		super(csg);
 		CSG.assetMan.load();
-		Gdx.graphics.setVSync(true);
 	}
 
 	@Override

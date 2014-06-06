@@ -56,7 +56,7 @@ public class BlueSweepWeaponManager extends WeaponManager {
 
 	@Override
 	protected float getCadenceTir() {
-		return BlueSweepWeapon.CADENCETIR;
+		return BlueSweepWeapon.FIRERATETIR;
 	}
 
 	@Override

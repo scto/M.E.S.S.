@@ -4,9 +4,10 @@ import jeu.CSG;
 import jeu.Strings;
 import jeu.mode.EndlessMode;
 import menu.tuto.OnClick;
-import menu.ui.Bouton;
+import menu.ui.Button;
 import menu.ui.WeaponButton;
 import assets.AssetMan;
+import assets.SoundMan;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -24,7 +25,8 @@ public class ChoixDifficulte extends AbstractScreen {
 
 	private final Game game;
 	private final Array<WeaponButton> weaponButtons = new Array<WeaponButton>(6);
-	private static final float Y_WEAPON = (CSG.SCREEN_HEIGHT - HAUTEUR_BOUTON * 15) - (WeaponButton.width * 2);
+	private static final float Y_WEAPON = (CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 15) - (WeaponButton.width * 2);
+	private int etapeCode = 0, cheat = CSG.NO_CHEAT;
 
 	public ChoixDifficulte(Game game) {
 		super(game);
@@ -34,38 +36,38 @@ public class ChoixDifficulte extends AbstractScreen {
 	}
 
 	public void setUpScreenElements() {
-		ajout(boutonBack);
+		ajout(buttonBack);
 		// ** ** ** PIECE OF CAKE ** ** **
-		final Bouton lvl1 = new Bouton(Strings.LVL1, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - HAUTEUR_BOUTON * 5, this, new OnClick() {
+		final Button lvl1 = new Button(Strings.LVL1, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 5, this, new OnClick() {
 			public void onClick() {
-				changeMenu(new EndlessMode(game, CSG.batch, 1));
+				changeMenu(new EndlessMode(game, CSG.batch, 1, cheat));
 			}
 		}, true);
 		ajout(lvl1);
 		// ** ** ** LET'S ROCK ** ** **
-		final Bouton lvl2 = new Bouton(Strings.LVL2, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - HAUTEUR_BOUTON * 7.5f, this, new OnClick() {
+		final Button lvl2 = new Button(Strings.LVL2, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 7.5f, this, new OnClick() {
 			public void onClick() {
-				changeMenu(new EndlessMode(game, CSG.batch, 2));
+				changeMenu(new EndlessMode(game, CSG.batch, 2, cheat));
 			}
 		}, true);
 		ajout(lvl2);
 		// ** ** ** COME GET SOME ** ** **
-		final Bouton lvl3 = new Bouton(Strings.LVL3, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - HAUTEUR_BOUTON * 10, this, new OnClick() {
+		final Button lvl3 = new Button(Strings.LVL3, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 10, this, new OnClick() {
 			public void onClick() {
-				changeMenu(new EndlessMode(game, CSG.batch, 3));
+				changeMenu(new EndlessMode(game, CSG.batch, 3, cheat));
 			}
 		}, true);
 		ajout(lvl3);
 		if (Gdx.app.getVersion() != 0) {
 			CSG.talkToTheWorld.showAds(true);
 		}
-		final Bouton lvl4 = new Bouton(Strings.LVL4, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - HAUTEUR_BOUTON * 12.5f, this, new OnClick() {
+		final Button lvl4 = new Button(Strings.LVL4, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 12.5f, this, new OnClick() {
 			public void onClick() {
-				changeMenu(new EndlessMode(game, CSG.batch, 4));
+				changeMenu(new EndlessMode(game, CSG.batch, 4, cheat));
 			}
 		}, true);
 		ajout(lvl4);
-		final Bouton chooseWeapon = new Bouton(Strings.CHOOSE_WEAPON, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - HAUTEUR_BOUTON * 15.5f, this, new OnClick() {
+		final Button chooseWeapon = new Button(Strings.CHOOSE_WEAPON, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 15.5f, this, new OnClick() {
 			public void onClick() {
 			}
 		}, true);
@@ -86,8 +88,8 @@ public class ChoixDifficulte extends AbstractScreen {
 		}
 		CSG.batch.begin();
 		Particles.background(CSG.batch);
-		for (int i = 0; i < boutons.size; i++) {
-			if (boutons.get(i) != null) boutons.get(i).draw(CSG.batch);
+		for (int i = 0; i < buttons.size; i++) {
+			if (buttons.get(i) != null) buttons.get(i).draw(CSG.batch);
 		}
 		Particles.drawUi(CSG.batch);
 		for (WeaponButton wb : weaponButtons) {
@@ -100,7 +102,15 @@ public class ChoixDifficulte extends AbstractScreen {
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			keyBackPressed();
 		}
+		etapeCode = detectiopnKonamiCode(etapeCode);
+		if (etapeCode == 8) {
+			SoundMan.playBruitage(SoundMan.bigExplosion);
+			cheat = CSG.BEGIN_70K;
+			etapeCode++;
+		}
 	}
+	
+	
 
 	@Override
 	public void keyBackPressed() {

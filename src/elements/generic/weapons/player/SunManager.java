@@ -20,7 +20,7 @@ public class SunManager extends WeaponManager {
 	@Override
 	protected void init() {
 		if (EndlessMode.alternate)
-			SoundMan.playBulletSound(SoundMan.tirRocket);
+			SoundMan.playBulletSound(SoundMan.shotRocket);
 		vector.rotate(8);
 		switch (CSG.profile.NvArmeSun) {
 		case 1:			nv1();		break;
@@ -100,7 +100,7 @@ public class SunManager extends WeaponManager {
 	@Override
 	public float[] getColors() {			return SunWeapon.COLORS;			}
 	@Override
-	protected float getCadenceTir() {		return SunWeapon.CADENCETIR;		}
+	protected float getCadenceTir() {		return SunWeapon.FIRERATETIR;		}
 	@Override
 	public int nv() {						return CSG.profile.NvArmeSun;	}
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
+import elements.particular.particles.ParticuleBundles;
 import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class Smoke implements Poolable{
@@ -24,13 +25,13 @@ public class Smoke implements Poolable{
 	};
 	public static void act(Array<Smoke> smoke, SpriteBatch batch) {
 		for (Smoke s : smoke) {
-			batch.setColor(PrecalculatedParticles.colorsRed[s.index]);
-			batch.draw(AssetMan.dust, s.x, s.y, PrecalculatedParticles.widths[s.index], PrecalculatedParticles.widths[s.index]);
+			batch.setColor(ParticuleBundles.SMOKE.colors[s.index]);
+			batch.draw(AssetMan.dust, s.x, s.y, ParticuleBundles.SMOKE.widths[s.index], ParticuleBundles.SMOKE.widths[s.index]);
 			if (EndlessMode.triggerStop)
 				continue;
-			s.x -= PrecalculatedParticles.halfWidths[s.index];
-			s.y -= PrecalculatedParticles.halfWidths[s.index];
-			if (++s.index >= PrecalculatedParticles.widths.length) {
+			s.x -= ParticuleBundles.SMOKE.differences[s.index];
+			s.y -= ParticuleBundles.SMOKE.differences[s.index];
+			if (++s.index >= ParticuleBundles.SMOKE.colors.length) {
 				smoke.removeValue(s, true);
 				POOL.free(s);
 			}

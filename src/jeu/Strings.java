@@ -43,8 +43,8 @@ public class Strings {
 	
 	public static final String SENSITIVITY = "SENSITIVITY  ",
 		TWITTER = "Twitter",
-		CHOOSE_WEAPON = "Choose your weapon",
-		TUTO_TOUCH = "When you don't touch the screen,\n the game slows down\n but your ship won't shoot",
+		CHOOSE_WEAPON = "Choose a weapon",
+		TUTO_TOUCH = "When you don't touch the screen,\n the game slows down",
 		TUTO_XP = "Those blue things are points \n Collect them to improve your score !",
 		GET_READY = "Get ready !",
 		BUY_XP_BUTTON = "Get more xp !";

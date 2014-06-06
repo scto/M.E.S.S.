@@ -7,7 +7,6 @@ import jeu.mode.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
@@ -17,7 +16,7 @@ import elements.particular.particles.individual.PrecalculatedParticles;
 public class TWeapon extends PlayerWeapon implements Poolable{
 	
 	public static final int width = (int) MINWIDTH, halfWidth = width/2, height = (int) (width * 1.3f), halfHeight = height / 2;
-	public static final float CADENCETIR = initCadence(.099f, 6), CADENCETIRLVL8 = initCadence(.03f, 7);
+	public static final float FIRERATETIR = initCadence(.099f, 6), FIRERATETIRLVL8 = initCadence(.03f, 7);
 	public static final int VITESSE_ANGLE = 5000;
 	public static final String LABEL = "armeHantee";
 	public static final Pool<TWeapon> POOL = new Pool<TWeapon>(30) {
@@ -95,12 +94,11 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 		return Physic.mvt(dir, pos, width);
 	}
 
-	@Override	public int getWidth() {					return width;	}
-	@Override	public int getHeight() {				return height;	}
+	@Override	public float getWidth() {					return width;	}
+	@Override	public float getHeight() {				return height;	}
 	@Override	public void free() {					POOL.free(this);	}
 	@Override	public float getColor() {				return COLORS[R.nextInt(COLORS.length)];	}
-	@Override	public TextureRegion getTexture() {		return null;	}
-	@Override	public int getHalfWidth() {				return halfWidth;	}
-	@Override	public int getHalfHeight() {			return halfHeight;	}
+	@Override	public float getHalfWidth() {				return halfWidth;	}
+	@Override	public float getHalfHeight() {			return halfHeight;	}
 	@Override	public float[] getColors() {		return PrecalculatedParticles.colorsOverTimeBlue;		}
 }

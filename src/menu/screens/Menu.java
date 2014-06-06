@@ -3,7 +3,7 @@ package menu.screens;
 import jeu.CSG;
 import jeu.Strings;
 import menu.tuto.OnClick;
-import menu.ui.Bouton;
+import menu.ui.Button;
 import assets.SoundMan;
 
 import com.badlogic.gdx.Game;
@@ -17,7 +17,7 @@ public class Menu extends AbstractScreen {
 
 	private float temps = 0;
 	private int etapeCode = 0;
-	private Bouton highscores, achievements;
+	private Button highscores, achievements;
 	private static final float ECART = 0.9f;
 	private static final float 	LIGNE_PLAY = 1.9f, 
 								LIGNE_SHIP = LIGNE_PLAY + ECART, 
@@ -34,7 +34,6 @@ public class Menu extends AbstractScreen {
 		super(game);
 		Particles.initBackground();
 		setUpScreenElements();
-		Gdx.graphics.setVSync(true);
 	}
 
 	public void setUpScreenElements() {
@@ -42,45 +41,45 @@ public class Menu extends AbstractScreen {
 		temps = 0;
 		Gdx.input.setCatchBackKey(false);
 
-		ajout(new Bouton(PLAY, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_PLAY)), this, new OnClick() {
+		ajout(new Button(PLAY, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_PLAY)), this, new OnClick() {
 			public void onClick() {
 				changeMenu(new ChoixDifficulte(game));
 			}
 		}, true));
-		ajout(new Bouton(SHIP, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_SHIP)), this, new OnClick() {
+		ajout(new Button(SHIP, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_SHIP)), this, new OnClick() {
 			public void onClick() {
 				changeMenu(new MenuXP(game));
 			}
 		}, true));
-		ajout(new Bouton(OPTION, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_OPTION)), this, new OnClick() {
+		ajout(new Button(OPTION, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_OPTION)), this, new OnClick() {
 			public void onClick() {
 				changeMenu(new MenuOptions(game));
 			}
 		}, true));
-//		ajout(new Bouton(TUTO, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_TUTO)), this, new OnClick() {
+//		ajout(new Bouton(TUTO, false, CSG.menuFont, WIDTH_BOUTON, HEIGHT_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_TUTO)), this, new OnClick() {
 //			public void onClick() {
 //				changeMenu(new Tuto(game));
 //			}
 //		}, true));
-		highscores = new Bouton(HIGHSCORE, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_HIGHSCORE)), this);
+		highscores = new Button(HIGHSCORE, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_HIGHSCORE)), this);
 		ajout(highscores);
 
-		achievements = new Bouton(ACHIEVEMENT, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_ACHIEVEMENT)), this);
+		achievements = new Button(ACHIEVEMENT, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_ACHIEVEMENT)), this);
 		ajout(achievements);
 		
-		ajout(new Bouton(SUPPORT_US, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_SUPPORT)), this, new OnClick() {
+		ajout(new Button(SUPPORT_US, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_SUPPORT)), this, new OnClick() {
 			public void onClick() {
 				CSG.talkToTheWorld.buyUsABeer();
 			}
 		}, false));
 
-		ajout(new Bouton(EXIT, false, CSG.menuFont, LARGEUR_BOUTON, HAUTEUR_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_EXIT)), this, new OnClick() {
+		ajout(new Button(EXIT, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_EXIT)), this, new OnClick() {
 			public void onClick() {
 				Gdx.app.exit();
 			}
 		}, true));
 		
-		ajout(new Bouton(Strings.TWITTER, false, CSG.menuFontSmall, LARGEUR_MINIBOUTON, HAUTEUR_MINIBOUTON / 2, (int) (CSG.screenWidth - ((CSG.menuFontSmall.getBounds(Strings.TWITTER).width * 2)) - PADDING * 3), (int) (4 + CSG.menuFont.getBounds("T").height*2), this, new OnClick() {
+		ajout(new Button(Strings.TWITTER, false, CSG.menuFontSmall, MINI_BOUTON_WIDTH, MINI_BOUTON_HEIGHT / 2, (int) (CSG.screenWidth - ((CSG.menuFontSmall.getBounds(Strings.TWITTER).width * 2)) - PADDING * 3), (int) (4 + CSG.menuFont.getBounds("T").height*2), this, new OnClick() {
 			public void onClick() {
 				CSG.talkToTheWorld.followTwitter();
 			}
@@ -118,42 +117,8 @@ public class Menu extends AbstractScreen {
 				CSG.talkToTheWorld.Login();
 		}
 		temps += delta;
-		detectiopnKonamiCode();
-		super.render(delta);
-		if (Gdx.input.isKeyPressed(Keys.BACK) && temps > 2)
-			Gdx.app.exit();
-	}
-
-	/**
-	 * Il a besoin du batch pour afficher le jeu background en cas de code
-	 * valide
-	 * 
-	 * @param batch
-	 */
-	private void detectiopnKonamiCode() {
-		switch (etapeCode) {
-		case 0:
-		case 1:
-			if (Gdx.input.justTouched() && Gdx.input.getY() < CSG.halfHeight)
-				etapeCode++;
-			break;
-		case 2:
-		case 3:
-			if (Gdx.input.justTouched() && Gdx.input.getY() > CSG.halfHeight)
-				etapeCode++;
-			break;
-		case 4:
-		case 6:
-			if (Gdx.input.justTouched() && Gdx.input.getX() < CSG.screenHalfWidth)
-				etapeCode++;
-			break;
-		case 5:
-		case 7:
-			if (Gdx.input.justTouched() && Gdx.input.getX() > CSG.screenHalfWidth)
-				etapeCode++;
-			break;
-		case 8:
-//			EndlessMode.konamiCode = true;
+		etapeCode = detectiopnKonamiCode(etapeCode);
+		if (etapeCode == 8) {
 			SoundMan.playBruitage(SoundMan.bigExplosion);
 			if (CSG.profile.xpDispo < 55000)
 				CSG.profile.xpDispo = 55000;
@@ -161,8 +126,10 @@ public class Menu extends AbstractScreen {
 			etapeCode++;
 //			CSG.assetMan.reload(true);
 			CSG.alternateGraphics = true;
-			break;
 		}
+		super.render(delta);
+		if (Gdx.input.isKeyPressed(Keys.BACK) && temps > 2)
+			Gdx.app.exit();
 	}
 
 	@Override

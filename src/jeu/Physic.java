@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 
 import elements.generic.Player;
 import elements.generic.enemies.Enemy;
-import elements.generic.weapons.Weapons;
+import elements.generic.weapons.Weapon;
 import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.player.PlayerWeapon;
 
@@ -21,14 +21,21 @@ public class Physic {
         return s.getX() <= x && s.getX() + s.getWidth() >= x && s.getY() <= y && s.getY() + s.getHeight() >= y;
 	}
 	
-	public static boolean isOnScreen(final Vector2 position, final int hauteur, final int largeur) {
+	public static boolean isOnScreen(final Vector2 position, final float hauteur, final float largeur) {
 		if (position.y + hauteur < -CSG.HEIGHT_DIV10 || position.x + largeur < 0 ||
 				position.x > CSG.gameZoneWidth  || position.y > CSG.HEIGHT_PLUS_4 + hauteur)
 			return false;
 		return true;
 	}
 	
-	public static boolean isOnScreen(final float x, final float y, final int width) {
+	public static boolean isOnScreenWithTolerance(final Vector2 position, final float hauteur, final float largeur) {
+		if (position.y + hauteur < -CSG.HEIGHT_DIV10 || position.x + largeur < -Stats.WIDTH_DIV_10 ||
+				position.x > Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10  || position.y > CSG.HEIGHT_PLUS_4 + hauteur)
+			return false;
+		return true;
+	}
+	
+	public static boolean isOnScreen(final float x, final float y, final float width) {
 		if (y + width < 0 || x + width < 0 || x > CSG.gameZoneWidth || y > CSG.SCREEN_HEIGHT + width)
 			return false;
 		return true;
@@ -37,7 +44,7 @@ public class Physic {
 	/**
 	 * @return way
 	 */
-	public static boolean goToZigZagCentre(final Vector2 pos, final Vector2 dir, final int halfWidth, boolean way, final float amplitude, final int height, final int width){
+	public static boolean goToZigZagCentre(final Vector2 pos, final Vector2 dir, final int halfWidth, boolean way, final float amplitude, final float height, final int width){
 		if (pos.x + halfWidth < CSG.gameZoneHalfWidth)
 			way = false;
 		else
@@ -52,13 +59,13 @@ public class Physic {
 
 	public static void collisionsTest() {
 		for (final Enemy enemy : Enemy.LIST) {
-			if (enemy.pos.y + CSG.CENTIEME_HAUTEUR > CSG.SCREEN_HEIGHT)		continue;
+			if (enemy.pos.y + CSG.CENTIEME_HEIGHT > CSG.SCREEN_HEIGHT)		continue;
 			if (enemy.isOnPlayer())	{
 				Player.touchedEnnemy(enemy);
 			}
 
-			collisionPlayerWeaponToEnemy(enemy, Weapons.PLAYER_LIST);
-			collisionPlayerWeaponToEnemy(enemy, Weapons.ADDS);
+			collisionPlayerWeaponToEnemy(enemy, Weapon.PLAYER_LIST);
+			collisionPlayerWeaponToEnemy(enemy, Weapon.ADDS);
 //			collisionEnemyWeaponToEnemy(enemy, Weapons.BOSSES_LIST);
 		}
 	}
@@ -111,28 +118,23 @@ public class Physic {
 	private static final Vector2 DESIRED = new Vector2();
 	private static final Vector2 STEER = new Vector2();
 
-	public static float mvtToPlayerWithAngle(final Vector2 dir, final Vector2 pos, final float maxSpeed, final int width, final int halfWidth) {
-		mvtToPlayer(dir, pos, maxSpeed, width, halfWidth);
+	public static float setDirToPlayer(final Vector2 dir, final Vector2 pos, final float maxSpeed, final float width, final float halfWidth, float rotation) {
+		mvtToPlayer(dir, pos, maxSpeed, width, halfWidth, rotation);
 		return dir.angle();
 	}
 	
 	private static float tmp = 0;
-	public static void mvtToPlayer(final Vector2 dir, final Vector2 pos, final float maxSpeed, final int width, final int halfWidth) {
+	public static void mvtToPlayer(final Vector2 dir, final Vector2 pos, final float maxSpeed, final float width, final float halfWidth, float rotation) {
 		DESIRED.x = pos.x - Player.xCenter;
 		DESIRED.y = pos.y - Player.yCenter;
 		DESIRED.nor();
-		DESIRED.scl(maxSpeed);
-		
-		dir.scl(maxSpeed);
+		dir.nor();
 		STEER.x = dir.x - DESIRED.x;
 		STEER.y = dir.y - DESIRED.y;
 		STEER.nor();
-		dir.nor();
+		STEER.scl(rotation);
 		dir.add(STEER);
-		
-		tmp = EndlessMode.delta * maxSpeed;
-		pos.y += dir.y * tmp;
-		pos.x += dir.x * tmp;
+		dir.scl(maxSpeed);
 	}
 	
 	public static void dirToPlayer(final Vector2 dir, final Vector2 pos, final int width, final int halfWidth) {
@@ -146,7 +148,7 @@ public class Physic {
 	
 	private static boolean collision = false;
 	
-	public static boolean isAddTouched(final Vector2 pos, final int width, final int height) {
+	public static boolean isAddTouched(final Vector2 pos, final float width, final float height) {
 		collision = false;
 		if (Player.leftAdd && Physic.isPointInRect(Player.centerLeft1AddX, Player.centerAdd1Y, pos, width, height)) {
 			Player.removeLeftAdd1();
@@ -175,20 +177,20 @@ public class Physic {
 	public static void mvtHeightLimit(final Vector2 pos, final float speed, final float time) {
 		if (pos.y < CSG.HEIGHT_8_10) {
 			// slow down
-			if (pos.y > CSG.HAUTEUR_ECRAN_PALLIER_3)
+			if (pos.y > CSG.HEIGHT_ECRAN_PALLIER_3)
 				pos.y += (-Stats.PLANE_HEIGHT * EndlessMode.delta);
 		} else {
 			pos.y += (speed * EndlessMode.delta);
 		}
 	}
 	
-	public static boolean mvt(final Vector2 dir, final Vector2 pos, final int width) {
+	public static boolean mvt(final Vector2 dir, final Vector2 pos, final float width) {
 		pos.x += dir.x * EndlessMode.delta;
 		pos.y += dir.y * EndlessMode.delta;
 		return isOnScreen(pos, width, width);
 	}
 	
-	public static boolean mvt(final int height, final int width, final Vector2 dir, final Vector2 pos) {
+	public static boolean mvt(final float height, final float width, final Vector2 dir, final Vector2 pos) {
 		pos.x += dir.x * EndlessMode.delta;
 		pos.y += dir.y * EndlessMode.delta;
 		return isOnScreen(pos, width, height);
@@ -215,10 +217,21 @@ public class Physic {
 		return tmpPos.len();
 	}
 
-	public static void spray(Vector2 pos, int width) {
+	public static void stayOnScreen(Vector2 pos, int width) {
 		if (pos.x < 0)
 			pos.x += EndlessMode.delta15;
 		else if (pos.x + width > CSG.gameZoneWidth)
 			pos.x -= EndlessMode.delta15;
+	}
+
+	public static boolean isNotDisplayed(Enemy enemy) {
+		if (enemy.pos.x + enemy.getWidth() < 0 || enemy.pos.x > CSG.screenWidth
+				|| enemy.pos.y > CSG.SCREEN_HEIGHT || enemy.pos.y + enemy.getHeight() < 0)
+			return true;
+		return false;
+	}
+
+	public static boolean isLeft(Vector2 pos, int halfWidth) {
+		return (pos.x + halfWidth < CSG.gameZoneHalfWidth); 
 	}
 }

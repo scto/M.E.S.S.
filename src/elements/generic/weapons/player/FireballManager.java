@@ -96,7 +96,7 @@ public class FireballManager extends WeaponManager {
 	@Override
 	public float[] getColors() {				return Fireball.couleurs;		}
 	@Override
-	protected float getCadenceTir() {			return Fireball.CADENCETIR;		}
+	protected float getCadenceTir() {			return Fireball.FIRERATETIR;		}
 	@Override
 	public int nv() {							return CSG.profile.NvArmeDeBase;	}
 }

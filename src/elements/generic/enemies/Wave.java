@@ -1,9 +1,9 @@
 package elements.generic.enemies;
 
-import elements.generic.Invocable;
 import jeu.CSG;
 import jeu.db.Requests;
 import jeu.mode.EndlessMode;
+import jeu.mode.extensions.Score;
 
 public class Wave {
 	
@@ -126,7 +126,6 @@ public class Wave {
 	public final SpawnEnemyPosition[] lignes;
 	public final int maxScore, scoreMin;
 	public float freqSpawn, nextSpawn;
-	private Invocable inv;
 	public final boolean ordered;
 	private int cptPhase;
 
@@ -153,8 +152,8 @@ public class Wave {
 
 	public void mightSpawn() {
 		if (nextSpawn < EndlessMode.now) {
-			for (int i = 0; i < lignes[cptPhase].enemies.length; i++) {
-				inv = lignes[cptPhase].enemies[i].invoquer();
+			for (int i = 0; i < lignes[cptPhase].merlin.length; i++) {
+				final Enemy inv = lignes[cptPhase].merlin[i].incantation.invoke();
 				if (lignes[cptPhase].positions[i] != null)
 					inv.setPosition(lignes[cptPhase].positions[i]);
 			}
@@ -174,8 +173,8 @@ public class Wave {
 
 	private void finish() {
 		active = false;
-		nextActivation = (int) (EndlessMode.score + espaceActivation);
-		if (maxScore < EndlessMode.score)
+		nextActivation = (int) (Score.score + espaceActivation);
+		if (maxScore < Score.score)
 			nextActivation = Progression.MAX;
 		if (boss) {
 			Progression.incrementNextBoss(120f);
@@ -189,7 +188,7 @@ public class Wave {
 	
 
 	public boolean mightActivate() {
-		if (nextActivation < EndlessMode.score) {
+		if (nextActivation < Score.score) {
 			activation();
 			return true;
 		}
@@ -203,6 +202,28 @@ public class Wave {
 	}
 
 	private void initCptPhase() {
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		// A VIRER
+		if (lignes == null)
+			return;
 		if (!ordered) 	cptPhase = lignes.length - 1;
 		else			cptPhase = 0;
 	}

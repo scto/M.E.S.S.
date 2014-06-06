@@ -15,7 +15,7 @@ import elements.particular.particles.Particles;
 
 public class ThrusterSideParticle implements Poolable {
 	
-	private static final float LARGEUR = CSG.screenWidth / 65, DEMI_LARGEUR = LARGEUR / 2, OFFSET_X = Player.DEMI_LARGEUR - LARGEUR;
+	private static final float WIDTH = CSG.screenWidth / 65, HALF_WIDTH = WIDTH / 2, OFFSET_X = Player.HALF_WIDTH - WIDTH;
 	public static final Pool<ThrusterSideParticle> POOL = new Pool<ThrusterSideParticle>(Particles.MAX_THRUSTER,Particles.MAX_THRUSTER+6) {
 		@Override
 		protected ThrusterSideParticle newObject() {
@@ -27,7 +27,7 @@ public class ThrusterSideParticle implements Poolable {
 	private final float vitesseX, vitesseY, red, green, tps;
 	
 	public ThrusterSideParticle() {
-		vitesseX =  ((CSG.R.nextFloat()+.5f) * -Stats.THRUSTER) - CSG.QUATR_HAUTEUR;
+		vitesseX =  ((CSG.R.nextFloat()+.5f) * -Stats.THRUSTER) - CSG.QUATR_HEIGHT;
 		vitesseY = (((CSG.R.nextFloat()-.5f)/2)-.15f) * Stats.THRUSTER;
 		red = CSG.R.nextFloat();
 		green = CSG.R.nextFloat();
@@ -35,8 +35,8 @@ public class ThrusterSideParticle implements Poolable {
 	}
 
 	public void init(float posX, float posY, boolean toLeft) {
-		x = (Player.POS.x + OFFSET_X) + (CSG.R.nextFloat() * LARGEUR);
-		y = Player.POS.y - (DEMI_LARGEUR + (DEMI_LARGEUR * CSG.R.nextFloat()));
+		x = (Player.POS.x + OFFSET_X) + (CSG.R.nextFloat() * WIDTH);
+		y = Player.POS.y - (HALF_WIDTH + (HALF_WIDTH * CSG.R.nextFloat()));
 		alpha = 1;
 		this.toLeft = toLeft;
 		Particles.nbFlammes++;
@@ -48,8 +48,8 @@ public class ThrusterSideParticle implements Poolable {
 	public static void act(Array<ThrusterSideParticle> flammes, SpriteBatch batch) {
 		for (final ThrusterSideParticle f : flammes) {
 			batch.setColor(f.red, f.green, 1, f.alpha);
-			batch.draw(AssetMan.dust, f.x, f.y, LARGEUR, LARGEUR);
-//			batch.draw(AssetMan.debris, f.posX, f.posY, DEMI_LARGEUR, DEMI_LARGEUR, LARGEUR, LARGEUR, 1, 1, f.angle);
+			batch.draw(AssetMan.dust, f.x, f.y, WIDTH, WIDTH);
+//			batch.draw(AssetMan.debris, f.posX, f.posY, HALF_WIDTH, HALF_WIDTH, WIDTH, WIDTH, 1, 1, f.angle);
 			f.alpha -= f.tps * EndlessMode.delta;
 			if (f.toLeft)
 				f.x -= (f.vitesseX * EndlessMode.delta);

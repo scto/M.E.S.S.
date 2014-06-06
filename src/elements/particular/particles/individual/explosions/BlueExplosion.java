@@ -7,6 +7,7 @@ import assets.AssetMan;
 import assets.SoundMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -30,6 +31,7 @@ public class BlueExplosion implements Poolable {
 	private int ttl;
 	protected final float color;
 	private static int bigger = 0;
+	private static final Vector2 tmpVector = new Vector2();
 	
 	public BlueExplosion() {
 		color = AssetMan.convertARGB(1, CSG.R.nextFloat()/8, (CSG.R.nextFloat() + .8f) / 1.6f, .85f);
@@ -57,8 +59,8 @@ public class BlueExplosion implements Poolable {
 		x = (e.pos.x + (e.getWidth() * CSG.R.nextFloat()) );
 		y = (e.pos.y + (e.getHeight() * CSG.R.nextFloat()) );
 
-		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionY() * CSG.R.nextFloat());
-		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionX() * CSG.R.nextFloat());
+		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.getDirectionY() * CSG.R.nextFloat());
+		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.getDirectionX() * CSG.R.nextFloat());
 		
 		width = Math.abs((float) ((CSG.R.nextGaussian() * WIDTH))) + MIN_WIDTH;
 		ttl = Math.abs((int) (CSG.R.nextGaussian() * 50)) + 15;
@@ -67,7 +69,7 @@ public class BlueExplosion implements Poolable {
 
 	private static float tmp;
 	public static void act(Array<BlueExplosion> explosions, SpriteBatch batch) {
-		if (EndlessMode.alternate) {
+		if (EndlessMode.alternate || EndlessMode.triggerStop) {
 			for (final BlueExplosion p : explosions) {
 				batch.setColor(p.color);
 				batch.draw(AssetMan.dust, p.x, p.y, p.width, p.width);
@@ -76,8 +78,6 @@ public class BlueExplosion implements Poolable {
 			for (final BlueExplosion p : explosions) {
 				batch.setColor(p.color);
 				batch.draw(AssetMan.dust, p.x, p.y, p.width, p.width);
-				if (EndlessMode.triggerStop)
-					continue;
 				p.speedX /= EndlessMode.UnPlusDelta;
 				p.speedY /= EndlessMode.UnPlusDelta;
 				tmp = p.width - (p.width / EndlessMode.UnPlusDelta);
@@ -104,12 +104,12 @@ public class BlueExplosion implements Poolable {
 
 	public static void blow(PlayerWeapon a, Array<BlueExplosion> explosions) {
 		for (BlueExplosion e : explosions) {
-			a.dir.x = (e.x) - Player.xCenter;
-			a.dir.y = (e.y) - Player.yCenter;
-			a.dir.nor();
-			a.dir.scl(Explosion.BOMB_SCALE);
-			e.speedX += a.dir.x;
-			e.speedY += a.dir.y;
+			tmpVector.x = a.dir.x;
+			tmpVector.y = a.dir.y;
+			tmpVector.x = (e.x) - Player.xCenter;
+			tmpVector.y = (e.y) - Player.yCenter;
+			tmpVector.nor();
+			tmpVector.scl(Explosion.BOMB_SCALE);
 		}
 	}
 }

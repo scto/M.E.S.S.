@@ -27,7 +27,7 @@ import elements.particular.particles.individual.weapon.GreenAddParticle;
 public class Profil implements Serializable{
 	
 	// -- -- String qui servent de clefs
-	private static final String STR_CADENCE_ADD = "vitesse", STR_ARME_SELECT = "kjhuk", STR_ARME_DE_BASE_NV = "adbnv";
+	private static final String STR_FIRERATE_ADD = "vitesse", STR_ARME_SELECT = "kjhuk", STR_ARME_DE_BASE_NV = "adbnv";
 	private static final String STR_ARME_BALAYAGE_NV = "abnv", STR_ARME_TROIS_NV = "tricheur", STR_ARME_HANTEE_NV = "trichur";
 	private static final String strXP = "XP", STR_VOLUME_ARME = "sjciuendk", STR_VOLUME_MUSIQUE = "sjciuend";
 	private static final String STR_VOLUME_BRUITAGES = "sjciuen", STR_TYPE_CONTROLE = "sfdsfiuen", STR_BLOOM = "bloom";
@@ -82,7 +82,7 @@ public class Profil implements Serializable{
 		json.writeValue(STR_ARME_DE_BASE_NV, NvArmeDeBase);
 		json.writeValue(STR_ARME_TROIS_NV, lvlPinkWeapon);
 		json.writeValue(STR_ARME_HANTEE_NV, NvArmeHantee);
-		json.writeValue(STR_CADENCE_ADD, cadenceAdd);
+		json.writeValue(STR_FIRERATE_ADD, cadenceAdd);
 		json.writeValue(strXP, xpDispo);
 		json.writeValue(STR_ARME_SELECT, armeSelectionnee);
 		json.writeValue(STR_VOLUME_ARME, sensitivity);
@@ -105,7 +105,7 @@ public class Profil implements Serializable{
 			xpDispo = (-xpDispo) + 5000;
 		}
 		xpDispo = Math.abs(xpDispo);
-		cadenceAdd = json.readValue(STR_CADENCE_ADD, Integer.class, jsonData).shortValue();
+		cadenceAdd = json.readValue(STR_FIRERATE_ADD, Integer.class, jsonData).shortValue();
 		lvlPinkWeapon = json.readValue(STR_ARME_TROIS_NV, Integer.class, jsonData).shortValue();
 		NvArmeHantee = json.readValue(STR_ARME_HANTEE_NV, Integer.class, jsonData).shortValue();
 		NvArmeDeBase = json.readValue(STR_ARME_DE_BASE_NV, Integer.class, jsonData).shortValue();

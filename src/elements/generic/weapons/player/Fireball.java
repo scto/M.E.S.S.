@@ -20,7 +20,7 @@ public class Fireball extends PlayerWeapon implements Poolable{
 	
 	public static final int WIDTH = (int) MINWIDTH, halfWidth = WIDTH/2, width033 = (int) (WIDTH * .33f), WIDTH066 = (int) (WIDTH * .66f), WIDTH05 = (int) (WIDTH*.03f), WIDTH10 = (int) (WIDTH*.06f),
 			WIDTH15 = (int) (WIDTH*.09f), WIDTH20 = (int) (WIDTH*.12f), WIDTH25 = (int) (WIDTH*.15f), WIDTH30 = (int) (WIDTH*.18f), WIDTH35 = (int) (WIDTH*.21f), WIDTH40 = (int) (WIDTH*.24f);
-	public static final float CADENCETIR = initCadence(.12f, 1);
+	public static final float FIRERATETIR = initCadence(.12f, 1);
 	public static final String LABEL = "ArmeDeBase";
 	public static final Pool<Fireball> POOL = new Pool<Fireball>(10) {
 		@Override
@@ -76,12 +76,12 @@ public class Fireball extends PlayerWeapon implements Poolable{
 		Particles.ajoutArmeDeBase(this);	
 		Particles.ajoutArmeDeBase(this);	
 	}
-	@Override	public int getWidth() {						return WIDTH;	}	
-	@Override	public int getHeight() {					return WIDTH;	}
+	@Override	public float getWidth() {						return WIDTH;	}	
+	@Override	public float getHeight() {					return WIDTH;	}
 	@Override	public void free() {						POOL.free(this);	}
 	@Override	public float getColor() {					return couleurs[R.nextInt(couleurs.length)];	}
-	@Override	public int getHalfWidth() {					return halfWidth;	}
-	@Override	public int getHalfHeight() {				return halfWidth;	}
+	@Override	public float getHalfWidth() {					return halfWidth;	}
+	@Override	public float getHalfHeight() {				return halfWidth;	}
 	@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeRed;		}
 
 	public static String getLabel() {	return "ArmeDeBase";	}

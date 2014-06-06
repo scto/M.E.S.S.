@@ -4,37 +4,37 @@ import jeu.CSG;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
-import assets.animation.AnimationBossQuad;
+import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.Invocable;
-import elements.generic.behavior.Behavior;
-import elements.generic.behavior.OnTheTop;
+import elements.generic.components.Phase;
+import elements.generic.components.behavior.Behavior;
+import elements.generic.components.shots.Gatling;
+import elements.generic.components.shots.Shot;
 import elements.generic.enemies.Enemy;
 import elements.generic.enemies.Progression;
 import elements.generic.weapons.enemies.Fireball;
-import elements.generic.weapons.enemies.EnemyWeapon;
-import elements.generic.weapons.patterns.Tireur;
-import elements.generic.weapons.patterns.Tirs;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.particles.Particles;
 
-public class BossQuad extends Enemy implements Tireur {
+public class BossQuad extends Enemy {
 
-	private static final int LARGEUR = Stats.LARGEUR_BOSS_QUAD, DEMI_LARGEUR = LARGEUR/2, HAUTEUR = Stats.HAUTEUR_BOSS_QUAD, DEMI_HAUTEUR = HAUTEUR / 2,
-			DECALAGE_ARME_2 = (LARGEUR /6), DECALAGE_ARME_3 = (LARGEUR /3)*2, DECALAGE_ARME_EXTERIEUR_Y = HAUTEUR / 3;
-	public static final Invocable ref = new BossQuad();
+	private static final int WIDTH = Stats.WIDTH_BOSS_QUAD, HALF_WIDTH = WIDTH/2, HEIGHT = Stats.HEIGHT_BOSS_QUAD, HALF_HEIGHT = HEIGHT / 2,
+			DECALAGE_ARME_2 = (WIDTH /6), DECALAGE_ARME_3 = (WIDTH /3)*2, DECALAGE_ARME_EXTERIEUR_Y = HEIGHT / 3;
 	private static int pvMaxPhase2, pvMinPhase2;
-	private static Tirs tirPhase1, tirPhase2, tirPhase3;
-	public static Pool<BossQuad> pool = Pools.get(BossQuad.class);
-	private float prochainTir = .8f;
-	private int phase = 1;
-	private static final Behavior behavior = new OnTheTop();
+	public static Pool<BossQuad> POOL = Pools.get(BossQuad.class);
+	private static final float FIRERATE = .2f, FIRERATE2 = .12f, FIRERATE3 = 0.07f, SPEED_LOW = Stats.V_ENN_BOSS_QUAD / 40;
+	private int shotNumber = 1;
+	public static final int PK = 100;
+	private static final Phase[] PHASES = {
+		new Phase(				Behavior.STRAIGHT_ON,				null,								null,										Animations.BOSS_QUAD_GOOD				),
+		new Phase(				Behavior.OSCILLATE_X,				Gatling.FIREBALL,					Shot.SHOT_DOWN_MULTIPLE_WITH_BREAK,			Animations.BOSS_QUAD_GOOD				),
+		new Phase(				Behavior.OSCILLATE_X,				Gatling.FIREBALL,					Shot.SHOT_DOWN_MULTIPLE_WITH_BREAK,			Animations.BOSS_QUAD_BAD				),
+		new Phase(				Behavior.OSCILLATE_X,				Gatling.FIREBALL,					Shot.SHOT_DOWN_MULTIPLE_WITH_BREAK,			Animations.BOSS_QUAD_WORST				)};
 	
 	public BossQuad() {
 		super();
@@ -42,36 +42,24 @@ public class BossQuad extends Enemy implements Tireur {
 	}
 
 	public void init() {
-		pos.x = CSG.screenHalfWidth - DEMI_LARGEUR;
+		pos.x = CSG.screenHalfWidth - HALF_WIDTH;
 		pos.y = CSG.SCREEN_HEIGHT;
-		dir.y = -getVitesse();
-		dir.x = -getVitesse() * 2;
+		dir.y = -getSpeed();
+		dir.x = -getSpeed() * 0.75f;
 	}
 
 	public void reset() {
 		super.reset();
-		phase = 1;
-		prochainTir = .2f;
+		nextShot = .2f;
 		init();
 	}
-
-	public void afficher(SpriteBatch batch) {
-		batch.draw(AnimationBossQuad.getTexture(phase), pos.x, pos.y, LARGEUR, HAUTEUR);
-	}
-
-	protected void tir() {
-		if (EndlessMode.difficulty < 3) {
-			switch(phase) {
-			case 1:			tirPhase1.tirMultiplesVersBas(this, 4, now, prochainTir, false);			break;
-			case 2:			tirPhase2.tirMultiplesVersBas(this, 2, now, prochainTir, false);			break;
-			case 3:			tirPhase3.tirMultiplesVersBas(this, 2, now, prochainTir, false);			break;
-			}
-		} else {
-			switch(phase) {
-			case 1:			tirPhase1.tirMultiplesVersBasRandomize(this, 4, now, prochainTir, false);			break;
-			case 2:			tirPhase2.tirMultiplesVersBasRandomize(this, 2, now, prochainTir, false);			break;
-			case 3:			tirPhase3.tirMultiplesVersBasRandomize(this, 2, now, prochainTir, false);			break;
-			}
+	
+	@Override
+	protected void isMoving() {
+		if (pos.x <= Stats.U && index == 0)
+			index = 1;
+		if (pos.y - HEIGHT > CSG.HEIGHT_ECRAN_PALLIER_3) {
+			pos.y -= EndlessMode.delta25 * 8;
 		}
 	}
 
@@ -81,50 +69,52 @@ public class BossQuad extends Enemy implements Tireur {
 	public boolean stillAlive(PlayerWeapon p) {
 		tmp = super.stillAlive(p);
 
-		switch (phase) {
+		switch (index) {
 		case 1:
-			if (pv < pvMaxPhase2)
-				incrementPhase();
+			if (hp < pvMaxPhase2)
+				changePhase();
 			break;
 		case 2:
-			if (pv < pvMinPhase2)
-				incrementPhase();
+			if (hp < pvMinPhase2)
+				changePhase();
 			break;
 		}
 		return tmp;
 	}
 
-	private void incrementPhase() {
-		phase++;
-		for (int i = -EndlessMode.fps; i < 15 * phase; i++)
-			Particles.smoke(pos.x + (CSG.R.nextFloat() * LARGEUR), pos.y + (CSG.R.nextFloat() * HAUTEUR), false);
+	@Override
+	protected void changePhase() {
+		for (int i = -EndlessMode.fps; i < 15 * index; i++)
+			Particles.smoke(pos.x + (CSG.R.nextFloat() * WIDTH), pos.y + (CSG.R.nextFloat() * HEIGHT), false);
+		super.changePhase();
 	}
 
-	public Vector2 getPositionDuTir(int numeroTir) {
+	public Vector2 getShotPosition(int numeroTir) {
 		switch (numeroTir) {
 		// Attention on donne en premier les exterieurs
-		case 1:
-			SoundMan.playBruitage(SoundMan.tirRocket);
-			dir.y += getVitesse();
-			pos.y++;
+		case 0:
+			SoundMan.playBruitage(SoundMan.shotRocket);
 			pos.y++;
 			TMP_POS.x = pos.x;
 			TMP_POS.y = pos.y - DECALAGE_ARME_EXTERIEUR_Y;
 			break;
-		case 2:
-			TMP_POS.x = pos.x + LARGEUR - Fireball.WIDTH;
+		case 1:
+			pos.y++;
+			TMP_POS.x = pos.x + WIDTH - Fireball.WIDTH;
 			TMP_POS.y = pos.y - DECALAGE_ARME_EXTERIEUR_Y;
 			break;
-		case 3:
+		case 2:
+			pos.y++;
 			TMP_POS.x = pos.x + DECALAGE_ARME_3;
 			TMP_POS.y = pos.y - Fireball.HALF_HEIGHT;
 			break;
-		case 4:
+		case 3:
+			pos.y++;
 			TMP_POS.x = pos.x + DECALAGE_ARME_2;
 			TMP_POS.y = pos.y - Fireball.HALF_HEIGHT;
 			break;
 		default:
-			TMP_POS.x = pos.x + DEMI_LARGEUR - Fireball.HALF_WIDTH;
+			TMP_POS.x = pos.x + HALF_WIDTH - Fireball.HALF_WIDTH;
 			TMP_POS.y = pos.y - Fireball.HALF_HEIGHT;
 			break;
 		}
@@ -132,25 +122,15 @@ public class BossQuad extends Enemy implements Tireur {
 	}
 
 	@Override
-	public Invocable invoquer() {
-		BossQuad l = pool.obtain();
-		LIST.add(l);
-		return l;
-	}
-
-	@Override
 	public void free() {
-		pool.free(this);
+		POOL.free(this);
 	}
 
 	@Override
-	protected int getPvMax() {
-		tirPhase1 = new Tirs(.9f - (0.09f * EndlessMode.difficulty));
-		tirPhase2 = new Tirs(.5f - (0.05f * EndlessMode.difficulty));
-		tirPhase3 = new Tirs(.3f - (0.03f * EndlessMode.difficulty));
-		pvMaxPhase2 = getPvBoss(Stats.PV_BOSS_QUAD) / 3 * 2;
-		pvMinPhase2 = getPvBoss(Stats.PV_BOSS_QUAD) / 3;
-		return super.getPvBoss(Stats.PV_BOSS_QUAD);
+	protected int getMaxHp() {
+		pvMaxPhase2 = getPvBoss(Stats.HP_BOSS_QUAD) / 3 * 2;
+		pvMinPhase2 = getPvBoss(Stats.HP_BOSS_QUAD) / 3;
+		return super.getPvBoss(Stats.HP_BOSS_QUAD);
 	}
 
 	public void die() {
@@ -158,21 +138,37 @@ public class BossQuad extends Enemy implements Tireur {
 		super.die();
 	}
 
+	@Override	public int getShotNumber() {			return shotNumber;	}
+	@Override	public void addShots(int i) {			this.shotNumber += i;	}
+	@Override	public int getNumberOfShots() {
+		if (index == 1)
+			return 4;
+		return 2;
+	}
+	@Override	public float getFirerate() {
+		switch (index) {
+		case 1:			return FIRERATE;
+		case 2:			return FIRERATE2;
+		}
+		return FIRERATE3;	
+	}
 	@Override	public float getDirectionY() {			return -dir.y;					}
 	@Override	public float getDirectionX() {			return dir.x;					}
 	@Override	public int getXp() {					return 200;						}
-	@Override	public int getHeight() {				return HAUTEUR;					}
-	@Override	public int getWidth() {					return LARGEUR;					}
+	@Override	public float getHeight() {				return HEIGHT;					}
+	@Override	public float getWidth() {					return WIDTH;					}
 	@Override	protected String getLabel() {			return getClass().toString();	}
-	@Override	public int getHalfHeight() {			return DEMI_HAUTEUR;			}
-	@Override	public int getHalfWidth() {				return DEMI_LARGEUR;			}
-	@Override	public EnemyWeapon getArme() {			return Fireball.POOL.obtain();	}
-	@Override	public float getModifVitesse() {		return 1;						}
-	@Override	protected Sound getSonExplosion() {		return SoundMan.bigExplosion;	}
-	@Override	public void setProchainTir(float f) {	prochainTir = f;				}
-	@Override	public int getValeurBonus() {			return 200;						}
+	@Override	public float getHalfHeight() {			return HALF_HEIGHT;			}
+	@Override	public float getHalfWidth() {				return HALF_WIDTH;			}
+	@Override	public float getBulletSpeedMod() {		return 2;						}
+	@Override	protected Sound getExplosionSound() {		return SoundMan.bigExplosion;	}
+	@Override	public int getBonusValue() {			return 200;						}
 	@Override	public int getExplosionCount() {		return 180;						}
-	@Override	public Behavior getBehavior() {			return behavior;				}
-	@Override	public float getVitesse() {				return Stats.V_ENN_BOSS_QUAD;	}
+	@Override	public Phase[] getPhases() {			return PHASES;				}
+	@Override	public float getSpeed() {
+		if (index == 0)
+			return Stats.V_ENN_BOSS_QUAD;
+		return SPEED_LOW;
+	}
 }
 

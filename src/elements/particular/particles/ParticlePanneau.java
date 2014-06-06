@@ -16,7 +16,7 @@ public class ParticlePanneau {
 	
 	private float posX, posY, largeur;
 	private final float color;
-	public static final float LARGEUR = CSG.screenWidth / 80, DOUBLE_LARGEUR = LARGEUR * 2, TRIPLE_LARGEUR = LARGEUR * 3;
+	public static final float WIDTH = CSG.screenWidth / 80, DOUBLE_WIDTH = WIDTH * 2, TRIPLE_WIDTH = WIDTH * 3;
 	private static final Random rand = new Random();
 	public static Pool<ParticlePanneau> pool = new Pool<ParticlePanneau>(40) {
 		@Override
@@ -32,7 +32,7 @@ public class ParticlePanneau {
 	public void init(Vector2 posParticule, Vector2 baseDirection) {
 		posX = posParticule.x;
 		posY = posParticule.y;
-		largeur = LARGEUR;
+		largeur = WIDTH;
 	}
 
 	public void display(SpriteBatch batch) {

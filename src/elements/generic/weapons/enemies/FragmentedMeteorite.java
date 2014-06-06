@@ -1,12 +1,16 @@
 package elements.generic.weapons.enemies;
 
 import jeu.CSG;
-import assets.animation.Animated;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import assets.sprites.Animations;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
+
+import elements.generic.Invocable;
+import elements.generic.components.Phase;
+import elements.generic.components.behavior.Behavior;
 
 public class FragmentedMeteorite extends EnemyWeapon implements Poolable{
 	
@@ -14,7 +18,7 @@ public class FragmentedMeteorite extends EnemyWeapon implements Poolable{
 	public static final Pool<FragmentedMeteorite> POOL = Pools.get(FragmentedMeteorite.class);
 	private static final int PK = 10;
 	private static final float SPEED = initSpeed(13, PK);
-	private static final Animated ANIMATED = initAnimation(3, PK);
+	protected static final Phase[] PHASES = {new Phase(Behavior.STRAIGHT_ON, null, null, Animations.METEORITE_SOLO)};
 	
 	public void init(final float x, final float y, Vector2 dir) {		
 		this.dir.x = dir.x;
@@ -25,11 +29,12 @@ public class FragmentedMeteorite extends EnemyWeapon implements Poolable{
 		ENEMIES_LIST.add(this);
 	}
 	
-	@Override	public TextureRegion getTexture() {	return ANIMATED.getTexture(1);	}
-	@Override	protected float getSpeed() {		return SPEED;	}
-	@Override	public int getHalfHeight() {		return HALF_WIDTH;	}
-	@Override	public int getHalfWidth() {			return HALF_WIDTH;	}
+	@Override	public float getSpeed() {		return SPEED;	}
+	@Override	public float getHalfHeight() {		return HALF_WIDTH;	}
+	@Override	public float getHalfWidth() {			return HALF_WIDTH;	}
 	@Override	public void free() {				POOL.free(this);	}
-	@Override	public int getWidth() {				return WIDTH;	}
-	@Override	public int getHeight() {			return WIDTH;	}
+	@Override	public float getWidth() {				return WIDTH;	}
+	@Override	public float getHeight() {			return WIDTH;	}
+	@Override	public Invocable invoke() {			return POOL.obtain();	}
+	@Override	public Phase[] getPhases() {		return PHASES;	}
 }

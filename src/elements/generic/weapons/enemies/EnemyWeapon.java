@@ -5,29 +5,37 @@ import jeu.Physic;
 import jeu.Stats;
 import jeu.db.Requests;
 import jeu.mode.EndlessMode;
-
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Pool.Poolable;
 
+import elements.generic.Invocable;
 import elements.generic.Player;
-import elements.generic.weapons.Weapons;
-import elements.generic.weapons.patterns.Tireur;
+import elements.generic.components.Phase;
+import elements.generic.weapons.Weapon;
 import elements.particular.bonuses.XP;
 
-public abstract class EnemyWeapon extends Weapons {
+public abstract class EnemyWeapon extends Weapon implements Poolable, Invocable {
 	
 	private static float tmpFloat;
-	private static float next = 0;
+	public static float nextGraze = 0;
 	private static final Vector2 tmpV = new Vector2();
 	
 	public boolean testCollisionVaisseau() {
-		tmpFloat = Player.POS.dst(pos.x + getHalfWidth() - Player.DEMI_LARGEUR, pos.y + getHalfHeight() - Player.DEMI_HAUTEUR);
-		if (tmpFloat < getWidth() + Stats.U || tmpFloat < getHalfHeight() + Stats.U) {
-			if (next < EndlessMode.now) {
+		tmpV.x = Player.xCenter;
+		tmpV.y = Player.yCenter;
+		tmpFloat = tmpV.dst(pos.x + getHalfWidth(), pos.y + getHalfHeight());
+		
+//		if (Player.bouclier)
+		for (int i = 0; i < Player.bouclier; i++)
+			tmpFloat -= Stats.uSur2;
+		
+		if (tmpFloat < getWidth() + Stats.UU || tmpFloat < getHeight() + Stats.UU) {
+			if (nextGraze < EndlessMode.now) {
 				final XP xp = XP.POOL.obtain();
 				xp.init(pos.x + getHalfWidth(), pos.y + getHalfHeight(), 10);
-				xp.direction.x = -dir.x * EndlessMode.delta;
-				xp.direction.y = -dir.y * EndlessMode.delta;
-				next = EndlessMode.now + .1f;
+//				xp.direction.x = -dir.x * EndlessMode.delta;
+//				xp.direction.y = -dir.y * EndlessMode.delta;
+				nextGraze = EndlessMode.now + .1f;
 			}
 			if (tmpFloat < getHalfWidth() || tmpFloat < getHalfHeight()) {
 				Player.touched();
@@ -41,8 +49,40 @@ public abstract class EnemyWeapon extends Weapons {
 		return Physic.isAddTouched(pos, getWidth(), getHeight());
 	}
 	
-	public void init(Vector2 position, float dEMI_LARGEUR, float demiHauteur, float modifVitesse) {
-		position.x = position.x + dEMI_LARGEUR - getHalfWidth();
+	protected static float initSpeed(float def, int pk) {
+		if (CSG.updateNeeded)
+			return Requests.getSpeedEnemyWeapon(pk, def) * Stats.u;
+		return def * Stats.u;
+	}
+	
+	@Override	public Vector2 getPosition() {						return pos;					}
+	@Override	public Vector2 getDirection() {						return dir;					}
+	@Override	public void setWay(boolean b) {													}
+	@Override	public boolean getWay() {							return false;				}
+	@Override	public float getNow() {								return now;					}
+	@Override	public float getNextShot() {						return 0;					}
+	@Override	public float getPhaseTime() {						return phaseTime;			}
+	@Override	public float getBulletSpeedMod() {					return 0;					}
+	@Override	public float getFloatFactor() {						return 0;					}
+	@Override	public Phase getPhase() {							return getPhases()[index];	}
+	@Override	public void setNextShot(float f) {												}
+	@Override	public int getNumberOfShots() {						return 0;					}
+	@Override	public float getShootingAngle() {					return 0;					}
+	@Override	public boolean isBoss() {							return false;				}
+	@Override	public Vector2 getShootingDir() {					return null;				}
+	@Override	public Vector2 getShotPosition(int i) {				return null;				}
+	@Override	public int getShotNumber() {						return 0;					}
+	@Override	public void addShots(int i) {													}
+	@Override	public int getNumberOfShotBeforeDirChange() {		return 0;					}
+	@Override	public void setShotDir(boolean b) {												}
+	@Override	public boolean getShotDir() {						return false;				}
+	@Override	public float getShotsGap() {						return 0;					}
+	@Override	public int getIntFactor() {				return 0;					}
+	@Override	public int getXp() {								return 0;					}
+	@Override	public void setPosition(Vector2 pos) {											}
+	
+	public void init(Vector2 position, float dEMI_WIDTH, float demiHauteur, float modifVitesse) {
+		position.x = position.x + dEMI_WIDTH - getHalfWidth();
 		position.y = position.y + demiHauteur - getHalfHeight();
 		ENEMIES_LIST.add(this);
 	}
@@ -64,8 +104,6 @@ public abstract class EnemyWeapon extends Weapons {
 			ENEMIES_LIST.add(this);
 		}
 	}
-
-	protected abstract float getSpeed();
 
 	public void init(Vector2 position, float modifVitesse, Vector2 direction, boolean boss) { 
 		this.pos.x = position.x;
@@ -108,26 +146,12 @@ public abstract class EnemyWeapon extends Weapons {
 	}
 
 	public static void clear() {
-		for (Weapons a : PLAYER_LIST)
+		for (Weapon a : PLAYER_LIST)
 			a.free();
-		for (Weapons a : ENEMIES_LIST)
+		for (Weapon a : ENEMIES_LIST)
 			a.free();
 		PLAYER_LIST.clear();
 		ENEMIES_LIST.clear();
 	}
 
-	public void initDispersion(Vector2 position, float modifVitesse, Vector2 direction, int nbTirs, float dispersion, Tireur t) {
-		for (int i = 1; i < nbTirs; i++) {
-			tmpV.x = direction.x;
-			tmpV.y = direction.y;
-			tmpV.rotate( (CSG.R.nextFloat()-.5f) * dispersion);
-			t.getArme().init(position, modifVitesse, direction, false);
-		}
-	}
-
-	protected static float initSpeed(float def, int pk) {
-		if (CSG.updateNeeded)
-			return Requests.getSpeedEnemyWeapon(pk, def) * Stats.u;
-		return def * Stats.u;
-	}
 }

@@ -7,7 +7,7 @@ import jeu.Stats;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import elements.generic.Player;
-import elements.generic.weapons.Weapons;
+import elements.generic.weapons.Weapon;
 import elements.particular.particles.Particles;
 
 public class JeuBackground {
@@ -21,15 +21,15 @@ public class JeuBackground {
 
 	public void render(SpriteBatch batch, float delta) {
 		vaisseau.draw(batch);
-		Weapons.drawAndMove(batch);
+		Weapon.drawAndMove(batch);
 		Particles.draw(batch);		
-		Player.xCenter = Player.POS.x + Player.DEMI_LARGEUR;
-		Player.yCenter = Player.POS.y + Player.DEMI_HAUTEUR;
+		Player.xCenter = Player.POS.x + Player.HALF_WIDTH;
+		Player.yCenter = Player.POS.y + Player.HALF_HEIGHT;
 
 		// ** ** ** ** ** UPDATE ** ** ** ** **
 		if (alterner) {
 			Physic.collisionsTest();
-			vaisseau.tir();
+			vaisseau.shot();
 		}
 		if (Player.POS.y > Player.HEIGHT) 	vaisseau.mvtLimiteVitesse(0, -Stats.V_ARME_BOSS_QUAD);
 		else			Player.POS.y = Player.HEIGHT;

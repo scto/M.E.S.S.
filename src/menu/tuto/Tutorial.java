@@ -25,7 +25,7 @@
 //	
 //	private SpriteBatch batch = CSG.batch;
 //	private Bloom bloom;
-//	private float xP1 = CSG.LARGEUR_ECRAN;
+//	private float xP1 = CSG.WIDTH_ECRAN;
 //	private float alphaBackground = 0.02f, vitesseMontee = 200f, alphaShip = 0.02f, timerPhase = 0;
 //	private VaisseauJoueur vaisseau = new VaisseauJoueur();
 //	private int phase = 0;
@@ -37,8 +37,8 @@
 //			alphaBackground *= 1 + Gdx.graphics.getDeltaTime();
 //			if (alphaBackground > 1)
 //				alphaBackground = 1;
-//			if (phase == 0 && VaisseauJoueur.position.y < VaisseauJoueur.HAUTEUR - 2) {
-//				if (VaisseauJoueur.position.y < VaisseauJoueur.HAUTEUR)
+//			if (phase == 0 && VaisseauJoueur.position.y < VaisseauJoueur.HEIGHT - 2) {
+//				if (VaisseauJoueur.position.y < VaisseauJoueur.HEIGHT)
 //					VaisseauJoueur.position.y += vitesseMontee * Gdx.graphics.getDeltaTime();
 //				vitesseMontee /= 1 + (Gdx.graphics.getDeltaTime() * 1.5f);
 //			}
@@ -48,7 +48,7 @@
 //		public void action() {
 //			batch.begin();
 //			CSG.menuFont.setColor(1, 1, .8f, alphaShip);
-//			CSG.menuFont.draw(batch, Strings.SHIP, CSG.DEMI_LARGEUR_ZONE_JEU - (CSG.menuFont.getBounds(Strings.SHIP).width / 2), CSG.DEMI_HAUTEUR_ECRAN);
+//			CSG.menuFont.draw(batch, Strings.SHIP, CSG.HALF_WIDTH_ZONE_JEU - (CSG.menuFont.getBounds(Strings.SHIP).width / 2), CSG.HALF_HEIGHT_ECRAN);
 //			CSG.menuFont.setColor(originalColor);
 //			batch.end();
 //			alphaShip *= 1 + Gdx.graphics.getDeltaTime();
@@ -62,9 +62,9 @@
 //		EndlessMode.strScore = String.valueOf(EndlessMode.score);
 //		batch.end();
 //		}	};
-//	private Action tirVaisseau = new Action() {		public void action() {
+//	private Action shotVaisseau = new Action() {		public void action() {
 //		if (alterner)
-//			vaisseau.tir();
+//			vaisseau.shot();
 //		alterner = !alterner;
 //		}
 //	};
@@ -74,7 +74,7 @@
 //		batch.end();
 //		xP1 -= Gdx.graphics.getDeltaTime() * 40;
 //			if (xP1 < (-CSG.menuFontPetite.getBounds(Strings.P1).width)) {
-//				xP1 = CSG.LARGEUR_ECRAN;
+//				xP1 = CSG.WIDTH_ECRAN;
 //			}
 //		}
 //	};
@@ -82,9 +82,9 @@
 //		public void action() {	
 //			if (Ennemis.LISTE.size == 0) {
 //				Ennemis.LISTE.add(deBase1);
-//				deBase1.position.x = CSG.DEMI_LARGEUR_ZONE_JEU - Stats.LARGEUR_DE_BASE;
+//				deBase1.position.x = CSG.HALF_WIDTH_ZONE_JEU - Stats.WIDTH_DE_BASE;
 //				Ennemis.LISTE.add(deBase2);
-//				deBase2.position.x = CSG.DEMI_LARGEUR_ZONE_JEU + Stats.LARGEUR_DE_BASE;
+//				deBase2.position.x = CSG.HALF_WIDTH_ZONE_JEU + Stats.WIDTH_DE_BASE;
 //			}
 //	}};
 //	private Action txtShootEnnemi = new Action() {
@@ -96,7 +96,7 @@
 //	private Action afficherPoints = new Action() {
 //		public void action() {	
 //			batch.begin();
-//			CSG.menuFontPetite.draw(batch, EndlessMode.strScore, EndlessMode.cam.position.x + EndlessMode.X_CHRONO, EndlessMode.HAUTEUR_POLICE);
+//			CSG.menuFontPetite.draw(batch, EndlessMode.strScore, EndlessMode.cam.position.x + EndlessMode.X_CHRONO, EndlessMode.HEIGHT_POLICE);
 //			batch.end();
 //	}};
 //	private Action afficherGgEtAddXp = new Action() {
@@ -104,7 +104,7 @@
 //			if (EndlessMode.score == 0) 
 //				Bonus.list.add(XP.pool.obtain());
 //			batch.begin();
-//			CSG.menuFont.draw(batch, Strings.GG, EndlessMode.cam.position.x + EndlessMode.X_CHRONO, EndlessMode.HAUTEUR_POLICE * 3);
+//			CSG.menuFont.draw(batch, Strings.GG, EndlessMode.cam.position.x + EndlessMode.X_CHRONO, EndlessMode.HEIGHT_POLICE * 3);
 //			batch.end();
 //	}};
 //	private Action enleverBonusSaufXp = new Action() {
@@ -119,9 +119,9 @@
 //		@Override
 //		public void action() {
 //			Bonus.list.clear();
-//			BonusStop.pool.obtain().init(CSG.DEUX_CINQUIEME_ECRAN, CSG.HAUTEUR_ECRAN);
-//			BonusStop.pool.obtain().init(CSG.TROIS_CINQUIEME_ECRAN, CSG.HAUTEUR_ECRAN);
-//			BonusStop.pool.obtain().init(CSG.QUATRE_CINQUIEME_ECRAN, CSG.HAUTEUR_ECRAN);
+//			BonusStop.pool.obtain().init(CSG.DEUX_CINQUIEME_ECRAN, CSG.HEIGHT_ECRAN);
+//			BonusStop.pool.obtain().init(CSG.TROIS_CINQUIEME_ECRAN, CSG.HEIGHT_ECRAN);
+//			BonusStop.pool.obtain().init(CSG.QUATRE_CINQUIEME_ECRAN, CSG.HEIGHT_ECRAN);
 //		}
 //	};
 //	private Action txtStopTime = new Action() {
@@ -149,29 +149,29 @@
 //	
 //	private Phase p2MouvementPermis = new Phase(	apparitationBackground,	bougerVaisseau);
 //	
-//	private Phase p3Tir = new Phase(				apparitationBackground,	bougerVaisseau,	tirVaisseau);
+//	private Phase p3Tir = new Phase(				apparitationBackground,	bougerVaisseau,	shotVaisseau);
 //	
-//	private Phase p4ApparitionEnnemi = new Phase(	apparitationBackground,	bougerVaisseau,	tirVaisseau,
+//	private Phase p4ApparitionEnnemi = new Phase(	apparitationBackground,	bougerVaisseau,	shotVaisseau,
 //			ajout2EnnemisDeBase,
 //			txtShootEnnemi);
 //	
-//	private Phase p5EnnemisDescendant = new Phase(	apparitationBackground,	bougerVaisseau,	tirVaisseau, afficherPoints,
+//	private Phase p5EnnemisDescendant = new Phase(	apparitationBackground,	bougerVaisseau,	shotVaisseau, afficherPoints,
 //			txtShootEnnemi);
 //	
-//	private Phase p6EnnemisMorts = new Phase(		apparitationBackground,	bougerVaisseau,	tirVaisseau, afficherPoints,
+//	private Phase p6EnnemisMorts = new Phase(		apparitationBackground,	bougerVaisseau,	shotVaisseau, afficherPoints,
 //			afficherGgEtAddXp,
 //			enleverBonusSaufXp);
 //	
-//	private Phase p7AjoutTime = new Phase(		apparitationBackground,	bougerVaisseau,	tirVaisseau, afficherPoints,
+//	private Phase p7AjoutTime = new Phase(		apparitationBackground,	bougerVaisseau,	shotVaisseau, afficherPoints,
 //			ajouterStopTime);
 //	
-//	private Phase p8txtTime = new Phase(			apparitationBackground,	bougerVaisseau,	tirVaisseau, afficherPoints,
+//	private Phase p8txtTime = new Phase(			apparitationBackground,	bougerVaisseau,	shotVaisseau, afficherPoints,
 //			txtStopTime);
 //	
-//	private Phase p9ajoutEnnemis = new Phase(			apparitationBackground,	bougerVaisseau,	tirVaisseau, afficherPoints,
+//	private Phase p9ajoutEnnemis = new Phase(			apparitationBackground,	bougerVaisseau,	shotVaisseau, afficherPoints,
 //			ajoutPleinEnnemis);
 //	
-//	private Phase p10 = new Phase(			apparitationBackground,	bougerVaisseau,	tirVaisseau, afficherPoints
+//	private Phase p10 = new Phase(			apparitationBackground,	bougerVaisseau,	shotVaisseau, afficherPoints
 //			);
 //	
 //	private final Phase[] phases = {
@@ -189,10 +189,10 @@
 //
 //	public Tutorial(Game game) {
 //		bloom = CSG.bloom;
-//		VaisseauJoueur.position.x = CSG.DEMI_LARGEUR_ZONE_JEU - VaisseauJoueur.DEMI_LARGEUR;
-//		VaisseauJoueur.position.y = -VaisseauJoueur.HAUTEUR;
+//		VaisseauJoueur.position.x = CSG.HALF_WIDTH_ZONE_JEU - VaisseauJoueur.HALF_WIDTH;
+//		VaisseauJoueur.position.y = -VaisseauJoueur.HEIGHT;
 //		CSG.reset();
-//		EndlessMode.cam.position.set(CSG.LARGEUR_ZONE_JEU/2, CSG.HAUTEUR_ECRAN / 2, 0);
+//		EndlessMode.cam.position.set(CSG.WIDTH_ZONE_JEU/2, CSG.HEIGHT_ECRAN / 2, 0);
 //	}
 //
 //	@Override
@@ -221,7 +221,7 @@
 //	private void triggers(float delta) {
 //		// Quand le vaisseau est en place
 //		switch (phase) {
-//		case 0:		if (VaisseauJoueur.position.y > VaisseauJoueur.HAUTEUR - 2 && phase == 0)	nextPhase();	break;
+//		case 0:		if (VaisseauJoueur.position.y > VaisseauJoueur.HEIGHT - 2 && phase == 0)	nextPhase();	break;
 //		case 1:		if (Gdx.input.justTouched())												nextPhase();	break;
 //		case 2:		if (timerPhase > .8f)														nextPhase();	break;
 //		case 3:		if (timerPhase > .8f)														nextPhase();	break;

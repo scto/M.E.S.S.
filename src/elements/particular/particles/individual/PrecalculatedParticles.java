@@ -10,23 +10,42 @@ import jeu.Stats;
 
 public class PrecalculatedParticles {
 
-	public static final float INITIAL_WIDTH = ((float)Stats.LARGEUR_DE_BASE / 4), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
-	private static final float stepSparkles = 0.075f;
-	public static final float[] colorsRed = initAlphasRed(stepSparkles, 0), colorsBlue = initAlphasBlue(stepSparkles, 0), colorsGreen = initAlphasGreen(stepSparkles, 0);
-	public static final float[] widths = initWidths(Stats.uSur4, colorsRed.length);
+	public static final float INITIAL_WIDTH = ((float)Stats.WIDTH_DE_BASE / 4), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
+	private static final float stepSparkles = 0.095f;
+	public static final float[] colorsRed = initAlphasRed(stepSparkles, 0, true), colorsBlue = initAlphasBlue(stepSparkles, 0, true), colorsYellowToGreen = initAlphasYellowToGreen(stepSparkles, 0, true);
+	public static final float[] colorsThruster = initAlphasThruster(stepSparkles, 0, true);
+	public static final float[] widths = initWidths(Stats.uSur4, colorsRed.length, INITIAL_WIDTH);
 	public final static float[] widthsFireballParticules = initWidths(Stats.u, 0.75f, Fireball.WIDTH);
-	public final static float[] halfWidthsFireballParticules = CSG.getHalf(widthsFireballParticules);
+	public final static float[] halfWidthsFireballParticules = CSG.getDifferences(widthsFireballParticules);
 	public final static float[] colorsFireball = initColors(widthsFireballParticules.length, 1, 0.9f, 0);
 	public final static float[] colorsPinkWeapon = initColors(7, 4, 1, 1);
-	public static final float[] halfWidths = CSG.getHalf(widths);
+	public static final float[] halfWidths = CSG.getDifferences(widths);
 	public static final float[] dirY = initDirY(widths);
 	
-	
 	private static final float stepColorsOverTime = 0.065f;
-	public static final float[] colorsOverTimeRed = initAlphasRed(stepColorsOverTime, 0.15f), colorsOverTimeBlue = initAlphasBlue(stepColorsOverTime, 0.15f), colorsOverTimeGreen = initAlphasGreen(stepColorsOverTime, 0.15f),
-			colorsOverTimeBlueLong = initAlphasBlue(stepColorsOverTime / 2, 0.1f), colorsOverTimeGreenLong = initAlphasGreen(stepColorsOverTime / 2, 0.10f);
-	public static final float[] widthsColorOverTime = initWidths((1 / colorsOverTimeRed.length) / 2, colorsOverTimeRed.length), widthsColorOVerTime2 = CSG.getDouble(widthsColorOverTime);
-	public static final float[] halfWidthsColorOverTime = CSG.getHalf(widthsColorOverTime);
+	public static final float[]
+			colorsOverTimeRed = initAlphasRed(stepColorsOverTime, 0.15f, true),
+			colorsOverTimeBlue = initAlphasBlue(stepColorsOverTime, 0.15f, true),
+			colorsOverTimeYellowToGreen = initAlphasYellowToGreen(stepColorsOverTime, 0.15f, true),
+			colorsOverTimeCyanToGreen = initAlphasCyanToGreen(stepColorsOverTime, 0.15f, true),
+			
+			colorsOverTimeRedLong = initAlphasRed(stepColorsOverTime / 2, 0.15f, true),
+			colorsOverTimeBlueLong = initAlphasBlue(stepColorsOverTime / 2, 0.1f, true),
+			colorsOverTimeYellowToGreenLong = initAlphasYellowToGreen(stepColorsOverTime / 2, 0.10f, true),
+			colorsOverTimeCyanToGreenLong = initAlphasCyanToGreen(stepColorsOverTime / 2, 0.10f, true),
+			
+			colorsOverTimeRedLong4 = initAlphasRed(stepColorsOverTime / 4, 0.15f, true),
+			colorsOverTimeBlueLong4 = initAlphasBlue(stepColorsOverTime / 4, 0.1f, true),
+			colorsOverTimeYellowToGreenLong4 = initAlphasYellowToGreen(stepColorsOverTime / 4, 0.10f, true);
+	public static final float[]
+			widthsColorOverTime = initWidths(-(INITIAL_WIDTH * 4 / colorsOverTimeRed.length) , colorsOverTimeRed.length  + 2, INITIAL_WIDTH * 4),
+			widthsColorOVerTime2 = CSG.getDouble(widthsColorOverTime),
+			widthsColorOverTimeLong = initWidths(-(INITIAL_WIDTH * 4 / colorsOverTimeRedLong.length) , colorsOverTimeRedLong.length  + 2, INITIAL_WIDTH * 4),
+			widthsColorOverTimeLongDifferences = CSG.getDifferences(widthsColorOverTimeLong),
+			
+			widthsColorOverTimeLong4 = initWidths( -((INITIAL_WIDTH * 4 / colorsOverTimeRedLong4.length)), colorsOverTimeRedLong4.length + 2, INITIAL_WIDTH * 4),
+			widthsColorOverTimeLong4Differences = CSG.getDifferences(widthsColorOverTimeLong4);
+	public static final float[] halfWidthsColorOverTime = CSG.getDifferences(widthsColorOverTime);
 	
 	private static float[] initWidths(float max, float mult, float initial) {
 		Array<Float> tmp = new Array<Float>();
@@ -37,15 +56,11 @@ public class PrecalculatedParticles {
 		}
 		return CSG.convert(tmp);
 	}
-	
-	private static float[] initAlphasPink(float stepcolorsovertime2, float f) {
-		return null;
-	}
 
-	private static float[] initWidths(float step, int max) {
-		float f = INITIAL_WIDTH;
+	private static float[] initWidths(float step, int max, float init) {
+		float f = init;
 		Array<Float> tmp = new Array<Float>();
-		for (int i = 0; i < max; i++) {
+		for (int i = 0; i <= max; i++) {
 			tmp.add(f);
 			f += step;
 		}
@@ -74,35 +89,80 @@ public class PrecalculatedParticles {
 		return CSG.convert(tmp);
 	}
 	
-	private static float[] initAlphasGreen(float step, float min) {
+	private static float[] initAlphasCyanToGreen(float step, float min, boolean white) {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
+		if (white) {
+			tmp.add(AssetMan.convertARGB(1, 0.95f, 1, 1));
+			tmp.add(AssetMan.convertARGB(1, 0.55f, 1, 1));
+			tmp.add(AssetMan.convertARGB(1, 0.25f, 1, 1));
+		}
 		while (alpha > min) {
-			tmp.add(AssetMan.convertARGB(alpha, 0.05f, 1, alpha));
+			tmp.add(AssetMan.convertARGB(alpha, 0.25f, 1, alpha));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);
 	}
 	
-	private static float[] initAlphasBlue(float step, float min) {
+	private static float[] initAlphasYellowToGreen(float step, float min, boolean white) {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
+		if (white) {
+			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.95f));
+			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.55f));
+			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.25f));
+		}
 		while (alpha > min) {
-			tmp.add(AssetMan.convertARGB(alpha, 0.05f, alpha, 1));
+			tmp.add(AssetMan.convertARGB(alpha, alpha, 1, 0.25f));
+			alpha -= step;
+		}
+		return CSG.convert(tmp);
+	}
+	
+	private static float[] initAlphasThruster(float step, float min, boolean white) {
+		float alpha = 1;
+		Array<Float> tmp = new Array<Float>();
+		if (white) {
+			tmp.add(AssetMan.convertARGB(1, 0.95f, 1, 1));
+			tmp.add(AssetMan.convertARGB(1, 0.50f, 1, 1));
+			tmp.add(AssetMan.convertARGB(1, 0.25f, 1, 1));
+			tmp.add(AssetMan.convertARGB(1, 0.12f, 1, 1));
+		}
+		while (alpha > min) {
+			tmp.add(AssetMan.convertARGB(alpha, 0.12f,  1 + alpha/2, 1));
+			alpha -= step;
+		}
+		return CSG.convert(tmp);
+	}
+	
+	private static float[] initAlphasBlue(float step, float min, boolean white) {
+		float alpha = 1;
+		Array<Float> tmp = new Array<Float>();
+		if (white) {
+			tmp.add(AssetMan.convertARGB(1, 0.95f, 1, 1));
+			tmp.add(AssetMan.convertARGB(1, 0.50f, 1, 1));
+			tmp.add(AssetMan.convertARGB(1, 0.25f, 1, 1));
+		}
+		while (alpha > min) {
+			tmp.add(AssetMan.convertARGB(alpha, 0.25f, alpha, 1));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);
 	}
 
-	private static float[] initAlphasRed(float step, float min) {
+	private static float[] initAlphasRed(float step, float min, boolean white) {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
+		if (white) {
+			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.95f));
+			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.50f));
+			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.25f));
+		}
 		while (alpha > min) {
 			tmp.add(AssetMan.convertARGB(alpha, 1, alpha, 0.05f));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);
 	}
-	
 	
 }

@@ -3,85 +3,75 @@ package elements.generic.enemies.individual.lvl1;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
-import assets.animation.AnimationZigZag;
+import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.Invocable;
-import elements.generic.behavior.Behavior;
+import elements.generic.components.Phase;
+import elements.generic.components.behavior.Behavior;
+import elements.generic.components.positionning.Pos;
+import elements.generic.components.positionning.UpWide;
 import elements.generic.enemies.Enemy;
 import elements.particular.particles.Particles;
-import elements.particular.particles.individual.PrecalculatedParticles;
-import elements.positionning.Pos;
-import elements.positionning.UpWide;
 
 public class ZigZag extends Enemy {
 	
-	private static final int LARGEUR = Stats.LARGEUR_ZIG_ZAG;
-
-	protected static final int DEMI_LARGEUR = LARGEUR/2;
-
-	private static final int HAUTEUR = Stats.HAUTEUR_ZIG_ZAG, OFFSET_SMOKE = (int) (HAUTEUR * 0.8f);
-
-	private static final int DEMI_HAUTEUR = HAUTEUR / 2;
-	
+	private static final int WIDTH = Stats.WIDTH_ZIG_ZAG;
+	protected static final int HALF_WIDTH = WIDTH/2;
+	private static final int HEIGHT = Stats.HEIGHT_ZIG_ZAG, OFFSET_SMOKE = (int) (HEIGHT * 0.8f);
+	private static final int HALF_HEIGHT = HEIGHT / 2;
 	public static final int PK = 15;
-	protected static final float SPEED = initSpeed(24, PK);
-	private static final int PV = initPv(Stats.PV_ZIGZAG, PK);
+	protected static final float SPEED = initSpeed(1, PK);
+	private static final int HP = initHp(Stats.HP_ZIGZAG, PK);
 	private static final int EXPLOSION = initExplosion(40, PK);
 	protected static final int BASE_XP = Enemy.initXp(3, PK);
 
 	private static final int XP = getXp(BASE_XP, 1);
-	private static final Behavior behavior = initBehavior(PK, Behavior.ZIGZAG);
-	
 	private boolean sens = true;
 	public static final Pool<ZigZag> POOL = Pools.get(ZigZag.class);
-	public static final Invocable ref = new ZigZag();
 	private static final Pos positionning = initPositionnement(UpWide.PK, PK);
+	private static final Vector2 smokeVector = new Vector2(0, Stats.uSur4);
+	protected static final Phase[] PHASES = {
+		new Phase(				Behavior.ZIG_ZAG,				null,				null,				Animations.ZIG_ZAG_RED				)		};
 
-	protected void init() {
+	public void init() {
 		positionning.set(this);
 		dir.x = 0;
-		dir.y = -getVitesse();
+		dir.y = -getSpeed() * 24;
 		sens = true;
-		angle = -90;
 	}
 	
 	@Override
-	public void mouvementEtVerif() {
+	public void isMoving() {
 		if (EndlessMode.alternate)
-			Particles.smokeMoving(pos.x + DEMI_LARGEUR, pos.y + OFFSET_SMOKE, true, getColor());
-		super.mouvementEtVerif();
-	}
-	
-	@Override
-	public Invocable invoquer() {
-		final ZigZag z = POOL.obtain();
-		LIST.add(z);
-		z.init();
-		return z;
+			Particles.smokeMoving(pos.x + HALF_WIDTH, pos.y + OFFSET_SMOKE, true, getColor(), getSmokeVector());
 	}
 
-	protected float[] getColor() {						return PrecalculatedParticles.colorsRed;	}
+	protected Vector2 getSmokeVector() {				return smokeVector;		}
+
+	
+	@Override
+	public float getPhaseTime() {
+		return pos.x + HALF_WIDTH;
+	}
 	@Override	public void free() {					POOL.free(this);	}
-	@Override	protected int getPvMax() {				return PV;	}
-	@Override	protected TextureRegion getTexture() {	return AnimationZigZag.getTexture(pos.x + DEMI_LARGEUR);	}
-	@Override	public int getHeight() {				return HAUTEUR;	}
-	@Override	public int getWidth() {					return LARGEUR;	}
-	@Override	public int getHalfHeight() {			return DEMI_HAUTEUR;	}
-	@Override	public int getHalfWidth() {				return DEMI_LARGEUR;	}
+	@Override	protected int getMaxHp() {				return HP;	}
+	@Override	public float getHeight() {				return HEIGHT;	}
+	@Override	public float getWidth() {					return WIDTH;	}
+	@Override	public float getHalfHeight() {			return HALF_HEIGHT;	}
+	@Override	public float getHalfWidth() {				return HALF_WIDTH;	}
 	@Override	public float getDirectionY() {			return dir.y;	}
 	@Override	public float getDirectionX() {			return dir.x;	}
-	@Override	public float getVitesse() {				return SPEED;	}
-	@Override	protected Sound getSonExplosion() {		return SoundMan.explosion5;	}
+	@Override	public float getSpeed() {				return SPEED;	}
+	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion5;	}
 	@Override	protected String getLabel() {			return getClass().toString();	}
 	@Override	public int getXp() {					return XP;	}
-	@Override	public int getValeurBonus() {			return BASE_XP;	}
+	@Override	public int getBonusValue() {			return BASE_XP;	}
 	@Override	public int getExplosionCount() {		return EXPLOSION;									}
-	@Override	public Behavior getBehavior() {			return behavior;	}
-	@Override	public boolean toLeft() {				return sens;	}
-	@Override	public void setLeft(boolean b) {		sens = b;	}
+	@Override	public Phase[] getPhases() {		return PHASES;	}
+	@Override	public boolean getWay() {				return sens;	}
+	@Override	public void setWay(boolean b) {			sens = b;	}
 }

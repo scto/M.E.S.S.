@@ -2,6 +2,7 @@ package elements.generic.enemies;
 
 import jeu.CSG;
 import jeu.mode.EndlessMode;
+import jeu.mode.extensions.Score;
 
 public final class Progression {
 
@@ -125,7 +126,7 @@ public final class Progression {
 				activateRandomBoss();
 			}
 		} else if (nextNormalWavesCheck < EndlessMode.now) {
-			nbEnemiesMax = (int) (14 + (EndlessMode.score / 5000));
+			nbEnemiesMax = (int) (14 + (Score.score / 5000));
 			if (Enemy.LIST.size < nbEnemiesMax) {
 				if (bossJustPoped)
 					compensateForBossTime();
@@ -155,11 +156,10 @@ public final class Progression {
 		}
 	}
 
-	static int tmp = 0;
 	static boolean tmpCheck = false;
 	private static void remplissage(Wave[] waves) {
-		if (Enemy.LIST.size < 2 + EndlessMode.score / 10000 &&
-				EndlessMode.score > 20 &&
+		if (Enemy.LIST.size < 2 + Score.score / 10000 &&
+				Score.score > 20 &&
 				!bossJustPoped &&
 				graceTime < EndlessMode.now) {
 			switch (EndlessMode.difficulty) {
@@ -169,8 +169,7 @@ public final class Progression {
 			case 4 :	tmpCheck = hasAnActiveWave(wavesLvl4);		break;
 			}
 			if (!tmpCheck) {
-				tmp = CSG.R.nextInt(waves.length);
-				waves[tmp].activate();
+				waves[CSG.R.nextInt(waves.length)].activate();
 			}
 		}
 		for (Wave wave : waves)
@@ -181,10 +180,10 @@ public final class Progression {
 	private static void compensateForBossTime() {
 		bossJustPoped = false;
 		switch(EndlessMode.difficulty) {
-		case 1:		compensateBoss(EndlessMode.score - beginBossScore, wavesLvl1);		break;
-		case 2:		compensateBoss(EndlessMode.score - beginBossScore, wavesLvl2);		break;
-		case 3:		compensateBoss(EndlessMode.score - beginBossScore, wavesLvl3);		break;
-		case 4:		compensateBoss(EndlessMode.score - beginBossScore, wavesLvl4);		break;
+		case 1:		compensateBoss(Score.score - beginBossScore, wavesLvl1);		break;
+		case 2:		compensateBoss(Score.score - beginBossScore, wavesLvl2);		break;
+		case 3:		compensateBoss(Score.score - beginBossScore, wavesLvl3);		break;
+		case 4:		compensateBoss(Score.score - beginBossScore, wavesLvl4);		break;
 		}
 	}
 
@@ -212,7 +211,7 @@ public final class Progression {
 		while (!poped)
 			poped = bosses[CSG.R.nextInt(bosses.length)].mightActivate();
 		bossJustPoped = true;
-		beginBossScore = EndlessMode.score;
+		beginBossScore = Score.score;
 	}
 
 	public static void incrementNextBoss(float time) {

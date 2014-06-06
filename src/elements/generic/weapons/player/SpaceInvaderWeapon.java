@@ -18,7 +18,7 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 	public static final int width = CSG.screenWidth/6, halfWidth = width / 2, halfWidth3 = halfWidth*3, width2 = width*2, halfWidth5 = halfWidth*5, width3 = width * 3, halfWidth7 = halfWidth * 7, width4 = width * 4, particle = width / 10;
 	public static final int height = width * 3;
 	public final float color;
-	public static final float CADENCETIR = initCadence(0.001f, 4);
+	public static final float FIRERATETIR = initCadence(0.04f, 4);
 	public static final String LABEL = "SpaceInvaderWeapon";
 	public static final Pool<SpaceInvaderWeapon> POOL = new Pool<SpaceInvaderWeapon>(30) {
 		@Override
@@ -61,12 +61,12 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 		for (int i = 0; i <= EndlessMode.fps; i++)
 			SpaceInvaderParticle.init(this);
 	}
-	@Override	public int getWidth() {						return width;								}
-	@Override	public int getHeight() {					return width;								}
+	@Override	public float getWidth() {						return width;								}
+	@Override	public float getHeight() {					return width;								}
 	@Override	public void free() {						POOL.free(this);							}
 	@Override	public float getColor() {					return COLORS[R.nextInt(COLORS.length)];	}
-	@Override	public int getHalfWidth() {					return halfWidth;	}
-	@Override	public int getHalfHeight() {				return halfWidth;	}
+	@Override	public float getHalfWidth() {					return halfWidth;	}
+	@Override	public float getHalfHeight() {				return halfWidth;	}
 	@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeBlue;		}
 
 	public static Object getLabel() {			return LABEL;	}

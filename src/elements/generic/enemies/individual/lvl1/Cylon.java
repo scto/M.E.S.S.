@@ -4,117 +4,127 @@ import jeu.CSG;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
-import assets.animation.AnimationCylon;
-import assets.animation.AnimationCylonCasse;
+import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.Invocable;
-import elements.generic.behavior.Behavior;
+import elements.generic.components.Phase;
+import elements.generic.components.behavior.Behavior;
+import elements.generic.components.positionning.Pos;
+import elements.generic.components.positionning.UpWide;
+import elements.generic.components.shots.Gatling;
+import elements.generic.components.shots.Shot;
 import elements.generic.enemies.Enemy;
-import elements.generic.weapons.enemies.EnemyWeapon;
-import elements.generic.weapons.enemies.InvocableWeapon;
-import elements.generic.weapons.enemies.Meteorite;
-import elements.generic.weapons.patterns.TireurAngle;
-import elements.generic.weapons.patterns.Tirs;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.particles.Particles;
-import elements.positionning.Pos;
-import elements.positionning.UpWide;
 
-public class Cylon extends Enemy implements TireurAngle {
+public class Cylon extends Enemy {
 	
-	private static final int LARGEUR = Stats.LARGEUR_CYLON, DEMI_LARGEUR = LARGEUR/2, QUART_WIDTH = LARGEUR / 4;
+	private static final int 
+		WIDTH = Stats.CYLON_WIDTH,
+		HALF_WIDTH = WIDTH/2,
+		QUART_WIDTH = WIDTH / 4,
+		THRUSTER_OFFSET = (int) (WIDTH * 0.45f);
 	public static final Pool<Cylon> POOL = Pools.get(Cylon.class);
 	public static final int PK = 2;
-	protected static final float CADENCE = initFirerate(3, PK);
-	protected static final float INIT_NEXT_SHOT = initNextShot(2.6f, PK);
-	protected static final float SPEED = initSpeed(8, PK);
-	private static final int PV = initPv(Stats.PV_CYLON, PK), HALF_HP = PV/2;
-	private static final int EXPLOSION = initExplosion(35, PK);
+	protected static final float
+		FIRERATE = initFirerate(3, PK),
+		INIT_NEXT_SHOT = initNextShot(2.6f, PK),
+		SPEED = initSpeed(17, PK);
 	protected static final int BASE_XP = Enemy.initXp(12, PK);
-	private static final int XP = getXp(BASE_XP, 1);
-	private static final Behavior behavior = initBehavior(PK,Behavior.STRAIGHT);
-	protected static final Tirs tir = new Tirs(CADENCE);
-	public static final InvocableWeapon weapon = initEnemyWeapon(Meteorite.PK, PK);
-	public static final Invocable ref = new Cylon();
+	private static final int 
+		HP = initHp(Stats.HP_CYLON, PK),
+		HP_BAD = (int) (HP * 0.66f),
+		HP_WORST = (int) (HP * 0.33f),
+		EXPLOSION = initExplosion(35, PK),
+		XP = getXp(BASE_XP, 1);
+	private static final Phase[] PHASES = {
+		new Phase(				Behavior.STRAIGHT_ON,				Gatling.METEORITE,				Shot.TIR_TOUT_DROIT,			Animations.CYLON_RED_GOOD				),
+		new Phase(				Behavior.STRAIGHT_ON,				Gatling.METEORITE,				Shot.TIR_TOUT_DROIT,			Animations.CYLON_RED_BAD				),
+		new Phase(				Behavior.STRAIGHT_ON,				Gatling.METEORITE,				Shot.TIR_TOUT_DROIT,			Animations.CYLON_RED_WORST				)		};
 	private static final Pos positionning = initPositionnement(UpWide.PK, PK);
-	protected float prochainTir;
-	private boolean goodShape;
 
-	protected void init() {
+	public void init() {
 		positionning.set(this);
-		if (pos.x + DEMI_LARGEUR < CSG.screenHalfWidth)
-			dir.x = 0.26f * Stats.V_ENN_CYLON;
+		if (pos.x + HALF_WIDTH < CSG.screenHalfWidth)
+			dir.x = 0.26f * Stats.CYLON_SPEED;
 		else
-			dir.x = -0.26f * Stats.V_ENN_CYLON;
-		dir.y = -0.83f * Stats.V_ENN_CYLON;
-		goodShape = true;
-		prochainTir = 2.6f;
-		angle = dir.angle();
+			dir.x = -0.26f * Stats.CYLON_SPEED;
+		dir.y = -0.83f * Stats.CYLON_SPEED;
+		nextShot = 2.6f;
+		angle = dir.angle() + 90;
+		index = 0;
 	}
 	
 	@Override
-	protected TextureRegion getTexture() {
-		if (goodShape) 	return AnimationCylon.getTexture(now);
-		else 			return AnimationCylonCasse.getTexture(now);
-	}
-
-	@Override
-	public void mouvementEtVerif() {
-		if (EndlessMode.alternate && !goodShape)
-			Particles.smoke(pos.x + QUART_WIDTH, pos.y + QUART_WIDTH, false);
-		super.mouvementEtVerif();
+	protected void isMoving() {
+		TMP_POS.x = 0;
+		TMP_POS.y = THRUSTER_OFFSET;
+		TMP_POS.rotate(angle);
+		if (EndlessMode.oneToFour > index + 1)
+			Particles.smokeMoving(pos.x + HALF_WIDTH + TMP_POS.x, pos.y + HALF_WIDTH + TMP_POS.y, TMP_POS.nor().scl(Stats.uSur2), getColor());
 	}
 	
 	@Override
-	public Vector2 getPositionDuTir(int numeroTir) {
+	public Vector2 getShotPosition(int numeroTir) {
 		TMP_POS.x = (pos.x) + dir.x*0.8f;
 		TMP_POS.y = (pos.y) + (dir.y*0.8f);
 		return TMP_POS;
 	}
-	
-	@Override
-	public Invocable invoquer() {
-		final Cylon l = POOL.obtain();
-		l.init();
-		LIST.add(l);
-		return l;
-	}
-	
 	@Override
 	public boolean stillAlive(PlayerWeapon p) {
-		if (p.getPower() < getDemiPv() && goodShape) {
-			goodShape = false;
-			dir.rotate(CSG.R.nextInt(30)-15);
-			angle = dir.angle();
+		switch (index) {
+		case 0:
+			if (hp - p.getPower() < getPvBad()) {
+				changeState(1);
+			}
+			break;
+		case 1:
+			if (hp - p.getPower() < getPvWorst()) {
+				changeState(2);
+			}
+			break;
 		}
 		return super.stillAlive(p);
 	}
 	
-	@Override	protected void tir() {					tir.tirToutDroit(this, now, prochainTir);	}
-	@Override	public int getValeurBonus() {			return BASE_XP;			}
-	@Override	public int getXp() {					return XP;				}
-	@Override	public EnemyWeapon getArme() {			return weapon.invoke();				}
+	protected int getPvWorst() {
+		return HP_WORST;
+	}
+
+	protected int getPvBad() {
+		return HP_BAD;
+	}
+
+	private void changeState(int nextState) {
+		index = nextState;
+		dir.rotate(CSG.R.nextInt(20)-10);
+		dir.scl(0.7f);
+		angle = dir.angle() + 90;
+		for (int i = 0; i < 10; i++) 
+			Particles.smoke(pos.x + QUART_WIDTH + (CSG.R.nextFloat() * HALF_WIDTH), pos.y + CSG.R.nextFloat() * WIDTH, false);
+	}
+
+	@Override	public float getFirerate() {			return FIRERATE;							}
+	@Override	public int getBonusValue() {			return BASE_XP;								}
+	@Override	public int getXp() {					return XP;									}
 	@Override	protected String getLabel() {			return getClass().toString();				}
-	@Override	protected Sound getSonExplosion() {		return SoundMan.explosion4;					}
-	@Override	protected int getPvMax() {				return PV;						}
-	@Override	public int getHalfHeight() {			return DEMI_LARGEUR;						}
-	@Override	public int getHalfWidth() {				return DEMI_LARGEUR;						}
+	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion4;					}
+	@Override	protected int getMaxHp() {				return HP;									}
+	@Override	public float getHalfHeight() {			return HALF_WIDTH;							}
+	@Override	public float getHalfWidth() {			return HALF_WIDTH;							}
 	@Override	public float getDirectionY() {			return dir.y;								}
 	@Override	public float getDirectionX() {			return dir.x;								}
-	@Override	public Vector2 getDirectionTir() {		return dir;									}
-	@Override	public void setProchainTir(float f) {	prochainTir = f;							}
+	@Override	public Vector2 getShootingDir() {		return dir;									}
+	@Override	public void setNextShot(float f) {		nextShot = f;								}
 	@Override	public void free() {					POOL.free(this);							}
-	@Override	public int getHeight() {				return LARGEUR;								}
-	@Override	public int getWidth() {					return LARGEUR;								}
-	@Override	public float getModifVitesse() {		return 0.01f;								}
-	@Override	public float getAngleTir() {			return dir.angle();							}
+	@Override	public float getHeight() {				return WIDTH;								}
+	@Override	public float getWidth() {					return WIDTH;								}
+	@Override	public float getBulletSpeedMod() {		return 0.01f;								}
+	@Override	public float getShootingAngle() {		return dir.angle();							}
 	@Override	public int getExplosionCount() {		return EXPLOSION;							}
-	@Override	public Behavior getBehavior() {			return behavior;							}
-	protected int getDemiPv() {							return HALF_HP;								}
+	@Override	public Phase[] getPhases() {			return PHASES;							}
 }

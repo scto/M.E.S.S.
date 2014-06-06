@@ -19,7 +19,7 @@ public class Shield {
 		antiAngle -= EndlessMode.delta15 * 2;
 		batch.end();
 		renderer.begin(ShapeType.Line);
-		draw(Player.POS.x - Player.WIDTH_DIV_10, Player.POS.y - Player.WIDTH_DIV_10, Player.HEIGHT, Player.DEMI_HAUTEUR);
+		draw(Player.POS.x - Player.WIDTH_DIV_10, Player.POS.y - Player.WIDTH_DIV_10, Player.HEIGHT, Player.HALF_HEIGHT);
 		batch.begin();
 	}
 
@@ -54,7 +54,7 @@ public class Shield {
 		batch.end();
 		renderer.begin(ShapeType.Line);
 //		draw((Player.POS.x, Player.POS.y - (expantion/10), expantion, expantion/2);
-		draw(Player.POS.x - Player.WIDTH_DIV_10, Player.POS.y - Player.WIDTH_DIV_10, Player.HEIGHT, Player.DEMI_HAUTEUR);
+		draw(Player.POS.x - Player.WIDTH_DIV_10, Player.POS.y - Player.WIDTH_DIV_10, Player.HEIGHT, Player.HALF_HEIGHT);
 		batch.begin();
 	}
 

@@ -113,7 +113,7 @@ public abstract class Bonus {
 	 * @param xp
 	 */
 	public static void addBonus(Enemy e) {
-		cptBonus += e.getValeurBonus();
+		cptBonus += e.getBonusValue();
 		tmp = e.pos.x + e.getHalfWidth();
 		tmpY = e.pos.y + e.getHalfHeight();
 		BonusAdd.mightAppear(tmp, tmpY);

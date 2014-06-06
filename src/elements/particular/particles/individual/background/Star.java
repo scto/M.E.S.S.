@@ -61,7 +61,7 @@ public class Star implements Poolable {
 	}
 
 	public static void act(SpriteBatch batch, Array<Star> stars) {
-		if (stars.size < Particles.MAX_BACKGROUND)
+		while (stars.size < Particles.MAX_BACKGROUND)
 			stars.add(Star.POOL.obtain());
 
 		if (EndlessMode.triggerStop) {

@@ -1,26 +1,20 @@
 package elements.generic.weapons.enemies;
 
 import jeu.CSG;
-import assets.animation.Animated;
-
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
-import com.badlogic.gdx.utils.Pool.Poolable;
 
-public class FragWeapon extends EnemyWeapon implements Poolable, InvocableWeapon{
+public class FragWeapon extends EnemyWeapon {
 	
 	public static final int WIDTH = CSG.screenWidth / 30, HALF_WIDTH = WIDTH/2;
-	public static final float CADENCETIR = .2f, TIME = 2;
+	public static final float FIRERATETIR = .2f, TIME = 2;
 	public static final Pool<FragWeapon> POOL = Pools.get(FragWeapon.class);
 	public static final int PK = 3;
 	private static final float SPEED = initSpeed(26, PK);
-	private static final Animated ANIMATED = initAnimation(1, PK);
 	
 	@Override
-	public boolean mouvementEtVerif() {
+	public boolean move() {
 		if (TIME < now) {
-//			Particles.addSparkle(this);
 			final FragWeapon a = FragWeapon.POOL.obtain();
 			a.pos.x = pos.x;
 			a.pos.y = pos.y;
@@ -37,17 +31,16 @@ public class FragWeapon extends EnemyWeapon implements Poolable, InvocableWeapon
 			b.dir.rotate(-5);
 			ENEMIES_LIST.add(b);
 
-			return false;
+			return true;
 		} 
-		return super.mouvementEtVerif();
+		return super.move();
 	}
 	
-	@Override	public TextureRegion getTexture() {		return ANIMATED.getTexture(now);		}
-	@Override	protected float getSpeed() {			return SPEED;						}
-	@Override	public int getWidth() {					return WIDTH;									}
-	@Override	public int getHeight() {				return WIDTH;									}
+	@Override	public float getSpeed() {				return SPEED;						}
+	@Override	public float getWidth() {				return WIDTH;									}
+	@Override	public float getHeight() {				return WIDTH;									}
 	@Override	public void free() {					POOL.free(this);								}
-	@Override	public int getHalfHeight() {			return HALF_WIDTH;								}
-	@Override	public int getHalfWidth() {				return HALF_WIDTH;								}
+	@Override	public float getHalfHeight() {			return HALF_WIDTH;								}
+	@Override	public float getHalfWidth() {			return HALF_WIDTH;								}
 	@Override	public EnemyWeapon invoke() {			return POOL.obtain();	}
 }

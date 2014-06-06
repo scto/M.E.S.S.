@@ -4,7 +4,7 @@ import jeu.CSG;
 import jeu.Physic;
 import jeu.Stats;
 import assets.AssetMan;
-import assets.animation.AnimPlayer;
+import assets.sprites.AnimPlayer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,7 +16,7 @@ import elements.generic.weapons.player.WeaponManager;
 
 public class WeaponButton {
 	
-	public static final float width = CSG.screenWidth / 7, widthDiv10 = width / 10, offsetShip = (width - Player.LARGEUR)/2, height = width * 1.3f, padding = (CSG.screenWidth / 7) / 7;
+	public static final float width = CSG.screenWidth / 7, widthDiv10 = width / 10, offsetShip = (width - Player.WIDTH)/2, height = width * 1.3f, padding = (CSG.screenWidth / 7) / 7;
 	public static final float heightBackground = height * 1.1f;
 	private static final float unselectedWidth = width * 0.8f, unselectedHeight = height * 0.8f;
 	private final TextureRegion tr;
@@ -100,9 +100,9 @@ public class WeaponButton {
 		if (selected) {
 			batch.setColor(AssetMan.WHITE);
 //			batch.draw(tr, num * width, y, width, width);
-//			batch.draw(AnimPlayer.tr[2], (num * width) + offsetShip, y - Player.HAUTEUR, Player.LARGEUR, Player.HAUTEUR);
+//			batch.draw(AnimPlayer.tr[2], (num * width) + offsetShip, y - Player.HEIGHT, Player.WIDTH, Player.HEIGHT);
 			batch.draw(tr, x, y, width, height);
-			batch.draw(AnimPlayer.tr[2], x + offsetShip, y - Player.HEIGHT, Player.LARGEUR, Player.HEIGHT);
+			batch.draw(AnimPlayer.tr[2], x + offsetShip, y - Player.HEIGHT, Player.WIDTH, Player.HEIGHT);
 		} else {
 			batch.setColor(AssetMan.ALPHA70);
 //			batch.draw(tr, (num * width) + widthDiv10, y, unselectedWidth, unselectedWidth);

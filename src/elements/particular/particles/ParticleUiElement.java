@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Pools;
 public class ParticleUiElement {
 	
 	private float posX, posY, largeur, color;
-	public static final float LARGEUR = CSG.screenWidth / 250;
+	public static final float WIDTH = CSG.screenWidth / 250;
 	private static final Random rand = new Random();
 	public static Pool<ParticleUiElement> pool = Pools.get(ParticleUiElement.class);
 	private static float deplacement = 0, demiDeplacement = 0;
@@ -26,7 +26,7 @@ public class ParticleUiElement {
 	public void init(float x, float y, boolean selected) {
 		posX = x;
 		posY = y;
-		largeur = LARGEUR;
+		largeur = WIDTH;
 		if (selected)
 			color = AssetMan.convertARGB(1, 1, rand.nextFloat(), 1);
 		else

@@ -35,8 +35,8 @@ public class SparkGreen implements Poolable {
 	private static final Vector2 tmpVector = new Vector2();
 	
 	public SparkGreen() {
-		speedY = (float) ((float) ((R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW * 2) + R.nextGaussian() * Stats.V_PARTICULE_EXPLOSION);
-		speedX = (float) ((float) ((R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW * 2) + R.nextGaussian() * Stats.V_PARTICULE_EXPLOSION);
+		speedY = (float) ((float) ((R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW * 2) + R.nextGaussian() * Stats.V_PARTICULE_EXPLOSION);
+		speedX = (float) ((float) ((R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW * 2) + R.nextGaussian() * Stats.V_PARTICULE_EXPLOSION);
 		height = Math.abs((float) ((R.nextGaussian() * WIDTH))) + MIN_WIDTH;
 		halfHeight = height / 2;
 		tmpVector.x = speedX;

@@ -2,118 +2,107 @@ package elements.generic.enemies.individual.lvl1;
 
 import jeu.CSG;
 import jeu.Stats;
-import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.SoundMan;
-import assets.animation.AnimationEnnemiTourne;
+import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.Invocable;
-import elements.generic.behavior.Behavior;
+import elements.generic.components.Phase;
+import elements.generic.components.behavior.Behavior;
+import elements.generic.components.shots.Gatling;
+import elements.generic.components.shots.Shot;
 import elements.generic.enemies.Enemy;
-import elements.generic.weapons.enemies.EnemyWeapon;
-import elements.generic.weapons.enemies.InvocableWeapon;
 import elements.generic.weapons.enemies.Tournante;
-import elements.generic.weapons.patterns.TireurPlusieurFois;
-import elements.generic.weapons.patterns.Tirs;
 
-public class Group extends Enemy implements Poolable, Invocable, TireurPlusieurFois {
+public class Group extends Enemy {
 	
-	protected static final int LARGEUR = Stats.LARGEUR_GROUP, DEMI_LARGEUR = LARGEUR / 2;
+	protected static final int
+		WIDTH = Stats.GROUP_WIDTH,
+		HALF_WIDTH = WIDTH / 2;
 	public static final Pool<Group> POOL = new Pool<Group>() {
 		@Override
 		protected Group newObject() {
 			return new Group();
 		}
 	};
-	public static final Invocable ref = new Group();
-	private static final Vector2 tmp = new Vector2();
-	private int numeroTir = 0;
-	protected float prochainTir;
-	
 	public static final int PK = 4;
-	protected static final float CADENCE = initFirerate(1, PK);
-	protected static final float INIT_NEXT_SHOT = initNextShot(.5f, PK);
-	public static final Tirs TIR = new Tirs(CADENCE);
+	protected static final float
+		FIRERATE = initFirerate(0.6f, PK),
+		INIT_NEXT_SHOT = initNextShot(.5f, PK),
+		SPEED = initSpeed(8, PK);
 	private static final float COLOR = AssetMan.convertARGB(1, 1f, 0.5f, 0.2f);
-	protected static final float SPEED = initSpeed(8, PK);
-	private static final int PV = initPv(Stats.PV_CYLON, PK);
-	private static final int EXPLOSION = initExplosion(35, PK);
 	protected static final int BASE_XP = Enemy.initXp(12, PK);
-	private static final int XP = getXp(BASE_XP, 1);
-	private static final Behavior behavior = initBehavior(PK,Behavior.SLASH);
-	private static final InvocableWeapon weapon = initEnemyWeapon(Tournante.PK, PK);
+	private static final int
+		HP = initHp(Stats.HP_CYLON, PK),
+		EXPLOSION = initExplosion(35, PK),
+		XP = getXp(BASE_XP, 1);
+	private static final Phase[] PHASES = {
+		new Phase(				Behavior.COMMA,				Gatling.TOURNANTE,				Shot.SHOT_EN_RAFALE,				Animations.ENNEMI_TOURNE				)		};
+	private int shotNumber = 0;
 	
 	@Override
-	public void afficher(SpriteBatch batch) {
-		if (EndlessMode.alternate)
-			angle = dir.angle();
-		batch.setColor(COLOR);
-		super.afficher(batch);
-		batch.setColor(AssetMan.WHITE);
+	protected void isMoving() {
+		angle = dir.angle() + 90;
 	}
-	
-	@Override
-	public Invocable invoquer() {
+
+	public static Group initAll() {
 		Group e = POOL.obtain();
 		Group f = POOL.obtain();
 		Group g = POOL.obtain();
-		init(e, CSG.gameZoneWidth);
-		init(f, CSG.gameZoneWidth - LARGEUR * 1.5f);
-		init(g, CSG.gameZoneWidth - LARGEUR * 3);
+		e.init(CSG.gameZoneWidth - WIDTH);
+		f.init(CSG.gameZoneWidth - WIDTH * 2.1f);
+		g.init(CSG.gameZoneWidth - WIDTH * 3.2f);
 		return e;
 	}
-	protected void init(Group e, float x) {
-		e.now = 5;
-		LIST.add(e);
-		e.pos.x = x;
-		e.pos.y = CSG.SCREEN_HEIGHT;
-		e.dir.x = 0;
-		e.dir.y = -getVitesse();
-		angle = -90;
+	
+	protected void init(float x) {
+		now = 5;
+		LIST.add(this);
+		pos.x = x;
+		pos.y = CSG.SCREEN_HEIGHT;
+		dir.x = 0;
+		dir.y = -getSpeed();
 	}
 
 	@Override
 	public void reset() {
 		super.reset();
 		pos.y = CSG.SCREEN_HEIGHT;
-		prochainTir = INIT_NEXT_SHOT;
-		numeroTir = 0;
+		nextShot = INIT_NEXT_SHOT;
+		shotNumber = 0;
 	}
 	@Override
-	public Vector2 getDirectionTir() {
-		tmp.y = (Stats.V_ENN_DE_BASE);
-		tmp.x = (now * 15);
-		return tmp;
+	public Vector2 getShootingDir() {
+		TMP_DIR.y = Tournante.SPEED * 2;
+		TMP_DIR.x = dir.x + Tournante.SPEED;//(now * 15);
+		return TMP_DIR;
 	}
-	@Override	protected float getAngle() {							return tmp.angle()-90;					}
-	@Override	protected Sound getSonExplosion() {						return SoundMan.explosion6;	}
+	@Override	public int getNumberOfShots() {							return 3;	}
+	@Override	public float getFirerate() {							return FIRERATE;							}
+	@Override	protected Sound getExplosionSound() {					return SoundMan.explosion6;	}
 	@Override	public int getXp() {									return XP;	}
-	@Override	public int getValeurBonus() {							return BASE_XP;	}
-	@Override	public int getHeight() {								return LARGEUR;	}
-	@Override	public int getWidth() {									return LARGEUR;	}
-	@Override	public int getHalfHeight() {							return DEMI_LARGEUR;	}
-	@Override	public int getHalfWidth() {								return DEMI_LARGEUR;	}
-	@Override	protected int getPvMax() {								return PV;	}
-	@Override	protected TextureRegion getTexture() {					return AnimationEnnemiTourne.getTexture(now);	}
+	@Override	public int getBonusValue() {							return BASE_XP;	}
+	@Override	public float getHeight() {								return WIDTH;	}
+	@Override	public float getWidth() {								return WIDTH;	}
+	@Override	public float getHalfHeight() {							return HALF_WIDTH;	}
+	@Override	public float getHalfWidth() {							return HALF_WIDTH;	}
+	@Override	protected int getMaxHp() {								return HP;	}
 	@Override	public void free() {									POOL.free(this);	}
 	@Override	public float getDirectionY() {							return -SPEED;	}
 	@Override	protected String getLabel() {							return getClass().toString();	}
-	@Override	public float getVitesse() {								return SPEED;	}
-	@Override	protected void tir() {									TIR.tirEnRafale(this, 2, now, prochainTir);	}
-	@Override	public float getAngleTir() {							return 0;			}
-	@Override	public EnemyWeapon getArme() {							return weapon.invoke();	}
-	@Override	public Vector2 getPositionDuTir(int numeroTir) {		return pos;										}
-	@Override	public float getModifVitesse() {						return -0.012f;				}
-	@Override	public void setProchainTir(float f) {					this.prochainTir = f;	}
-	@Override	public int getNumeroTir() {								return numeroTir;		}
-	@Override	public void addNombresTirs(int i) {						numeroTir += i;			}
+	@Override	public float getSpeed() {								return SPEED;	}
+	@Override	public float getShootingAngle() {						return 0;			}
+	@Override	public Vector2 getShotPosition(int numeroTir) {
+		TMP_POS.x = pos.x + HALF_WIDTH - Tournante.HALF_WIDTH;
+		TMP_POS.y = pos.y + HALF_WIDTH - Tournante.HALF_WIDTH;
+		return TMP_POS;	
+	}
+	@Override	public float getBulletSpeedMod() {						return -0.012f;				}
+	@Override	public int getShotNumber() {							return shotNumber;		}
+	@Override	public void addShots(int i) {							shotNumber += i;			}
 	@Override	public int getExplosionCount() {						return EXPLOSION;									}
-	@Override	public Behavior getBehavior() {							return behavior;	}
+	@Override	public Phase[] getPhases() {							return PHASES;		}
 }

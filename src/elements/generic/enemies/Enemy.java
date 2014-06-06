@@ -9,139 +9,87 @@ import jeu.mode.EndlessMode;
 import jeu.mode.extensions.ScreenShake;
 import assets.AssetMan;
 import assets.SoundMan;
-import assets.animation.AnimationCylon;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.Element;
-import elements.generic.Invocable;
 import elements.generic.Player;
-import elements.generic.behavior.Ball;
-import elements.generic.behavior.Behavior;
-import elements.generic.behavior.Homming;
-import elements.generic.behavior.KinderBehavior;
-import elements.generic.behavior.RoundAndRound;
-import elements.generic.behavior.Sink;
-import elements.generic.behavior.Slash;
-import elements.generic.behavior.StraightOn;
-import elements.generic.behavior.TurnAround;
-import elements.generic.behavior.Umbrella;
-import elements.generic.behavior.Uturn;
-import elements.generic.behavior.ZigZag;
-import elements.generic.weapons.Weapons;
-import elements.generic.weapons.enemies.BlueBullet;
-import elements.generic.weapons.enemies.BlueBulletFast;
-import elements.generic.weapons.enemies.BlueBulletSlow;
+import elements.generic.components.Phase;
+import elements.generic.components.behavior.Behavior;
+import elements.generic.weapons.Weapon;
 import elements.generic.weapons.enemies.EnemyWeapon;
-import elements.generic.weapons.enemies.Fireball;
-import elements.generic.weapons.enemies.FragWeapon;
-import elements.generic.weapons.enemies.HalfSizeFireball;
-import elements.generic.weapons.enemies.InsectWeapon;
 import elements.generic.weapons.enemies.InvocableWeapon;
-import elements.generic.weapons.enemies.KinderWeapon;
-import elements.generic.weapons.enemies.LaserWeapon;
-import elements.generic.weapons.enemies.Meteorite;
-import elements.generic.weapons.enemies.Tournante;
-import elements.generic.weapons.enemies.VicousBullet;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.bonuses.Bonus;
-import elements.particular.bonuses.XP;
 import elements.particular.other.WaveEffect;
 import elements.particular.particles.Particles;
 import elements.particular.particles.individual.PrecalculatedParticles;
 
-public abstract class Enemy extends Element implements Poolable, Invocable {
+public abstract class Enemy extends Element implements Poolable {
 
 	public final static Array<Enemy> LIST = new Array<Enemy>(40);
 	protected static final Vector2 TMP_POS = new Vector2(), TMP_DIR = new Vector2();
 	protected static final Rectangle COLLISION = new Rectangle();
-	protected int pv;
+	public static final int RED = 0, BLUE = 1, GREEN = 2;
+	private static final float ALERT_WIDTH = 10, ALERT_HALF_WIDTH = ALERT_WIDTH / 2;
+	private static final float DETECT_RANGE = Stats.WIDTH_DIV_10;
 	public boolean dead = false;
-	public final Vector2 dir = new Vector2();
-	public float angle = 90;
-//	private static final float lvl4 = AssetMan.convertARGB(1, .9f, 1, .9f);
-//	private static final float PV100 = AssetMan.convertARGB(1, 0, 1, 0);
-//	private static final float PV95 = AssetMan.convertARGB(1, 0, .95f, 0);
-//	private static final float PV90 = AssetMan.convertARGB(1, 0, .90f, 0);
-//	private static final float PV85 = AssetMan.convertARGB(1, 0, .85f, 0);
-//	private static final float PV80 = AssetMan.convertARGB(1, 0, .80f, 0);
-//	private static final float PV75 = AssetMan.convertARGB(1, 0, .75f, 0);
-//	private static final float PV70 = AssetMan.convertARGB(1, .05f, .70f, 0);
-//	private static final float PV65 = AssetMan.convertARGB(1, .10f, .65f, 0);
-//	private static final float PV60 = AssetMan.convertARGB(1, .15f, .60f, 0);
-//	private static final float PV55 = AssetMan.convertARGB(1, .20f, .55f, 0);
-//	private static final float PV50 = AssetMan.convertARGB(1, .25f, .50f, 0);
-//	private static final float PV45 = AssetMan.convertARGB(1, .30f, .45f, 0);
-//	private static final float PV40 = AssetMan.convertARGB(1, .35f, .40f, 0);
-//	private static final float PV35 = AssetMan.convertARGB(1, .40f, .35f, 0);
-//	private static final float PV30 = AssetMan.convertARGB(1, .45f, .30f, 0);
-//	private static final float PV25 = AssetMan.convertARGB(1, .50f, .25f, 0);
-//	private static final float PV20 = AssetMan.convertARGB(1, .55f, .20f, 0);
-//	private static final float PV15 = AssetMan.convertARGB(1, .60f, .15f, 0);
-//	private static final float PV10 = AssetMan.convertARGB(1, .65f, .10f, 0);
-//	private static final float PV05 = AssetMan.convertARGB(1, .70f, .05f, 0);
-//	private static final float[] pvsColors = {PV100, PV95, PV90, PV85, PV80, PV75, PV70, PV65, PV60, PV55, PV50, PV45, PV40, PV35, PV30, PV25, PV20, PV15, PV10, PV05};
-//	private int color = 0;
+	public float angle = 0, nextShot = 1;
+	protected int hp;
 
 	protected Enemy() {
-		this.pv = getPvMax();
+		this.hp = getMaxHp();
 	}
 	
 	public static void affichageEtMouvement(SpriteBatch batch) {
-//		if (EndlessMode.modeDifficulte == 4)
-//			batch.setColor(lvl4);
 		for (final Enemy e : LIST) {
 			e.now += EndlessMode.delta;
-			e.afficher(batch);
-			e.tir();
-			e.mouvementEtVerif();
+			e.displayWarning(batch);
+			e.setColor(batch);
+			e.getPhase().draw(e, batch);
+			e.getPhase().shoot(e);
+			e.dead = e.getPhases()[e.index].move(e);
+			e.removeColor(batch);
+			e.isMoving();
 		}
-//		batch.setColor(AssetMan.WHITE);
 	}
 
-	public void mouvementEtVerif() {
-		getBehavior().act(this);
-		if (Physic.isOnScreen(pos, getHeight(), getWidth()) == false)
-			dead = true;
+	protected void removeColor(SpriteBatch batch) {
 	}
 
-	public void afficher(SpriteBatch batch) {
-//		batch.setColor(pvsColors[color]);
-		batch.draw(getTexture(), pos.x, pos.y, getHalfWidth(), getHalfHeight(), getWidth(), getHeight(), 1, 1, angle+90);
+	protected void setColor(SpriteBatch batch) {
+	}
+
+	protected void isMoving() {	}
+
+	private void displayWarning(SpriteBatch batch) {
+		if (Physic.isNotDisplayed(this)) {
+			// left
+			if ( (pos.x + getWidth()) < 0 && (pos.x + getWidth()) > -DETECT_RANGE) {
+				batch.setColor(1, 0, 0.5f, 1);
+				batch.draw(AssetMan.dust,
+						-ALERT_HALF_WIDTH, pos.y - Stats.UUU,
+						// pos.x is negative
+						ALERT_WIDTH, (DETECT_RANGE + (pos.x + getWidth())) + Stats.U6);
+				batch.setColor(AssetMan.WHITE);
+			} else if (pos.x > CSG.screenWidth && pos.x < Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10) { // right
+				batch.setColor(1, 0, 0.5f, 1);
+				batch.draw(AssetMan.dust, CSG.screenWidth - ALERT_HALF_WIDTH, pos.y - Stats.UUU, ALERT_WIDTH,
+						(DETECT_RANGE + (CSG.gameZoneWidth - pos.x)) + Stats.U6);
+				batch.setColor(AssetMan.WHITE);
+			}
+		}
 	}
 
 	public static float f = 0;
 	public static void draw(SpriteBatch batch) {
-//		if (EndlessMode.modeDifficulte == 4)
-//			batch.setColor(lvl4);
 		for (final Enemy e : LIST) 
-			e.afficher(batch);
-//		if (EndlessMode.triggerStop) {
-//			batch.setColor(0, 1, 0, 1);
-//			for (final Enemy e : LIST) { 
-////				batch.draw(AssetMan.star, xp.pos.x, xp.pos.y, xp.getHalfWidth(), xp.getHalfHeight(), xp.getWidth(), xp.getHeight(), 1, 1, xp.angle);
-//				batch.draw(AssetMan.star, e.pos.x						, e.pos.y											, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
-//				batch.draw(AssetMan.star, e.pos.x + e.getHalfWidth()	, e.pos.y - e.getHalfHeight()						, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
-//				batch.draw(AssetMan.star, e.pos.x + e.getHalfWidth()	, e.pos.y + e.getHeight() + e.getHalfHeight()		, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
-//				batch.draw(AssetMan.star, e.pos.x + e.getWidth()		, e.pos.y											, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
-//				batch.draw(AssetMan.star, e.pos.x + e.getWidth()		, e.pos.y + e.getHeight()	, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
-//				batch.draw(AssetMan.star, e.pos.x						, e.pos.y + e.getHeight()	, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, f);
-//				
-//				batch.draw(AssetMan.star, e.pos.x						, e.pos.y											, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
-//				batch.draw(AssetMan.star, e.pos.x + e.getHalfWidth()	, e.pos.y - e.getHalfHeight()						, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
-//				batch.draw(AssetMan.star, e.pos.x + e.getHalfWidth()	, e.pos.y + e.getHeight() + e.getHalfHeight()		, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
-//				batch.draw(AssetMan.star, e.pos.x + e.getWidth()		, e.pos.y											, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
-//				batch.draw(AssetMan.star, e.pos.x + e.getWidth()		, e.pos.y + e.getHeight()	, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
-//				batch.draw(AssetMan.star, e.pos.x						, e.pos.y + e.getHeight()	, XP.HALF, XP.HALF, XP.WIDTH, XP.WIDTH_INF, 1, 1, -f);
-//			}
-//			f++;
-//		} 
+			e.getPhases()[e.index].draw(e, batch);
 	}
 
 
@@ -164,30 +112,43 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 	 * @param a.getPower()
 	 * @return return true si vivant.
 	 */
-//	private static float pourcentage;
 	protected static float deltaMulImpact;
 	public boolean stillAlive(PlayerWeapon a) {
-		deltaMulImpact = EndlessMode.delta * Stats.IMPACT;
-		pos.x += (a.dir.x * deltaMulImpact);
-		pos.y += (a.dir.y * deltaMulImpact);
 		Particles.addPartEnemyTouched(a, this);
-		pv -= a.getPower();
-//		pourcentage = getPvMax() / pv;
-//		color = (int) (pvsColors.length / pourcentage);
-		if (pv <= 0) {
+		deltaMulImpact = EndlessMode.delta * Stats.IMPACT;
+		hp -= a.getPower();
+		if (hp <= 0) {
 			die();
 			return false;
 		}
+		pos.x += (a.dir.x * deltaMulImpact);
+		pos.y += (a.dir.y * deltaMulImpact);
+		if (pos.x + getWidth() < -Stats.WIDTH_DIV_10)
+			pos.x = Stats.WIDTH_DIV_10 - getWidth();
+		if (pos.x > Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10)
+			pos.x = Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10;
+		if (pos.y > CSG.HEIGHT_PLUS_4 + getHeight())
+			pos.y = CSG.HEIGHT_PLUS_4 + getHeight() - 1;
 		return true;
 	}
+	
+	protected void changePhase(int index, float firerate) {
+		this.index = index;
+		phaseTime = 0;
+		nextShot = firerate;
+	}
+	
+	protected void changePhase() {
+		super.changePhase();
+		nextShot = getFirerate();
+	}
+	
 	public boolean stillAliveEnemyWeapon(EnemyWeapon a) {
 		deltaMulImpact = EndlessMode.delta * Stats.IMPACT;
 		pos.x += (a.dir.x * deltaMulImpact);
 		pos.y += (a.dir.y * deltaMulImpact);
-		pv -= 30;
-//		pourcentage = getPvMax() / pv;
-//		color = (int) (pvsColors.length / pourcentage);
-		if (pv <= 0) {
+		hp -= 30;
+		if (hp <= 0) {
 			die();
 			return false;
 		}
@@ -198,35 +159,33 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		if (dead)
 			return;
 		Bonus.addBonus(this);
-		explode();
-		SoundMan.playBruitage(getSonExplosion());
-//		SoundMan.playBruitage(getSonExplosion(), (pos.x + getHalfWidth()) - Player.xCenter);
+		Particles.explosion(this);
+		SoundMan.playBruitage(getExplosionSound());
 		ScreenShake.screenShake(getXp());
 		EndlessMode.explosions++;
 		dead = true;
 	}
 
-	protected void explode() {
-		Particles.explosion(this);
-	}
-	
 	@Override
 	public void reset() {
-//		color = 0;
-		pv = getPvMax();
+		hp = getMaxHp();
 		dead = false;
-		angle = 90;
+		angle = 0;
+		index = 0;
 		super.reset();
 	}
 
 	public static void bombe() {
 		CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_BOMB);
+		EndlessMode.transition.activate(10);
 		if (LIST.size >= 15) {
 			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_15_ENEMY);
 		}
 		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.convertARGB(1, 1f, 	(CSG.R.nextFloat() + .8f) / 1.6f, 	CSG.R.nextFloat()/8));
 		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.convertARGB(1, 1f, 	(CSG.R.nextFloat() + .8f) / 1.6f, 	CSG.R.nextFloat()/8));
 		attackAllEnemies(bomb);
+//		for (XP xp : Bonus.XP_LIST)
+//			xp.state = XP.HOMMING;
 	}
 
 	public static void attackAllEnemies(PlayerWeapon a) {
@@ -243,8 +202,6 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		}
 		EndlessMode.effetBloom();
 		Particles.bombExplosion(a);
-		for (XP xp : Bonus.XP_LIST)
-			xp.state = XP.HOMMING;
 	}
 
 	public static void clear() {
@@ -263,38 +220,19 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		return getRectangleCollision().contains(Player.xCenter, Player.yCenter);
 	}
 	
-	public static short getPvBoss(int pvBossMine) {		return (short) (pvBossMine + (pvBossMine *  (Player.weapon.nv() / 3) ));		}
+	public static int getPvBoss(int pvBoss) {
+		return (int) (pvBoss + (pvBoss * (Player.weapon.nv() /1.3f) ));
+	}
 	
-	public boolean isTouched(Weapons a) {
+	public boolean isTouched(Weapon a) {
 		return a.getRectangleCollision().overlaps(getRectangleCollision());
 	}
 	
-	@Override
 	public void setPosition(Vector2 pos) {
 		this.pos.y = pos.y;
 		this.pos.x = pos.x - getHalfWidth();
 	}
 	
-	protected TextureRegion getTexture() {				return AnimationCylon.getTexture(now);											}
-	protected Sound getSonExplosion() {					return null;																		}
-	public float getVitesse() {							return 3333;																		}
-	public Vector2 getPosition() {						return pos;																			}
-	public float getDirectionX() {						return 0;																			}
-	protected float getAngle() {						return angle;																			}
-	public boolean toLeft() {							return false;	}
-	public void setLeft(boolean b) {							}
-	public float getRotation() {		return 0;	}
-	public void setRotation(float f) {			}
-	protected void tir() {																													}
-	public abstract int getXp();
-	public abstract void free();
-	protected abstract int getPvMax();
-	protected abstract String getLabel();
-	public abstract int getValeurBonus();
-	public abstract float getDirectionY();
-	public abstract int getExplosionCount();
-	public abstract Behavior getBehavior();
-
 	public static void deadBodiesEverywhere() {
 		for (int i = 0; i < Enemy.LIST.size; i++) {
 			if (Enemy.LIST.get(i).dead) {
@@ -304,38 +242,43 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		}
 	}
 	
+	@Override	public void setAngle(float angle) {			this.angle = angle;}
+	@Override	public float getNextShot() {				return nextShot;								}
+	@Override	public void setNextShot(float f) {			nextShot = f;									}
+	
 	public static final PlayerWeapon bomb = new PlayerWeapon() {
-		@Override		public int getWidth() {					return 0;		}
-		@Override		protected TextureRegion getTexture() {	return AssetMan.add;	}
-		@Override		public int getHeight() {				return 0;		}
-		@Override		public int getHalfWidth() {				return 0;		}
-		@Override		public int getHalfHeight() {			return 0;		}
-		@Override		public void free() {		}		
+		@Override		public float getWidth() {					return 0;		}
+		@Override		public float getHeight() {				return 0;		}
+		@Override		public float getHalfWidth() {				return 0;		}
+		@Override		public float getHalfHeight() {			return 0;		}
+		@Override		public void free() {									}		
 		@Override		public float getColor() {				return 0;		}
 		@Override		public int getPower() { 				return 250;		}
 		@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeRed;		}
+		@Override		public Phase[] getPhases() {			return null;		}
+		@Override		public void setAngle(float angle) {		}
+		@Override		public void setShootingAngle(float shootingAngle) {		}
 	};
 	
 	public static final PlayerWeapon superBomb = new PlayerWeapon() {
-		@Override		public int getWidth() {					return 0;		}
-		@Override		protected TextureRegion getTexture() {	return AssetMan.add;	}
-		@Override		public int getHeight() {				return 0;		}
-		@Override		public int getHalfWidth() {				return 0;		}
-		@Override		public int getHalfHeight() {			return 0;		}
+		@Override		public float getWidth() {					return 0;		}
+		@Override		public float getHeight() {				return 0;		}
+		@Override		public float getHalfWidth() {				return 0;		}
+		@Override		public float getHalfHeight() {			return 0;		}
 		@Override		public void free() {		}		
 		@Override		public float getColor() {				return 0;		}
 		@Override		public int getPower() { 				return 380;		}
 		@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeRed;		}
+		@Override		public Phase[] getPhases() {			return null;		}
+		@Override		public void setAngle(float angle) {		}
+		@Override		public void setShootingAngle(float shootingAngle) {		}
 	};
 
+	@Override		public void setShootingAngle(float shootingAngle) {		}
 	public void addAngle(float f) {
 		angle += f;
 	}
 
-	public int getPhase() {
-		return 0;
-	}
-	
 	protected static float initFirerate(float def, int pk) {
 		if (CSG.updateNeeded)
 			return Requests.getFireRateEnemy(pk, def);
@@ -354,7 +297,7 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		return def * Stats.u;
 	}
 	
-	protected static int initPv(int def, int pk) {
+	protected static int initHp(int def, int pk) {
 		if (CSG.updateNeeded)
 			return Requests.getPvEnemy(pk, def);
 		return def;
@@ -383,32 +326,36 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 		}
 	}
 	
-	protected static Behavior initBehavior(int pk, int def) {
-		if (CSG.updateNeeded)
-			return detectBehavior(Requests.getBehavior(pk, def));
-		return detectBehavior(def);
+//	protected static Behavior initBehavior(int pk, int def) {
+//		if (CSG.updateNeeded)
+//			return detectBehavior(Requests.getBehavior(pk, def));
+//		return detectBehavior(def);
+//	}
+	
+	protected static Behavior initBehaviors(int pk, Behavior straightOn) {
+//		if (CSG.updateNeeded)
+//			return detectBehavior(Requests.getBehavior(pk, straightOn));
+		return straightOn;
 	}
 
-	private static Behavior detectBehavior(int b) {
-		switch (b) {
-		case Behavior.BALL : 			return new Ball();
-		case Behavior.STRAIGHT : 		return new StraightOn();
-		case Behavior.SLASH : 			return new Slash();
-		case Behavior.TURN_AROUND :		return new TurnAround();
-		case Behavior.KINDER :			return new KinderBehavior();
-		case Behavior.SINK :			return new Sink();
-		case Behavior.ROUND_N_ROUND :	return new RoundAndRound();
-		case Behavior.UTURN :			return new Uturn();
-		case Behavior.ZIGZAG :			return new ZigZag();
-		case Behavior.HOMMING :			return new Homming();
-		case Behavior.UMBRELLA :		return new Umbrella();
-		}
-		return new StraightOn();
-	}
+//	private static Behavior detectBehavior(int b) {
+//		switch (b) {
+//		case Behavior.SLASH : 			return new Slash();
+//		case Behavior.TURN_AROUND :		return new TurnAround();
+//		case Behavior.KINDER :			return new KinderBehavior();
+//		case Behavior.SINK :			return new Sink();
+//		case Behavior.ROUND_N_ROUND :	return new RoundAndRound();
+//		case Behavior.UTURN :			return new Uturn();
+//		case Behavior.ZIGZAG :			return new ZigZag();
+//		case Behavior.HOMMING :			return new Homming();
+//		case Behavior.UMBRELLA :		return new Umbrella();
+//		}
+//		return new Slash();
+//	}
 	protected static int getModulatedPv(int pv, int lvl) {
 		switch (lvl) {
-		case 3: return (int) (pv * Stats.PVNV3);
-		case 4: return (int) (pv * Stats.PVNV4);
+		case 3: return (int) (pv * Stats.HPNV3);
+		case 4: return (int) (pv * Stats.HPNV4);
 		}
 		return pv;
 	}
@@ -429,20 +376,44 @@ public abstract class Enemy extends Element implements Poolable, Invocable {
 	}
 
 	private static InvocableWeapon detectWeapon(int b) {
-		switch (b) {
-		case BlueBulletSlow.PK : 			return BlueBulletSlow.POOL.obtain();
-		case Meteorite.PK : 				return Meteorite.POOL.obtain();
-		case Tournante.PK : 				return Tournante.POOL.obtain();
-		case InsectWeapon.PK : 				return InsectWeapon.POOL.obtain();
-		case KinderWeapon.PK : 				return KinderWeapon.POOL.obtain();
-		case LaserWeapon.PK : 				return LaserWeapon.POOL.obtain();
-		case HalfSizeFireball.PK : 			return HalfSizeFireball.POOL.obtain();
-		case Fireball.PK : 					return Fireball.POOL.obtain();
-		case FragWeapon.PK : 				return FragWeapon.POOL.obtain();
-		case BlueBullet.PK : 				return BlueBullet.POOL.obtain();
-		case BlueBulletFast.PK : 			return BlueBulletFast.POOL.obtain();
-		case VicousBullet.PK : 				return VicousBullet.POOL.obtain();
-		}
+//		switch (b) {
+//		case BlueBulletSlow.PK : 			return BlueBulletSlow.POOL.obtain();
+//		case Meteorite.PK : 				return Meteorite.POOL.obtain();
+//		case Tournante.PK : 				return Tournante.POOL.obtain();
+//		case InsectWeapon.PK : 				return InsectWeapon.POOL.obtain();
+//		case KinderWeapon.PK : 				return KinderWeapon.POOL.obtain();
+//		case LaserWeapon.PK : 				return LaserWeapon.POOL.obtain();
+//		case SmallFireball.PK : 			return SmallFireball.POOL.obtain();
+//		case Fireball.PK : 					return Fireball.POOL.obtain();
+//		case FragWeapon.PK : 				return FragWeapon.POOL.obtain();
+//		case BlueBullet.PK : 				return BlueBullet.POOL.obtain();
+//		case BlueBulletFast.PK : 			return BlueBulletFast.POOL.obtain();
+//		case VicousBullet.PK : 				return VicousBullet.POOL.obtain();
+//		case SmallMine.PK : 				return SmallMine.POOL.obtain();
+//		}
 		return null;
 	}
+	
+//	@Override
+//	public Invocable invoke() {
+//		return this;
+//	}
+	
+	public int getColor() {		return RED;	}
+	protected Sound getExplosionSound() {				return SoundMan.explosion3;																		}
+	public float getSpeed() {							return 3333;																		}
+	public float getDirectionX() {						return 0;																			}
+	public float getAngle() {							return angle;																			}
+	public boolean toLeft() {							return false;	}
+	public void setLeft(boolean b) {							}
+	public float getRotation() {		return 0;	}
+	public void setRotation(float f) {			}
+	public abstract int getXp();
+	public abstract void free();
+	protected abstract int getMaxHp();
+	protected abstract String getLabel();
+	public abstract int getBonusValue();
+	public abstract float getDirectionY();
+	public abstract int getExplosionCount();
+	
 }

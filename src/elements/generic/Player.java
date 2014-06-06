@@ -5,32 +5,31 @@ import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.SoundMan;
-import assets.animation.AnimPlayer;
+import assets.sprites.AnimPlayer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import elements.generic.enemies.Enemy;
-import elements.generic.weapons.Weapons;
+import elements.generic.weapons.Weapon;
 import elements.generic.weapons.player.ArmeAdd;
 import elements.generic.weapons.player.WeaponManager;
 import elements.particular.particles.OvaleParticuleGenerator;
 import elements.particular.particles.Particles;
 
-public final class Player extends Element {
+public final class Player {
 
-	public static final int LARGEUR = (int) Stats.LARGEUR_JOUEUR, DEMI_LARGEUR = LARGEUR/2, LARGEUR_ADD = (int) (LARGEUR/1.5f), DEMI_LARGEUR_ADD = LARGEUR_ADD/2, WIDTH_DIV_10 = LARGEUR / 10,
-		HEIGHT = (int) ((float)LARGEUR * 1.2f), DEMI_HAUTEUR = HEIGHT / 2, HAUTEUR_MAX_ADD = HEIGHT + DEMI_HAUTEUR, DEMI_HAUTEUR_ADD = HEIGHT / 8, HAUTEUR_DIV4 = HEIGHT / 4, HAUTEUR_DIV8 = HEIGHT/8,
-		DECALAGE_ADD = LARGEUR + DEMI_LARGEUR - LARGEUR_ADD,
-		DECALAGE_TIR_ADD_X_GAUCHE = -DEMI_LARGEUR - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR,
-		DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - DEMI_LARGEUR_ADD + ArmeAdd.DEMI_LARGEUR;
-	private static final int LIMITE_X_GAUCHE = 0 - DEMI_LARGEUR, LIMITE_X_DROITE = CSG.gameZoneWidth - DEMI_LARGEUR, LIMITE_Y_GAUCHE = 0 - DEMI_HAUTEUR, LIMITE_Y_DROITE = CSG.SCREEN_HEIGHT - DEMI_HAUTEUR;
+	public static final int WIDTH = (int) Stats.WIDTH_JOUEUR, HALF_WIDTH = WIDTH/2, WIDTH_ADD = (int) (WIDTH/1.5f), HALF_WIDTH_ADD = WIDTH_ADD/2, WIDTH_DIV_10 = WIDTH / 10,
+		HEIGHT = (int) ((float)WIDTH * 1.2f), HALF_HEIGHT = HEIGHT / 2, HEIGHT_MAX_ADD = HEIGHT + HALF_HEIGHT, HALF_HEIGHT_ADD = HEIGHT / 8, HEIGHT_DIV4 = HEIGHT / 4, HEIGHT_DIV8 = HEIGHT/8,
+		DECALAGE_ADD = WIDTH + HALF_WIDTH - WIDTH_ADD,
+		DECALAGE_TIR_ADD_X_GAUCHE = -HALF_WIDTH - HALF_WIDTH_ADD + ArmeAdd.HALF_WIDTH,
+		DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - HALF_WIDTH_ADD + ArmeAdd.HALF_WIDTH;
+	private static final int LIMITE_X_GAUCHE = 0 - HALF_WIDTH, LIMITE_X_DROITE = CSG.gameZoneWidth - HALF_WIDTH, LIMITE_Y_GAUCHE = 0 - HALF_HEIGHT, LIMITE_Y_DROITE = CSG.SCREEN_HEIGHT - HALF_HEIGHT;
 	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.screenWidth + CSG.SCREEN_HEIGHT) / 600;
 	private static float vitesseMax = 0;
 	public static WeaponManager weapon = CSG.profile.getArmeSelectionnee();
-	public static float xCenter = 0, yCenter = 0, prochainTir = 0, prochainTirAdd = 0;
+	public static float xCenter = 0, yCenter = 0, nextShot = 0, nextShotAdd = 0;
 	public static final Vector2 POS = new Vector2();
 	public static float prevX, prevY, destX, destY;
 	private static float vitesseFoisdelta = 0, tmpCalculDeplacement = 0, originalAccelX = 0, originalAccelY = 0;
@@ -38,12 +37,14 @@ public final class Player extends Element {
 	public static float addX, addY, centerLeft1AddX, centerAdd1Y, centerRight1AddX, centerLeft2AddX, centerAdd2Y, centerRight2AddX;
 	public static boolean alterner = true;
 	public static float angleAdd = -90, angleAddDroite = -90;
-	public static boolean bouclier = false;
+//	public static boolean bouclier = false;
+	public static int bouclier = 0;
 	public static float alphaShield = .5f;
 	private float shotTime = 0;
 	private boolean sensAlpha = true;
 	private int addShotNbr = 0;
 	private final static int LEFT_ADD1 = 0x0001, LEFT_ADD2 = 0x0002, RIGHT_ADD1 = 0x0004, RIGHT_ADD2 = 0x0008;
+//	private PointLight light = new PointLight(CSG.rayHandler, 32);
 	
 	public Player() {
 		super();
@@ -54,28 +55,29 @@ public final class Player extends Element {
 	 * positionne et initialise tout
 	 */
 	public void initialiser() {
-		bouclier = false;
+//		bouclier = false;
+		bouclier = 0;
 		reInit();
 		rightAdd2 = false;
 	    rightAdd = false;
 	    leftAdd2 = false;
 	    leftAdd = false;
 	    angleAdd = 80;
-	    prochainTirAdd = 0;
+	    nextShotAdd = 0;
 	}
 
 	/**
 	 * Positionne mais ne reset ni adds ni shield
 	 */
 	public void reInit() {
-		POS.x = CSG.gameZoneHalfWidth - DEMI_LARGEUR;
-		POS.y = HEIGHT/2;
-		prochainTir = 0;
+		POS.x = CSG.gameZoneHalfWidth - HALF_WIDTH;
+		POS.y = HEIGHT * 3;
+		nextShot = 0;
 		prevX = POS.x;
 		prevY = POS.y;
 		vitesseMax = (Stats.V_JOUEUR);
-		xCenter = POS.x + DEMI_LARGEUR;
-		yCenter = POS.y + DEMI_HAUTEUR;
+		xCenter = POS.x + HALF_WIDTH;
+		yCenter = POS.y + HALF_HEIGHT;
 		if (CSG.profile.typeControle == CSG.CONTROLE_ACCELEROMETRE) {
 			originalAccelX = Gdx.input.getAccelerometerX();
 			originalAccelY = Gdx.input.getAccelerometerY();
@@ -99,23 +101,23 @@ public final class Player extends Element {
 				b = CSG.R.nextFloat();
 			}
 			batch.setColor(r,g,b,1);
-			batch.draw(AssetMan.player, POS.x, POS.y, LARGEUR, HEIGHT);
+			batch.draw(AssetMan.player, POS.x, POS.y, WIDTH, HEIGHT);
 			batch.setColor(AssetMan.WHITE);
 		} else {
-			batch.draw(AnimPlayer.getTexture(), POS.x, POS.y, LARGEUR, HEIGHT);
+			batch.draw(AnimPlayer.getTexture(), POS.x, POS.y, WIDTH, HEIGHT);
 		}
 		
 		shield(batch);
-		if (leftAdd) 	batch.draw(AssetMan.addShip, addX - DEMI_LARGEUR, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
-		if (rightAdd) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
-		if (leftAdd2) 	batch.draw(AssetMan.addShip, addX - LARGEUR, 						addY - HEIGHT, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
-		if (rightAdd2) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD + DEMI_LARGEUR, 	addY - HEIGHT, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
+		if (leftAdd) 	batch.draw(AssetMan.addShip, addX - HALF_WIDTH, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
+		if (rightAdd) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
+		if (leftAdd2) 	batch.draw(AssetMan.addShip, addX - WIDTH, 						addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
+		if (rightAdd2) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD + HALF_WIDTH, 	addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
 		// ** ** A D D S
 		if (shotTime > 0) {
-			if (leftAdd)	batch.draw(AssetMan.addShipShot, addX - DEMI_LARGEUR, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
-			if (leftAdd2) 	batch.draw(AssetMan.addShipShot, addX - LARGEUR, 						addY - HEIGHT, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAdd, 		false);
-			if (rightAdd)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD, 					addY - DEMI_HAUTEUR, 	DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
-			if (rightAdd2)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD + DEMI_LARGEUR, 	addY - HEIGHT, 		DEMI_LARGEUR_ADD, HAUTEUR_DIV8, LARGEUR_ADD, HAUTEUR_DIV4, 1, 1, angleAddDroite, false);
+			if (leftAdd)	batch.draw(AssetMan.addShipShot, addX - HALF_WIDTH, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
+			if (leftAdd2) 	batch.draw(AssetMan.addShipShot, addX - WIDTH, 						addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
+			if (rightAdd)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
+			if (rightAdd2)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD + HALF_WIDTH, 	addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
 			shotTime -= EndlessMode.delta;
 			if (shotTime < 0)
 				addShotNbr = 0x0000;
@@ -123,10 +125,12 @@ public final class Player extends Element {
 	}
 
 	private void shield(SpriteBatch batch) {
-		if (bouclier) {
+		if (bouclier > 0) {
 //			Shield.drawShield(batch);
 			bouclierParticules.add(xCenter , yCenter - Stats.u);
 			colorShield();
+//			batch.draw(AssetMan.shield, POS.x - WIDTH * 1.45f, POS.y - WIDTH * 1.45f, HALF_WIDTH * mul, HALF_WIDTH * mul, WIDTH * mul, WIDTH * mul, 1, 1, shieldAngle);
+//			shieldAngle += 20;
 //			Shield.drawAndExpand(batch);
 		} else if (bouclierHS) {
 //			Shield.drawAndExpand(batch);
@@ -152,8 +156,8 @@ public final class Player extends Element {
 	}
 
 	private float getTouchX() {
-		return(Gdx.input.getX() - DEMI_LARGEUR);
-//		return EndlessMode.getCam().position.x + (Gdx.input.getX() - DEMI_LARGEUR);
+		return(Gdx.input.getX() - HALF_WIDTH);
+//		return EndlessMode.getCam().position.x + (Gdx.input.getX() - HALF_WIDTH);
 	}
 	
 	private float clicX = 0, clicY = 0, originalClicX = CSG.gameZoneHalfWidth, originalClicY = CSG.halfHeight, wantedMvtX, wantedMvtY, chronoDroit;
@@ -164,8 +168,8 @@ public final class Player extends Element {
 	public static float camXmoinsDemiEcran = //EndlessMode.getCam().position.x - 
 			CSG.screenHalfWidth;
 	public void mouvements() {
-		xCenter = POS.x + DEMI_LARGEUR;
-		yCenter = POS.y + DEMI_HAUTEUR;
+		xCenter = POS.x + HALF_WIDTH;
+		yCenter = POS.y + HALF_HEIGHT;
 		switch (CSG.profile.typeControle) {
 
 		case CSG.CONTROLE_DPAD:
@@ -279,8 +283,8 @@ public final class Player extends Element {
 	
 	private void routineAdds() {
 		addX = POS.x;
-		if (addY > POS.y + HAUTEUR_MAX_ADD) {
-			addY = POS.y + HAUTEUR_MAX_ADD;
+		if (addY > POS.y + HEIGHT_MAX_ADD) {
+			addY = POS.y + HEIGHT_MAX_ADD;
 			angleAdd = -80;
 			angleAddDroite = -100; 
 		} else if (addY < POS.y) {
@@ -289,24 +293,24 @@ public final class Player extends Element {
 			angleAddDroite = 100;
 		} else {		// L'angle a une amplitude de 160° qui varie à gauche entre -80 et 80 et à droite entre -100 et 100 car on tourne dans l'autre sens 
 			angleAdd = addY - POS.y;
-			angleAdd /= HAUTEUR_MAX_ADD;
+			angleAdd /= HEIGHT_MAX_ADD;
 			angleAdd *= 160;
 			angleAddDroite = -angleAdd - 100; // Lui tourne dans l'autre sens (d'où le -) et doit décaler de 110 et pas 80 (C'est logique avec le petit dessin devant soi :) ). Ca fait 5 lignes, une multiplication, une division et une soustraction en moins par rapport à l'original
 			angleAdd -= 80;
 			angleAdd = -angleAdd;	// Car il fait son flip autour de 0
 			angleAddDroite = -angleAddDroite; // Bon il doit y avoir moyen de se passer de ses inversions !
 		}
-		centerAdd2Y = (addY - HEIGHT) + DEMI_HAUTEUR_ADD;
-		centerRight2AddX = (addX + DECALAGE_ADD + DEMI_LARGEUR) + DEMI_LARGEUR_ADD;
+		centerAdd2Y = (addY - HEIGHT) + HALF_HEIGHT_ADD;
+		centerRight2AddX = (addX + DECALAGE_ADD + HALF_WIDTH) + HALF_WIDTH_ADD;
 		
-		centerAdd2Y = (addY - HEIGHT) + DEMI_HAUTEUR_ADD;
-		centerLeft2AddX = (addX - LARGEUR) + DEMI_LARGEUR_ADD;
+		centerAdd2Y = (addY - HEIGHT) + HALF_HEIGHT_ADD;
+		centerLeft2AddX = (addX - WIDTH) + HALF_WIDTH_ADD;
 		
-		centerRight1AddX = (addX + DECALAGE_ADD) + DEMI_LARGEUR_ADD;
-		centerAdd1Y = (addY - DEMI_HAUTEUR) + DEMI_HAUTEUR_ADD;
+		centerRight1AddX = (addX + DECALAGE_ADD) + HALF_WIDTH_ADD;
+		centerAdd1Y = (addY - HALF_HEIGHT) + HALF_HEIGHT_ADD;
 		
-		centerLeft1AddX = (addX - DEMI_LARGEUR) + DEMI_LARGEUR_ADD;
-		centerAdd1Y = (addY - DEMI_HAUTEUR) + DEMI_HAUTEUR_ADD;
+		centerLeft1AddX = (addX - HALF_WIDTH) + HALF_WIDTH_ADD;
+		centerAdd1Y = (addY - HALF_HEIGHT) + HALF_HEIGHT_ADD;
 	}
 
 	/**
@@ -324,8 +328,8 @@ public final class Player extends Element {
 	 * oblige le vaisseau a rester dans les limites de l'�cran
 	 */
 	private void limitesEtCentre() {
-		xCenter = POS.x + DEMI_LARGEUR;
-		yCenter = POS.y + DEMI_HAUTEUR;
+		xCenter = POS.x + HALF_WIDTH;
+		yCenter = POS.y + HALF_HEIGHT;
 		
 		if (POS.x < LIMITE_X_GAUCHE) 		POS.x = LIMITE_X_GAUCHE;
 		else if (POS.x > LIMITE_X_DROITE) 	POS.x = LIMITE_X_DROITE;
@@ -336,56 +340,54 @@ public final class Player extends Element {
 			EndlessMode.getCam().position.x = CSG.gameZoneWidth - CSG.screenHalfWidth;
 		if (EndlessMode.getCam().position.x < CSG.screenHalfWidth)
 			EndlessMode.getCam().position.x = CSG.screenHalfWidth;
+		
+//		light.setPosition(xCenter, POS.y);
+//		light.setDistance(1);
 	}
 
 	/**
-	 * verifie si le vaisseau peut tirer ou pas. Tir au cas ou.
-	 * Vu qu'on appele tir une frame sur deux adapter la cadence en cons�quence
+	 * verifie si le vaisseau peut shoter ou pas. Tir au cas ou.
+	 * Vu qu'on appele shot une frame sur deux adapter la cadence en cons�quence
 	 * @param listeTir
 	 */
-	public void tir(){
-		prochainTir = weapon.init(prochainTir);
+	public void shot(){
+		nextShot = weapon.init(nextShot);
 		// ** ** A D D S
-		if (EndlessMode.now > prochainTirAdd) {
-			shotTime += ArmeAdd.CADENCETIR / 10f;
+		if (EndlessMode.now > nextShotAdd) {
+			shotTime += ArmeAdd.FIRERATETIR / 10f;
 			if (leftAdd) {
 				addShotNbr = addShotNbr | LEFT_ADD1;
-				ArmeAdd.add(addX - DEMI_LARGEUR, addY - DEMI_HAUTEUR, angleAdd, 0);
+				ArmeAdd.add(addX - HALF_WIDTH, addY - HALF_HEIGHT, angleAdd, 0);
 				if (CSG.profile.cadenceAdd > 3)
-					ArmeAdd.add(addX - DEMI_LARGEUR, addY - DEMI_HAUTEUR, angleAdd, 10);
+					ArmeAdd.add(addX - HALF_WIDTH, addY - HALF_HEIGHT, angleAdd, 10);
 			}
 			if (rightAdd) {
 				addShotNbr = addShotNbr | RIGHT_ADD1;
-				ArmeAdd.add(addX + DECALAGE_ADD, addY - DEMI_HAUTEUR, angleAddDroite, 0);
+				ArmeAdd.add(addX + DECALAGE_ADD, addY - HALF_HEIGHT, angleAddDroite, 0);
 				if (CSG.profile.cadenceAdd > 3)
-					ArmeAdd.add(addX + DECALAGE_ADD, addY - DEMI_HAUTEUR, angleAddDroite, -10);
+					ArmeAdd.add(addX + DECALAGE_ADD, addY - HALF_HEIGHT, angleAddDroite, -10);
 			}
 			if (leftAdd2) {
 				addShotNbr = addShotNbr | LEFT_ADD2;
-				ArmeAdd.add(addX - LARGEUR, addY - HEIGHT, angleAdd, 0);
+				ArmeAdd.add(addX - WIDTH, addY - HEIGHT, angleAdd, 0);
 				if (CSG.profile.cadenceAdd > 6)
-					ArmeAdd.add(addX - LARGEUR, addY - HEIGHT, angleAdd, 10);
+					ArmeAdd.add(addX - WIDTH, addY - HEIGHT, angleAdd, 10);
 			}
 			if (rightAdd2) {
 				addShotNbr = addShotNbr | RIGHT_ADD2;
-				ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR, addY - HEIGHT, angleAddDroite, 0);
+				ArmeAdd.add(addX + DECALAGE_ADD + HALF_WIDTH, addY - HEIGHT, angleAddDroite, 0);
 				if (CSG.profile.cadenceAdd > 6)
-					ArmeAdd.add(addX + DECALAGE_ADD + DEMI_LARGEUR, addY - HEIGHT, angleAddDroite, -10);
+					ArmeAdd.add(addX + DECALAGE_ADD + HALF_WIDTH, addY - HEIGHT, angleAddDroite, -10);
 			}
-			prochainTirAdd = EndlessMode.now + ArmeAdd.CADENCETIR;
+			nextShotAdd = EndlessMode.now + ArmeAdd.FIRERATETIR;
 		}
 	}
 	
 	public static void rajoutAdd() {
-		if (!Player.leftAdd) {
-			leftAdd = true;
-		} else if (!Player.rightAdd) {
-			rightAdd = true;
-		} else if (!Player.leftAdd2) {
-			leftAdd2 = true;
-		} else if (!Player.rightAdd2) {
-			rightAdd2 = true;
-		}
+		if (!Player.leftAdd)			leftAdd = true;
+		else if (!Player.rightAdd)		rightAdd = true;
+		else if (!Player.leftAdd2)		leftAdd2 = true;
+		else if (!Player.rightAdd2)		rightAdd2 = true;
 	}
 	
 	public static void changerArme(){
@@ -394,24 +396,17 @@ public final class Player extends Element {
 	}
 
 	public static void touched() {
-		if (EndlessMode.konamiCode) return;
-		if (!bouclier) {
+		if (EndlessMode.konamiCode)
+			return;
+//		if (!bouclier) {
+		if (bouclier == 0) {
 			if (!bouclierHS)
 				EndlessMode.lost();
 		} else {
-			bouclierHS = true;
-			tpsBouclierHs = 0;
-			SoundMan.playBruitage(SoundMan.bigExplosion);
-			bouclier = false;
-			Weapons.shieldHs();
+			popOutShield();
+			Weapon.shieldHs();
 		}
 	}
-
-	@Override
-	public int getWidth() {		return LARGEUR;	}
-
-	@Override
-	public int getHeight() {		return HEIGHT;	}
 
 	public void accelerometre() {
 		mvtLimiteVitesse(-((Gdx.input.getAccelerometerX()-originalAccelX) * 140 * CSG.profile.sensitivity), -((Gdx.input.getAccelerometerY()-originalAccelY) * 140 * CSG.profile.sensitivity));
@@ -419,111 +414,48 @@ public final class Player extends Element {
 	}
 
 	public static void removeLeftAdd1() {
-		Particles.explosionGreen(addX - DEMI_LARGEUR, addY - DEMI_HAUTEUR, 10);
+		Particles.explosionGreen(addX - HALF_WIDTH, addY - HALF_HEIGHT, 10);
 		leftAdd = false;
 	}
 	public static void enleverAddDroite1() {	
-		Particles.explosionGreen(addX + DECALAGE_ADD, addY - DEMI_HAUTEUR, 10);
+		Particles.explosionGreen(addX + DECALAGE_ADD, addY - HALF_HEIGHT, 10);
 		rightAdd = false;	
 	}
 	public static void removeLeftAdd2() {	
-		Particles.explosionGreen(addX - LARGEUR, addY - HEIGHT, 10);
+		Particles.explosionGreen(addX - WIDTH, addY - HEIGHT, 10);
 		leftAdd2 = false;	
 	}
 	public static void enleverAddDroite2() {	
-		Particles.explosionGreen(addX + DECALAGE_ADD + DEMI_LARGEUR, addY - HEIGHT, 10);
+		Particles.explosionGreen(addX + DECALAGE_ADD + HALF_WIDTH, addY - HEIGHT, 10);
 		rightAdd2 = false;
 	}
 
 	public static void activateShield() {
 		bouclierParticules.init(HEIGHT);
-		bouclier = true;
-	}
-
-	@Override
-	public int getHalfWidth() {
-		return DEMI_LARGEUR;
-	}
-
-	@Override
-	public int getHalfHeight() {
-		return DEMI_HAUTEUR;
-	}
-
-	@Override
-	protected TextureRegion getTexture() {
-		return AssetMan.shield;
+//		bouclier = true;
+		bouclier++;
+		bouclierParticules.lvlChanged(bouclier);
 	}
 
 	public static void touchedEnnemy(Enemy enemy) {
-		if (!bouclier) {
+//		if (!bouclier) {
+		if (bouclier == 0) {
 			if (!bouclierHS)
 				EndlessMode.lost();
 		} else {
-			bouclierHS = true;
-			tpsBouclierHs = 0;
-			SoundMan.playBruitage(SoundMan.bigExplosion);
-			bouclier = false;
+			popOutShield();
 			enemy.stillAlive(Enemy.superBomb);
 		}
 	}
+	
+	private static void popOutShield() {
+		EndlessMode.transition.activate(10);
+		bouclierHS = true;
+		tpsBouclierHs = 0;
+		SoundMan.playBruitage(SoundMan.bigExplosion);
+//		bouclier = false;
+		bouclierParticules.lvlChanged(bouclier);
+		bouclier--;
+	}
 
 }
-//case CSG.CONTROLE_TOUCH_NON_RELATIVE: 
-//clicX = getTouchX();			
-//clicY = getTouchY();
-//destX = clicX - (POS.x - (camXmoinsDemiEcran) );
-//destX *= 10000;
-//destY = clicY - POS.y;
-//destY *= 10000;
-//// ****** NORMALISATION DE LA VITESSE SUIVANT LA LIMITE
-//tmpCalculDeplacement = ((destX * destX) + (destY * destY)) * EndlessMode.delta * EndlessMode.delta;
-//tmpCalculDeplacement = (float) Math.sqrt(tmpCalculDeplacement);
-//vitesseFoisdelta = vitesseMax * EndlessMode.delta;
-//// Si on va trop vite
-//if (tmpCalculDeplacement > vitesseFoisdelta) {
-//	destX = destX * (vitesseFoisdelta / tmpCalculDeplacement);
-//	destY = destY * (vitesseFoisdelta / tmpCalculDeplacement);
-//} 
-//// CALCUL AFFICHAGE
-//if (destX < -.9f) {
-//	AnimationVaisseau.versLaGauche();
-////	if (EndlessMode.getCam().position.x > CSG.screenHalfWidth)
-////		EndlessMode.mvtCamSuivantDeplacement();
-//		
-//} else if (destX > .9f) {
-//	AnimationVaisseau.versLaDroite();
-////	if (EndlessMode.getCam().position.x < CSG.DEMI_CAMERA) 		
-////		EndlessMode.mvtCamSuivantDeplacement();
-//}
-//else 					AnimationVaisseau.droit();
-//
-//if (POS.y < clicY && (POS.y + destY * EndlessMode.delta) > clicY || POS.y > clicY && (POS.y + destY * EndlessMode.delta) < clicY)		POS.y = clicY;
-//else 				POS.y += destY * EndlessMode.delta;
-//routineAdds();
-//// On est à gauche		&		on est à droite // Si on était à gauche et qu'après on se retrouve à droite ou inversement on met directement la position à l'endroit ou on a cliqué
-//if (POS.x - camXmoinsDemiEcran < clicX & ( (POS.x - camXmoinsDemiEcran) + destX * EndlessMode.delta) > clicX 
-//		|| POS.x - camXmoinsDemiEcran > clicX & ((POS.x - camXmoinsDemiEcran) + destX * EndlessMode.delta) < clicX){ 
-//	POS.x = clicX + camXmoinsDemiEcran;
-//} else {
-//	POS.x += destX * EndlessMode.delta;
-//}
-//
-//routineAdds();
-//break;
-//clicX = getTouchX();			
-//clicY = getTouchY();
-//
-//
-//wantedMvtX = (originalClicX - clicX) - mvtSinceTouchX; 
-//wantedMvtY = (originalClicY - clicY) - mvtSinceTouchY;
-//
-//// tmp
-//POS.x -= wantedMvtX*1.5f;
-//POS.y -= wantedMvtY;
-//
-//if (EndlessMode.getCam().position.x > CSG.screenHalfWidth && EndlessMode.getCam().position.x < CSG.DEMI_CAMERA) {
-//	EndlessMode.getCam().position.x -= wantedMvtX; 
-//}
-//originalClicX = getTouchX();
-//originalClicY = getTouchY();

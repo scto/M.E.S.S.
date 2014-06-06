@@ -1,57 +1,11 @@
 package elements.generic.enemies;
 
-import menu.DeBaseMenu;
 import jeu.CSG;
 
 import com.badlogic.gdx.math.Vector2;
-import elements.generic.Invocable;
-import elements.generic.enemies.individual.bosses.BossMine;
-import elements.generic.enemies.individual.bosses.BossQuad;
+
+import elements.generic.components.enemies.Merlin;
 import elements.generic.enemies.individual.bosses.BossSat;
-import elements.generic.enemies.individual.lvl1.Plane;
-import elements.generic.enemies.individual.lvl1.Boule;
-import elements.generic.enemies.individual.lvl1.Cylon;
-import elements.generic.enemies.individual.lvl1.Group;
-import elements.generic.enemies.individual.lvl1.Insecte;
-import elements.generic.enemies.individual.lvl1.Kinder;
-import elements.generic.enemies.individual.lvl1.Laser;
-import elements.generic.enemies.individual.lvl1.PorteRaisin;
-import elements.generic.enemies.individual.lvl1.QuiTir;
-import elements.generic.enemies.individual.lvl1.QuiTirTriangle;
-import elements.generic.enemies.individual.lvl1.QuiTourne;
-import elements.generic.enemies.individual.lvl1.Toupie;
-import elements.generic.enemies.individual.lvl1.Vicious;
-import elements.generic.enemies.individual.lvl1.ZigZag;
-import elements.generic.enemies.individual.lvl2.BouleTirCote;
-import elements.generic.enemies.individual.lvl2.BouleTirCoteRotation;
-import elements.generic.enemies.individual.lvl3.Plane3;
-import elements.generic.enemies.individual.lvl3.BouleNv3;
-import elements.generic.enemies.individual.lvl3.CylonNv3;
-import elements.generic.enemies.individual.lvl3.DeBaseNv3;
-import elements.generic.enemies.individual.lvl3.Group3;
-import elements.generic.enemies.individual.lvl3.InsecteNv3;
-import elements.generic.enemies.individual.lvl3.KinderNv3;
-import elements.generic.enemies.individual.lvl3.LaserNv3;
-import elements.generic.enemies.individual.lvl3.PorteRaisinNv3;
-import elements.generic.enemies.individual.lvl3.QuiTirTriangle3;
-import elements.generic.enemies.individual.lvl3.QuiTirNv3;
-import elements.generic.enemies.individual.lvl3.QuiTourneNv3;
-import elements.generic.enemies.individual.lvl3.ToupieNv3;
-import elements.generic.enemies.individual.lvl3.ZigZagNv3;
-import elements.generic.enemies.individual.lvl4.Plane4;
-import elements.generic.enemies.individual.lvl4.BouleNv4;
-import elements.generic.enemies.individual.lvl4.CylonNv4;
-import elements.generic.enemies.individual.lvl4.DeBaseNv4;
-import elements.generic.enemies.individual.lvl4.Group4;
-import elements.generic.enemies.individual.lvl4.InsecteNv4;
-import elements.generic.enemies.individual.lvl4.KinderNv4;
-import elements.generic.enemies.individual.lvl4.LaserNv4;
-import elements.generic.enemies.individual.lvl4.PorteRaisinNv4;
-import elements.generic.enemies.individual.lvl4.QuiTirTriangle4;
-import elements.generic.enemies.individual.lvl4.QuiTirNv4;
-import elements.generic.enemies.individual.lvl4.QuiTourneNv4;
-import elements.generic.enemies.individual.lvl4.ToupieNv4;
-import elements.generic.enemies.individual.lvl4.ZigZagNv4;
 
 public class SpawnEnemyPosition {
 	public static final Vector2 middle = new Vector2(CSG.gameZoneHalfWidth, CSG.SCREEN_HEIGHT),
@@ -66,8 +20,8 @@ public class SpawnEnemyPosition {
 	_8sur10 = new Vector2(CSG.gameZoneWidth * 0.8f, CSG.SCREEN_HEIGHT),
 	_9sur10 = new Vector2(CSG.gameZoneWidth * 0.9f, CSG.SCREEN_HEIGHT),
 	_95sur10 = new Vector2(CSG.gameZoneWidth * 0.95f, CSG.SCREEN_HEIGHT);
-	private static final Vector2 _bossSatUp = new Vector2((CSG.gameZoneWidth-1)+BossSat.DEMI_LARGEUR, CSG.SCREEN_HEIGHT * 0.7f);
-	private static final Vector2 _bossSatDown = new Vector2((CSG.gameZoneWidth-1)+BossSat.DEMI_LARGEUR, CSG.SCREEN_HEIGHT * 0.35f);
+	private static final Vector2 _bossSatUp = new Vector2((CSG.gameZoneWidth-1)+BossSat.HALF_WIDTH, CSG.SCREEN_HEIGHT * 0.7f);
+	private static final Vector2 _bossSatDown = new Vector2((CSG.gameZoneWidth-1)+BossSat.HALF_WIDTH, CSG.SCREEN_HEIGHT * 0.35f);
 	
 	private static final Vector2 pauseVec[] = {};
 	private static final Vector2[] _1random = {null};
@@ -96,89 +50,89 @@ public class SpawnEnemyPosition {
 	private static final Vector2[] _2_5_8 = {_2sur10, _5sur10, _8sur10};
 	private static final Vector2[] _1_9 = {_1sur10, _9sur10};
 	private static final Vector2[] _0_10 = {_05sur10, _95sur10};
-	public static final Invocable[] pauseInv = {};
-	private static final Invocable[] 	_1deBase = {DeBaseMenu.ref},
-										_2deBase = {DeBaseMenu.ref, DeBaseMenu.ref},
-										_3deBase = {DeBaseMenu.ref, DeBaseMenu.ref, DeBaseMenu.ref },
-										_4deBase = {DeBaseMenu.ref, DeBaseMenu.ref, DeBaseMenu.ref, DeBaseMenu.ref},
-										_6deBase = {DeBaseMenu.ref, DeBaseMenu.ref, DeBaseMenu.ref, DeBaseMenu.ref, DeBaseMenu.ref, DeBaseMenu.ref},
-										_5deBase = {DeBaseMenu.ref, DeBaseMenu.ref, DeBaseMenu.ref, DeBaseMenu.ref, DeBaseMenu.ref},
-										_1deBase3 = {DeBaseNv3.ref},
-										_2deBase3 = {DeBaseNv3.ref, DeBaseNv3.ref},
-										_3deBase3 = {DeBaseNv3.ref, DeBaseNv3.ref, DeBaseNv3.ref},
-										_4deBase3 = {DeBaseNv3.ref, DeBaseNv3.ref, DeBaseNv3.ref, DeBaseNv3.ref},
-										_5deBase3 = {DeBaseNv3.ref, DeBaseNv3.ref, DeBaseNv3.ref, DeBaseNv3.ref, DeBaseNv3.ref},
-										_1deBase4 = {DeBaseNv4.ref},
-										_2deBase4 = {DeBaseNv4.ref, DeBaseNv4.ref},
-										_3deBase4 = {DeBaseNv4.ref, DeBaseNv4.ref, DeBaseNv4.ref},
-										_4deBase4 = {DeBaseNv4.ref, DeBaseNv4.ref, DeBaseNv4.ref, DeBaseNv4.ref},
-										_5deBase4 = {DeBaseNv4.ref, DeBaseNv4.ref, DeBaseNv4.ref, DeBaseNv4.ref, DeBaseNv4.ref};
+	public static final Merlin[] pauseInv = {};
+	private static final Merlin[] 	_1deBase = {Merlin.DE_BASE},
+									_2deBase = {Merlin.DE_BASE, Merlin.DE_BASE},
+									_3deBase = {Merlin.DE_BASE, Merlin.DE_BASE, Merlin.DE_BASE },
+									_4deBase = {Merlin.DE_BASE, Merlin.DE_BASE, Merlin.DE_BASE, Merlin.DE_BASE},
+									_6deBase = {Merlin.DE_BASE, Merlin.DE_BASE, Merlin.DE_BASE, Merlin.DE_BASE, Merlin.DE_BASE, Merlin.DE_BASE},
+									_5deBase = {Merlin.DE_BASE, Merlin.DE_BASE, Merlin.DE_BASE, Merlin.DE_BASE, Merlin.DE_BASE},
+									_1deBase3 = {Merlin.DE_BASE3},
+									_2deBase3 = {Merlin.DE_BASE3, Merlin.DE_BASE3},
+									_3deBase3 = {Merlin.DE_BASE3, Merlin.DE_BASE3, Merlin.DE_BASE3},
+									_4deBase3 = {Merlin.DE_BASE3, Merlin.DE_BASE3, Merlin.DE_BASE3, Merlin.DE_BASE3},
+									_5deBase3 = {Merlin.DE_BASE3, Merlin.DE_BASE3, Merlin.DE_BASE3, Merlin.DE_BASE3, Merlin.DE_BASE3},
+									_1deBase4 = {Merlin.DE_BASE4},
+									_2deBase4 = {Merlin.DE_BASE4, Merlin.DE_BASE4},
+									_3deBase4 = {Merlin.DE_BASE4, Merlin.DE_BASE4, Merlin.DE_BASE4},
+									_4deBase4 = {Merlin.DE_BASE4, Merlin.DE_BASE4, Merlin.DE_BASE4, Merlin.DE_BASE4},
+									_5deBase4 = {Merlin.DE_BASE4, Merlin.DE_BASE4, Merlin.DE_BASE4, Merlin.DE_BASE4, Merlin.DE_BASE4};
 			
-	private static final Invocable[] 	_1zigZag = {ZigZag.ref},
-										_1zigZag3 = {ZigZagNv3.ref},
-										_2zigZag3 = {ZigZagNv3.ref, ZigZagNv3.ref},
-										_1zigZag4 = {ZigZagNv4.ref},
-										_2zigZag4 = {ZigZagNv4.ref, ZigZagNv4.ref},
-										_2zigZag = {ZigZag.ref, ZigZag.ref};
+	private static final Merlin[] 	_1zigZag = {Merlin.ZIGZAG},
+									_1zigZag3 = {Merlin.ZIGZAG3},
+									_2zigZag3 = {Merlin.ZIGZAG3, Merlin.ZIGZAG3},
+									_1zigZag4 = {Merlin.ZIGZAG4},
+									_2zigZag4 = {Merlin.ZIGZAG4, Merlin.ZIGZAG4},
+									_2zigZag = {Merlin.ZIGZAG, Merlin.ZIGZAG};
 	
-	private static final Invocable[] _1quiTir = {QuiTir.ref};
-	private static final Invocable[] _1quiTir3 = {QuiTirNv3.ref};
-	private static final Invocable[] _2quiTir3 = {QuiTirNv3.ref, QuiTirNv3.ref};
-	private static final Invocable[] _1quiTir4 = {QuiTirNv4.ref};
-	private static final Invocable[] _2quiTir4 = {QuiTirNv4.ref, QuiTirNv4.ref};
-	private static final Invocable[] _2quiTir = {QuiTir.ref, QuiTir.ref};
-	private static final Invocable[] _1boule = {Boule.ref};
-	private static final Invocable[] _1boule3 = {BouleNv3.ref};
-	private static final Invocable[] _1boule4 = {BouleNv4.ref};
-	private static final Invocable[] _1bouleRotation = {BouleTirCoteRotation.ref};
-	private static final Invocable[] _1bouleTirCote = {BouleTirCote.ref};
-	private static final Invocable[] _2boules = {Boule.ref, Boule.ref};
-	private static final Invocable[] _2boules3 = {BouleNv3.ref, BouleNv3.ref};
-	private static final Invocable[] _3boules3 = {BouleNv3.ref, BouleNv3.ref, BouleNv3.ref};
-	private static final Invocable[] _2boules4 = {BouleNv4.ref, BouleNv4.ref};
-	private static final Invocable[] _3boules4 = {BouleNv4.ref, BouleNv4.ref, BouleNv4.ref};
-	private static final Invocable[] _3boules = {Boule.ref, Boule.ref, Boule.ref};
-	private static final Invocable[] _1toupie = {Toupie.ref};
-	private static final Invocable[] _1toupie3 = {ToupieNv3.ref};
-	private static final Invocable[] _1toupie4 = {ToupieNv4.ref};
-	private static final Invocable[] _1quiTourne3 = {QuiTourneNv3.ref};
-	private static final Invocable[] _1quiTourne4 = {QuiTourneNv4.ref};
-	private static final Invocable[] _1quiTourne = {QuiTourne.ref};
-	private static final Invocable[] _1kinder3 = {KinderNv3.ref};
-	private static final Invocable[] _1kinder4 = {KinderNv4.ref};
-	private static final Invocable[] _1kinder = {Kinder.ref};
-	private static final Invocable[] _1cylon3 = {CylonNv3.ref};
-	private static final Invocable[] _1cylon4 = {CylonNv4.ref};
-	private static final Invocable[] _1cylon = {Cylon.ref};
-	private static final Invocable[] _1avion3 = {Plane3.ref};
-	private static final Invocable[] _1avion4 = {Plane4.ref};
-	private static final Invocable[] _1avion = {Plane.ref};
-	private static final Invocable[] _2avions = {Plane.ref, Plane.ref};
-	private static final Invocable[] _2avions4 = {Plane4.ref, Plane4.ref};
-	private static final Invocable[] _2avions3 = {Plane3.ref, Plane3.ref};
-	private static final Invocable[] _1bossQuad = {BossQuad.ref};
-	private static final Invocable[] _1bossMine = {BossMine.ref};
-	private static final Invocable[] _1vicious = {Vicious.ref};
-	private static final Invocable[] _1Sat = {BossSat.ref};
+	private static final Merlin[] _1quiTir = {Merlin.QUI_TIR};
+	private static final Merlin[] _1quiTir3 = {Merlin.QUI_TIR3};
+	private static final Merlin[] _2quiTir3 = {Merlin.QUI_TIR3, Merlin.QUI_TIR3};
+	private static final Merlin[] _1quiTir4 = {Merlin.QUI_TIR4};
+	private static final Merlin[] _2quiTir4 = {Merlin.QUI_TIR4, Merlin.QUI_TIR4};
+	private static final Merlin[] _2quiTir = {Merlin.QUI_TIR, Merlin.QUI_TIR};
+	private static final Merlin[] _1boule = {Merlin.BALL};
+	private static final Merlin[] _1boule3 = {Merlin.BALL3};
+	private static final Merlin[] _1boule4 = {Merlin.BALL4};
+	private static final Merlin[] _1bouleRotation = {Merlin.BALL_SIDE_SHOT_ROTATION};
+	private static final Merlin[] _1bouleTirCote = {Merlin.BALL_SIDE_SHOT};
+	private static final Merlin[] _2boules = {Merlin.BALL, Merlin.BALL};
+	private static final Merlin[] _2boules3 = {Merlin.BALL3, Merlin.BALL3};
+	private static final Merlin[] _3boules3 = {Merlin.BALL3, Merlin.BALL3, Merlin.BALL3};
+	private static final Merlin[] _2boules4 = {Merlin.BALL4, Merlin.BALL4};
+	private static final Merlin[] _3boules4 = {Merlin.BALL4, Merlin.BALL4, Merlin.BALL4};
+	private static final Merlin[] _3boules = {Merlin.BALL, Merlin.BALL, Merlin.BALL};
+	private static final Merlin[] _1toupie = {Merlin.ROUND_N_ROUND};
+	private static final Merlin[] _1toupie3 = {Merlin.ROUND_N_ROUND3};
+	private static final Merlin[] _1toupie4 = {Merlin.ROUND_N_ROUND4};
+	private static final Merlin[] _1quiTourne3 = {Merlin.QUI_TOURNE3};
+	private static final Merlin[] _1quiTourne4 = {Merlin.QUI_TOURNE4};
+	private static final Merlin[] _1quiTourne = {Merlin.QUI_TOURNE};
+	private static final Merlin[] _1kinder3 = {Merlin.KINDER3};
+	private static final Merlin[] _1kinder4 = {Merlin.KINDER4};
+	private static final Merlin[] _1kinder = {Merlin.KINDER};
+	private static final Merlin[] _1cylon3 = {Merlin.CYLON3};
+	private static final Merlin[] _1cylon4 = {Merlin.CYLON4};
+	private static final Merlin[] _1cylon = {Merlin.CYLON};
+	private static final Merlin[] _1avion3 = {Merlin.PLANE3};
+	private static final Merlin[] _1avion4 = {Merlin.PLANE4};
+	private static final Merlin[] _1avion = {Merlin.PLANE};
+	private static final Merlin[] _2avions = {Merlin.PLANE, Merlin.PLANE};
+	private static final Merlin[] _2avions4 = {Merlin.PLANE4, Merlin.PLANE4};
+	private static final Merlin[] _2avions3 = {Merlin.PLANE3, Merlin.PLANE3};
+	private static final Merlin[] _1bossQuad = {Merlin.BOSS_QUAD};
+	private static final Merlin[] _1bossMine = {Merlin.BOSS_MINE};
+	private static final Merlin[] _1vicious = {Merlin.VICIOUS};
+	private static final Merlin[] _1Sat = {Merlin.BOSS_SAT};
 	
-	private static final Invocable[] _1laser = {Laser.ref};
-	private static final Invocable[] _1laser3 = {LaserNv3.ref};
-	private static final Invocable[] _1laser4 = {LaserNv4.ref};
-	private static final Invocable[] _1quiTir2 = {QuiTirTriangle.ref};
-	private static final Invocable[] _1quiTir23 = {QuiTirTriangle3.ref};
-	private static final Invocable[] _1quiTir24 = {QuiTirTriangle4.ref};
-	private static final Invocable[] _2quiTir2 = {QuiTirTriangle.ref, QuiTirTriangle.ref};
-	private static final Invocable[] _2quiTir23 = {QuiTirTriangle3.ref, QuiTirTriangle3.ref};
-	private static final Invocable[] _2quiTir24 = {QuiTirTriangle4.ref, QuiTirTriangle4.ref};
+	private static final Merlin[] _1laser = {Merlin.LASER};
+	private static final Merlin[] _1laser3 = {Merlin.LASER3};
+	private static final Merlin[] _1laser4 = {Merlin.LASER4};
+	private static final Merlin[] _1quiTir2 = {Merlin.QUI_TIR_TRIANGLE};
+	private static final Merlin[] _1quiTir23 = {Merlin.QUI_TIR_TRIANGLE3};
+	private static final Merlin[] _1quiTir24 = {Merlin.QUI_TIR_TRIANGLE4};
+	private static final Merlin[] _2quiTir2 = {Merlin.QUI_TIR_TRIANGLE, Merlin.QUI_TIR_TRIANGLE};
+	private static final Merlin[] _2quiTir23 = {Merlin.QUI_TIR_TRIANGLE3, Merlin.QUI_TIR_TRIANGLE3};
+	private static final Merlin[] _2quiTir24 = {Merlin.QUI_TIR_TRIANGLE4, Merlin.QUI_TIR_TRIANGLE4};
 	
-	private static final Invocable[] _2porteRaisin3 = {PorteRaisinNv3.ref, PorteRaisinNv3.ref};
-	private static final Invocable[] _2porteRaisin4 = {PorteRaisinNv4.ref, PorteRaisinNv4.ref};
-	private static final Invocable[] _2porteRaisin = {PorteRaisin.ref, PorteRaisin.ref};
-	private static final Invocable[] _3porteRaisin = {PorteRaisin.ref, PorteRaisin.ref, PorteRaisin.ref};
-	private static final Invocable[] _1insecte = {Insecte.ref};
-	private static final Invocable[] _1insecte3 = {InsecteNv3.ref};
-	private static final Invocable[] _1insecte4 = {InsecteNv4.ref};
-	private static final Invocable[] _1group = {Group.ref},_1group3 = {Group3.ref}, _1group4 = {Group4.ref};
+	private static final Merlin[] _2porteRaisin3 = {Merlin.CRUSADER3, Merlin.CRUSADER3};
+	private static final Merlin[] _2porteRaisin4 = {Merlin.CRUSADER4, Merlin.CRUSADER4};
+	private static final Merlin[] _2porteRaisin = {Merlin.CRUSADER, Merlin.CRUSADER};
+	private static final Merlin[] _3porteRaisin = {Merlin.CRUSADER, Merlin.CRUSADER, Merlin.CRUSADER};
+	private static final Merlin[] _1insecte = {Merlin.INSECT};
+	private static final Merlin[] _1insecte3 = {Merlin.INSECT3};
+	private static final Merlin[] _1insecte4 = {Merlin.INSECT4};
+	private static final Merlin[] _1group = {Merlin.GROUP},_1group3 = {Merlin.GROUP3}, _1group4 = {Merlin.GROUP4};
 	public static final SpawnEnemyPosition pause = new SpawnEnemyPosition(pauseInv, pauseVec);
 	private static final SpawnEnemyPosition 	deBaseCentre = new SpawnEnemyPosition(_1deBase, _1middle),
 								deBase_4_6 = new SpawnEnemyPosition(_2deBase, _4_6),
@@ -629,12 +583,12 @@ public class SpawnEnemyPosition {
 	public static final SpawnEnemyPosition[] lvl1_group = {group};
 	public static final SpawnEnemyPosition[] lvl3_group = {group3};
 	public static final SpawnEnemyPosition[] lvl4_group = {group4};
-	public final Invocable[] enemies;
+	public final Merlin[] merlin;
 	public final Vector2[] positions;
 	
-	public SpawnEnemyPosition(Invocable[] enemies, Vector2[] positions) {
+	public SpawnEnemyPosition(Merlin[] enemies, Vector2[] positions) {
 		super();
-		this.enemies = enemies;
+		this.merlin = enemies;
 		this.positions = positions;
 		if (positions.length != enemies.length)
 			throw new RuntimeException("Spawns lenght != enemies length");

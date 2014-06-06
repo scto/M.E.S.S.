@@ -9,22 +9,23 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import elements.generic.Invocable;
+import elements.generic.components.enemies.Merlin;
 import elements.generic.enemies.SpawnEnemyPosition;
 import elements.generic.enemies.Wave;
 import elements.generic.enemies.individual.bosses.AddBossStat;
-import elements.generic.enemies.individual.lvl1.Boule;
+import elements.generic.enemies.individual.lvl1.Ball;
 import elements.generic.enemies.individual.lvl1.Cylon;
 import elements.generic.enemies.individual.lvl1.DeBase;
 import elements.generic.enemies.individual.lvl1.Group;
-import elements.generic.enemies.individual.lvl1.Insecte;
+import elements.generic.enemies.individual.lvl1.Insect;
 import elements.generic.enemies.individual.lvl1.Kinder;
 import elements.generic.enemies.individual.lvl1.Laser;
 import elements.generic.enemies.individual.lvl1.Plane;
-import elements.generic.enemies.individual.lvl1.PorteRaisin;
+import elements.generic.enemies.individual.lvl1.Crusader;
 import elements.generic.enemies.individual.lvl1.QuiTir;
 import elements.generic.enemies.individual.lvl1.QuiTirTriangle;
 import elements.generic.enemies.individual.lvl1.QuiTourne;
-import elements.generic.enemies.individual.lvl1.Toupie;
+import elements.generic.enemies.individual.lvl1.RoundAndRound;
 import elements.generic.enemies.individual.lvl1.Vicious;
 import elements.generic.enemies.individual.lvl1.ZigZag;
 
@@ -39,7 +40,7 @@ public class Requests {
 	private static final String ENEMY_BEHAVIOR = "Select fk_behavior from enemy where pk = "; 
 	private static final String ENEMY_NEXTSHOT = "Select nextShot from enemy where pk = "; 
 	private static final String ENEMY_POSITIONNEMENT = "Select fk_positionning from enemy where pk = "; 
-	private static final String ENEMY_PV = "Select pv from enemy where pk = "; 
+	private static final String ENEMY_HP = "Select pv from enemy where pk = "; 
 	private static final String ENEMY_XP = "Select xp from enemy where pk = "; 
 	private static final String ENEMY_EXPLOSION = "Select explosion from enemy where pk = "; 
 	public static final String WAVE = "select scoremin, interval, boss, freq, ordered, scoremax, order_spawn, fk_enemies, fk_position from wave " + 
@@ -66,7 +67,7 @@ public class Requests {
 	}
 	
 	public static int getPvEnemy(int pk, int def) {
-		return CSG.dbManager.getInt(ENEMY_PV + pk, def);
+		return CSG.dbManager.getInt(ENEMY_HP + pk, def);
 	}
 	
 	public static int getXpEnemy(int pk, int def) {
@@ -111,7 +112,7 @@ public class Requests {
 		System.out.println("------------------------------------------------- " + pk + " score min : " + wave.scoreMin + " / max " + wave.maxScore);
 		SpawnEnemyPosition[] spawns = wave.lignes;
 		for (SpawnEnemyPosition spawnEnemyPosition : spawns) {
-			if (spawnEnemyPosition.enemies.length == 0)
+			if (spawnEnemyPosition.merlin.length == 0)
 				System.out.println("pause");
 			int i = 1;
 			for (Vector2 pos : spawnEnemyPosition.positions) {
@@ -119,8 +120,8 @@ public class Requests {
 				i++;
 			}
 			int j = 1;
-			for (Invocable pos : spawnEnemyPosition.enemies) {
-				System.out.println(j + " inv : " + pos.getXp());
+			for (Merlin pos : spawnEnemyPosition.merlin) {
+				System.out.println(j + " inv : " + pos.incantation.invoke().getXp());
 				j++;
 			}
 		}
@@ -136,7 +137,7 @@ public class Requests {
 			List<Integer> fkEnemies = new ArrayList<Integer>();
 			List<Integer> fkPos = new ArrayList<Integer>();
 			List<Integer> enemyPos = new ArrayList<Integer>();
-			populatePkEnemies(fkEnemies, ligne.enemies);
+			populatePkEnemies(fkEnemies, ligne.merlin);
 			populatePkPositions(fkPos, ligne.positions);
 			getEnemyPos(fkEnemies, fkPos, enemyPos);
 			for (Integer integer : enemyPos) {
@@ -243,20 +244,20 @@ public class Requests {
 	}
 
 	private static Integer getPkEnemy(Invocable invocable) {
-		if (invocable == Boule.ref) return Boule.PK;
+		if (invocable == Ball.REF) return Ball.PK;
 		if (invocable == Cylon.ref) return Cylon.PK;
-		if (invocable == DeBase.ref) return DeBase.PK;
+		if (invocable == DeBase.REF) return DeBase.PK;
 		if (invocable == Group.ref) return Group.PK;
-		if (invocable == Insecte.ref) return Insecte.PK;
-		if (invocable == Kinder.ref) return Kinder.PK;
-		if (invocable == Laser.ref) return Laser.PK;
-		if (invocable == Plane.ref) return Plane.PK;
-		if (invocable == PorteRaisin.ref) return PorteRaisin.PK;
+		if (invocable == Insect.ref) return Insect.PK;
+		if (invocable == Kinder.REF) return Kinder.PK;
+		if (invocable == Laser.REF) return Laser.PK;
+		if (invocable == Plane.REF) return Plane.PK;
+		if (invocable == Crusader.REF) return Crusader.PK;
 		if (invocable == QuiTir.ref) return QuiTir.PK;
-		if (invocable == QuiTirTriangle.ref) return QuiTirTriangle.PK;
+		if (invocable == QuiTirTriangle.REF) return QuiTirTriangle.PK;
 		if (invocable == QuiTourne.ref) return QuiTourne.PK;
 		if (invocable == Vicious.ref) return Vicious.PK;
-		if (invocable == Toupie.ref) return Toupie.PK;
+		if (invocable == RoundAndRound.ref) return RoundAndRound.PK;
 		if (invocable == ZigZag.ref) return ZigZag.PK;
 		if (invocable == AddBossStat.ref) return  AddBossStat.PK;
 		return DeBase.PK;
@@ -294,24 +295,24 @@ public class Requests {
 
 	public static Invocable getInvocable(int enemyPk) {
 		switch (enemyPk) {
-		case Boule.PK :				return Boule.ref;
+		case Ball.PK :				return Ball.REF;
 		case Cylon.PK :				return Cylon.ref;
-		case DeBase.PK :			return DeBase.ref;
+		case DeBase.PK :			return DeBase.REF;
 		case Group.PK :				return Group.ref;
-		case Insecte.PK :			return Insecte.ref;
-		case Kinder.PK :			return Kinder.ref;
-		case Laser.PK :				return Laser.ref;
-		case Plane.PK :				return Plane.ref;
-		case PorteRaisin.PK :		return PorteRaisin.ref;
+		case Insect.PK :			return Insect.ref;
+		case Kinder.PK :			return Kinder.REF;
+		case Laser.PK :				return Laser.REF;
+		case Plane.PK :				return Plane.REF;
+		case Crusader.PK :		return Crusader.REF;
 		case QuiTir.PK :			return QuiTir.ref;
-		case QuiTirTriangle.PK :	return QuiTirTriangle.ref;
+		case QuiTirTriangle.PK :	return QuiTirTriangle.REF;
 		case QuiTourne.PK :			return QuiTourne.ref;
-		case Toupie.PK :			return Toupie.ref;
+		case RoundAndRound.PK :			return RoundAndRound.ref;
 		case Vicious.PK :			return Vicious.ref;
 		case ZigZag.PK :			return ZigZag.ref;
 		case AddBossStat.PK :		return AddBossStat.ref;
 		}
-		return DeBase.ref;
+		return DeBase.REF;
 	}
 
 }

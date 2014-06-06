@@ -7,6 +7,7 @@ import assets.AssetMan;
 import assets.SoundMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -35,7 +36,8 @@ public class Explosion implements Poolable {
 	public static final int GAUSSIAN_FACTOR = 50;
 	public static final int STANDARD_EXPLOSION = 1, BLUE_EXPLOSION = 2, GREEN_EXPLOSION = 3;
 	public static final float BOMB_SCALE = Stats.U * 15;
-	public static final int LIMIT_BIGGER = 600;
+	public static final int LIMIT_BIGGER = 1600;
+	private static final Vector2 tmpVector = new Vector2();
 	
 	@Override
 	public void reset() {	}
@@ -66,8 +68,8 @@ public class Explosion implements Poolable {
 		x = (e.pos.x + (e.getWidth() * CSG.R.nextFloat()) );
 		y = (e.pos.y + (e.getHeight() * CSG.R.nextFloat()) );
 		
-		speedY = (float) ((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW);
-		speedX = (float) ((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW);
+		speedY = (float) ((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW);
+		speedX = (float) ((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW);
 		
 		width = Math.abs((float) ((CSG.R.nextGaussian() * WIDTH))) + MIN_WIDTH;
 		ttl = (int) (CSG.R.nextFloat() * 15) + 10;
@@ -78,8 +80,8 @@ public class Explosion implements Poolable {
 		x = (e.pos.x + (e.getWidth() * CSG.R.nextFloat()) );
 		y = (e.pos.y + (e.getHeight() * CSG.R.nextFloat()) );
 
-		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionY() * CSG.R.nextFloat());
-		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION_SLOW) + e.getDirectionX() * CSG.R.nextFloat());
+		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.getDirectionY() * CSG.R.nextFloat());
+		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.getDirectionX() * CSG.R.nextFloat());
 		
 		width = Math.abs((float) ((CSG.R.nextGaussian() * WIDTH))) + MIN_WIDTH;
 		ttl = Math.abs((int) (CSG.R.nextGaussian() * GAUSSIAN_FACTOR)) + 15;
@@ -88,7 +90,7 @@ public class Explosion implements Poolable {
 
 	private static float tmp;
 	public static void act(Array<Explosion> explosions, SpriteBatch batch) {
-		if (EndlessMode.alternate) {
+		if (EndlessMode.alternate || EndlessMode.triggerStop) {
 			for (final Explosion p : explosions) {
 				batch.setColor(p.color);
 				batch.draw(AssetMan.dust, p.x, p.y, p.width, p.width);
@@ -97,8 +99,6 @@ public class Explosion implements Poolable {
 			for (final Explosion p : explosions) {
 				batch.setColor(p.color);
 				batch.draw(AssetMan.dust, p.x, p.y, p.width, p.width);
-				if (EndlessMode.triggerStop)
-					continue;
 				p.speedX /= EndlessMode.UnPlusDelta;
 				p.speedY /= EndlessMode.UnPlusDelta;
 				tmp = p.width - (p.width / EndlessMode.UnPlusDelta);
@@ -124,12 +124,12 @@ public class Explosion implements Poolable {
 
 	public static void blow(PlayerWeapon a, Array<Explosion> explosions) {
 		for (Explosion e : explosions) {
-			a.dir.x = (e.x) - Player.xCenter;
-			a.dir.y = (e.y) - Player.yCenter;
-			a.dir.nor();
-			a.dir.scl(BOMB_SCALE);
-			e.speedX += a.dir.x;
-			e.speedY += a.dir.y;
+			tmpVector.x = a.dir.x;
+			tmpVector.y = a.dir.y;
+			tmpVector.x = (e.x) - Player.xCenter;
+			tmpVector.y = (e.y) - Player.yCenter;
+			tmpVector.nor();
+			tmpVector.scl(Explosion.BOMB_SCALE);
 		}
 	}
 

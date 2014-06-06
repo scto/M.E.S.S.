@@ -16,7 +16,7 @@ public class Credits {
 											END;
 	private final static String PATCHNOTE = 
 "                                                    "
-+ "PATCHNOTE 0.927 :  Better explosions. Better thruster effect. New spawn system with a less crowded screen ! The T weapon at level 8 has been altered." + 
++ "PATCHNOTE 0.930 :  Bombs won't attract experience but will slow time a little bit. Score multiplication has changed. You can now collect xp while the game is stopped. Better shield ! :D New sprites !" + 
 									 		END;
 	private final String str;
 	

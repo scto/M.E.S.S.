@@ -19,9 +19,11 @@ package menu.screens;
 import jeu.CSG;
 import jeu.Physic;
 import menu.Credits;
-import menu.DeBaseMenu;
+import menu.BasicMenu;
 import menu.tuto.OnClick;
-import menu.ui.Bouton;
+import menu.ui.Button;
+import assets.sprites.Animations;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -34,17 +36,17 @@ import elements.particular.particles.Particles;
 public abstract class AbstractScreen implements Screen {
 
 	protected Game game;
-	protected Array<Bouton> boutons = new Array<Bouton>();
+	protected Array<Button> buttons = new Array<Button>();
 	private Credits credits;
 	public static final String PLAY = "Play!", SHIP = "Weapon", OPTION = "Options", HIGHSCORE = "Highscores", EXIT = "Exit", BACK = "BACK", WEAPON_VOL = "WEAPON VOL  ", MOINS = "-", PLUS = "+", BRUITAGE_VOL = "EFFECTS VOL  ", MUSIQUE_VOL = "MUSIC VOL  ", INTENSITY = "INTENSITY : ", OTHER_WEAP = "Next weapon", TUTO = "Tutorial" , ACHIEVEMENT = "Achievements", SUPPORT_US = "Support us !";
-	public final static int PADDING = 11, LARGEUR_BOUTON = (CSG.screenWidth / PADDING) * 9, HAUTEUR_BOUTON = CSG.SCREEN_HEIGHT / 25;
-	public final static int DEMI_LARGEUR_BOUTON = LARGEUR_BOUTON / 2, DEMI_HAUTEUR_BOUTON = HAUTEUR_BOUTON / 2;
-	public final static int LARGEUR_PETITBOUTON = (CSG.screenWidth / PADDING) * 4, HAUTEUR_PETITBOUTON = CSG.SCREEN_HEIGHT / 18;
-	public final static int LARGEUR_MINIBOUTON = LARGEUR_PETITBOUTON/2, HAUTEUR_MINIBOUTON = HAUTEUR_PETITBOUTON/2, decalageY = CSG.SCREEN_HEIGHT/10;
+	public final static int PADDING = 11, BUTTON_WIDTH = (CSG.screenWidth / PADDING) * 9, BUTTON_HEIGHT = CSG.SCREEN_HEIGHT / 25;
+	public final static int BUTTON_HALF_WIDTH = BUTTON_WIDTH / 2, BUTTON_HALF_HEIGHT = BUTTON_HEIGHT / 2;
+	public final static int SMALL_BUTTON_WIDTH = (CSG.screenWidth / PADDING) * 4, SMALL_BUTTON_HEIGHT = CSG.SCREEN_HEIGHT / 18;
+	public final static int MINI_BOUTON_WIDTH = SMALL_BUTTON_WIDTH/2, MINI_BOUTON_HEIGHT = SMALL_BUTTON_HEIGHT/2, yOffset = CSG.SCREEN_HEIGHT/10;
 	public static OrthographicCamera cam = new OrthographicCamera(CSG.screenWidth, CSG.SCREEN_HEIGHT);
-	protected Bouton boutonBack;
+	protected Button buttonBack;
 	public boolean renderBackground = true;
-	private final Array<DeBaseMenu> enemies = new Array<DeBaseMenu>();
+	private final Array<BasicMenu> enemies = new Array<BasicMenu>();
 	private final float speed = CSG.SCREEN_HEIGHT / 6, offset = speed/10;
 	private float trigger = 0;
 	
@@ -56,14 +58,13 @@ public abstract class AbstractScreen implements Screen {
 		CSG.initBloom();
 		cam.position.set(CSG.screenWidth /2, CSG.SCREEN_HEIGHT/2, 0);
 		
-		boutonBack = new Bouton(BACK, false, CSG.menuFontSmall, LARGEUR_PETITBOUTON, HAUTEUR_PETITBOUTON, CSG.screenWidth / PADDING, HAUTEUR_BOUTON, this,
+		buttonBack = new Button(BACK, false, CSG.menuFontSmall, SMALL_BUTTON_WIDTH, SMALL_BUTTON_HEIGHT, CSG.screenWidth / PADDING, BUTTON_HEIGHT, this,
 	    		new OnClick() {
 					public void onClick() {
 						changeMenu(new Menu(game));
 						CSG.profilManager.persist();
 					}
 				}, true);
-		Gdx.graphics.setVSync(true);
 		CSG.reset();
 	}
 
@@ -71,8 +72,8 @@ public abstract class AbstractScreen implements Screen {
 		this.renderBackground = renderBackground;
 	}
 	
-	protected void ajout(Bouton bouton) {
-		boutons.add(bouton);
+	protected void ajout(Button bouton) {
+		buttons.add(bouton);
 	}
 	
 	
@@ -88,31 +89,31 @@ public abstract class AbstractScreen implements Screen {
 			Particles.background(CSG.batch);
 		}
 		Particles.draw(CSG.batch);
-		for (DeBaseMenu e : enemies) {
-			CSG.batch.draw(e.getTexture(), e.pos.x, e.pos.y, e.getHalfWidth(), e.getHalfHeight(), e.getWidth(), e.getHeight(), 1, 1, e.dir.angle() + 90);
-			Particles.smoke(e.pos.x + DeBaseMenu.DEMI_LARGEUR - e.dir.x/offset, e.pos.y + DeBaseMenu.DEMI_HAUTEUR - e.dir.y/offset, true);
+		for (BasicMenu e : enemies) {
+			CSG.batch.draw(Animations.BASIC_ENEMY_RED.anim.getTexture(0), e.pos.x, e.pos.y, e.getHalfWidth(), e.getHalfHeight(), e.getWidth(), e.getHeight(), 1, 1, e.dir.angle() + 90);
+			Particles.smoke(e.pos.x + BasicMenu.HALF_WIDTH - e.dir.x/offset, e.pos.y + BasicMenu.HALF_HEIGHT - e.dir.y/offset, true);
 			Physic.mvt(e.dir, e.pos, e.getWidth());
-			if (e.pos.x + DeBaseMenu.DEMI_LARGEUR < CSG.DIXIEME_LARGEUR * 2) {
+			if (e.pos.x + BasicMenu.HALF_WIDTH < CSG.DIXIEME_WIDTH * 2) {
 				e.desired.x = speed;
 				e.desired.y = e.dir.y;
-				e.steerScl = ((CSG.DIXIEME_LARGEUR * 2) - (e.pos.x + DeBaseMenu.DEMI_LARGEUR)) / (CSG.DIXIEME_LARGEUR/3);
-			} else if (e.pos.x + DeBaseMenu.DEMI_LARGEUR > CSG.screenWidth - CSG.DIXIEME_LARGEUR * 2) {
+				e.steerScl = ((CSG.DIXIEME_WIDTH * 2) - (e.pos.x + BasicMenu.HALF_WIDTH)) / (CSG.DIXIEME_WIDTH/3);
+			} else if (e.pos.x + BasicMenu.HALF_WIDTH > CSG.screenWidth - CSG.DIXIEME_WIDTH * 2) {
 				e.desired.x = -speed;
 				e.desired.y = e.dir.y;
-				e.steerScl = Math.abs(((e.pos.x + DeBaseMenu.DEMI_LARGEUR) - (CSG.screenWidth - CSG.DIXIEME_LARGEUR * 2))) / (CSG.DIXIEME_LARGEUR/3);
-			} else if (e.pos.y + DeBaseMenu.DEMI_HAUTEUR < CSG.HEIGHT_DIV10 * 2.5f) {
+				e.steerScl = Math.abs(((e.pos.x + BasicMenu.HALF_WIDTH) - (CSG.screenWidth - CSG.DIXIEME_WIDTH * 2))) / (CSG.DIXIEME_WIDTH/3);
+			} else if (e.pos.y + BasicMenu.HALF_HEIGHT < CSG.HEIGHT_DIV10 * 2.5f) {
 				e.desired.x = e.dir.x;
 				e.desired.y = speed;
-				e.steerScl = ((CSG.HEIGHT_DIV10*2.5f) - (e.pos.y + DeBaseMenu.DEMI_HAUTEUR)) / (CSG.HEIGHT_DIV10/6);
-			} else if (e.pos.y + DeBaseMenu.DEMI_HAUTEUR > CSG.SCREEN_HEIGHT - CSG.HEIGHT_DIV10*2.5f) {
+				e.steerScl = ((CSG.HEIGHT_DIV10*2.5f) - (e.pos.y + BasicMenu.HALF_HEIGHT)) / (CSG.HEIGHT_DIV10/6);
+			} else if (e.pos.y + BasicMenu.HALF_HEIGHT > CSG.SCREEN_HEIGHT - CSG.HEIGHT_DIV10*2.5f) {
 				e.desired.x = e.dir.x;
 				e.desired.y = -speed;
-				e.steerScl = Math.abs(((e.pos.y + DeBaseMenu.DEMI_HAUTEUR) - (CSG.SCREEN_HEIGHT - CSG.HEIGHT_DIV10*2.5f))) / (CSG.HEIGHT_DIV10/6);
+				e.steerScl = Math.abs(((e.pos.y + BasicMenu.HALF_HEIGHT) - (CSG.SCREEN_HEIGHT - CSG.HEIGHT_DIV10*2.5f))) / (CSG.HEIGHT_DIV10/6);
 			}
 			steer(e);
 		}
-		for (int i = 0; i < boutons.size; i++) {
-			if (boutons.get(i) != null) boutons.get(i).draw(CSG.batch);
+		for (int i = 0; i < buttons.size; i++) {
+			if (buttons.get(i) != null) buttons.get(i).draw(CSG.batch);
 		}
 		Particles.drawUi(CSG.batch);
 		if (credits != null)
@@ -120,7 +121,7 @@ public abstract class AbstractScreen implements Screen {
 		CSG.end();
 		trigger += delta;
 		if (trigger > 4) {
-			DeBaseMenu e = DeBaseMenu.POOL.obtain();
+			BasicMenu e = BasicMenu.POOL.obtain();
 			e.dir.x = 0;
 			e.dir.y = -speed;
 			e.dir.rotate(CSG.R.nextInt(360));
@@ -129,7 +130,7 @@ public abstract class AbstractScreen implements Screen {
 		}
 	}
 
-	private void steer(DeBaseMenu e) {
+	private void steer(BasicMenu e) {
 		e.steer.x = e.desired.x - e.dir.x;
 		e.steer.y = e.desired.y - e.dir.y;
 		e.steer.nor();
@@ -141,9 +142,42 @@ public abstract class AbstractScreen implements Screen {
 	}
 
 	public void changeMenu (Screen s) {
-		DeBaseMenu.POOL.freeAll(enemies);
+		BasicMenu.POOL.freeAll(enemies);
 		enemies.clear();
 		game.setScreen(s);
+	}
+	
+	/**
+	 * Il a besoin du batch pour afficher le jeu background en cas de code
+	 * valide
+	 * 
+	 * @param batch
+	 * @return 
+	 */
+	protected int detectiopnKonamiCode(int etapeCode) {
+		switch (etapeCode) {
+		case 0:
+		case 1:
+			if (Gdx.input.justTouched() && Gdx.input.getY() < CSG.halfHeight)
+				etapeCode++;
+			break;
+		case 2:
+		case 3:
+			if (Gdx.input.justTouched() && Gdx.input.getY() > CSG.halfHeight)
+				etapeCode++;
+			break;
+		case 4:
+		case 6:
+			if (Gdx.input.justTouched() && Gdx.input.getX() < CSG.screenHalfWidth)
+				etapeCode++;
+			break;
+		case 5:
+		case 7:
+			if (Gdx.input.justTouched() && Gdx.input.getX() > CSG.screenHalfWidth)
+				etapeCode++;
+			break;
+		}
+		return etapeCode;
 	}
 	
 	public void setBackButtonActive(boolean isBackButtonActive) {		Gdx.input.setCatchBackKey(true);	}
@@ -162,7 +196,7 @@ public abstract class AbstractScreen implements Screen {
 		reset();
     }
 
-	public void reset() {		for (Bouton b : boutons) if (b != null) b.reset();	}
+	public void reset() {		for (Button b : buttons) if (b != null) b.reset();	}
 	@Override
 	public void hide() {
 		
@@ -181,7 +215,7 @@ public abstract class AbstractScreen implements Screen {
 	}
 
 	public void touche() {
-		for (Bouton b : boutons)
+		for (Button b : buttons)
 			b.setFade(true);
 	}
 }

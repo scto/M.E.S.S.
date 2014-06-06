@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.weapons.Weapons;
+import elements.generic.weapons.Weapon;
 import elements.particular.particles.individual.PrecalculatedParticles;
 
 public final class PinkParticle implements Poolable {
@@ -26,7 +26,7 @@ public final class PinkParticle implements Poolable {
 	@Override
 	public void reset() {}
 
-	public void init(Weapons wp) {
+	public void init(Weapon wp) {
 		x = wp.pos.x;
 		y = wp.pos.y;
 		index = 0;

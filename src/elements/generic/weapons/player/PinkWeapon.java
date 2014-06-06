@@ -13,7 +13,7 @@ import elements.particular.particles.individual.PrecalculatedParticles;
 public class PinkWeapon extends PlayerWeapon implements Poolable {
 	
 	public static int width = (int) Stats.U, halfWidth = (int) Stats.u;
-	public static final float CADENCETIR = initCadence(.11f, 3);
+	public static final float FIRERATETIR = initCadence(.11f, 3);
 	public static final String LABEL = "armeTrois";
 	public static final Pool<PinkWeapon> POOL = new Pool<PinkWeapon>(30) {
 		@Override
@@ -58,11 +58,11 @@ public class PinkWeapon extends PlayerWeapon implements Poolable {
 	}
 
 	@Override	public void draw(SpriteBatch batch) {Particles.pinkParticle(this);	}
-	@Override	public int getWidth() {				return width;	}
-	@Override	public int getHeight() {			return width;	}
+	@Override	public float getWidth() {				return width;	}
+	@Override	public float getHeight() {			return width;	}
 	@Override	public void free() {				POOL.free(this);	}
-	@Override	public int getHalfWidth() {			return halfWidth;	}
-	@Override	public int getHalfHeight() {		return halfWidth;	}
+	@Override	public float getHalfWidth() {			return halfWidth;	}
+	@Override	public float getHalfHeight() {		return halfWidth;	}
 	@Override	public float getColor() {			return COLORS[color];	}
 	@Override	public float[] getColors() {		return PrecalculatedParticles.colorsPinkWeapon;		}
 }

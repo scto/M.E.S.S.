@@ -4,10 +4,9 @@ import jeu.CSG;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.AssetMan;
-import assets.animation.Animated;
+import assets.sprites.Animations;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -20,9 +19,8 @@ public class SunWeapon extends PlayerWeapon implements Poolable {
 
 	public static int width, halfWidth;
 	public final float color;
-	public static final float CADENCETIR = initCadence(.060f, 5);
+	public static final float FIRERATETIR = initCadence(.060f, 5);
 	public static final String LABEL = "SunWeapon";
-	private static final Animated ANIMATED = initAnimation(1, 1);
 	public static final Pool<SunWeapon> POOL = new Pool<SunWeapon>(30) {
 		@Override
 		protected SunWeapon newObject() {
@@ -68,17 +66,16 @@ public class SunWeapon extends PlayerWeapon implements Poolable {
 	@Override
 	public void draw(SpriteBatch batch) {	
 		batch.setColor(color);
-		batch.draw(ANIMATED.getTexture(EndlessMode.now), pos.x, pos.y, width, width);
+		batch.draw(Animations.BLUE_BALL.anim.getTexture(EndlessMode.now), pos.x, pos.y, width, width);
 		batch.setColor(AssetMan.WHITE);
 	}
-	@Override	public int getWidth() {						return width;								}
-	@Override	public int getHeight() {					return width;								}
+	@Override	public float getWidth() {						return width;								}
+	@Override	public float getHeight() {					return width;								}
 	@Override	public void free() {						POOL.free(this);							}
 	@Override	public float getColor() {					return COLORS[R.nextInt(COLORS.length)];	}
-	@Override	public TextureRegion getTexture() {			return null;	}
-	@Override	public int getHalfWidth() {					return halfWidth;	}
-	@Override	public int getHalfHeight() {				return halfWidth;	}
-	@Override	public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeGreen;		}
+	@Override	public float getHalfWidth() {					return halfWidth;	}
+	@Override	public float getHalfHeight() {				return halfWidth;	}
+	@Override	public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeYellowToGreen;		}
 
 	public static Object getLabel() {			return LABEL;	}
 
@@ -88,7 +85,7 @@ public class SunWeapon extends PlayerWeapon implements Poolable {
 		s.dir.y = dir.y;
 		
 		s.pos.x = (Player.xCenter) - halfWidth;
-		s.pos.y = (Player.yCenter) + Player.DEMI_HAUTEUR;
+		s.pos.y = (Player.yCenter) + Player.HALF_HEIGHT;
 		
 		s.dir.scl(Stats.V_ARME_SUN);
 		

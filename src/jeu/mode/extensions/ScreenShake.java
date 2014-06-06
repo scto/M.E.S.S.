@@ -12,6 +12,8 @@ public class ScreenShake {
 	private static boolean shake = false, bloomSet = false;
 	private static float chronoShake = 0, shakeTmpForce = 0, shakeTotalMvtX, shakeTotalMvtY;
 	public static final Random R = new Random();
+	private static float tmp;
+	private static final float MAX_BLOOM = 5;
 
 	public static void init() {
 		shake = false;
@@ -21,8 +23,6 @@ public class ScreenShake {
 	private static final float SHAKE_MIN = 1.1f, SHAKE_MAX = 4;
 
 	public static void screenShake(float valeur) {
-		if (CSG.profile.screenshake == false)
-			return;
 		if (shake == false) {
 			shakeTotalMvtX = 0;
 			shakeTotalMvtY = 0;
@@ -43,6 +43,9 @@ public class ScreenShake {
 				EndlessMode.cam.position.y = CSG.halfHeight;
 				EndlessMode.cam.position.x = CSG.screenHalfWidth;
 			} else {
+				chronoShake /= 1.01f + EndlessMode.delta2;
+				if (CSG.profile.screenshake == false)
+					return;
 				shakeTmpForce = (float) ((R.nextFloat() / 2) * (chronoShake * Stats.U));
 				if (shakeTotalMvtX < 0) {
 					EndlessMode.cam.position.x += shakeTmpForce;
@@ -59,7 +62,6 @@ public class ScreenShake {
 					EndlessMode.cam.position.y -= shakeTmpForce;
 					shakeTotalMvtY -= shakeTmpForce;
 				}
-				chronoShake /= 1.01f + EndlessMode.delta2;
 			}
 		}
 	}
@@ -71,7 +73,10 @@ public class ScreenShake {
 				bloomSet = true;
 			}
 		} else {
-			EndlessMode.bloom.setBloomIntesity(CSG.profile.intensiteBloom + (chronoShake * 1.9f) );
+			tmp = CSG.profile.intensiteBloom + (chronoShake);
+			if (tmp > MAX_BLOOM)
+				tmp = MAX_BLOOM;
+			EndlessMode.bloom.setBloomIntesity(tmp);
 		}
 	}
 

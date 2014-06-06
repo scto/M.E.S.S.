@@ -1,7 +1,7 @@
 package elements.particular.particles.individual;
 
 import assets.AssetMan;
-import assets.animation.AnimPlayer;
+import assets.sprites.AnimPlayer;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -24,7 +24,7 @@ public class Ghost implements Poolable {
 	public static void act(Array<Ghost> ghosts, SpriteBatch batch) {
 		for (Ghost ghost : ghosts) {
 			batch.setColor(1, 1, 1, ghost.alpha);
-			batch.draw(AnimPlayer.tr[ghost.numero], ghost.x, ghost.y, Player.LARGEUR, Player.HEIGHT);
+			batch.draw(AnimPlayer.tr[ghost.numero], ghost.x, ghost.y, Player.WIDTH, Player.HEIGHT);
 			ghost.alpha -= 0.048f;
 			if (ghost.alpha <= 0) {
 				ghosts.removeValue(ghost, true);

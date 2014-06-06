@@ -3,18 +3,18 @@ package elements.generic.weapons.player;
 import jeu.CSG;
 import jeu.Profil;
 import jeu.mode.EndlessMode;
-import elements.generic.weapons.Weapons;
+import elements.generic.weapons.Weapon;
 
 public abstract class WeaponManager {
 	
-	public float init(float prochainTir) {
-		if (EndlessMode.now > prochainTir) {
-			if (++Weapons.color >= TWeapon.COLORS.length)
-				Weapons.color = 0;
+	public float init(float nextShot) {
+		if (EndlessMode.now > nextShot) {
+			if (++Weapon.color >= TWeapon.COLORS.length)
+				Weapon.color = 0;
 			init();
 			return EndlessMode.now + getCadenceTir();
 		}
-		return prochainTir;
+		return nextShot;
 	}
 	
 	public static WeaponManager changerArme(WeaponManager arme) {

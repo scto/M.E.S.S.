@@ -86,8 +86,8 @@ public class TWeaponManager extends WeaponManager {
 	@Override
 	protected float getCadenceTir() {
 		if (CSG.profile.NvArmeHantee == 8)
-			return TWeapon.CADENCETIRLVL8;
-		return TWeapon.CADENCETIR;		
+			return TWeapon.FIRERATETIRLVL8;
+		return TWeapon.FIRERATETIR;		
 	}
 	@Override
 	public int nv() {						return CSG.profile.NvArmeHantee;	}
