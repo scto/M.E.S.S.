@@ -26,31 +26,11 @@ import elements.particular.particles.Particles;
 
 public class Plane extends Enemy {
 	
-	public static final int 
-		WIDTH = Stats.PLANE_WIDTH, 
-		HALF_WIDTH = WIDTH / 2, 
-		HEIGHT = Stats.PLANE_HEIGHT, 
-		HALF_HEIGHT = HEIGHT / 2, 
-		QUART_WIDTH = WIDTH / 4, 
-		OFFSET_SMOKE_LEFT = (int) (WIDTH * .48f), 
-		OFFSET_SMOKE_RIGHT = (int) (WIDTH * .52f),
-		OFFSET_SMOKE = (int) (HEIGHT * 0.98f);
-	private static final int 
-		OFFSET_WEAPON_RIGHT = (int) (WIDTH - SmallFireball.HALF_WIDTH * 1.5f), 
-		OFFSET_WEAPON_LEFT = SmallFireball.HALF_WIDTH / 2, 
-		OFFSET_WEAPON_Y = HALF_HEIGHT - SmallFireball.HEIGHT;
+	public static final int PK = 8, HP = initHp(Stats.PLANE_HP, PK), HALF_HP = HP / 2, EXPLOSION_MIN_PARTICLES = initExplosion(55, PK), BASE_XP = Enemy.initXp(45, PK), XP = getXp(BASE_XP, 1);
+	public static final float WIDTH = Stats.PLANE_WIDTH, HALF_WIDTH = WIDTH / 2, HEIGHT = Stats.PLANE_HEIGHT, HALF_HEIGHT = HEIGHT / 2, QUART_WIDTH = WIDTH / 4, OFFSET_SMOKE_LEFT = (int) (WIDTH * .48f), 
+		OFFSET_SMOKE_RIGHT = (int) (WIDTH * .52f), OFFSET_SMOKE = (int) (HEIGHT * 0.98f), OFFSET_WEAPON_RIGHT = (int) (WIDTH - SmallFireball.HALF_WIDTH * 1.5f), OFFSET_WEAPON_LEFT = SmallFireball.HALF_WIDTH / 2, 
+		OFFSET_WEAPON_Y = HALF_HEIGHT - SmallFireball.HEIGHT, FIRERATE = initFirerate(0.8f, PK), INIT_NEXT_SHOT = initNextShot(1f, PK), SPEED = initSpeed(19, PK), HALF_SPEED = SPEED / 2;
 	public static final Pool<Plane> POOL = Pools.get(Plane.class);
-	public static final int PK = 8;
-	protected static final float 
-		FIRERATE = initFirerate(0.8f, PK),
-		INIT_NEXT_SHOT = initNextShot(1f, PK),
-		SPEED = initSpeed(19, PK), HALF_SPEED = SPEED / 2;
-	private static final int 
-		HP = initHp(Stats.PLANE_HP, PK),
-		HALF_HP = HP / 2,
-		EXPLOSION_MIN_PARTICLES = initExplosion(55, PK);
-	protected static final int BASE_XP = Enemy.initXp(45, PK);
-	private static final int XP = getXp(BASE_XP, 1);
 	private static final Pos POS = initPositionnement(Up.PK, PK);
 	protected static final Phase[] PHASES = {
 		new Phase(				Behavior.STRAIGHT_ON,				Gatling.SMALL_FIREBALL,				Shot.DOUBLE_SHOT_DOWN,				Animations.PLANE_GOOD				),
@@ -101,16 +81,16 @@ public class Plane extends Enemy {
 	}
 	
 	protected int getHalfHp() {							return HALF_HP;									}
-	@Override 	public float getFirerate() {			return FIRERATE;								}
 	@Override	public int getExplosionCount() {		return EXPLOSION_MIN_PARTICLES;					}
 	@Override	protected String getLabel() {			return getClass().toString();					}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion5;						}
 	@Override	public float getHalfHeight() {			return HALF_HEIGHT;								}
 	@Override	public float getDirectionY() {			return -getSpeed();								}
 	@Override	public float getHalfWidth() {			return HALF_WIDTH;								}
+	@Override 	public float getFirerate() {			return FIRERATE;								}
 	@Override	public void free() {					POOL.free(this);								}
-	@Override	public Phase[] getPhases() {			return PHASES;								}
 	@Override	public int getBonusValue() {			return BASE_XP;									}
+	@Override	public Phase[] getPhases() {			return PHASES;									}
 	@Override	public float getHeight() {				return HEIGHT;									}
 	@Override	public float getWidth() {				return WIDTH;									}
 	@Override	protected int getMaxHp() {				return HP;										}

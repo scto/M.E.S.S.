@@ -11,17 +11,12 @@ import com.badlogic.gdx.math.Vector2;
 
 import elements.generic.Player;
 
-/**
- * Sert � cr�er les projectiles de l'arme bleu, s'adapte suivant le niveau
- * et donne un effet de balayage
- * 
- * @author Julien
- */
 public class BlueSweepWeaponManager extends WeaponManager {
 
 	private static final Sound SOUND = Gdx.audio.newSound(Gdx.files.internal("sons/164102__bmaczero__laser.wav"));
 	private static final Vector2 DIR = new Vector2(0, 1);
 	private static float posX, posY;
+	private static int shoot;
 
 	public void init() {
 		if (EndlessMode.alternate)
@@ -29,13 +24,7 @@ public class BlueSweepWeaponManager extends WeaponManager {
 		posX = Player.xCenter - BlueSweepWeapon.halfWidth;
 		posY = Player.POS.y + Player.HEIGHT;
 
-		for (int i = 0; i < CSG.profile.NvArmeBalayage; i++) {
-			fire();
-		}
-	}
-
-	private void fire() {
-		for (int i = 0; i < 14; i++) {
+		for (int i = 0; i < shoot; i++) { 
 			DIR.x = 0;
 			DIR.y = 1;
 			DIR.rotate((float) (CSG.R.nextGaussian() * 6f));
@@ -44,23 +33,9 @@ public class BlueSweepWeaponManager extends WeaponManager {
 		}
 	}
 
-	@Override
-	public String getLabel() {
-		return BlueSweepWeapon.LABEL;
-	}
-
-	@Override
-	public float[] getColors() {
-		return BlueSweepWeapon.COLORS;
-	}
-
-	@Override
-	protected float getCadenceTir() {
-		return BlueSweepWeapon.FIRERATETIR;
-	}
-
-	@Override
-	public int nv() {
-		return CSG.profile.NvArmeBalayage;
-	}
+	@Override	public String getLabel() {				return BlueSweepWeapon.LABEL;				}
+	@Override	public float[] getColors() {			return BlueSweepWeapon.COLORS;				}
+	@Override	public int nv() {						return CSG.profile.NvArmeBalayage;			}
+	@Override	protected float getCadenceTir() {		return BlueSweepWeapon.FIRERATETIR;			}
+	public static void update() {						shoot = CSG.profile.NvArmeBalayage * 14;	}
 }

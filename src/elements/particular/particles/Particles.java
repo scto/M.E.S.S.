@@ -18,7 +18,7 @@ import elements.generic.weapons.player.PinkWeapon;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.generic.weapons.player.SunWeapon;
 import elements.generic.weapons.player.TWeapon;
-import elements.particular.bonuses.BonusBombe;
+import elements.particular.bonuses.Bomb;
 import elements.particular.particles.individual.Ghost;
 import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.SparklesColorOverTimeWide;
@@ -419,7 +419,7 @@ public class Particles {
 		}
 	}
 
-	public static void bomb(BonusBombe bonusBombe) {
+	public static void bomb(Bomb bonusBombe) {
 		
 		DebrisExplosion.bomb(bonusBombe, WHITE_SPARKLES_NOT_MOVING);
 	}

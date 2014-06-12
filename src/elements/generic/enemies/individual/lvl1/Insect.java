@@ -21,22 +21,10 @@ import elements.generic.weapons.Weapon;
 
 public class Insect extends Enemy {
 	
-	public static final int 
-		WIDTH = Stats.INSECT_WIDTH,  
-		HALF_WIDTH = WIDTH / 2;
-	public static final Pool<Insect> POOL = Pools.get(Insect.class);
-	public static final int PK = 5;
-	protected static final int BASE_XP = Enemy.initXp(86, PK);
-	protected static final float 
-		FIRERATE = initFirerate(1.5f, PK),
-		INIT_NEXT_SHOT = initNextShot(1, PK),
-		SPEED = initSpeed(Stats.INSECT_SPEED, PK);
-	private static final int 
-		HP = initHp(Stats.INSECT_HP, PK),
-		HALF_HP = HP / 2,
-		EXPLOSION = initExplosion(50, PK),
-		XP = getXp(BASE_XP, 1);
+	public static final int PK = 5, WIDTH = Stats.INSECT_WIDTH, HALF_WIDTH = WIDTH / 2, BASE_XP = Enemy.initXp(86, PK),	HP = initHp(Stats.INSECT_HP, PK), HALF_HP = HP / 2,	EXPLOSION = initExplosion(50, PK), XP = getXp(BASE_XP, 1);
 	private static final int GOOD_STRAIGHT = 0, BAD_STRAIGHT = 1, GOOD_ROTATE = 2, BAD_ROTATE = 3, GOOD_GO_AWAY = 4, BAD_GO_AWAY = 5;
+	public static final Pool<Insect> POOL = Pools.get(Insect.class);
+	protected static final float FIRERATE = initFirerate(1.5f, PK), INIT_NEXT_SHOT = initNextShot(1, PK), SPEED = initSpeed(Stats.INSECT_SPEED, PK);
 	private static final Phase[] PHASES = {
 		new Phase(				Behavior.STRAIGHT_ON,				Gatling.INSECT,				Shot.SHOTGUN,				Animations.INSECT_GOOD				), 
 		new Phase(				Behavior.STRAIGHT_ON,				Gatling.INSECT,				Shot.SHOTGUN,				Animations.INSECT_BAD				), 
@@ -98,16 +86,16 @@ public class Insect extends Enemy {
 	/**
 	 * Will set the dispersion angle and the speed randomness (is that even a word ?)
 	 */
-	@Override	public float getFloatFactor() {				return 24;	}
-	@Override	public float getFirerate() {				return FIRERATE;	}
+	@Override	public float getFloatFactor() {				return 24;															}
 	@Override	protected String getLabel() {				return getClass().toString();										}
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion5;											}
-	@Override	public Phase[] getPhases() {				return PHASES;														}
 	@Override	public float getHalfHeight() {				return HALF_WIDTH;													}
 	@Override	public float getHalfWidth() {				return HALF_WIDTH;													}
 	@Override	public int getExplosionCount() {			return EXPLOSION;													}
+	@Override	public float getFirerate() {				return FIRERATE;													}
 	@Override	public void free() {						POOL.free(this);													}
 	@Override	public int getBonusValue() {				return BASE_XP;														}
+	@Override	public Phase[] getPhases() {				return PHASES;														}
 	@Override	public float getDirectionY() {				return dir.y;														}
 	@Override	public float getDirectionX() {				return dir.x;														}
 	@Override	public float getAngle() {					return angle;														}
@@ -117,7 +105,6 @@ public class Insect extends Enemy {
 	@Override	public int getXp() {						return XP;															}
 	@Override	protected int getMaxHp() {					return HP;															}
 	@Override	public float getBulletSpeedMod() {			return 1;															}
-	@Override	public float getShootingAngle() {			return angle;	}
 	@Override
 	public boolean isTouched(Weapon a) {
 		if (hp < HALF_HP && index%2 == 0) {

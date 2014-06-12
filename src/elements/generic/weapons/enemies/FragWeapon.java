@@ -42,5 +42,4 @@ public class FragWeapon extends EnemyWeapon {
 	@Override	public void free() {					POOL.free(this);								}
 	@Override	public float getHalfHeight() {			return HALF_WIDTH;								}
 	@Override	public float getHalfWidth() {			return HALF_WIDTH;								}
-	@Override	public EnemyWeapon invoke() {			return POOL.obtain();	}
 }

@@ -43,7 +43,7 @@ public class MenuXP extends AbstractScreen{
 		ajout(new Button(OTHER_WEAP, false, CSG.menuFont, BUTTON_WIDTH, SMALL_BUTTON_HEIGHT,
 				(CSG.screenWidth / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.SCREEN_HEIGHT - Menu.BUTTON_HEIGHT * 4, this, new OnClick() {
 					public void onClick() {	
-						Player.changerArme();
+						Player.chqngeWeapon();
 						CSG.profilManager.persist();
 						updateTexteUpgrade();
 					}}, false));
@@ -84,10 +84,10 @@ public class MenuXP extends AbstractScreen{
 		ajout(boutonCadence);
 		Player.POS.y = CSG.SCREEN_HEIGHT / 3;
 		Player.POS.x = (CSG.screenWidth / 2) - Player.HALF_WIDTH; 
-		Player.rajoutAdd();
-		Player.rajoutAdd();
-		Player.rajoutAdd();
-		Player.rajoutAdd();
+		Player.addDrone();
+		Player.addDrone();
+		Player.addDrone();
+		Player.addDrone();
 		setRenderBackground(false);
 	}
 

@@ -42,7 +42,6 @@ public final class AssetMan implements AssetErrorListener {
 	}
 	
 	public void load() {
-		loadAtlas();
 		loadSounds();
 		loadMusics();
 		Texture.setAssetManager(MAN);
@@ -66,10 +65,6 @@ public final class AssetMan implements AssetErrorListener {
 		MAN.load("sons/xp.wav", Sound.class);
 		
 		MAN.load("sons/bonus.wav", Sound.class); // bruit quand prend bonus
-	}
-
-	private static void loadAtlas() {
-//		MAN.load("textures.atlas", TextureAtlas.class);
 	}
 
 	public boolean fini() {
@@ -138,7 +133,6 @@ public final class AssetMan implements AssetErrorListener {
 
 	private TextureAtlas getAtlas() {
 		if (atlas == null) {
-//			atlas = MAN.get("textures.atlas", TextureAtlas.class);
 			atlas = new TextureAtlas(Gdx.files.internal(ATLAS));
 		}
 		return atlas;
@@ -215,7 +209,6 @@ public final class AssetMan implements AssetErrorListener {
 	}
 
 	public static void resume() {
-		loadAtlas();
 		loadTextureRegions();
 		loadSounds();
 		loadMusics();

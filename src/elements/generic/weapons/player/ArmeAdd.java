@@ -80,24 +80,19 @@ public class ArmeAdd extends PlayerWeapon {
 		batch.setColor(AssetMan.WHITE);
 	}
 
-	@Override
-	public boolean mouvementEtVerif() {
-//		Particles.ajoutAdd(this);
-		return Physic.mvt(HEIGHT, WIDTH, dir, pos);
-	}
-
-	@Override	public float getWidth() {	return WIDTH;	}
-	@Override	public float getHeight() {	return HEIGHT;	}
-	@Override	public void free() {		POOL.free(this);	}
-	@Override	public float getColor() {	return COLORS[R.nextInt(COLORS.length)];	}
-	@Override	public float getHalfWidth() {		return HALF_WIDTH;	}
-	@Override	public float getHalfHeight() {		return HALF_HEIGHT;	}
+	@Override	public float getWidth() {			return WIDTH;													}
+	@Override	public float getHeight() {			return HEIGHT;													}
+	@Override	public void free() {				POOL.free(this);												}
+	@Override	public float getHalfWidth() {		return HALF_WIDTH;												}
+	@Override	public float getHalfHeight() {		return HALF_HEIGHT;												}
+	@Override	public float getColor() {			return COLORS[R.nextInt(COLORS.length)];						}	
+	@Override	public boolean mouvementEtVerif() {	return Physic.mvt(HEIGHT, WIDTH, dir, pos);						}
+	@Override	public float[] getColors() {		return PrecalculatedParticles.colorsOverTimeYellowToGreen;		}
 
 	public static void add(float x, float y, float angle, float decalage) {
 		POOL.obtain().init(x, y, angle + 90, decalage);
 	}
 	
-	@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeYellowToGreen;		}
 
 }
 

@@ -41,5 +41,9 @@ public interface PhaseUser {
 	float getMaxShotAngle();
 	void setShotWay(boolean way);
 	float getShotTotalAngle();
+	float getXMeter();
+	void setXMeter(float f);
+	float getYMeter();
+	void setYMeter(float f);
 
 }

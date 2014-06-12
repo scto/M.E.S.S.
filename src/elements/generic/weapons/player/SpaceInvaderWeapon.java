@@ -15,17 +15,12 @@ import elements.particular.particles.individual.weapon.SpaceInvaderParticle;
 
 public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 
-	public static final int width = CSG.screenWidth/6, halfWidth = width / 2, halfWidth3 = halfWidth*3, width2 = width*2, halfWidth5 = halfWidth*5, width3 = width * 3, halfWidth7 = halfWidth * 7, width4 = width * 4, particle = width / 10;
-	public static final int height = width * 3;
-	public final float color;
+	public static final int width = CSG.screenWidth/6, halfWidth = width / 2, halfWidth3 = halfWidth*3, width2 = width*2, halfWidth5 = halfWidth*5, width3 = width * 3, halfWidth7 = halfWidth * 7, width4 = width * 4, 
+			particle = width / 10, height = width * 3;
 	public static final float FIRERATETIR = initCadence(0.04f, 4);
 	public static final String LABEL = "SpaceInvaderWeapon";
-	public static final Pool<SpaceInvaderWeapon> POOL = new Pool<SpaceInvaderWeapon>(30) {
-		@Override
-		protected SpaceInvaderWeapon newObject() {
-			return new SpaceInvaderWeapon();
-		}
-	};
+	public static final Pool<SpaceInvaderWeapon> POOL = new Pool<SpaceInvaderWeapon>(30) {		protected SpaceInvaderWeapon newObject() {			return new SpaceInvaderWeapon();		}	};
+	public final float color;
 	public static final float[] COLORS = {
 		AssetMan.convertARGB(1, 0, 194f/255f, 97f/255f),
 		AssetMan.convertARGB(1, 0, 178f/255f, 88f/255f),
@@ -52,6 +47,7 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 		AssetMan.convertARGB(1, 0, 255f/255f, 203f/255f),
 		
 		AssetMan.convertARGB(1, 0, 254f/255f, 201f/255f)};
+	
 	public SpaceInvaderWeapon() {
 		color = COLORS[CSG.R.nextInt(COLORS.length)];
 	}
@@ -61,15 +57,15 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 		for (int i = 0; i <= EndlessMode.fps; i++)
 			SpaceInvaderParticle.init(this);
 	}
-	@Override	public float getWidth() {						return width;								}
-	@Override	public float getHeight() {					return width;								}
-	@Override	public void free() {						POOL.free(this);							}
-	@Override	public float getColor() {					return COLORS[R.nextInt(COLORS.length)];	}
-	@Override	public float getHalfWidth() {					return halfWidth;	}
-	@Override	public float getHalfHeight() {				return halfWidth;	}
-	@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeBlue;		}
-
-	public static Object getLabel() {			return LABEL;	}
+	@Override	public float getWidth() {				return width;															}
+	@Override	public float getHeight() {				return width;															}
+	@Override	public void free() {					POOL.free(this);														}
+	@Override	public float getHalfWidth() {			return halfWidth;														}
+	@Override	public float getHalfHeight() {			return halfWidth;														}
+	@Override	public float getColor() {				return COLORS[R.nextInt(COLORS.length)];								}
+	@Override	public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeBlue;						}
+	@Override	public int getPower() {					return (int) ((50f * (CSG.profile.NvSpaceInvadersWeapon/3f)) + 50f);	}
+	public static Object getLabel() {					return LABEL;															}
 
 	public void init(float x, float y) {
 		pos.x = x;
@@ -77,9 +73,5 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 		PLAYER_LIST.add(this);
 		dir.x = 0;
 		dir.y = Stats.V_ARME_SPACE_INVADER + (CSG.profile.NvSpaceInvadersWeapon * CSG.HEIGHT_DIV20);
-	}
-	@Override
-	public int getPower() {
-		return (int) ((50f * (CSG.profile.NvSpaceInvadersWeapon/2f)) + 50f);
 	}
 }

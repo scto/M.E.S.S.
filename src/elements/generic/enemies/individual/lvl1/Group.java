@@ -40,7 +40,7 @@ public class Group extends Enemy {
 		EXPLOSION = initExplosion(35, PK),
 		XP = getXp(BASE_XP, 1);
 	private static final Phase[] PHASES = {
-		new Phase(				Behavior.COMMA,				Gatling.TOURNANTE,				Shot.SHOT_EN_RAFALE,				Animations.ENNEMI_TOURNE				)		};
+		new Phase(				Behavior.COMMA,				Gatling.TOURNANTE,				Shot.SHOT_EN_RAFALE,				Animations.DIABOLO				)		};
 	private int shotNumber = 0;
 	
 	@Override
@@ -74,35 +74,38 @@ public class Group extends Enemy {
 		nextShot = INIT_NEXT_SHOT;
 		shotNumber = 0;
 	}
+	
 	@Override
 	public Vector2 getShootingDir() {
 		TMP_DIR.y = Tournante.SPEED * 2;
 		TMP_DIR.x = dir.x + Tournante.SPEED;//(now * 15);
 		return TMP_DIR;
 	}
-	@Override	public int getNumberOfShots() {							return 3;	}
-	@Override	public float getFirerate() {							return FIRERATE;							}
-	@Override	protected Sound getExplosionSound() {					return SoundMan.explosion6;	}
-	@Override	public int getXp() {									return XP;	}
-	@Override	public int getBonusValue() {							return BASE_XP;	}
-	@Override	public float getHeight() {								return WIDTH;	}
-	@Override	public float getWidth() {								return WIDTH;	}
-	@Override	public float getHalfHeight() {							return HALF_WIDTH;	}
-	@Override	public float getHalfWidth() {							return HALF_WIDTH;	}
-	@Override	protected int getMaxHp() {								return HP;	}
-	@Override	public void free() {									POOL.free(this);	}
-	@Override	public float getDirectionY() {							return -SPEED;	}
-	@Override	protected String getLabel() {							return getClass().toString();	}
-	@Override	public float getSpeed() {								return SPEED;	}
-	@Override	public float getShootingAngle() {						return 0;			}
+	
 	@Override	public Vector2 getShotPosition(int numeroTir) {
 		TMP_POS.x = pos.x + HALF_WIDTH - Tournante.HALF_WIDTH;
 		TMP_POS.y = pos.y + HALF_WIDTH - Tournante.HALF_WIDTH;
 		return TMP_POS;	
 	}
-	@Override	public float getBulletSpeedMod() {						return -0.012f;				}
-	@Override	public int getShotNumber() {							return shotNumber;		}
-	@Override	public void addShots(int i) {							shotNumber += i;			}
-	@Override	public int getExplosionCount() {						return EXPLOSION;									}
-	@Override	public Phase[] getPhases() {							return PHASES;		}
+	
+	@Override	protected String getLabel() {							return getClass().toString();	}
+	@Override	protected Sound getExplosionSound() {					return SoundMan.explosion6;		}
+	@Override	public float getHalfHeight() {							return HALF_WIDTH;				}
+	@Override	public float getHalfWidth() {							return HALF_WIDTH;				}
+	@Override	public int getShotNumber() {							return shotNumber;				}
+	@Override	public int getExplosionCount() {						return EXPLOSION;				}
+	@Override	public void free() {									POOL.free(this);				}
+	@Override	public void addShots(int i) {							shotNumber += i;				}
+	@Override	public float getFirerate() {							return FIRERATE;				}
+	@Override	public int getBonusValue() {							return BASE_XP;					}
+	@Override	public float getBulletSpeedMod() {						return -0.012f;					}
+	@Override	public float getDirectionY() {							return -SPEED;					}
+	@Override	public Phase[] getPhases() {							return PHASES;					}
+	@Override	public float getHeight() {								return WIDTH;					}
+	@Override	public float getWidth() {								return WIDTH;					}
+	@Override	public float getSpeed() {								return SPEED;					}
+	@Override	protected int getMaxHp() {								return HP;						}
+	@Override	public int getXp() {									return XP;						}
+	@Override	public float getShootingAngle() {						return 0;						}
+	@Override	public int getNumberOfShots() {							return 3;						}
 }

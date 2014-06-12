@@ -48,12 +48,12 @@ public class Wave {
 							wave14 = (int) (10000 * CSG.mulSCORE),
 							wave15 = (int) (13000 * CSG.mulSCORE);
 	
-	public static final Wave lvl1_3 = initWave(new Wave(		waveS3, 		ECART, 					false, 		SpawnEnemyPosition.lvl1_170, 			.25f, 	true,  800), 	1);
-	public static final Wave lvl1_170 = initWave(new Wave(		waveS173, 		ECART, 					false, 		SpawnEnemyPosition.lvl1_120, 			.25f, 	true,  wave7), 	2);
-	public static final Wave lvl1_290 =	initWave(new Wave(		wave3, 		(int) (ECART * 1.5f), 		false, 		SpawnEnemyPosition.lvl1_94, 			.25f, 	true,  wave7), 	3);
-	public static final Wave lvl1_385 = initWave(new Wave(		wave4, 		(int) (ECART * 1.5f), 		false, 		SpawnEnemyPosition.lvl1_60, 			.25f, 	true,  1250), 	4);
-	public static final Wave lvl1_445 = initWave(new Wave(		wave5, 		ECART, 					false, SpawnEnemyPosition.lvl1_83, 						.25f, 	true,  Progression.MAX), 	5);
-	public static final Wave lvl1_527 = initWave(new Wave(		wave6, 		ECART, 					false, SpawnEnemyPosition.lvl1_100, 			.25f, 	true,  1400), 	6);
+	public static final Wave lvl1_3 = new Wave(		waveS3, 		ECART, 					false, 		SpawnEnemyPosition.lvl1_170, 			.25f, 	true,  800);
+	public static final Wave lvl1_170 = new Wave(		waveS173, 		ECART, 					false, 		SpawnEnemyPosition.lvl1_120, 			.25f, 	true,  wave7);
+	public static final Wave lvl1_290 =	new Wave(		wave3, 		(int) (ECART * 1.5f), 		false, 		SpawnEnemyPosition.lvl1_94, 			.25f, 	true,  wave7);
+	public static final Wave lvl1_385 = new Wave(		wave4, 		(int) (ECART * 1.5f), 		false, 		SpawnEnemyPosition.lvl1_60, 			.25f, 	true,  1250);
+	public static final Wave lvl1_445 = new Wave(		wave5, 		ECART, 					false, SpawnEnemyPosition.lvl1_83, 						.25f, 	true,  Progression.MAX);
+	public static final Wave lvl1_527 = new Wave(		wave6, 		ECART, 					false, SpawnEnemyPosition.lvl1_100, 			.25f, 	true,  1400);
 	public static final Wave lvl1_1055 = new Wave(		wave7, 		(int) (ECART * 1.5f), 	false, SpawnEnemyPosition.lvl1_178, 			.25f, 	true,  Progression.MAX);
 	public static final Wave lvl1_1225 = new Wave(		wave8, 		(int) (ECART * 1.4f), 	false, SpawnEnemyPosition.lvl1_85, 			.25f, 	true,  2150);
 	public static final Wave lvl1_1310 = new Wave(		wave9, 		ECART * 2, 				false, SpawnEnemyPosition.lvl1_353, 			.25f, 	true,  Progression.MAX);
@@ -83,8 +83,18 @@ public class Wave {
 	public static final Wave lvl2_16000 = new Wave(		(int) (wave15*lvl2modif), 		(int) (ECART * 1.5f), 		false, SpawnEnemyPosition.satUpnDown, 		.25f*lvl2modif, 	CSG.R.nextBoolean(),  Progression.MAX);
 	
 	public static final float lvl3modif = 0.90f;
-	public static final Wave lvl3_3 = new Wave(			(int) (waveS3*lvl3modif), 		(int) (ECART*lvl3modif), 	false, SpawnEnemyPosition.lvl3_170, 			.25f*lvl3modif, 	true,  800);
-	public static final Wave lvl3_170 = new Wave(		(int) (waveS173*lvl3modif), 		(int) (ECART*lvl3modif), 	false, SpawnEnemyPosition.lvl3_120, 			.25f*lvl3modif, 	true,  wave7);
+	public static final Wave lvl3_3 =
+			Requests.getWave(7, 
+			new Wave(			(int) (waveS3*lvl3modif), 		(int) (ECART*lvl3modif), 	false, .25f*lvl3modif, 	true,  800, 
+			SpawnEnemyPosition.deBase3_12_89_b_b_deBase3_12_89,
+			SpawnEnemyPosition.break1,SpawnEnemyPosition.break1, SpawnEnemyPosition.break1, SpawnEnemyPosition.break1,  
+			SpawnEnemyPosition.zigZag3_sweep, 
+			SpawnEnemyPosition.break1, SpawnEnemyPosition.break1, SpawnEnemyPosition.break1, SpawnEnemyPosition.break1,
+			SpawnEnemyPosition.deBase3_Triangle,
+			SpawnEnemyPosition.break1, SpawnEnemyPosition.break1, SpawnEnemyPosition.break1, SpawnEnemyPosition.break1
+			) );
+//	public static final Wave lvl3_3 = new Wave(			(int) (waveS3*lvl3modif), 		(int) (ECART*lvl3modif), 	false, SpawnEnemyPosition.lvl3_170, 			.25f*lvl3modif, 	true,  800);
+	public static final Wave lvl3_170 = new Wave(		(int) (waveS173*lvl3modif), 	(int) (ECART*lvl3modif), 	false, SpawnEnemyPosition.lvl3_120, 			.25f*lvl3modif, 	true,  wave7);
 	public static final Wave lvl3_290 = new Wave(		(int) (wave3*lvl3modif), 		(int) (ECART * 1.4f), 		false, SpawnEnemyPosition.lvl3_94, 			.25f*lvl3modif, 	true,  wave7);
 	public static final Wave lvl3_385 = new Wave(		(int) (wave4*lvl3modif), 		(int) (ECART * 1.4f), 		false, SpawnEnemyPosition.lvl3_60, 			.25f*lvl3modif, 	true,  1250);
 	public static final Wave lvl3_445 = new Wave(		(int) (wave5*lvl3modif), 		(int) (ECART*lvl3modif), 	false, SpawnEnemyPosition.lvl3_83, 			.25f*lvl3modif, 	true,  Progression.MAX); // 3 boules
@@ -141,6 +151,35 @@ public class Wave {
 		this.scoreMin = scoreMin;
 		this.lignes = phases;
 		initCptPhase();
+	}
+	
+	public Wave(int scoreMin, int espaceActivation, boolean boos, float freq, boolean ordered, int maxScore, SpawnEnemyPosition[]... phases) {
+		super();
+		this.nextActivation = scoreMin;
+		this.boss = boos;
+		this.freqSpawn = freq;
+		this.espaceActivation = espaceActivation;
+		this.ordered = CSG.R.nextBoolean();
+		this.maxScore = maxScore;
+		this.scoreMin = scoreMin;
+		this.lignes = convert(phases);
+		System.out.println("Number of lines : " + lignes.length);
+		initCptPhase();
+	}
+
+	private SpawnEnemyPosition[] convert(SpawnEnemyPosition[]... phases) {
+		int size = 0;
+		for (SpawnEnemyPosition[] spawnEnemyPositions : phases) {
+			size += spawnEnemyPositions.length;
+		}
+		SpawnEnemyPosition[] rep = new SpawnEnemyPosition[size];
+		int i = 0;
+		for (SpawnEnemyPosition[] spawnEnemyPosition : phases) {
+			for (SpawnEnemyPosition sep : spawnEnemyPosition) {
+				rep[i++] = sep;
+			}
+		}
+		return rep;
 	}
 
 	private static Wave initWave(Wave wave, int pk) {

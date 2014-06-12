@@ -150,19 +150,19 @@ public class Physic {
 	
 	public static boolean isAddTouched(final Vector2 pos, final float width, final float height) {
 		collision = false;
-		if (Player.leftAdd && Physic.isPointInRect(Player.centerLeft1AddX, Player.centerAdd1Y, pos, width, height)) {
+		if (Player.leftDrone && Physic.isPointInRect(Player.centerLeft1AddX, Player.centerAdd1Y, pos, width, height)) {
 			Player.removeLeftAdd1();
 			collision = true;
 		}
-		if (Player.rightAdd && Physic.isPointInRect(Player.centerRight1AddX, Player.centerAdd1Y, pos, width, height))	{
+		if (Player.rightDrone && Physic.isPointInRect(Player.centerRight1AddX, Player.centerAdd1Y, pos, width, height))	{
 			Player.enleverAddDroite1();
 			collision = true;
 		}
-		if (Player.leftAdd2 && Physic.isPointInRect(Player.centerLeft2AddX, Player.centerAdd2Y, pos, width, height)) {
+		if (Player.leftDrone2 && Physic.isPointInRect(Player.centerLeft2AddX, Player.centerAdd2Y, pos, width, height)) {
 			Player.removeLeftAdd2();
 			collision = true;
 		}
-		if (Player.rightAdd2 && Physic.isPointInRect(Player.centerRight2AddX, Player.centerAdd2Y, pos, width, height)) {
+		if (Player.rightDrone2 && Physic.isPointInRect(Player.centerRight2AddX, Player.centerAdd2Y, pos, width, height)) {
 			Player.enleverAddDroite2();
 			collision = true;
 		}
@@ -217,7 +217,7 @@ public class Physic {
 		return tmpPos.len();
 	}
 
-	public static void stayOnScreen(Vector2 pos, int width) {
+	public static void stayOnScreen(Vector2 pos, float width) {
 		if (pos.x < 0)
 			pos.x += EndlessMode.delta15;
 		else if (pos.x + width > CSG.gameZoneWidth)
@@ -231,7 +231,7 @@ public class Physic {
 		return false;
 	}
 
-	public static boolean isLeft(Vector2 pos, int halfWidth) {
+	public static boolean isLeft(Vector2 pos, float halfWidth) {
 		return (pos.x + halfWidth < CSG.gameZoneHalfWidth); 
 	}
 }

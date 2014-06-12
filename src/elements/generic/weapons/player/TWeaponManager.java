@@ -79,16 +79,13 @@ public class TWeaponManager extends WeaponManager {
 		TWeapon.POOL.obtain().init(posX, posY);
 	}
 
-	@Override
-	public String getLabel() {				return TWeapon.LABEL;			}
-	@Override
-	public float[] getColors() {			return TWeapon.COLORS;			}
+	@Override	public String getLabel() {				return TWeapon.LABEL;				}
+	@Override	public float[] getColors() {			return TWeapon.COLORS;				}
+	@Override	public int nv() {						return CSG.profile.NvArmeHantee;	}
 	@Override
 	protected float getCadenceTir() {
 		if (CSG.profile.NvArmeHantee == 8)
 			return TWeapon.FIRERATETIRLVL8;
 		return TWeapon.FIRERATETIR;		
 	}
-	@Override
-	public int nv() {						return CSG.profile.NvArmeHantee;	}
 }

@@ -24,26 +24,23 @@ public final class Player {
 		HEIGHT = (int) ((float)WIDTH * 1.2f), HALF_HEIGHT = HEIGHT / 2, HEIGHT_MAX_ADD = HEIGHT + HALF_HEIGHT, HALF_HEIGHT_ADD = HEIGHT / 8, HEIGHT_DIV4 = HEIGHT / 4, HEIGHT_DIV8 = HEIGHT/8,
 		DECALAGE_ADD = WIDTH + HALF_WIDTH - WIDTH_ADD,
 		DECALAGE_TIR_ADD_X_GAUCHE = -HALF_WIDTH - HALF_WIDTH_ADD + ArmeAdd.HALF_WIDTH,
-		DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - HALF_WIDTH_ADD + ArmeAdd.HALF_WIDTH;
-	private static final int LIMITE_X_GAUCHE = 0 - HALF_WIDTH, LIMITE_X_DROITE = CSG.gameZoneWidth - HALF_WIDTH, LIMITE_Y_GAUCHE = 0 - HALF_HEIGHT, LIMITE_Y_DROITE = CSG.SCREEN_HEIGHT - HALF_HEIGHT;
+		DECALAGE_TIR_ADD_X_DROITE = DECALAGE_ADD - HALF_WIDTH_ADD + ArmeAdd.HALF_WIDTH,
+		LIMITE_X_GAUCHE = 0 - HALF_WIDTH, LIMITE_X_DROITE = CSG.gameZoneWidth - HALF_WIDTH, LIMITE_Y_GAUCHE = 0 - HALF_HEIGHT, LIMITE_Y_DROITE = CSG.SCREEN_HEIGHT - HALF_HEIGHT,
+		LEFT_ADD1 = 0x0001, LEFT_ADD2 = 0x0002, RIGHT_ADD1 = 0x0004, RIGHT_ADD2 = 0x0008;
 	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.screenWidth + CSG.SCREEN_HEIGHT) / 600;
-	private static float vitesseMax = 0;
+	public static float xCenter = 0, yCenter = 0, nextShot = 0, nextShotAdd = 0, vitesseMax = 0, prevX, prevY, destX, destY, addX, addY, centerLeft1AddX, centerAdd1Y, centerRight1AddX, centerLeft2AddX, centerAdd2Y,
+			centerRight2AddX, vitesseFoisdelta = 0, tmpCalculDeplacement = 0, originalAccelX = 0, originalAccelY = 0, angleAdd = -90, angleAddDroite = -90, camXmoinsDemiEcran = CSG.screenHalfWidth;
 	public static WeaponManager weapon = CSG.profile.getArmeSelectionnee();
-	public static float xCenter = 0, yCenter = 0, nextShot = 0, nextShotAdd = 0;
+	private static final OvaleParticuleGenerator bouclierParticules = new OvaleParticuleGenerator(HEIGHT * 2);
+	private static boolean shieldHS = false;
 	public static final Vector2 POS = new Vector2();
-	public static float prevX, prevY, destX, destY;
-	private static float vitesseFoisdelta = 0, tmpCalculDeplacement = 0, originalAccelX = 0, originalAccelY = 0;
-	public static boolean leftAdd = false, rightAdd = false, leftAdd2 = false, rightAdd2 = false;
-	public static float addX, addY, centerLeft1AddX, centerAdd1Y, centerRight1AddX, centerLeft2AddX, centerAdd2Y, centerRight2AddX;
-	public static boolean alterner = true;
-	public static float angleAdd = -90, angleAddDroite = -90;
+	public static boolean leftDrone = false, rightDrone = false, leftDrone2 = false, rightDrone2 = false, alterner = true;
 //	public static boolean bouclier = false;
-	public static int bouclier = 0;
-	public static float alphaShield = .5f;
-	private float shotTime = 0;
+	public static int shield = 0;
+	public static float alphaShield = .5f, tpsBouclierHs = 0;
+	private float r = 1, g = 1, b = 1, shotTime = 0;
 	private boolean sensAlpha = true;
-	private int addShotNbr = 0;
-	private final static int LEFT_ADD1 = 0x0001, LEFT_ADD2 = 0x0002, RIGHT_ADD1 = 0x0004, RIGHT_ADD2 = 0x0008;
+	private int addShotNbr = 0, cpt = 0;
 //	private PointLight light = new PointLight(CSG.rayHandler, 32);
 	
 	public Player() {
@@ -56,12 +53,12 @@ public final class Player {
 	 */
 	public void initialiser() {
 //		bouclier = false;
-		bouclier = 0;
+		shield = 0;
 		reInit();
-		rightAdd2 = false;
-	    rightAdd = false;
-	    leftAdd2 = false;
-	    leftAdd = false;
+		rightDrone2 = false;
+	    rightDrone = false;
+	    leftDrone2 = false;
+	    leftDrone = false;
 	    angleAdd = 80;
 	    nextShotAdd = 0;
 	}
@@ -82,15 +79,10 @@ public final class Player {
 			originalAccelX = Gdx.input.getAccelerometerX();
 			originalAccelY = Gdx.input.getAccelerometerY();
 		}
-		bouclierHS = false;
+		shieldHS = false;
 		tpsBouclierHs = 0;
 	}
 	
-	private static final OvaleParticuleGenerator bouclierParticules = new OvaleParticuleGenerator(HEIGHT * 2);
-	private static boolean bouclierHS = false;
-	private static float tpsBouclierHs = 0;
-	private float r = 1, g = 1, b = 1;
-	private int cpt = 0;
 	public void draw(SpriteBatch batch) {
 		Particles.addThrusterParticles(this);
 		if (CSG.alternateGraphics) {
@@ -108,16 +100,16 @@ public final class Player {
 		}
 		
 		shield(batch);
-		if (leftAdd) 	batch.draw(AssetMan.addShip, addX - HALF_WIDTH, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
-		if (rightAdd) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
-		if (leftAdd2) 	batch.draw(AssetMan.addShip, addX - WIDTH, 						addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
-		if (rightAdd2) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD + HALF_WIDTH, 	addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
+		if (leftDrone) 	batch.draw(AssetMan.addShip, addX - HALF_WIDTH, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
+		if (rightDrone) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
+		if (leftDrone2) 	batch.draw(AssetMan.addShip, addX - WIDTH, 						addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
+		if (rightDrone2) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD + HALF_WIDTH, 	addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
 		// ** ** A D D S
 		if (shotTime > 0) {
-			if (leftAdd)	batch.draw(AssetMan.addShipShot, addX - HALF_WIDTH, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
-			if (leftAdd2) 	batch.draw(AssetMan.addShipShot, addX - WIDTH, 						addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
-			if (rightAdd)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
-			if (rightAdd2)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD + HALF_WIDTH, 	addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
+			if (leftDrone)	batch.draw(AssetMan.addShipShot, addX - HALF_WIDTH, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
+			if (leftDrone2) 	batch.draw(AssetMan.addShipShot, addX - WIDTH, 						addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
+			if (rightDrone)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
+			if (rightDrone2)	batch.draw(AssetMan.addShipShot, addX + DECALAGE_ADD + HALF_WIDTH, 	addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
 			shotTime -= EndlessMode.delta;
 			if (shotTime < 0)
 				addShotNbr = 0x0000;
@@ -125,19 +117,19 @@ public final class Player {
 	}
 
 	private void shield(SpriteBatch batch) {
-		if (bouclier > 0) {
+		if (shield > 0) {
 //			Shield.drawShield(batch);
 			bouclierParticules.add(xCenter , yCenter - Stats.u);
 			colorShield();
 //			batch.draw(AssetMan.shield, POS.x - WIDTH * 1.45f, POS.y - WIDTH * 1.45f, HALF_WIDTH * mul, HALF_WIDTH * mul, WIDTH * mul, WIDTH * mul, 1, 1, shieldAngle);
 //			shieldAngle += 20;
 //			Shield.drawAndExpand(batch);
-		} else if (bouclierHS) {
+		} else if (shieldHS) {
 //			Shield.drawAndExpand(batch);
 			colorShield();
 			tpsBouclierHs += EndlessMode.delta;
 			if (tpsBouclierHs > 1f)
-				bouclierHS = false;
+				shieldHS = false;
 			bouclierParticules.grow(EndlessMode.unPlusDelta3);
 			bouclierParticules.add(xCenter , yCenter - Stats.u);
 		}
@@ -161,12 +153,7 @@ public final class Player {
 	}
 	
 	private float clicX = 0, clicY = 0, originalClicX = CSG.gameZoneHalfWidth, originalClicY = CSG.halfHeight, wantedMvtX, wantedMvtY, chronoDroit;
-	/**
-	 * Fait aller le vaisseau � l'endroit cliqu�.
-	 * Si il peut se teleporter il y va directement -- Sinon il se d�place suivant sa vitesse max
-	 */
-	public static float camXmoinsDemiEcran = //EndlessMode.getCam().position.x - 
-			CSG.screenHalfWidth;
+
 	public void mouvements() {
 		xCenter = POS.x + HALF_WIDTH;
 		yCenter = POS.y + HALF_HEIGHT;
@@ -217,23 +204,14 @@ public final class Player {
 			
 			if (wantedMvtX > 0) {
 				chronoDroit = 0;
-				AnimPlayer.versLaGauche();
-				
-//				tmp = (EndlessMode.getCam().position.x + CSG.screenHalfWidth) - xCenter;
-//				if (EndlessMode.getCam().position.x > CSG.screenHalfWidth) {
-//					EndlessMode.getCam().position.x -= tmp * EndlessMode.delta;
-//				}
+				AnimPlayer.toLeft();
 			} else if (wantedMvtX < 0) { 
-				
-//				if (xCenter > EndlessMode.getCam().position.x) {
-//					EndlessMode.getCam().position.x += tmp * EndlessMode.delta;
-//				}
-				AnimPlayer.versLaDroite();
+				AnimPlayer.toRight();
 				chronoDroit = 0; 
 			} else {
 				chronoDroit += EndlessMode.delta;
 				if (chronoDroit > 0.3f)
-					AnimPlayer.droit();
+					AnimPlayer.straight();
 			}
 			originalClicX = getTouchX();
 			originalClicY = getTouchY();
@@ -254,7 +232,7 @@ public final class Player {
 
 		tmpCalculDeplacement = ((x * x) + (y * y)) * EndlessMode.delta * EndlessMode.delta;
 		if(tmpCalculDeplacement < DEGRE_PRECISION_DEPLACEMENT){
-			AnimPlayer.droit();
+			AnimPlayer.straight();
 			return;
 		}
 		tmpCalculDeplacement = (float) Math.sqrt(tmpCalculDeplacement);
@@ -267,12 +245,9 @@ public final class Player {
 		} 
 		
 		if (x < 0) {
-			AnimPlayer.versLaGauche();
-//			EndlessMode.mvtCamPositive(EndlessMode.delta * x * 0.35f);
-		}
-		if (x > 0) {
-			AnimPlayer.versLaDroite();
-//			EndlessMode.mvtCamNegative(EndlessMode.delta * x * 0.35f);
+			AnimPlayer.toLeft();
+		} else if (x > 0) {
+			AnimPlayer.toRight();
 		}
 		
 		POS.x += (x * EndlessMode.delta);
@@ -355,25 +330,25 @@ public final class Player {
 		// ** ** A D D S
 		if (EndlessMode.now > nextShotAdd) {
 			shotTime += ArmeAdd.FIRERATETIR / 10f;
-			if (leftAdd) {
+			if (leftDrone) {
 				addShotNbr = addShotNbr | LEFT_ADD1;
 				ArmeAdd.add(addX - HALF_WIDTH, addY - HALF_HEIGHT, angleAdd, 0);
 				if (CSG.profile.cadenceAdd > 3)
 					ArmeAdd.add(addX - HALF_WIDTH, addY - HALF_HEIGHT, angleAdd, 10);
 			}
-			if (rightAdd) {
+			if (rightDrone) {
 				addShotNbr = addShotNbr | RIGHT_ADD1;
 				ArmeAdd.add(addX + DECALAGE_ADD, addY - HALF_HEIGHT, angleAddDroite, 0);
 				if (CSG.profile.cadenceAdd > 3)
 					ArmeAdd.add(addX + DECALAGE_ADD, addY - HALF_HEIGHT, angleAddDroite, -10);
 			}
-			if (leftAdd2) {
+			if (leftDrone2) {
 				addShotNbr = addShotNbr | LEFT_ADD2;
 				ArmeAdd.add(addX - WIDTH, addY - HEIGHT, angleAdd, 0);
 				if (CSG.profile.cadenceAdd > 6)
 					ArmeAdd.add(addX - WIDTH, addY - HEIGHT, angleAdd, 10);
 			}
-			if (rightAdd2) {
+			if (rightDrone2) {
 				addShotNbr = addShotNbr | RIGHT_ADD2;
 				ArmeAdd.add(addX + DECALAGE_ADD + HALF_WIDTH, addY - HEIGHT, angleAddDroite, 0);
 				if (CSG.profile.cadenceAdd > 6)
@@ -383,14 +358,14 @@ public final class Player {
 		}
 	}
 	
-	public static void rajoutAdd() {
-		if (!Player.leftAdd)			leftAdd = true;
-		else if (!Player.rightAdd)		rightAdd = true;
-		else if (!Player.leftAdd2)		leftAdd2 = true;
-		else if (!Player.rightAdd2)		rightAdd2 = true;
+	public static void addDrone() {
+		if (!Player.leftDrone)				leftDrone = true;
+		else if (!Player.rightDrone)		rightDrone = true;
+		else if (!Player.leftDrone2)		leftDrone2 = true;
+		else if (!Player.rightDrone2)		rightDrone2 = true;
 	}
 	
-	public static void changerArme(){
+	public static void chqngeWeapon(){
 		weapon = WeaponManager.changerArme(weapon);
 		CSG.profile.setArmeSelectionnee(weapon.getLabel());
 	}
@@ -399,8 +374,8 @@ public final class Player {
 		if (EndlessMode.konamiCode)
 			return;
 //		if (!bouclier) {
-		if (bouclier == 0) {
-			if (!bouclierHS)
+		if (shield == 0) {
+			if (!shieldHS)
 				EndlessMode.lost();
 		} else {
 			popOutShield();
@@ -415,32 +390,32 @@ public final class Player {
 
 	public static void removeLeftAdd1() {
 		Particles.explosionGreen(addX - HALF_WIDTH, addY - HALF_HEIGHT, 10);
-		leftAdd = false;
+		leftDrone = false;
 	}
 	public static void enleverAddDroite1() {	
 		Particles.explosionGreen(addX + DECALAGE_ADD, addY - HALF_HEIGHT, 10);
-		rightAdd = false;	
+		rightDrone = false;	
 	}
 	public static void removeLeftAdd2() {	
 		Particles.explosionGreen(addX - WIDTH, addY - HEIGHT, 10);
-		leftAdd2 = false;	
+		leftDrone2 = false;	
 	}
 	public static void enleverAddDroite2() {	
 		Particles.explosionGreen(addX + DECALAGE_ADD + HALF_WIDTH, addY - HEIGHT, 10);
-		rightAdd2 = false;
+		rightDrone2 = false;
 	}
 
 	public static void activateShield() {
 		bouclierParticules.init(HEIGHT);
 //		bouclier = true;
-		bouclier++;
-		bouclierParticules.lvlChanged(bouclier);
+		shield++;
+		bouclierParticules.lvlChanged(shield);
 	}
 
 	public static void touchedEnnemy(Enemy enemy) {
 //		if (!bouclier) {
-		if (bouclier == 0) {
-			if (!bouclierHS)
+		if (shield == 0) {
+			if (!shieldHS)
 				EndlessMode.lost();
 		} else {
 			popOutShield();
@@ -450,12 +425,12 @@ public final class Player {
 	
 	private static void popOutShield() {
 		EndlessMode.transition.activate(10);
-		bouclierHS = true;
+		shieldHS = true;
 		tpsBouclierHs = 0;
 		SoundMan.playBruitage(SoundMan.bigExplosion);
 //		bouclier = false;
-		bouclierParticules.lvlChanged(bouclier);
-		bouclier--;
+		bouclierParticules.lvlChanged(shield);
+		shield--;
 	}
 
 }

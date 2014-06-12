@@ -21,11 +21,9 @@ import elements.generic.weapons.enemies.LaserWeapon;
 
 public class Laser extends Enemy {
 	
-	private static final int 
-		WIDTH = Stats.LASER_WIDTH,
-		HALF_WIDTH = WIDTH/2;
-	public static final Pool<Laser> POOL = Pools.get(Laser.class);
 	public static final int PK = 7;
+	private static final int WIDTH = Stats.LASER_WIDTH, HALF_WIDTH = WIDTH/2;
+	public static final Pool<Laser> POOL = Pools.get(Laser.class);
 	protected static final int BASE_XP = Enemy.initXp(32, PK);
 	protected static final float 
 		FIRERATE = initFirerate(0.5f, PK),
@@ -84,10 +82,10 @@ public class Laser extends Enemy {
 	 */
 	@Override	public float getFloatFactor() {
 		if (left)
-			return 4;
-		return -4;
+			return 4.5f;
+		return -4.5f;
 	}
-	@Override	public Phase[] getPhases() {			return PHASES;						}
+	
 	@Override	protected String getLabel() {			return getClass().toString();						}		
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion5;							}
 	@Override	public float getHalfHeight() {			return HALF_WIDTH;									}
@@ -97,7 +95,9 @@ public class Laser extends Enemy {
 	@Override	public float getShootingAngle() {		return angle+90;									}
 	@Override	public void free() {					POOL.free(this);									}
 	@Override	public float getRotation() {			return rotation;									}
+	@Override	public float getFirerate() {			return FIRERATE;									}
 	@Override	public int getBonusValue() {			return BASE_XP;										}
+	@Override	public Phase[] getPhases() {			return PHASES;										}
 	@Override	public float getBulletSpeedMod() {		return 0.010f;										}
 	@Override	public float getHeight() {				return WIDTH;										}
 	@Override	public float getWidth() {				return WIDTH;										}
@@ -109,8 +109,5 @@ public class Laser extends Enemy {
 	@Override	public Vector2 getShootingDir() {		return dir;											}
 	@Override	public int getXp() {					return XP;											}
 	@Override	protected int getMaxHp() {				return HP;											}
-	@Override	public float getFirerate() {			return FIRERATE;									}
-	public float getPhaseDuration() {
-		return PHASE_DURATION;
-	}
+	public float getPhaseDuration() {					return PHASE_DURATION;								}
 }

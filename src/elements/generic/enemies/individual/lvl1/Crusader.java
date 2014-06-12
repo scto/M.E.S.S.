@@ -21,25 +21,10 @@ import elements.generic.weapons.player.PlayerWeapon;
 
 public class Crusader extends Enemy {
 	
-	private static final int 
-		WIDTH = Stats.CRUSADER_WIDTH,
-		HALF_WIDTH = WIDTH/2, 
-		HEIGHT = Stats.CRUSADER_HEIGHT, 
-		HALF_HEIGHT = HEIGHT / 2; 
+	public static final int PK = 9, WIDTH = Stats.CRUSADER_WIDTH, HALF_WIDTH = WIDTH/2, HEIGHT = Stats.CRUSADER_HEIGHT, HALF_HEIGHT = HEIGHT / 2, BASE_XP = Enemy.initXp(91, PK), HP = initHp(Stats.CRUASER_HP, PK),
+			HALF_HP = HP/2, EXPLOSION = initExplosion(40, PK),	XP = getXp(BASE_XP, 1);
 	public static final Pool<Crusader> POOL = Pools.get(Crusader.class);
-	public static final int PK = 9;
-	protected static final int BASE_XP = Enemy.initXp(91, PK);
-	protected static final float 
-		FIRERATE = initFirerate(.4f, PK), 
-		INIT_NEXT_SHOT = initNextShot(3, PK);
-	protected static final float 
-		SPEED = initSpeed(4, PK),
-		ROTATION_BETWEEN_SHOTS = 4;
-	private static final int 
-		HP = initHp(Stats.CRUASER_HP, PK), 
-		HALF_HP = HP/2,
-		EXPLOSION = initExplosion(40, PK),
-		XP = getXp(BASE_XP, 1);
+	protected static final float FIRERATE = initFirerate(.4f, PK), INIT_NEXT_SHOT = initNextShot(3, PK), SPEED = initSpeed(4, PK), ROTATION_BETWEEN_SHOTS = 4;
 	private static final Pos POS = initPositionnement(UpWide.PK, PK);
 	private static final Phase[] PHASES = {
 		new Phase(				Behavior.STRAIGHT_ON,				Gatling.KINDER_WEAPON,				Shot.SHOT_EN_RAFALE_LEFT_RIGHT,				Animations.BLUE_CRUSADER_GOOD				),
@@ -85,26 +70,26 @@ public class Crusader extends Enemy {
 		return super.stillAlive(p);
 	}
 	
-	@Override	public int getNumberOfShots() {				return 3;	}
-	@Override	public float getFirerate() {				return FIRERATE;							}
 	@Override	protected String getLabel() {				return getClass().toString();												}
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion6;													}
 	@Override	public float getShootingAngle() {			return shootingAngle;														}
 	@Override	public float getHalfHeight() {				return HALF_HEIGHT;															}
-	@Override	public float getHalfWidth() {					return HALF_WIDTH;															}
+	@Override	public float getHalfWidth() {				return HALF_WIDTH;															}
 	@Override	public int getShotNumber() {				return shotNumber;															}
 	@Override	public int getExplosionCount() {			return EXPLOSION;															}
-	@Override	public Phase[] getPhases() {				return PHASES;															}
+	@Override	public float getFirerate() {				return FIRERATE;															}
 	@Override	public void free() {						POOL.free(this);															}
 	@Override	public void addShots(int i) {				shotNumber += i;															}
 	@Override	public int getBonusValue() {				return BASE_XP;																}
+	@Override	public Phase[] getPhases() {				return PHASES;																}
 	@Override	public float getDirectionY() {				return -SPEED;																}
 	@Override	public float getHeight() {					return HEIGHT;																}
-	@Override	public float getWidth() {						return WIDTH;																}
+	@Override	public float getWidth() {					return WIDTH;																}
 	@Override	public float getSpeed() {					return SPEED;																}
 	@Override	public int getColor() {						return BLUE;																}
 	@Override	protected int getMaxHp() {					return HP;																	}
 	@Override	public int getXp() {						return XP;																	}
+	@Override	public int getNumberOfShots() {				return 3;																	}
 	@Override	public float getBulletSpeedMod() {			return 1;																	}
 	protected int getPallierPv() {							return HALF_HP;																}
 }

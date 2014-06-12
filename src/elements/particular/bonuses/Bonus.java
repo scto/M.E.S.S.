@@ -20,23 +20,18 @@ public abstract class Bonus {
 	public static final Array<Bonus> LIST = new Array<Bonus>(40), TAKEN = new Array<Bonus>(16);
 	public static final Array<XP> XP_LIST = new Array<XP>(40);
 	public final Vector2 pos = new Vector2();
-	public static final int WIDTH = (int) Stats.BONUS_WIDTH;
-	public static final int HALF_WIDTH = (int) (Stats.BONUS_WIDTH / 2), WIDTH_MUL2 = WIDTH * 2, DISPLAY_WIDTH = (int) (WIDTH * 1.8f);
-	protected static final float HITBOX = HALF_WIDTH;
-	protected static final float HITBOX_TOP_RIGHT = (HITBOX * 2) + WIDTH;
+	public static final int WIDTH = (int) Stats.BONUS_WIDTH, HALF_WIDTH = (int) (Stats.BONUS_WIDTH / 2), WIDTH_MUL2 = WIDTH * 2, DISPLAY_WIDTH = (int) (WIDTH * 1.8f), HITBOX = HALF_WIDTH, HITBOX_TOP_RIGHT = (HITBOX * 2) + WIDTH;
 	protected static final int TIME_FREQ = 9, 
 			ADD_FREQ = (TIME_FREQ * 2)+1, 
 			BOMB_FREQ = (int) ((TIME_FREQ * 5.9f)+26), 
 			STOP_FREQ = (int) ((TIME_FREQ * 6.7f)+50), 
 			SHIELD_FREQ = (int) ((TIME_FREQ * 3.8f)+1);
 	protected static final float INCREASE_FREQ = 1.35f;
-	public static int cptBonus = 1;
+	protected static int cptBonus = 1, tmpXp;
 	public static final int XPMINN = 10, XPMIN2 = XPMINN * 2;
-	private float timeTaken;
 	private static float tmp, tmpY;
 	private static final float TRANSPARENCE = AssetMan.convertARGB(0.45f, .8f, 1, 1);
-	protected static boolean alternate = false;
-	private static int tmpXp;
+	private float timeTaken;
 	
 	/**
 	 * Affiches tous les bonus, les fait tourner et test la collision avec le joueur
@@ -63,7 +58,6 @@ public abstract class Bonus {
 				b.free();
 			}
 		}
-		alternate = !alternate;
 	}
 
 	private void detectPris() {
@@ -100,10 +94,10 @@ public abstract class Bonus {
 		Bonus.XP_LIST.clear();
 		Bonus.TAKEN.clear();
         Bonus.LIST.clear();
-        BonusAdd.resetStats();
-        BonusStop.resetStats();
-        BonusBombe.resetStats();
-        BonusBouclier.resetStats();
+        Drone.resetStats();
+        TimeStop.resetStats();
+        Bomb.resetStats();
+        Shield.resetStats();
 	}
 	
 	/**
@@ -116,10 +110,10 @@ public abstract class Bonus {
 		cptBonus += e.getBonusValue();
 		tmp = e.pos.x + e.getHalfWidth();
 		tmpY = e.pos.y + e.getHalfHeight();
-		BonusAdd.mightAppear(tmp, tmpY);
-		BonusStop.mightAppear(tmp, tmpY);
-		BonusBombe.mightAppear(tmp, tmpY);
-		BonusBouclier.mightAppear(tmp, tmpY);
+		Drone.mightAppear(tmp, tmpY);
+		TimeStop.mightAppear(tmp, tmpY);
+		Bomb.mightAppear(tmp, tmpY);
+		Shield.mightAppear(tmp, tmpY);
 		
 		addXp(e.getXp(), tmp, tmpY);
 	}

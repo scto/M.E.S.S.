@@ -30,14 +30,14 @@ public class Ball extends Enemy {
 		SPEED = initSpeed(40, PK);
 	protected static final int BASE_XP = Enemy.initXp(12, PK);
 	private static final int 
-		HP = initHp(Stats.HP_BOULE, PK),
+		HP = initHp(Stats.HP_BALL, PK),
 		EXPLOSION = initExplosion(35, PK),
 		XP = getXp(BASE_XP, PK),
 		WIDTH = Stats.BALL_WIDTH,
 		HALF_WIDTH = WIDTH/2;
 	private static final Phase[] PHASES = {
-		new Phase(				Behavior.BALL,				Gatling.BLUE_BULLET_SLOW,				Shot.SHOT_VERS_JOUEUR,				Animations.BALL		), 
-		new Phase(				Behavior.GO_AWAY,			Gatling.BLUE_BULLET_SLOW,				Shot.SHOT_VERS_JOUEUR,				Animations.BALL		),		};
+		new Phase(				Behavior.BALL,				Gatling.BLUE_BULLET_SLOW,				Shot.SHOT_ON_PLAYER,				Animations.BALL		), 
+		new Phase(				Behavior.GO_AWAY,			Gatling.BLUE_BULLET_SLOW,				Shot.SHOT_ON_PLAYER,				Animations.BALL		),		};
 	public static final Pool<Ball> POOL = Pools.get(Ball.class);
 	private static final Pos POS = initPositionnement(UpWide.PK, PK);
 	
@@ -66,12 +66,12 @@ public class Ball extends Enemy {
 		return angle;
 	}
 	
-	@Override	public float getFirerate() {				return FIRERATE;								}
 	@Override	protected String getLabel() {				return getClass().toString();					}
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion3;						}
 	@Override	public float getHalfHeight() {				return HALF_WIDTH;								}
 	@Override	public float getHalfWidth() {				return HALF_WIDTH;								}
 	@Override	public int getExplosionCount() {			return EXPLOSION;								}
+	@Override	public float getFirerate() {				return FIRERATE;								}
 	@Override	public void free() {						POOL.free(this);								}
 	@Override	public int getBonusValue() {				return BASE_XP;									}
 	@Override	public Phase[] getPhases() {				return PHASES;									}

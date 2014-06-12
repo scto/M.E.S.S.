@@ -80,7 +80,7 @@ public class XP extends Bonus implements Poolable {
 			if (EndlessMode.alternate) {
 				switch (xp.state) {
 				case WANDERER:
-					analyzeDistance(xp, HOMMING, Stats.WIDTH_BOSS_SAT);
+					analyzeDistance(xp, HOMMING, Stats.SAT_WIDTH);
 					drawStandard(batch, xp, xp.angle);
 					xp.angle++;
 					break;

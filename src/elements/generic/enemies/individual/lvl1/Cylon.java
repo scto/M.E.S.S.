@@ -91,13 +91,6 @@ public class Cylon extends Enemy {
 		return super.stillAlive(p);
 	}
 	
-	protected int getPvWorst() {
-		return HP_WORST;
-	}
-
-	protected int getPvBad() {
-		return HP_BAD;
-	}
 
 	private void changeState(int nextState) {
 		index = nextState;
@@ -108,23 +101,25 @@ public class Cylon extends Enemy {
 			Particles.smoke(pos.x + QUART_WIDTH + (CSG.R.nextFloat() * HALF_WIDTH), pos.y + CSG.R.nextFloat() * WIDTH, false);
 	}
 
-	@Override	public float getFirerate() {			return FIRERATE;							}
-	@Override	public int getBonusValue() {			return BASE_XP;								}
-	@Override	public int getXp() {					return XP;									}
 	@Override	protected String getLabel() {			return getClass().toString();				}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion4;					}
-	@Override	protected int getMaxHp() {				return HP;									}
+	@Override	public float getShootingAngle() {		return dir.angle();							}
 	@Override	public float getHalfHeight() {			return HALF_WIDTH;							}
 	@Override	public float getHalfWidth() {			return HALF_WIDTH;							}
+	@Override	public int getExplosionCount() {		return EXPLOSION;							}
+	@Override	public float getFirerate() {			return FIRERATE;							}
+	@Override	public void free() {					POOL.free(this);							}
+	@Override	public int getBonusValue() {			return BASE_XP;								}
+	@Override	public Phase[] getPhases() {			return PHASES;								}
+	@Override	public float getHeight() {				return WIDTH;								}
+	@Override	public float getWidth() {				return WIDTH;								}
+	@Override	public float getBulletSpeedMod() {		return 0.01f;								}
+	@Override	public void setNextShot(float f) {		nextShot = f;								}
 	@Override	public float getDirectionY() {			return dir.y;								}
 	@Override	public float getDirectionX() {			return dir.x;								}
 	@Override	public Vector2 getShootingDir() {		return dir;									}
-	@Override	public void setNextShot(float f) {		nextShot = f;								}
-	@Override	public void free() {					POOL.free(this);							}
-	@Override	public float getHeight() {				return WIDTH;								}
-	@Override	public float getWidth() {					return WIDTH;								}
-	@Override	public float getBulletSpeedMod() {		return 0.01f;								}
-	@Override	public float getShootingAngle() {		return dir.angle();							}
-	@Override	public int getExplosionCount() {		return EXPLOSION;							}
-	@Override	public Phase[] getPhases() {			return PHASES;							}
+	@Override	public int getXp() {					return XP;									}
+	@Override	protected int getMaxHp() {				return HP;									}
+	protected int getPvBad() {							return HP_BAD;								}
+	protected int getPvWorst() {						return HP_WORST;							}
 }

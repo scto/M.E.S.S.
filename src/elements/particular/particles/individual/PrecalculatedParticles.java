@@ -14,7 +14,7 @@ public class PrecalculatedParticles {
 	private static final float stepSparkles = 0.095f;
 	public static final float[] colorsRed = initAlphasRed(stepSparkles, 0, true), colorsBlue = initAlphasBlue(stepSparkles, 0, true), colorsYellowToGreen = initAlphasYellowToGreen(stepSparkles, 0, true);
 	public static final float[] colorsThruster = initAlphasThruster(stepSparkles, 0, true);
-	public static final float[] widths = initWidths(Stats.uSur4, colorsRed.length, INITIAL_WIDTH);
+	public static final float[] widths = initWidths(Stats.uDiv4, colorsRed.length, INITIAL_WIDTH);
 	public final static float[] widthsFireballParticules = initWidths(Stats.u, 0.75f, Fireball.WIDTH);
 	public final static float[] halfWidthsFireballParticules = CSG.getDifferences(widthsFireballParticules);
 	public final static float[] colorsFireball = initColors(widthsFireballParticules.length, 1, 0.9f, 0);

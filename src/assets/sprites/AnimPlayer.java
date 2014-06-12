@@ -9,13 +9,13 @@ import elements.particular.particles.Particles;
 
 public class AnimPlayer{
 	
-	private static float tpsDroite, tpsGauche;
-	public static TextureRegion[] tr = initAnimation();
-	public static int etat = 2;
+	private static float timeRight, timeLeft;
+	public static final TextureRegion[] TEXTURES = initAnimation();
+	public static int state = 2;
 	private static final float TIME = .15f; 
 
 	public static TextureRegion[] initAnimation() {
-		tr = new TextureRegion[5];
+		TextureRegion[] tr = new TextureRegion[5];
 
 		tr[0] = AssetMan.getTextureRegion("joueur1");
 		tr[1] = AssetMan.getTextureRegion("joueur2");
@@ -27,45 +27,45 @@ public class AnimPlayer{
 
 	public static TextureRegion getTexture() {
 		if (EndlessMode.triggerStop)
-			Particles.addGhost(etat);
-		return tr[etat];
+			Particles.addGhost(state);
+		return TEXTURES[state];
 	}
 
 	/**
 	 * A appeler quand on va vers la droite
 	 */
-	public static void versLaGauche() {			// Si besoin : on changerait l'orientation du background ici
-		if (tpsDroite > TIME)				// Si on va vers la droite depuis un moment 
-			etat = 0;
+	public static void toLeft() {			// Si besoin : on changerait l'orientation du background ici
+		if (timeRight > TIME)				// Si on va vers la droite depuis un moment 
+			state = 0;
 		else {
-			tpsDroite += EndlessMode.delta;			// Sinon on commence seulement l'anim est pas la mï¿½me
-			etat = 1;
-			tpsGauche = 0;
+			timeRight += EndlessMode.delta;			// Sinon on commence seulement l'anim est pas la mï¿½me
+			state = 1;
+			timeLeft = 0;
 		}
 	}
 
-	public static void versLaDroite() {			// Si besoin : on changerait l'orientation du background ici
-		if (tpsGauche > TIME)
-			etat = 4;
+	public static void toRight() {			// Si besoin : on changerait l'orientation du background ici
+		if (timeLeft > TIME)
+			state = 4;
 		else {
-			etat = 3;
-			tpsGauche += EndlessMode.delta;
-			tpsDroite = 0;
+			state = 3;
+			timeLeft += EndlessMode.delta;
+			timeRight = 0;
 		}
 	}
 
-	public static void droit() {				// Si besoin : on remettrait l'orientation du background a 0 ici
-		if (etat == 2) return; 					// on est deja  droit
+	public static void straight() {				// Si besoin : on remettrait l'orientation du background a 0 ici
+		if (state == 2) return; 					// on est deja  droit
 
-		if (tpsDroite > 0) {					// on allait a droite avant
-			etat = 1;
-			tpsDroite -= EndlessMode.delta;
+		if (timeRight > 0) {					// on allait a droite avant
+			state = 1;
+			timeRight -= EndlessMode.delta;
 		} else {
-			if (tpsGauche > 0) {				// on allait a gauche avant
-				etat = 3;
-				tpsGauche -= EndlessMode.delta;
+			if (timeLeft > 0) {				// on allait a gauche avant
+				state = 3;
+				timeLeft -= EndlessMode.delta;
 			} else 
-				etat = 2;
+				state = 2;
 		}
 	}
 	

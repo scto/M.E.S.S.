@@ -45,7 +45,7 @@ public class BlueSmoke implements Poolable{
 		Array<Float> tmp = new Array<Float>();
 		for (int i = 0; i < colors.length; i++) {
 			tmp.add(f);
-			f += Stats.uSur4;
+			f += Stats.uDiv4;
 		}
 		return CSG.convert(tmp);
 	}

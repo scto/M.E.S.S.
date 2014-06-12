@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 import elements.generic.Element;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.bonuses.Bonus;
-import elements.particular.bonuses.BonusBombe;
+import elements.particular.bonuses.Bomb;
 
 public class DebrisExplosion implements Poolable {
 	
@@ -107,7 +107,7 @@ public class DebrisExplosion implements Poolable {
 		explosions.clear();
 	}
 
-	public static void bomb(BonusBombe bonusBombe, Array<DebrisExplosion> debrisExplosions) {
+	public static void bomb(Bomb bonusBombe, Array<DebrisExplosion> debrisExplosions) {
 		final float x = bonusBombe.pos.x + Bonus.HALF_WIDTH;
 		final float y = bonusBombe.pos.y + Bonus.HALF_WIDTH;
 		for (int i = -EndlessMode.fps; i < 100; i++) {

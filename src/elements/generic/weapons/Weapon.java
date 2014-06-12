@@ -21,9 +21,8 @@ import elements.particular.particles.Particles;
 
 public abstract class Weapon extends Element implements Poolable {
 	
-	public static final Array<PlayerWeapon> PLAYER_LIST = new Array<PlayerWeapon>(false, 50);
+	public static final Array<PlayerWeapon> PLAYER_LIST = new Array<PlayerWeapon>(false, 50), ADDS = new Array<PlayerWeapon>(false, 10);
 	public static final Array<EnemyWeapon> ENEMIES_LIST = new Array<EnemyWeapon>(false, 50), BOSSES_LIST = new Array<EnemyWeapon>(false, 50);
-	public static final Array<PlayerWeapon> ADDS = new Array<PlayerWeapon>(false, 10);
 	protected static final Rectangle TMP_RECT = new Rectangle();
 	private static boolean testCollision = false, shieldHs = false;
 	public static int color = 0;
@@ -68,9 +67,8 @@ public abstract class Weapon extends Element implements Poolable {
 				removeEnemyWeapon(eWeapon, LIST);
 				continue;
 			}
-			if (eWeapon.move()) {
+			if (eWeapon.move()) 
 				removeEnemyWeapon(eWeapon, LIST);
-			}
 		}
 		if (shieldHs) {
 			for (final EnemyWeapon w : LIST) {
@@ -83,44 +81,19 @@ public abstract class Weapon extends Element implements Poolable {
 		}
 	}
 	
-	public boolean move() {
-		return getPhase().move(this);
-	}
 
 	private static void removeEnemyWeapon(EnemyWeapon a, Array<EnemyWeapon> lIST) {
 		lIST.removeValue(a, true);
 		a.free();
 	}
 	
-	@Override
-	public void setAngle(float mvtToPlayerWithAngle) {
-	}
-
-	public void draw(SpriteBatch batch) {
-		getPhases()[index].draw(this, batch);
-	}
-	
-	/**
-	 * Fait bouger les objets et les enl�ves si ils ne sont plus � l'�cran
-	 * @param batch
-	 * return false si on doit le virer de la liste et appeler free()
-	 */
-	public boolean mouvementEtVerif() {
-		return Physic.mvt(getWidth(), getHeight(), dir, pos);
-	}
 
 	public static void affichage(SpriteBatch batch) {
-		for (final PlayerWeapon a : ADDS)
-			a.draw(batch);
-		for (final PlayerWeapon a : PLAYER_LIST)
-			a.draw(batch);
-		for (final Weapon a : ENEMIES_LIST)
-			a.draw(batch);
-		for (final Weapon a : BOSSES_LIST)
-			a.draw(batch);
+		for (final PlayerWeapon a : PLAYER_LIST)	a.draw(batch);
+		for (final Weapon a : ENEMIES_LIST)			a.draw(batch);
+		for (final Weapon a : BOSSES_LIST)			a.draw(batch);
+		for (final PlayerWeapon a : ADDS)			a.draw(batch);
 	}
-
-	public abstract void free();
 
 	public static void clear() {
 		for (final Weapon a : ADDS)
@@ -141,9 +114,6 @@ public abstract class Weapon extends Element implements Poolable {
 		BOSSES_LIST.clear();
 	}
 
-	public static void shieldHs() {
-		shieldHs = true;
-	}
 	protected static float initCadence(float def, int pk) {
 		if (CSG.updateNeeded)
 			return Requests.getFireRate(pk, def);
@@ -158,12 +128,18 @@ public abstract class Weapon extends Element implements Poolable {
 		return TMP_RECT;
 	}
 	
-	public static void resetAll() {
-		EnemyWeapon.nextGraze = 0;
-	}
-	
-	@Override
-	public void setShootingAngle(float shootingAngle) {
-	}
-	@Override	public Phase[] getPhases() {						return PHASES;				}
+	/**
+	 * Fait bouger les objets et les enl�ves si ils ne sont plus � l'�cran
+	 * @param batch
+	 * return false si on doit le virer de la liste et appeler free()
+	 */
+	public boolean mouvementEtVerif() {								return Physic.mvt(getWidth(), getHeight(), dir, pos);	}
+	public void draw(SpriteBatch batch) {							getPhases()[index].draw(this, batch);					}
+	public boolean move() {											return getPhase().move(this);							}
+	public static void resetAll() {									EnemyWeapon.nextGraze = 0;								}
+	public static void shieldHs() {									shieldHs = true;										}
+	public abstract void free();
+	@Override	public void setAngle(float mvtToPlayerWithAngle) {															}
+	@Override	public void setShootingAngle(float a) {																		}
+	@Override	public Phase[] getPhases() {						return PHASES;											}
 }

@@ -404,7 +404,7 @@ public class EndlessMode implements Screen {
 		if (!lost) {
 			mouvement();
 			if (alternate) {
-				Progression.invoqueBaseOnScore();
+//				Progression.invoqueBaseOnScore();
 				if (!triggerStop)
 					Physic.collisionsTest();
 				Score.act(now, lost, triggerStop);

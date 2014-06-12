@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.Invocable;
 import elements.generic.components.Phase;
 import elements.generic.components.behavior.Behavior;
 
@@ -35,6 +34,5 @@ public class FragmentedMeteorite extends EnemyWeapon implements Poolable{
 	@Override	public void free() {				POOL.free(this);	}
 	@Override	public float getWidth() {				return WIDTH;	}
 	@Override	public float getHeight() {			return WIDTH;	}
-	@Override	public Invocable invoke() {			return POOL.obtain();	}
 	@Override	public Phase[] getPhases() {		return PHASES;	}
 }

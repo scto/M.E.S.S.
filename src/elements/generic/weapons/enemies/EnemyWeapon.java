@@ -8,13 +8,12 @@ import jeu.mode.EndlessMode;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.Invocable;
 import elements.generic.Player;
 import elements.generic.components.Phase;
 import elements.generic.weapons.Weapon;
 import elements.particular.bonuses.XP;
 
-public abstract class EnemyWeapon extends Weapon implements Poolable, Invocable {
+public abstract class EnemyWeapon extends Weapon implements Poolable {
 	
 	private static float tmpFloat;
 	public static float nextGraze = 0;
@@ -26,7 +25,7 @@ public abstract class EnemyWeapon extends Weapon implements Poolable, Invocable 
 		tmpFloat = tmpV.dst(pos.x + getHalfWidth(), pos.y + getHalfHeight());
 		
 //		if (Player.bouclier)
-		for (int i = 0; i < Player.bouclier; i++)
+		for (int i = 0; i < Player.shield; i++)
 			tmpFloat -= Stats.uSur2;
 		
 		if (tmpFloat < getWidth() + Stats.UU || tmpFloat < getHeight() + Stats.UU) {
@@ -78,8 +77,6 @@ public abstract class EnemyWeapon extends Weapon implements Poolable, Invocable 
 	@Override	public boolean getShotDir() {						return false;				}
 	@Override	public float getShotsGap() {						return 0;					}
 	@Override	public int getIntFactor() {				return 0;					}
-	@Override	public int getXp() {								return 0;					}
-	@Override	public void setPosition(Vector2 pos) {											}
 	
 	public void init(Vector2 position, float dEMI_WIDTH, float demiHauteur, float modifVitesse) {
 		position.x = position.x + dEMI_WIDTH - getHalfWidth();
@@ -110,7 +107,6 @@ public abstract class EnemyWeapon extends Weapon implements Poolable, Invocable 
 		this.pos.y = position.y;
 		this.dir.x = direction.x * modifVitesse;
 		this.dir.y = direction.y * modifVitesse;
-		this.dir.scl(getSpeed());
 		if (boss) {
 			BOSSES_LIST.add(this);
 		} else {

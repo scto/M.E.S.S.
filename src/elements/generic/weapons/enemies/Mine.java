@@ -29,5 +29,4 @@ public class Mine extends EnemyWeapon {
 	@Override	public float getHalfWidth() {			return HALF_WIDTH;	}
 	@Override	public float getHalfHeight() {			return HALF_WIDTH;	}
 	@Override	public float getSpeed() {				return SPEED;	}
-	@Override	public EnemyWeapon invoke() {			return POOL.obtain();	}
 }

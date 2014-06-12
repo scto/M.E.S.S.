@@ -20,7 +20,7 @@ public class Stats {
 	public static final float microU = U / 150;
 	public static final float microUSur6 = microU / 6;
 	public static final float uSur2 = u / 2;
-	public static final float uSur4 = u / 4;
+	public static final float uDiv4 = u / 4;
 	public static final float uSur8 = u / 8;
 	public static final float IMPACT = U / 240;
 	public static final float VNV3 = 1.22f;
@@ -43,12 +43,12 @@ public class Stats {
 	
 	public static final float V_BONUS = 4 * U;
 	public static final float V_BONUS_XP = V_BONUS/1.5f;
-	public static final float V_BONUS_BOMBE = V_BONUS/3;
+	public static final float BOMB_SPEED = V_BONUS/3;
 	public static final float V_BONUS_STOP = V_BONUS/2.1f;
 	public static final float V_BONUS_TEMPS = V_BONUS/1.4f;
 	public static final float V_BONUS_BOUCLIER = (V_BONUS * 1.1f);
 	public static final float BONUS_WIDTH = U * 3f, HALF_WIDTH = BONUS_WIDTH/2;
-	public static final float V_BONUS_ADD = V_BONUS/1.8f, BONUS_ADD_ACCELERATION = 15;
+	public static final float DRONE_BONUS_SPEED = V_BONUS/1.8f, BONUS_ADD_ACCELERATION = 15;
 	
 	// ***********************************************************************************
 	// **********************   E  N  N  E  M  I  S   ************************************
@@ -96,24 +96,24 @@ public class Stats {
 	
 	// B O U L E 
 	public static final float V_ENN_BOULE = u * 25f;
-	public static final int HP_BOULE = 37;
+	public static final int HP_BALL = 37;
 	public static final int BALL_WIDTH = (int) ((float)WIDTH_DE_BASE  * 1.3f);
 	
 	// P O R T E   N E F
 	public static final float V_ENN_PORTE_NEF = 4 * U;
 	public static final int HP_BOSS_SAT = 430;
 	public static final int DEMI_HP_PORTE_NEF = HP_BOSS_SAT/2;
-	public static final int WIDTH_BOSS_SAT = (int) ((float)WIDTH_DE_BASE * 5);
+	public static final int SAT_WIDTH = (int) ((float)WIDTH_DE_BASE * 5);
 	
 	// Q U I   T O U R N E
 	public static final float V_ENN_QUI_TOURNE = 13 * U;
-	public static final float DEMI_V_ENN_QUI_TOURNE = V_ENN_QUI_TOURNE/2;
+	public static final float DIABOLO_HALF_SPEED = V_ENN_QUI_TOURNE/2;
 	public static final float V_ENN_QUI_TOURNE3 = V_ENN_QUI_TOURNE * VNV3;
 	public static final float DEMI_V_ENN_QUI_TOURNE3 = V_ENN_QUI_TOURNE3 / 2;
-	public static final int HP_QUI_TOURNE = 67;
-	public static final int HP_QUI_TOURNE3 = (int) (HP_QUI_TOURNE * HPNV3);
-	public static final int HP_QUI_TOURNE4 = (int) (HP_QUI_TOURNE * HPNV4);
-	public static final int WIDTH_QUI_TOURNE = (int) ((float)WIDTH_DE_BASE * 1.35f);
+	public static final int HP_DIABOLO = 67;
+	public static final int HP_QUI_TOURNE3 = (int) (HP_DIABOLO * HPNV3);
+	public static final int HP_QUI_TOURNE4 = (int) (HP_DIABOLO * HPNV4);
+	public static final int WIDTH_DIABOLO = (int) ((float)WIDTH_DE_BASE * 1.35f);
 	
 	// T O U P I E
 	public static final float V_ENN_TOUPIE = 10 * U;
@@ -146,10 +146,10 @@ public class Stats {
 	public static final int KINDER_HEIGHT = getHauteur(KINDER_WIDTH, 1.5f);
 	
 	// B O S S   Q U A D
-	public static final int HP_BOSS_QUAD = 510;
-	public static final int WIDTH_BOSS_QUAD = (int) ((float)WIDTH_DE_BASE * 7);
-	public static final int HEIGHT_BOSS_QUAD = getHauteur(WIDTH_BOSS_QUAD, 0.5f);
-	public static final float V_ENN_BOSS_QUAD = 15 * U;
+	public static final int QUAD_HP = 510;
+	public static final int QUAD_WIDTH = (int) ((float)WIDTH_DE_BASE * 7);
+	public static final int QUAD_HEIGHT = getHauteur(QUAD_WIDTH, 0.5f);
+	public static final float QUAD_SPEED = 15 * U;
 	
 	// P O R T E   R A I S I N
 	public static final float V_ENN_PORTE_RAISIN = 2 * U;
@@ -177,10 +177,10 @@ public class Stats {
 	// D E   B A S E   Q U I   T I R  2
 	public static final float V_ENN_DE_BASE_QUI_TIR2 = 6 * U;
 	public static final float DERIVE_DE_BASE_QUI_TIR2 = U;
-	public static final int HP_DE_BASE_QUI_TIR_TRIANGLE = 199;
-	public static final int HP_DE_BASE_QUI_TIR23 = (int) (HP_DE_BASE_QUI_TIR_TRIANGLE * HPNV3);
-	public static final int HP_DE_BASE_QUI_TIR24 = (int) (HP_DE_BASE_QUI_TIR_TRIANGLE * HPNV4);
-	public static final int DEMI_HP_BASE_QUI_TIR2 = HP_DE_BASE_QUI_TIR_TRIANGLE / 2;
+	public static final int HP_SHOOTER_FRAG = 199;
+	public static final int HP_DE_BASE_QUI_TIR23 = (int) (HP_SHOOTER_FRAG * HPNV3);
+	public static final int HP_DE_BASE_QUI_TIR24 = (int) (HP_SHOOTER_FRAG * HPNV4);
+	public static final int DEMI_HP_BASE_QUI_TIR2 = HP_SHOOTER_FRAG / 2;
 	public static final int DEMI_HP_BASE_QUI_TIR23 = HP_DE_BASE_QUI_TIR23 / 2;
 	public static final int DEMI_HP_BASE_QUI_TIR24 = HP_DE_BASE_QUI_TIR24 / 2;
 	public static final int WIDTH_QUI_TIR2 = (int) ((float)WIDTH_QUI_TIR * 1.2f);
@@ -262,7 +262,7 @@ public class Stats {
 	public static final float SPEED_PINK_WEAPON = 90 * U;
 	// A R M E   A D D  
 	public static final float V_ARME_ADD = 50 * U;
-	public static final float V_ARME_SUN = 75 * U;
+	public static final float SUN_SPEED = 75 * U;
 	public static final float V_ARME_SPACE_INVADER = 22 * U;
 	
 	// ***********************************************************************************

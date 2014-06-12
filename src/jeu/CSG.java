@@ -20,7 +20,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import elements.generic.Invocable;
+import elements.generic.components.enemies.Merlin;
 import elements.generic.enemies.Enemy;
 import elements.generic.enemies.SpawnEnemyPosition;
 import elements.generic.weapons.Weapon;
@@ -72,7 +72,8 @@ public class CSG extends Game implements ApplicationListener {
 		else
 			updateNeeded = true;
 		
-		updateNeeded = false;
+		updateNeeded = true;
+//		updateNeeded = false;
 	}
 
 	@Override
@@ -102,7 +103,7 @@ public class CSG extends Game implements ApplicationListener {
 	}
 
 	public static void initFonts() {
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Polentical Neon Regular.ttf"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("PolenticalNeonRegular.ttf"));
 		FreeTypeFontParameter param = new FreeTypeFontParameter();
 		
 		float dimension = CSG.SCREEN_HEIGHT + CSG.screenWidth;
@@ -232,10 +233,10 @@ public class CSG extends Game implements ApplicationListener {
 		return CSG.convert(tmp);
 	}
 
-	public static Invocable[] convert(Array<Invocable> enemies) {
-		Invocable[] array2 = new Invocable[enemies.size];
+	public static Merlin[] convert(Array<Merlin> enemies) {
+		Merlin[] array2 = new Merlin[enemies.size];
 	    int i=0;
-	    for (Invocable f : enemies) {
+	    for (Merlin f : enemies) {
 	        array2[i] = f;
 	        i++;
 	    }

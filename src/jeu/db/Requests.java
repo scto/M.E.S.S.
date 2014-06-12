@@ -8,47 +8,53 @@ import jeu.CSG;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import elements.generic.Invocable;
 import elements.generic.components.enemies.Merlin;
 import elements.generic.enemies.SpawnEnemyPosition;
 import elements.generic.enemies.Wave;
-import elements.generic.enemies.individual.bosses.AddBossStat;
 import elements.generic.enemies.individual.lvl1.Ball;
+import elements.generic.enemies.individual.lvl1.Crusader;
 import elements.generic.enemies.individual.lvl1.Cylon;
-import elements.generic.enemies.individual.lvl1.DeBase;
+import elements.generic.enemies.individual.lvl1.Basic;
 import elements.generic.enemies.individual.lvl1.Group;
 import elements.generic.enemies.individual.lvl1.Insect;
 import elements.generic.enemies.individual.lvl1.Kinder;
 import elements.generic.enemies.individual.lvl1.Laser;
 import elements.generic.enemies.individual.lvl1.Plane;
-import elements.generic.enemies.individual.lvl1.Crusader;
-import elements.generic.enemies.individual.lvl1.QuiTir;
-import elements.generic.enemies.individual.lvl1.QuiTirTriangle;
-import elements.generic.enemies.individual.lvl1.QuiTourne;
+import elements.generic.enemies.individual.lvl1.Shooter;
+import elements.generic.enemies.individual.lvl1.ShooterFrag;
+import elements.generic.enemies.individual.lvl1.Diabolo;
 import elements.generic.enemies.individual.lvl1.RoundAndRound;
 import elements.generic.enemies.individual.lvl1.Vicious;
 import elements.generic.enemies.individual.lvl1.ZigZag;
+import elements.generic.enemies.individual.lvl3.Basic3;
+import elements.generic.enemies.individual.lvl3.ZigZag3;
 
 public class Requests {
 	
 	private static final String WEAPON_FIRERATE = "Select firerate from weapons where pk = "; 
 	private static final String ENEMY_SPEED = "Select speed from enemy where pk = "; 
+	private static final String ENEMY_SHOT = "Select fk_shot from enemy where pk = "; 
+	private static final String PHASE_SHOT = "Select fk_shot from phase where pk = "; 
 	private static final String ENEMY_WEAPON = "Select fk_weapons from enemy where pk = "; 
+	private static final String PHASE_WEAPON = "Select fk_weapons from phase where pk = "; 
 	private static final String ENEMY_WEAPON_SPEED = "Select speed from weapons where pk = "; 
 	private static final String ENEMY_FIRERATE = "Select firerate from enemy where pk = "; 
-	private static final String ENEMY_WEAPON_ANIMATION = "Select fk_animation from weapons where pk = "; 
+	private static final String ENEMY_ANIMATION = "Select fk_animation from enemy where pk = "; 
+	private static final String PHASE_ANIMATION = "Select fk_animation from phase where pk = "; 
 	private static final String ENEMY_BEHAVIOR = "Select fk_behavior from enemy where pk = "; 
+	private static final String PHASE_BEHAVIOR = "Select fk_behavior from phase where pk = "; 
 	private static final String ENEMY_NEXTSHOT = "Select nextShot from enemy where pk = "; 
 	private static final String ENEMY_POSITIONNEMENT = "Select fk_positionning from enemy where pk = "; 
 	private static final String ENEMY_HP = "Select pv from enemy where pk = "; 
 	private static final String ENEMY_XP = "Select xp from enemy where pk = "; 
+	private static final String ENEMY_PHASE = "select fk_phase from enemy_phase where fk_enemy = "; 
 	private static final String ENEMY_EXPLOSION = "Select explosion from enemy where pk = "; 
-	public static final String WAVE = "select scoremin, interval, boss, freq, ordered, scoremax, order_spawn, fk_enemies, fk_position from wave " + 
+	public static final String WAVE = "select scoremin, interval, boss, freq, ordered, scoremax, order_spawn, fk_enemies, fk_position, spawn.pk AS spawn, wave_spawn.order AS spawnOrder from wave " + 
 									"inner join wave_spawn on wave.pk = ? and wave_spawn.fk_wave = wave.pk " +
 									"inner join spawn on spawn.pk = wave_spawn.fk_spawn " +
 									"inner join spawn_enemies_position on spawn_enemies_position.fk_spawn = spawn.pk "+
 									"inner join enemy_position on enemy_position.pk = spawn_enemies_position.fk_enemies_position"
-									+ " order by order_spawn asc"; 
+									+ " order by wave_spawn.order ASC, spawn_enemies_position.order_spawn ASC"; 
 	
 	public static float getFireRate(int pk, float def) {
 		return CSG.dbManager.getFloat(WEAPON_FIRERATE + pk, def);
@@ -73,13 +79,17 @@ public class Requests {
 	public static int getXpEnemy(int pk, int def) {
 		return CSG.dbManager.getInt(ENEMY_XP + pk, def);
 	}
+	
+	public static int getShot(int pk, int def) {
+		return CSG.dbManager.getInt(ENEMY_SHOT + pk, def);
+	}
 
 	public static int getExplosionEnemy(int pk, int def) {
 		return CSG.dbManager.getInt(ENEMY_EXPLOSION + pk, def);
 	}
 
 	public static int getAnimation(int pk, int def) {
-		return CSG.dbManager.getInt(ENEMY_WEAPON_ANIMATION + pk, def);
+		return CSG.dbManager.getInt(ENEMY_ANIMATION + pk, def);
 	}
 	
 	public static int getPositionnement(int pk, int def) {
@@ -94,14 +104,14 @@ public class Requests {
 		return CSG.dbManager.getFloat(ENEMY_WEAPON_SPEED + pk, def);
 	}
 
-	public static int getEnemyWeapon(int pk, int def) {
+	public static int getWeapon(int pk, int def) {
 		return CSG.dbManager.getInt(ENEMY_WEAPON + pk, def);
 	}
     
 	public static Wave getWave(int pk, Wave def) {
 		final Wave wave = CSG.dbManager.getWave(pk, def);
 		if (wave != null) {
-			printWave(pk, wave);
+//			printWave(pk, wave);
 			return wave;
 		}
 		System.err.println("wave null");
@@ -109,7 +119,6 @@ public class Requests {
 	}
 
 	private static void printWave(int pk, final Wave wave) {
-		System.out.println("------------------------------------------------- " + pk + " score min : " + wave.scoreMin + " / max " + wave.maxScore);
 		SpawnEnemyPosition[] spawns = wave.lignes;
 		for (SpawnEnemyPosition spawnEnemyPosition : spawns) {
 			if (spawnEnemyPosition.merlin.length == 0)
@@ -237,30 +246,29 @@ public class Requests {
 		return 1;
 	}
 
-	private static void populatePkEnemies(List<Integer> fkEnemies, Invocable[] enemies) {
-		for (Invocable invocable : enemies) {
+	private static void populatePkEnemies(List<Integer> fkEnemies, Merlin[] enemies) {
+		for (Merlin invocable : enemies) {
 			fkEnemies.add(getPkEnemy(invocable));
 		}
 	}
 
-	private static Integer getPkEnemy(Invocable invocable) {
-		if (invocable == Ball.REF) return Ball.PK;
-		if (invocable == Cylon.ref) return Cylon.PK;
-		if (invocable == DeBase.REF) return DeBase.PK;
-		if (invocable == Group.ref) return Group.PK;
-		if (invocable == Insect.ref) return Insect.PK;
-		if (invocable == Kinder.REF) return Kinder.PK;
-		if (invocable == Laser.REF) return Laser.PK;
-		if (invocable == Plane.REF) return Plane.PK;
-		if (invocable == Crusader.REF) return Crusader.PK;
-		if (invocable == QuiTir.ref) return QuiTir.PK;
-		if (invocable == QuiTirTriangle.REF) return QuiTirTriangle.PK;
-		if (invocable == QuiTourne.ref) return QuiTourne.PK;
-		if (invocable == Vicious.ref) return Vicious.PK;
-		if (invocable == RoundAndRound.ref) return RoundAndRound.PK;
-		if (invocable == ZigZag.ref) return ZigZag.PK;
-		if (invocable == AddBossStat.ref) return  AddBossStat.PK;
-		return DeBase.PK;
+	private static Integer getPkEnemy(Merlin invocable) {
+		if (invocable == Merlin.BALL) return Ball.PK;
+		if (invocable == Merlin.CYLON) return Cylon.PK;
+		if (invocable == Merlin.DE_BASE) return Basic.PK;
+		if (invocable == Merlin.GROUP) return Group.PK;
+		if (invocable == Merlin.INSECT) return Insect.PK;
+		if (invocable == Merlin.KINDER) return Kinder.PK;
+		if (invocable == Merlin.LASER) return Laser.PK;
+		if (invocable == Merlin.PLANE) return Plane.PK;
+		if (invocable == Merlin.CRUSADER) return Crusader.PK;
+		if (invocable == Merlin.QUI_TIR) return Shooter.PK;
+		if (invocable == Merlin.QUI_TIR_TRIANGLE) return ShooterFrag.PK;
+		if (invocable == Merlin.QUI_TOURNE) return Diabolo.PK;
+		if (invocable == Merlin.VICIOUS) return Vicious.PK;
+		if (invocable == Merlin.ROUND_N_ROUND) return RoundAndRound.PK;
+		if (invocable == Merlin.ZIGZAG) return ZigZag.PK;
+		return Basic.PK;
 	}
 
 	/**
@@ -268,8 +276,8 @@ public class Requests {
 	 * @param positions
 	 * @param spawns
 	 */
-	public static void createSpawn(Array<Invocable> enemies, Array<Vector2> positions, Array<SpawnEnemyPosition> spawns) {
-		Invocable[] inv = CSG.convert(enemies);
+	public static void createSpawn(Array<Merlin> enemies, Array<Vector2> positions, Array<SpawnEnemyPosition> spawns) {
+		Merlin[] inv = CSG.convert(enemies);
 		Vector2[] pos = CSG.convert(positions);
 		enemies.clear();
 		positions.clear();
@@ -293,26 +301,71 @@ public class Requests {
 		return SpawnEnemyPosition.middle;
 	}
 
-	public static Invocable getInvocable(int enemyPk) {
+	public static Merlin getInvocable(int enemyPk) {
 		switch (enemyPk) {
-		case Ball.PK :				return Ball.REF;
-		case Cylon.PK :				return Cylon.ref;
-		case DeBase.PK :			return DeBase.REF;
-		case Group.PK :				return Group.ref;
-		case Insect.PK :			return Insect.ref;
-		case Kinder.PK :			return Kinder.REF;
-		case Laser.PK :				return Laser.REF;
-		case Plane.PK :				return Plane.REF;
-		case Crusader.PK :		return Crusader.REF;
-		case QuiTir.PK :			return QuiTir.ref;
-		case QuiTirTriangle.PK :	return QuiTirTriangle.REF;
-		case QuiTourne.PK :			return QuiTourne.ref;
-		case RoundAndRound.PK :			return RoundAndRound.ref;
-		case Vicious.PK :			return Vicious.ref;
-		case ZigZag.PK :			return ZigZag.ref;
-		case AddBossStat.PK :		return AddBossStat.ref;
+		case Ball.PK :				return Merlin.BALL;
+		case Cylon.PK :				return Merlin.CYLON;
+		case Basic.PK :			return Merlin.DE_BASE;
+		case Basic3.PK :			return Merlin.DE_BASE3;
+		case Group.PK :				return Merlin.GROUP;
+		case Insect.PK :			return Merlin.INSECT;
+		case Kinder.PK :			return Merlin.KINDER;
+		case Laser.PK :				return Merlin.LASER;
+		case Plane.PK :				return Merlin.PLANE;
+		case Crusader.PK :			return Merlin.CRUSADER;
+		case Shooter.PK :			return Merlin.QUI_TIR;
+		case ShooterFrag.PK :	return Merlin.QUI_TIR;
+		case Diabolo.PK :			return Merlin.QUI_TOURNE;
+		case RoundAndRound.PK :		return Merlin.ROUND_N_ROUND;
+		case Vicious.PK :			return Merlin.VICIOUS;
+		case ZigZag.PK :			return Merlin.ZIGZAG;
+		case ZigZag3.PK :			return Merlin.ZIGZAG3;
 		}
-		return DeBase.REF;
+		return Merlin.DE_BASE;
+	}
+
+	public static int getPhases(int pk, int def) {
+		return CSG.dbManager.getInt(ENEMY_PHASE + pk, def);
+	}
+
+	public static int getBehaviorFromPhase(int pkPhases) {
+		int def = 0;
+		switch (pkPhases) {
+		case 1: 	def = 2;	break;
+		case 2: 	def = 17;	break;
+		case 3: 	def = 15;	break;
+		}
+		return CSG.dbManager.getInt(PHASE_BEHAVIOR + pkPhases, def);
+	}
+	
+	public static int getAnimationFromPhase(int pkPhases) {
+		int def = 0;
+		switch (pkPhases) {
+		case 1: 	def = 6;	break;
+		case 2: 	def = 8;	break;
+		case 3: 	def = 7;	break;
+		}
+		return CSG.dbManager.getInt(PHASE_ANIMATION + pkPhases, def);
+	}
+	
+	public static int getWeaponFromPhase(int pkPhases) {
+		int def = 0;
+		switch (pkPhases) {
+		case 1: 	def = 2;	break;
+		case 2: 	def = 2;	break;
+		case 3: 	def = 2;	break;
+		}
+		return CSG.dbManager.getInt(PHASE_WEAPON + pkPhases, def);
+	}
+	
+	public static int getShotFromPhase(int pkPhases) {
+		int def = 0;
+		switch (pkPhases) {
+		case 1: 	def = 16;	break;
+		case 2: 	def = 13;	break;
+		case 3: 	def = 17;	break;
+		}
+		return CSG.dbManager.getInt(PHASE_SHOT + pkPhases, def);
 	}
 
 }

@@ -15,12 +15,7 @@ public class PinkWeapon extends PlayerWeapon implements Poolable {
 	public static int width = (int) Stats.U, halfWidth = (int) Stats.u;
 	public static final float FIRERATETIR = initCadence(.11f, 3);
 	public static final String LABEL = "armeTrois";
-	public static final Pool<PinkWeapon> POOL = new Pool<PinkWeapon>(30) {
-		@Override
-		protected PinkWeapon newObject() {
-			return new PinkWeapon();
-		}
-	};
+	public static final Pool<PinkWeapon> POOL = new Pool<PinkWeapon>(30) {		protected PinkWeapon newObject() {			return new PinkWeapon();		}	};
 	public static final float[] COLORS = {
 		AssetMan.convertARGB(1, 255f/255f, 20f/255f, 199f/255f),
 		AssetMan.convertARGB(1, 255f/255f, 20f/255f, 196f/255f),
@@ -57,12 +52,12 @@ public class PinkWeapon extends PlayerWeapon implements Poolable {
 		PLAYER_LIST.add(this);
 	}
 
-	@Override	public void draw(SpriteBatch batch) {Particles.pinkParticle(this);	}
-	@Override	public float getWidth() {				return width;	}
-	@Override	public float getHeight() {			return width;	}
-	@Override	public void free() {				POOL.free(this);	}
-	@Override	public float getHalfWidth() {			return halfWidth;	}
-	@Override	public float getHalfHeight() {		return halfWidth;	}
-	@Override	public float getColor() {			return COLORS[color];	}
-	@Override	public float[] getColors() {		return PrecalculatedParticles.colorsPinkWeapon;		}
+	@Override	public float getWidth() {				return width;										}
+	@Override	public float getHeight() {				return width;										}
+	@Override	public void free() {					POOL.free(this);									}
+	@Override	public float getHalfWidth() {			return halfWidth;									}
+	@Override	public float getHalfHeight() {			return halfWidth;									}
+	@Override	public float getColor() {				return COLORS[color];								}
+	@Override	public void draw(SpriteBatch batch) {	Particles.pinkParticle(this);						}
+	@Override	public float[] getColors() {			return PrecalculatedParticles.colorsPinkWeapon;		}
 }

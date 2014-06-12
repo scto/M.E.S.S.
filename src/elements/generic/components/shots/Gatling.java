@@ -14,32 +14,37 @@ import elements.generic.weapons.enemies.Meteorite;
 import elements.generic.weapons.enemies.Mine;
 import elements.generic.weapons.enemies.SmallFireball;
 import elements.generic.weapons.enemies.Tournante;
-import elements.generic.weapons.enemies.VicousBullet;
+import elements.generic.weapons.enemies.ViciousBullet;
 
 public enum Gatling {
 
 	/**
 	 * BULLETS
 	 */
-	BLUE_BULLET_SLOW(new Canon() {			public EnemyWeapon invoke() {			return BlueBulletSlow.POOL.obtain();			}	}),
-	METEORITE(new Canon() {					public EnemyWeapon invoke() {			return Meteorite.POOL.obtain();					}	}),
-	TOURNANTE(new Canon() {					public EnemyWeapon invoke() {			return Tournante.POOL.obtain();					}	}),
-	MINE(new Canon() {						public EnemyWeapon invoke() {			return Mine.POOL.obtain();						}	}),
-	INSECT(new Canon() {					public EnemyWeapon invoke() {			return InsectWeapon.POOL.obtain();				}	}),
-	VICOUS(new Canon() {					public EnemyWeapon invoke() {			return VicousBullet.POOL.obtain();				}	}),
-	SMALL_FIREBALL(new Canon() {			public EnemyWeapon invoke() {			return SmallFireball.POOL.obtain();				}	}),
-	BLUE_BULLET(new Canon() {				public EnemyWeapon invoke() {			return BlueBullet.POOL.obtain();				}	}),
-	BLUE_BULLET_FAST(new Canon() {			public EnemyWeapon invoke() {			return BlueBulletFast.POOL.obtain();			}	}),
-	BOSS_MINE(new Canon() {					public EnemyWeapon invoke() {			return ArmeBossMine.POOL.obtain();				}	}),
-	FIREBALL(new Canon() {					public EnemyWeapon invoke() {			return Fireball.POOL.obtain();					}	}),
-	FRAG(new Canon() {						public EnemyWeapon invoke() {			return FragWeapon.POOL.obtain();				}	}),
-	LASER(new Canon() {						public EnemyWeapon invoke() {			return LaserWeapon.POOL.obtain();				}	}),
-	KINDER_WEAPON(new Canon() {				public EnemyWeapon invoke() {			return KinderWeapon.POOL.obtain();				}	});
+	BLUE_BULLET_SLOW(8, new Canon() {			public EnemyWeapon invoke() {			return BlueBulletSlow.POOL.obtain();			}	}),
+	METEORITE(11, new Canon() {					public EnemyWeapon invoke() {			return Meteorite.POOL.obtain();					}	}),
+	TOURNANTE(14, new Canon() {					public EnemyWeapon invoke() {			return Tournante.POOL.obtain();					}	}),
+	MINE(13, new Canon() {						public EnemyWeapon invoke() {			return Mine.POOL.obtain();						}	}),
+	INSECT(4, new Canon() {						public EnemyWeapon invoke() {			return InsectWeapon.POOL.obtain();				}	}),
+	VICIOUS(6, new Canon() {						public EnemyWeapon invoke() {			return ViciousBullet.POOL.obtain();				}	}),
+	SMALL_FIREBALL(15, new Canon() {			public EnemyWeapon invoke() {			return SmallFireball.POOL.obtain();				}	}),
+	BLUE_BULLET(2, new Canon() {				public EnemyWeapon invoke() {			return BlueBullet.POOL.obtain();				}	}),
+	BLUE_BULLET_FAST(7, new Canon() {			public EnemyWeapon invoke() {			return BlueBulletFast.POOL.obtain();			}	}),
+	BOSS_MINE(1, new Canon() {					public EnemyWeapon invoke() {			return ArmeBossMine.POOL.obtain();				}	}),
+	FIREBALL(9, new Canon() {					public EnemyWeapon invoke() {			return Fireball.POOL.obtain();					}	}),
+	FRAG(3, new Canon() {						public EnemyWeapon invoke() {			return FragWeapon.POOL.obtain();				}	}),
+	LASER(5, new Canon() {						public EnemyWeapon invoke() {			return LaserWeapon.POOL.obtain();				}	}),
+	KINDER_WEAPON(12, new Canon() {				public EnemyWeapon invoke() {			return KinderWeapon.POOL.obtain();				}	});
 	
 	public Canon canon;
+	public int pk;
 
 	private Gatling(Canon canon) {
 		this.canon = canon;
+	}
+	private Gatling(int pk, Canon canon) {
+		this(canon);
+		this.pk = pk;
 	}
 
 }

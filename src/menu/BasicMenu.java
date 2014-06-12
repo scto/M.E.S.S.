@@ -3,10 +3,9 @@ package menu;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 
-import elements.generic.Invocable;
-import elements.generic.enemies.individual.lvl1.DeBase;
+import elements.generic.enemies.individual.lvl1.Basic;
 
-public class BasicMenu extends DeBase {
+public class BasicMenu extends Basic {
 	
 	public final Vector2 dir = new Vector2();
 	public final Vector2 steer = new Vector2();
@@ -19,11 +18,4 @@ public class BasicMenu extends DeBase {
 			return new BasicMenu();
 		}
 	};
-	
-	@Override
-	public Invocable invoke() {
-		BasicMenu e = POOL.obtain();
-		LIST.add(e);
-		return e;
-	}
 }

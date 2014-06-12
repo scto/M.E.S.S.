@@ -53,11 +53,11 @@ public enum Animations {
 	
 	ROUND_N_ROUND(new Animated() {			public TextureRegion getTexture(float tps) {			return roundAndRound.getKeyFrame(tps, true);				}	}),
 	
-	QUI_TIR_GOOD(new Animated() {			public TextureRegion getTexture(float tps) {			return quiTirGood;											}	}),
-	QUI_TIR_BAD(new Animated() {			public TextureRegion getTexture(float tps) {			return quiTirBad;											}	}),
+	SHOOTER_GOOD(new Animated() {			public TextureRegion getTexture(float tps) {			return quiTirGood;											}	}),
+	SHOOTER_BAD(new Animated() {			public TextureRegion getTexture(float tps) {			return quiTirBad;											}	}),
 	
-	PORTE_NEF_GOOD(new Animated() {			public TextureRegion getTexture(float tps) {			return porteNefGood;										}	}),
-	PORTE_NEF_BAD(new Animated() {			public TextureRegion getTexture(float tps) {			return porteNefBad;											}	}),
+	SAT_GOOD(new Animated() {				public TextureRegion getTexture(float tps) {			return satGood;												}	}),
+	SAT_BAD(new Animated() {				public TextureRegion getTexture(float tps) {			return satBad;												}	}),
 	
 	KINDER_OPENING(new Animated() {			public TextureRegion getTexture(float tps) {			return kinderOpening.getKeyFrame(tps, false);				}	}),
 	KINDER_OPEN(new Animated() {			public TextureRegion getTexture(float tps) {			return kinderOpen;											}	}),
@@ -65,11 +65,11 @@ public enum Animations {
 	INSECT_GOOD(new Animated() {			public TextureRegion getTexture(float tps) {			return insectGood;											}	}),
 	INSECT_BAD(new Animated() {				public TextureRegion getTexture(float tps) {			return insectBad;											}	}),
 	
-	ENNEMI_TOURNE(new Animated() {			public TextureRegion getTexture(float tps) {			return enemiTourne.getKeyFrame(tps, true);					}	}),
+	DIABOLO(new Animated() {			public TextureRegion getTexture(float tps) {			return enemiTourne.getKeyFrame(tps, true);					}	}),
 	
-	BASIC_ENEMY_RED(new Animated() {		public TextureRegion getTexture(float tps) {			return basicEnemyRed;										}	}),
-	BASIC_ENEMY_GREEN(new Animated() {		public TextureRegion getTexture(float tps) {			return basicEnemyGreen;										}	}),
-	BASIC_ENEMY_BLUE(new Animated() {		public TextureRegion getTexture(float tps) {			return basicEnemyBlue;										}	}),
+	BASIC_ENEMY_RED(6, new Animated() {		public TextureRegion getTexture(float tps) {			return basicEnemyRed;										}	}),
+	BASIC_ENEMY_GREEN(7, new Animated() {	public TextureRegion getTexture(float tps) {			return basicEnemyGreen;										}	}),
+	BASIC_ENEMY_BLUE(8, new Animated() {	public TextureRegion getTexture(float tps) {			return basicEnemyBlue;										}	}),
 	
 	AILE_DEPLOYEES(new Animated() {			public TextureRegion getTexture(float tps) {			return ailesDeployees.getKeyFrame(tps, false);				}	}),
 	
@@ -83,9 +83,9 @@ public enum Animations {
 	CYLON_BLUE_BAD(new Animated() {			public TextureRegion getTexture(float tps) {			return cylonBlueBad;										}	}),
 	CYLON_BLUE_WORST(new Animated() {		public TextureRegion getTexture(float tps) {			return cylonBlueWorst;										}	}),
 	
-	BOSS_QUAD_GOOD(new Animated() {			public TextureRegion getTexture(float tps) {			return bossQuadGood;										}	}),
-	BOSS_QUAD_BAD(new Animated() {			public TextureRegion getTexture(float tps) {			return bossQuadBad;											}	}),
-	BOSS_QUAD_WORST(new Animated() {		public TextureRegion getTexture(float tps) {			return bossQuadWorst;										}	}),
+	QUAD_GOOD(new Animated() {			public TextureRegion getTexture(float tps) {			return bossQuadGood;										}	}),
+	QUAD_BAD(new Animated() {			public TextureRegion getTexture(float tps) {			return bossQuadBad;											}	}),
+	QUAD_WORST(new Animated() {		public TextureRegion getTexture(float tps) {			return bossQuadWorst;										}	}),
 	
 	BOSS_MINE_GOOD(new Animated() {			public TextureRegion getTexture(float tps) {			return bossMineGood;										}	}),
 	BOSS_MINE_BAD(new Animated() {			public TextureRegion getTexture(float tps) {			return bossMineBad;											}	}),
@@ -97,14 +97,14 @@ public enum Animations {
 	
 	MINE(new Animated() {					public TextureRegion getTexture(float tps) {			return mine.getKeyFrame(tps, true);							}	}),
 	
-	BALL(new Animated() {					public TextureRegion getTexture(float tps) {			return ball.getKeyFrame(tps, true);							}	}),
+	BALL(9, new Animated() {					public TextureRegion getTexture(float tps) {			return ball.getKeyFrame(tps, true);							}	}),
 	
 	FIREBALL(new Animated() {				public TextureRegion getTexture(float tps) {			return fireball;							}	}),
 	
 	BLUE_CRUSADER_GOOD(new Animated() {		public TextureRegion getTexture(float tps) {			return blueCrusaderGood;									}	}),
 	BLUE_CRUSADER_BAD(new Animated() {		public TextureRegion getTexture(float tps) {			return blueCrusaderBroken;									}	});
 	
-	private static TextureRegion planeGood, planeBad, quiTirGood, quiTirBad, porteNefGood, porteNefBad, kinderOpen, insectGood, insectBad, basicEnemyRed, basicEnemyBlue, basicEnemyGreen,
+	private static TextureRegion planeGood, planeBad, quiTirGood, quiTirBad, satGood, satBad, kinderOpen, insectGood, insectBad, basicEnemyRed, basicEnemyBlue, basicEnemyGreen,
 		cylonRedGood, cylonRedBad, cylonRedWorst, cylonBlueGood, cylonBlueBad, cylonBlueWorst, cylonGreenGood, cylonGreenBad, cylonGreenWorst, bossQuadGood, bossQuadBad, bossQuadWorst,
 		bossMineGood, bossMineBad, blueCrusaderGood, blueCrusaderBroken, meteoriteSolo, fireball;
 	private static TextureRegion[] zigZagRed, zigZagGreen, zigZagBlue;
@@ -112,6 +112,7 @@ public enum Animations {
 	public static final float ROUND_N_ROUND_TIME = .04f, KINDER_TIME = 1.5f, KINDER_TIME_OPEN = KINDER_TIME * 2, ENEMI_TOURNE_TIME = 0.05f, BALL_TIME = 0.03f, AILE_DEPL_TIME = .3f, BLUE_BALL_TIME = 0.03f,
 			METEORITE_TIME = .8f, METEORITE_TOTAL_TIME = METEORITE_TIME * 4, MINE_TIME = .1f;
 	public Animated anim;
+	public int pk;
 	
 	public static void initAnimations() {
 		planeGood = AssetMan.getTextureRegion("avion");
@@ -126,8 +127,8 @@ public enum Animations {
 		quiTirGood = AssetMan.getTextureRegion("fusee");
 		quiTirBad = AssetMan.getTextureRegion("fuseeamochee");
 		
-		porteNefGood = AssetMan.getTextureRegion("portenef1");
-		porteNefBad = AssetMan.getTextureRegion("portenef2");
+		satGood = AssetMan.getTextureRegion("portenef1");
+		satBad = AssetMan.getTextureRegion("portenef2");
 		
 		kinderOpening = getAnimation(KINDER_TIME, getTrArray("kinder3","kinder2"), Animation.PlayMode.NORMAL);
 		kinderOpen = AssetMan.getTextureRegion("kinder1");
@@ -192,6 +193,11 @@ public enum Animations {
 
 	private Animations(Animated anim) {
 		this.anim = anim;
+	}
+	
+	private Animations(int pk, Animated anim) {
+		this(anim);
+		this.pk = pk;
 	}
 	
 }

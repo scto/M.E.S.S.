@@ -7,12 +7,12 @@ import elements.generic.weapons.enemies.EnemyWeapon;
 
 public enum Shot {
 
-	DOUBLE_SHOT_DOWN(new ShotImplementation() {
+	DOUBLE_SHOT_DOWN(1, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), false);
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(2), t.getBulletSpeedMod(), false);
 		}
-	}), DOUBLE_SHOT_DOWN_RAND(new ShotImplementation() {
+	}), DOUBLE_SHOT_DOWN_RAND(2, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			CSG.tmpDir.x = 0;
 			CSG.tmpDir.y = -1;
@@ -21,7 +21,7 @@ public enum Shot {
 			CSG.tmpDir.y = -1;
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(2), t.getBulletSpeedMod(), CSG.tmpDir.rotate((CSG.R.nextFloat() - 0.5f) * t.getFloatFactor()), false);
 		}
-	}), DOUBLE_SHOT_DOWN_RAND_RAFALE(new ShotImplementation() {
+	}), DOUBLE_SHOT_DOWN_RAND_RAFALE(3, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			CSG.tmpDir.x = 0;
 			CSG.tmpDir.y = -1;
@@ -31,32 +31,32 @@ public enum Shot {
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(2), t.getBulletSpeedMod(), CSG.tmpDir.rotate((CSG.R.nextFloat() - 0.5f) * t.getFloatFactor()), false);
 			Shot.rafale(t);
 		}
-	}), SHOT_DOWN(new ShotImplementation() {
+	}), SHOT_DOWN(4, new ShotImplementation() {
 		public void shoot(PhaseUser u) {
 			u.getPhase().bullet.canon.invoke().init(u.getShotPosition(1), u.getBulletSpeedMod(), false);
 		}
-	}), SHOT_DOWN_MULTIPLE(new ShotImplementation() {
+	}), SHOT_DOWN_MULTIPLE(5, new ShotImplementation() {
 		public void shoot(PhaseUser u) {
 			Shot.multiple(u);
 		}
-	}), SHOT_DOWN_MULTIPLE_WITH_BREAK(new ShotImplementation() {
+	}), SHOT_DOWN_MULTIPLE_WITH_BREAK(6, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			if (Shot.multiple(t))
 				t.setNextShot(t.getPhaseTime() + t.getFirerate() * t.getNumberOfShots());
 		}
-	}), SHOT_DOWN_RAND_RAFALE(new ShotImplementation() {
+	}), SHOT_DOWN_RAND_RAFALE(7, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			CSG.tmpDir.x = 0;
 			CSG.tmpDir.y = -1;
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), CSG.tmpDir.rotate((CSG.R.nextFloat() - 0.5f) * t.getFloatFactor()), false);
 			Shot.rafale(t);
 		}
-	}), SHOT_EN_RAFALE(new ShotImplementation() {
+	}), SHOT_EN_RAFALE(8, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), t.getShootingDir(), false);
 			Shot.rafale(t);
 		}
-	}), SHOT_EN_RAFALE_LEFT_RIGHT(new ShotImplementation() {
+	}), SHOT_EN_RAFALE_LEFT_RIGHT(9, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			CSG.vecteurCible = t.getShootingDir();
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), CSG.vecteurCible, false);
@@ -65,19 +65,19 @@ public enum Shot {
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), CSG.vecteurCible, false);
 			Shot.rafale(t);
 		}
-	}), SHOT_EVENTAIL(new ShotImplementation() {
+	}), SHOT_EVENTAIL(10, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			final float shotGap = t.getShotTotalAngle() / t.getNumberOfShots();
 			for (int i = -(t.getNumberOfShots() / 2); i <= t.getNumberOfShots() / 2; i++) {
 				t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), t.getShootingDir().rotate(i * shotGap), t.isBoss());
 			}
 		}
-	}), SHOT_SWEEP_WITH_BREAK(new ShotImplementation() {
+	}), SHOT_SWEEP_WITH_BREAK(11, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			if (Shot.eventail(t))
 				t.setNextShot(t.getPhaseTime() + t.getFirerate() * 4);
 		}
-	}), SHOTGUN(new ShotImplementation() {
+	}), SHOTGUN(12, new ShotImplementation() {
 		public void shoot(PhaseUser u) {
 			CSG.tmpInt = u.getNumberOfShots() + CSG.R.nextInt(u.getIntFactor());
 			for (int i = 0; i < CSG.tmpInt; i++) {
@@ -93,7 +93,7 @@ public enum Shot {
 				b.init(CSG.vecteurCible, CSG.tmpDir);
 			}
 		}
-	}), SHOT_VERS_JOUEUR(new ShotImplementation() {
+	}), SHOT_ON_PLAYER(13, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			final EnemyWeapon a = t.getPhase().bullet.canon.invoke();
 			CSG.vecteurPosition.x = t.getShotPosition(0).x;
@@ -103,7 +103,7 @@ public enum Shot {
 			CSG.vecteurCible.rotate(Physic.getAngleWithPlayer(CSG.vecteurPosition, a.getWidth() / 2, a.getHeight() / 2));
 			a.init(CSG.vecteurPosition, t.getBulletSpeedMod(), CSG.vecteurCible, false);
 		}
-	}), SHOT_VERS_JOUEUR_RAND(new ShotImplementation() {
+	}), SHOT_VERS_JOUEUR_RAND(14, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			final EnemyWeapon a = t.getPhase().bullet.canon.invoke();
 			CSG.vecteurPosition.x = t.getShotPosition(0).x;
@@ -118,7 +118,7 @@ public enum Shot {
 				t.getPhase().bullet.canon.invoke().init(CSG.vecteurPosition, t.getBulletSpeedMod(), CSG.tmpDir, false);
 			}
 		}
-	}), SWEEP(new ShotImplementation() {
+	}), SWEEP(15, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			if (t.getNumberOfShotBeforeDirChange() < t.getShotNumber()) {
 				t.setShotDir(false);
@@ -136,39 +136,45 @@ public enum Shot {
 
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), CSG.vecteurCible, false);
 		}
-	}), TIR_SUR_COTES(new ShotImplementation() {
+	}), TIR_SUR_COTES(16, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(2), t.getShootingDir().rotate(-90), t.getBulletSpeedMod());
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(2), t.getShootingDir().rotate(90), t.getBulletSpeedMod());
 		}
-	}), TIR_TOUT_DROIT(new ShotImplementation() {
+	}), TIR_TOUT_DROIT(17, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), t.getShootingDir(), false);
 		}
-	}), V(new ShotImplementation() {
+	}), V(18, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(2), t.getShootingDir().rotate(-5), t.getBulletSpeedMod());
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(2), t.getShootingDir().rotate(5), t.getBulletSpeedMod());
 		}
-	}), TIR_TOUT_DROIT_DOUBLE_RAND(new ShotImplementation() {
+	}), TIR_TOUT_DROIT_DOUBLE_RAND(19, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), t.getShootingDir().rotate((float) (CSG.R.nextGaussian() * t.getFloatFactor())), false);
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), t.getShootingDir().rotate((float) (CSG.R.nextGaussian() * t.getFloatFactor())), false);
 		}
-	}), TIRS_VERS_BAS_RAND(new ShotImplementation() {
+	}), TIRS_VERS_BAS_RAND(20, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), t.getShootingDir().rotate((float) (CSG.R.nextGaussian() * t.getFloatFactor())), false);
 			t.getPhase().bullet.canon.invoke().init(t.getShotPosition(1), t.getBulletSpeedMod(), t.getShootingDir().rotate((float) (CSG.R.nextGaussian() * t.getFloatFactor())), false);
 		}
-	}), NOTHING(new ShotImplementation() {
+	}), NOTHING(21, new ShotImplementation() {
 		public void shoot(PhaseUser t) {
 		}
 	});
 
 	public ShotImplementation implementation;
+	public int pk;
 
 	private Shot(ShotImplementation shot) {
 		this.implementation = shot;
+	}
+	
+	private Shot(int pk, ShotImplementation shot) {
+		this(shot);
+		this.pk = pk;
 	}
 
 	protected static void rafale(PhaseUser t) {

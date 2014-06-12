@@ -28,42 +28,24 @@ public class PinkWeaponManager extends WeaponManager {
 		if (alternate)			PinkWeapon.POOL.obtain().init(posX, posY, -0.08715574f, 0.9961947f);
 		else					PinkWeapon.POOL.obtain().init(posX, posY, 0.08715574f, 0.9961947f);
 		switch (CSG.profile.lvlPinkWeapon) {
-		case 8:
-			if (!alternate)		PinkWeapon.POOL.obtain().init(posX, posY, -0.70710677f, 0.70710677f);
-			else				PinkWeapon.POOL.obtain().init(posX, posY, 0.70710677f, 0.70710677f);
-		case 7:
-			if (alternate)		PinkWeapon.POOL.obtain().init(posX, posY, -0.70710677f, -0.70710677f);
-			else				PinkWeapon.POOL.obtain().init(posX, posY, 0.70710677f, -0.70710677f);
-		case 6:
-			// 80°
-			if (!alternate)		PinkWeapon.POOL.obtain().init(posX, posY, -0.9848077f, 0.17364822f);
-			else				PinkWeapon.POOL.obtain().init(posX, posY, 0.9848077f, 0.17364822f);
-		case 5:
-			// 85°
-			if (alternate)		PinkWeapon.POOL.obtain().init(posX, posY, -0.9961947f, 0.087155804f);
-			else				PinkWeapon.POOL.obtain().init(posX, posY, 0.9961947f, 0.087155804f);
-		case 4:
-			// 90°
-			if (!alternate)		PinkWeapon.POOL.obtain().init(posX, posY, -1, 0);
-			else				PinkWeapon.POOL.obtain().init(posX, posY, 1, 0);
-		case 3:
-			// 15°
-			if (alternate)		PinkWeapon.POOL.obtain().init(posX, posY, -0.25881904f, 0.9659258f);
-			else				PinkWeapon.POOL.obtain().init(posX, posY, 0.25881904f, 0.9659258f);
-		case 2:
-			// 10°
-			if (!alternate)		PinkWeapon.POOL.obtain().init(posX, posY, -0.17364818f, 0.9848077f);
-			else				PinkWeapon.POOL.obtain().init(posX, posY, 0.17364818f, 0.9848077f);
+		case 8:			shoot(0.70710677f, 0.70710677f);
+		case 7:			shoot(0.70710677f, 0.70710677f);
+		case 6:			shoot(0.9848077f, 0.17364822f); 			// 80°
+		case 5:			shoot(0.9961947f, 0.087155804f);			// 85°
+		case 4:			shoot(1, 0);								// 90°
+		case 3:			shoot(0.25881904f, 0.9659258f);				// 15°
+		case 2:			shoot(0.17364818f, 0.9848077f);				// 10°
 		}
 	}
 
-	@Override
-	public String getLabel() {				return PinkWeapon.LABEL;			}
-	@Override
-	public float[] getColors() {			return PinkWeapon.COLORS;			}
-	@Override
-	protected float getCadenceTir() {		return PinkWeapon.FIRERATETIR;		}
-	@Override
-	public int nv() {						return CSG.profile.lvlPinkWeapon;	}
+	private void shoot(float angleX, float angleY) {
+		if (!alternate)		PinkWeapon.POOL.obtain().init(posX, posY, -angleX, angleY);
+		else				PinkWeapon.POOL.obtain().init(posX, posY, angleX, angleY);
+	}
+
+	@Override	public String getLabel() {				return PinkWeapon.LABEL;			}
+	@Override	public float[] getColors() {			return PinkWeapon.COLORS;			}
+	@Override	protected float getCadenceTir() {		return PinkWeapon.FIRERATETIR;		}
+	@Override	public int nv() {						return CSG.profile.lvlPinkWeapon;	}
 	
 }

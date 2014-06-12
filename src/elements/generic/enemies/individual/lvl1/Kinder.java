@@ -21,29 +21,15 @@ import elements.generic.weapons.enemies.KinderWeapon;
 
 public class Kinder extends Enemy {
 
-	private static final int 
-		WIDTH = Stats.KINDER_WIDTH, 
-		HALF_WIDTH = WIDTH / 2, 
-		HEIGHT = Stats.KINDER_HEIGHT, 
-		HALF_HEIGHT = HEIGHT / 2;
-	public static final int 
-		PK = 6, 
-		BASE_XP = Enemy.initXp(32, PK);
-	private static final int 
-		HP = initHp(Stats.KINDER_HP, PK), 
-		EXPLOSION_COUNT = initExplosion(45, PK), 
-		XP = getXp(BASE_XP, 1);
-	protected static final float 
-		FIRERATE = initFirerate(0.45f, PK), 
-		INIT_NEXT_SHOT = initNextShot(Animations.KINDER_TIME_OPEN, PK), 
-		SPEED = initSpeed(10, PK);
+	public static final int WIDTH = Stats.KINDER_WIDTH, HALF_WIDTH = WIDTH / 2, HEIGHT = Stats.KINDER_HEIGHT, HALF_HEIGHT = HEIGHT / 2, PK = 6,	BASE_XP = Enemy.initXp(32, PK), HP = initHp(Stats.KINDER_HP, PK),
+			EXPLOSION_COUNT = initExplosion(45, PK), XP = getXp(BASE_XP, 1);
+	protected static final float FIRERATE = initFirerate(0.45f, PK), INIT_NEXT_SHOT = initNextShot(Animations.KINDER_TIME_OPEN, PK), SPEED = initSpeed(10, PK), PHASE_DURATION = 12;
 	public static final Pool<Kinder> POOL = Pools.get(Kinder.class);
 	private static final Phase[] PHASES = {
 		new Phase(				Behavior.STRAIGHT_ON,				Gatling.KINDER_WEAPON,				null,						Animations.KINDER_OPENING				),
 		new Phase(				Behavior.ROTATE,					Gatling.KINDER_WEAPON,				Shot.TIR_TOUT_DROIT,		Animations.KINDER_OPEN					),
 		new Phase(				Behavior.GO_AWAY,					Gatling.KINDER_WEAPON,				Shot.TIR_TOUT_DROIT,		Animations.KINDER_OPEN					),		};
 	private static final Pos POSITIONNING = initPositionnement(Sides.PK, PK);
-	private static final float PHASE_DURATION = 12;
 	
 	public void init() {
 		POSITIONNING.set(this);
@@ -90,25 +76,23 @@ public class Kinder extends Enemy {
 	 * Is used to get rotation speed
 	 */
 	@Override	public float getFloatFactor() {				return 40;										}
-	@Override	public float getFirerate() {				return FIRERATE;	}
-	@Override	public Phase[] getPhases() {				return PHASES;					}
 	@Override	protected String getLabel() {				return getClass().toString();					}
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion6;						}
 	@Override	public int getExplosionCount() {			return EXPLOSION_COUNT;							}
 	@Override	public float getHalfHeight() {				return HALF_HEIGHT;								}
-	@Override	public float getHalfWidth() {					return HALF_WIDTH;								}
+	@Override	public float getHalfWidth() {				return HALF_WIDTH;								}
+	@Override	public float getFirerate() {				return FIRERATE;								}
 	@Override	public void free() {						POOL.free(this);								}
 	@Override	public float getBulletSpeedMod() {			return -0.008f;									}
 	@Override	public int getBonusValue() {				return BASE_XP;									}
+	@Override	public Phase[] getPhases() {				return PHASES;									}
 	@Override	public float getHeight() {					return HEIGHT;									}
 	@Override	public float getShootingAngle() {			return angle;									}
 	@Override	public float getDirectionY() {				return dir.y;									}
 	@Override	public float getSpeed() {					return SPEED;									}
-	@Override	public float getWidth() {						return WIDTH;									}
+	@Override	public float getWidth() {					return WIDTH;									}
 	@Override	public int getXp() {						return XP;										}
 	@Override	protected int getMaxHp() {					return HP;										}
-	public static float getPhaseDuration() {
-		return PHASE_DURATION;
-	}
+	public static float getPhaseDuration() {				return PHASE_DURATION;							}
 }
 

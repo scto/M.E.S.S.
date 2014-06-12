@@ -15,16 +15,10 @@ import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class TWeapon extends PlayerWeapon implements Poolable{
 	
-	public static final int width = (int) MINWIDTH, halfWidth = width/2, height = (int) (width * 1.3f), halfHeight = height / 2;
+	public static final int width = (int) MINWIDTH, halfWidth = width/2, height = (int) (width * 1.3f), halfHeight = height / 2, VITESSE_ANGLE = 5000;
 	public static final float FIRERATETIR = initCadence(.099f, 6), FIRERATETIRLVL8 = initCadence(.03f, 7);
-	public static final int VITESSE_ANGLE = 5000;
 	public static final String LABEL = "armeHantee";
-	public static final Pool<TWeapon> POOL = new Pool<TWeapon>(30) {
-		@Override
-		protected TWeapon newObject() {
-			return new TWeapon();
-		}
-	};
+	public static final Pool<TWeapon> POOL = new Pool<TWeapon>(30) {		protected TWeapon newObject() {			return new TWeapon();		}	};
 	private static boolean alterner = false;
 	public float angle;
 //	public static final Animated ANIMATED = initAnimation(4, 12);
@@ -94,11 +88,11 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 		return Physic.mvt(dir, pos, width);
 	}
 
-	@Override	public float getWidth() {					return width;	}
-	@Override	public float getHeight() {				return height;	}
-	@Override	public void free() {					POOL.free(this);	}
-	@Override	public float getColor() {				return COLORS[R.nextInt(COLORS.length)];	}
-	@Override	public float getHalfWidth() {				return halfWidth;	}
-	@Override	public float getHalfHeight() {			return halfHeight;	}
-	@Override	public float[] getColors() {		return PrecalculatedParticles.colorsOverTimeBlue;		}
+	@Override	public float getWidth() {				return width;										}
+	@Override	public float getHeight() {				return height;										}
+	@Override	public void free() {					POOL.free(this);									}
+	@Override	public float getHalfWidth() {			return halfWidth;									}
+	@Override	public float getHalfHeight() {			return halfHeight;									}
+	@Override	public float getColor() {				return COLORS[R.nextInt(COLORS.length)];			}
+	@Override	public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeBlue;	}
 }

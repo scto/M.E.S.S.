@@ -1,9 +1,5 @@
 package elements.generic.components.behavior;
 
-import jeu.CSG;
-
-import com.badlogic.gdx.utils.Array;
-
 import elements.generic.components.PhaseUser;
 import elements.generic.components.behavior.movements.Movements;
 
@@ -30,6 +26,7 @@ public enum Behavior {
 	STAY_TOP(				19, initMovements(Movements.STAY_TOP)),
 	ROTATE_STAY_TOP(		20, initMovements(Movements.STAY_TOP, Movements.ROTATATION_CW)),
 	OSCILLATE_X(			21, initMovements(Movements.STRAIGHT, Movements.OSCILLATE_X, Movements.Y_SLOW_DOWN)),
+	PROTOTYPE(				42, initMovements(Movements.PROTOTYPE)),
 	SLOW(					22, initMovements(Movements.STRAIGHT, Movements.SLOW_DOWN));
 	
 	public final int pk;
@@ -46,12 +43,12 @@ public enum Behavior {
 	}
 	
 	protected static Movements[] initMovements(Movements... movements) {
-		if (CSG.updateNeeded) {
-			Array<Movements> tmp = new Array<Movements>();
-			return Movements.convert(tmp);
-		} else {
+//		if (CSG.updateNeeded) {
+//			Array<Movements> tmp = new Array<Movements>();
+//			return Movements.convert(tmp);
+//		} else {
 			return movements;
-		}
+//		}
 	}
 
 }

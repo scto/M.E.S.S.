@@ -102,7 +102,7 @@ public class WeaponButton {
 //			batch.draw(tr, num * width, y, width, width);
 //			batch.draw(AnimPlayer.tr[2], (num * width) + offsetShip, y - Player.HEIGHT, Player.WIDTH, Player.HEIGHT);
 			batch.draw(tr, x, y, width, height);
-			batch.draw(AnimPlayer.tr[2], x + offsetShip, y - Player.HEIGHT, Player.WIDTH, Player.HEIGHT);
+			batch.draw(AnimPlayer.TEXTURES[2], x + offsetShip, y - Player.HEIGHT, Player.WIDTH, Player.HEIGHT);
 		} else {
 			batch.setColor(AssetMan.ALPHA70);
 //			batch.draw(tr, (num * width) + widthDiv10, y, unselectedWidth, unselectedWidth);

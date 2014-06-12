@@ -29,7 +29,6 @@ public class OvaleParticuleGenerator {
 	public void init(float hauteur) {
 		positionEmiter.x = hauteur;
 		positionEmiter.y = 0;
-		positionEmiter.scl(0.7f);
 	}
 
 	public void add(float centreX, float centreY) {

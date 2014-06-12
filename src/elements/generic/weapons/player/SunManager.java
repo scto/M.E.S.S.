@@ -95,12 +95,8 @@ public class SunManager extends WeaponManager {
 		SunWeapon.init(vector);
 	}
 
-	@Override
-	public String getLabel() {				return SunWeapon.LABEL;			}
-	@Override
-	public float[] getColors() {			return SunWeapon.COLORS;			}
-	@Override
-	protected float getCadenceTir() {		return SunWeapon.FIRERATETIR;		}
-	@Override
-	public int nv() {						return CSG.profile.NvArmeSun;	}
+	@Override	public String getLabel() {				return SunWeapon.LABEL;				}
+	@Override	public float[] getColors() {			return SunWeapon.COLORS;			}
+	@Override	protected float getCadenceTir() {		return SunWeapon.FIRERATETIR;		}
+	@Override	public int nv() {						return CSG.profile.NvArmeSun;		}
 }

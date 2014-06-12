@@ -7,8 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.Invocable;
-
 public class ArmeBossMine extends EnemyWeapon {
 	
 	public static final int WIDTH = CSG.screenWidth / 30, HALF_WIDTH = WIDTH / 2, HEIGHT = (int) (WIDTH * 1.5), HALF_HEIGHT = HEIGHT / 2; 
@@ -43,9 +41,5 @@ public class ArmeBossMine extends EnemyWeapon {
 	@Override	public float getHalfHeight() {				return HALF_HEIGHT;	}
 	@Override	public float getSpeed() {					return SPEED;	}
 
-	@Override
-	public Invocable invoke() {
-		return null;
-	}
 
 }

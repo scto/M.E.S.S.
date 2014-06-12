@@ -19,9 +19,8 @@ public abstract class PlayerWeapon extends Weapon {
 			color = 0;
 	}
 	public abstract float getColor();
-	public float getSpeed() {							return 3333;																		}	
-	public int getPower() {		return FORCE;	}
-	
+	public float getSpeed() {					return 3333;		}	
+	public int getPower() {						return FORCE;		}
 	public abstract float[] getColors();
 }
 

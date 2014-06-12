@@ -5,7 +5,7 @@ import jeu.CSG;
 import com.badlogic.gdx.math.Vector2;
 
 import elements.generic.components.enemies.Merlin;
-import elements.generic.enemies.individual.bosses.BossSat;
+import elements.generic.enemies.individual.bosses.Sat;
 
 public class SpawnEnemyPosition {
 	public static final Vector2 middle = new Vector2(CSG.gameZoneHalfWidth, CSG.SCREEN_HEIGHT),
@@ -20,8 +20,8 @@ public class SpawnEnemyPosition {
 	_8sur10 = new Vector2(CSG.gameZoneWidth * 0.8f, CSG.SCREEN_HEIGHT),
 	_9sur10 = new Vector2(CSG.gameZoneWidth * 0.9f, CSG.SCREEN_HEIGHT),
 	_95sur10 = new Vector2(CSG.gameZoneWidth * 0.95f, CSG.SCREEN_HEIGHT);
-	private static final Vector2 _bossSatUp = new Vector2((CSG.gameZoneWidth-1)+BossSat.HALF_WIDTH, CSG.SCREEN_HEIGHT * 0.7f);
-	private static final Vector2 _bossSatDown = new Vector2((CSG.gameZoneWidth-1)+BossSat.HALF_WIDTH, CSG.SCREEN_HEIGHT * 0.35f);
+	private static final Vector2 _bossSatUp = new Vector2((CSG.gameZoneWidth-1)+Sat.HALF_WIDTH, CSG.SCREEN_HEIGHT * 0.7f);
+	private static final Vector2 _bossSatDown = new Vector2((CSG.gameZoneWidth-1)+Sat.HALF_WIDTH, CSG.SCREEN_HEIGHT * 0.35f);
 	
 	private static final Vector2 pauseVec[] = {};
 	private static final Vector2[] _1random = {null};
@@ -312,15 +312,28 @@ public class SpawnEnemyPosition {
 		zigZag1sur10, pause, zigZag2sur10, pause, zigZag3sur10, pause, zigZag4sur10, pause, zigZag5sur10, pause, zigZag6sur10, pause, zigZag7sur10, pause, zigZag8sur10, pause, zigZag9sur10 
 		};
 	public static final SpawnEnemyPosition[] lvl3_170 = {
-		deBase3_1_9, deBase3_2_8, deBase3_4_6, deBase3_3_7, deBase3Centre,
-		pause, pause, pause, pause, pause, pause,
-		zigZag3Rnd, pause, pause, zigZag3Rnd, pause, pause, zigZag3Rnd, pause, pause, zigZag3Rnd, pause, pause, zigZag3Rnd,
-		deBase3_1_2_8_9, pause, pause, deBase3_1_2_8_9,
-		pause, pause, pause, pause,
-		boule3Mid,
-		pause, pause, pause,
-		zigZag31sur10, pause, zigZag39sur10, pause, zigZag32sur10, pause, zigZag38sur10, pause, zigZag33sur10, pause, zigZag37sur10
+//		deBase3_1_9, deBase3_2_8, deBase3_4_6, deBase3_3_7, deBase3Centre,
+//		pause, pause, pause, pause, pause, pause, pause, pause,
+//		zigZag3Rnd, pause, pause, zigZag3Rnd, pause, pause, zigZag3Rnd, pause, pause, zigZag3Rnd, pause, pause, zigZag3Rnd,
+//		pause, pause, pause, pause, pause, pause,
+//		deBase3_1_2_8_9, pause, pause, deBase3_1_2_8_9,
+//		pause, pause, pause, pause, pause, pause,
+//		boule3Mid,
+//		pause, pause, pause, pause, pause,
+//		zigZag31sur10, pause, zigZag39sur10, pause, zigZag32sur10, pause, zigZag38sur10, pause, zigZag33sur10, pause, zigZag37sur10,
+//		pause, pause, pause, pause, pause,
 	};
+	public static final SpawnEnemyPosition[] deBase3_Triangle = {
+		deBase3_1_9, deBase3_2_8, deBase3_4_6, deBase3_3_7, deBase3Centre
+	};
+	public static final SpawnEnemyPosition[] zigZag3_sweep = {
+		zigZag3Rnd, pause, pause, zigZag3Rnd, pause, pause, zigZag3Rnd, pause, pause, zigZag3Rnd, pause, pause, zigZag3Rnd
+	};
+	public static final SpawnEnemyPosition[] deBase3_12_89_b_b_deBase3_12_89 = {
+		deBase3_1_2_8_9, pause, pause, deBase3_1_2_8_9
+	};
+	public static final SpawnEnemyPosition[] break1 = {pause};
+	
 	public static final SpawnEnemyPosition[] lvl4_170 = {
 		deBase4_1_9, deBase4_2_8, deBase4_4_6, deBase4_3_7, deBase4Centre,
 		pause, pause, pause, pause, pause, pause,

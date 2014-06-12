@@ -131,33 +131,32 @@ public class BossMine extends Enemy {
 		return TMP_POS;
 	}
 	
-	@Override	public void setShotWay(boolean way) {				this.shotWay = way;	}
-	@Override	public boolean getShotWay() {						return shotWay;	}
-	@Override	public float getShotsGap() {						return 5;	}
 	@Override	public void setShootingAngle(float shootingAngle) {	this.shootingAngle = shootingAngle;	}
-	@Override	public int getColor() {								return BLUE;	}
-	@Override	public int getXp() {								return 200;	}
-	@Override	public float getHeight() {							return HEIGHT;	}
-	@Override	public float getWidth() {								return WIDTH;	}
-	@Override	public float getHalfHeight() {						return HALF_HEIGHT;	}
-	@Override	public float getHalfWidth() {							return HALF_WIDTH;	}
-	@Override	public float getBulletSpeedMod() {					return 1;	}
-	@Override	public float getShootingAngle() {					return shootingAngle;	}
-	@Override	public float getDirectionY() {						return -Stats.V_ENN_BOSS_MINE;	}
-	@Override	protected String getLabel() {						return getClass().toString();	}
-	@Override	protected Sound getExplosionSound() {					return SoundMan.bigExplosion;	}
-	@Override	public int getBonusValue() {						return 200;	}
-	@Override	public int getExplosionCount() {					return 180;	}
-	@Override	public Phase[] getPhases() {						return PHASES;	}
+	@Override	public float getDirectionY() {						return -Stats.V_ENN_BOSS_MINE;		}
+	@Override	protected String getLabel() {						return getClass().toString();		}
+	@Override	protected Sound getExplosionSound() {				return SoundMan.bigExplosion;		}
+	@Override	public float getShootingAngle() {					return shootingAngle;				}
+	@Override	public void setShotWay(boolean way) {				this.shotWay = way;					}
+	@Override	public float getHalfHeight() {						return HALF_HEIGHT;					}
+	@Override	public float getHalfWidth() {						return HALF_WIDTH;					}
+	@Override	public void free() {								POOL.free(this);					}
+	@Override	public boolean getShotWay() {						return shotWay;						}
+	@Override	public Phase[] getPhases() {						return PHASES;						}
+	@Override	public float getHeight() {							return HEIGHT;						}
+	@Override	public float getWidth() {							return WIDTH;						}
+	@Override	public int getColor() {								return BLUE;						}
+	@Override	public int getXp() {								return 200;							}
+	@Override	public int getBonusValue() {						return 200;							}
+	@Override	public int getExplosionCount() {					return 180;							}
+	@Override	public float getShotsGap() {						return 5;							}
+	@Override	public float getBulletSpeedMod() {					return 1;							}
+	
 	@Override
 	protected int getMaxHp() {
 		pvPhase2 = getPvBoss(Stats.HP_BOSS_MINE) / 2;
 		return super.getPvBoss(Stats.HP_BOSS_MINE);
 	}
-	@Override
-	public void free() {					
-		POOL.free(this);
-	}
+	
 	
 	@Override
 	public void die() {
