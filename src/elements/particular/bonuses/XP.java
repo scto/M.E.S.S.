@@ -48,8 +48,8 @@ public class XP extends Bonus implements Poolable {
 		color = getColor(xp);
 		state = WANDERER;
 		inflate = 0;
-//		Bonus.XP_LIST.add(this);
-		Score.upScore(xp);
+		Bonus.XP_LIST.add(this);
+//		Score.upScore(xp);
 		angle = CSG.R.nextFloat() * 360;
 	}
 	
@@ -80,7 +80,7 @@ public class XP extends Bonus implements Poolable {
 			if (EndlessMode.alternate) {
 				switch (xp.state) {
 				case WANDERER:
-					analyzeDistance(xp, HOMMING, Stats.SAT_WIDTH);
+					analyzeDistance(xp, HOMMING, Stats.U10);
 					drawStandard(batch, xp, xp.angle);
 					xp.angle++;
 					break;
@@ -89,7 +89,7 @@ public class XP extends Bonus implements Poolable {
 //					Physic.mvtToPlayer(xp.direction, xp.pos, Stats.U20 + xp.valeur * 2, WIDTH, HALF);
 //					Physic.mvtToPlayer(xp.direction, xp.pos, Stats.U20 + xp.valeur * 2, (int)xp.width, (int)xp.width / 2);
 					Physic.mvtToPlayer(xp.direction, xp.pos, Stats.U20 + xp.valeur * 2, WIDTH, HALF, 1);
-					analyzeDistance(xp, INFLATE, Player.HEIGHT);
+					analyzeDistance(xp, INFLATE, Stats.U10);
 					drawStandard(batch, xp, xp.angle);
 					break;
 				case INFLATE:
@@ -175,7 +175,7 @@ public class XP extends Bonus implements Poolable {
 		xp.pos.y += xp.direction.y * EndlessMode.delta15;
 	}
 
-	private static void analyzeDistance(XP xp, int nextState, int detectionRange) {
+	private static void analyzeDistance(XP xp, int nextState, float detectionRange) {
 		tmp.x = xp.pos.x + HALF_WIDTH;
 		tmp.y = xp.pos.y + HALF_WIDTH;
 		if (Physic.distanceFromPlayer(tmp) < detectionRange)

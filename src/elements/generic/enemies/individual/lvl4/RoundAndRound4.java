@@ -17,7 +17,6 @@ public class RoundAndRound4 extends RoundAndRound3 {
 	@Override	public float getFirerate() {		return FIRERATE;				}
 	@Override	public void free() {				POOL.free(this);				}
 	@Override	public int getBonusValue() {		return BASE_XP;					}
-	@Override	public float getBulletSpeedMod() {	return 0.010f;					}
 	@Override	public float getSpeed() {			return SPEED;					}
 	@Override	public int getXp() {				return XP;						}
 	@Override	protected int getMaxHp() {			return HP;						}

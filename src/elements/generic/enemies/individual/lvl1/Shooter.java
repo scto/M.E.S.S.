@@ -47,7 +47,7 @@ public class Shooter extends Enemy {
 	
 	@Override
 	public Vector2 getShotPosition(int numeroTir) {
-		TMP_POS.x = pos.x + xOffset;
+		TMP_POS.x = pos.x + (HALF_WIDTH - Fireball.HALF_WIDTH);
 		TMP_POS.y = pos.y - Fireball.HEIGHT;
 		return TMP_POS;
 	}

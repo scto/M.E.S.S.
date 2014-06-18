@@ -43,7 +43,10 @@ public class ZigZag extends Enemy {
 
 	protected Vector2 getSmokeVector() {				return smokeVector;		}
 
-	
+//	@Override
+//	public float getBulletSpeedMod() {
+//		return super.getBulletSpeedMod();
+//	}
 	@Override	public float getPhaseTime() {			return pos.x + HALF_WIDTH;		}
 	@Override	public void free() {					POOL.free(this);				}
 	@Override	protected int getMaxHp() {				return HP;						}

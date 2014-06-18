@@ -72,7 +72,7 @@ public class EndlessMode implements Screen {
 	private boolean toastSent = false;
 	private float justTouched = 0;
 	public static final float STOP = 3;
-	public static boolean invicibility = false, freeze = false, frameByFrame = false;
+	public static boolean invicibility = false, freeze = false, frameByFrame = false, invoque = true;
 	private Tutorial tuto = new Tutorial();
 	private static int cheat = CSG.NO_CHEAT;
 	public static Transition transition = new Transition();
@@ -404,7 +404,8 @@ public class EndlessMode implements Screen {
 		if (!lost) {
 			mouvement();
 			if (alternate) {
-//				Progression.invoqueBaseOnScore();
+				if (invoque)
+					Progression.invoqueBaseOnScore();
 				if (!triggerStop)
 					Physic.collisionsTest();
 				Score.act(now, lost, triggerStop);

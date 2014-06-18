@@ -90,6 +90,6 @@ public class Crusader extends Enemy {
 	@Override	protected int getMaxHp() {					return HP;																	}
 	@Override	public int getXp() {						return XP;																	}
 	@Override	public int getNumberOfShots() {				return 3;																	}
-	@Override	public float getBulletSpeedMod() {			return 1;																	}
+	@Override	public float getBulletSpeedMod() {			return 100;																	}
 	protected int getPallierPv() {							return HALF_HP;																}
 }

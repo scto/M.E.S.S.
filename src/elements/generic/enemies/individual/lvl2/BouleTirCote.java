@@ -60,14 +60,14 @@ public class BouleTirCote extends Enemy {
 	@Override	public int getXp() {						return 73;	}
 	@Override	public int getBonusValue() {				return 80;	}
 	@Override	public float getHeight() {					return WIDTH;	}
-	@Override	public float getWidth() {						return WIDTH;	}
+	@Override	public float getWidth() {					return WIDTH;	}
 	@Override	public float getHalfHeight() {				return HALF_WIDTH;	}
-	@Override	public float getHalfWidth() {					return HALF_WIDTH;	}
-	@Override	public float getBulletSpeedMod() {			return 0.01f;	}
+	@Override	public float getHalfWidth() {				return HALF_WIDTH;	}
+	@Override	public float getBulletSpeedMod() {			return 1f;	}
 	@Override	protected int getMaxHp() {					return Stats.HP_BOULE_COTE_PETIT;	}
-	@Override	protected Sound getExplosionSound() {			return SoundMan.explosion4;	}
+	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion4;	}
 	@Override	public void free() {						POOL.free(this);	}
-	@Override	public float getShootingAngle() {				return angle;	}
+	@Override	public float getShootingAngle() {			return angle;	}
 	@Override	public float getDirectionY() {				return dir.y;	}
 	@Override	public float getDirectionX() {				return dir.x;	}
 	@Override	protected String getLabel() {				return getClass().toString();	}

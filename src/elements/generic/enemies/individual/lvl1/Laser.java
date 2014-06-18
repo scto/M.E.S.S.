@@ -98,7 +98,7 @@ public class Laser extends Enemy {
 	@Override	public float getFirerate() {			return FIRERATE;									}
 	@Override	public int getBonusValue() {			return BASE_XP;										}
 	@Override	public Phase[] getPhases() {			return PHASES;										}
-	@Override	public float getBulletSpeedMod() {		return 0.010f;										}
+	@Override	public float getBulletSpeedMod() {		return 2f;										}
 	@Override	public float getHeight() {				return WIDTH;										}
 	@Override	public float getWidth() {				return WIDTH;										}
 	@Override	public float getSpeed() {				return SPEED;										}

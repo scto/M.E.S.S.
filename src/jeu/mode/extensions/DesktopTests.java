@@ -92,20 +92,23 @@ public class DesktopTests {
 		
 //		if (Gdx.input.isKeyPressed(Keys.E))		Merlin.ZIGZAG4.incantation.invoke();
 //		if (Gdx.input.isKeyPressed(Keys.R))		EndlessMode.addBonusStop();
-//		if (Gdx.input.isKeyPressed(Keys.T))		Merlin.QUI_TIR.incantation.invoke();
-//		if (Gdx.input.isKeyPressed(Keys.T))		Merlin.QUI_TIR3.incantation.invoke();
-//		if (Gdx.input.isKeyPressed(Keys.T))		Merlin.QUI_TIR4.incantation.invoke();
-//		if (Gdx.input.isKeyPressed(Keys.Y))		Merlin.QUI_TIR_TRIANGLE.incantation.invoke();
-//		if (Gdx.input.isKeyPressed(Keys.Y))		Merlin.QUI_TIR_TRIANGLE3.incantation.invoke();
-//		if (Gdx.input.isKeyPressed(Keys.Y))		Merlin.QUI_TIR_TRIANGLE4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.I))		Merlin.QUI_TIR.incantation.invoke();
+//		if (Gdx.input.isKeyPressed(Keys.I))		Merlin.QUI_TIR3.incantation.invoke();
+//		if (Gdx.input.isKeyPressed(Keys.I))		Merlin.QUI_TIR4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.C))		Merlin.QUI_TIR_TRIANGLE.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.C))		Merlin.QUI_TIR_TRIANGLE3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.C))		Merlin.QUI_TIR_TRIANGLE4.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.U))		Merlin.BALL.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.U))		Merlin.BALL3.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.U))		Merlin.BALL4.incantation.invoke();
 //		if (Gdx.input.isKeyPressed(Keys.O))		Ombrelle.ref.invoke();
 		if (Gdx.input.isKeyPressed(Keys.P))		Merlin.BOULE_TIR_COTE_ROTATION.incantation.invoke();
-		if (Gdx.input.isKeyPressed(Keys.Q))		Merlin.ROUND_N_ROUND.incantation.invoke();
-		if (Gdx.input.isKeyPressed(Keys.Q))		Merlin.ROUND_N_ROUND3.incantation.invoke();
-		if (Gdx.input.isKeyPressed(Keys.Q))		Merlin.ROUND_N_ROUND4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Q))		Merlin.ROUND_N_ROUND.incantation.invoke().setPosition(new Vector2(200, 400));
+		if (Gdx.input.isKeyPressed(Keys.Q))		Merlin.ROUND_N_ROUND3.incantation.invoke().setPosition(new Vector2(220, 400));
+		if (Gdx.input.isKeyPressed(Keys.Q))		Merlin.ROUND_N_ROUND4.incantation.invoke().setPosition(new Vector2(240, 400));
+		if (Gdx.input.isKeyPressed(Keys.S))		Merlin.QUI_TIR.incantation.invoke().setPosition(new Vector2(240, 400));
+		if (Gdx.input.isKeyPressed(Keys.S))		Merlin.QUI_TIR3.incantation.invoke().setPosition(new Vector2(240, 400));
+		if (Gdx.input.isKeyPressed(Keys.S))		Merlin.QUI_TIR4.incantation.invoke().setPosition(new Vector2(240, 400));
 		if (Gdx.input.isKeyPressed(Keys.D))		XP.POOL.obtain().init(400, 400, 300);
 		if (Gdx.input.isKeyPressed(Keys.F))		Merlin.QUI_TOURNE.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.F))		Merlin.QUI_TOURNE3.incantation.invoke();
@@ -123,6 +126,8 @@ public class DesktopTests {
 		if (Gdx.input.isKeyPressed(Keys.V))		Merlin.LASER3.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.V))		Merlin.LASER4.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.N))		Merlin.CRUSADER.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.N))		Merlin.CRUSADER3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.N))		Merlin.CRUSADER4.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.B))		Shield.POOL.obtain().init(CSG.R.nextFloat() * CSG.gameZoneWidth, 200);
 		
 		
@@ -140,7 +145,8 @@ public class DesktopTests {
 		if (Gdx.input.isKeyPressed(Keys.F9)) 	wave = false;
 //		if (Gdx.input.isKeyPressed(Keys.F9))	BossMine.ref.invoke();
 //		if (Gdx.input.isKeyPressed(Keys.F10))	BossQuad.ref.invoke();
-		if (Gdx.input.isKeyPressed(Keys.F11))	Merlin.VICIOUS.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.F11))	EndlessMode.invoque = true;
+		if (Gdx.input.isKeyPressed(Keys.F12))	EndlessMode.invoque = false;
 		if (Gdx.input.isKeyPressed(Keys.F3))	Bonus.LIST.add(TimeStop.POOL.obtain());
 		if (Gdx.input.isKeyPressed(Keys.F4)) {
 			Bonus.LIST.add(XP.POOL.obtain());

@@ -72,7 +72,7 @@ public class CSG extends Game implements ApplicationListener {
 		else
 			updateNeeded = true;
 		
-		updateNeeded = true;
+//		updateNeeded = true;
 //		updateNeeded = false;
 	}
 

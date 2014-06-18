@@ -149,7 +149,10 @@ public class BossMine extends Enemy {
 	@Override	public int getBonusValue() {						return 200;							}
 	@Override	public int getExplosionCount() {					return 180;							}
 	@Override	public float getShotsGap() {						return 5;							}
-	@Override	public float getBulletSpeedMod() {					return 1;							}
+	@Override	public float getBulletSpeedMod() {
+		System.out.println(100);
+		return 100;							
+	}
 	
 	@Override
 	protected int getMaxHp() {

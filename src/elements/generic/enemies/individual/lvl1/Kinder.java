@@ -83,7 +83,7 @@ public class Kinder extends Enemy {
 	@Override	public float getHalfWidth() {				return HALF_WIDTH;								}
 	@Override	public float getFirerate() {				return FIRERATE;								}
 	@Override	public void free() {						POOL.free(this);								}
-	@Override	public float getBulletSpeedMod() {			return -0.008f;									}
+	@Override	public float getBulletSpeedMod() {		return -1.5f;					}
 	@Override	public int getBonusValue() {				return BASE_XP;									}
 	@Override	public Phase[] getPhases() {				return PHASES;									}
 	@Override	public float getHeight() {					return HEIGHT;									}

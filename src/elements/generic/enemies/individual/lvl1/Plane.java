@@ -95,5 +95,5 @@ public class Plane extends Enemy {
 	@Override	public float getWidth() {				return WIDTH;									}
 	@Override	protected int getMaxHp() {				return HP;										}
 	@Override	public int getXp() {					return XP;										}
-	@Override	public float getBulletSpeedMod() {		return 1;										}
+	@Override	public float getBulletSpeedMod() {		return 1.3f;					}
 }

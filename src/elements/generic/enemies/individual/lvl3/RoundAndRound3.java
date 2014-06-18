@@ -15,7 +15,6 @@ public class RoundAndRound3 extends RoundAndRound {
 	@Override	protected String getLabel() {		return getClass().toString();	}
 	@Override	public void free() {				POOL.free(this);				}
 	@Override	public int getBonusValue() {		return BASE_XP;					}
-	@Override	public float getBulletSpeedMod() {	return 0.009f;					}
 	@Override	public float getSpeed() {			return SPEED;					}
 	@Override	protected int getMaxHp() {			return HP;						}
 	@Override	public int getXp() {				return XP;						}

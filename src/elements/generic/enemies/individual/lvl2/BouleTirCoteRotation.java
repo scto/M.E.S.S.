@@ -27,7 +27,6 @@ public class BouleTirCoteRotation extends BouleTirCote {
 	}
 	
 	@Override	public int getNumberOfShots() {			return 5;	}
-	@Override	public float getBulletSpeedMod() {		return 0.013f;	}
 	@Override	public float getFirerate() {			return FIRERATE;	}
 	@Override	public float getSpeed() {				return SPEED;	}
 	@Override	public int getXp() {					return 61;	}

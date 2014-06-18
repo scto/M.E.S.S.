@@ -23,6 +23,9 @@ public class Shooter3 extends Shooter {
 		new Phase(				Behavior.STRAIGHT_ON,				Gatling.FIREBALL,				Shot.SHOT_DOWN_RAND_RAFALE,				Animations.SHOOTER_GOOD				),
 		new Phase(				Behavior.STRAIGHT_ON,				Gatling.FIREBALL,				Shot.SHOT_DOWN_RAND_RAFALE,				Animations.SHOOTER_BAD				)		};
 	
+	@Override	public float getBulletSpeedMod() {
+		return super.getBulletSpeedMod()*100;	
+	}
 	@Override	protected String getLabel() {		return getClass().toString();	}
 	@Override	public int getNumberOfShots() {		return CSG.R.nextInt(4);		}
 	@Override	public float getHalfHeight() {		return HALF_HEIGHT;				}

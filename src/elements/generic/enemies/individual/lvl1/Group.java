@@ -98,7 +98,7 @@ public class Group extends Enemy {
 	@Override	public void addShots(int i) {							shotNumber += i;				}
 	@Override	public float getFirerate() {							return FIRERATE;				}
 	@Override	public int getBonusValue() {							return BASE_XP;					}
-	@Override	public float getBulletSpeedMod() {						return -0.012f;					}
+	@Override	public float getBulletSpeedMod() {						return -1.2f;					}
 	@Override	public float getDirectionY() {							return -SPEED;					}
 	@Override	public Phase[] getPhases() {							return PHASES;					}
 	@Override	public float getHeight() {								return WIDTH;					}

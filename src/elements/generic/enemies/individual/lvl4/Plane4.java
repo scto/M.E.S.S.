@@ -42,13 +42,13 @@ public class Plane4 extends Plane3 {
 	@Override	public int getNumberOfShots() {			return 3;							}
 	@Override	protected int getMaxHp() {				return HP;							}
 	@Override	public int getXp() {					return XP;							}
-	@Override	public float getBulletSpeedMod() {		return 1.3f;						}
+	@Override	public float getBulletSpeedMod() {		return 303f;						}
 	@Override	public Phase[] getPhases() {			return PHASES;						}
 	@Override	public int getBonusValue() {			return BASE_XP;						}
 	@Override	protected int getHalfHp() {				return DEMI_HP;						}
 	@Override	public void addShots(int i) {			shotNumber += i;					}
 	@Override	public void free() {					POOL.free(this);					}
-	@Override	public float getFirerate() {			return FIRERATE/2;					}
+	@Override	public float getFirerate() {			return FIRERATE/4;					}
 	@Override	public int getShotNumber() {			return shotNumber;					}
 	@Override	protected String getLabel() {			return getClass().toString();		}
 }

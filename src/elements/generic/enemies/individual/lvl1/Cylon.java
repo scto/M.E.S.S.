@@ -113,7 +113,7 @@ public class Cylon extends Enemy {
 	@Override	public Phase[] getPhases() {			return PHASES;								}
 	@Override	public float getHeight() {				return WIDTH;								}
 	@Override	public float getWidth() {				return WIDTH;								}
-	@Override	public float getBulletSpeedMod() {		return 0.01f;								}
+	@Override	public float getBulletSpeedMod() {		return 2;								}
 	@Override	public void setNextShot(float f) {		nextShot = f;								}
 	@Override	public float getDirectionY() {			return dir.y;								}
 	@Override	public float getDirectionX() {			return dir.x;								}

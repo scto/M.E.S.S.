@@ -19,6 +19,7 @@ public class Kinder3 extends Kinder {
 	@Override	public float getSpeed() {			return SPEED;					}
 	@Override	protected int getMaxHp() {			return HP;						}
 	@Override	public int getXp() {				return XP;						}
+	@Override	public float getBulletSpeedMod() {		return -1.5f;					}
 	public static float getPhaseDuration() {		return PHASE_DURATION;			}
 }
 

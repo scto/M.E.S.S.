@@ -83,7 +83,7 @@ public class Ball extends Enemy {
 	@Override	public int getColor() {						return BLUE;									}
 	@Override	protected int getMaxHp() {					return HP;										}
 	@Override	public int getXp() {						return XP;										}
-	@Override	public float getBulletSpeedMod() {			return 1;										}
+	@Override	public float getBulletSpeedMod() {			return 100;										}
 	@Override	public boolean stillAlive(PlayerWeapon a) {
 		nextShot -= 1;
 		return super.stillAlive(a);					

@@ -58,7 +58,7 @@ public class RoundAndRound extends Enemy {
 	@Override	public int getNumberOfShotBeforeDirChange() {	return 5;							}
 	@Override	protected Sound getExplosionSound() {			return SoundMan.explosion6;			}
 	@Override	public void setShotDir(boolean b) {				shootRight = b;						}
-	@Override	public float getBulletSpeedMod() {				return 0.009f;						}
+	@Override	public float getBulletSpeedMod() {				return 1;						}
 	@Override	public float getShootingAngle() {				return 0;							}
 	@Override	public Vector2 getShootingDir() {				return dir;							}
 	@Override	public int getExplosionCount() {				return EXPLOSION_MIN_PARTICLES;		}
