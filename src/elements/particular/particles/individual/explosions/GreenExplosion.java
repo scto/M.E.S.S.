@@ -29,7 +29,6 @@ public class GreenExplosion implements Poolable {
 	private float speedX, speedY, x, y;
 	private float width;
 	private int ttl;
-//	private final float color = AssetMan.convertARGB(1, CSG.R.nextFloat()/8, 1, (CSG.R.nextFloat() + .8f) / 1.6f);
 	private final float color = getColor();
 	private static int bigger = 0;
 	private static final Vector2 tmpVector = new Vector2();

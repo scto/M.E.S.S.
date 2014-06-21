@@ -16,7 +16,7 @@ import elements.generic.components.shots.Gatling;
 import elements.generic.components.shots.Shot;
 import elements.generic.enemies.Enemy;
 import elements.generic.enemies.Progression;
-import elements.generic.weapons.enemies.ArmeBossMine;
+import elements.generic.weapons.enemies.Raindow;
 import elements.generic.weapons.enemies.Mine;
 import elements.generic.weapons.player.PlayerWeapon;
 
@@ -118,7 +118,7 @@ public class BossMine extends Enemy {
 	@Override
 	public Vector2 getShotPosition(int numeroTir) {
 		if (index == 1) {
-			TMP_POS.x = (pos.x + HALF_WIDTH - ArmeBossMine.HALF_WIDTH);
+			TMP_POS.x = (pos.x + HALF_WIDTH - Raindow.HALF_WIDTH);
 			TMP_POS.y = pos.y;
 		} else {
 			TMP_DIR.x = 0;

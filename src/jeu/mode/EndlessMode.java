@@ -436,7 +436,7 @@ public class EndlessMode implements Screen {
 				pasTouche();
 			}
 		}
-
+				
 	}
 
 	private static void pasTouche() {

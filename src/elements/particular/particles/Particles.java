@@ -255,7 +255,6 @@ public class Particles {
 	}
 	
 	public static void explosionGreen(float posX, float posY, int max) {
-		
 		GreenExplosion.add(max, EXPLOSIONS_GREENS, posX, posY);
 	}
 	

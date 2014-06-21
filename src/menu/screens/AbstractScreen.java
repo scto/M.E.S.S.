@@ -193,10 +193,8 @@ public abstract class AbstractScreen implements Screen {
 
 	@Override
 	public void show() {
-		reset();
     }
 
-	public void reset() {		for (Button b : buttons) if (b != null) b.reset();	}
 	@Override
 	public void hide() {
 		
@@ -214,8 +212,4 @@ public abstract class AbstractScreen implements Screen {
 //		AssetMan.unload();
 	}
 
-	public void touche() {
-		for (Button b : buttons)
-			b.setFade(true);
-	}
 }

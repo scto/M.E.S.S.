@@ -1,6 +1,6 @@
 package elements.generic.components.shots;
 
-import elements.generic.weapons.enemies.ArmeBossMine;
+import elements.generic.weapons.enemies.Raindow;
 import elements.generic.weapons.enemies.BlueBullet;
 import elements.generic.weapons.enemies.BlueBulletFast;
 import elements.generic.weapons.enemies.BlueBulletSlow;
@@ -30,7 +30,7 @@ public enum Gatling {
 	SMALL_FIREBALL(15, new Canon() {			public EnemyWeapon invoke() {			return SmallFireball.POOL.obtain();				}	}),
 	BLUE_BULLET(2, new Canon() {				public EnemyWeapon invoke() {			return BlueBullet.POOL.obtain();				}	}),
 	BLUE_BULLET_FAST(7, new Canon() {			public EnemyWeapon invoke() {			return BlueBulletFast.POOL.obtain();			}	}),
-	BOSS_MINE(1, new Canon() {					public EnemyWeapon invoke() {			return ArmeBossMine.POOL.obtain();				}	}),
+	BOSS_MINE(1, new Canon() {					public EnemyWeapon invoke() {			return Raindow.POOL.obtain();				}	}),
 	FIREBALL(9, new Canon() {					public EnemyWeapon invoke() {			return Fireball.POOL.obtain();					}	}),
 	FRAG(3, new Canon() {						public EnemyWeapon invoke() {			return FragWeapon.POOL.obtain();				}	}),
 	LASER(5, new Canon() {						public EnemyWeapon invoke() {			return LaserWeapon.POOL.obtain();				}	}),

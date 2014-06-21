@@ -2,6 +2,8 @@ package assets;
 
 import jeu.CSG;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.AudioDevice;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
@@ -12,9 +14,14 @@ public final class SoundMan {
 	private static final float MIN = 0.1f;
 	private static float originalVolume, changedVolume, gap;
 	private static final int SOUNDS_PER_FRAME = 8;
+//	private static final AudioDevice audio = initAudio();
 
 	private SoundMan() {
 	}
+
+//	private static AudioDevice initAudio() {
+//		return Gdx.audio.newAudioDevice(44, true);
+//	}
 
 	public static void playBulletSound(Sound s) {
 		if (CSG.profile.weaponVolume > MIN) {
@@ -77,4 +84,10 @@ public final class SoundMan {
 			}
 		}
 	}
+	
+	public static void generate(float t) {
+//		audio.writeSamples(samples, offset, numSamples);
+	}
+	
+	
 }

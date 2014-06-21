@@ -16,19 +16,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class Button {
+public class Button extends AbstractButton {
 
+	private static final float PADDING_BARRE = Stats.U;
 	private BitmapFont font;
 	private String texte;
-	private boolean versDroite = false, rapetisser = false, fade = false, clicked = false;
-	private float vitesse = 50, clickTime = 0;
+	private boolean clicked = false;
 	private AbstractScreen parent;
 	public Sprite sprite;
 	public OnClick click;
 	private boolean faitBouger = false;
-	Array<Barre> barres = new Array<Barre>();
-	private float height, width, x, y;
-	private static final float PADDING_BARRE = Stats.U;
+	private float clickTime = 0, height, width;
 	private final float originalWidth, originalHeight;
 	
 
@@ -52,7 +50,6 @@ public class Button {
 	private void updateBorders(BitmapFont font, float x, float y, float originalWidth, float originalHeight) {
 		height = font.getBounds(texte).height;
 		width = font.getBounds(texte).width;
-//		width *= 1.2f;
 		y = (y + (originalHeight/2)) - (height/2);
 		x = (x + (originalWidth/2)) - (width/2);
 		x -= PADDING_BARRE;
@@ -65,46 +62,15 @@ public class Button {
 	private void setBarres(float x, float y) {
 		barres.clear();
 		// top 
-		horizontalBarre(x, y + height - Barre.HEIGHT);
+		horizontalBarre(x, y + height - Barre.HEIGHT, width + Barre.HEIGHT);
 		// bottom
-		horizontalBarre(x, y);
+		horizontalBarre(x, y, width + Barre.HEIGHT);
 		// left
-		verticalBarre(x - Barre.HALF_HEIGHT, y);
-		verticalBarre(x + width + Barre.HEIGHT, y);
+		verticalBarre(x - Barre.HALF_HEIGHT, y, height);
+		verticalBarre(x + width + Barre.HEIGHT, y, height);
 		Barre.nbr = 0;
 		this.x = x - Barre.HALF_HEIGHT;
 		this.y = y;
-	}
-	
-	private void verticalBarre(float x, float y) {
-		final float distanceACouvrir = height;
-		final int nbrBarre = (int) (((distanceACouvrir * 0.8f) / Barre.HEIGHT));
-		final float distanceCouverte = nbrBarre * Barre.HEIGHT;
-		final float ecartTotal = distanceACouvrir - distanceCouverte;
-		final float ecart = ecartTotal / (nbrBarre-1);
-		float tmpX = 0;
-		for (int i = 0; i < nbrBarre; i++) {
-//		for (float tmpX = 0; tmpX < height - Barre.HEIGHT;) {
-			barres.add(Barre.POOL.obtain().init(x, y + tmpX));
-			tmpX += (Barre.HEIGHT + ecart);
-//			tmpX += Stats.uSur4;
-		}
-	}
-
-	private void horizontalBarre(float x, float y) {
-		final float distanceACouvrir = width + Barre.HEIGHT;
-		final int nbrBarre = (int) (((distanceACouvrir * 0.7f) / Barre.HEIGHT));
-		final float distanceCouverte = nbrBarre * Barre.HEIGHT;
-		final float ecartTotal = distanceACouvrir - distanceCouverte;
-		final float ecart = ecartTotal / (nbrBarre-1);
-		float tmpX = -Barre.HALF_HEIGHT;
-//		for (float tmpX = 0; tmpX < width;) {
-		for (int i = 0; i < nbrBarre; i++) {
-			barres.add(Barre.POOL.obtain().init(x + tmpX, y));
-//			tmpX += Barre.HEIGHT;
-//			tmpX += Stats.uSur4;
-			tmpX += (Barre.HEIGHT + ecart);
-		}
 	}
 	
 	public Button(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, Menu parent, OnClick click, boolean faitBouger) {
@@ -149,17 +115,9 @@ public class Button {
 		
 		if (Gdx.input.justTouched()) {
 			if (Physic.pointIn(sprite)) {
-				if (faitBouger) {
-					if (parent != null)
-						parent.touche();
-					fade = false;
-					versDroite = true;
-					clicked(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-				} else {
-					impulse(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-					if (click != null)
-						click.onClick();
-				}
+				impulse(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+				if (click != null)
+					click.onClick();
 			}
 		}
 		act();
@@ -201,29 +159,6 @@ public class Button {
 			clickTime += EndlessMode.delta;
 		if (clickTime > .2f)
 			click.onClick();
-				
-//		float delta = Gdx.graphics.getDeltaTime();
-//		if (versDroite || fade || rapetisser)
-//			incrementVitesse();
-//		if (versDroite)
-//			sprite.setX(sprite.getX() + delta * getVitesse());
-//		if (fade)
-//			sprite.setX(sprite.getX() - delta * getVitesse());
-//		if (rapetisser) {
-//			setTexte("");
-//			sprite.setScale((delta * getVitesse()));
-//		}
-//		
-//		if (versDroite && sprite.getX() > CSG.screenWidth) {
-//			click.onClick();
-//		}
-	}
-	
-	public float getVitesse() {		return vitesse;	}
-	
-	private float incrementVitesse() {
-		vitesse = vitesse + (vitesse/6);
-		return vitesse;
 	}
 	
 	public void setTexte(String texte) {
@@ -234,19 +169,7 @@ public class Button {
 		setBarres(getX() - PADDING_BARRE, y);
 	}
 	
-	public void setVersDroite(boolean b) {		versDroite = b;	}
 	
-	public void setFade(boolean b) {		fade = b;	}
-	
-	public void reset() {
-		versDroite = false;
-		fade = false;
-		vitesse = 50;
-		rapetisser = false;
-	}
-	
-	public void setRapetisser(boolean b) {		rapetisser = b;	}
-
 	public BitmapFont font() {
 		return font;
 	}
@@ -271,87 +194,3 @@ public class Button {
 		}
 	}
 }
-
-
-
-//private void moveGenerator(float speed) {
-//	switch (generatorSide) {
-//	case 0:
-//		generator.x += speed;
-//		if (generator.x > sprite.getX() + sprite.getWidth()) {
-//			generatorSide++;
-//			generator.x = sprite.getX() + sprite.getWidth();
-//		}
-//		break;
-//	case 1:
-//		generator.y += speed;
-//		if (generator.y > sprite.getY() + sprite.getHeight()) {
-//			generatorSide++;
-//			generator.y = sprite.getY() + sprite.getHeight();
-//		}
-//		break;
-//	case 2:
-//		generator.x -= speed;
-//		if (generator.x < sprite.getX()) {
-//			generatorSide++;
-//			generator.x = sprite.getX();
-//		}
-//		break;
-//	case 3:
-//		generator.y -= speed;
-//		if (generator.y < sprite.getY() - ParticlePanneau.WIDTH) {
-//			generatorSide = 0;
-//			generator.y = sprite.getY() - ParticlePanneau.WIDTH;
-//		}
-//		break;
-//	}
-//}
-
-//
-//public void initVectorsParticule() {
-//	switch (cptPosition) {
-//	case 1:
-//	case 2:
-//	case 3:
-//	case 4:
-//		// ligne du haut
-//		tmpPos.y = sprite.getY() + sprite.getHeight();
-//		tmpPos.x = (sprite.getX() + (rand.nextFloat() * (sprite.getWidth()+ParticlePanneau.TRIPLE_WIDTH))) - ParticlePanneau.DOUBLE_WIDTH;
-//		tmpGeneralDirection.y = 1;
-//		tmpGeneralDirection.x = 0;
-//		break;
-//	case 5:
-//		// ligne de droite
-//		tmpPos.y = sprite.getY() + (rand.nextFloat() * sprite.getHeight());
-//		tmpPos.x = sprite.getX() + sprite.getWidth() + ParticlePanneau.WIDTH;
-//		tmpGeneralDirection.y = 0;
-//		tmpGeneralDirection.x = 1;
-//		break;
-//	case 6:
-//	case 7:
-//	case 8:
-//	case 9:
-//		// ligne du bas
-//		tmpPos.y = sprite.getY() - ParticlePanneau.WIDTH;
-//		tmpPos.x = (sprite.getX() + (rand.nextFloat() * (sprite.getWidth()+ParticlePanneau.TRIPLE_WIDTH))) - ParticlePanneau.DOUBLE_WIDTH;
-//		tmpGeneralDirection.y = -1;
-//		tmpGeneralDirection.x = 0;
-//		break;
-//	case 10:
-//		// ligne de gauche
-//		tmpPos.y = sprite.getY() + (rand.nextFloat() * sprite.getHeight());
-//		tmpPos.x = sprite.getX() - ParticlePanneau.DOUBLE_WIDTH;
-//		tmpGeneralDirection.y = 0;
-//		tmpGeneralDirection.x = -1;
-//		break;
-//	}
-//	if (++cptPosition > 10)
-//		cptPosition = 1;
-//}
-
-
-//private void initGenerator() {
-//	generator.x = sprite.getX();
-//	generator.y = sprite.getY() - ParticlePanneau.WIDTH;
-//	Particles.BOUTONS.clear();
-//}

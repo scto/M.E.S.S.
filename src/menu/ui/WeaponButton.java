@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import elements.generic.Player;
 import elements.generic.weapons.player.WeaponManager;
 
-public class WeaponButton {
+public class WeaponButton extends AbstractButton {
 	
 	public static final float width = CSG.screenWidth / 7, widthDiv10 = width / 10, offsetShip = (width - Player.WIDTH)/2, height = width * 1.3f, padding = (CSG.screenWidth / 7) / 7;
 	public static final float heightBackground = height * 1.1f;
@@ -24,8 +24,6 @@ public class WeaponButton {
 	private boolean selected;
 	private final String label;
 	private static float xText = 10;
-	private float y, x;
-	private final Array<Barre> barres = new Array<Barre>();
 	
 	public WeaponButton(TextureRegion tr, int num, String label, float y) {
 		this.tr = tr;
@@ -41,12 +39,12 @@ public class WeaponButton {
 	private void setBarres() {
 		barres.clear();
 		// top 
-		horizontalBarre(x, y + height - Barre.HEIGHT);
+		horizontalBarre(x, y + height - Barre.HEIGHT, width - Barre.HEIGHT);
 		// bottom
-		horizontalBarre(x, y);
+		horizontalBarre(x, y, width - Barre.HEIGHT);
 		// left
-		verticalBarre(x - Barre.HALF_HEIGHT, y);
-		verticalBarre(x + width - Barre.HEIGHT, y);
+		verticalBarre(x - Barre.HALF_HEIGHT, y, height);
+		verticalBarre(x + width - Barre.HEIGHT, y, height);
 		Barre.nbr = 0;
 	}
 	
@@ -56,35 +54,7 @@ public class WeaponButton {
 		else
 			selected = false;
 	}
-	
-	private void verticalBarre(float x, float y) {
-		final float distanceACouvrir = height;
-		final int nbrBarre = (int) (((distanceACouvrir * 0.8f) / Barre.HEIGHT));
-		final float distanceCouverte = nbrBarre * Barre.HEIGHT;
-		final float ecartTotal = distanceACouvrir - distanceCouverte;
-		final float ecart = ecartTotal / (nbrBarre-1);
-		float tmpX = 0;
-		for (int i = 0; i < nbrBarre; i++) {
-//		for (float tmpX = 0; tmpX < height - Barre.HEIGHT;) {
-			barres.add(Barre.POOL.obtain().init(x, y + tmpX));
-			tmpX += (Barre.HEIGHT + ecart);
-//			tmpX += Stats.uSur4;
-		}
-	}
 
-	private void horizontalBarre(float x, float y) {
-		final float distanceACouvrir = width - Barre.HEIGHT;
-		final int nbrBarre = (int) (((distanceACouvrir * 0.7f) / Barre.HEIGHT));
-		final float distanceCouverte = nbrBarre * Barre.HEIGHT;
-		final float ecartTotal = distanceACouvrir - distanceCouverte;
-		final float ecart = ecartTotal / (nbrBarre-1);
-		float tmpX = -Barre.HALF_HEIGHT;
-		for (int i = 0; i < nbrBarre; i++) {
-			barres.add(Barre.POOL.obtain().init(x + tmpX, y));
-			tmpX += (Barre.HEIGHT + ecart);
-		}
-	}
-	
 	/**
 	 * return true if a weapon has been selected
 	 * @param batch

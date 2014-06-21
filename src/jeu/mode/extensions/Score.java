@@ -12,7 +12,7 @@ public class Score {
 	private final static char[] mockStrScore = {'0','.','0','0','0','.','0','0','0'};
 	public static CharSeq strScore = new CharSeq(mockStrScore);
 	private static float rScore, nextScore;
-	private static int multi, tmpInt, tmpInt2;
+	private static int multi, scoreToProcess, currentDigit;
 	public static float score = 0;
 	private static final int FONT_HEIGHT = CSG.HEIGHT_DIV10/5;
 	private static final String[] STR_MULTI = {"0 :/", "X1", "X2", "X3", "X4", "X5", "X6", "X7", "X8", "X9", "X10"};
@@ -78,30 +78,26 @@ public class Score {
 	}
 
 	private static void updateStringScore() {
-		tmpInt = (int) score;
-		tmpInt2 = tmpInt / 1000000;
-		tmpInt -= tmpInt2 * 1000000;
-		strScore.charSet(0, tmpInt2);
+		scoreToProcess = (int) score;
+		
+		processDigit(1000000, 0);
 		// M
-		tmpInt2 = tmpInt / 100000;
-		tmpInt -= tmpInt2 * 100000;
-		strScore.charSet(2, tmpInt2);
-		tmpInt2 = tmpInt / 10000;
-		tmpInt -= tmpInt2 * 10000;
-		strScore.charSet(3, tmpInt2);
-		tmpInt2 = tmpInt / 1000;
-		tmpInt -= tmpInt2 * 1000;
-		strScore.charSet(4, tmpInt2);
+		processDigit(100000, 2);
+		processDigit(10000, 3);
+		processDigit(1000, 4);
 		// K
-		tmpInt2 = tmpInt / 100;
-		tmpInt -= tmpInt2 * 100;
-		strScore.charSet(6, tmpInt2);
-		tmpInt2 = tmpInt / 10;
-		tmpInt -= tmpInt2 * 10;
-		strScore.charSet(7, tmpInt2);
-		tmpInt2 = tmpInt;
-		tmpInt -= tmpInt2;
-		strScore.charSet(8, tmpInt2);
+		processDigit(100, 6);
+		processDigit(10, 7);
+		processDigit(1, 8);
+	}
+
+	/**
+	 * 
+	 */
+	protected static void processDigit(int digitFactor, int digitPlace) {
+		currentDigit = scoreToProcess / digitFactor;
+		strScore.charSet(digitPlace, currentDigit);
+		scoreToProcess -= currentDigit * digitFactor;
 	}
 
 	public static int getRoundScore() {

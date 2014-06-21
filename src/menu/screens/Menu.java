@@ -132,9 +132,4 @@ public class Menu extends AbstractScreen {
 			Gdx.app.exit();
 	}
 
-	@Override
-	public void reset() {
-		super.reset();
-	}
-
 }

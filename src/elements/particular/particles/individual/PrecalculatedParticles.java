@@ -5,6 +5,7 @@ import assets.AssetMan;
 import com.badlogic.gdx.utils.Array;
 
 import elements.generic.weapons.player.Fireball;
+import elements.particular.particles.Painters;
 import jeu.CSG;
 import jeu.Stats;
 
@@ -21,6 +22,16 @@ public class PrecalculatedParticles {
 	public final static float[] colorsPinkWeapon = initColors(7, 4, 1, 1);
 	public static final float[] halfWidths = CSG.getDifferences(widths);
 	public static final float[] dirY = initDirY(widths);
+	// not evolving
+	public static final float[] REDS = getColors(20, Painters.RED), BLUES = getColors(20, Painters.BLUE), GREENS = getColors(20, Painters.GREEN);
+	
+	private static float[] getColors(int nb, Painters painter) {
+		float tmp[] = new float[nb];
+		for(int i = 0; i < nb; i++) {
+			tmp[i] = painter.colorGenerator.getColor();
+		}
+		return tmp;
+	}
 	
 	private static final float stepColorsOverTime = 0.065f;
 	public static final float[]
