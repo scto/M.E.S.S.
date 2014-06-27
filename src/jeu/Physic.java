@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import elements.generic.Player;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.Weapon;
 import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.Player;
 
 public class Physic {
 	
@@ -123,6 +123,11 @@ public class Physic {
 		return dir.angle();
 	}
 	
+	public static float setDirTo(final Vector2 dir, final Vector2 pos, final float maxSpeed, final float width, final float halfWidth, float rotation, Vector2 target) {
+		mvtToTarget(dir, pos, maxSpeed, width, halfWidth, rotation, target);
+		return dir.angle();
+	}
+	
 	private static float tmp = 0;
 	public static void mvtToPlayer(final Vector2 dir, final Vector2 pos, final float maxSpeed, final float width, final float halfWidth, float rotation) {
 		DESIRED.x = pos.x - Player.xCenter;
@@ -137,7 +142,20 @@ public class Physic {
 		dir.scl(maxSpeed);
 	}
 	
-	public static void dirToPlayer(final Vector2 dir, final Vector2 pos, final int width, final int halfWidth) {
+	public static void mvtToTarget(final Vector2 dir, final Vector2 pos, final float maxSpeed, final float width, final float halfWidth, float rotation, Vector2 target) {
+		DESIRED.x = pos.x - target.x;
+		DESIRED.y = pos.y - target.y;
+		DESIRED.nor();
+		dir.nor();
+		STEER.x = dir.x - DESIRED.x;
+		STEER.y = dir.y - DESIRED.y;
+		STEER.nor();
+		STEER.scl(rotation);
+		dir.add(STEER);
+		dir.scl(maxSpeed);
+	}
+	
+	public static void dirToPlayer(final Vector2 dir, final Vector2 pos, final float width, final float halfWidth) {
 		DESIRED.x = (pos.x + halfWidth) - Player.xCenter;
 		DESIRED.y = (pos.y + halfWidth) - Player.yCenter;
 		DESIRED.nor();
@@ -174,16 +192,6 @@ public class Physic {
 		pos.y += dir.y * EndlessMode.delta;
 	}
 	
-	public static void mvtHeightLimit(final Vector2 pos, final float speed, final float time) {
-		if (pos.y < CSG.HEIGHT_8_10) {
-			// slow down
-			if (pos.y > CSG.HEIGHT_ECRAN_PALLIER_3)
-				pos.y += (-Stats.PLANE_HEIGHT * EndlessMode.delta);
-		} else {
-			pos.y += (speed * EndlessMode.delta);
-		}
-	}
-	
 	public static boolean mvt(final Vector2 dir, final Vector2 pos, final float width) {
 		pos.x += dir.x * EndlessMode.delta;
 		pos.y += dir.y * EndlessMode.delta;
@@ -197,10 +205,10 @@ public class Physic {
 	}
 	
 	public static float mvtOmbrelle(final Enemy e, final Vector2 dir) {
-		dir.x = -((CSG.gameZoneHalfWidth - Player.xCenter) - (CSG.gameZoneHalfWidth - e.pos.x - e.getHalfWidth()));
+		dir.x = -((CSG.gameZoneHalfWidth - Player.xCenter) - (CSG.gameZoneHalfWidth - e.pos.x - e.getDimensions().halfWidth));
 		dir.y /= 1 + EndlessMode.delta;
 		Physic.mvtNoCheck(e.pos, dir);
-		return getAngleWithPlayer(e.pos, e.getHalfWidth(), e.getHalfHeight());
+		return getAngleWithPlayer(e.pos, e.getDimensions().halfWidth, e.getDimensions().halfHeight);
 	}
 	
 	private static final Vector2 tmpPos = new Vector2();
@@ -225,8 +233,8 @@ public class Physic {
 	}
 
 	public static boolean isNotDisplayed(Enemy enemy) {
-		if (enemy.pos.x + enemy.getWidth() < 0 || enemy.pos.x > CSG.screenWidth
-				|| enemy.pos.y > CSG.SCREEN_HEIGHT || enemy.pos.y + enemy.getHeight() < 0)
+		if (enemy.pos.x + enemy.getDimensions().width < 0 || enemy.pos.x > CSG.screenWidth
+				|| enemy.pos.y > CSG.SCREEN_HEIGHT || enemy.pos.y + enemy.getDimensions().height < 0)
 			return true;
 		return false;
 	}

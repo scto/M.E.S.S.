@@ -167,7 +167,6 @@ public class Profil implements Serializable{
 		if (armeSelectionnee.equals(BlueSweepWeapon.LABEL) && NvArmeBalayage < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();
 			NvArmeBalayage++;
-			BlueSweepWeapon.updateDimensions();
 			champXp = "XP : " + xpDispo;
 		} else if (armeSelectionnee.equals(Fireball.LABEL) && NvArmeDeBase < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();
@@ -184,7 +183,6 @@ public class Profil implements Serializable{
 		} else if (armeSelectionnee.equals(SunWeapon.LABEL) && NvArmeSun < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();
 			NvArmeSun++;
-			SunWeapon.updateDimensions();
 			champXp = "XP : " + xpDispo;
 		} else if (armeSelectionnee.equals(SpaceInvaderWeapon.LABEL) && NvSpaceInvadersWeapon < NV_ARME_MAX) {
 			xpDispo -= getCoutUpArme();

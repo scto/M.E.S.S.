@@ -4,15 +4,16 @@ import jeu.CSG;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.AssetMan;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.Player;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.Player;
 import elements.particular.particles.ParticuleBundles;
 
 public class ColorOverTime implements Poolable {
@@ -58,11 +59,11 @@ public class ColorOverTime implements Poolable {
 		return this;
 	}
 	private ColorOverTime init(Enemy e, ParticuleBundles bundle) {
-		x = (e.pos.x + (e.getWidth() * CSG.R.nextFloat()) );
-		y = (e.pos.y + (e.getHeight() * CSG.R.nextFloat()) );
+		x = (e.pos.x + (e.getDimensions().width * CSG.R.nextFloat()) );
+		y = (e.pos.y + (e.getDimensions().height * CSG.R.nextFloat()) );
 
-		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.getDirectionY() * CSG.R.nextFloat());
-		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.getDirectionX() * CSG.R.nextFloat());
+		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.dir.y * CSG.R.nextFloat());
+		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.dir.x * CSG.R.nextFloat());
 		
 		this.bundle = bundle;
 		index = 0;

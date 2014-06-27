@@ -25,10 +25,10 @@ public class TimeParticle implements Poolable {
 	private final float color = AssetMan.convertARGB(1, 0, 1, CSG.R.nextFloat());
 
 	public TimeParticle init(Element e) {
-		x = (e.pos.x + e.getHalfWidth()) - HALF_WIDTH;
-		y = (e.pos.y + e.getHalfHeight()) - HALF_WIDTH;
-		x += (CSG.R.nextGaussian() / 2) * e.getHalfWidth();
-		y += (CSG.R.nextGaussian() / 2) * e.getHalfHeight();
+		x = (e.pos.x + e.getDimensions().halfWidth) - HALF_WIDTH;
+		y = (e.pos.y + e.getDimensions().halfHeight) - HALF_WIDTH;
+		x += (CSG.R.nextGaussian() / 2) * e.getDimensions().halfWidth;
+		y += (CSG.R.nextGaussian() / 2) * e.getDimensions().halfHeight;
 		time = .5f + (EndlessMode.STOP - .5f) * CSG.R.nextFloat();
 		return this;
 	}

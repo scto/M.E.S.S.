@@ -7,12 +7,13 @@ import jeu.CSG;
 import jeu.Profil;
 import jeu.Strings;
 import jeu.mode.EndlessMode;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
-import elements.generic.Player;
 import elements.generic.weapons.player.ArmeAdd;
+import elements.particular.Player;
 import elements.particular.particles.Particles;
 import elements.particular.particles.individual.weapon.GreenAddParticle;
 

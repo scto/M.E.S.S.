@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import elements.generic.Player;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.player.ArmeAdd;
@@ -18,6 +17,7 @@ import elements.generic.weapons.player.PinkWeapon;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.generic.weapons.player.SunWeapon;
 import elements.generic.weapons.player.TWeapon;
+import elements.particular.Player;
 import elements.particular.bonuses.Bomb;
 import elements.particular.particles.individual.Ghost;
 import elements.particular.particles.individual.PrecalculatedParticles;
@@ -25,12 +25,10 @@ import elements.particular.particles.individual.SparklesColorOverTimeWide;
 import elements.particular.particles.individual.TimeParticle;
 import elements.particular.particles.individual.background.Dust;
 import elements.particular.particles.individual.background.Star;
-import elements.particular.particles.individual.explosions.BlueExplosion;
 import elements.particular.particles.individual.explosions.DebrisExplosion;
 import elements.particular.particles.individual.explosions.Explosion;
 import elements.particular.particles.individual.explosions.ColorOverTime;
 import elements.particular.particles.individual.explosions.ExplosionImpactBullet;
-import elements.particular.particles.individual.explosions.GreenExplosion;
 import elements.particular.particles.individual.explosions.SparklesColorOverTime;
 import elements.particular.particles.individual.smoke.BlueSmoke;
 import elements.particular.particles.individual.smoke.MovingSmoke;
@@ -44,8 +42,6 @@ import elements.particular.particles.individual.weapon.PinkParticle;
 import elements.particular.particles.individual.weapon.SpaceInvaderParticle;
 import elements.particular.particles.individual.weapon.SunParticle;
 import elements.particular.particles.individual.weapon.TWeaponParticles;
-import elements.particular.particles.shards.ShardMatrix;
-import elements.particular.particles.shards.ShardParticle;
 
 public class Particles {
 	 	
@@ -55,10 +51,7 @@ public class Particles {
 	private static final Array<Dust> DUST = new Array<Dust>(false, MAX_DUST);
 	private static final Array<Star> STAR = new Array<Star>(false, 300);
 	
-	public static final Array<ShardParticle> SHARDS = new Array<ShardParticle>();
 	public static final Array<Explosion> EXPLOSIONS = new Array<Explosion>();
-	public static final Array<BlueExplosion> BLUE_EXPLOSION = new Array<BlueExplosion>();
-	public static final Array<GreenExplosion> EXPLOSIONS_GREENS = new Array<GreenExplosion>();
 	public static final Array<ColorOverTime> EXPLOSION_COLOR_OVER_TIME = new Array<ColorOverTime>();
 	
 	public static final Array<DebrisExplosion> WHITE_SPARKLES_NOT_MOVING = new Array<DebrisExplosion>();
@@ -101,10 +94,7 @@ public class Particles {
 		Star.act(batch, STAR);
 		SparklesColorOverTime.act(COLOR_OVER_TIME, batch);
 		Explosion.act(EXPLOSIONS, batch);
-		BlueExplosion.act(BLUE_EXPLOSION, batch);
-		GreenExplosion.act(EXPLOSIONS_GREENS, batch);
 		ColorOverTime.act(EXPLOSION_COLOR_OVER_TIME, batch);
-		ShardParticle.act(SHARDS, batch);
 	}
 
 	public static void drawUi(SpriteBatch batch) {
@@ -146,15 +136,12 @@ public class Particles {
 	private static void tests() {
 		thruster = compare(THRUSTER, thruster);
 		pinkWeapon = compare(PINK_WEAPON, pinkWeapon);
-		explosionsGreen = compare(EXPLOSIONS_GREENS, explosionsGreen);
 		add = compare(ADD, add);
-		explosionBleu = compare(BLUE_EXPLOSION, explosionBleu);
 		explosion = compare(EXPLOSIONS, explosion);
 		explosionsImpact = compare(EXPLOSION_IMPACT_BULLET, explosionsImpact);
 		tWeapon = compare(T_WEAPON, tWeapon);
 		spaceInv = compare(SPACE_INVADER, spaceInv);
 		fireball = compare(FIREBALL, fireball);
-		blueSweep = compare(BLUE_EXPLOSION, blueSweep);
 		sunWeapon = compare(SUN_WEAPON, sunWeapon);
 		ghost = compare(GHOSTS, ghost);
 		smoke = compare(SMOKE, smoke);
@@ -191,43 +178,29 @@ public class Particles {
 	}
 
 	public static void drawImpacts(SpriteBatch batch) {
-//		Explosion.act(EXPLOSIONS_IMPACT, batch);
-		
 		ExplosionImpactBullet.act(EXPLOSION_IMPACT_BULLET, batch);
 	}
 	
 	public static void addPartEnemyTouched(PlayerWeapon a, Enemy e) {
-//		Debris.add(a, DEBRIS);
-//		for (int i = 0; i < 40; i++) {
-		{
 			SparklesColorOverTime.bulletImpact(COLOR_OVER_TIME, a, a.getColors());
 			ExplosionImpactBullet.add(EXPLOSION_IMPACT_BULLET, a);
-		}
-//		}
 	}
 
 	public static void addThrusterParticles(Player v) {
-//		if (nbFlammes < Particles.MAX_THRUSTER) {
-//			THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-		{
-			if (yShip-1 < Player.POS.y) {
-				THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-				THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-				THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-				if (yShip+1 < Player.POS.y) {
-					for (int i = 0; i < EndlessMode.fps; i++)
-						THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-				}
+		if (yShip-1 < Player.POS.y) {
+			THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+			THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+			THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+			if (yShip+1 < Player.POS.y) {
+				for (int i = 0; i < EndlessMode.fps; i++)
+					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
 			}
-//		}
-		yShip = Player.POS.y;
 		}
+		yShip = Player.POS.y;
 	}
 
 	public static void clear() {
 		GreenAddParticle.clear(ADD);
-		GreenExplosion.clear(EXPLOSIONS_GREENS);
-		BlueExplosion.clear(BLUE_EXPLOSION);
 		Explosion.clear(EXPLOSIONS);
 		Explosion.clear(EXPLOSIONS_IMPACT);
 		DebrisExplosion.clear(WHITE_SPARKLES_NOT_MOVING);
@@ -249,13 +222,8 @@ public class Particles {
 		SparklesColorOverTime.clear(COLOR_OVER_TIME);
 		SparklesColorOverTimeWide.clear(COLOR_OVER_TIME_FOREGROUND);
 		ColorOverTime.clear(EXPLOSION_COLOR_OVER_TIME);
-		ShardParticle.clear(SHARDS);
 		nbFlammes = 0;
 		Dust.next = 0;
-	}
-	
-	public static void explosionGreen(float posX, float posY, int max) {
-		GreenExplosion.add(max, EXPLOSIONS_GREENS, posX, posY);
 	}
 	
 	public static void explosion(Enemy e) {
@@ -263,17 +231,17 @@ public class Particles {
 		
 		switch (e.getColor()) {
 		case Enemy.BLUE:
+			Explosion.add(EXPLOSIONS, e, PrecalculatedParticles.RANDDOM_BLUES);
 			SparklesColorOverTime.add(COLOR_OVER_TIME, e, PrecalculatedParticles.colorsOverTimeBlue);
 			ColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, ParticuleBundles.BLUE_LONG);
-			BlueExplosion.add(BLUE_EXPLOSION, e);
 			break;
 		case Enemy.GREEN:
+			Explosion.add(EXPLOSIONS, e, PrecalculatedParticles.RANDDOM_GREENS);
 			SparklesColorOverTime.add(COLOR_OVER_TIME, e, PrecalculatedParticles.colorsOverTimeYellowToGreen, PrecalculatedParticles.colorsOverTimeCyanToGreen);
 			ColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, ParticuleBundles.YELLOW_TO_GREEN_LONG, ParticuleBundles.CYAN_TO_GREEN_LONG);
-			GreenExplosion.add(EXPLOSIONS_GREENS, e);
 			break;
 		default:
-			Explosion.add(EXPLOSIONS, e);
+			Explosion.add(EXPLOSIONS, e, PrecalculatedParticles.RANDDOM_REDS);
 			SparklesColorOverTime.add(COLOR_OVER_TIME, e, PrecalculatedParticles.colorsOverTimeRed);
 			ColorOverTime.add(EXPLOSION_COLOR_OVER_TIME, e, ParticuleBundles.RED_LONG);
 			break;
@@ -345,53 +313,50 @@ public class Particles {
 	}
 
 	private static void addSmokeMoving(float x, float y, Vector2 dir, int color, final MovingSmoke s) {
-		{
-	
 		switch (color) {
 		case Enemy.BLUE:	s.init(x, y, PrecalculatedParticles.colorsBlue, dir);	break;
 		case Enemy.GREEN:	s.init(x, y, PrecalculatedParticles.colorsYellowToGreen, dir);	break;
 		default:			s.init(x, y, PrecalculatedParticles.colorsRed, dir);	break;
 		}
 		MOVING_SMOKE.add(s);
-		}
 	}
 	
 	public static void smokeMoving(float x, float y, boolean rnd, int color) {
-		
 		addSmokeMoving(x, y, rnd, color, MovingSmoke.POOL.obtain());
 	}
 
 	private static void addSmokeMoving(float x, float y, boolean rnd, int color, final MovingSmoke s) {
-		{
 		switch (color) {
 		case Enemy.BLUE:	s.init(x, y, rnd, PrecalculatedParticles.colorsBlue);	break;
 		case Enemy.GREEN:	s.init(x, y, rnd, PrecalculatedParticles.colorsYellowToGreen);	break;
 		default:			s.init(x, y, rnd, PrecalculatedParticles.colorsRed);	break;
 		}
 		MOVING_SMOKE.add(s);
-		}
 	}
 	
 	public static void smokeMoving(float x, float y, boolean rnd, int color, Vector2 dir) {
-		
 		addMovingSmoke(x, y, rnd, color, dir, MovingSmoke.POOL.obtain());
 	}
 
 	private static void addMovingSmoke(float x, float y, boolean rnd, int color, Vector2 dir, final MovingSmoke s) {
-		{
 		switch (color) {
 		case Enemy.BLUE:	s.init(x, y, rnd, PrecalculatedParticles.colorsBlue, dir);	break;
 		case Enemy.GREEN:	s.init(x, y, rnd, PrecalculatedParticles.colorsYellowToGreen, dir);	break;
 		default:			s.init(x, y, rnd, PrecalculatedParticles.colorsRed, dir);	break;
 		}
 		MOVING_SMOKE.add(s);
-		}
 	}
 
-	public static void smoke(float x, float y, boolean rnd) {
+	public static void smoke(float x, float y, boolean rnd, float[] colors) {
 		final Smoke s = Smoke.POOL.obtain();
-		s.init(x, y, rnd);
+		s.init(x, y, rnd, colors);
 		SMOKE.add(s);
+	}
+	
+	public static void smoke(float x, float y, boolean rnd, float[] colors, float dirX, float dirY) {
+		final MovingSmoke s = MovingSmoke.POOL.obtain();
+		s.init(x, y, rnd, colors, dirX, dirY);
+		MOVING_SMOKE.add(s);
 	}
 	
 	public static void blueSmoke(float x, float y) {
@@ -405,13 +370,13 @@ public class Particles {
 		angle = 0;
 		for (int i = 0; i < 10; i++) {
 			SparklesColorOverTime.add(
-					w.pos.x + w.getHalfWidth(),
-					w.pos.y + w.getHalfHeight(),
+					w.pos.x + w.getDimensions().halfWidth,
+					w.pos.y + w.getDimensions().halfHeight,
 					angle,
 					PrecalculatedParticles.colorsOverTimeYellowToGreenLong, Stats.U12);
 			SparklesColorOverTime.add(
-					w.pos.x + w.getHalfWidth(),
-					w.pos.y + w.getHalfHeight(),
+					w.pos.x + w.getDimensions().halfWidth,
+					w.pos.y + w.getDimensions().halfHeight,
 					angle + 18,
 					PrecalculatedParticles.colorsOverTimeBlueLong, Stats.U5);
 			angle += 36;
@@ -419,7 +384,6 @@ public class Particles {
 	}
 
 	public static void bomb(Bomb bonusBombe) {
-		
 		DebrisExplosion.bomb(bonusBombe, WHITE_SPARKLES_NOT_MOVING);
 	}
 
@@ -430,8 +394,6 @@ public class Particles {
 
 	public static void bombExplosion(PlayerWeapon a) {
 		Explosion.blow(a, EXPLOSIONS);
-		GreenExplosion.blow(a, EXPLOSIONS_GREENS);
-		BlueExplosion.blow(a, BLUE_EXPLOSION);
 		ExplosionImpactBullet.blow(a, EXPLOSION_IMPACT_BULLET);
 		SparklesColorOverTime.blow(a, COLOR_OVER_TIME);
 	}
@@ -440,12 +402,8 @@ public class Particles {
 		SparklesColorOverTimeWide.act(COLOR_OVER_TIME_FOREGROUND, batch);
 	}
 
-	public static void sharding(ShardMatrix shardMatrix, Enemy e) {
-		ShardParticle.add(SHARDS, shardMatrix, e);
-	}
-
 	public static int getNombreParticles() {
-		return DUST.size + STAR.size + SHARDS.size + EXPLOSIONS.size + BLUE_EXPLOSION.size + EXPLOSIONS_GREENS.size + EXPLOSION_COLOR_OVER_TIME.size + WHITE_SPARKLES_NOT_MOVING.size + EXPLOSIONS_IMPACT.size +
+		return DUST.size + STAR.size + EXPLOSIONS.size + EXPLOSION_COLOR_OVER_TIME.size + WHITE_SPARKLES_NOT_MOVING.size + EXPLOSIONS_IMPACT.size +
 				EXPLOSION_IMPACT_BULLET.size + COLOR_OVER_TIME.size + COLOR_OVER_TIME_FOREGROUND.size  + ADD.size +	UI.size + FIREBALL.size + T_WEAPON.size + BOUTONS.size + THRUSTER.size + THRUSTER_S.size +
 				GHOSTS.size + SMOKE.size + MOVING_SMOKE.size + BLUESMOKE.size + SUN_WEAPON.size + PINK_WEAPON.size + BLUE_SWEEP_WEAPON.size + SPACE_INVADER.size + TIME.size;
 	}

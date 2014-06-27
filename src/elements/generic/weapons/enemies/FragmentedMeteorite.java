@@ -8,16 +8,12 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.components.Phase;
-import elements.generic.components.behavior.Behavior;
+import elements.generic.components.Dimensions;
 
 public class FragmentedMeteorite extends EnemyWeapon implements Poolable{
 	
-	private static final int WIDTH = CSG.screenWidth / 11, HALF_WIDTH = WIDTH/2;
+	protected static final Dimensions DIMENSIONS = Dimensions.FRAG_METEORITE;
 	public static final Pool<FragmentedMeteorite> POOL = Pools.get(FragmentedMeteorite.class);
-	private static final int PK = 10;
-	private static final float SPEED = initSpeed(13, PK);
-	protected static final Phase[] PHASES = {new Phase(Behavior.STRAIGHT_ON, null, null, Animations.METEORITE_SOLO)};
 	
 	public void init(final float x, final float y, Vector2 dir) {		
 		this.dir.x = dir.x;
@@ -28,11 +24,7 @@ public class FragmentedMeteorite extends EnemyWeapon implements Poolable{
 		ENEMIES_LIST.add(this);
 	}
 	
-	@Override	public float getSpeed() {		return SPEED;	}
-	@Override	public float getHalfHeight() {		return HALF_WIDTH;	}
-	@Override	public float getHalfWidth() {			return HALF_WIDTH;	}
-	@Override	public void free() {				POOL.free(this);	}
-	@Override	public float getWidth() {				return WIDTH;	}
-	@Override	public float getHeight() {			return WIDTH;	}
-	@Override	public Phase[] getPhases() {		return PHASES;	}
+	@Override	public Animations getAnimation() {		return Animations.FRAG_METEORITE;		}
+	@Override	public void free() {					POOL.free(this);	}
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 }

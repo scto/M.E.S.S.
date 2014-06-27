@@ -10,8 +10,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.Player;
 import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.Player;
 
 public class ExplosionImpactBullet implements Poolable {
 	
@@ -42,8 +42,8 @@ public class ExplosionImpactBullet implements Poolable {
 		speedX = (float) ((CSG.R.nextGaussian()) * SPEED) + (pw.dir.x/10);
 		
 		width = Math.abs((float) ((CSG.R.nextGaussian() * WIDTH_SMALL))) + MIN_WIDTH;
-		x = (pw.pos.x - width/2) + (pw.getWidth()*CSG.R.nextFloat());
-		y = (pw.pos.y - width/2) + (pw.getHeight()*CSG.R.nextFloat());
+		x = (pw.pos.x - width/2) + (pw.getDimensions().width*CSG.R.nextFloat());
+		y = (pw.pos.y - width/2) + (pw.getDimensions().height*CSG.R.nextFloat());
 		ttl = (int) (CSG.R.nextFloat() * 5) + 5;
 		color = pw.getColor();
 		return this;

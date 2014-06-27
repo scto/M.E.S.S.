@@ -34,8 +34,8 @@ public class BlueSweepParticle implements Poolable {
 
 	public static void add(BlueSweepWeapon a) {
 		final BlueSweepParticle p = POOL.obtain();
-		p.x = a.pos.x + BlueSweepWeapon.halfWidth;
-		p.y = a.pos.y + BlueSweepWeapon.halfWidth;
+		p.x = a.pos.x + BlueSweepWeapon.DIMENSIONS.halfWidth;
+		p.y = a.pos.y + BlueSweepWeapon.DIMENSIONS.halfWidth;
 		p.ttl = 4;
 		Particles.BLUE_SWEEP_WEAPON.add(p);
 	}

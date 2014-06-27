@@ -1,7 +1,6 @@
 package elements.generic.enemies;
 
 import jeu.CSG;
-import jeu.db.Requests;
 import jeu.mode.EndlessMode;
 import jeu.mode.extensions.Score;
 
@@ -84,7 +83,6 @@ public class Wave {
 	
 	public static final float lvl3modif = 0.90f;
 	public static final Wave lvl3_3 =
-			Requests.getWave(7, 
 			new Wave(			(int) (waveS3*lvl3modif), 		(int) (ECART*lvl3modif), 	false, .25f*lvl3modif, 	true,  800, 
 			SpawnEnemyPosition.deBase3_12_89_b_b_deBase3_12_89,
 			SpawnEnemyPosition.break1,SpawnEnemyPosition.break1, SpawnEnemyPosition.break1, SpawnEnemyPosition.break1,  
@@ -92,7 +90,7 @@ public class Wave {
 			SpawnEnemyPosition.break1, SpawnEnemyPosition.break1, SpawnEnemyPosition.break1, SpawnEnemyPosition.break1,
 			SpawnEnemyPosition.deBase3_Triangle,
 			SpawnEnemyPosition.break1, SpawnEnemyPosition.break1, SpawnEnemyPosition.break1, SpawnEnemyPosition.break1
-			) );
+			);
 //	public static final Wave lvl3_3 = new Wave(			(int) (waveS3*lvl3modif), 		(int) (ECART*lvl3modif), 	false, SpawnEnemyPosition.lvl3_170, 			.25f*lvl3modif, 	true,  800);
 	public static final Wave lvl3_170 = new Wave(		(int) (waveS173*lvl3modif), 	(int) (ECART*lvl3modif), 	false, SpawnEnemyPosition.lvl3_120, 			.25f*lvl3modif, 	true,  wave7);
 	public static final Wave lvl3_290 = new Wave(		(int) (wave3*lvl3modif), 		(int) (ECART * 1.4f), 		false, SpawnEnemyPosition.lvl3_94, 			.25f*lvl3modif, 	true,  wave7);
@@ -180,13 +178,6 @@ public class Wave {
 			}
 		}
 		return rep;
-	}
-
-	private static Wave initWave(Wave wave, int pk) {
-		if (!CSG.updateNeeded) {
-			return wave;
-		}
-		return Requests.getWave(pk, wave);
 	}
 
 	public void mightSpawn() {

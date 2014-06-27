@@ -4,11 +4,11 @@ import jeu.CSG;
 import jeu.Physic;
 import jeu.Stats;
 import jeu.Strings;
-import jeu.db.Requests;
 import jeu.mode.EndlessMode;
 import jeu.mode.extensions.ScreenShake;
 import assets.AssetMan;
 import assets.SoundMan;
+import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,11 +18,11 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.Element;
-import elements.generic.Player;
-import elements.generic.components.Phase;
+import elements.generic.components.Dimensions;
 import elements.generic.weapons.Weapon;
 import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.Player;
 import elements.particular.bonuses.Bonus;
 import elements.particular.other.WaveEffect;
 import elements.particular.particles.Particles;
@@ -37,7 +37,7 @@ public abstract class Enemy extends Element implements Poolable {
 	private static final float ALERT_WIDTH = 10, ALERT_HALF_WIDTH = ALERT_WIDTH / 2, DETECT_RANGE = Stats.WIDTH_DIV_10;
 	protected static float tmpDeltaMulImpact;
 	public boolean dead = false;
-	public float angle = 0, nextShot = 1;
+	public float nextShot = 1;
 	protected int hp;
 
 	protected Enemy() {
@@ -50,28 +50,38 @@ public abstract class Enemy extends Element implements Poolable {
 				continue;
 			e.now += EndlessMode.delta;
 			e.displayWarning(batch);
-			e.setColor(batch);
-			e.getPhase().draw(e, batch);
-			e.removeColor(batch);
-			e.getPhase().shoot(e);
-			e.dead = e.getPhase().move(e);
-			e.isMoving();
+			e.displayOnScreen(batch);
+			e.mightShoot();
+			e.move();
+			if (!Physic.isOnScreenWithTolerance(e.pos, e.getDimensions().halfHeight, e.getDimensions().halfWidth))
+				e.dead = true;
 		}
 	}
 
-	protected void removeColor(SpriteBatch batch) {	}
-	protected void setColor(SpriteBatch batch) {	}
-	protected void isMoving() {						}
+	private void mightShoot() {
+		if (now > nextShot) {
+			nextShot = now + getFirerate();
+			shoot();
+		}
+	}
 
+	protected void shoot() {
+	}
+	
+	@Override
+	public boolean isInGoodShape() {
+		return false;
+	}
+	
 	private void displayWarning(SpriteBatch batch) {
 		if (Physic.isNotDisplayed(this)) {
 			// left
-			if ( (pos.x + getWidth()) < 0 && (pos.x + getWidth()) > -DETECT_RANGE) {
+			if ( (pos.x + getDimensions().width) < 0 && (pos.x + getDimensions().width) > -DETECT_RANGE) {
 				batch.setColor(1, 0, 0.5f, 1);
 				batch.draw(AssetMan.dust,
 						-ALERT_HALF_WIDTH, pos.y - Stats.UUU,
 						// pos.x is negative
-						ALERT_WIDTH, (DETECT_RANGE + (pos.x + getWidth())) + Stats.U6);
+						ALERT_WIDTH, (DETECT_RANGE + (pos.x + getDimensions().width)) + Stats.U6);
 				batch.setColor(AssetMan.WHITE);
 				// right
 			} else if (pos.x > CSG.screenWidth && pos.x < Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10) { 
@@ -85,8 +95,9 @@ public abstract class Enemy extends Element implements Poolable {
 
 	public static float f = 0;
 	public static void draw(SpriteBatch batch) {
-		for (final Enemy e : LIST) 
-			e.getPhases()[e.index].draw(e, batch);
+		for (final Enemy e : LIST) {
+			e.displayOnScreen(batch);
+		}
 	}
 
 
@@ -98,8 +109,8 @@ public abstract class Enemy extends Element implements Poolable {
 	public Rectangle getRectangleCollision() {
 		COLLISION.x = pos.x;
 		COLLISION.y = pos.y;
-		COLLISION.width = getWidth();
-		COLLISION.height = getHeight();
+		COLLISION.width = getDimensions().width;
+		COLLISION.height = getDimensions().height;
 		return COLLISION;
 	}
 
@@ -119,24 +130,13 @@ public abstract class Enemy extends Element implements Poolable {
 		}
 		pos.x += (a.dir.x * tmpDeltaMulImpact);
 		pos.y += (a.dir.y * tmpDeltaMulImpact);
-		if (pos.x + getWidth() < -Stats.WIDTH_DIV_10)
-			pos.x = Stats.WIDTH_DIV_10 - getWidth();
+		if (pos.x + getDimensions().width < -Stats.WIDTH_DIV_10)
+			pos.x = Stats.WIDTH_DIV_10 - getDimensions().width;
 		if (pos.x > Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10)
 			pos.x = Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10;
-		if (pos.y > CSG.HEIGHT_PLUS_4 + getHeight())
-			pos.y = CSG.HEIGHT_PLUS_4 + getHeight() - 1;
+		if (pos.y > CSG.HEIGHT_PLUS_4 + getDimensions().height)
+			pos.y = CSG.HEIGHT_PLUS_4 + getDimensions().height - 1;
 		return true;
-	}
-	
-	protected void changePhase(int index, float firerate) {
-		this.index = index;
-		phaseTime = 0;
-		nextShot = firerate;
-	}
-	
-	protected void changePhase() {
-		super.changePhase();
-		nextShot = getFirerate();
 	}
 	
 	public boolean stillAliveEnemyWeapon(EnemyWeapon a) {
@@ -166,8 +166,6 @@ public abstract class Enemy extends Element implements Poolable {
 	public void reset() {
 		hp = getMaxHp();
 		dead = false;
-		angle = 0;
-		index = 0;
 		nextShot = 0;
 		super.reset();
 	}
@@ -181,15 +179,13 @@ public abstract class Enemy extends Element implements Poolable {
 		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.convertARGB(1, 1f, 	(CSG.R.nextFloat() + .8f) / 1.6f, 	CSG.R.nextFloat()/8));
 		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.convertARGB(1, 1f, 	(CSG.R.nextFloat() + .8f) / 1.6f, 	CSG.R.nextFloat()/8));
 		attackAllEnemies(bomb);
-//		for (XP xp : Bonus.XP_LIST)
-//			xp.state = XP.HOMMING;
 	}
 
 	public static void attackAllEnemies(PlayerWeapon a) {
 		for (final Enemy e : LIST) {
 			if (e.dead == false) {
-				a.dir.x = ((e.pos.x + e.getHalfWidth())) - Player.xCenter;
-				a.dir.y = ((e.pos.y + e.getHalfWidth())) - Player.yCenter;
+				a.dir.x = ((e.pos.x + e.getDimensions().halfWidth)) - Player.xCenter;
+				a.dir.y = ((e.pos.y + e.getDimensions().halfWidth)) - Player.yCenter;
 				e.stillAlive(a);
 				a.dir.nor();
 				a.dir.scl(250);
@@ -227,7 +223,7 @@ public abstract class Enemy extends Element implements Poolable {
 	
 	public void setPosition(Vector2 pos) {
 		this.pos.y = pos.y;
-		this.pos.x = pos.x - getHalfWidth();
+		this.pos.x = pos.x - getDimensions().halfWidth;
 	}
 	
 	public static void deadBodiesEverywhere() {
@@ -239,72 +235,25 @@ public abstract class Enemy extends Element implements Poolable {
 		}
 	}
 	
-	public static final PlayerWeapon bomb = new PlayerWeapon() {
-		@Override		public float getWidth() {					return 0;		}
-		@Override		public float getHeight() {				return 0;		}
-		@Override		public float getHalfWidth() {				return 0;		}
-		@Override		public float getHalfHeight() {			return 0;		}
-		@Override		public void free() {									}		
-		@Override		public float getColor() {				return 0;		}
-		@Override		public int getPower() { 				return 250;		}
-		@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeRed;		}
-		@Override		public Phase[] getPhases() {			return null;		}
-		@Override		public void setAngle(float angle) {		}
-		@Override		public void setShootingAngle(float shootingAngle) {		}
-	};
+	@Override
+	public float getPvPercentage() {
+		return (getMaxHp() / hp) * 100;
+	}
 	
-	public static final PlayerWeapon superBomb = new PlayerWeapon() {
-		@Override		public float getWidth() {					return 0;		}
-		@Override		public float getHeight() {				return 0;		}
-		@Override		public float getHalfWidth() {				return 0;		}
-		@Override		public float getHalfHeight() {			return 0;		}
-		@Override		public void free() {		}		
-		@Override		public float getColor() {				return 0;		}
-		@Override		public int getPower() { 				return 380;		}
-		@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeRed;		}
-		@Override		public Phase[] getPhases() {			return null;		}
-		@Override		public void setAngle(float angle) {		}
-		@Override		public void setShootingAngle(float shootingAngle) {		}
-	};
+	public static final PlayerWeapon bomb = getTypicalBullet(250), superBomb = getTypicalBullet(320);
 
-
-	protected static float initFirerate(float def, int pk) {
-		if (CSG.updateNeeded)
-			return Requests.getFireRateEnemy(pk, def);
-		return def;
+	protected static PlayerWeapon getTypicalBullet(int power) {
+		return new PlayerWeapon() {
+			@Override		public void free() {									}		
+			@Override		public float getColor() {				return 0;		}
+			@Override		public int getPower() { 				return 250;		}
+			@Override		public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeRed;		}
+			@Override		public void setAngle(float angle) {		}
+			@Override		public Animations getAnimation() {			return null;		}
+			@Override		public Dimensions getDimensions() {			return Dimensions.ORANGE_BULLET;			}
+		};
 	}
 	
-	protected static float initNextShot(float def, int pk) {
-		if (CSG.updateNeeded)
-			return Requests.getNextShot(pk, def);
-		return def;
-	}
-	
-	protected static float initSpeed(float def, int pk) {
-		if (CSG.updateNeeded)
-			return Requests.getSpeed(pk, def) * Stats.u;
-		return def * Stats.u;
-	}
-	
-	protected static int initHp(int def, int pk) {
-		if (CSG.updateNeeded)
-			return Requests.getPvEnemy(pk, def);
-		return def;
-	}
-	
-	protected static int initExplosion(int def, int pk) {
-		if (CSG.updateNeeded) {
-			return Requests.getExplosionEnemy(pk, def);
-		}
-		return def;
-	}
-	
-	protected static int initXp(int def, int pk) {
-		if (CSG.updateNeeded)
-			return Requests.getXpEnemy(pk, def);
-		return def;
-	}
-
 	protected static int getXp(int baseXp, int lvl) {
 		switch (lvl) {
 		case 1:			return (int) (baseXp * CSG.mulLvl1 * CSG.mulSCORE);
@@ -323,18 +272,13 @@ public abstract class Enemy extends Element implements Poolable {
 	
 	protected static float getModulatedSpeed(float speed, int lvl) {
 		switch (lvl) {
-		case 3: return (int) (speed * Stats.VNV3);
-		case 4: return (int) (speed * Stats.VNV4);
+		case 3: return (int) (speed * Stats.VNV3) * Stats.u;
+		case 4: return (int) (speed * Stats.VNV4) * Stats.u;
 		}
-		return speed;
+		return speed * Stats.u;
 	}
 	
-	@Override	public void setAngle(float angle) {			this.angle = angle;							}
-	@Override	public float getNextShot() {				return nextShot;							}
-	@Override	public void setNextShot(float f) {			nextShot = f;								}
-	@Override	public float getShootingAngle() {			return angle;								}
-	@Override	public void setShootingAngle(float a) {													}
-	public float getDirectionX() {							return 0;									}
+	public void setAngle(float angle) {						this.angle = angle;							}
 	public float getRotation() {							return 0;									}
 	public void addAngle(float f) {							angle += f;									}
 	public int getColor() {									return RED;									}
@@ -348,9 +292,26 @@ public abstract class Enemy extends Element implements Poolable {
 	public abstract int getXp();
 	public abstract void free();
 	protected abstract int getMaxHp();
-	protected abstract String getLabel();
 	public abstract int getBonusValue();
-	public abstract float getDirectionY();
 	public abstract int getExplosionCount();
+
+	public float getFirerate() {
+		return 1;
+	}
+
+	public int getShotNumber() {
+		return 0;
+	}
+
+	public int getNumberOfShots() {
+		return 0;
+	}
+
+	public void addShots(int i) {
+	}
+
+	public void setNextShot(float g) {
+		nextShot = g;
+	}
 	
 }

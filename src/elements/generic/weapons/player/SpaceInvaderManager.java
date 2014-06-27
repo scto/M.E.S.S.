@@ -1,8 +1,8 @@
 package elements.generic.weapons.player;
 
 import assets.SoundMan;
-import elements.generic.Player;
 import elements.generic.weapons.Weapon;
+import elements.particular.Player;
 import jeu.CSG;
 import jeu.mode.EndlessMode;
 
@@ -14,7 +14,7 @@ public class SpaceInvaderManager extends WeaponManager {
 			if (++Weapon.color >= TWeapon.COLORS.length)
 				Weapon.color = 0;
 			SoundMan.playBulletSound(SoundMan.shotRocket);
-			SpaceInvaderWeapon.POOL.obtain().init(Player.xCenter - SpaceInvaderWeapon.halfWidth, Player.POS.y + Player.HEIGHT);
+			SpaceInvaderWeapon.POOL.obtain().init(Player.xCenter - SpaceInvaderWeapon.DIMENSIONS.halfWidth, Player.POS.y + Player.HEIGHT);
 			return EndlessMode.now + 2f;
 		} 
 		return super.init(nextShot);
@@ -26,7 +26,7 @@ public class SpaceInvaderManager extends WeaponManager {
 			return;
 		}
 		SoundMan.playBulletSound(SoundMan.shotRocket);
-		SpaceInvaderWeapon.POOL.obtain().init(Player.xCenter - SpaceInvaderWeapon.halfWidth, Player.POS.y + Player.HEIGHT);
+		SpaceInvaderWeapon.POOL.obtain().init(Player.xCenter - SpaceInvaderWeapon.DIMENSIONS.halfWidth, Player.POS.y + Player.HEIGHT);
 	}
 
 	@Override	public String getLabel() {				return SpaceInvaderWeapon.LABEL;			}

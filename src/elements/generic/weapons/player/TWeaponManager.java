@@ -7,7 +7,7 @@ import assets.SoundMan;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
-import elements.generic.Player;
+import elements.particular.Player;
 
 public class TWeaponManager extends WeaponManager {
 	
@@ -15,7 +15,7 @@ public class TWeaponManager extends WeaponManager {
 	private static float posX, posY;
 	
 	public void init(){
-		posX = Player.xCenter - TWeapon.halfWidth;
+		posX = Player.xCenter - TWeapon.DIMENSIONS.halfWidth;
 		posY = Player.POS.y + Player.HEIGHT;
 		if (EndlessMode.alternate)
 			SoundMan.playBulletSound(SOUND);
@@ -31,48 +31,48 @@ public class TWeaponManager extends WeaponManager {
 	}
 
 	private void nv7() {
-		TWeapon.POOL.obtain().init(posX - TWeapon.halfWidth, posY - TWeapon.halfWidth);
-		TWeapon.POOL.obtain().init(posX + TWeapon.halfWidth, posY - TWeapon.halfWidth);
-		TWeapon.POOL.obtain().init(posX - TWeapon.halfWidth, posY);
-		TWeapon.POOL.obtain().init(posX + TWeapon.halfWidth, posY);
-		TWeapon.POOL.obtain().init(posX - TWeapon.width, posY - TWeapon.halfWidth);
-		TWeapon.POOL.obtain().init(posX + TWeapon.width, posY - TWeapon.halfWidth);
-		TWeapon.POOL.obtain().init(posX, posY + TWeapon.halfWidth);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.halfWidth, posY - TWeapon.DIMENSIONS.halfWidth);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.halfWidth, posY - TWeapon.DIMENSIONS.halfWidth);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.halfWidth, posY);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.halfWidth, posY);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.width, posY - TWeapon.DIMENSIONS.halfWidth);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.width, posY - TWeapon.DIMENSIONS.halfWidth);
+		TWeapon.POOL.obtain().init(posX, posY + TWeapon.DIMENSIONS.halfWidth);
 	}
 
 	private static void nv6() {
-		TWeapon.POOL.obtain().init(posX - TWeapon.halfWidth, posY);
-		TWeapon.POOL.obtain().init(posX + TWeapon.halfWidth, posY);
-		TWeapon.POOL.obtain().init(posX - TWeapon.width, posY - TWeapon.halfWidth);
-		TWeapon.POOL.obtain().init(posX + TWeapon.width, posY - TWeapon.halfWidth);
-		TWeapon.POOL.obtain().init(posX, posY + TWeapon.halfWidth);
-		TWeapon.POOL.obtain().init(posX, posY - TWeapon.halfWidth);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.halfWidth, posY);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.halfWidth, posY);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.width, posY - TWeapon.DIMENSIONS.halfWidth);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.width, posY - TWeapon.DIMENSIONS.halfWidth);
+		TWeapon.POOL.obtain().init(posX, posY + TWeapon.DIMENSIONS.halfWidth);
+		TWeapon.POOL.obtain().init(posX, posY - TWeapon.DIMENSIONS.halfWidth);
 	}
 
 	private static void nv5() {
-		TWeapon.POOL.obtain().init(posX - TWeapon.halfWidth, posY);
-		TWeapon.POOL.obtain().init(posX + TWeapon.halfWidth, posY);
-		TWeapon.POOL.obtain().init(posX - TWeapon.width, posY - TWeapon.halfWidth);
-		TWeapon.POOL.obtain().init(posX + TWeapon.width, posY - TWeapon.halfWidth);
-		TWeapon.POOL.obtain().init(posX, posY + TWeapon.halfWidth);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.halfWidth, posY);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.halfWidth, posY);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.width, posY - TWeapon.DIMENSIONS.halfWidth);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.width, posY - TWeapon.DIMENSIONS.halfWidth);
+		TWeapon.POOL.obtain().init(posX, posY + TWeapon.DIMENSIONS.halfWidth);
 	}
 
 	private static void nv4() {
-		TWeapon.POOL.obtain().init(posX - TWeapon.halfWidth, posY);
-		TWeapon.POOL.obtain().init(posX + TWeapon.halfWidth, posY);
-		TWeapon.POOL.obtain().init(posX - TWeapon.width, posY - TWeapon.halfWidth);
-		TWeapon.POOL.obtain().init(posX + TWeapon.width, posY - TWeapon.halfWidth);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.halfWidth, posY);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.halfWidth, posY);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.width, posY - TWeapon.DIMENSIONS.halfWidth);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.width, posY - TWeapon.DIMENSIONS.halfWidth);
 	}
 
 	private static void nv3() {
-		TWeapon.POOL.obtain().init(posX - TWeapon.width, posY);
-		TWeapon.POOL.obtain().init(posX + TWeapon.width, posY);
-		TWeapon.POOL.obtain().init(posX, posY + TWeapon.halfWidth);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.width, posY);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.width, posY);
+		TWeapon.POOL.obtain().init(posX, posY + TWeapon.DIMENSIONS.halfWidth);
 	}
 
 	private static void nv2() {
-		TWeapon.POOL.obtain().init(posX - TWeapon.halfWidth, posY);
-		TWeapon.POOL.obtain().init(posX + TWeapon.halfWidth, posY);
+		TWeapon.POOL.obtain().init(posX - TWeapon.DIMENSIONS.halfWidth, posY);
+		TWeapon.POOL.obtain().init(posX + TWeapon.DIMENSIONS.halfWidth, posY);
 	}
 
 	private static void nv1() {

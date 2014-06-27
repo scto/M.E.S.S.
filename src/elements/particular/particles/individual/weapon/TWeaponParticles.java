@@ -19,7 +19,7 @@ public final class TWeaponParticles implements Poolable {
 			return new TWeaponParticles();
 		}
 	};
-	private float angle, x, y, w, halfWidth, h = TWeapon.height, halfHeight;
+	private float angle, x, y, w, halfWidth, h = TWeapon.DIMENSIONS.height, halfHeight;
 	private static float tmp = 0;
 	
 	public TWeaponParticles() {}
@@ -29,10 +29,10 @@ public final class TWeaponParticles implements Poolable {
 
 	public static void add(Array<TWeaponParticles> pArmeHantee, TWeapon a) {
 		final TWeaponParticles p = POOL.obtain();
-		p.w = TWeapon.width;
-		p.h = TWeapon.height;
-		p.halfWidth = TWeapon.halfWidth;
-		p.halfHeight = TWeapon.halfHeight;
+		p.w = TWeapon.DIMENSIONS.width;
+		p.h = TWeapon.DIMENSIONS.height;
+		p.halfWidth = TWeapon.DIMENSIONS.halfWidth;
+		p.halfHeight = TWeapon.DIMENSIONS.halfHeight;
 		p.x = a.pos.x;
 		p.y = a.pos.y;
 		p.angle = a.angle;

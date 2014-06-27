@@ -19,7 +19,7 @@ public class GreenAddParticle implements Poolable {
 			return new GreenAddParticle();
 		}
 	};
-	private static final int WIDTH = ArmeAdd.WIDTH;
+	private static final int WIDTH = (int) ArmeAdd.DIMENSIONS.width;
 	private float w, x, y;
 	public static float COLOR = ArmeAdd.COLORS[CSG.R.nextInt(ArmeAdd.COLORS.length)];
 	private static float tmp, half;

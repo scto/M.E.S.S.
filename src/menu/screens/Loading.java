@@ -20,7 +20,7 @@ public class Loading extends AbstractScreen {
 		if (!CSG.assetMan.fini()) {
 			afficherLoading();
 		} else { // si il a fini le loading on change le menu
-			CSG.assetMan.loadPartie2(true);
+			CSG.assetMan.loadPartie2();
 			final Menu menu = new Menu(game);
 			game.setScreen(menu);
 		}
@@ -38,16 +38,10 @@ public class Loading extends AbstractScreen {
 		CSG.batch.end();
 	}
 
-	@Override
-	public void show() {	}
-	@Override
-	public void hide() {	}
-	@Override
-	public void pause() {	}
-	@Override
-	public void resume() {	}
-	@Override
-	public void dispose() {	}
-	@Override
-	public void resize(int w, int h) {		}
+	@Override	public void show() {	}
+	@Override	public void hide() {	}
+	@Override	public void pause() {	}
+	@Override	public void resize(int w, int h) {		}
+	@Override	public void resume() {	}
+	@Override	public void dispose() {	}
 }

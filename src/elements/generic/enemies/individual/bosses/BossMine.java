@@ -2,42 +2,36 @@ package elements.generic.enemies.individual.bosses;
 
 import jeu.CSG;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.components.Phase;
-import elements.generic.components.behavior.Behavior;
+import elements.generic.components.Dimensions;
+import elements.generic.components.behavior.Mover;
+import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
-import elements.generic.components.shots.Shot;
 import elements.generic.enemies.Enemy;
 import elements.generic.enemies.Progression;
-import elements.generic.weapons.enemies.Raindow;
+import elements.generic.weapons.enemies.Rainbow;
 import elements.generic.weapons.enemies.Mine;
 import elements.generic.weapons.player.PlayerWeapon;
 
 public class BossMine extends Enemy {
 
-	private static final int WIDTH = Stats.WIDTH_BOOS_MINE, HALF_WIDTH = WIDTH / 2, HEIGHT = Stats.HEIGHT_BOOS_MINE, HALF_HEIGHT = HEIGHT / 2;
-	private static final Vector2 tmpDirectionTir = new Vector2();
+	protected static final Dimensions DIMENSIONS = Dimensions.BOSS_MINE;
 	public static final Pool<BossMine> POOL = Pools.get(BossMine.class);
-	private static final float SPEED = initSpeed(6, 3), FIRERATE = .2f, FIRERATE2 = 1;
+	private static final float SPEED6 = getModulatedSpeed(48, 1), FIRERATE = .1f, FIRERATE2 = 1;
 	private static int pvPhase2;
-	private boolean shotWay = false;
-	private float shootingAngle = 0;
-	public static final int PK = 101;
-	private static final Phase[] PHASES = {
-		new Phase(				Behavior.STRAIGHT_ON,			null,								null,										Animations.BOSS_MINE_GOOD				),
-		new Phase(				Behavior.STAY_TOP,				Gatling.BOSS_MINE,					Shot.SHOT_SWEEP_WITH_BREAK,					Animations.BOSS_MINE_GOOD				),
-		new Phase(				Behavior.ROTATE_STAY_TOP,		Gatling.MINE,						Shot.SHOT_EVENTAIL,							Animations.BOSS_MINE_BAD				)};	
+	private boolean goodShape, shootDir;
+	private int shotNumber = 0;
+	private int shotInterval = 0;
 
 	public BossMine() {
-		pos.x = CSG.gameZoneHalfWidth - HALF_WIDTH;
-		pos.y = CSG.SCREEN_HEIGHT;
+		pos.set(CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth, CSG.SCREEN_HEIGHT);
 	}
 	
 	public void reset() {
@@ -46,52 +40,61 @@ public class BossMine extends Enemy {
 	}
 
 	public void init() {
+		goodShape = true;
 		nextShot = 3f;
-		pos.x = CSG.gameZoneHalfWidth - HALF_WIDTH;
-		pos.y = CSG.SCREEN_HEIGHT;
-		dir.x = 0;
-		dir.y = -getSpeed();
+		pos.set(CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth, CSG.SCREEN_HEIGHT);
+		dir.set(0, -getSpeed());
 	}
 	
 	@Override
-	protected void isMoving() {
-		switch (index) {
-		case 0:
-			if (pos.x < CSG.HEIGHT_ECRAN_PALLIER_3)
-				changePhase();
-			break;
+	protected void move() {
+		if (isInGoodShape())
+			Mover.ancorY(this, CSG.HEIGHT_8_10);
+		else 
+			Mover.ancorY(this, CSG.HEIGHT_7_10);
+		Mover.ancorX(this, 50);
+		Mover.ball(this, 1.1f);
+		if (!isInGoodShape()) {
+			angle += EndlessMode.delta * 90;
 		}
 	}
 	
 	@Override
-	public int getNumberOfShots() {
-		if (index != 2)
-			return 5;
-		return 3 + CSG.R.nextInt(4);
-	}
-	@Override
-	public float getFloatFactor() {
-		if (index == 2)
-			return 125;
-		return 15;
+	protected void shoot() {
+		if (isInGoodShape()) {
+			TMP_POS.set(pos.x + DIMENSIONS.halfWidth - Rainbow.DIMENSIONS.halfWidth, pos.y);
+			TMP_DIR.set(0, -1);
+			for (int i = 0; i < 5; i++) {
+				shootDir = AbstractShot.sweep(Gatling.RAINBOW, TMP_DIR, TMP_POS, Stats.U15, this, shootDir, 4, 0, Math.abs((now % 10) - 5) + 1.5f, shotNumber);
+			}
+		} else {
+			TMP_POS.set(pos.x + DIMENSIONS.halfWidth - Mine.DIMENSIONS.halfWidth, pos.y + DIMENSIONS.halfHeight - Mine.DIMENSIONS.halfWidth);
+			// offset
+			CSG.tmpPos.set(0, DIMENSIONS.halfHeight).rotate(angle);
+			TMP_POS.add(CSG.tmpPos);
+			final int rnd = CSG.R.nextInt(4) + 1;
+			for (int i = -rnd; i < rnd+1; i++)
+				AbstractShot.straight(Gatling.MINE, TMP_POS, TMP_DIR.set(0, -1).rotate(angle + (i * 30)), -Stats.U10);
+		}
+		shotInterval = AbstractShot.interval(this, EndlessMode.difficulty, 0.2f, shotInterval);
 	}
 	
 	@Override
 	public float getFirerate() {
-		if (index != 2)
+		if (goodShape)
 			return FIRERATE;
 		return FIRERATE2;
 	}
 	
 	@Override
 	public float getSpeed() {
-		return SPEED;
+		return SPEED6;
 	}
 	
 	@Override
 	public boolean stillAlive(PlayerWeapon p) {
 		if (hp <= pvPhase2)
-			changePhase(2, 1);
+			goodShape = false;
 		return super.stillAlive(p);
 	}
 
@@ -101,65 +104,21 @@ public class BossMine extends Enemy {
 		nextShot = f;
 	}
 
-	@Override
-	public Vector2 getShootingDir() {
-		if (index == 1) {
-			tmpDirectionTir.x = 0;
-			tmpDirectionTir.y = -1;
-		} else {
-			tmpDirectionTir.x = -dir.x;
-			tmpDirectionTir.y = -dir.y;
-			tmpDirectionTir.nor();
-		}
-		return tmpDirectionTir;
-	}
-
-	
-	@Override
-	public Vector2 getShotPosition(int numeroTir) {
-		if (index == 1) {
-			TMP_POS.x = (pos.x + HALF_WIDTH - Raindow.HALF_WIDTH);
-			TMP_POS.y = pos.y;
-		} else {
-			TMP_DIR.x = 0;
-			TMP_DIR.y = HALF_HEIGHT;
-			TMP_DIR.rotate(angle);
-			TMP_POS.y = (pos.y + HALF_HEIGHT - Mine.HALF_WIDTH) + TMP_DIR.y;
-			TMP_POS.x = (pos.x + HALF_WIDTH - Mine.HALF_WIDTH) + TMP_DIR.x;
-			shootingAngle = angle;
-		}
-		return TMP_POS;
-	}
-	
-	@Override	public void setShootingAngle(float shootingAngle) {	this.shootingAngle = shootingAngle;	}
-	@Override	public float getDirectionY() {						return -Stats.V_ENN_BOSS_MINE;		}
-	@Override	protected String getLabel() {						return getClass().toString();		}
+	@Override	public void addShots(int i) {						shotNumber += i;	}
 	@Override	protected Sound getExplosionSound() {				return SoundMan.bigExplosion;		}
-	@Override	public float getShootingAngle() {					return shootingAngle;				}
-	@Override	public void setShotWay(boolean way) {				this.shotWay = way;					}
-	@Override	public float getHalfHeight() {						return HALF_HEIGHT;					}
-	@Override	public float getHalfWidth() {						return HALF_WIDTH;					}
+	@Override	public Animations getAnimation() {					return Animations.BOSS_MINE;		}
 	@Override	public void free() {								POOL.free(this);					}
-	@Override	public boolean getShotWay() {						return shotWay;						}
-	@Override	public Phase[] getPhases() {						return PHASES;						}
-	@Override	public float getHeight() {							return HEIGHT;						}
-	@Override	public float getWidth() {							return WIDTH;						}
 	@Override	public int getColor() {								return BLUE;						}
 	@Override	public int getXp() {								return 200;							}
 	@Override	public int getBonusValue() {						return 200;							}
 	@Override	public int getExplosionCount() {					return 180;							}
-	@Override	public float getShotsGap() {						return 5;							}
-	@Override	public float getBulletSpeedMod() {
-		System.out.println(100);
-		return 100;							
-	}
-	
+	@Override	public boolean isInGoodShape() {					return goodShape;					}
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override
 	protected int getMaxHp() {
 		pvPhase2 = getPvBoss(Stats.HP_BOSS_MINE) / 2;
 		return super.getPvBoss(Stats.HP_BOSS_MINE);
 	}
-	
 	
 	@Override
 	public void die() {

@@ -2,6 +2,7 @@ package elements.generic.weapons.player;
 
 import java.util.Random;
 
+import assets.sprites.Animations;
 import jeu.CSG;
 import elements.generic.weapons.Weapon;
 
@@ -22,5 +23,9 @@ public abstract class PlayerWeapon extends Weapon {
 	public float getSpeed() {					return 3333;		}	
 	public int getPower() {						return FORCE;		}
 	public abstract float[] getColors();
+	@Override
+	public Animations getAnimation() {
+		return null;
+	}
 }
 

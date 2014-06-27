@@ -27,10 +27,10 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
-import elements.generic.Player;
 import elements.generic.enemies.Enemy;
 import elements.generic.enemies.Progression;
 import elements.generic.weapons.Weapon;
+import elements.particular.Player;
 import elements.particular.bonuses.Bonus;
 import elements.particular.bonuses.XP;
 import elements.particular.other.WaveEffect;
@@ -137,6 +137,7 @@ public class EndlessMode implements Screen {
 //		started = false;
 		transition.reset();
 		Weapon.resetAll();
+		Player.POS.set(CSG.gameZoneHalfWidth - Player.HALF_WIDTH, Player.HEIGHT * 7);
 	}
 
 	@Override
@@ -395,8 +396,6 @@ public class EndlessMode implements Screen {
 	}
 
 	private void update() {
-//		if (!started)
-//			return;
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.POWER) || Gdx.input.isKeyPressed(Keys.HOME) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			justTouched = now;
 			mettrePause();
@@ -410,7 +409,6 @@ public class EndlessMode implements Screen {
 					Physic.collisionsTest();
 				Score.act(now, lost, triggerStop);
  			}
-//			if (!drawMenu && !freeze)	
 			if (!freeze)	
 				ship.shot();
 		} else { // Donc si on a perdu
@@ -436,7 +434,7 @@ public class EndlessMode implements Screen {
 				pasTouche();
 			}
 		}
-				
+
 	}
 
 	private static void pasTouche() {
@@ -485,27 +483,11 @@ public class EndlessMode implements Screen {
 		CSG.profilManager.persist();
 	}
 
-	@Override
-	public void show() {
-	}
-
-	@Override
-	public void hide() {
-		CSG.profilManager.persist();
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
-		CSG.assetMan.reload(true);
-	}
-
-	@Override
-	public void dispose() {
-	}
+	@Override	public void show() {	}
+	@Override	public void hide() {		CSG.profilManager.persist();	}
+	@Override	public void pause() {	}
+	@Override	public void resume() {		CSG.assetMan.reload();	}
+	@Override	public void dispose() {	}
 
 	public static void addBonusStop() {
 		if (CSG.profile.manualBonus) {

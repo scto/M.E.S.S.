@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import elements.generic.Player;
+import elements.particular.Player;
 
 public class Controls {
 	

@@ -22,8 +22,7 @@ public class SpaceInvaderParticle implements Poolable {
 			return new SpaceInvaderParticle();
 		}
 	};
-	private float x, y;
-	private float a, g, b;
+	private float x, y, a, g, b;
 	private static float sb = 3;
 	private static boolean upB = true;
 	private final Vector2 dir = new Vector2();
@@ -35,15 +34,13 @@ public class SpaceInvaderParticle implements Poolable {
 	public static void init(SpaceInvaderWeapon e) {
 		final SpaceInvaderParticle p = POOL.obtain();
 		Particles.SPACE_INVADER.add(p);
-		p.dir.y = Stats.U20;
-		p.dir.x = Stats.U50;
-		p.dir.rotate(CSG.R.nextFloat()*360);
+		p.dir.set(Stats.U50, Stats.U20).rotate(CSG.R.nextFloat()*360);
 		if (EndlessMode.triggerStop) {
-			p.x = (e.pos.x + SpaceInvaderWeapon.halfWidth) + p.dir.x * Stats.microUSur6;
-			p.y = (e.pos.y + SpaceInvaderWeapon.halfWidth) + p.dir.y * Stats.microUSur6;
+			p.x = (e.pos.x + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.x * Stats.microUSur6;
+			p.y = (e.pos.y + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.y * Stats.microUSur6;
 		} else {
-			p.x = (e.pos.x + SpaceInvaderWeapon.halfWidth) + p.dir.x * EndlessMode.deltaDiv3;
-			p.y = (e.pos.y + SpaceInvaderWeapon.halfWidth) + p.dir.y * EndlessMode.deltaDiv3;
+			p.x = (e.pos.x + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.x * EndlessMode.deltaDiv3;
+			p.y = (e.pos.y + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.y * EndlessMode.deltaDiv3;
 		}
 		p.a = 1;
 		p.g = 1;

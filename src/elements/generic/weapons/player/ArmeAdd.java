@@ -4,14 +4,16 @@ import jeu.CSG;
 import jeu.Physic;
 import jeu.Stats;
 import assets.AssetMan;
+import assets.sprites.Animations;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.Player;
+import elements.generic.components.Dimensions;
 import elements.generic.weapons.Weapon;
+import elements.particular.Player;
 import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.weapon.GreenAddParticle;
 
@@ -24,7 +26,7 @@ import elements.particular.particles.individual.weapon.GreenAddParticle;
 
 public class ArmeAdd extends PlayerWeapon {
 	
-	public static final int WIDTH = CSG.screenWidth / 26, HALF_WIDTH = WIDTH/2, HEIGHT = WIDTH * 2, HALF_HEIGHT = HEIGHT / 2; 
+	public static final Dimensions DIMENSIONS = Dimensions.DRONE_WEAPON;
 	public static float FIRERATETIR;
 	public static final Pool<ArmeAdd> POOL = Pools.get(ArmeAdd.class);
 	public static final float[] COLORS = {
@@ -58,8 +60,8 @@ public class ArmeAdd extends PlayerWeapon {
 	private float angle;
 	private static final Vector2 decalage = new Vector2();
 	public void init(float x, float y, float angle, float decalage) {
-		pos.x = (x + Player.HALF_WIDTH_ADD) - HALF_WIDTH;
-		pos.y = (y + Player.HEIGHT_DIV8) - HALF_HEIGHT;
+		pos.x = (x + Player.HALF_WIDTH_ADD) - DIMENSIONS.halfWidth;
+		pos.y = (y + Player.HEIGHT_DIV8) - DIMENSIONS.halfHeight;
 		dir.x = 0;
 		dir.y = 1;
 		dir.rotate(angle);
@@ -74,23 +76,25 @@ public class ArmeAdd extends PlayerWeapon {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch) {
+	protected void displayOnScreen(SpriteBatch batch) {
 		batch.setColor(GreenAddParticle.COLOR);
-		batch.draw(AssetMan.addBullet, pos.x, pos.y, HALF_WIDTH, HALF_HEIGHT, WIDTH, HEIGHT, 1, 1, angle);
+		batch.draw(AssetMan.addBullet, pos.x, pos.y, DIMENSIONS.halfWidth, DIMENSIONS.halfHeight, DIMENSIONS.width, DIMENSIONS.height, 1, 1, angle);
 		batch.setColor(AssetMan.WHITE);
 	}
-
-	@Override	public float getWidth() {			return WIDTH;													}
-	@Override	public float getHeight() {			return HEIGHT;													}
+	
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	public void free() {				POOL.free(this);												}
-	@Override	public float getHalfWidth() {		return HALF_WIDTH;												}
-	@Override	public float getHalfHeight() {		return HALF_HEIGHT;												}
 	@Override	public float getColor() {			return COLORS[R.nextInt(COLORS.length)];						}	
-	@Override	public boolean mouvementEtVerif() {	return Physic.mvt(HEIGHT, WIDTH, dir, pos);						}
+	@Override	public boolean mouvementEtVerif() {	return Physic.mvt(DIMENSIONS.height, DIMENSIONS.width, dir, pos);						}
 	@Override	public float[] getColors() {		return PrecalculatedParticles.colorsOverTimeYellowToGreen;		}
 
 	public static void add(float x, float y, float angle, float decalage) {
 		POOL.obtain().init(x, y, angle + 90, decalage);
+	}
+
+	@Override
+	public Animations getAnimation() {
+		return null;
 	}
 	
 

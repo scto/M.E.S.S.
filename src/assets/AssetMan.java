@@ -14,9 +14,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.NumberUtils;
 
-import elements.generic.weapons.player.BlueSweepWeapon;
-import elements.generic.weapons.player.SunWeapon;
-
 public final class AssetMan implements AssetErrorListener {
 
 	public static TextureRegion add, addShip, bomb, bombGrey, shield, stopBonus, stopBonusGrey, dust, debris, background, player, backgroundButton, shootingStar;
@@ -71,19 +68,10 @@ public final class AssetMan implements AssetErrorListener {
 		return MAN.update();
 	}
 
-	public void loadPartie2(boolean dimension) {
+	public void loadPartie2() {
 		setSounds();
 		loadTextureRegions();
 		loadAnims();
-		
-		if (dimension) {
-			updateDimensions();
-		}
-	}
-
-	private void updateDimensions() {
-		BlueSweepWeapon.updateDimensions();
-		SunWeapon.updateDimensions();
 	}
 
 	private void loadAnims() {
@@ -138,7 +126,7 @@ public final class AssetMan implements AssetErrorListener {
 		return atlas;
 	}
 
-	public void reload(boolean dimension) {
+	public void reload() {
 		MAN.clear();
 		if (CSG.profile.bloom)
 			CSG.bloom.resume();
@@ -146,7 +134,7 @@ public final class AssetMan implements AssetErrorListener {
 		load();
 		while (!fini()){
 		}
-		loadPartie2(dimension);
+		loadPartie2();
 	}
 	
 	private static final short MAX = 255, A = 24, R = 16, G = 8;

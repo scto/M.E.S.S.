@@ -57,6 +57,18 @@ public class MovingSmoke implements Poolable{
 		dirX = 0;
 		dirY = Stats.uSur2;
 	}
+	
+	public void init(float x, float y, boolean rnd, float[] colors, float dirX, float dirY) {
+		if (rnd)
+			this.x = (x - PrecalculatedParticles.INITIAL_HALF_WIDTH) + ((CSG.R.nextFloat() - .5f) * PrecalculatedParticles.INITIAL_HALF_WIDTH);
+		else
+			this.x = x - PrecalculatedParticles.INITIAL_HALF_WIDTH;
+		this.y = y - PrecalculatedParticles.INITIAL_HALF_WIDTH;
+		index = 0;
+		this.colors = colors;
+		this.dirX = dirX;
+		this.dirY = dirY;
+	}
 	public void init(float x, float y, boolean rnd, float[] colors, Vector2 dir) {
 		if (rnd)
 			this.x = (x - PrecalculatedParticles.INITIAL_HALF_WIDTH) + ((CSG.R.nextFloat() - .5f) * PrecalculatedParticles.INITIAL_HALF_WIDTH);

@@ -5,94 +5,75 @@ import assets.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.components.Phase;
-import elements.generic.components.behavior.Behavior;
-import elements.generic.components.positionning.Pos;
-import elements.generic.components.positionning.Sides;
+import elements.generic.components.Dimensions;
+import elements.generic.components.behavior.Mover;
+import elements.generic.components.positionning.Positionner;
+import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
-import elements.generic.components.shots.Shot;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.enemies.KinderWeapon;
 
 
 public class Kinder extends Enemy {
 
-	public static final int WIDTH = Stats.KINDER_WIDTH, HALF_WIDTH = WIDTH / 2, HEIGHT = Stats.KINDER_HEIGHT, HALF_HEIGHT = HEIGHT / 2, PK = 6,	BASE_XP = Enemy.initXp(32, PK), HP = initHp(Stats.KINDER_HP, PK),
-			EXPLOSION_COUNT = initExplosion(45, PK), XP = getXp(BASE_XP, 1);
-	protected static final float FIRERATE = initFirerate(0.45f, PK), INIT_NEXT_SHOT = initNextShot(Animations.KINDER_TIME_OPEN, PK), SPEED = initSpeed(10, PK), PHASE_DURATION = 12;
+	protected static final Dimensions DIMENSIONS = Dimensions.KINDER;
+	public static final int BASE_XP = 32, HP = Stats.KINDER_HP,	EXPLOSION_COUNT = 45, XP = getXp(BASE_XP, 1), LVL = 1;
+	protected static final float FIRERATE = 0.45f, INIT_NEXT_SHOT = Animations.KINDER_TIME_OPEN, SPEED10 = getModulatedSpeed(20, LVL), PHASE_DURATION = 12;
 	public static final Pool<Kinder> POOL = Pools.get(Kinder.class);
-	private static final Phase[] PHASES = {
-		new Phase(				Behavior.STRAIGHT_ON,				Gatling.KINDER_WEAPON,				null,						Animations.KINDER_OPENING				),
-		new Phase(				Behavior.ROTATE,					Gatling.KINDER_WEAPON,				Shot.TIR_TOUT_DROIT,		Animations.KINDER_OPEN					),
-		new Phase(				Behavior.GO_AWAY,					Gatling.KINDER_WEAPON,				Shot.TIR_TOUT_DROIT,		Animations.KINDER_OPEN					),		};
-	private static final Pos POSITIONNING = initPositionnement(Sides.PK, PK);
+	protected int index, shotNumber = 0;
 	
 	public void init() {
-		POSITIONNING.set(this);
+		Positionner.SIDES.set(this);
 		nextShot = INIT_NEXT_SHOT;
 		index = 0;
 	}
 	
 	@Override
-	public Vector2 getShotPosition(int shotNumber) {
-		TMP_POS.x = (pos.x + HALF_WIDTH - KinderWeapon.HALF_WIDTH);
-		TMP_POS.y = (pos.y + HALF_HEIGHT - KinderWeapon.HALF_WIDTH);
-		return TMP_POS;
-	}
-	
-	@Override
-	public void isMoving() {
+	public void move() {
 		angle = dir.angle() + 90;
 		switch (index) {
 		case 0 :
-			if (phaseTime > Animations.KINDER_TIME_OPEN)
-				changePhase();
+			if (now > Animations.KINDER_TIME_OPEN)
+				index++;
+			Mover.straight(this);
 			break;
 		case 1 :
-			if (phaseTime > getPhaseDuration())
-				changePhase();
+			if (now > getPhaseDuration())
+				index++;
+			Mover.rotateNoMove(this, 40);
 			break;
+		case 2 :
+			Mover.goAway(this, 0.01f);
 		}
 	}
 	
 	@Override
-	public float getDirectionX() {
-		if (now < Animations.KINDER_TIME_OPEN || now > getPhaseDuration()) 
-			return dir.x;
-		return 0;
+	protected void shoot() {
+		if (index == 1) {
+			TMP_POS.set(pos.x + DIMENSIONS.halfWidth - KinderWeapon.DIMENSIONS.halfWidth, pos.y + DIMENSIONS.halfHeight - KinderWeapon.DIMENSIONS.halfWidth);
+			AbstractShot.straight(Gatling.KINDER_WEAPON, TMP_POS, TMP_DIR.set(-dir.x, -dir.y), -1.5f);
+			
+			interval(0);
+		}
+	}
+
+	protected void interval(int init) {
+		shotNumber = AbstractShot.interval(this, 2, 1, shotNumber);
 	}
 	
-	@Override	public Vector2 getShootingDir() {
-		TMP_DIR.x = -dir.x;
-		TMP_DIR.y = -dir.y;
-		return TMP_DIR;	
-	}
-	
-	/**
-	 * Is used to get rotation speed
-	 */
-	@Override	public float getFloatFactor() {				return 40;										}
-	@Override	protected String getLabel() {				return getClass().toString();					}
+	public float getPhaseDuration() {						return PHASE_DURATION;							}
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion6;						}
+	@Override	public Animations getAnimation() {			return Animations.KINDER;						}
 	@Override	public int getExplosionCount() {			return EXPLOSION_COUNT;							}
-	@Override	public float getHalfHeight() {				return HALF_HEIGHT;								}
-	@Override	public float getHalfWidth() {				return HALF_WIDTH;								}
+	@Override	public Dimensions getDimensions() {			return DIMENSIONS;								}
 	@Override	public float getFirerate() {				return FIRERATE;								}
 	@Override	public void free() {						POOL.free(this);								}
-	@Override	public float getBulletSpeedMod() {		return -1.5f;					}
+	@Override	public float getSpeed() {					return SPEED10;									}
 	@Override	public int getBonusValue() {				return BASE_XP;									}
-	@Override	public Phase[] getPhases() {				return PHASES;									}
-	@Override	public float getHeight() {					return HEIGHT;									}
-	@Override	public float getShootingAngle() {			return angle;									}
-	@Override	public float getDirectionY() {				return dir.y;									}
-	@Override	public float getSpeed() {					return SPEED;									}
-	@Override	public float getWidth() {					return WIDTH;									}
 	@Override	public int getXp() {						return XP;										}
 	@Override	protected int getMaxHp() {					return HP;										}
-	public static float getPhaseDuration() {				return PHASE_DURATION;							}
 }
 

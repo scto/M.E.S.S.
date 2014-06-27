@@ -16,7 +16,7 @@ public class Credits {
 											END;
 	private final static String PATCHNOTE = 
 "                                                    "
-+ "PATCHNOTE 0.930 :  Bombs won't attract experience but will slow time a little bit. Score multiplication has changed. You can now collect xp while the game is stopped. Better shield ! :D New sprites !" + 
++ "PATCHNOTE 0.931 :  Ok it's been a long long time ! I've been very busy but don't worry, I won't drop this project ! In the new version you get new comportments for most of the enemies" + 
 									 		END;
 	private final String str;
 	

@@ -6,8 +6,8 @@ import jeu.Stats;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import elements.generic.Player;
 import elements.generic.weapons.Weapon;
+import elements.particular.Player;
 import elements.particular.particles.Particles;
 
 public class JeuBackground {

@@ -14,8 +14,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-import elements.generic.Player;
 import elements.generic.enemies.Enemy;
+import elements.particular.Player;
 import elements.particular.particles.Particles;
 
 public class Buttons {

@@ -15,15 +15,15 @@ public class Group3 extends Group {
 		}
 	};
 	private static final int HP = getModulatedPv(Stats.HP_GROUP, 3), XP = getXp(BASE_XP, 3);
-	private static final float SPEED = getModulatedSpeed(Group.SPEED, 3), FIRERATE = Group.FIRERATE * 0.9f;
+	private static final float SPEED = getModulatedSpeed(8, 3), FIRERATE = Group.FIRERATE * 0.9f;
 	
 	public static Group3 initAll() {
 		Group3 e = POOL.obtain();
 		Group3 f = POOL.obtain();
 		Group3 g = POOL.obtain();
-		e.init(CSG.gameZoneWidth - WIDTH);
-		f.init(CSG.gameZoneWidth - WIDTH * 2.1f);
-		g.init(CSG.gameZoneWidth - WIDTH * 3.2f);
+		e.init(CSG.gameZoneWidth - DIMENSIONS.width);
+		f.init(CSG.gameZoneWidth - DIMENSIONS.width * 2.1f);
+		g.init(CSG.gameZoneWidth - DIMENSIONS.width * 3.2f);
 		return e;
 	}
 	@Override	public float getFirerate() {							return FIRERATE;			}

@@ -6,18 +6,20 @@ import jeu.mode.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
+import elements.generic.components.Dimensions;
 import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.weapon.SpaceInvaderParticle;
 
 
 public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 
-	public static final int width = CSG.screenWidth/6, halfWidth = width / 2, halfWidth3 = halfWidth*3, width2 = width*2, halfWidth5 = halfWidth*5, width3 = width * 3, halfWidth7 = halfWidth * 7, width4 = width * 4, 
-			particle = width / 10, height = width * 3;
-	public static final float FIRERATETIR = initCadence(0.04f, 4);
+	public static final Dimensions DIMENSIONS = Dimensions.SPACE_INVADER_WEAPON;
+	public static final int particle = (int) (DIMENSIONS.width / 6);
+	public static final float FIRERATETIR = 0.04f;
 	public static final String LABEL = "SpaceInvaderWeapon";
 	public static final Pool<SpaceInvaderWeapon> POOL = new Pool<SpaceInvaderWeapon>(30) {		protected SpaceInvaderWeapon newObject() {			return new SpaceInvaderWeapon();		}	};
 	public final float color;
@@ -53,18 +55,22 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch) {
+	public void displayOnScreen(SpriteBatch batch) {
 		for (int i = 0; i <= EndlessMode.fps; i++)
 			SpaceInvaderParticle.init(this);
 	}
-	@Override	public float getWidth() {				return width;															}
-	@Override	public float getHeight() {				return width;															}
+	public Rectangle getRectangleCollision() {
+		TMP_RECT.x = pos.x;
+		TMP_RECT.y = pos.y - DIMENSIONS.halfHeight;
+		TMP_RECT.height = DIMENSIONS.height;
+		TMP_RECT.width = DIMENSIONS.width;
+		return TMP_RECT;
+	}
 	@Override	public void free() {					POOL.free(this);														}
-	@Override	public float getHalfWidth() {			return halfWidth;														}
-	@Override	public float getHalfHeight() {			return halfWidth;														}
 	@Override	public float getColor() {				return COLORS[R.nextInt(COLORS.length)];								}
 	@Override	public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeBlue;						}
 	@Override	public int getPower() {					return (int) ((50f * (CSG.profile.NvSpaceInvadersWeapon/3f)) + 50f);	}
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	public static Object getLabel() {					return LABEL;															}
 
 	public void init(float x, float y) {

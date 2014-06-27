@@ -49,12 +49,12 @@ public class DebrisExplosion implements Poolable {
 	}
 
 	private DebrisExplosion init(Element e) {
-		x = e.pos.x + e.getHalfWidth();
-		y = e.pos.y + e.getHalfHeight();
+		x = e.pos.x + e.getDimensions().halfWidth;
+		y = e.pos.y + e.getDimensions().halfHeight;
 		angle = CSG.R.nextFloat() * 360;
 		
 		width = MIN_WIDTH + (MIN_WIDTH * CSG.R.nextFloat()); 
-		height = Math.abs((float) ((R.nextGaussian() * WIDTH_SMALL))) + e.getHalfWidth() + e.getHalfHeight();
+		height = Math.abs((float) ((R.nextGaussian() * WIDTH_SMALL))) + e.getDimensions().halfWidth + e.getDimensions().halfHeight;
 		ttl = Math.abs((int) (R.nextGaussian() * 2)) + 3;
 		return this;
 	}
@@ -116,6 +116,6 @@ public class DebrisExplosion implements Poolable {
 	}
 
 	public static void addEnemyTouched(Array<DebrisExplosion> explosions, PlayerWeapon a) {
-		explosions.add(POOL.obtain().initImpact(a.pos.x + a.getHalfWidth() + (a.dir.x * EndlessMode.delta), a.pos.y + a.getHalfHeight() + (a.dir.y * EndlessMode.delta)));
+		explosions.add(POOL.obtain().initImpact(a.pos.x + a.getDimensions().halfWidth + (a.dir.x * EndlessMode.delta), a.pos.y + a.getDimensions().halfHeight + (a.dir.y * EndlessMode.delta)));
 	}
 }

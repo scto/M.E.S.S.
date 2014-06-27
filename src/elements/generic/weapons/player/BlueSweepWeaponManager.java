@@ -9,7 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 
-import elements.generic.Player;
+import elements.particular.Player;
 
 public class BlueSweepWeaponManager extends WeaponManager {
 
@@ -21,12 +21,11 @@ public class BlueSweepWeaponManager extends WeaponManager {
 	public void init() {
 		if (EndlessMode.alternate)
 			SoundMan.playBulletSound(SOUND);
-		posX = Player.xCenter - BlueSweepWeapon.halfWidth;
+		posX = Player.xCenter - BlueSweepWeapon.DIMENSIONS.halfWidth;
 		posY = Player.POS.y + Player.HEIGHT;
-
-		for (int i = 0; i < shoot; i++) { 
-			DIR.x = 0;
-			DIR.y = 1;
+		update();
+		for (int i = 0; i < shoot; i++) {
+			DIR.set(0, 1);
 			DIR.rotate((float) (CSG.R.nextGaussian() * 6f));
 			DIR.scl((float) (Stats.V_ARME_BALAYAGE + (Stats.U * CSG.R.nextGaussian())));
 			BlueSweepWeapon.POOL.obtain().init(posX, posY, DIR.x, DIR.y);

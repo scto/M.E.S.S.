@@ -7,7 +7,7 @@ import assets.SoundMan;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
-import elements.generic.Player;
+import elements.particular.Player;
 
 public class PinkWeaponManager extends WeaponManager {
 	// rotation 85 : [-0.9961947:0.087155804]
@@ -19,7 +19,7 @@ public class PinkWeaponManager extends WeaponManager {
 	private static boolean alternate = true;
 	
 	public void init(){
-		posX = Player.xCenter - PinkWeapon.halfWidth / 3;
+		posX = Player.xCenter - PinkWeapon.DIMENSIONS.halfWidth / 3;
 		posY = Player.POS.y + Player.HEIGHT;
 		alternate = !alternate;
 		if (EndlessMode.alternate)
@@ -28,7 +28,7 @@ public class PinkWeaponManager extends WeaponManager {
 		if (alternate)			PinkWeapon.POOL.obtain().init(posX, posY, -0.08715574f, 0.9961947f);
 		else					PinkWeapon.POOL.obtain().init(posX, posY, 0.08715574f, 0.9961947f);
 		switch (CSG.profile.lvlPinkWeapon) {
-		case 8:			shoot(0.70710677f, 0.70710677f);
+		case 8:			shoot(-0.70710677f, -0.70710677f);
 		case 7:			shoot(0.70710677f, 0.70710677f);
 		case 6:			shoot(0.9848077f, 0.17364822f); 			// 80°
 		case 5:			shoot(0.9961947f, 0.087155804f);			// 85°

@@ -7,90 +7,67 @@ import assets.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.components.Phase;
-import elements.generic.components.behavior.Behavior;
-import elements.generic.components.positionning.Pos;
-import elements.generic.components.positionning.UpWide;
+import elements.generic.components.Dimensions;
+import elements.generic.components.positionning.Positionner;
+import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
-import elements.generic.components.shots.Shot;
 import elements.generic.enemies.Enemy;
+import elements.generic.weapons.enemies.Meteorite;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.particles.Particles;
+import elements.particular.particles.ParticuleBundles;
 
 public class Cylon extends Enemy {
 	
-	private static final int 
-		WIDTH = Stats.CYLON_WIDTH,
-		HALF_WIDTH = WIDTH/2,
-		QUART_WIDTH = WIDTH / 4,
-		THRUSTER_OFFSET = (int) (WIDTH * 0.45f);
+	protected static final Dimensions DIMENSIONS = Dimensions.CYLON;
+	protected static final int THRUSTER_OFFSET = (int) (DIMENSIONS.width * 0.45f), LVL = 1;
 	public static final Pool<Cylon> POOL = Pools.get(Cylon.class);
-	public static final int PK = 2;
-	protected static final float
-		FIRERATE = initFirerate(3, PK),
-		INIT_NEXT_SHOT = initNextShot(2.6f, PK),
-		SPEED = initSpeed(17, PK);
-	protected static final int BASE_XP = Enemy.initXp(12, PK);
-	private static final int 
-		HP = initHp(Stats.HP_CYLON, PK),
-		HP_BAD = (int) (HP * 0.66f),
-		HP_WORST = (int) (HP * 0.33f),
-		EXPLOSION = initExplosion(35, PK),
-		XP = getXp(BASE_XP, 1);
-	private static final Phase[] PHASES = {
-		new Phase(				Behavior.STRAIGHT_ON,				Gatling.METEORITE,				Shot.TIR_TOUT_DROIT,			Animations.CYLON_RED_GOOD				),
-		new Phase(				Behavior.STRAIGHT_ON,				Gatling.METEORITE,				Shot.TIR_TOUT_DROIT,			Animations.CYLON_RED_BAD				),
-		new Phase(				Behavior.STRAIGHT_ON,				Gatling.METEORITE,				Shot.TIR_TOUT_DROIT,			Animations.CYLON_RED_WORST				)		};
-	private static final Pos positionning = initPositionnement(UpWide.PK, PK);
+	protected static final float FIRERATE = 3, INIT_NEXT_SHOT = 2.6f, SPEED12 = getModulatedSpeed(12, LVL);
+	protected static final int BASE_XP = 12, HP = Stats.HP_CYLON, HP_BAD = (int) (HP * 0.66f), HP_WORST = (int) (HP * 0.33f), EXPLOSION = 35, XP = getXp(BASE_XP, 1);
+	private int index = 0;
 
 	public void init() {
-		positionning.set(this);
-		if (pos.x + HALF_WIDTH < CSG.screenHalfWidth)
-			dir.x = 0.26f * Stats.CYLON_SPEED;
+		Positionner.UP_WIDE.set(this);
+		if (pos.x + DIMENSIONS.halfWidth < CSG.screenHalfWidth)
+			dir.set(0.26f * getSpeed(), -0.83f * getSpeed());
 		else
-			dir.x = -0.26f * Stats.CYLON_SPEED;
-		dir.y = -0.83f * Stats.CYLON_SPEED;
+			dir.set(-0.26f * getSpeed(), -0.83f * getSpeed());
 		nextShot = 2.6f;
 		angle = dir.angle() + 90;
 		index = 0;
 	}
 	
 	@Override
-	protected void isMoving() {
-		TMP_POS.x = 0;
-		TMP_POS.y = THRUSTER_OFFSET;
-		TMP_POS.rotate(angle);
+	protected void move() {
+		TMP_POS.set(0, THRUSTER_OFFSET).rotate(angle);
 		if (EndlessMode.oneToFour > index + 1)
-			Particles.smokeMoving(pos.x + HALF_WIDTH + TMP_POS.x, pos.y + HALF_WIDTH + TMP_POS.y, TMP_POS.nor().scl(Stats.uSur2), getColor());
+			Particles.smokeMoving(pos.x + DIMENSIONS.halfWidth + TMP_POS.x, pos.y + DIMENSIONS.halfWidth + TMP_POS.y, TMP_POS.nor().scl(Stats.uSur2), getColor());
+		super.move();
 	}
 	
 	@Override
-	public Vector2 getShotPosition(int numeroTir) {
-		TMP_POS.x = (pos.x) + dir.x*0.8f;
-		TMP_POS.y = (pos.y) + (dir.y*0.8f);
-		return TMP_POS;
+	protected void shoot() {
+		TMP_POS.set((pos.x + DIMENSIONS.halfWidth) - Meteorite.DIMENSIONS.halfWidth, (pos.y + DIMENSIONS.halfWidth) - Meteorite.DIMENSIONS.halfWidth);
+		AbstractShot.straight(Gatling.METEORITE, TMP_POS, dir, 1.5f);
 	}
+	
 	@Override
 	public boolean stillAlive(PlayerWeapon p) {
 		switch (index) {
 		case 0:
-			if (hp - p.getPower() < getPvBad()) {
+			if (hp - p.getPower() < getPvBad()) 
 				changeState(1);
-			}
 			break;
 		case 1:
-			if (hp - p.getPower() < getPvWorst()) {
+			if (hp - p.getPower() < getPvWorst()) 
 				changeState(2);
-			}
 			break;
 		}
 		return super.stillAlive(p);
 	}
-	
 
 	private void changeState(int nextState) {
 		index = nextState;
@@ -98,26 +75,18 @@ public class Cylon extends Enemy {
 		dir.scl(0.7f);
 		angle = dir.angle() + 90;
 		for (int i = 0; i < 10; i++) 
-			Particles.smoke(pos.x + QUART_WIDTH + (CSG.R.nextFloat() * HALF_WIDTH), pos.y + CSG.R.nextFloat() * WIDTH, false);
+			Particles.smoke(pos.x + DIMENSIONS.quartWidth + (CSG.R.nextFloat() * DIMENSIONS.halfWidth), pos.y + CSG.R.nextFloat() * DIMENSIONS.width, false, ParticuleBundles.SMOKE.colors);
 	}
-
-	@Override	protected String getLabel() {			return getClass().toString();				}
+	
+	@Override	public Animations getAnimation() {		return Animations.CYLON_RED;				}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion4;					}
-	@Override	public float getShootingAngle() {		return dir.angle();							}
-	@Override	public float getHalfHeight() {			return HALF_WIDTH;							}
-	@Override	public float getHalfWidth() {			return HALF_WIDTH;							}
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;							}
 	@Override	public int getExplosionCount() {		return EXPLOSION;							}
 	@Override	public float getFirerate() {			return FIRERATE;							}
 	@Override	public void free() {					POOL.free(this);							}
+	@Override	public float getSpeed() {				return SPEED12;								}
 	@Override	public int getBonusValue() {			return BASE_XP;								}
-	@Override	public Phase[] getPhases() {			return PHASES;								}
-	@Override	public float getHeight() {				return WIDTH;								}
-	@Override	public float getWidth() {				return WIDTH;								}
-	@Override	public float getBulletSpeedMod() {		return 2;								}
-	@Override	public void setNextShot(float f) {		nextShot = f;								}
-	@Override	public float getDirectionY() {			return dir.y;								}
-	@Override	public float getDirectionX() {			return dir.x;								}
-	@Override	public Vector2 getShootingDir() {		return dir;									}
+	@Override	public int getAnimIndex() {				return index;								}
 	@Override	public int getXp() {					return XP;									}
 	@Override	protected int getMaxHp() {				return HP;									}
 	protected int getPvBad() {							return HP_BAD;								}

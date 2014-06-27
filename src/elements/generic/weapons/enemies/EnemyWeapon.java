@@ -1,16 +1,15 @@
 package elements.generic.weapons.enemies;
 
-import jeu.CSG;
 import jeu.Physic;
 import jeu.Stats;
-import jeu.db.Requests;
 import jeu.mode.EndlessMode;
+import assets.AssetMan;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.Player;
-import elements.generic.components.Phase;
 import elements.generic.weapons.Weapon;
+import elements.particular.Player;
 import elements.particular.bonuses.XP;
 
 public abstract class EnemyWeapon extends Weapon implements Poolable {
@@ -18,25 +17,26 @@ public abstract class EnemyWeapon extends Weapon implements Poolable {
 	private static float tmpFloat;
 	public static float nextGraze = 0;
 	private static final Vector2 tmpV = new Vector2();
+	protected static final float ALTERNATE_COLOR = AssetMan.convertARGB(1, 0.8f, 0.7f, 08f), KINDER_WEAPON_COLOR = AssetMan.convertARGB(1, 1f, 1f, 0.3f);
 	
 	public boolean testCollisionVaisseau() {
 		tmpV.x = Player.xCenter;
 		tmpV.y = Player.yCenter;
-		tmpFloat = tmpV.dst(pos.x + getHalfWidth(), pos.y + getHalfHeight());
+		tmpFloat = tmpV.dst(pos.x + getDimensions().halfWidth, pos.y + getDimensions().halfHeight);
 		
 //		if (Player.bouclier)
 		for (int i = 0; i < Player.shield; i++)
 			tmpFloat -= Stats.uSur2;
 		
-		if (tmpFloat < getWidth() + Stats.UU || tmpFloat < getHeight() + Stats.UU) {
+		if (tmpFloat < getDimensions().width + Stats.UU || tmpFloat < getDimensions().height + Stats.UU) {
 			if (nextGraze < EndlessMode.now) {
 				final XP xp = XP.POOL.obtain();
-				xp.init(pos.x + getHalfWidth(), pos.y + getHalfHeight(), 10);
+				xp.init(pos.x + getDimensions().halfWidth, pos.y + getDimensions().halfHeight, 10);
 //				xp.direction.x = -dir.x * EndlessMode.delta;
 //				xp.direction.y = -dir.y * EndlessMode.delta;
 				nextGraze = EndlessMode.now + .1f;
 			}
-			if (tmpFloat < getHalfWidth() || tmpFloat < getHalfHeight()) {
+			if (tmpFloat < getDimensions().halfWidth || tmpFloat < getDimensions().halfHeight) {
 				Player.touched();
 				return true;
 			}
@@ -45,42 +45,17 @@ public abstract class EnemyWeapon extends Weapon implements Poolable {
 	}
 
 	public boolean testCollsionAdds() {
-		return Physic.isAddTouched(pos, getWidth(), getHeight());
-	}
-	
-	protected static float initSpeed(float def, int pk) {
-		if (CSG.updateNeeded)
-			return Requests.getSpeedEnemyWeapon(pk, def) * Stats.u;
-		return def * Stats.u;
+		return Physic.isAddTouched(pos, getDimensions().width, getDimensions().height);
 	}
 	
 	@Override	public Vector2 getPosition() {						return pos;					}
 	@Override	public Vector2 getDirection() {						return dir;					}
-	@Override	public void setWay(boolean b) {													}
 	@Override	public boolean getWay() {							return false;				}
 	@Override	public float getNow() {								return now;					}
-	@Override	public float getNextShot() {						return 0;					}
-	@Override	public float getPhaseTime() {						return phaseTime;			}
-	@Override	public float getBulletSpeedMod() {					return 0;					}
-	@Override	public float getFloatFactor() {						return 0;					}
-	@Override	public Phase getPhase() {							return getPhases()[index];	}
-	@Override	public void setNextShot(float f) {												}
-	@Override	public int getNumberOfShots() {						return 0;					}
-	@Override	public float getShootingAngle() {					return 0;					}
-	@Override	public boolean isBoss() {							return false;				}
-	@Override	public Vector2 getShootingDir() {					return null;				}
-	@Override	public Vector2 getShotPosition(int i) {				return null;				}
-	@Override	public int getShotNumber() {						return 0;					}
-	@Override	public void addShots(int i) {													}
-	@Override	public int getNumberOfShotBeforeDirChange() {		return 0;					}
-	@Override	public void setShotDir(boolean b) {												}
-	@Override	public boolean getShotDir() {						return false;				}
-	@Override	public float getShotsGap() {						return 0;					}
-	@Override	public int getIntFactor() {				return 0;					}
 	
 	public void init(Vector2 position, float dEMI_WIDTH, float demiHauteur, float modifVitesse) {
-		position.x = position.x + dEMI_WIDTH - getHalfWidth();
-		position.y = position.y + demiHauteur - getHalfHeight();
+		position.x = position.x + dEMI_WIDTH - getDimensions().halfWidth;
+		position.y = position.y + demiHauteur - getDimensions().halfHeight;
 		ENEMIES_LIST.add(this);
 	}
 
@@ -94,7 +69,7 @@ public abstract class EnemyWeapon extends Weapon implements Poolable {
 		this.pos.x = position.x;
 		this.pos.y = position.y;
 		dir.x = 0;
-		dir.y = -1 * modifVitesse * getSpeed();
+		dir.y = -1 * modifVitesse;
 		if (boss) {
 			BOSSES_LIST.add(this);
 		} else {
@@ -107,6 +82,8 @@ public abstract class EnemyWeapon extends Weapon implements Poolable {
 		this.pos.y = position.y;
 		this.dir.x = direction.x * modifVitesse;
 		this.dir.y = direction.y * modifVitesse;
+		this.angle = dir.angle() + 90;
+		System.out.println(dir);
 		if (boss) {
 			BOSSES_LIST.add(this);
 		} else {

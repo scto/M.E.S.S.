@@ -1,8 +1,9 @@
 package elements.generic.weapons.player;
 
-import jeu.CSG;
 import assets.AssetMan;
 //import assets.animation.AnimationTirBleu;
+
+
 
 
 
@@ -10,13 +11,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
+import elements.generic.components.Dimensions;
 import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.weapon.BlueSweepParticle;
 
 public class BlueSweepWeapon extends PlayerWeapon implements Poolable {
 	
-	public static int width, halfWidth;
-	public static final float FIRERATETIR = initCadence(1.5f, 2);
+	public static final Dimensions DIMENSIONS = Dimensions.BLUE_SWEEP_WEAPON;
+	public static final float FIRERATETIR = 1.5f;
 	public static final String LABEL = "ArmeBalayage";
 	public static final Pool<BlueSweepWeapon> POOL = new Pool<BlueSweepWeapon>() {		protected BlueSweepWeapon newObject() {			return new BlueSweepWeapon();		}	};
 	public static final float[] COLORS = {
@@ -48,27 +50,17 @@ public class BlueSweepWeapon extends PlayerWeapon implements Poolable {
 	
 	public BlueSweepWeapon() {}
 	
-	public static void updateDimensions() {
-		width = (int) (MINWIDTH + (UPDATEWIDTH * CSG.profile.NvArmeBalayage));
-		halfWidth = width/2;
-		BlueSweepWeaponManager.update();
-	}
 
 	public void init(float posX, float posY, float x, float y) {
-		pos.x = posX;
-		pos.y = posY;
-		dir.x = x;
-		dir.y = y;
+		pos.set(posX, posY);
+		dir.set(x, y);
 		PLAYER_LIST.add(this);
 	}
 
-	@Override	public float[] getColors() {				return PrecalculatedParticles.colorsOverTimeBlue;	}
-	@Override	public float getColor() {					return COLORS[R.nextInt(COLORS.length)];			}
-	@Override	public void draw(SpriteBatch batch) {		BlueSweepParticle.add(this);						}
-	@Override	public float getHalfWidth() {				return halfWidth;									}
-	@Override	public float getHalfHeight() {				return halfWidth;									}
-	@Override	public void free() {						POOL.free(this);									}
-	@Override	public float getWidth() {					return width;										}
-	@Override	public float getHeight() {					return width;										}
-	public static Object getLabel() {						return "ArmeBalayage";								}
+	@Override	public float[] getColors() {							return PrecalculatedParticles.colorsOverTimeBlue;	}
+	@Override	public float getColor() {								return COLORS[R.nextInt(COLORS.length)];			}
+	@Override	public void displayOnScreen(SpriteBatch batch) {		BlueSweepParticle.add(this);						}
+	@Override	public Dimensions getDimensions() {						return DIMENSIONS;									}
+	@Override	public void free() {									POOL.free(this);									}
+
 }

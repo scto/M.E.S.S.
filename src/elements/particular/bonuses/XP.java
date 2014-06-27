@@ -15,8 +15,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.Player;
-
 public class XP extends Bonus implements Poolable {
 
 	public int valeur = 2;

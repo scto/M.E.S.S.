@@ -2,7 +2,6 @@ package elements.generic.weapons.player;
 
 import jeu.CSG;
 import jeu.Stats;
-import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.sprites.Animations;
 
@@ -11,14 +10,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.Player;
+import elements.generic.components.Dimensions;
+import elements.particular.Player;
 import elements.particular.particles.individual.PrecalculatedParticles;
-import elements.particular.particles.individual.weapon.SunParticle;
 
 public class SunWeapon extends PlayerWeapon implements Poolable {
 
-	public static int width, halfWidth;
-	public static final float FIRERATETIR = initCadence(.060f, 5);
+	public static final Dimensions DIMENSIONS = Dimensions.SUN_WEAPON;
+	public static final float FIRERATETIR = .060f;
 	public static final String LABEL = "SunWeapon";
 	public static final Pool<SunWeapon> POOL = new Pool<SunWeapon>(30) {		protected SunWeapon newObject() {			return new SunWeapon();		}	};
 	public static final float[] COLORS = {
@@ -53,28 +52,18 @@ public class SunWeapon extends PlayerWeapon implements Poolable {
 	public SunWeapon() {
 		color = COLORS[CSG.R.nextInt(COLORS.length)];
 	}
-	
-	public static void updateDimensions() {
-		width = (int) (MINWIDTH);
-		halfWidth = width/2;
-		SunParticle.halfWidh = halfWidth;
-		SunParticle.width = width;
-	}
 
 	@Override
-	public void draw(SpriteBatch batch) {	
+	public void displayOnScreen(SpriteBatch batch) {	
 		batch.setColor(color);
-		batch.draw(Animations.BLUE_BALL.anim.getTexture(EndlessMode.now), pos.x, pos.y, width, width);
+		batch.draw(Animations.BLUE_BALL.anim.getTexture(this), pos.x, pos.y, DIMENSIONS.width, DIMENSIONS.height);
 		batch.setColor(AssetMan.WHITE);
 	}
 	
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeYellowToGreen;		}
 	@Override	public float getColor() {				return COLORS[R.nextInt(COLORS.length)];						}
-	@Override	public float getHalfWidth() {			return halfWidth;												}
-	@Override	public float getHalfHeight() {			return halfWidth;												}
 	@Override	public void free() {					POOL.free(this);												}
-	@Override	public float getWidth() {				return width;													}
-	@Override	public float getHeight() {				return width;													}
 	@Override	public int getPower() {					return 8;														}
 	public static Object getLabel() {					return LABEL;	}
 
@@ -83,7 +72,7 @@ public class SunWeapon extends PlayerWeapon implements Poolable {
 		s.dir.x = dir.x;
 		s.dir.y = dir.y;
 		
-		s.pos.x = (Player.xCenter) - halfWidth;
+		s.pos.x = (Player.xCenter) - DIMENSIONS.halfWidth;
 		s.pos.y = (Player.yCenter) + Player.HALF_HEIGHT;
 		
 		s.dir.scl(Stats.SUN_SPEED);

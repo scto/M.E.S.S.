@@ -32,6 +32,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
 
 import elements.particular.particles.Particles;
+import elements.particular.particles.ParticuleBundles;
 
 public abstract class AbstractScreen implements Screen {
 
@@ -90,25 +91,25 @@ public abstract class AbstractScreen implements Screen {
 		}
 		Particles.draw(CSG.batch);
 		for (BasicMenu e : enemies) {
-			CSG.batch.draw(Animations.BASIC_ENEMY_RED.anim.getTexture(0), e.pos.x, e.pos.y, e.getHalfWidth(), e.getHalfHeight(), e.getWidth(), e.getHeight(), 1, 1, e.dir.angle() + 90);
-			Particles.smoke(e.pos.x + BasicMenu.HALF_WIDTH - e.dir.x/offset, e.pos.y + BasicMenu.HALF_HEIGHT - e.dir.y/offset, true);
-			Physic.mvt(e.dir, e.pos, e.getWidth());
-			if (e.pos.x + BasicMenu.HALF_WIDTH < CSG.DIXIEME_WIDTH * 2) {
+			CSG.batch.draw(Animations.BASIC_ENEMY_RED.anim.getTexture(e), e.pos.x, e.pos.y, e.getDimensions().halfWidth, e.getDimensions().halfHeight, e.getDimensions().width, e.getDimensions().height, 1, 1, e.dir.angle() + 90);
+			Particles.smoke(e.pos.x + BasicMenu.DIMENSIONS.halfWidth - e.dir.x/offset, e.pos.y + BasicMenu.DIMENSIONS.halfHeight - e.dir.y/offset, true, ParticuleBundles.SMOKE.colors);
+			Physic.mvt(e.dir, e.pos, e.getDimensions().height);
+			if (e.pos.x + BasicMenu.DIMENSIONS.halfWidth < CSG.DIXIEME_WIDTH * 2) {
 				e.desired.x = speed;
 				e.desired.y = e.dir.y;
-				e.steerScl = ((CSG.DIXIEME_WIDTH * 2) - (e.pos.x + BasicMenu.HALF_WIDTH)) / (CSG.DIXIEME_WIDTH/3);
-			} else if (e.pos.x + BasicMenu.HALF_WIDTH > CSG.screenWidth - CSG.DIXIEME_WIDTH * 2) {
+				e.steerScl = ((CSG.DIXIEME_WIDTH * 2) - (e.pos.x + BasicMenu.DIMENSIONS.halfWidth)) / (CSG.DIXIEME_WIDTH/3);
+			} else if (e.pos.x + BasicMenu.DIMENSIONS.halfWidth > CSG.screenWidth - CSG.DIXIEME_WIDTH * 2) {
 				e.desired.x = -speed;
 				e.desired.y = e.dir.y;
-				e.steerScl = Math.abs(((e.pos.x + BasicMenu.HALF_WIDTH) - (CSG.screenWidth - CSG.DIXIEME_WIDTH * 2))) / (CSG.DIXIEME_WIDTH/3);
-			} else if (e.pos.y + BasicMenu.HALF_HEIGHT < CSG.HEIGHT_DIV10 * 2.5f) {
+				e.steerScl = Math.abs(((e.pos.x + BasicMenu.DIMENSIONS.halfWidth) - (CSG.screenWidth - CSG.DIXIEME_WIDTH * 2))) / (CSG.DIXIEME_WIDTH/3);
+			} else if (e.pos.y + BasicMenu.DIMENSIONS.halfHeight < CSG.HEIGHT_DIV10 * 2.5f) {
 				e.desired.x = e.dir.x;
 				e.desired.y = speed;
-				e.steerScl = ((CSG.HEIGHT_DIV10*2.5f) - (e.pos.y + BasicMenu.HALF_HEIGHT)) / (CSG.HEIGHT_DIV10/6);
-			} else if (e.pos.y + BasicMenu.HALF_HEIGHT > CSG.SCREEN_HEIGHT - CSG.HEIGHT_DIV10*2.5f) {
+				e.steerScl = ((CSG.HEIGHT_DIV10*2.5f) - (e.pos.y + BasicMenu.DIMENSIONS.halfHeight)) / (CSG.HEIGHT_DIV10/6);
+			} else if (e.pos.y + BasicMenu.DIMENSIONS.halfHeight > CSG.SCREEN_HEIGHT - CSG.HEIGHT_DIV10*2.5f) {
 				e.desired.x = e.dir.x;
 				e.desired.y = -speed;
-				e.steerScl = Math.abs(((e.pos.y + BasicMenu.HALF_HEIGHT) - (CSG.SCREEN_HEIGHT - CSG.HEIGHT_DIV10*2.5f))) / (CSG.HEIGHT_DIV10/6);
+				e.steerScl = Math.abs(((e.pos.y + BasicMenu.DIMENSIONS.halfHeight) - (CSG.SCREEN_HEIGHT - CSG.HEIGHT_DIV10*2.5f))) / (CSG.HEIGHT_DIV10/6);
 			}
 			steer(e);
 		}
@@ -180,36 +181,16 @@ public abstract class AbstractScreen implements Screen {
 		return etapeCode;
 	}
 	
+
+
 	public void setBackButtonActive(boolean isBackButtonActive) {		Gdx.input.setCatchBackKey(true);	}
-
 	public void keyBackPressed() {	}
-
 	public void setGame(Game game) {		this.game = game;	}
-
-	@Override
-	public void resize(int width, int height) {
-		cam.position.set(width /2, height/2, 0);
-	}
-
-	@Override
-	public void show() {
-    }
-
-	@Override
-	public void hide() {
-		
-	}
-	@Override
-	public void pause() {
-	}
-	@Override
-	public void resume() {
-		CSG.assetMan.reload(true);
-	}
-	
-	@Override
-	public void dispose() {		
-//		AssetMan.unload();
-	}
+	@Override	public void resize(int width, int height) {		cam.position.set(width /2, height/2, 0);	}
+	@Override	public void show() {    }
+	@Override	public void hide() {	}
+	@Override	public void pause() {	}
+	@Override	public void resume() {		CSG.assetMan.reload();	}
+	@Override	public void dispose() {	}
 
 }

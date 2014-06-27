@@ -7,54 +7,50 @@ import assets.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 
-import elements.generic.components.Phase;
-import elements.generic.components.behavior.Behavior;
+import elements.generic.components.Dimensions;
+import elements.generic.components.behavior.Mover;
+import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
-import elements.generic.components.shots.Shot;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.enemies.Tournante;
 
 public class Group extends Enemy {
 	
-	protected static final int
-		WIDTH = Stats.GROUP_WIDTH,
-		HALF_WIDTH = WIDTH / 2;
-	public static final Pool<Group> POOL = new Pool<Group>() {
-		@Override
-		protected Group newObject() {
-			return new Group();
-		}
-	};
-	public static final int PK = 4;
-	protected static final float
-		FIRERATE = initFirerate(0.6f, PK),
-		INIT_NEXT_SHOT = initNextShot(.5f, PK),
-		SPEED = initSpeed(8, PK);
+	protected static final int LVL = 1;
+	protected static final Dimensions DIMENSIONS = Dimensions.GROUP;
+	public static final Pool<Group> POOL = new Pool<Group>() {		protected Group newObject() {			return new Group();		}	};
+	protected static final float FIRERATE = 0.6f, INIT_NEXT_SHOT = .5f, SPEED8 = getModulatedSpeed(8, LVL);
 	private static final float COLOR = AssetMan.convertARGB(1, 1f, 0.5f, 0.2f);
-	protected static final int BASE_XP = Enemy.initXp(12, PK);
-	private static final int
-		HP = initHp(Stats.HP_CYLON, PK),
-		EXPLOSION = initExplosion(35, PK),
-		XP = getXp(BASE_XP, 1);
-	private static final Phase[] PHASES = {
-		new Phase(				Behavior.COMMA,				Gatling.TOURNANTE,				Shot.SHOT_EN_RAFALE,				Animations.DIABOLO				)		};
+	protected static final int BASE_XP = 12;
+	private static final int HP = Stats.HP_CYLON, EXPLOSION = 35, XP = getXp(BASE_XP, LVL);
 	private int shotNumber = 0;
 	
 	@Override
-	protected void isMoving() {
+	protected void move() {
+		Mover.coma(this, 1);
 		angle = dir.angle() + 90;
+	}
+	
+	@Override
+	protected void setColor(SpriteBatch batch) {
+		batch.setColor(COLOR);
+	}
+	
+	@Override
+	protected void removeColor(SpriteBatch batch) {
+		batch.setColor(AssetMan.WHITE);
 	}
 
 	public static Group initAll() {
 		Group e = POOL.obtain();
 		Group f = POOL.obtain();
 		Group g = POOL.obtain();
-		e.init(CSG.gameZoneWidth - WIDTH);
-		f.init(CSG.gameZoneWidth - WIDTH * 2.1f);
-		g.init(CSG.gameZoneWidth - WIDTH * 3.2f);
+		e.init(CSG.gameZoneWidth - DIMENSIONS.width);
+		f.init(CSG.gameZoneWidth - DIMENSIONS.width * 2.1f);
+		g.init(CSG.gameZoneWidth - DIMENSIONS.width * 3.2f);
 		return e;
 	}
 	
@@ -76,36 +72,24 @@ public class Group extends Enemy {
 	}
 	
 	@Override
-	public Vector2 getShootingDir() {
-		TMP_DIR.y = Tournante.SPEED * 2;
-		TMP_DIR.x = dir.x + Tournante.SPEED;//(now * 15);
-		return TMP_DIR;
+	protected void shoot() {
+		TMP_POS.set(pos.x + DIMENSIONS.halfWidth - Tournante.DIMENSIONS.halfWidth, pos.y + DIMENSIONS.halfWidth - Tournante.DIMENSIONS.halfWidth);
+		TMP_DIR.set(Stats.U12, dir.x + Stats.U12);
+		
+		AbstractShot.straight(Gatling.TOURNANTE, TMP_POS, TMP_DIR, -1);
+		AbstractShot.rafale(this);
 	}
-	
-	@Override	public Vector2 getShotPosition(int numeroTir) {
-		TMP_POS.x = pos.x + HALF_WIDTH - Tournante.HALF_WIDTH;
-		TMP_POS.y = pos.y + HALF_WIDTH - Tournante.HALF_WIDTH;
-		return TMP_POS;	
-	}
-	
-	@Override	protected String getLabel() {							return getClass().toString();	}
 	@Override	protected Sound getExplosionSound() {					return SoundMan.explosion6;		}
-	@Override	public float getHalfHeight() {							return HALF_WIDTH;				}
-	@Override	public float getHalfWidth() {							return HALF_WIDTH;				}
+	@Override	public Animations getAnimation() {						return Animations.DIABOLO;		}
+	@Override	public Dimensions getDimensions() {						return DIMENSIONS;				}
 	@Override	public int getShotNumber() {							return shotNumber;				}
 	@Override	public int getExplosionCount() {						return EXPLOSION;				}
 	@Override	public void free() {									POOL.free(this);				}
 	@Override	public void addShots(int i) {							shotNumber += i;				}
 	@Override	public float getFirerate() {							return FIRERATE;				}
 	@Override	public int getBonusValue() {							return BASE_XP;					}
-	@Override	public float getBulletSpeedMod() {						return -1.2f;					}
-	@Override	public float getDirectionY() {							return -SPEED;					}
-	@Override	public Phase[] getPhases() {							return PHASES;					}
-	@Override	public float getHeight() {								return WIDTH;					}
-	@Override	public float getWidth() {								return WIDTH;					}
-	@Override	public float getSpeed() {								return SPEED;					}
+	@Override	public float getSpeed() {								return SPEED8;					}
 	@Override	protected int getMaxHp() {								return HP;						}
 	@Override	public int getXp() {									return XP;						}
-	@Override	public float getShootingAngle() {						return 0;						}
 	@Override	public int getNumberOfShots() {							return 3;						}
 }

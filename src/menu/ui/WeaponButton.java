@@ -9,10 +9,9 @@ import assets.sprites.AnimPlayer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
 
-import elements.generic.Player;
 import elements.generic.weapons.player.WeaponManager;
+import elements.particular.Player;
 
 public class WeaponButton extends AbstractButton {
 	

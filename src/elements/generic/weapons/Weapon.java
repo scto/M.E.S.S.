@@ -1,19 +1,13 @@
 package elements.generic.weapons;
 
-import jeu.CSG;
 import jeu.Physic;
-import jeu.db.Requests;
 import jeu.mode.EndlessMode;
-import assets.sprites.Animations;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.Element;
-import elements.generic.components.Phase;
-import elements.generic.components.behavior.Behavior;
 import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.bonuses.Bonus;
@@ -27,11 +21,18 @@ public abstract class Weapon extends Element implements Poolable {
 	private static boolean testCollision = false, shieldHs = false;
 	public static int color = 0;
 	private static final int XP_WITH_SHIELD = 7;
-	protected static final Phase[] PHASES = {new Phase(Behavior.STRAIGHT_ON, null, null, Animations.BLUE_BALL)};
 
 	public static void drawAndMove(SpriteBatch batch) {
+		playerWeapons(batch);
+		testCollision = !testCollision;
+		// Attention que si y'a une collision on skip le reste de la liste. D'où l'effet bizarre quand on est invicible
+		act(batch, ENEMIES_LIST);
+		act(batch, BOSSES_LIST);
+    }
+
+	private static void playerWeapons(SpriteBatch batch) {
 		for (final PlayerWeapon pWeapon : PLAYER_LIST) {
-			pWeapon.draw(batch);
+			pWeapon.displayOnScreen(batch);
 			pWeapon.now += EndlessMode.delta;
 			if (pWeapon.mouvementEtVerif() == false) {
 				PLAYER_LIST.removeValue(pWeapon, true);
@@ -39,25 +40,20 @@ public abstract class Weapon extends Element implements Poolable {
 			}
 		}
 		for (final PlayerWeapon pWeapon : ADDS) {
-			pWeapon.draw(batch);
+			pWeapon.displayOnScreen(batch);
 			pWeapon.now += EndlessMode.delta;
 			if (pWeapon.mouvementEtVerif() == false) {
 				ADDS.removeValue(pWeapon, true);
 				pWeapon.free();
 			}
 		}
-		
-		testCollision = !testCollision;
-		// Attention que si y'a une collision on skip le reste de la liste. D'où l'effet bizarre quand on est invicible
-		act(batch, ENEMIES_LIST);
-		act(batch, BOSSES_LIST);
 	}
 
 	private static void act(SpriteBatch batch, Array<EnemyWeapon> LIST) {
 		for (final EnemyWeapon eWeapon : LIST) {
 			
 			eWeapon.now += EndlessMode.delta;
-			eWeapon.draw(batch);
+			eWeapon.displayOnScreen(batch);
 			if (testCollision) {
 				if (eWeapon.testCollisionVaisseau() && !EndlessMode.aPerdu()) {
 					removeEnemyWeapon(eWeapon, LIST);
@@ -67,13 +63,14 @@ public abstract class Weapon extends Element implements Poolable {
 				removeEnemyWeapon(eWeapon, LIST);
 				continue;
 			}
-			if (eWeapon.move()) 
+			eWeapon.move();
+			if (!Physic.isOnScreen(eWeapon.pos, eWeapon.getDimensions().height, eWeapon.getDimensions().width))
 				removeEnemyWeapon(eWeapon, LIST);
 		}
 		if (shieldHs) {
 			for (final EnemyWeapon w : LIST) {
 				Particles.popOutWeapon(w);
-				Bonus.addXp(XP_WITH_SHIELD, w.pos.x + w.getHalfWidth(), w.pos.y + w.getHalfHeight());
+				Bonus.addXp(XP_WITH_SHIELD, w.pos.x + w.getDimensions().halfWidth, w.pos.y + w.getDimensions().halfHeight);
 				w.free();
 			}
 			shieldHs = false;
@@ -81,18 +78,16 @@ public abstract class Weapon extends Element implements Poolable {
 		}
 	}
 	
-
 	private static void removeEnemyWeapon(EnemyWeapon a, Array<EnemyWeapon> lIST) {
 		lIST.removeValue(a, true);
 		a.free();
 	}
 	
-
 	public static void affichage(SpriteBatch batch) {
-		for (final PlayerWeapon a : PLAYER_LIST)	a.draw(batch);
-		for (final Weapon a : ENEMIES_LIST)			a.draw(batch);
-		for (final Weapon a : BOSSES_LIST)			a.draw(batch);
-		for (final PlayerWeapon a : ADDS)			a.draw(batch);
+		for (final PlayerWeapon a : PLAYER_LIST)	a.displayOnScreen(batch);
+		for (final Weapon a : ENEMIES_LIST)			a.displayOnScreen(batch);
+		for (final Weapon a : BOSSES_LIST)			a.displayOnScreen(batch);
+		for (final PlayerWeapon a : ADDS)			a.displayOnScreen(batch);
 	}
 
 	public static void clear() {
@@ -114,17 +109,11 @@ public abstract class Weapon extends Element implements Poolable {
 		BOSSES_LIST.clear();
 	}
 
-	protected static float initCadence(float def, int pk) {
-		if (CSG.updateNeeded)
-			return Requests.getFireRate(pk, def);
-		return def;
-	}
-
 	public Rectangle getRectangleCollision() {
 		TMP_RECT.x = pos.x;
 		TMP_RECT.y = pos.y;
-		TMP_RECT.height = getHeight();
-		TMP_RECT.width = getWidth();
+		TMP_RECT.height = getDimensions().height;
+		TMP_RECT.width = getDimensions().width;
 		return TMP_RECT;
 	}
 	
@@ -133,13 +122,9 @@ public abstract class Weapon extends Element implements Poolable {
 	 * @param batch
 	 * return false si on doit le virer de la liste et appeler free()
 	 */
-	public boolean mouvementEtVerif() {								return Physic.mvt(getWidth(), getHeight(), dir, pos);	}
-	public void draw(SpriteBatch batch) {							getPhases()[index].draw(this, batch);					}
-	public boolean move() {											return getPhase().move(this);							}
+	public boolean mouvementEtVerif() {								return Physic.mvt(getDimensions().width, getDimensions().height, dir, pos);	}
 	public static void resetAll() {									EnemyWeapon.nextGraze = 0;								}
 	public static void shieldHs() {									shieldHs = true;										}
 	public abstract void free();
 	@Override	public void setAngle(float mvtToPlayerWithAngle) {															}
-	@Override	public void setShootingAngle(float a) {																		}
-	@Override	public Phase[] getPhases() {						return PHASES;											}
 }

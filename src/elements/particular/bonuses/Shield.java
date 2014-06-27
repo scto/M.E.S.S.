@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.Player;
+import elements.particular.Player;
 
 public class Shield extends BonusTimeMvt implements Poolable{
 

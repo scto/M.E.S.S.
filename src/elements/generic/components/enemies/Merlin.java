@@ -1,6 +1,5 @@
 package elements.generic.components.enemies;
 
-import jeu.CSG;
 import elements.generic.enemies.Enemy;
 import elements.generic.enemies.individual.bosses.BossMine;
 import elements.generic.enemies.individual.bosses.Quad;
@@ -192,7 +191,7 @@ public enum Merlin {
 			Enemy.LIST.add(b);
 			return b;
 		}
-	}), QUI_TIR(new Summoner() {
+	}), SHOOTER(new Summoner() {
 		@Override
 		public Enemy invoke() {
 			final Shooter b = Shooter.POOL.obtain();
@@ -200,7 +199,7 @@ public enum Merlin {
 			Enemy.LIST.add(b);
 			return b;
 		}
-	}), QUI_TIR3(new Summoner() {
+	}), SHOOTER3(new Summoner() {
 		@Override
 		public Enemy invoke() {
 			final Shooter3 b = Shooter3.POOL.obtain();
@@ -208,7 +207,7 @@ public enum Merlin {
 			Enemy.LIST.add(b);
 			return b;
 		}
-	}), QUI_TIR4(new Summoner() {
+	}), SHOOTER4(new Summoner() {
 		@Override
 		public Enemy invoke() {
 			final Shooter4 b = Shooter4.POOL.obtain();
@@ -216,7 +215,7 @@ public enum Merlin {
 			Enemy.LIST.add(b);
 			return b;
 		}
-	}), QUI_TOURNE(new Summoner() {
+	}), DIABOLO(new Summoner() {
 		@Override
 		public Enemy invoke() {
 			final Diabolo b = Diabolo.POOL.obtain();
@@ -224,7 +223,7 @@ public enum Merlin {
 			Enemy.LIST.add(b);
 			return b;
 		}
-	}), QUI_TOURNE3(new Summoner() {
+	}), DIABOLO3(new Summoner() {
 		@Override
 		public Enemy invoke() {
 			final Diabolo3 b = Diabolo3.POOL.obtain();
@@ -232,7 +231,7 @@ public enum Merlin {
 			Enemy.LIST.add(b);
 			return b;
 		}
-	}), QUI_TOURNE4(new Summoner() {
+	}), DIABOLO4(new Summoner() {
 		@Override
 		public Enemy invoke() {
 			final Diabolo4 b = Diabolo4.POOL.obtain();
@@ -264,7 +263,7 @@ public enum Merlin {
 			Enemy.LIST.add(b);
 			return b;
 		}
-	}), QUI_TIR_TRIANGLE(new Summoner() {
+	}), SHOOTER_FRAG(new Summoner() {
 		@Override
 		public Enemy invoke() {
 			final ShooterFrag b = ShooterFrag.POOL.obtain();
@@ -272,7 +271,7 @@ public enum Merlin {
 			Enemy.LIST.add(b);
 			return b;
 		}
-	}), QUI_TIR_TRIANGLE3(new Summoner() {
+	}), SHOOTER_FRAG3(new Summoner() {
 		@Override
 		public Enemy invoke() {
 			final ShooterFrag3 b = ShooterFrag3.POOL.obtain();
@@ -280,7 +279,7 @@ public enum Merlin {
 			Enemy.LIST.add(b);
 			return b;
 		}
-	}), QUI_TIR_TRIANGLE4(new Summoner() {
+	}), SHOOTER_FRAG4(new Summoner() {
 		@Override
 		public Enemy invoke() {
 			final ShooterFrag4 b = ShooterFrag4.POOL.obtain();
@@ -430,7 +429,7 @@ public enum Merlin {
 		@Override
 		public Enemy invoke() {
 			final Basic db = Basic.POOL.obtain();
-			initEnemyDown(db);
+			initEnemy(db);
 			db.init();
 			return db;
 		}
@@ -438,23 +437,21 @@ public enum Merlin {
 		@Override
 		public Enemy invoke() {
 			final Basic3 db = Basic3.POOL.obtain();
-			initEnemyDown(db);
+			initEnemy(db);
 			return db;
 		}
 	}), DE_BASE4(new Summoner() {
 		@Override
 		public Enemy invoke() {
 			final Basic4 db = Basic4.POOL.obtain();
-			initEnemyDown(db);
+			initEnemy(db);
 			return db;
 		}
 	});
 
-	private static void initEnemyDown(final Enemy db) {
+	private static void initEnemy(final Enemy db) {
 		Enemy.LIST.add(db);
-		db.getPosition().y = CSG.SCREEN_HEIGHT - 1;
-		db.getPosition().x = CSG.gameZoneHalfWidth - db.getHalfWidth();
-		db.dir.y = -db.getSpeed();
+		db.init();
 	}
 
 	public Summoner incantation;

@@ -16,14 +16,14 @@ public class PrecalculatedParticles {
 	public static final float[] colorsRed = initAlphasRed(stepSparkles, 0, true), colorsBlue = initAlphasBlue(stepSparkles, 0, true), colorsYellowToGreen = initAlphasYellowToGreen(stepSparkles, 0, true);
 	public static final float[] colorsThruster = initAlphasThruster(stepSparkles, 0, true);
 	public static final float[] widths = initWidths(Stats.uDiv4, colorsRed.length, INITIAL_WIDTH);
-	public final static float[] widthsFireballParticules = initWidths(Stats.u, 0.75f, Fireball.WIDTH);
+	public final static float[] widthsFireballParticules = initWidths(Stats.u, 0.75f, Fireball.DIMENSIONS.width);
 	public final static float[] halfWidthsFireballParticules = CSG.getDifferences(widthsFireballParticules);
 	public final static float[] colorsFireball = initColors(widthsFireballParticules.length, 1, 0.9f, 0);
 	public final static float[] colorsPinkWeapon = initColors(7, 4, 1, 1);
 	public static final float[] halfWidths = CSG.getDifferences(widths);
 	public static final float[] dirY = initDirY(widths);
 	// not evolving
-	public static final float[] REDS = getColors(20, Painters.RED), BLUES = getColors(20, Painters.BLUE), GREENS = getColors(20, Painters.GREEN);
+	public static final float[] RANDDOM_REDS = getColors(20, Painters.RED), RANDDOM_BLUES = getColors(20, Painters.BLUE), RANDDOM_GREENS = getColors(20, Painters.GREEN);
 	
 	private static float[] getColors(int nb, Painters painter) {
 		float tmp[] = new float[nb];

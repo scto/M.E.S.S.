@@ -11,9 +11,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-import elements.generic.Player;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.Player;
 import elements.particular.particles.Particles;
 
 public class SparklesColorOverTime implements Poolable {
@@ -62,8 +62,8 @@ public class SparklesColorOverTime implements Poolable {
 		this.y = y - HALF_WIDTH;
 		this.colors = colors;
 		index = CSG.R.nextInt(colors.length / 2);
-		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION) + e.getDirectionY() * CSG.R.nextFloat()) * 4.5f;
-		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION) + e.getDirectionX() * CSG.R.nextFloat()) * 4.5f;
+		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION) + e.dir.y * CSG.R.nextFloat()) * 4.5f;
+		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICULE_EXPLOSION) + e.dir.x * CSG.R.nextFloat()) * 4.5f;
 		tmpVector.x = speedX;
 		tmpVector.y = speedY;
 		angle = tmpVector.angle();
@@ -93,7 +93,7 @@ public class SparklesColorOverTime implements Poolable {
 
 	public static void add(Array<SparklesColorOverTime> explosionColorOverTime, Enemy e, float[] colors) {
 		for (int i = -EndlessMode.fps; i < EndlessMode.fps; i++) {
-			explosionColorOverTime.add(POOL.obtain().init(e.pos.x + e.getHalfWidth(), e.pos.y + e.getHalfHeight(), e, colors));
+			explosionColorOverTime.add(POOL.obtain().init(e.pos.x + e.getDimensions().halfWidth, e.pos.y + e.getDimensions().halfHeight, e, colors));
 		}
 	}
 	
@@ -108,18 +108,18 @@ public class SparklesColorOverTime implements Poolable {
 		boolean alternate = false;
 		for (int i = -EndlessMode.fps; i < EndlessMode.fps; i++) {
 			if (alternate)
-				explosionColorOverTime.add(POOL.obtain().init(e.pos.x + e.getHalfWidth(), e.pos.y + e.getHalfHeight(), e, colors1));
+				explosionColorOverTime.add(POOL.obtain().init(e.pos.x + e.getDimensions().halfWidth, e.pos.y + e.getDimensions().halfHeight, e, colors1));
 			else
-				explosionColorOverTime.add(POOL.obtain().init(e.pos.x + e.getHalfWidth(), e.pos.y + e.getHalfHeight(), e, colors2));
+				explosionColorOverTime.add(POOL.obtain().init(e.pos.x + e.getDimensions().halfWidth, e.pos.y + e.getDimensions().halfHeight, e, colors2));
 		}
 	}
 	
 	public static void bulletImpact(Array<SparklesColorOverTime> explosionColorOverTime, PlayerWeapon p, float[] colors) {
 		explosionColorOverTime.add(
-				POOL.obtain().init(p.pos.x + p.getHalfWidth(), p.pos.y + p.getHalfHeight(), colors, p)
+				POOL.obtain().init(p.pos.x + p.getDimensions().halfWidth, p.pos.y + p.getDimensions().halfHeight, colors, p)
 				);
 		explosionColorOverTime.add(
-				POOL.obtain().init(p.pos.x + p.getHalfWidth(), p.pos.y + p.getHalfHeight(), colors, p)
+				POOL.obtain().init(p.pos.x + p.getDimensions().halfWidth, p.pos.y + p.getDimensions().halfHeight, colors, p)
 				);
 	}
 

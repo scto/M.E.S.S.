@@ -19,7 +19,7 @@ public class SunParticle implements Poolable {
 			return new SunParticle();
 		}
 	};
-	public static float width = SunWeapon.width, tmp, halfWidh = width/2;
+	public static float width = SunWeapon.DIMENSIONS.width, tmp, halfWidh = width/2;
 	private float x, y;
 	private int ttl = 0;
 	private final float color;

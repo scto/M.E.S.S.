@@ -7,13 +7,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
+import elements.generic.components.Dimensions;
 import elements.particular.particles.Particles;
 import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class PinkWeapon extends PlayerWeapon implements Poolable {
 	
-	public static int width = (int) Stats.U, halfWidth = (int) Stats.u;
-	public static final float FIRERATETIR = initCadence(.11f, 3);
+	protected static final Dimensions DIMENSIONS = Dimensions.PINK_WEAPON;
+	public static final float FIRERATETIR = .11f;
 	public static final String LABEL = "armeTrois";
 	public static final Pool<PinkWeapon> POOL = new Pool<PinkWeapon>(30) {		protected PinkWeapon newObject() {			return new PinkWeapon();		}	};
 	public static final float[] COLORS = {
@@ -44,7 +45,7 @@ public class PinkWeapon extends PlayerWeapon implements Poolable {
 		AssetMan.convertARGB(1, 255f/255f, 30f/255f, 201f/255f)};
 	
 	public void init(final float x, final float y, final float dirX, final float dirY) {
-		pos.x = x - halfWidth;
+		pos.x = x;
 		pos.y = y;
 		dir.x = dirX;
 		dir.y = dirY;
@@ -52,12 +53,9 @@ public class PinkWeapon extends PlayerWeapon implements Poolable {
 		PLAYER_LIST.add(this);
 	}
 
-	@Override	public float getWidth() {				return width;										}
-	@Override	public float getHeight() {				return width;										}
 	@Override	public void free() {					POOL.free(this);									}
-	@Override	public float getHalfWidth() {			return halfWidth;									}
-	@Override	public float getHalfHeight() {			return halfWidth;									}
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	public float getColor() {				return COLORS[color];								}
-	@Override	public void draw(SpriteBatch batch) {	Particles.pinkParticle(this);						}
+	@Override	public void displayOnScreen(SpriteBatch batch) {	Particles.pinkParticle(this);						}
 	@Override	public float[] getColors() {			return PrecalculatedParticles.colorsPinkWeapon;		}
 }

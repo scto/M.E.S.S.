@@ -6,7 +6,7 @@ import assets.SoundMan;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
-import elements.generic.Player;
+import elements.particular.Player;
 
 public class FireballManager extends WeaponManager {
 
@@ -14,7 +14,7 @@ public class FireballManager extends WeaponManager {
 	private static float posX, posY;
 
 	public void init() {
-		posX = Player.xCenter - Fireball.HALF_WIDTH;
+		posX = Player.xCenter - Fireball.DIMENSIONS.halfWidth;
 		posY = Player.POS.y + Player.HEIGHT;
 		if (EndlessMode.alternate)
 			SoundMan.playBulletSound(SOUND);
@@ -43,48 +43,48 @@ public class FireballManager extends WeaponManager {
 	}
 
 	private void nv7() {
-		Fireball.POOL.obtain().init(posX - Fireball.WIDTH, posY - Fireball.WIDTH);
-		Fireball.POOL.obtain().init(posX + Fireball.WIDTH, posY - Fireball.WIDTH);
+		Fireball.POOL.obtain().init(posX - Fireball.DIMENSIONS.width, posY - Fireball.DIMENSIONS.width);
+		Fireball.POOL.obtain().init(posX + Fireball.DIMENSIONS.width, posY - Fireball.DIMENSIONS.width);
 		Fireball.POOL.obtain().init(posX - Fireball.width033, posY - Fireball.width033);
 		Fireball.POOL.obtain().init(posX + Fireball.width033, posY - Fireball.width033);
 		Fireball.POOL.obtain().init(posX - Fireball.WIDTH066, posY);
 		Fireball.POOL.obtain().init(posX + Fireball.WIDTH066, posY);
-		Fireball.POOL.obtain().init(posX, posY + Fireball.HALF_WIDTH);
+		Fireball.POOL.obtain().init(posX, posY + Fireball.DIMENSIONS.halfWidth);
 	}
 
 	private static void nv6(float posX, float posY) {
-		Fireball.POOL.obtain().init(posX - Fireball.HALF_WIDTH, posY);
-		Fireball.POOL.obtain().init(posX + Fireball.HALF_WIDTH, posY);
-		Fireball.POOL.obtain().init(posX - Fireball.WIDTH, posY - Fireball.HALF_WIDTH);
-		Fireball.POOL.obtain().init(posX + Fireball.WIDTH, posY - Fireball.HALF_WIDTH);
-		Fireball.POOL.obtain().init(posX, posY + Fireball.HALF_WIDTH);
-		Fireball.POOL.obtain().init(posX, posY - Fireball.HALF_WIDTH);
+		Fireball.POOL.obtain().init(posX - Fireball.DIMENSIONS.halfWidth, posY);
+		Fireball.POOL.obtain().init(posX + Fireball.DIMENSIONS.halfWidth, posY);
+		Fireball.POOL.obtain().init(posX - Fireball.DIMENSIONS.width, posY - Fireball.DIMENSIONS.halfWidth);
+		Fireball.POOL.obtain().init(posX + Fireball.DIMENSIONS.width, posY - Fireball.DIMENSIONS.halfWidth);
+		Fireball.POOL.obtain().init(posX, posY + Fireball.DIMENSIONS.halfWidth);
+		Fireball.POOL.obtain().init(posX, posY - Fireball.DIMENSIONS.halfWidth);
 	}
 
 	private static void nv5(float posX, float posY) {
-		Fireball.POOL.obtain().init(posX - Fireball.HALF_WIDTH, posY);
-		Fireball.POOL.obtain().init(posX + Fireball.HALF_WIDTH, posY);
-		Fireball.POOL.obtain().init(posX - Fireball.WIDTH, posY - Fireball.HALF_WIDTH);
-		Fireball.POOL.obtain().init(posX + Fireball.WIDTH, posY - Fireball.HALF_WIDTH);
-		Fireball.POOL.obtain().init(posX, posY + Fireball.HALF_WIDTH);
+		Fireball.POOL.obtain().init(posX - Fireball.DIMENSIONS.halfWidth, posY);
+		Fireball.POOL.obtain().init(posX + Fireball.DIMENSIONS.halfWidth, posY);
+		Fireball.POOL.obtain().init(posX - Fireball.DIMENSIONS.width, posY - Fireball.DIMENSIONS.halfWidth);
+		Fireball.POOL.obtain().init(posX + Fireball.DIMENSIONS.width, posY - Fireball.DIMENSIONS.halfWidth);
+		Fireball.POOL.obtain().init(posX, posY + Fireball.DIMENSIONS.halfWidth);
 	}
 
 	private static void nv4(float posX, float posY) {
-		Fireball.POOL.obtain().init(posX - Fireball.HALF_WIDTH, posY);
-		Fireball.POOL.obtain().init(posX + Fireball.HALF_WIDTH, posY);
-		Fireball.POOL.obtain().init(posX - Fireball.WIDTH, posY -Fireball.HALF_WIDTH);
-		Fireball.POOL.obtain().init(posX + Fireball.WIDTH, posY -Fireball.HALF_WIDTH);
+		Fireball.POOL.obtain().init(posX - Fireball.DIMENSIONS.halfWidth, posY);
+		Fireball.POOL.obtain().init(posX + Fireball.DIMENSIONS.halfWidth, posY);
+		Fireball.POOL.obtain().init(posX - Fireball.DIMENSIONS.width, posY -Fireball.DIMENSIONS.halfWidth);
+		Fireball.POOL.obtain().init(posX + Fireball.DIMENSIONS.width, posY -Fireball.DIMENSIONS.halfWidth);
 	}
 
 	private static void nv3(float posX, float posY) {
-		Fireball.POOL.obtain().init(posX - Fireball.WIDTH, posY);
-		Fireball.POOL.obtain().init(posX + Fireball.WIDTH, posY);
-		Fireball.POOL.obtain().init(posX, posY + Fireball.HALF_WIDTH);
+		Fireball.POOL.obtain().init(posX - Fireball.DIMENSIONS.width, posY);
+		Fireball.POOL.obtain().init(posX + Fireball.DIMENSIONS.width, posY);
+		Fireball.POOL.obtain().init(posX, posY + Fireball.DIMENSIONS.halfWidth);
 	}
 
 	private static void nv2(float posX, float posY) {
-		Fireball.POOL.obtain().init(posX + Fireball.HALF_WIDTH, posY);
-		Fireball.POOL.obtain().init(posX - Fireball.HALF_WIDTH, posY);
+		Fireball.POOL.obtain().init(posX + Fireball.DIMENSIONS.halfWidth, posY);
+		Fireball.POOL.obtain().init(posX - Fireball.DIMENSIONS.halfWidth, posY);
 	}
 
 	private static void nv1(float posX, float posY) {

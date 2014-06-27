@@ -2,7 +2,6 @@ package jeu;
 
 import java.util.Random;
 
-import jeu.db.DataManager;
 import jeu.mode.EndlessMode;
 import menu.screens.Loading;
 import shaders.Bloom;
@@ -35,7 +34,7 @@ public class CSG extends Game implements ApplicationListener {
 	public static int CINQUIEME_ECRAN, DEUX_CINQUIEME_ECRAN, TROIS_CINQUIEME_ECRAN, QUATRE_CINQUIEME_ECRAN, QUATR_HEIGHT;
 	public static int CINQUIEME_ZONE, DEUX_CINQUIEME_ZONE, TROIS_CINQUIEME_ZONE, QUATRE_CINQUIEME_ZONE;
 	public static float RATIO;
-	public static int HEIGHT_9_10, HEIGHT_8_10, HEIGHT_ECRAN_PALLIER_3 = 0, HEIGHT_ECRAN_PALLIER_7;
+	public static int HEIGHT_9_10, HEIGHT_8_10, HEIGHT_7_10, HEIGHT_ECRAN_PALLIER_3 = 0, HEIGHT_ECRAN_PALLIER_7;
 	public static final int CONTROLE_TOUCH_NON_RELATIVE = 0, CONTROLE_DPAD = 1, CONTROLE_ACCELEROMETRE = 2, CONTROLE_TOUCH_RELATIVE = 3, CONTROLE_MAX = 3;
 	// ********  A U T R E S  *********
 	public static ProfilManager profilManager;
@@ -46,10 +45,8 @@ public class CSG extends Game implements ApplicationListener {
 	public static TalkToTheWorld talkToTheWorld;
 	public static final Random R = new Random();
 	public static final float mulLvl1 = 1, mulLvl2 = 1.15f, mulLvl3 = 2.2f, mulLvl4 = 4f, mulSCORE = 1.1f;
-	public static DataManager dbManager;
 	public static final int dbVersion = 2;
 	public static final int NO_CHEAT = 0, BEGIN_70K = 1;
-	public static boolean updateNeeded = false;
 	public static float originalScoreFontScale;
 	public static final Vector2 vecteurPosition = new Vector2(), tmpPos = new Vector2(), tmpDir = new Vector2(), tmp2 = new Vector2();
 	public static Vector2 vecteurCible = new Vector2();
@@ -58,22 +55,7 @@ public class CSG extends Game implements ApplicationListener {
 //	public static World world;
 	
 	public CSG(TalkToTheWorld google) {
-		updateNeeded = false;
 		CSG.talkToTheWorld = google;
-	}
-
-	public CSG(TalkToTheWorld google, DataManager dbManager) { // Constructeur desktop
-		CSG.talkToTheWorld = google;
-		CSG.dbManager = dbManager;
-		dbManager.setupDatabase();
-		CSG.dbManager.openOrCreateDatabase();
-		if (dbManager.getInt("select id from version", dbVersion) == dbVersion)
-			updateNeeded = false;
-		else
-			updateNeeded = true;
-		
-//		updateNeeded = true;
-//		updateNeeded = false;
 	}
 
 	@Override
@@ -165,6 +147,7 @@ public class CSG extends Game implements ApplicationListener {
 		HEIGHT_PLUS_4 = SCREEN_HEIGHT + 4;
 		HEIGHT_9_10 = SCREEN_HEIGHT - HEIGHT_DIV10;
 		HEIGHT_8_10 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 2);
+		HEIGHT_7_10 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 3);
 		HEIGHT_ECRAN_PALLIER_3 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 3);
 		HEIGHT_ECRAN_PALLIER_7 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 7);
 		

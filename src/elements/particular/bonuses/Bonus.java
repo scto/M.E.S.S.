@@ -108,8 +108,8 @@ public abstract class Bonus {
 	 */
 	public static void addBonus(Enemy e) {
 		cptBonus += e.getBonusValue();
-		tmp = e.pos.x + e.getHalfWidth();
-		tmpY = e.pos.y + e.getHalfHeight();
+		tmp = e.pos.x + e.getDimensions().halfWidth;
+		tmpY = e.pos.y + e.getDimensions().halfHeight;
 		Drone.mightAppear(tmp, tmpY);
 		TimeStop.mightAppear(tmp, tmpY);
 		Bomb.mightAppear(tmp, tmpY);

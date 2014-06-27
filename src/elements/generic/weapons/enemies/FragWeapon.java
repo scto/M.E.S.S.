@@ -1,19 +1,20 @@
 package elements.generic.weapons.enemies;
 
-import jeu.CSG;
+import assets.sprites.Animations;
+
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
+import elements.generic.components.Dimensions;
+
 public class FragWeapon extends EnemyWeapon {
 	
-	public static final int WIDTH = CSG.screenWidth / 30, HALF_WIDTH = WIDTH/2;
-	public static final float FIRERATETIR = .2f, TIME = 2;
+	public static final Dimensions DIMENSIONS = Dimensions.FRAG_WEAPON;
+	public static final float TIME = 2;
 	public static final Pool<FragWeapon> POOL = Pools.get(FragWeapon.class);
-	public static final int PK = 3;
-	private static final float SPEED = initSpeed(26, PK);
 	
 	@Override
-	public boolean move() {
+	public void move() {
 		if (TIME < now) {
 			final FragWeapon a = FragWeapon.POOL.obtain();
 			a.pos.x = pos.x;
@@ -31,15 +32,11 @@ public class FragWeapon extends EnemyWeapon {
 			b.dir.rotate(-5);
 			ENEMIES_LIST.add(b);
 
-			return true;
-		} 
-		return super.move();
+			pos.x = -10000;
+		}
+		super.move();
 	}
-	
-	@Override	public float getSpeed() {				return SPEED;						}
-	@Override	public float getWidth() {				return WIDTH;									}
-	@Override	public float getHeight() {				return WIDTH;									}
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	public void free() {					POOL.free(this);								}
-	@Override	public float getHalfHeight() {			return HALF_WIDTH;								}
-	@Override	public float getHalfWidth() {			return HALF_WIDTH;								}
+	@Override	public Animations getAnimation() {		return Animations.BLUE_BALL;	}
 }

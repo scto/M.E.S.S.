@@ -7,33 +7,28 @@ import assets.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.components.Phase;
-import elements.generic.components.behavior.Behavior;
+import elements.generic.components.Dimensions;
+import elements.generic.components.behavior.Mover;
+import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
-import elements.generic.components.shots.Shot;
 import elements.generic.enemies.Enemy;
 import elements.generic.enemies.Progression;
 import elements.generic.weapons.enemies.Fireball;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.particles.Particles;
+import elements.particular.particles.ParticuleBundles;
 
 public class Quad extends Enemy {
 
-	private static final int WIDTH = Stats.QUAD_WIDTH, HALF_WIDTH = WIDTH/2, HEIGHT = Stats.QUAD_HEIGHT, HALF_HEIGHT = HEIGHT / 2, OFFSET_W_2 = (WIDTH /6), OFFSET_W_3 = (WIDTH /3)*2, OFFSET_OUTSIDE_W_Y = HEIGHT / 3, pvMaxPhase2 = getPvBoss(Stats.QUAD_HP) / 3 * 2, pvMinPhase2 = getPvBoss(Stats.QUAD_HP) / 3;
-	private static final float FIRERATE = .2f, FIRERATE2 = .12f, FIRERATE3 = 0.07f, SPEED_LOW = Stats.QUAD_SPEED / 40;
+	protected static final Dimensions DIMENSIONS = Dimensions.BOSS_QUAD;
+	private static final int OFFSET_W_2 = (int) (DIMENSIONS.width /6), OFFSET_W_3 = (int) ((DIMENSIONS.width /3)*2), OFFSET_OUTSIDE_W_Y = (int) (DIMENSIONS.height / 3), pvMaxPhase2 = getPvBoss(Stats.QUAD_HP) / 3 * 2, pvMinPhase2 = getPvBoss(Stats.QUAD_HP) / 3;
+	private static final float FIRERATE = .2f, FIRERATE2 = .12f, FIRERATE3 = 0.07f;
 	public static Pool<Quad> POOL = Pools.get(Quad.class);
-	private int shotNumber = 1;
-	public static final int PK = 100;
+	private int shotNumber = 1, animIndex;
 	private static boolean tmp;
-	private static final Phase[] PHASES = {
-		new Phase(				Behavior.STRAIGHT_ON,				null,								null,										Animations.QUAD_GOOD				),
-		new Phase(				Behavior.OSCILLATE_X,				Gatling.FIREBALL,					Shot.SHOT_DOWN_MULTIPLE_WITH_BREAK,			Animations.QUAD_GOOD				),
-		new Phase(				Behavior.OSCILLATE_X,				Gatling.FIREBALL,					Shot.SHOT_DOWN_MULTIPLE_WITH_BREAK,			Animations.QUAD_BAD					),
-		new Phase(				Behavior.OSCILLATE_X,				Gatling.FIREBALL,					Shot.SHOT_DOWN_MULTIPLE_WITH_BREAK,			Animations.QUAD_WORST				)};
 	
 	public Quad() {
 		super();
@@ -41,10 +36,9 @@ public class Quad extends Enemy {
 	}
 
 	public void init() {
-		pos.x = CSG.screenHalfWidth - HALF_WIDTH;
-		pos.y = CSG.SCREEN_HEIGHT;
-		dir.y = -getSpeed();
-		dir.x = -getSpeed() * 0.75f;
+		pos.set(CSG.screenHalfWidth - DIMENSIONS.halfWidth, CSG.SCREEN_HEIGHT);
+		dir.set(-getSpeed() * 4f, -getSpeed());
+		animIndex = 0;
 	}
 
 	public void reset() {
@@ -54,24 +48,22 @@ public class Quad extends Enemy {
 	}
 	
 	@Override
-	protected void isMoving() {
-		if (pos.x <= Stats.U && index == 0)
-			index = 1;
-		if (pos.y - HEIGHT > CSG.HEIGHT_ECRAN_PALLIER_3) {
-			pos.y -= EndlessMode.delta25 * 8;
-		}
+	protected void move() {
+		Mover.ancorY(this, CSG.HEIGHT_8_10);
+		Mover.oscillateX(this, 20);
+		Mover.ball(this, 1);
 	}
 
 	@Override
 	public boolean stillAlive(PlayerWeapon p) {
 		tmp = super.stillAlive(p);
 
-		switch (index) {
-		case 1:
+		switch (animIndex) {
+		case 0:
 			if (hp < pvMaxPhase2)
 				changePhase();
 			break;
-		case 2:
+		case 1:
 			if (hp < pvMinPhase2)
 				changePhase();
 			break;
@@ -79,43 +71,37 @@ public class Quad extends Enemy {
 		return tmp;
 	}
 
-	@Override
 	protected void changePhase() {
-		for (int i = -EndlessMode.fps; i < 15 * index; i++)
-			Particles.smoke(pos.x + (CSG.R.nextFloat() * WIDTH), pos.y + (CSG.R.nextFloat() * HEIGHT), false);
-		super.changePhase();
+		for (int i = -EndlessMode.fps; i < 15 * animIndex; i++)
+			Particles.smoke(pos.x + (CSG.R.nextFloat() * DIMENSIONS.width), pos.y + (CSG.R.nextFloat() * DIMENSIONS.height), false, ParticuleBundles.SMOKE.colors);
+		if (animIndex < 2)
+			animIndex++;
+	}
+	
+	@Override
+	protected void shoot() {
+		SoundMan.playBruitage(SoundMan.shotRocket);
+		if (animIndex == 0) {
+			fire(pos.x, pos.y - OFFSET_OUTSIDE_W_Y);
+			fire(pos.x + DIMENSIONS.width - Fireball.DIMENSIONS.width, pos.y - OFFSET_OUTSIDE_W_Y);
+		} else {
+			fire(pos.x, pos.y - OFFSET_OUTSIDE_W_Y);
+			fire(pos.x + DIMENSIONS.width - Fireball.DIMENSIONS.width, pos.y - OFFSET_OUTSIDE_W_Y);
+		}
+		
+		// inside
+		if (animIndex == 0) {
+			fire(pos.x + OFFSET_W_3, pos.y - Fireball.DIMENSIONS.halfHeight);
+			fire(pos.x + OFFSET_W_2, pos.y - Fireball.DIMENSIONS.halfHeight);
+		}
+		
+		shotNumber = AbstractShot.interval(this, 2 * (animIndex+1), 1, shotNumber);
 	}
 
-	public Vector2 getShotPosition(int numeroTir) {
-		switch (numeroTir) {
-		// Attention on donne en premier les exterieurs
-		case 0:
-			SoundMan.playBruitage(SoundMan.shotRocket);
-			pos.y++;
-			TMP_POS.x = pos.x;
-			TMP_POS.y = pos.y - OFFSET_OUTSIDE_W_Y;
-			break;
-		case 1:
-			pos.y++;
-			TMP_POS.x = pos.x + WIDTH - Fireball.WIDTH;
-			TMP_POS.y = pos.y - OFFSET_OUTSIDE_W_Y;
-			break;
-		case 2:
-			pos.y++;
-			TMP_POS.x = pos.x + OFFSET_W_3;
-			TMP_POS.y = pos.y - Fireball.HALF_HEIGHT;
-			break;
-		case 3:
-			pos.y++;
-			TMP_POS.x = pos.x + OFFSET_W_2;
-			TMP_POS.y = pos.y - Fireball.HALF_HEIGHT;
-			break;
-		default:
-			TMP_POS.x = pos.x + HALF_WIDTH - Fireball.HALF_WIDTH;
-			TMP_POS.y = pos.y - Fireball.HALF_HEIGHT;
-			break;
-		}
-		return TMP_POS;
+	protected void fire(float x, float y) {
+		pos.y++;
+		TMP_POS.set(x, y);
+		AbstractShot.shootDown(Gatling.FIREBALL, TMP_POS, Stats.U12);
 	}
 
 
@@ -124,39 +110,25 @@ public class Quad extends Enemy {
 		super.die();
 	}
 
-	@Override	public int getNumberOfShots() {
-		if (index == 1)
-			return 4;
-		return 2;
-	}
-	@Override	public float getFirerate() {
-		switch (index) {
-		case 1:			return FIRERATE;
-		case 2:			return FIRERATE2;
+	@Override	
+	public float getFirerate() {
+		switch (animIndex) {
+		case 0:			return FIRERATE;
+		case 1:			return FIRERATE2;
 		}
 		return FIRERATE3;	
 	}
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	protected int getMaxHp() {				return super.getPvBoss(Stats.QUAD_HP);	}
-	@Override	protected String getLabel() {			return getClass().toString();			}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.bigExplosion;			}
+	@Override	public float getSpeed() {				return Stats.QUAD_SPEED;				}
+	@Override	public Animations getAnimation() {		return Animations.QUAD;					}
 	@Override	public void addShots(int i) {			this.shotNumber += i;					}
-	@Override	public float getHalfHeight() {			return HALF_HEIGHT;						}
-	@Override	public float getHalfWidth() {			return HALF_WIDTH;						}
 	@Override	public int getShotNumber() {			return shotNumber;						}
+	@Override	public int getAnimIndex() {				return animIndex;						}
 	@Override	public void free() {					POOL.free(this);						}
-	@Override	public float getHeight() {				return HEIGHT;							}
-	@Override	public Phase[] getPhases() {			return PHASES;							}
-	@Override	public float getDirectionY() {			return -dir.y;							}
-	@Override	public float getDirectionX() {			return dir.x;							}
-	@Override	public float getWidth() {				return WIDTH;							}
 	@Override	public int getXp() {					return 200;								}
 	@Override	public int getBonusValue() {			return 200;								}
 	@Override	public int getExplosionCount() {		return 180;								}
-	@Override	public float getBulletSpeedMod() {		return 2;								}
-	@Override	public float getSpeed() {
-		if (index == 0)
-			return Stats.QUAD_SPEED;
-		return SPEED_LOW;
-	}
 }
 

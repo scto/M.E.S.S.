@@ -3,25 +3,33 @@ package elements.generic.enemies.individual.lvl4;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.enemies.individual.lvl1.Ball;
+import elements.generic.components.shots.AbstractShot;
+import elements.generic.components.shots.Gatling;
 import elements.generic.enemies.individual.lvl3.Ball3;
-import elements.generic.weapons.player.PlayerWeapon;
+import elements.generic.weapons.enemies.PinkBullet;
 import jeu.Stats;
 
 public class Ball4 extends Ball3 {
 	
 	public static final Pool<Ball4> POOL = Pools.get(Ball4.class);
 	private static final int HP = getModulatedPv(Stats.HP_BALL, 4), XP = getXp(BASE_XP, 4);
-	protected static final float SPEED = getModulatedSpeed(Ball.SPEED, 4);
+	protected static final float SPEED = getModulatedSpeed(40, 4), FIRERATE = 0.8f;
 	
-	@Override	protected String getLabel() {					return getClass().toString();				}
+	@Override
+	protected void shoot() {
+		TMP_POS.x = (pos.x + DIMENSIONS.halfWidth - PinkBullet.DIMENSIONS.halfWidth);
+		TMP_POS.y = (pos.y + DIMENSIONS.halfWidth - PinkBullet.DIMENSIONS.halfHeight);
+		AbstractShot.shootOnPlayer(Gatling.CYAN_BULLET, TMP_POS, 0, Stats.U12, 3, 7);
+		if (++shotNumber > 2) {
+			shotNumber = 0;
+			nextShot += 2;
+		}
+	}
+	
+	@Override	public float getFirerate() {					return FIRERATE;							}
 	@Override	public void free() {							POOL.free(this);							}
 	@Override	public int getBonusValue() {					return BASE_XP;								}
 	@Override	public float getSpeed() {						return SPEED;								}
 	@Override	protected int getMaxHp() {						return HP;									}
 	@Override	public int getXp() {							return XP;									}
-	@Override	public boolean stillAlive(PlayerWeapon a) {
-		nextShot -= 1.5f;
-		return super.stillAlive(a);					
-	}
 }

@@ -20,8 +20,8 @@ public class SpawnEnemyPosition {
 	_8sur10 = new Vector2(CSG.gameZoneWidth * 0.8f, CSG.SCREEN_HEIGHT),
 	_9sur10 = new Vector2(CSG.gameZoneWidth * 0.9f, CSG.SCREEN_HEIGHT),
 	_95sur10 = new Vector2(CSG.gameZoneWidth * 0.95f, CSG.SCREEN_HEIGHT);
-	private static final Vector2 _bossSatUp = new Vector2((CSG.gameZoneWidth-1)+Sat.HALF_WIDTH, CSG.SCREEN_HEIGHT * 0.7f);
-	private static final Vector2 _bossSatDown = new Vector2((CSG.gameZoneWidth-1)+Sat.HALF_WIDTH, CSG.SCREEN_HEIGHT * 0.35f);
+	private static final Vector2 _bossSatUp = new Vector2((CSG.gameZoneWidth-1)+Sat.DIMENSIONS.halfWidth, CSG.SCREEN_HEIGHT * 0.7f);
+	private static final Vector2 _bossSatDown = new Vector2((CSG.gameZoneWidth-1)+Sat.DIMENSIONS.halfWidth, CSG.SCREEN_HEIGHT * 0.35f);
 	
 	private static final Vector2 pauseVec[] = {};
 	private static final Vector2[] _1random = {null};
@@ -75,12 +75,12 @@ public class SpawnEnemyPosition {
 									_2zigZag4 = {Merlin.ZIGZAG4, Merlin.ZIGZAG4},
 									_2zigZag = {Merlin.ZIGZAG, Merlin.ZIGZAG};
 	
-	private static final Merlin[] _1quiTir = {Merlin.QUI_TIR};
-	private static final Merlin[] _1quiTir3 = {Merlin.QUI_TIR3};
-	private static final Merlin[] _2quiTir3 = {Merlin.QUI_TIR3, Merlin.QUI_TIR3};
-	private static final Merlin[] _1quiTir4 = {Merlin.QUI_TIR4};
-	private static final Merlin[] _2quiTir4 = {Merlin.QUI_TIR4, Merlin.QUI_TIR4};
-	private static final Merlin[] _2quiTir = {Merlin.QUI_TIR, Merlin.QUI_TIR};
+	private static final Merlin[] _1quiTir = {Merlin.SHOOTER};
+	private static final Merlin[] _1quiTir3 = {Merlin.SHOOTER3};
+	private static final Merlin[] _2quiTir3 = {Merlin.SHOOTER3, Merlin.SHOOTER3};
+	private static final Merlin[] _1quiTir4 = {Merlin.SHOOTER4};
+	private static final Merlin[] _2quiTir4 = {Merlin.SHOOTER4, Merlin.SHOOTER4};
+	private static final Merlin[] _2quiTir = {Merlin.SHOOTER, Merlin.SHOOTER};
 	private static final Merlin[] _1boule = {Merlin.BALL};
 	private static final Merlin[] _1boule3 = {Merlin.BALL3};
 	private static final Merlin[] _1boule4 = {Merlin.BALL4};
@@ -95,9 +95,9 @@ public class SpawnEnemyPosition {
 	private static final Merlin[] _1toupie = {Merlin.ROUND_N_ROUND};
 	private static final Merlin[] _1toupie3 = {Merlin.ROUND_N_ROUND3};
 	private static final Merlin[] _1toupie4 = {Merlin.ROUND_N_ROUND4};
-	private static final Merlin[] _1quiTourne3 = {Merlin.QUI_TOURNE3};
-	private static final Merlin[] _1quiTourne4 = {Merlin.QUI_TOURNE4};
-	private static final Merlin[] _1quiTourne = {Merlin.QUI_TOURNE};
+	private static final Merlin[] _1quiTourne3 = {Merlin.DIABOLO3};
+	private static final Merlin[] _1quiTourne4 = {Merlin.DIABOLO4};
+	private static final Merlin[] _1quiTourne = {Merlin.DIABOLO};
 	private static final Merlin[] _1kinder3 = {Merlin.KINDER3};
 	private static final Merlin[] _1kinder4 = {Merlin.KINDER4};
 	private static final Merlin[] _1kinder = {Merlin.KINDER};
@@ -118,12 +118,12 @@ public class SpawnEnemyPosition {
 	private static final Merlin[] _1laser = {Merlin.LASER};
 	private static final Merlin[] _1laser3 = {Merlin.LASER3};
 	private static final Merlin[] _1laser4 = {Merlin.LASER4};
-	private static final Merlin[] _1quiTir2 = {Merlin.QUI_TIR_TRIANGLE};
-	private static final Merlin[] _1quiTir23 = {Merlin.QUI_TIR_TRIANGLE3};
-	private static final Merlin[] _1quiTir24 = {Merlin.QUI_TIR_TRIANGLE4};
-	private static final Merlin[] _2quiTir2 = {Merlin.QUI_TIR_TRIANGLE, Merlin.QUI_TIR_TRIANGLE};
-	private static final Merlin[] _2quiTir23 = {Merlin.QUI_TIR_TRIANGLE3, Merlin.QUI_TIR_TRIANGLE3};
-	private static final Merlin[] _2quiTir24 = {Merlin.QUI_TIR_TRIANGLE4, Merlin.QUI_TIR_TRIANGLE4};
+	private static final Merlin[] _1quiTir2 = {Merlin.SHOOTER_FRAG};
+	private static final Merlin[] _1quiTir23 = {Merlin.SHOOTER_FRAG3};
+	private static final Merlin[] _1quiTir24 = {Merlin.SHOOTER_FRAG4};
+	private static final Merlin[] _2quiTir2 = {Merlin.SHOOTER_FRAG, Merlin.SHOOTER_FRAG};
+	private static final Merlin[] _2quiTir23 = {Merlin.SHOOTER_FRAG3, Merlin.SHOOTER_FRAG3};
+	private static final Merlin[] _2quiTir24 = {Merlin.SHOOTER_FRAG4, Merlin.SHOOTER_FRAG4};
 	
 	private static final Merlin[] _2porteRaisin3 = {Merlin.CRUSADER3, Merlin.CRUSADER3};
 	private static final Merlin[] _2porteRaisin4 = {Merlin.CRUSADER4, Merlin.CRUSADER4};
