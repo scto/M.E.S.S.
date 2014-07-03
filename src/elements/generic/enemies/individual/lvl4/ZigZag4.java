@@ -17,10 +17,6 @@ public class ZigZag4 extends ZigZag3 {
 	private static final float SPEED = ZigZag.SPEED * Stats.VNV4;
 	private static final Vector2 smokeVector = new Vector2(0, Stats.u);
 	
-	@Override
-	protected float getFloatFactor() {
-		return 2;
-	}
 	@Override	public Animations getAnimation() {			return Animations.ZIG_ZAG_GREEN;	}
 	@Override	protected Vector2 getSmokeVector() {		return smokeVector;					}
 	@Override	public void free() {						POOL.free(this);					}
@@ -29,4 +25,5 @@ public class ZigZag4 extends ZigZag3 {
 	@Override	public int getColor() {						return GREEN;						}
 	@Override	protected int getMaxHp() {					return HP;							}
 	@Override	public int getXp() {						return XP;							}
+	@Override	protected float getFloatFactor() {			return 2;							}
 }

@@ -11,7 +11,7 @@ public class RoundAndRound3 extends RoundAndRound {
 
 	public static final Pool<RoundAndRound3> POOL = Pools.get(RoundAndRound3.class);
 	private static final int LVL = 3, HP = getModulatedPv(Stats.ROUND_AND_ROUND_HP, LVL), XP = getXp(BASE_XP, LVL);
-	private static final float SPEED = RoundAndRound.SPEED20 * Stats.VNV3, FIRERATE = RoundAndRound.FIRERATE * 0.7f;
+	private static final float SPEED = RoundAndRound.SPEED20 * Stats.VNV3, FIRERATE = RoundAndRound.FIRERATE * 0.7f * MOD_FIRERATE;
 	
 	@Override
 	protected void shoot() {

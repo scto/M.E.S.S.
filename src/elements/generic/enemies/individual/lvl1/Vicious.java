@@ -20,7 +20,7 @@ public class Vicious extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.VICIOUS;
 	public static final int EXPLOSION = 50;
-	public static final float FIRERATE = 3, INIT_NEXT_SHOT = 1, SPEED3 = getModulatedSpeed(3, 1);
+	public static final float FIRERATE = 3 * MOD_FIRERATE, INIT_NEXT_SHOT = 1, SPEED3 = getModulatedSpeed(3, 1);
 	public static final Pool<Vicious> POOL = Pools.get(Vicious.class);
 	private int xp, hp;
 	

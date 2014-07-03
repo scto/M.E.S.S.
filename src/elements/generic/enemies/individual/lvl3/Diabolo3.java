@@ -12,7 +12,7 @@ public class Diabolo3 extends Diabolo {
 	
 	public static final Pool<Diabolo3> POOL = Pools.get(Diabolo3.class);
 	private static final int LVL = 3, HP = getModulatedPv(Stats.HP_DIABOLO, LVL), XP = getXp(BASE_XP, LVL);
-	private static final float SPEED = Diabolo.SPEED18, HALF_SPEED = SPEED / 2, FIRERATE = 0.15f;
+	private static final float SPEED = Diabolo.SPEED18, HALF_SPEED = SPEED / 2, FIRERATE = 0.15f * MOD_FIRERATE;
 	private int shotNumber = 0;
 	
 	@Override	protected void interval() {		shotNumber = AbstractShot.interval(this, 4, 2, shotNumber);	}

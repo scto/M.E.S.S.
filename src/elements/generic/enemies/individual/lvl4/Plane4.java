@@ -15,7 +15,7 @@ public class Plane4 extends Plane3 {
 	
 	public static final Pool<Plane4> POOL = Pools.get(Plane4.class);
 	private static final int HP = getModulatedPv(Stats.PLANE_HP, 4), DEMI_HP = HP / 2, XP = getXp(BASE_XP, 4);
-	private static final float SPEED = Plane.SPEED19 * Stats.VNV4, HALF_SPEED = SPEED / 2, FIRERATE = Plane3.FIRERATE * 0.8f,  OFFSET_WEAPON_RIGHT = (int) (DIMENSIONS.width - Fireball.DIMENSIONS.halfWidth * 1.5f), OFFSET_WEAPON_LEFT = Fireball.DIMENSIONS.halfWidth / 2, OFFSET_WEAPON_Y = DIMENSIONS.halfHeight - Fireball.DIMENSIONS.height;
+	private static final float SPEED = Plane.SPEED19 * Stats.VNV4, HALF_SPEED = SPEED / 2, FIRERATE = Plane3.FIRERATE * 0.8f * MOD_FIRERATE,  OFFSET_WEAPON_RIGHT = (int) (DIMENSIONS.width - Fireball.DIMENSIONS.halfWidth * 1.5f), OFFSET_WEAPON_LEFT = Fireball.DIMENSIONS.halfWidth / 2, OFFSET_WEAPON_Y = DIMENSIONS.halfHeight - Fireball.DIMENSIONS.height;
 	
 	@Override
 	public float getSpeed() {
@@ -25,11 +25,9 @@ public class Plane4 extends Plane3 {
 	}
 	@Override
 	protected void shootDouble() {
-		TMP_POS.x = pos.x - OFFSET_WEAPON_LEFT;
-		TMP_POS.y = pos.y + OFFSET_WEAPON_Y;
+		TMP_POS.set(pos.x - OFFSET_WEAPON_LEFT, pos.y + OFFSET_WEAPON_Y);
 		AbstractShot.shootDownRandom(Gatling.FIREBALL, TMP_POS, Stats.U20, 10);
-		TMP_POS.y = pos.y + OFFSET_WEAPON_Y;
-		TMP_POS.x = pos.x + OFFSET_WEAPON_RIGHT;
+		TMP_POS.set(pos.y + OFFSET_WEAPON_Y, pos.x + OFFSET_WEAPON_RIGHT);
 		AbstractShot.shootDownRandom(Gatling.FIREBALL, TMP_POS, Stats.U20, 10);
 	}
 	@Override

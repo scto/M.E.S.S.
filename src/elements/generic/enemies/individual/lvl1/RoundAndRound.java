@@ -22,7 +22,7 @@ public class RoundAndRound extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.ROUND_N_ROUND;
 	public static final int BASE_XP = 21, LVL = 1, HP = Stats.ROUND_AND_ROUND_HP, XP = getXp(BASE_XP, LVL), EXPLOSION_MIN_PARTICLES = 30, SHOTS_GAP = 5;
-	protected static final float FIRERATE = .4f, INIT_NEXT_SHOT = 0, SPEED20 = getModulatedSpeed(20, 1);
+	protected static final float FIRERATE = .4f * MOD_FIRERATE, INIT_NEXT_SHOT = 0, SPEED20 = getModulatedSpeed(20, 1);
 	private static final float OFFSET_TIR = DIMENSIONS.halfWidth - OrangeBullet.DIMENSIONS.halfWidth;
 	public static final Pool<RoundAndRound> POOL = Pools.get(RoundAndRound.class);
 	private boolean shootRight = true, leftOfTheScreen;

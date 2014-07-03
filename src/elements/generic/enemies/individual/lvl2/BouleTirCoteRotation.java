@@ -8,7 +8,7 @@ import jeu.Stats;
 public class BouleTirCoteRotation extends BouleTirCote {
 
 	public static final Pool<BouleTirCoteRotation> POOL = Pools.get(BouleTirCoteRotation.class);
-	private static final float FIRERATE = .15f, SPEED = Stats.V_BOULE_TIR_COTE * 0.75f;
+	private static final float FIRERATE = .15f * MOD_FIRERATE, SPEED = Stats.V_BOULE_TIR_COTE * 0.75f;
 	
 	@Override
 	protected void shoot() {

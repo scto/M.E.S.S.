@@ -18,8 +18,7 @@ public class Laser4 extends Laser3 {
 	
 	@Override
 	protected void shoot() {
-		TMP_POS.x = (pos.x + DIMENSIONS.halfWidth - LaserWeapon.DIMENSIONS.halfWidth) + (dir.x / 3);
-		TMP_POS.y = (pos.y + DIMENSIONS.halfHeight - LaserWeapon.DIMENSIONS.halfHeight) + (dir.y / 3);
+		TMP_POS.set((pos.x + DIMENSIONS.halfWidth - LaserWeapon.DIMENSIONS.halfWidth) + (dir.x / 3), (pos.y + DIMENSIONS.halfHeight - LaserWeapon.DIMENSIONS.halfHeight) + (dir.y / 3));
 		AbstractShot.straight(Gatling.LASER, TMP_POS, dir, 1.5f);
 		AbstractShot.straight(Gatling.LASER, TMP_POS, dir, 1.6f);
 		AbstractShot.straight(Gatling.LASER, TMP_POS, dir, 1.7f);

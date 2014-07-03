@@ -14,7 +14,7 @@ public class Kinder3 extends Kinder {
 	
 	public static final Pool<Kinder3> POOL = Pools.get(Kinder3.class);
 	private static final int HP = getModulatedPv(Stats.KINDER_HP, 3), XP = getXp(BASE_XP, 3);
-	private static final float PHASE_DURATION = 20, FIRERATE = 0.14f;
+	private static final float PHASE_DURATION = 20, FIRERATE = 0.14f * MOD_FIRERATE;
 	private boolean alternateShot = false;
 	
 	@Override

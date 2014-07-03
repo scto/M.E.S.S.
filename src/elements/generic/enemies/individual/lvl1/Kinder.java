@@ -21,7 +21,7 @@ public class Kinder extends Enemy {
 
 	protected static final Dimensions DIMENSIONS = Dimensions.KINDER;
 	public static final int BASE_XP = 32, HP = Stats.KINDER_HP,	EXPLOSION_COUNT = 45, XP = getXp(BASE_XP, 1), LVL = 1;
-	protected static final float FIRERATE = 0.45f, INIT_NEXT_SHOT = Animations.KINDER_TIME_OPEN, SPEED10 = getModulatedSpeed(20, LVL), PHASE_DURATION = 12;
+	protected static final float FIRERATE = 0.45f * MOD_FIRERATE, INIT_NEXT_SHOT = Animations.KINDER_TIME_OPEN, SPEED10 = getModulatedSpeed(20, LVL), PHASE_DURATION = 12;
 	public static final Pool<Kinder> POOL = Pools.get(Kinder.class);
 	protected int index, shotNumber = 0;
 	

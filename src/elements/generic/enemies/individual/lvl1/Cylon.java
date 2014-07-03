@@ -25,7 +25,7 @@ public class Cylon extends Enemy {
 	protected static final Dimensions DIMENSIONS = Dimensions.CYLON;
 	protected static final int THRUSTER_OFFSET = (int) (DIMENSIONS.width * 0.45f), LVL = 1;
 	public static final Pool<Cylon> POOL = Pools.get(Cylon.class);
-	protected static final float FIRERATE = 3, INIT_NEXT_SHOT = 2.6f, SPEED12 = getModulatedSpeed(12, LVL);
+	protected static final float FIRERATE = 3 * MOD_FIRERATE, INIT_NEXT_SHOT = 2.6f, SPEED12 = getModulatedSpeed(12, LVL);
 	protected static final int BASE_XP = 12, HP = Stats.HP_CYLON, HP_BAD = (int) (HP * 0.66f), HP_WORST = (int) (HP * 0.33f), EXPLOSION = 35, XP = getXp(BASE_XP, 1);
 	private int index = 0;
 

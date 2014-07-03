@@ -13,7 +13,7 @@ public class Ball4 extends Ball3 {
 	
 	public static final Pool<Ball4> POOL = Pools.get(Ball4.class);
 	private static final int HP = getModulatedPv(Stats.HP_BALL, 4), XP = getXp(BASE_XP, 4);
-	protected static final float SPEED = getModulatedSpeed(40, 4), FIRERATE = 0.8f;
+	protected static final float SPEED = getModulatedSpeed(40, 4), FIRERATE = 0.8f * MOD_FIRERATE;
 	
 	@Override
 	protected void shoot() {

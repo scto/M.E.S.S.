@@ -12,7 +12,7 @@ public class Group4 extends Group3 {
 	
 	public static final Pool<Group4> POOL = new Pool<Group4>() {		protected Group4 newObject() {			return new Group4();		}	};
 	private static final int HP = getModulatedPv(Stats.HP_GROUP, 4), XP = getXp(BASE_XP, 4);
-	private static final float SPEED = getModulatedSpeed(8, 4), FIRERATE = Group.FIRERATE * 0.8f;
+	private static final float SPEED = getModulatedSpeed(8, 4), FIRERATE = Group.FIRERATE * 0.8f * MOD_FIRERATE;
 	
 	public static Group4 initAll() {
 		Group4 e = POOL.obtain();

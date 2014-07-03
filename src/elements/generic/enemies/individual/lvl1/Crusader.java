@@ -20,7 +20,7 @@ public class Crusader extends Enemy {
 	protected static final Dimensions DIMENSIONS = Dimensions.CRUSADER;
 	public static final int BASE_XP = 91, HP = Stats.CRUASER_HP, HALF_HP = HP/2, EXPLOSION = 40, XP = getXp(BASE_XP, 1), LVL = 1;
 	public static final Pool<Crusader> POOL = Pools.get(Crusader.class);
-	protected static final float FIRERATE = .8f, INIT_NEXT_SHOT = 4, SPEED6 = getModulatedSpeed(6, LVL), ROTATION_BETWEEN_SHOTS = 4;
+	protected static final float FIRERATE = .08f * MOD_FIRERATE, INIT_NEXT_SHOT = 4, SPEED6 = getModulatedSpeed(6, LVL), ROTATION_BETWEEN_SHOTS = 4;
 	protected float shootingAngle;
 	protected int shotNumber = 3;
 	private boolean goodShape = true;
@@ -49,7 +49,7 @@ public class Crusader extends Enemy {
 	}
 
 	protected void interval() {
-		shotNumber = AbstractShot.interval(this, shotNumber, 3, 2);
+		shotNumber = AbstractShot.interval(this, 3, 2, shotNumber);
 	}
 	
 	@Override

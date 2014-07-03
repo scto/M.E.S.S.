@@ -22,7 +22,7 @@ public class Group extends Enemy {
 	protected static final int LVL = 1;
 	protected static final Dimensions DIMENSIONS = Dimensions.GROUP;
 	public static final Pool<Group> POOL = new Pool<Group>() {		protected Group newObject() {			return new Group();		}	};
-	protected static final float FIRERATE = 0.6f, INIT_NEXT_SHOT = .5f, SPEED8 = getModulatedSpeed(8, LVL);
+	protected static final float FIRERATE = 0.6f * MOD_FIRERATE, INIT_NEXT_SHOT = .5f, SPEED8 = getModulatedSpeed(8, LVL);
 	private static final float COLOR = AssetMan.convertARGB(1, 1f, 0.5f, 0.2f);
 	protected static final int BASE_XP = 12;
 	private static final int HP = Stats.HP_CYLON, EXPLOSION = 35, XP = getXp(BASE_XP, LVL);

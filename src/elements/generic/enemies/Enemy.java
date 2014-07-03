@@ -34,7 +34,7 @@ public abstract class Enemy extends Element implements Poolable {
 	protected static final Vector2 TMP_POS = new Vector2(), TMP_DIR = new Vector2();
 	protected static final Rectangle COLLISION = new Rectangle();
 	public static final int RED = 0, BLUE = 1, GREEN = 2;
-	private static final float ALERT_WIDTH = 10, ALERT_HALF_WIDTH = ALERT_WIDTH / 2, DETECT_RANGE = Stats.WIDTH_DIV_10;
+	protected static final float ALERT_WIDTH = 10, ALERT_HALF_WIDTH = ALERT_WIDTH / 2, DETECT_RANGE = Stats.WIDTH_DIV_10, MOD_FIRERATE = 1.2f;
 	protected static float tmpDeltaMulImpact;
 	public boolean dead = false;
 	public float nextShot = 1;

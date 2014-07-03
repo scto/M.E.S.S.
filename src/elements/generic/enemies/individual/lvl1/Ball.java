@@ -22,7 +22,7 @@ import elements.generic.weapons.player.PlayerWeapon;
 public class Ball extends Enemy {
 	
 	protected static final int BASE_XP = 12, LVL = 1, HP = Stats.HP_BALL, EXPLOSION = 35, XP = getXp(BASE_XP, 1);
-	protected static final float FIRERATE = 4f, INIT_NEXT_SHOT = 3f, SPEED40 = getModulatedSpeed(40, LVL);
+	protected static final float FIRERATE = 4f * MOD_FIRERATE, INIT_NEXT_SHOT = 3f, SPEED40 = getModulatedSpeed(40, LVL);
 	protected static final Dimensions DIMENSIONS = Dimensions.BALL;
 	public static final Pool<Ball> POOL = Pools.get(Ball.class);
 	

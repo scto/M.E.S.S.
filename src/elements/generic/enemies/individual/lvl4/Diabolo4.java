@@ -14,7 +14,7 @@ public class Diabolo4 extends Diabolo3 {
 	
 	public static final Pool<Diabolo4> POOL = Pools.get(Diabolo4.class);
 	private static final int LVL = 4, HP = getModulatedPv(Stats.HP_DIABOLO, LVL), XP = getXp(BASE_XP, LVL);
-	private static final float SPEED = Diabolo.SPEED18 * 1.2f, HALF_SPEED = SPEED / 2, FIRERATE = Diabolo.FIRERATE * 0.4f;
+	private static final float SPEED = Diabolo.SPEED18 * 1.2f, HALF_SPEED = SPEED / 2, FIRERATE = Diabolo.FIRERATE * 0.4f * MOD_FIRERATE;
 
 	@Override
 	protected void shoot() {

@@ -29,7 +29,7 @@ public class Sat extends Enemy {
 			X_3 = (int) ((DIMENSIONS.width / 2) - (int)AddStat.DIMENSIONS.halfWidth), X_4 = (int) (DIMENSIONS.width - X_2 - AddStat.DIMENSIONS.width), X_5 = (int) (DIMENSIONS.width - AddStat.DIMENSIONS.width), ANGLE_2 = 135, ANGLE_3 = 90, ANGLE_4 = 40, ANGLE_5 = -90, PK = 17, HP = 195, 
 			HALF_HP = HP / 2, EXPLOSION = 60, BASE_XP = 75, XP = BASE_XP;
 	public static Pool<Sat> POOL = Pools.get(Sat.class);
-	protected static final float SPEED8 = getModulatedSpeed(6, 1);
+	protected static final float SPEED6 = getModulatedSpeed(6, 1);
 	private int launched = 0;
 	private boolean goodShape = true;
 
@@ -138,7 +138,7 @@ public class Sat extends Enemy {
 	@Override	public int getExplosionCount() {		return EXPLOSION;					}
 	@Override	public void free() {					POOL.free(this);					}
 	@Override	public int getBonusValue() {			return BASE_XP;						}
-	@Override	public float getSpeed() {				return SPEED8;						}
+	@Override	public float getSpeed() {				return SPEED6;						}
 	@Override	public int getXp() {					return XP;							}
 
 }

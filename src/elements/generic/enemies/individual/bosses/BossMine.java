@@ -24,7 +24,7 @@ public class BossMine extends Enemy {
 
 	protected static final Dimensions DIMENSIONS = Dimensions.BOSS_MINE;
 	public static final Pool<BossMine> POOL = Pools.get(BossMine.class);
-	private static final float SPEED6 = getModulatedSpeed(48, 1), FIRERATE = .1f, FIRERATE2 = 1;
+	private static final float SPEED6 = getModulatedSpeed(48, 1), FIRERATE = .25f * MOD_FIRERATE, FIRERATE2 = 1 * MOD_FIRERATE;
 	private static int pvPhase2;
 	private boolean goodShape, shootDir;
 	private int shotNumber = 0;
@@ -64,9 +64,8 @@ public class BossMine extends Enemy {
 		if (isInGoodShape()) {
 			TMP_POS.set(pos.x + DIMENSIONS.halfWidth - Rainbow.DIMENSIONS.halfWidth, pos.y);
 			TMP_DIR.set(0, -1);
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < 5; i++)
 				shootDir = AbstractShot.sweep(Gatling.RAINBOW, TMP_DIR, TMP_POS, Stats.U15, this, shootDir, 4, 0, Math.abs((now % 10) - 5) + 1.5f, shotNumber);
-			}
 		} else {
 			TMP_POS.set(pos.x + DIMENSIONS.halfWidth - Mine.DIMENSIONS.halfWidth, pos.y + DIMENSIONS.halfHeight - Mine.DIMENSIONS.halfWidth);
 			// offset
@@ -76,7 +75,7 @@ public class BossMine extends Enemy {
 			for (int i = -rnd; i < rnd+1; i++)
 				AbstractShot.straight(Gatling.MINE, TMP_POS, TMP_DIR.set(0, -1).rotate(angle + (i * 30)), -Stats.U10);
 		}
-		shotInterval = AbstractShot.interval(this, EndlessMode.difficulty, 0.2f, shotInterval);
+		shotInterval = AbstractShot.interval(this, EndlessMode.difficulty, 0.5f, shotInterval);
 	}
 	
 	@Override
@@ -86,10 +85,6 @@ public class BossMine extends Enemy {
 		return FIRERATE2;
 	}
 	
-	@Override
-	public float getSpeed() {
-		return SPEED6;
-	}
 	
 	@Override
 	public boolean stillAlive(PlayerWeapon p) {
@@ -104,22 +99,22 @@ public class BossMine extends Enemy {
 		nextShot = f;
 	}
 
-	@Override	public void addShots(int i) {						shotNumber += i;	}
 	@Override	protected Sound getExplosionSound() {				return SoundMan.bigExplosion;		}
 	@Override	public Animations getAnimation() {					return Animations.BOSS_MINE;		}
+	@Override	public Dimensions getDimensions() {					return DIMENSIONS;					}
+	@Override	public boolean isInGoodShape() {					return goodShape;					}
+	@Override	public void addShots(int i) {						shotNumber += i;					}
 	@Override	public void free() {								POOL.free(this);					}
+	@Override	public float getSpeed() {							return SPEED6;						}
 	@Override	public int getColor() {								return BLUE;						}
 	@Override	public int getXp() {								return 200;							}
 	@Override	public int getBonusValue() {						return 200;							}
 	@Override	public int getExplosionCount() {					return 180;							}
-	@Override	public boolean isInGoodShape() {					return goodShape;					}
-	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override
 	protected int getMaxHp() {
 		pvPhase2 = getPvBoss(Stats.HP_BOSS_MINE) / 2;
 		return super.getPvBoss(Stats.HP_BOSS_MINE);
 	}
-	
 	@Override
 	public void die() {
 		Progression.bossDied();

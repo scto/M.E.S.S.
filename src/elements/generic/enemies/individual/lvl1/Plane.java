@@ -27,8 +27,9 @@ public class Plane extends Enemy {
 	protected static final Dimensions DIMENSIONS = Dimensions.PLANE;
 	public static final int HP = Stats.PLANE_HP, HALF_HP = HP / 2, EXPLOSION_MIN_PARTICLES = 55, BASE_XP = 45, XP = BASE_XP;
 	public static final float OFFSET_SMOKE_LEFT = (int) (DIMENSIONS.width * .48f), 
-		OFFSET_SMOKE_RIGHT = (int) (DIMENSIONS.width * .52f), OFFSET_SMOKE = (int) (DIMENSIONS.height * 0.98f), OFFSET_WEAPON_RIGHT = (int) (DIMENSIONS.width - SmallFireball.DIMENSIONS.halfWidth * 1.5f), OFFSET_WEAPON_LEFT = SmallFireball.DIMENSIONS.halfWidth / 2, 
-		OFFSET_WEAPON_Y = DIMENSIONS.halfHeight - SmallFireball.DIMENSIONS.height, FIRERATE = 0.8f, INIT_NEXT_SHOT = 1f, SPEED19 = getModulatedSpeed(19, 1), HALF_SPEED = SPEED19 / 2;
+		OFFSET_SMOKE_RIGHT = (int) (DIMENSIONS.width * .52f), OFFSET_SMOKE = (int) (DIMENSIONS.height * 0.98f), OFFSET_WEAPON_RIGHT = (int) (DIMENSIONS.width - SmallFireball.DIMENSIONS.halfWidth * 1.5f),
+		OFFSET_WEAPON_LEFT = SmallFireball.DIMENSIONS.halfWidth / 2, 
+		OFFSET_WEAPON_Y = DIMENSIONS.halfHeight - SmallFireball.DIMENSIONS.height, FIRERATE = 0.8f * MOD_FIRERATE, INIT_NEXT_SHOT = 1f, SPEED19 = getModulatedSpeed(19, 1), HALF_SPEED = SPEED19 / 2;
 	public static final Pool<Plane> POOL = Pools.get(Plane.class);
 	private boolean goodShape = true;
 	private int shotNumber = 0;

@@ -21,7 +21,7 @@ public class Diabolo extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.DIABOLO;
 	public static final int EXPLOSION = 25, BASE_XP = 19,  XP = getXp(BASE_XP, 1), HP = Stats.HP_DIABOLO, PHASE_DURATION = 15;
-	protected static final float WIDTH2 = DIMENSIONS.width * 2, FIRERATE = .25f, INIT_NEXT_SHOT = 3, SPEED18 = getModulatedSpeed(18, 1);
+	protected static final float WIDTH2 = DIMENSIONS.width * 2, FIRERATE = .25f * MOD_FIRERATE, INIT_NEXT_SHOT = 3, SPEED18 = getModulatedSpeed(18, 1);
 	public static final Pool<Diabolo> POOL = Pools.get(Diabolo.class);
 	private int shotNumber, index;
 

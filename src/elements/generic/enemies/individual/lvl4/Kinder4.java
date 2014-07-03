@@ -20,10 +20,8 @@ public class Kinder4 extends Kinder3 {
 	protected void shoot() {
 		super.shoot();
 		if (index == 1) {
-			TMP_POS.x = (pos.x + DIMENSIONS.halfWidth - KinderWeapon.DIMENSIONS.halfWidth);
-			TMP_POS.y = (pos.y + DIMENSIONS.halfHeight - KinderWeapon.DIMENSIONS.halfHeight);
-			TMP_DIR.x = -dir.x;
-			TMP_DIR.y = -dir.y;
+			TMP_POS.set((pos.x + DIMENSIONS.halfWidth - KinderWeapon.DIMENSIONS.halfWidth), (pos.y + DIMENSIONS.halfHeight - KinderWeapon.DIMENSIONS.halfHeight));
+			TMP_DIR.set(-dir.x, -dir.y);
 			TMP_POS.x += TMP_DIR.x / 3;
 			TMP_POS.y += TMP_DIR.y / 3;
 			AbstractShot.straight(Gatling.CYAN_BULLET, TMP_POS, TMP_DIR, 1.5f);

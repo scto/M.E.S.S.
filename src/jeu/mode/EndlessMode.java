@@ -77,6 +77,7 @@ public class EndlessMode implements Screen {
 	private static int cheat = CSG.NO_CHEAT;
 	public static Transition transition = new Transition();
 	public static int oneToFour = 1;
+	private static boolean started = false;
 
 	public EndlessMode(Game game, SpriteBatch batch, int level, int cheat) {
 		super();
@@ -138,11 +139,17 @@ public class EndlessMode implements Screen {
 		transition.reset();
 		Weapon.resetAll();
 		Player.POS.set(CSG.gameZoneHalfWidth - Player.HALF_WIDTH, Player.HEIGHT * 7);
+		started = false;
 	}
 
 	@Override
 	public void render(float delta) {
 		delta = Math.min(delta, 0.1f);
+		if (!started) {
+			if (Gdx.input.justTouched())
+				started = true;
+			delta = 0;
+		}
 		int cpt = 0;
 		while (frameByFrame && cpt < 500000000) {
 			cpt++;

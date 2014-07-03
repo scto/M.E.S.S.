@@ -22,7 +22,7 @@ public class Shooter extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.SHOOTER;
 	public static final int BASE_XP = 10, HP = Stats.HP_QUI_TIR, HALF_HP = HP/2, EXPLOSION = 40, XP = BASE_XP, LVL = 1;
-	protected static final float xOffset = DIMENSIONS.halfWidth - Fireball.DIMENSIONS.halfWidth/1.5f, FIRERATE = 1.2f, INIT_NEXT_SHOT = 1.5f, SPEED = getModulatedSpeed(10, LVL);
+	protected static final float xOffset = DIMENSIONS.halfWidth - Fireball.DIMENSIONS.halfWidth/1.5f, FIRERATE = 1.2f * MOD_FIRERATE, INIT_NEXT_SHOT = 1.5f, SPEED = getModulatedSpeed(10, LVL);
 	public static final Pool<Shooter> POOL = Pools.get(Shooter.class);
 	private boolean goodShape = true;
 	

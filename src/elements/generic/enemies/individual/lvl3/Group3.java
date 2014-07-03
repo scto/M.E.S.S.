@@ -15,7 +15,7 @@ public class Group3 extends Group {
 		}
 	};
 	private static final int HP = getModulatedPv(Stats.HP_GROUP, 3), XP = getXp(BASE_XP, 3);
-	private static final float SPEED = getModulatedSpeed(8, 3), FIRERATE = Group.FIRERATE * 0.9f;
+	private static final float SPEED = getModulatedSpeed(8, 3), FIRERATE = Group.FIRERATE * 0.9f * MOD_FIRERATE;
 	
 	public static Group3 initAll() {
 		Group3 e = POOL.obtain();

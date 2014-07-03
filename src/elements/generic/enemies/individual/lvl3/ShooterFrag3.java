@@ -12,7 +12,7 @@ public class ShooterFrag3 extends ShooterFrag {
 	
 	public static final Pool<ShooterFrag3> POOL = Pools.get(ShooterFrag3.class);
 	private static final int LVL = 3, HP = getModulatedPv(Stats.HP_SHOOTER_FRAG, LVL), DEMI_HP = HP / 2, XP = getXp(BASE_XP, LVL);
-	private static final float SPEED = getModulatedSpeed(12, LVL), FIRERATE = 1f;
+	private static final float SPEED = getModulatedSpeed(12, LVL), FIRERATE = 1f * MOD_FIRERATE;
 	
 	@Override 	public float getFirerate() {		return FIRERATE;				}
 	@Override	public void free() {				POOL.free(this);				}

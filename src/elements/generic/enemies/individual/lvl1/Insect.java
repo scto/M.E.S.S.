@@ -21,7 +21,7 @@ public class Insect extends Enemy {
 	protected static final Dimensions DIMENSIONS = Dimensions.INSECT;
 	public static final int BASE_XP = 86, HP = Stats.INSECT_HP, HALF_HP = HP / 2, EXPLOSION = 50, XP = getXp(BASE_XP, 1);
 	public static final Pool<Insect> POOL = Pools.get(Insect.class);
-	protected static final float FIRERATE = 1.5f, INIT_NEXT_SHOT = 1, SPEED12 = getModulatedSpeed(12, 1);
+	protected static final float FIRERATE = 1.5f * MOD_FIRERATE, INIT_NEXT_SHOT = 1, SPEED12 = getModulatedSpeed(12, 1);
 	private boolean goodShape;
 	
 	public void init() {

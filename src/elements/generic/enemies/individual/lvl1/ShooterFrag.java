@@ -18,7 +18,7 @@ public class ShooterFrag extends Shooter {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.SHOOTER_FRAG;
 	public static final int BASE_XP = 39, HP = Stats.HP_SHOOTER_FRAG, HALF_HP = HP/2, EXPLOSION = 50, XP = BASE_XP;
-	protected static final float COLOR = AssetMan.convertARGB(1, 1, 1, .7f), xOffset = DIMENSIONS.halfWidth - FragWeapon.DIMENSIONS.halfWidth, FIRERATE = 1.9f, SPEED12 = getModulatedSpeed(12, 1);
+	protected static final float COLOR = AssetMan.convertARGB(1, 1, 1, .7f), xOffset = DIMENSIONS.halfWidth - FragWeapon.DIMENSIONS.halfWidth, FIRERATE = 1.9f * MOD_FIRERATE, SPEED12 = getModulatedSpeed(12, 1);
 	public static final Pool<ShooterFrag> POOL = Pools.get(ShooterFrag.class);
 
 	@Override

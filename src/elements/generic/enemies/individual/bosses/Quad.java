@@ -25,7 +25,7 @@ public class Quad extends Enemy {
 
 	protected static final Dimensions DIMENSIONS = Dimensions.BOSS_QUAD;
 	private static final int OFFSET_W_2 = (int) (DIMENSIONS.width /6), OFFSET_W_3 = (int) ((DIMENSIONS.width /3)*2), OFFSET_OUTSIDE_W_Y = (int) (DIMENSIONS.height / 3), pvMaxPhase2 = getPvBoss(Stats.QUAD_HP) / 3 * 2, pvMinPhase2 = getPvBoss(Stats.QUAD_HP) / 3;
-	private static final float FIRERATE = .2f, FIRERATE2 = .12f, FIRERATE3 = 0.07f;
+	private static final float FIRERATE = .2f * MOD_FIRERATE, FIRERATE2 = .12f * MOD_FIRERATE, FIRERATE3 = 0.07f * MOD_FIRERATE;
 	public static Pool<Quad> POOL = Pools.get(Quad.class);
 	private int shotNumber = 1, animIndex;
 	private static boolean tmp;

@@ -10,7 +10,7 @@ public class Shooter3 extends Shooter {
 	
 	public static final int LVL = 3, HP = getModulatedPv(Stats.HP_QUI_TIR, LVL), DEMI_HP = HP / 2, XP = getXp(BASE_XP, LVL);
 	public static final Pool<Shooter3> POOL = Pools.get(Shooter3.class);
-	private static final float SPEED = Shooter.SPEED * Stats.VNV3, FIRERATE = Shooter.FIRERATE * 0.4f;
+	private static final float SPEED = Shooter.SPEED * Stats.VNV3, FIRERATE = Shooter.FIRERATE * 0.4f  * MOD_FIRERATE;
 	private int shotNumber = 0;
 	
 	@Override

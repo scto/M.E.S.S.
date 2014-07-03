@@ -18,8 +18,7 @@ public class Shooter4 extends Shooter3 {
 	
 	@Override
 	protected void shoot() {
-		TMP_POS.x = pos.x + (DIMENSIONS.halfWidth - Fireball.DIMENSIONS.halfWidth);
-		TMP_POS.y = pos.y - Fireball.DIMENSIONS.height;
+		TMP_POS.set(pos.x + (DIMENSIONS.halfWidth - Fireball.DIMENSIONS.halfWidth), pos.y - Fireball.DIMENSIONS.height);
 		AbstractShot.shootDownRandom(Gatling.FIREBALL, TMP_POS, Stats.U12, 10);
 		interval(-1);
 	}

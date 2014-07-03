@@ -23,7 +23,7 @@ public class Laser extends Enemy {
 	protected static final Dimensions DIMENSIONS = Dimensions.LASER;
 	public static final Pool<Laser> POOL = Pools.get(Laser.class);
 	protected static final int BASE_XP = 32, HP = Stats.LASER_HP, EXPLOSION = 45, XP = getXp(BASE_XP, 1), LVL = 1;
-	protected static final float FIRERATE = 0.8f, INIT_NEXT_SHOT = 1, SPEED14 = getModulatedSpeed(14, LVL), PHASE_DURATION = 12;
+	protected static final float FIRERATE = 0.8f * MOD_FIRERATE, INIT_NEXT_SHOT = 1, SPEED14 = getModulatedSpeed(14, LVL), PHASE_DURATION = 12;
 	protected float rotation = 0;
 	private boolean left;
 	
