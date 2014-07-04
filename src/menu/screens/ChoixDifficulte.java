@@ -83,25 +83,20 @@ public class ChoixDifficulte extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		CSG.begin(delta);
-		if (Gdx.input.isKeyPressed(Keys.BACK)) {
+		if (Gdx.input.isKeyPressed(Keys.BACK)) 
 			keyBackPressed();
-		}
 		CSG.batch.begin();
 		Particles.background(CSG.batch);
-		for (int i = 0; i < buttons.size; i++) {
+		for (int i = 0; i < buttons.size; i++) 
 			if (buttons.get(i) != null) buttons.get(i).draw(CSG.batch);
-		}
-		Particles.drawUi(CSG.batch);
-		for (WeaponButton wb : weaponButtons) {
+		for (WeaponButton wb : weaponButtons) 
 			wb.draw(CSG.batch);
-		}
 		CSG.end();
 		EndlessMode.majDeltas();
 		EndlessMode.fps = Gdx.graphics.getFramesPerSecond();
 		EndlessMode.perf = EndlessMode.fps / 6;
-		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)) 
 			keyBackPressed();
-		}
 		etapeCode = detectiopnKonamiCode(etapeCode);
 		if (etapeCode == 8) {
 			SoundMan.playBruitage(SoundMan.bigExplosion);

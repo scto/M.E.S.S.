@@ -32,7 +32,6 @@ public class Buttons {
 	
 	public static void backButton(SpriteBatch batch, Game game) {
 		if (boutonBack == null) {
-			Particles.ajoutPanneau(TMP_POS, TMP_DIR);
 			boutonBack = new Button(Strings.BACK, CSG.menuFont, 
 					(int) CSG.menuFont.getBounds(Strings.BACK).width, 
 					(int) CSG.menuFont.getBounds(Strings.BACK).height, 
@@ -122,7 +121,6 @@ public class Buttons {
 		} 
 		if (Score.score > 50000) {
 			if (boutonTwitter == null) {
-				Particles.ajoutPanneau(TMP_POS, TMP_DIR);
 				boutonTwitter = new Button(Strings.BRAG_TWITTER, CSG.menuFont, 
 						(int) CSG.menuFont.getBounds(Strings.BRAG_TWITTER).width, 
 						(int) CSG.menuFont.getBounds(Strings.BRAG_TWITTER).height, 
@@ -144,7 +142,6 @@ public class Buttons {
 			boutonUpgrade.draw(batch);
 			if (boutonTwitter != null)
 				boutonTwitter.draw(batch);
-			Particles.drawUi(batch);
 		}
 	}
 

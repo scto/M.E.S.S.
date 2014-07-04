@@ -116,7 +116,6 @@ public abstract class AbstractScreen implements Screen {
 		for (int i = 0; i < buttons.size; i++) {
 			if (buttons.get(i) != null) buttons.get(i).draw(CSG.batch);
 		}
-		Particles.drawUi(CSG.batch);
 		if (credits != null)
 			credits.render(CSG.batch, delta);
 		CSG.end();

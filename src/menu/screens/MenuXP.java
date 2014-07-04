@@ -106,7 +106,6 @@ public class MenuXP extends AbstractScreen{
 		for (int i = 0; i < buttons.size; i++) 
 			if (buttons.get(i) != null)
 				buttons.get(i).draw(CSG.batch);
-		Particles.drawUi(CSG.batch);
 		CSG.menuFontSmall.draw(CSG.batch, "Weapon level : " + CSG.profile.getArmeSelectionnee().nv(), 4, 4 + CSG.menuFontSmall.getBounds("W").height);
 		CSG.end();
 		EndlessMode.majDeltas();

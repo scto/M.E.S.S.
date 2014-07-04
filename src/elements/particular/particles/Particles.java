@@ -62,10 +62,8 @@ public class Particles {
 	public static final Array<SparklesColorOverTimeWide> COLOR_OVER_TIME_FOREGROUND = new Array<SparklesColorOverTimeWide>();
 	
 	private static final Array<GreenAddParticle> ADD = new Array<GreenAddParticle>();
-	private static final Array<ParticleUiElement> UI = new Array<ParticleUiElement>();
 	private static final Array<FireballParticle> FIREBALL = new Array<FireballParticle>();
 	private static final Array<TWeaponParticles> T_WEAPON = new Array<TWeaponParticles>();
-	public static final Array<ParticlePanneau> BOUTONS = new Array<ParticlePanneau>(false, 300);
 	private static final Array<ThrusterParticle> THRUSTER = new Array<ThrusterParticle>(false, MAX_THRUSTER);
 	private static final Array<ThrusterSideParticle> THRUSTER_S = new Array<ThrusterSideParticle>(30);
 	private static final Array<Ghost> GHOSTS = new Array<Ghost>(false, 20);
@@ -93,19 +91,6 @@ public class Particles {
 		SparklesColorOverTime.act(COLOR_OVER_TIME, batch);
 		Explosion.act(EXPLOSIONS, batch);
 		ColorOverTime.act(EXPLOSION_COLOR_OVER_TIME, batch);
-	}
-
-	public static void drawUi(SpriteBatch batch) {
-		for (final ParticlePanneau p : BOUTONS) {
-			p.display(batch);
-			BOUTONS.removeValue(p, true);
-			ParticlePanneau.pool.free(p);
-		}
-		for (final ParticleUiElement p : UI){
-			p.display(batch);
-			UI.removeValue(p, true);
-			ParticleUiElement.pool.free(p);
-		}
 	}
 
 	public static int debris = 0, add = 0,  explosionsGreen = 0, explosionBleu = 0, explosion = 0, explosionsImpact = 0, shield = 0, pinkWeapon = 0, thruster = 0,
@@ -202,7 +187,6 @@ public class Particles {
 		Explosion.clear(EXPLOSIONS);
 		Explosion.clear(EXPLOSIONS_IMPACT);
 		DebrisExplosion.clear(WHITE_SPARKLES_NOT_MOVING);
-		ParticlePanneau.clear(BOUTONS);
 		PinkParticle.clear(PINK_WEAPON);
 		ThrusterParticle.clear(THRUSTER);
 		ThrusterSideParticle.clear(THRUSTER_S);
@@ -225,8 +209,6 @@ public class Particles {
 	}
 	
 	public static void explosion(Enemy e) {
-//		for (int i = 0; i < 40; i++)
-		
 		switch (e.getColor()) {
 		case Enemy.BLUE:
 			Explosion.add(EXPLOSIONS, e, PrecalculatedParticles.RANDDOM_BLUES);
@@ -247,7 +229,6 @@ public class Particles {
 	}
 
 	public static void armeHantee(TWeapon a) {
-		
 		TWeaponParticles.add(T_WEAPON, a);
 	}
 
@@ -257,52 +238,25 @@ public class Particles {
 	}
 
 	public static void ajoutArmeDeBase(Fireball a) {
-		
 		FireballParticle.add(a, FIREBALL);
 	}
 
 	public static void pinkParticle(PinkWeapon a) {
-		{
 		final PinkParticle p = PinkParticle.POOL.obtain();
 		p.init(a);
 		PINK_WEAPON.add(p);
-		}
-	}
-
-	public static void ajoutPanneau(Vector2 posParticule, Vector2 baseDirection) {
-		{
-		final ParticlePanneau p = ParticlePanneau.pool.obtain();
-		p.init(posParticule, baseDirection);
-		BOUTONS.add(p);
-		}
-	}
-	
-	public static void ajoutUiElement(float x, float y, boolean selected) {
-		{
-		final ParticleUiElement p = ParticleUiElement.pool.obtain();
-		p.init(x, y, selected);
-		UI.add(p);
-		
-		final ParticleUiElement p2 = ParticleUiElement.pool.obtain();
-		p2.init(x, y, selected);
-		UI.add(p2);
-		}
 	}
 
 	public static void ajoutSun(SunWeapon sunWeapon, Vector2 vector) {
-		{
 		final SunParticle p = SunParticle.POOL.obtain();
 		p.init(sunWeapon, vector);
 		SUN_WEAPON.add(p);
-		}
 	}
 
 	public static void addGhost(int etat) {
-		{
 		final Ghost g = Ghost.POOL.obtain();
 		g.init(etat);
 		GHOSTS.add(g);
-		}
 	}
 	
 	public static void smokeMoving(float x, float y, Vector2 dir, int color) {
@@ -402,7 +356,7 @@ public class Particles {
 
 	public static int getNombreParticles() {
 		return DUST.size + STAR.size + EXPLOSIONS.size + EXPLOSION_COLOR_OVER_TIME.size + WHITE_SPARKLES_NOT_MOVING.size + EXPLOSIONS_IMPACT.size +
-				EXPLOSION_IMPACT_BULLET.size + COLOR_OVER_TIME.size + COLOR_OVER_TIME_FOREGROUND.size  + ADD.size +	UI.size + FIREBALL.size + T_WEAPON.size + BOUTONS.size + THRUSTER.size + THRUSTER_S.size +
+				EXPLOSION_IMPACT_BULLET.size + COLOR_OVER_TIME.size + COLOR_OVER_TIME_FOREGROUND.size  + ADD.size +	FIREBALL.size + T_WEAPON.size + THRUSTER.size + THRUSTER_S.size +
 				GHOSTS.size + SMOKE.size + MOVING_SMOKE.size + BLUESMOKE.size + SUN_WEAPON.size + PINK_WEAPON.size + BLUE_SWEEP_WEAPON.size + SPACE_INVADER.size + TIME.size;
 	}
 	
