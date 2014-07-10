@@ -88,12 +88,20 @@ public class PrecalculatedParticles {
 		return CSG.convert(tmp);
 	}
 	
+	/**
+	 * fireball
+	 * @param nbFrames
+	 * @param div
+	 * @param g
+	 * @param b
+	 * @return
+	 */
 	private static float[] initColors(int nbFrames, int div, float g, float b) {
 		int cpt = 0;
 		final float step = 0.95f / nbFrames;
 		Array<Float> tmp = new Array<Float>();
 		while (cpt < nbFrames) {
-			tmp.add(AssetMan.convertARGB(1, 1, g / div, b));
+			tmp.add(AssetMan.convertARGB(1, b, g / div, 1));
 			g -= step;
 			cpt++;
 		}

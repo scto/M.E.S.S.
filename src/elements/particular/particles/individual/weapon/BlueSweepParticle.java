@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.weapons.player.BlueSweepWeapon;
+import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.particles.Particles;
 
 public class BlueSweepParticle implements Poolable {
@@ -26,7 +27,7 @@ public class BlueSweepParticle implements Poolable {
 	public BlueSweepParticle() {
 		height = (WIDTH + ( (CSG.R.nextFloat() / 6) * WIDTH)) * 3;
 		angle = (float) (CSG.R.nextGaussian() * 360f);
-		color = BlueSweepWeapon.COLORS[CSG.R.nextInt(BlueSweepWeapon.COLORS.length)];
+		color = PlayerWeapon.COLORS[CSG.R.nextInt(PlayerWeapon.COLORS.length)];
 	}
 
 	@Override

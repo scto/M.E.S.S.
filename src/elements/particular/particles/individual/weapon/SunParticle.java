@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
+import elements.generic.weapons.player.PlayerWeapon;
 import elements.generic.weapons.player.SunWeapon;
 
 public class SunParticle implements Poolable {
@@ -25,7 +26,7 @@ public class SunParticle implements Poolable {
 	private final float color;
 
 	public SunParticle() {
-		color = SunWeapon.COLORS[CSG.R.nextInt(SunWeapon.COLORS.length)];
+		color = PlayerWeapon.COLORS[CSG.R.nextInt(SunWeapon.COLORS.length)];
 	}
 
 	@Override
