@@ -1,5 +1,7 @@
 package elements.generic.weapons.player;
 
+import com.badlogic.gdx.graphics.Color;
+
 import assets.SoundMan;
 import elements.generic.weapons.Weapon;
 import elements.particular.Player;
@@ -31,4 +33,9 @@ public class SpaceInvaderManager extends WeaponManager {
 	@Override	public String getLabel() {				return SpaceInvaderWeapon.LABEL;			}
 	@Override	protected float getCadenceTir() {		return SpaceInvaderWeapon.FIRERATETIR;		}
 	@Override	public int nv() {						return CSG.profile.NvSpaceInvadersWeapon;	}
+
+	@Override
+	public Color playerColor() {
+		return Color.MAGENTA;
+	}
 }

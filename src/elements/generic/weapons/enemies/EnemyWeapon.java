@@ -12,7 +12,7 @@ import elements.generic.weapons.Weapon;
 import elements.particular.Player;
 import elements.particular.bonuses.XP;
 
-public abstract class EnemyWeapon extends Weapon implements Poolable {
+public abstract class EnemyWeapon extends Weapon {
 	
 	private static float tmpFloat;
 	public static float nextGraze = 0;
@@ -20,11 +20,9 @@ public abstract class EnemyWeapon extends Weapon implements Poolable {
 	protected static final float ALTERNATE_COLOR = AssetMan.convertARGB(1, 0.8f, 0.7f, 08f), KINDER_WEAPON_COLOR = AssetMan.convertARGB(1, 1f, 1f, 0.3f);
 	
 	public boolean testCollisionVaisseau() {
-		tmpV.x = Player.xCenter;
-		tmpV.y = Player.yCenter;
+		tmpV.set(Player.xCenter, Player.yCenter);
 		tmpFloat = tmpV.dst(pos.x + getDimensions().halfWidth, pos.y + getDimensions().halfHeight);
 		
-//		if (Player.bouclier)
 		for (int i = 0; i < Player.shield; i++)
 			tmpFloat -= Stats.uSur2;
 		
@@ -32,8 +30,6 @@ public abstract class EnemyWeapon extends Weapon implements Poolable {
 			if (nextGraze < EndlessMode.now) {
 				final XP xp = XP.POOL.obtain();
 				xp.init(pos.x + getDimensions().halfWidth, pos.y + getDimensions().halfHeight, 10);
-//				xp.direction.x = -dir.x * EndlessMode.delta;
-//				xp.direction.y = -dir.y * EndlessMode.delta;
 				nextGraze = EndlessMode.now + .1f;
 			}
 			if (tmpFloat < getDimensions().halfWidth || tmpFloat < getDimensions().halfHeight) {
@@ -48,28 +44,14 @@ public abstract class EnemyWeapon extends Weapon implements Poolable {
 		return Physic.isAddTouched(pos, getDimensions().width, getDimensions().height);
 	}
 	
-	@Override	public Vector2 getPosition() {						return pos;					}
-	@Override	public Vector2 getDirection() {						return dir;					}
-	@Override	public boolean getWay() {							return false;				}
-	@Override	public float getNow() {								return now;					}
-	
-	public void init(Vector2 position, float dEMI_WIDTH, float demiHauteur, float modifVitesse) {
-		position.x = position.x + dEMI_WIDTH - getDimensions().halfWidth;
-		position.y = position.y + demiHauteur - getDimensions().halfHeight;
+	public void init(Vector2 position, float halfWidth, float demiHauteur, float modifVitesse) {
+		position.set(position.x + halfWidth - getDimensions().halfWidth, position.y + demiHauteur - getDimensions().halfHeight);
 		ENEMIES_LIST.add(this);
 	}
 
-	/**
-	 * L'envoie vers le bas
-	 * @param position
-	 * @param modifVitesse
-	 * @param boss TODO
-	 */
 	public void init(Vector2 position, float modifVitesse, boolean boss) {
-		this.pos.x = position.x;
-		this.pos.y = position.y;
-		dir.x = 0;
-		dir.y = -1 * modifVitesse;
+		this.pos.set(position.x, position.y);
+		dir.set(0, -modifVitesse);
 		if (boss) {
 			BOSSES_LIST.add(this);
 		} else {
@@ -78,12 +60,10 @@ public abstract class EnemyWeapon extends Weapon implements Poolable {
 	}
 
 	public void init(Vector2 position, float modifVitesse, Vector2 direction, boolean boss) { 
-		this.pos.x = position.x;
+		this.pos.set(position.x, position.y);
 		this.pos.y = position.y;
-		this.dir.x = direction.x * modifVitesse;
-		this.dir.y = direction.y * modifVitesse;
+		this.dir.set(direction.x, direction.y).scl(modifVitesse);
 		this.angle = dir.angle() + 90;
-		System.out.println(dir);
 		if (boss) {
 			BOSSES_LIST.add(this);
 		} else {
@@ -92,8 +72,7 @@ public abstract class EnemyWeapon extends Weapon implements Poolable {
 	}
 	
 	public void init(Vector2 position, float modifVitesse, float angle) {
-		this.pos.x = position.x;
-		this.pos.y = position.y;
+		this.pos.set(position.x, position.y);
 		this.dir.x = 0;
 		this.dir.y = 1 * modifVitesse;
 		dir.rotate(angle);
@@ -103,18 +82,14 @@ public abstract class EnemyWeapon extends Weapon implements Poolable {
 	}
 
 	public void init(Vector2 position, Vector2 direction) {
-		this.pos.x = position.x;
-		this.pos.y = position.y;
-		this.dir.x = direction.x;
-		this.dir.y = direction.y;
+		this.pos.set(position.x, position.y);
+		this.dir.set(direction.x, direction.y);
 		ENEMIES_LIST.add(this);
 	}
 	
 	public void init(Vector2 position, Vector2 direction, float modifVitesse) {
-		this.pos.x = position.x;
-		this.pos.y = position.y;
-		this.dir.x = direction.x * modifVitesse;
-		this.dir.y = direction.y * modifVitesse;
+		this.pos.set(position.x, position.y);
+		this.dir.set(direction.x, direction.y).scl(modifVitesse);
 		ENEMIES_LIST.add(this);
 	}
 

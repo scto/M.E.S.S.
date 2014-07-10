@@ -6,6 +6,7 @@ import assets.SoundMan;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 
 import elements.particular.Player;
 
@@ -86,5 +87,10 @@ public class TWeaponManager extends WeaponManager {
 		if (CSG.profile.NvArmeHantee == 8)
 			return TWeapon.FIRERATETIRLVL8;
 		return TWeapon.FIRERATETIR;		
+	}
+
+	@Override
+	public Color playerColor() {
+		return Color.WHITE;
 	}
 }

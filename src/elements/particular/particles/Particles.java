@@ -314,24 +314,18 @@ public class Particles {
 		BLUESMOKE.add(s);
 	}
 
-	private static float angle = 0;
+	private static float angle = 0, tmpX, tmpY;
 	public static void popOutWeapon(EnemyWeapon w) {
 		angle = 0;
+		tmpX = w.pos.x + w.getDimensions().halfWidth;
+		tmpY = w.pos.y + w.getDimensions().halfHeight;
 		for (int i = 0; i < 10; i++) {
-			SparklesColorOverTime.add(
-					w.pos.x + w.getDimensions().halfWidth,
-					w.pos.y + w.getDimensions().halfHeight,
-					angle,
-					PrecalculatedParticles.colorsOverTimeYellowToGreenLong, Stats.U12);
-			SparklesColorOverTime.add(
-					w.pos.x + w.getDimensions().halfWidth,
-					w.pos.y + w.getDimensions().halfHeight,
-					angle + 18,
-					PrecalculatedParticles.colorsOverTimeBlueLong, Stats.U5);
+			SparklesColorOverTime.add(tmpX, tmpY, angle, PrecalculatedParticles.colorsOverTimeYellowToGreenLong, Stats.U12);
+			SparklesColorOverTime.add(tmpX, tmpY, angle + 18, PrecalculatedParticles.colorsOverTimeBlueLong, Stats.U5);
 			angle += 36;
 		}
 	}
-
+	
 	public static void bomb(Bomb bonusBombe) {
 		DebrisExplosion.bomb(bonusBombe, WHITE_SPARKLES_NOT_MOVING);
 	}
@@ -358,9 +352,8 @@ public class Particles {
 	}
 
 	public static void shot(float x, float y, float angle) {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 10; i++)
 			SparklesColorOverTime.add(x, y, angle + (float)CSG.R.nextGaussian(), PrecalculatedParticles.colorsOverTimeBlue, 0);
-		}
 	}
 	
 }

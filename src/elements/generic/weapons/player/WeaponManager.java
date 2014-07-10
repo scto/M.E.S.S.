@@ -1,5 +1,7 @@
 package elements.generic.weapons.player;
 
+import com.badlogic.gdx.graphics.Color;
+
 import jeu.CSG;
 import jeu.Profil;
 import jeu.mode.EndlessMode;
@@ -41,6 +43,7 @@ public abstract class WeaponManager {
 		return new PinkWeaponManager();
 	}
 
+	public abstract Color playerColor();
 	protected abstract float getCadenceTir();
 	public abstract String getLabel();
 	protected abstract void init();

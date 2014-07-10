@@ -6,6 +6,7 @@ import assets.SoundMan;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 
 import elements.particular.Player;
 
@@ -46,5 +47,10 @@ public class PinkWeaponManager extends WeaponManager {
 	@Override	public String getLabel() {				return PinkWeapon.LABEL;			}
 	@Override	protected float getCadenceTir() {		return PinkWeapon.FIRERATETIR;		}
 	@Override	public int nv() {						return CSG.profile.lvlPinkWeapon;	}
+
+	@Override
+	public Color playerColor() {
+		return Color.GREEN;
+	}
 	
 }

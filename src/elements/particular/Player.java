@@ -8,6 +8,7 @@ import assets.SoundMan;
 import assets.sprites.AnimPlayer;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -85,9 +86,10 @@ public final class Player {
 	
 	public void draw(SpriteBatch batch) {
 		Particles.addThrusterParticles(this);
+		batch.setColor(weapon.playerColor());
 		batch.draw(AnimPlayer.getTexture(), POS.x, POS.y, WIDTH, HEIGHT);
-		
-		shield(batch);
+		shield();
+		batch.setColor(Color.WHITE);
 		if (leftDrone) 	batch.draw(AssetMan.addShip, addX - HALF_WIDTH, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
 		if (rightDrone) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
 		if (leftDrone2) 	batch.draw(AssetMan.addShip, addX - WIDTH, 						addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
@@ -104,7 +106,7 @@ public final class Player {
 		}
 	}
 
-	private void shield(SpriteBatch batch) {
+	private void shield() {
 		if (shield > 0) {
 			bouclierParticules.add(xCenter , yCenter - Stats.u);
 			colorShield();

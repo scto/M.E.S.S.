@@ -5,6 +5,7 @@ import assets.SoundMan;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 
 import elements.particular.Player;
 
@@ -94,4 +95,9 @@ public class FireballManager extends WeaponManager {
 	@Override	public String getLabel() {					return Fireball.LABEL;				}
 	@Override	protected float getCadenceTir() {			return Fireball.FIRERATETIR;		}
 	@Override	public int nv() {							return CSG.profile.NvArmeDeBase;	}
+
+	@Override
+	public Color playerColor() {
+		return Color.CYAN;
+	}
 }

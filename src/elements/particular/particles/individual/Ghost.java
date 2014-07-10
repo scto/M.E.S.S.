@@ -26,7 +26,7 @@ public class Ghost implements Poolable {
 			batch.setColor(1, 1, 1, ghost.alpha);
 			batch.draw(AnimPlayer.TEXTURES[ghost.numero], ghost.x, ghost.y, Player.WIDTH, Player.HEIGHT);
 			ghost.alpha -= 0.048f;
-			if (ghost.alpha <= 0) {
+			if (ghost.alpha <= 0.1f) {
 				ghosts.removeValue(ghost, true);
 				POOL.free(ghost);
 			}

@@ -7,6 +7,7 @@ import assets.SoundMan;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 import elements.particular.Player;
@@ -36,4 +37,9 @@ public class BlueSweepWeaponManager extends WeaponManager {
 	@Override	public int nv() {						return CSG.profile.NvArmeBalayage;			}
 	@Override	protected float getCadenceTir() {		return BlueSweepWeapon.FIRERATETIR;			}
 	public static void update() {						shoot = CSG.profile.NvArmeBalayage * 14;	}
+
+	@Override
+	public Color playerColor() {
+		return Color.BLUE;
+	}
 }

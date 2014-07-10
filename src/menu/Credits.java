@@ -16,7 +16,7 @@ public class Credits {
 											END;
 	private final static String PATCHNOTE = 
 "                                                    "
-+ "PATCHNOTE 0.931 :  Ok it's been a long long time ! I've been very busy but don't worry, I won't drop this project ! In the new version you get new comportments for most of the enemies" + 
++ "PATCHNOTE 0.932 :  New sprite for the player !! I hope you like ! I certaintly do ! Thanks Elsie ! I've changed the colors of some weapons for more consistency." + 
 									 		END;
 	private final String str;
 	
