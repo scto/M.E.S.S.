@@ -22,7 +22,7 @@ public class SpaceInvaderParticle implements Poolable {
 			return new SpaceInvaderParticle();
 		}
 	};
-	private float x, y, a, g, b;
+	private float x, y, a, b;
 	private static float sb = 3;
 	private static boolean upB = true;
 	private final Vector2 dir = new Vector2();
@@ -43,24 +43,14 @@ public class SpaceInvaderParticle implements Poolable {
 			p.y = (e.pos.y + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.y * EndlessMode.deltaDiv3;
 		}
 		p.a = 1;
-		p.g = 1;
-		p.b = sb / (((CSG.R.nextFloat()+1)/2) + 3);
+		p.b = 0.8f;
 		p.clockwise = CSG.R.nextBoolean();
 	}
 
-	private static void colors() {
-		if (upB) 				sb += 0.001f;
-		else 					sb -= 0.001f;
-		if (sb >= 3.99f)		upB = false;
-		else if (sb <= 3.01f)	upB = true;
-	} 
-	
 	public static void act(Array<SpaceInvaderParticle> explosions, SpriteBatch batch) {
-		colors();
 		for (final SpaceInvaderParticle p : explosions) {
-			batch.setColor(0, p.g, p.b, p.a);
+			batch.setColor(0, p.a * 0.9f, p.b, p.a);
 			p.a -= 0.055f;
-			p.g *= 0.9f;
 			batch.draw(AssetMan.dust, p.x, p.y, SpaceInvaderWeapon.particle, SpaceInvaderWeapon.particle);
 
 			p.x += p.dir.x * EndlessMode.delta;

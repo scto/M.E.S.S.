@@ -29,6 +29,7 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 		pos.set(posX, posY);
 		PLAYER_LIST.add(this);
 		dir.set(0, 1).scl(Stats.V_ARME_HANTEE);
+		Particles.shot(pos.x + DIMENSIONS.halfWidth, pos.y + DIMENSIONS.halfHeight, dir.angle());
 	}
 
 	@Override

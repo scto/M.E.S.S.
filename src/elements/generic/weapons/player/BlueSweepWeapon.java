@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 
 import elements.generic.components.Dimensions;
+import elements.particular.particles.Particles;
 import elements.particular.particles.individual.weapon.BlueSweepParticle;
 
 public class BlueSweepWeapon extends PlayerWeapon {
@@ -20,6 +21,7 @@ public class BlueSweepWeapon extends PlayerWeapon {
 		pos.set(posX, posY);
 		dir.set(x, y);
 		PLAYER_LIST.add(this);
+		Particles.shot(pos.x + DIMENSIONS.halfWidth, pos.y + DIMENSIONS.halfHeight, dir.angle());
 	}
 
 	@Override	public void displayOnScreen(SpriteBatch batch) {		BlueSweepParticle.add(this);						}

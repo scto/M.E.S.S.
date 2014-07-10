@@ -34,7 +34,7 @@ public class Profil implements Serializable{
 	private static final String STR_MANUAL_BONUS = "particules", STR_INTENSITE_BLOOM = "intensitebloom", BFG = "bfg", STR_ARME_SUN = "pointculture", STR_SPACE_INVADER_WEAPON = "spaceInvader", STR_SCREENSHAKE = "screens";
 	private static final float STEP_VOL = .1f;
 	// -- -- initialisation des champs
-	public short cadenceAdd = 1, typeControle = CSG.CONTROLE_TOUCH_RELATIVE, NvArmeDeBase = 2, NvArmeBalayage = 2, lvlPinkWeapon = 2, NvArmeHantee = 2, NvArmeSun = 2, NvSpaceInvadersWeapon = 2;
+	public int cadenceAdd = 1, typeControle = CSG.CONTROLE_TOUCH_RELATIVE, NvArmeDeBase = 2, NvArmeBalayage = 2, lvlPinkWeapon = 2, NvArmeHantee = 2, NvArmeSun = 2, NvSpaceInvadersWeapon = 2;
 	public int xpDispo;
 	public float weaponVolume = 0.5f, musicVolume = 0.5f, effectsVolume = 0.5f, intensiteBloom = 2.1f, sensitivity = 1.5f;
 	public String armeSelectionnee;

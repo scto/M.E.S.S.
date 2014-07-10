@@ -92,7 +92,7 @@ public class ChoixDifficulte extends AbstractScreen {
 		for (WeaponButton wb : weaponButtons) 
 			wb.draw(CSG.batch);
 		CSG.end();
-		EndlessMode.majDeltas();
+		EndlessMode.majDeltas(true);
 		EndlessMode.fps = Gdx.graphics.getFramesPerSecond();
 		EndlessMode.perf = EndlessMode.fps / 6;
 		if (Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.ESCAPE)) 

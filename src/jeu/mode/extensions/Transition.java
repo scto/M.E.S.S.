@@ -1,6 +1,8 @@
 
 package jeu.mode.extensions;
 
+import com.badlogic.gdx.Gdx;
+
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
 
@@ -20,7 +22,7 @@ public class Transition {
 			movementTransition = false;
 		}
 		EndlessMode.delta /= facteurTransition;
-		EndlessMode.majDeltas();
+		EndlessMode.majDeltas(Gdx.input.isTouched());
 	}
 
 	public void activate(float length) {

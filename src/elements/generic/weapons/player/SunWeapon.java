@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.components.Dimensions;
 import elements.particular.Player;
+import elements.particular.particles.Particles;
 
 public class SunWeapon extends PlayerWeapon implements Poolable {
 
@@ -43,5 +44,6 @@ public class SunWeapon extends PlayerWeapon implements Poolable {
 		s.dir.set(dir.x, dir.y).scl(Stats.SUN_SPEED);
 		s.pos.set((Player.xCenter) - DIMENSIONS.halfWidth, (Player.yCenter) + Player.HALF_HEIGHT);
 		PLAYER_LIST.add(s);
+		Particles.shot(s.pos.x + DIMENSIONS.halfWidth, s.pos.y + DIMENSIONS.halfHeight, dir.angle());
 	}
 }

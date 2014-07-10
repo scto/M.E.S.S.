@@ -184,7 +184,7 @@ public class CSG extends Game implements ApplicationListener {
 
 	public static void begin(float delta) {
 		EndlessMode.delta = delta;
-		EndlessMode.majDeltas();
+		EndlessMode.majDeltas(true);
 		EndlessMode.now += delta;
 		if (CSG.profile.bloom)
 			bloom.capture();

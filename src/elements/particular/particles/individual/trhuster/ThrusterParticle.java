@@ -17,7 +17,7 @@ import elements.particular.particles.Particles;
 
 public class ThrusterParticle implements Poolable {
 	
-	private static final float WIDTH = CSG.screenWidth / 75, HALF_WIDTH = WIDTH / 2, OFFSET_X = Player.HALF_WIDTH - WIDTH + HALF_WIDTH/2;
+	private static final float WIDTH = CSG.screenWidth / 75, HALF_WIDTH = WIDTH / 2;
 	public static final Pool<ThrusterParticle> POOL = new Pool<ThrusterParticle>(Particles.MAX_THRUSTER) {
 		@Override
 		protected ThrusterParticle newObject() {
@@ -32,11 +32,11 @@ public class ThrusterParticle implements Poolable {
 		red = r.nextFloat();
 		diminish = 6f + (r.nextFloat() * 6f);
 		vitesseY =  ((r.nextFloat()+.5f) * -Stats.THRUSTER) - CSG.QUATR_HEIGHT;
-		vitesseX = (float) (CSG.R.nextGaussian() * (CSG.screenTierWidth/2));
+		vitesseX = (float) (CSG.R.nextGaussian() * (CSG.screenTierWidth * 0.6f));
 	}
 
 	public ThrusterParticle init(Player v) {
-		x = (Player.POS.x + OFFSET_X) + (r.nextFloat() * HALF_WIDTH);
+		x = (float) (Player.xCenter + (CSG.R.nextGaussian() * WIDTH)) - HALF_WIDTH;
 		y = Player.POS.y - (HALF_WIDTH + (WIDTH * r.nextFloat()));
 		alpha = (4 + CSG.R.nextFloat()) / 5;
 		return this;

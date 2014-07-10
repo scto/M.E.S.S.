@@ -39,9 +39,9 @@ public final class Player {
 	public static boolean leftDrone = false, rightDrone = false, leftDrone2 = false, rightDrone2 = false, alterner = true;
 	public static int shield = 0;
 	public static float alphaShield = .5f, tpsBouclierHs = 0;
-	private float r = 1, g = 1, b = 1, shotTime = 0;
+	private float shotTime = 0;
 	private boolean sensAlpha = true;
-	private int addShotNbr = 0, cpt = 0;
+	private int addShotNbr = 0;
 //	private PointLight light = new PointLight(CSG.rayHandler, 32);
 	
 	public Player() {
@@ -85,19 +85,7 @@ public final class Player {
 	
 	public void draw(SpriteBatch batch) {
 		Particles.addThrusterParticles(this);
-		if (CSG.alternateGraphics) {
-			if (++cpt > 60) {
-				cpt = 0;
-				r = CSG.R.nextFloat();
-				g = CSG.R.nextFloat();
-				b = CSG.R.nextFloat();
-			}
-			batch.setColor(r,g,b,1);
-			batch.draw(AssetMan.player, POS.x, POS.y, WIDTH, HEIGHT);
-			batch.setColor(AssetMan.WHITE);
-		} else {
-			batch.draw(AnimPlayer.getTexture(), POS.x, POS.y, WIDTH, HEIGHT);
-		}
+		batch.draw(AnimPlayer.getTexture(), POS.x, POS.y, WIDTH, HEIGHT);
 		
 		shield(batch);
 		if (leftDrone) 	batch.draw(AssetMan.addShip, addX - HALF_WIDTH, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);

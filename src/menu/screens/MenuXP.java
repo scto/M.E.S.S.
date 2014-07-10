@@ -23,13 +23,8 @@ public class MenuXP extends AbstractScreen{
 	private Button boutonUpgrade, boutonCadence, boutonUndo;
 	private final Button boutonXP;
 	private final JeuBackground jeu = new JeuBackground();
-	private static short prevNvArmeDeBase = CSG.profile.NvArmeDeBase;
-	private static short prevNvArmeBalayage = CSG.profile.NvArmeBalayage;
-	private static short prevNvArmeHantee = CSG.profile.NvArmeHantee;
-	private static short prevNvArmeTrois = CSG.profile.lvlPinkWeapon;
-	private static short prevNvArmeSun = CSG.profile.NvArmeSun;
-	private static short prevVitesse = CSG.profile.cadenceAdd;
-	private static int prevXp = CSG.profile.xpDispo;
+	private static int prevNvArmeDeBase = CSG.profile.NvArmeDeBase, prevNvArmeBalayage = CSG.profile.NvArmeBalayage, prevNvArmeHantee = CSG.profile.NvArmeHantee, prevNvArmeTrois = CSG.profile.lvlPinkWeapon,
+			prevNvArmeSun = CSG.profile.NvArmeSun, prevVitesse = CSG.profile.cadenceAdd, prevXp = CSG.profile.xpDispo;
 
 	public MenuXP(final Game game) {
 		super(game);
@@ -83,8 +78,7 @@ public class MenuXP extends AbstractScreen{
 					}}, false);
 		updateTexteCadence();
 		ajout(boutonCadence);
-		Player.POS.y = CSG.SCREEN_HEIGHT / 3;
-		Player.POS.x = (CSG.screenWidth / 2) - Player.HALF_WIDTH; 
+		Player.POS.set(CSG.SCREEN_HEIGHT / 3, (CSG.screenWidth / 2) - Player.HALF_WIDTH); 
 		Player.addDrone();
 		Player.addDrone();
 		Player.addDrone();
@@ -97,9 +91,8 @@ public class MenuXP extends AbstractScreen{
 		if (CSG.R.nextBoolean())
 			EndlessMode.explosions = 1;
 		CSG.begin(delta);
-		if (Gdx.input.isKeyPressed(Keys.BACK)) {
+		if (Gdx.input.isKeyPressed(Keys.BACK))
 			keyBackPressed();
-		}
 		CSG.batch.begin();
 		Particles.background(CSG.batch);
 		jeu.render(CSG.batch, delta);
@@ -108,11 +101,10 @@ public class MenuXP extends AbstractScreen{
 				buttons.get(i).draw(CSG.batch);
 		CSG.menuFontSmall.draw(CSG.batch, "Weapon level : " + CSG.profile.getArmeSelectionnee().nv(), 4, 4 + CSG.menuFontSmall.getBounds("W").height);
 		CSG.end();
-		EndlessMode.majDeltas();
+		EndlessMode.majDeltas(true);
 		EndlessMode.alternate = !EndlessMode.alternate;
 		EndlessMode.fps = Gdx.graphics.getFramesPerSecond();
 		EndlessMode.perf = EndlessMode.fps / 6;
-//		Particles.background(CSG.batch);
 	}
 	
 	@Override
@@ -128,10 +120,8 @@ public class MenuXP extends AbstractScreen{
 				public void onClick() {		undo();		}
 			}, false);
 			ajout(boutonUndo);
-		} else {
+		} else 
 			ajout(boutonUndo);
-		}
-			
 	}
 
 	private void updateTexteCadence() {

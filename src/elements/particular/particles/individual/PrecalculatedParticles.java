@@ -19,7 +19,7 @@ public class PrecalculatedParticles {
 	public final static float[] widthsFireballParticules = initWidths(Stats.u, 0.75f, Fireball.DIMENSIONS.width);
 	public final static float[] halfWidthsFireballParticules = CSG.getDifferences(widthsFireballParticules);
 	public final static float[] colorsFireball = initColors(widthsFireballParticules.length, 1, 0.9f, 0);
-	public final static float[] colorsPinkWeapon = initColors(7, 4, 1, 1);
+	public final static float[] colorsPinkWeapon = initColors(7, 4, 1, 0.3f);
 	public static final float[] halfWidths = CSG.getDifferences(widths);
 	public static final float[] dirY = initDirY(widths);
 	// not evolving

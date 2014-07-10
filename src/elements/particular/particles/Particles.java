@@ -34,7 +34,6 @@ import elements.particular.particles.individual.smoke.BlueSmoke;
 import elements.particular.particles.individual.smoke.MovingSmoke;
 import elements.particular.particles.individual.smoke.Smoke;
 import elements.particular.particles.individual.trhuster.ThrusterParticle;
-import elements.particular.particles.individual.trhuster.ThrusterSideParticle;
 import elements.particular.particles.individual.weapon.BlueSweepParticle;
 import elements.particular.particles.individual.weapon.FireballParticle;
 import elements.particular.particles.individual.weapon.GreenAddParticle;
@@ -65,7 +64,6 @@ public class Particles {
 	private static final Array<FireballParticle> FIREBALL = new Array<FireballParticle>();
 	private static final Array<TWeaponParticles> T_WEAPON = new Array<TWeaponParticles>();
 	private static final Array<ThrusterParticle> THRUSTER = new Array<ThrusterParticle>(false, MAX_THRUSTER);
-	private static final Array<ThrusterSideParticle> THRUSTER_S = new Array<ThrusterSideParticle>(30);
 	private static final Array<Ghost> GHOSTS = new Array<Ghost>(false, 20);
 	private static final Array<Smoke> SMOKE = new Array<Smoke>(false, 20);
 	private static final Array<MovingSmoke> MOVING_SMOKE = new Array<MovingSmoke>(false, 20);
@@ -98,7 +96,6 @@ public class Particles {
 			explosionImpactBullet = 0;
 	public static void draw(SpriteBatch batch) {
 		ThrusterParticle.act(THRUSTER, batch);
-		ThrusterSideParticle.act(THRUSTER_S, batch);
 		PinkParticle.act(PINK_WEAPON, batch);
 		SpaceInvaderParticle.act(SPACE_INVADER, batch);
 		TWeaponParticles.act(T_WEAPON, batch);
@@ -170,14 +167,15 @@ public class Particles {
 	}
 
 	public static void addThrusterParticles(Player v) {
+		if (THRUSTER.size > 1000)
+			return;
 		if (yShip-1 < Player.POS.y) {
-			THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-			THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-			THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-			if (yShip+1 < Player.POS.y) {
+			for (int i = 0; i < 10; i++)
+				THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
+
+			if (yShip+1 < Player.POS.y)
 				for (int i = 0; i < EndlessMode.fps; i++)
 					THRUSTER.add(ThrusterParticle.POOL.obtain().init(v));
-			}
 		}
 		yShip = Player.POS.y;
 	}
@@ -189,7 +187,6 @@ public class Particles {
 		DebrisExplosion.clear(WHITE_SPARKLES_NOT_MOVING);
 		PinkParticle.clear(PINK_WEAPON);
 		ThrusterParticle.clear(THRUSTER);
-		ThrusterSideParticle.clear(THRUSTER_S);
 		TWeaponParticles.clear(T_WEAPON);
 		SpaceInvaderParticle.clear(SPACE_INVADER);
 		FireballParticle.clear(FIREBALL);
@@ -356,8 +353,14 @@ public class Particles {
 
 	public static int getNombreParticles() {
 		return DUST.size + STAR.size + EXPLOSIONS.size + EXPLOSION_COLOR_OVER_TIME.size + WHITE_SPARKLES_NOT_MOVING.size + EXPLOSIONS_IMPACT.size +
-				EXPLOSION_IMPACT_BULLET.size + COLOR_OVER_TIME.size + COLOR_OVER_TIME_FOREGROUND.size  + ADD.size +	FIREBALL.size + T_WEAPON.size + THRUSTER.size + THRUSTER_S.size +
+				EXPLOSION_IMPACT_BULLET.size + COLOR_OVER_TIME.size + COLOR_OVER_TIME_FOREGROUND.size  + ADD.size +	FIREBALL.size + T_WEAPON.size + THRUSTER.size +
 				GHOSTS.size + SMOKE.size + MOVING_SMOKE.size + BLUESMOKE.size + SUN_WEAPON.size + PINK_WEAPON.size + BLUE_SWEEP_WEAPON.size + SPACE_INVADER.size + TIME.size;
+	}
+
+	public static void shot(float x, float y, float angle) {
+		for (int i = 0; i < 10; i++) {
+			SparklesColorOverTime.add(x, y, angle + (float)CSG.R.nextGaussian(), PrecalculatedParticles.colorsOverTimeBlue, 0);
+		}
 	}
 	
 }

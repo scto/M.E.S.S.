@@ -186,7 +186,7 @@ public class EndlessMode implements Screen {
 					EndlessMode.delta = delta / 7;
 				if (CSG.profile.isFirstTime()) 
 					tuto.act(batch);
-				majDeltas();
+				majDeltas(Gdx.input.isTouched());
 			}
 //			CSG.world.step(EndlessMode.delta, 0, 0);
 			// S I   O N   A   P A S   E N C O R E   P E R D U
@@ -271,9 +271,9 @@ public class EndlessMode implements Screen {
 		}
 	}
 
-	public static void majDeltas() {
+	public static void majDeltas(boolean touched) {
 		deltaPlusExplosion = EndlessMode.delta + explosions;
-		if (!Gdx.input.isTouched()) {
+		if (!touched) {
 			delta /= 5;
 			drawMenu = true;
 		} else {
@@ -459,9 +459,6 @@ public class EndlessMode implements Screen {
 			
 			if (nbBombes > 0) batch.draw(AssetMan.bomb, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
 			else batch.draw(AssetMan.bombGrey, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
-			
-			batch.setColor(Color.BLUE);
-			batch.draw(AssetMan.debris, (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			
 		} else if (!choosen) {
 //			drawMenu = true;
