@@ -33,7 +33,6 @@ public class BlueSweepWeaponManager extends WeaponManager {
 	}
 
 	@Override	public String getLabel() {				return BlueSweepWeapon.LABEL;				}
-	@Override	public float[] getColors() {			return BlueSweepWeapon.COLORS;				}
 	@Override	public int nv() {						return CSG.profile.NvArmeBalayage;			}
 	@Override	protected float getCadenceTir() {		return BlueSweepWeapon.FIRERATETIR;			}
 	public static void update() {						shoot = CSG.profile.NvArmeBalayage * 14;	}

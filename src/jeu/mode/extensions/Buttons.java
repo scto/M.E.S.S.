@@ -16,7 +16,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import elements.generic.enemies.Enemy;
 import elements.particular.Player;
-import elements.particular.particles.Particles;
 
 public class Buttons {
 

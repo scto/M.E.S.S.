@@ -4,7 +4,6 @@ import jeu.Stats;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import elements.generic.enemies.individual.lvl1.ShooterFrag;
 import elements.generic.enemies.individual.lvl3.ShooterFrag3;
 
 

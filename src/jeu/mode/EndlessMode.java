@@ -19,6 +19,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -272,6 +273,12 @@ public class EndlessMode implements Screen {
 
 	public static void majDeltas() {
 		deltaPlusExplosion = EndlessMode.delta + explosions;
+		if (!Gdx.input.isTouched()) {
+			delta /= 5;
+			drawMenu = true;
+		} else {
+			drawMenu = false;
+		}
 		delta15 = delta * 15;
 		deltaDiv3 = delta / 3;
 		deltaDiv2 = delta / 2;
@@ -450,11 +457,12 @@ public class EndlessMode implements Screen {
 			if (nbBonusStop > 0 && !triggerStop) batch.draw(AssetMan.stopBonus,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			else batch.draw(AssetMan.stopBonusGrey,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			
-//			if (chronoRalenshot > .01f) batch.draw(AssetMan.temps, menuX + (cam.position.x-CSG.HALF_WIDTH_ECRAN) - VaisseauJoueur.HALF_WIDTH, menuY + Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
-//			else batch.draw(AssetMan.tempsGris, menuX + (cam.position.x-CSG.HALF_WIDTH_ECRAN) - VaisseauJoueur.HALF_WIDTH, menuY + Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
-			
 			if (nbBombes > 0) batch.draw(AssetMan.bomb, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
 			else batch.draw(AssetMan.bombGrey, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
+			
+			batch.setColor(Color.BLUE);
+			batch.draw(AssetMan.debris, (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
+			
 		} else if (!choosen) {
 //			drawMenu = true;
 			menuX = Gdx.input.getX();
@@ -471,15 +479,18 @@ public class EndlessMode implements Screen {
 
 	private static void justeTouche() {
 		if (drawMenu) { // ---- SELECTION
-			if (nbBonusStop > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.SCREEN_HEIGHT - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
+			drawMenu = false;
+			
+			if (nbBonusStop > 0 &&
+					Physic.isPointInRect(Gdx.input.getX(), CSG.SCREEN_HEIGHT - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
 				willUseStopBonus = true;
 				choosen = true;
-			} else if (nbBombes > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.SCREEN_HEIGHT - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
+			} else if (nbBombes > 0 &&
+					Physic.isPointInRect(Gdx.input.getX(), CSG.SCREEN_HEIGHT - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
 				Enemy.bombe();
 				nbBombes--;
 				choosen = true;
 			}
-			drawMenu = false;
 		} else { 		// ---- REPRISE JEU
 			choosen = false;
 		}

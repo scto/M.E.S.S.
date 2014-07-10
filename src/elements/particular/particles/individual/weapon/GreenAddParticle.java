@@ -10,6 +10,8 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.weapons.player.ArmeAdd;
+import elements.generic.weapons.player.PlayerWeapon;
+import elements.particular.Player;
 
 public class GreenAddParticle implements Poolable {
 	
@@ -21,7 +23,7 @@ public class GreenAddParticle implements Poolable {
 	};
 	private static final int WIDTH = (int) ArmeAdd.DIMENSIONS.width;
 	private float w, x, y;
-	public static float COLOR = ArmeAdd.COLORS[CSG.R.nextInt(ArmeAdd.COLORS.length)];
+	public static float COLOR = PlayerWeapon.COLORS[CSG.R.nextInt(PlayerWeapon.COLORS.length)];
 	private static float tmp, half;
 	
 	@Override

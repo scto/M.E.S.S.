@@ -1,7 +1,6 @@
 package elements.generic.enemies.individual.lvl3;
 
 import jeu.Stats;
-import jeu.mode.EndlessMode;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.utils.Pool;

@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.components.Dimensions;
 import elements.particular.particles.Particles;
-import elements.particular.particles.individual.PrecalculatedParticles;
 
 public class TWeapon extends PlayerWeapon implements Poolable{
 	
@@ -23,48 +22,18 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 	public static final Pool<TWeapon> POOL = new Pool<TWeapon>(30) {		protected TWeapon newObject() {			return new TWeapon();		}	};
 	private static boolean alterner = false;
 	public float angle;
-	public static final float[] COLORS = {
-		AssetMan.convertARGB(1, 0, 84f  / 255f, 73f  / 255f),
-		AssetMan.convertARGB(1, 0, 162f / 255f, 140f / 255f),
-		AssetMan.convertARGB(1, 0, 141f / 255f, 239f / 255f),
-		AssetMan.convertARGB(1, 0, 218f / 255f, 228f / 255f),
-		AssetMan.convertARGB(1, 0, 89f  / 255f, 252f / 255f),
-		
-		AssetMan.convertARGB(1, 0, 94f  / 255f, 73f  / 255f),
-		AssetMan.convertARGB(1, 0, 172f / 255f, 140f / 255f),
-		AssetMan.convertARGB(1, 0, 151f / 255f, 239f / 255f),
-		AssetMan.convertARGB(1, 0, 228f / 255f, 228f / 255f),
-		AssetMan.convertARGB(1, 0, 99f  / 255f, 252f / 255f),
-		
-		AssetMan.convertARGB(1, 0, 84f  / 255f, 83f  / 255f),
-		AssetMan.convertARGB(1, 0, 162f / 255f, 150f / 255f),
-		AssetMan.convertARGB(1, 0, 141f / 255f, 249f / 255f),
-		AssetMan.convertARGB(1, 0, 218f / 255f, 238f / 255f),
-		AssetMan.convertARGB(1, 0, 99f  / 255f, 255f / 255f),
-		
-		AssetMan.convertARGB(1, 0, 94f  / 255f, 83f  / 255f),
-		AssetMan.convertARGB(1, 0, 172f / 255f, 150f / 255f),
-		AssetMan.convertARGB(1, 0, 151f / 255f, 249f / 255f),
-		AssetMan.convertARGB(1, 0, 228f / 255f, 238f / 255f),
-		AssetMan.convertARGB(1, 0, 109f / 255f, 255f / 255f),
-		
-		AssetMan.convertARGB(1, 0, 62f  / 255f, 254f / 255f)};
+
 	private static final float LIMITE = (CSG.SCREEN_HEIGHT / 4) / Stats.V_ARME_HANTEE;
 
 	public void init(float posX, float posY) {
-		pos.x = posX;
-		pos.y = posY;
+		pos.set(posX, posY);
 		PLAYER_LIST.add(this);
-		dir.x = 0;
-		dir.y = 1;
-		dir.y *= Stats.V_ARME_HANTEE;
+		dir.set(0, 1).scl(Stats.V_ARME_HANTEE);
 	}
 
 	@Override
 	public void reset() {
-		dir.x = 0;
-		dir.y = 1;
-		dir.y *= Stats.V_ARME_HANTEE;
+		dir.set(0, 1).scl(Stats.V_ARME_HANTEE);
 		super.reset();
 	}
 
@@ -91,8 +60,6 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	public void free() {					POOL.free(this);									}
-	@Override	public float getColor() {				return COLORS[R.nextInt(COLORS.length)];			}
-	@Override	public float[] getColors() {			return PrecalculatedParticles.colorsOverTimeBlue;	}
 	@Override	public boolean isInGoodShape() {		return false;	}
 	@Override	public Animations getAnimation() {		return null;	}
 }

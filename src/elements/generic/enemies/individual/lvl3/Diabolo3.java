@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.enemies.individual.lvl1.Diabolo;
-import jeu.CSG;
 import jeu.Stats;
 
 public class Diabolo3 extends Diabolo {

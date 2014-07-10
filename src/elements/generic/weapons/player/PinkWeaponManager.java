@@ -44,7 +44,6 @@ public class PinkWeaponManager extends WeaponManager {
 	}
 
 	@Override	public String getLabel() {				return PinkWeapon.LABEL;			}
-	@Override	public float[] getColors() {			return PinkWeapon.COLORS;			}
 	@Override	protected float getCadenceTir() {		return PinkWeapon.FIRERATETIR;		}
 	@Override	public int nv() {						return CSG.profile.lvlPinkWeapon;	}
 	

@@ -80,7 +80,6 @@ public class TWeaponManager extends WeaponManager {
 	}
 
 	@Override	public String getLabel() {				return TWeapon.LABEL;				}
-	@Override	public float[] getColors() {			return TWeapon.COLORS;				}
 	@Override	public int nv() {						return CSG.profile.NvArmeHantee;	}
 	@Override
 	protected float getCadenceTir() {

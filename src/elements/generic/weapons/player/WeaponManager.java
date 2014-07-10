@@ -9,7 +9,7 @@ public abstract class WeaponManager {
 	
 	public float init(float nextShot) {
 		if (EndlessMode.now > nextShot) {
-			if (++Weapon.color >= TWeapon.COLORS.length)
+			if (++Weapon.color >= PlayerWeapon.COLORS.length)
 				Weapon.color = 0;
 			init();
 			return EndlessMode.now + getCadenceTir();
@@ -42,7 +42,6 @@ public abstract class WeaponManager {
 	}
 
 	protected abstract float getCadenceTir();
-	public abstract float[] getColors();
 	public abstract String getLabel();
 	protected abstract void init();
 	public abstract int nv();
