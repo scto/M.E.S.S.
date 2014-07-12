@@ -2,12 +2,14 @@ package elements.generic.weapons.player;
 
 import jeu.CSG;
 import jeu.Stats;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.components.Dimensions;
 import elements.particular.particles.Particles;
+import elements.particular.particles.individual.explosions.SparklesColorOverTime;
 
 /**
  * Arme de base qui fait une boule de feu
@@ -33,7 +35,7 @@ public class Fireball extends PlayerWeapon implements Poolable{
 	public void init(float posX, float posY) {
 		pos.set(posX, posY);
 		PLAYER_LIST.add(this);
-		Particles.shot(pos.x + DIMENSIONS.halfWidth, pos.y + DIMENSIONS.halfHeight, dir.angle());
+		Particles.shot(pos.x - Stats.u, pos.y + DIMENSIONS.halfHeight, 90);
 	}
 
 	@Override	public void displayOnScreen(SpriteBatch batch) {

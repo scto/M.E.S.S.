@@ -21,7 +21,7 @@ public class BlueSweepWeapon extends PlayerWeapon {
 		pos.set(posX, posY);
 		dir.set(x, y);
 		PLAYER_LIST.add(this);
-		Particles.shot(pos.x + DIMENSIONS.halfWidth, pos.y + DIMENSIONS.halfHeight, dir.angle());
+		Particles.shot(pos.x - DIMENSIONS.width, pos.y + DIMENSIONS.halfHeight, dir.angle());
 	}
 
 	@Override	public void displayOnScreen(SpriteBatch batch) {		BlueSweepParticle.add(this);						}

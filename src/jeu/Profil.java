@@ -61,7 +61,7 @@ public class Profil implements Serializable{
 		weaponVolume = effectsVolume / 3;
 		musicVolume = 1;
 		bloom = true; // Provoque dans de rares cas des bugs d'affichages
-		armeSelectionnee = PinkWeapon.LABEL;
+		armeSelectionnee = Fireball.LABEL;
 		typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
 		intensiteBloom = 2.4f;
 		premiereFois = true;

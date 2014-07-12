@@ -84,7 +84,7 @@ public class Particles {
 	 * @param batch
 	 */
 	public static void background(SpriteBatch batch) {
-		batch.draw(AssetMan.background, -CSG.DIXIEME_WIDTH, -CSG.HEIGHT_DIV10, CSG.gameZoneWidth + CSG.DIXIEME_WIDTH, CSG.SCREEN_HEIGHT + CSG.HEIGHT_DIV10);
+		batch.draw(AssetMan.background, -CSG.DIXIEME_WIDTH *2, -CSG.HEIGHT_DIV10, CSG.gameZoneWidth + CSG.DIXIEME_WIDTH*3, CSG.SCREEN_HEIGHT + CSG.HEIGHT_DIV10);
 		Star.act(batch, STAR);
 		SparklesColorOverTime.act(COLOR_OVER_TIME, batch);
 		Explosion.act(EXPLOSIONS, batch);
@@ -352,8 +352,8 @@ public class Particles {
 	}
 
 	public static void shot(float x, float y, float angle) {
-		for (int i = 0; i < 10; i++)
-			SparklesColorOverTime.add(x, y, angle + (float)CSG.R.nextGaussian(), PrecalculatedParticles.colorsOverTimeBlue, 0);
+		for (int i = 0; i < 2; i++)
+			SparklesColorOverTime.add(x, y, angle + (float)CSG.R.nextGaussian() * 25, PrecalculatedParticles.colorsOverTimeMuzzle, (Stats.U50 + (Stats.U270 * CSG.R.nextFloat())) * 0.75f );
 	}
 	
 }

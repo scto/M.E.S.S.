@@ -45,6 +45,5 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 		pos.set(x, y);
 		PLAYER_LIST.add(this);
 		dir.set(0, Stats.V_ARME_SPACE_INVADER + (CSG.profile.NvSpaceInvadersWeapon * CSG.HEIGHT_DIV20));
-		Particles.shot(pos.x + DIMENSIONS.halfWidth, pos.y + DIMENSIONS.halfHeight, dir.angle());
 	}
 }

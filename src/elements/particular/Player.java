@@ -24,7 +24,7 @@ import elements.particular.particles.individual.explosions.Explosion;
 public final class Player {
 
 	public static final int WIDTH = (int) Stats.WIDTH_JOUEUR, HALF_WIDTH = WIDTH/2, WIDTH_ADD = (int) (WIDTH/1.5f), HALF_WIDTH_ADD = WIDTH_ADD/2, WIDTH_DIV_10 = WIDTH / 10,
-		HEIGHT = (int) ((float)WIDTH * 1.2f), HALF_HEIGHT = HEIGHT / 2, HEIGHT_MAX_ADD = HEIGHT + HALF_HEIGHT, HALF_HEIGHT_ADD = HEIGHT / 8, HEIGHT_DIV4 = HEIGHT / 4, HEIGHT_DIV8 = HEIGHT/8,
+		HEIGHT = (int) ((float)WIDTH * 1.5f), HALF_HEIGHT = HEIGHT / 2, HEIGHT_MAX_ADD = HEIGHT + HALF_HEIGHT, HALF_HEIGHT_ADD = HEIGHT / 8, HEIGHT_DIV4 = HEIGHT / 4, HEIGHT_DIV8 = HEIGHT/8,
 		DECALAGE_ADD = WIDTH + HALF_WIDTH - WIDTH_ADD,
 		DECALAGE_TIR_ADD_X_GAUCHE = (int) (-HALF_WIDTH - HALF_WIDTH_ADD + ArmeAdd.DIMENSIONS.halfWidth),
 		DECALAGE_TIR_ADD_X_DROITE = (int) (DECALAGE_ADD - HALF_WIDTH_ADD + ArmeAdd.DIMENSIONS.halfWidth),
@@ -86,10 +86,8 @@ public final class Player {
 	
 	public void draw(SpriteBatch batch) {
 		Particles.addThrusterParticles(this);
-		batch.setColor(weapon.playerColor());
 		batch.draw(AnimPlayer.getTexture(), POS.x, POS.y, WIDTH, HEIGHT);
 		shield();
-		batch.setColor(Color.WHITE);
 		if (leftDrone) 	batch.draw(AssetMan.addShip, addX - HALF_WIDTH, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
 		if (rightDrone) 	batch.draw(AssetMan.addShip, addX + DECALAGE_ADD, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAddDroite, false);
 		if (leftDrone2) 	batch.draw(AssetMan.addShip, addX - WIDTH, 						addY - HEIGHT, 		HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);

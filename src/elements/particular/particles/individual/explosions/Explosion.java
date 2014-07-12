@@ -104,8 +104,8 @@ public class Explosion implements Poolable {
 		x = (e.pos.x + (e.getDimensions().width * CSG.R.nextFloat()) );
 		y = (e.pos.y + (e.getDimensions().height * CSG.R.nextFloat()) );
 
-		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.dir.x * CSG.R.nextFloat());
-		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.dir.y * CSG.R.nextFloat());
+		speedY = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.dir.y * CSG.R.nextFloat());
+		speedX = (float) (((CSG.R.nextGaussian()) * Stats.V_PARTICLE_EXPLOSION_SLOW) + e.dir.x * CSG.R.nextFloat());
 		
 		initWidthTtlColor(possibleColors);
 		return this;

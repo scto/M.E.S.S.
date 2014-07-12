@@ -35,6 +35,8 @@ public class PrecalculatedParticles {
 	
 	private static final float stepColorsOverTime = 0.065f;
 	public static final float[]
+			colorsOverTimeMuzzle = initAlphasBlue(stepColorsOverTime * 100, 0.15f, true),
+			
 			colorsOverTimeRed = initAlphasRed(stepColorsOverTime, 0.15f, true),
 			colorsOverTimeBlue = initAlphasBlue(stepColorsOverTime, 0.15f, true),
 			colorsOverTimeYellowToGreen = initAlphasYellowToGreen(stepColorsOverTime, 0.15f, true),
@@ -132,7 +134,7 @@ public class PrecalculatedParticles {
 			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.25f));
 		}
 		while (alpha > min) {
-			tmp.add(AssetMan.convertARGB(alpha, alpha, 1, 0.25f));
+			tmp.add(AssetMan.convertARGB(alpha, Math.min(1, alpha*2), 1, 0.25f));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);
@@ -163,7 +165,7 @@ public class PrecalculatedParticles {
 			tmp.add(AssetMan.convertARGB(1, 0.25f, 1, 1));
 		}
 		while (alpha > min) {
-			tmp.add(AssetMan.convertARGB(alpha, 0.25f, alpha, 1));
+			tmp.add(AssetMan.convertARGB(alpha, 0.25f, Math.min(1, alpha*2), 1));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);
@@ -178,7 +180,7 @@ public class PrecalculatedParticles {
 			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.25f));
 		}
 		while (alpha > min) {
-			tmp.add(AssetMan.convertARGB(alpha, 1, alpha, 0.05f));
+			tmp.add(AssetMan.convertARGB(alpha, 1, Math.min(1, alpha*2), 0.05f));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);

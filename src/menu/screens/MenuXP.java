@@ -78,7 +78,7 @@ public class MenuXP extends AbstractScreen{
 					}}, false);
 		updateTexteCadence();
 		ajout(boutonCadence);
-		Player.POS.set(CSG.SCREEN_HEIGHT / 3, (CSG.screenWidth / 2) - Player.HALF_WIDTH); 
+		Player.POS.set((CSG.screenWidth / 2) - Player.HALF_WIDTH, CSG.SCREEN_HEIGHT / 3); 
 		Player.addDrone();
 		Player.addDrone();
 		Player.addDrone();

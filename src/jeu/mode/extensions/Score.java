@@ -74,7 +74,6 @@ public class Score {
 			CSG.scoreFont.setColor(0, rScore, 1, 1);
 		}
 		CSG.scoreFont.setScale(CSG.originalScoreFontScale + rScore/2);
-//		CSG.outlineScoreFont.setScale((CSG.originalScoreFontScale + rScore) * 1.05f);
 	}
 
 	private static void updateStringScore() {
@@ -105,17 +104,14 @@ public class Score {
 	}
 
 	public static void draw(SpriteBatch batch, boolean lost) {
-//		CSG.outlineScoreFont.draw(batch, STR_MULTI[multi], Stats.U, FONT_HEIGHT + CSG.outlineScoreFont.getBounds(strMulti).height/2);
 		CSG.scoreFont.draw(batch, STR_MULTI[multi], Stats.U, FONT_HEIGHT + CSG.scoreFont.getBounds(STR_MULTI[multi]).height/2);
 		if (!lost) {
 			// bottom score
-//			CSG.outlineScoreFont.draw(batch, strScore, (EndlessMode.cam.position.x) - CSG.outlineScoreFont.getBounds(strScore).width/2, FONT_HEIGHT + CSG.outlineScoreFont.getBounds(strScore).height/2);
 			CSG.scoreFont.draw(batch, strScore, CSG.screenHalfWidth - CSG.scoreFont.getBounds(strScore).width/2, FONT_HEIGHT + CSG.scoreFont.getBounds(strScore).height/2);
 		}
 	}
 
 	public static void lost(boolean persist) {
-//		strScore = "Score : " + (int) score;
 		CSG.profile.xpDispo += score;
 		CSG.profilManager.persist();
 	}

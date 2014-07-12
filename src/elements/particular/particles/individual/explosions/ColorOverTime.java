@@ -82,8 +82,8 @@ public class ColorOverTime implements Poolable {
 				e.x += e.speedX * EndlessMode.delta;
 				e.y += e.speedY * EndlessMode.delta;
 				
-				e.x += e.bundle.differences[e.index];
-				e.y += e.bundle.differences[e.index];
+				e.x -= e.bundle.differences[e.index];
+				e.y -= e.bundle.differences[e.index];
 				// bundles are checked, bundle.colors is always at maximum the same lenght as bundle.widths 
 				if (++e.index >= e.bundle.colors.length) {
 					array.removeValue(e, true);
