@@ -14,7 +14,7 @@ public class BlueSmoke implements Poolable{
 	
 	private float x, y;//, alpha, width;
 	private int index;
-	private static final float INITIAL_WIDTH = ((float)Stats.WIDTH_DE_BASE / 3), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
+	private static final float INITIAL_WIDTH = ((Stats.U * 8) / 3), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
 	private static final float[] colors = initAlphas();
 	private static final float[] widths = initWidths();
 	private static final float[] halfWidths = CSG.getDifferences(widths);

@@ -23,7 +23,7 @@ import elements.particular.particles.individual.explosions.Explosion;
 
 public final class Player {
 
-	public static final int WIDTH = (int) Stats.WIDTH_JOUEUR, HALF_WIDTH = WIDTH/2, WIDTH_ADD = (int) (WIDTH/1.5f), HALF_WIDTH_ADD = WIDTH_ADD/2, WIDTH_DIV_10 = WIDTH / 10,
+	public static final int WIDTH = (int) Stats.U4, HALF_WIDTH = WIDTH/2, WIDTH_ADD = (int) (WIDTH/1.5f), HALF_WIDTH_ADD = WIDTH_ADD/2, WIDTH_DIV_10 = WIDTH / 10,
 		HEIGHT = (int) ((float)WIDTH * 1.5f), HALF_HEIGHT = HEIGHT / 2, HEIGHT_MAX_ADD = HEIGHT + HALF_HEIGHT, HALF_HEIGHT_ADD = HEIGHT / 8, HEIGHT_DIV4 = HEIGHT / 4, HEIGHT_DIV8 = HEIGHT/8,
 		DECALAGE_ADD = WIDTH + HALF_WIDTH - WIDTH_ADD,
 		DECALAGE_TIR_ADD_X_GAUCHE = (int) (-HALF_WIDTH - HALF_WIDTH_ADD + ArmeAdd.DIMENSIONS.halfWidth),
@@ -31,7 +31,7 @@ public final class Player {
 		LIMITE_X_GAUCHE = 0 - HALF_WIDTH, LIMITE_X_DROITE = CSG.gameZoneWidth - HALF_WIDTH, LIMITE_Y_GAUCHE = 0 - HALF_HEIGHT, LIMITE_Y_DROITE = CSG.screenHeight - HALF_HEIGHT,
 		LEFT_ADD1 = 0x0001, LEFT_ADD2 = 0x0002, RIGHT_ADD1 = 0x0004, RIGHT_ADD2 = 0x0008;
 	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.screenWidth + CSG.screenHeight) / 600;
-	public static float xCenter = 0, yCenter = 0, nextShot = 0, nextShotAdd = 0, vitesseMax = 0, prevX, prevY, destX, destY, addX, addY, centerLeft1AddX, centerAdd1Y, centerRight1AddX, centerLeft2AddX, centerAdd2Y,
+	public static float xCenter = 0, yCenter = 0, nextShot = 0, nextShotAdd = 0, prevX, prevY, destX, destY, addX, addY, centerLeft1AddX, centerAdd1Y, centerRight1AddX, centerLeft2AddX, centerAdd2Y,
 			centerRight2AddX, vitesseFoisdelta = 0, tmpCalculDeplacement = 0, originalAccelX = 0, originalAccelY = 0, angleAdd = -90, angleAddDroite = -90, camXmoinsDemiEcran = CSG.screenHalfWidth;
 	public static WeaponManager weapon = CSG.profile.getArmeSelectionnee();
 	private static final OvaleParticuleGenerator bouclierParticules = new OvaleParticuleGenerator(HEIGHT * 2);
@@ -43,7 +43,6 @@ public final class Player {
 	private float shotTime = 0;
 	private boolean sensAlpha = true;
 	private int addShotNbr = 0;
-//	private PointLight light = new PointLight(CSG.rayHandler, 32);
 	
 	public Player() {
 		super();
@@ -73,7 +72,6 @@ public final class Player {
 		nextShot = 0;
 		prevX = POS.x;
 		prevY = POS.y;
-		vitesseMax = (Stats.PLAYER_SPEED);
 		xCenter = POS.x + HALF_WIDTH;
 		yCenter = POS.y + HALF_HEIGHT;
 		if (CSG.profile.typeControle == CSG.CONTROLE_ACCELEROMETRE) {
@@ -139,33 +137,26 @@ public final class Player {
 	public void mouvements() {
 		xCenter = POS.x + HALF_WIDTH;
 		yCenter = POS.y + HALF_HEIGHT;
-		switch (CSG.profile.typeControle) {
 
-		case CSG.CONTROLE_DPAD:
-		case CSG.CONTROLE_TOUCH_NON_RELATIVE: 
-		case CSG.CONTROLE_TOUCH_RELATIVE: // recup d'autres float
-
-			if (Gdx.input.justTouched()) {
-				originalClicX = getTouchX();
-				originalClicY = getTouchY();
-				break;
-			}
-			
-			clicX = getTouchX();			
+		if (Gdx.input.justTouched()) {
+			originalClicX = getTouchX();
+			originalClicY = getTouchY();
+		} else {
+			clicX = getTouchX();
 			clicY = getTouchY();
-			
-			wantedMvtX = (originalClicX - clicX); 
+
+			wantedMvtX = (originalClicX - clicX);
 			wantedMvtY = (originalClicY - clicY);
-			
+
 			POS.x -= wantedMvtX * CSG.profile.sensitivity;
 			POS.y -= wantedMvtY * CSG.profile.sensitivity;
-			
+
 			if (wantedMvtX > 0) {
 				chronoDroit = 0;
 				AnimPlayer.toLeft();
-			} else if (wantedMvtX < 0) { 
+			} else if (wantedMvtX < 0) {
 				AnimPlayer.toRight();
-				chronoDroit = 0; 
+				chronoDroit = 0;
 			} else {
 				chronoDroit += EndlessMode.delta;
 				if (chronoDroit > 0.3f)
@@ -174,46 +165,11 @@ public final class Player {
 			originalClicX = getTouchX();
 			originalClicY = getTouchY();
 			routineAdds();
-			break;
 		}
 		limitesEtCentre();
 	}
-
-	/**
-	 * Le vaisseau se deplace vers les coordonn�es pass�es avec un cap � sa vitesse max
-	 * @param x
-	 * @param y
-	 */
-	public void mvtLimiteVitesse(float x, float y) {
-		// haut gauche : +x -y
-
-		tmpCalculDeplacement = ((x * x) + (y * y)) * EndlessMode.delta * EndlessMode.delta;
-		if(tmpCalculDeplacement < DEGRE_PRECISION_DEPLACEMENT){
-			AnimPlayer.straight();
-			return;
-		}
-		tmpCalculDeplacement = (float) Math.sqrt(tmpCalculDeplacement);
-
-		vitesseFoisdelta = vitesseMax * EndlessMode.delta;
-		// Si on va trop vite
-		if (tmpCalculDeplacement > vitesseFoisdelta) {
-			x = x * (vitesseFoisdelta / tmpCalculDeplacement);
-			y = y * (vitesseFoisdelta / tmpCalculDeplacement);
-		} 
-		
-		if (x < 0) {
-			AnimPlayer.toLeft();
-		} else if (x > 0) {
-			AnimPlayer.toRight();
-		}
-		
-		POS.x += (x * EndlessMode.delta);
-		POS.y += (y * EndlessMode.delta);	// Maj position
-
-		routineAdds();
-	}
 	
-	private void routineAdds() {
+	public void routineAdds() {
 		addX = POS.x;
 		if (addY > POS.y + HEIGHT_MAX_ADD) {
 			addY = POS.y + HEIGHT_MAX_ADD;
@@ -337,11 +293,6 @@ public final class Player {
 			popOutShield();
 			Weapon.shieldHs();
 		}
-	}
-
-	public void accelerometre() {
-		mvtLimiteVitesse(-((Gdx.input.getAccelerometerX()-originalAccelX) * 140 * CSG.profile.sensitivity), -((Gdx.input.getAccelerometerY()-originalAccelY) * 140 * CSG.profile.sensitivity));
-		limitesEtCentre();
 	}
 
 	public static void removeLeftAdd1() {

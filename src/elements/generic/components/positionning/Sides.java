@@ -27,6 +27,6 @@ public class Sides implements Pos {
 
 	private void getConst(Enemy e) {
 		e.dir.x = 0;
-		e.dir.y = -e.getSpeed();
+		e.dir.y = -e.getEnemyStats().getSpeed();
 	}
 }

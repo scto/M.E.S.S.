@@ -1,11 +1,13 @@
 package elements.generic.components.behavior;
 
-import com.badlogic.gdx.math.Vector2;
-
 import jeu.CSG;
 import jeu.Physic;
 import jeu.mode.EndlessMode;
+
+import com.badlogic.gdx.math.Vector2;
+
 import elements.generic.Element;
+import elements.generic.enemies.Enemy;
 import elements.particular.Player;
 
 public abstract class Mover {
@@ -21,9 +23,9 @@ public abstract class Mover {
 		}
 	}
 
-	public static void goAway(Element e, float factor) {
+	public static void goAway(Enemy e, float factor) {
 		straight(e);
-		e.dir.y += e.getSpeed() * factor;
+		e.dir.y += e.getEnemyStats().getSpeed() * factor;
 	}
 
 	public static void ovale(Element e, float factor) {
@@ -51,13 +53,13 @@ public abstract class Mover {
 		straight(e);
 	}
 
-	public static void U(Element e) {
+	public static void U(Enemy e) {
 		if (e.pos.y < CSG.HEIGHT_ECRAN_PALLIER_7) {
 			if (!EndlessMode.alternate) {
 				if (e.getWay())
-					e.dir.rotate(EndlessMode.delta2 * e.getSpeed());
+					e.dir.rotate(EndlessMode.delta2 * e.getEnemyStats().getSpeed());
 				else
-					e.dir.rotate(EndlessMode.delta2 * -e.getSpeed());
+					e.dir.rotate(EndlessMode.delta2 * -e.getEnemyStats().getSpeed());
 			}
 		}
 		straight(e);
@@ -72,15 +74,15 @@ public abstract class Mover {
 		e.pos.x += -(EndlessMode.delta * (e.pos.x - Player.POS.x) * factor);
 	}
 
-	public static void goToPlayer(Element e, float rotation) {
+	public static void goToPlayer(Enemy e, float rotation) {
 		if (EndlessMode.alternate)
-			e.setAngle(Physic.setDirToPlayer(e.dir, e.pos, e.getSpeed(), e.getDimensions().width, e.getDimensions().halfWidth, rotation) + 90);
+			e.setAngle(Physic.setDirToPlayer(e.dir, e.pos, e.getEnemyStats().getSpeed(), e.getDimensions().width, e.getDimensions().halfWidth, rotation) + 90);
 		straight(e);
 	}
 	
-	public static void goToTarget(Element e, Vector2 target, float rotation) {
+	public static void goToTarget(Enemy e, Vector2 target, float rotation) {
 		if (EndlessMode.alternate)
-			e.setAngle(Physic.setDirTo(e.dir, e.pos, e.getSpeed(), e.getDimensions().width, e.getDimensions().halfWidth, rotation, target));
+			e.setAngle(Physic.setDirTo(e.dir, e.pos, e.getEnemyStats().getSpeed(), e.getDimensions().width, e.getDimensions().halfWidth, rotation, target));
 		straight(e);
 	}
 
@@ -115,9 +117,9 @@ public abstract class Mover {
 		e.pos.y += e.dir.y * EndlessMode.delta;
 	}
 
-	public static void ancorY(Element e, float limit) {
+	public static void ancorY(Enemy e, float limit) {
 		if (e.pos.y > limit) {
-			e.dir.y = -e.getSpeed();
+			e.dir.y = -e.getEnemyStats().getSpeed();
 		}
 	}
 

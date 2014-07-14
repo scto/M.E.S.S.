@@ -13,7 +13,7 @@ import jeu.Stats;
 public class Kinder4 extends Kinder3 {
 	
 	public static final Pool<Kinder4> POOL = Pools.get(Kinder4.class);
-	private static final int HP = getModulatedPv(Stats.KINDER_HP, 4), XP = getXp(BASE_XP, 4);
+	private static final int XP = getXp(BASE_XP, 4);
 	private static final float PHASE_DURATION = 22;
 	
 	@Override
@@ -30,7 +30,6 @@ public class Kinder4 extends Kinder3 {
 	
 	@Override	public void free() {					POOL.free(this);				}
 	@Override	public int getBonusValue() {			return BASE_XP;					}
-	@Override	protected int getMaxHp() {				return HP;						}
 	@Override	public int getXp() {					return XP;						}
 	@Override	public float getPhaseDuration() {		return PHASE_DURATION;			}
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
+import elements.generic.components.HPandSpeed;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
@@ -24,7 +25,7 @@ public class BossMine extends Enemy {
 
 	protected static final Dimensions DIMENSIONS = Dimensions.BOSS_MINE;
 	public static final Pool<BossMine> POOL = Pools.get(BossMine.class);
-	private static final float SPEED6 = getModulatedSpeed(48, 1), FIRERATE = .25f * MOD_FIRERATE, FIRERATE2 = 1 * MOD_FIRERATE;
+	private static final float FIRERATE = .25f * MOD_FIRERATE, FIRERATE2 = 1 * MOD_FIRERATE;
 	private static int pvPhase2;
 	private boolean goodShape, shootDir;
 	private int shotNumber = 0;
@@ -43,7 +44,7 @@ public class BossMine extends Enemy {
 		goodShape = true;
 		nextShot = 3f;
 		pos.set(CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth, CSG.screenHeight);
-		dir.set(0, -getSpeed());
+		dir.set(0, -getEnemyStats().getSpeed());
 	}
 	
 	@Override
@@ -100,20 +101,20 @@ public class BossMine extends Enemy {
 	}
 
 	@Override	protected Sound getExplosionSound() {				return SoundMan.bigExplosion;		}
+	@Override	public HPandSpeed getEnemyStats() {					return HPandSpeed.BOSS_MINE;		}
 	@Override	public Animations getAnimation() {					return Animations.BOSS_MINE;		}
 	@Override	public Dimensions getDimensions() {					return DIMENSIONS;					}
 	@Override	public boolean isInGoodShape() {					return goodShape;					}
 	@Override	public void addShots(int i) {						shotNumber += i;					}
 	@Override	public void free() {								POOL.free(this);					}
-	@Override	public float getSpeed() {							return SPEED6;						}
 	@Override	public int getColor() {								return BLUE;						}
 	@Override	public int getXp() {								return 200;							}
 	@Override	public int getBonusValue() {						return 200;							}
 	@Override	public int getExplosionCount() {					return 180;							}
 	@Override
 	protected int getMaxHp() {
-		pvPhase2 = getPvBoss(Stats.HP_BOSS_MINE) / 2;
-		return super.getPvBoss(Stats.HP_BOSS_MINE);
+		pvPhase2 = getPvBoss(getEnemyStats().getHp()) / 2;
+		return super.getPvBoss(getEnemyStats().getHp());
 	}
 	@Override
 	public void die() {

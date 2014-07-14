@@ -15,7 +15,7 @@ import jeu.mode.EndlessMode;
 public class Cylon3 extends Cylon {
 	
 	public static final Pool<Cylon3> POOL = Pools.get(Cylon3.class);
-	private static final int HP = getModulatedPv(Stats.HP_CYLON, 3), HP_BAD = (int) (HP * 0.66f), HP_WORST = (int) (HP * 0.33f), XP = getXp(BASE_XP, 3);
+	private static final int XP = getXp(BASE_XP, 3);
 
 	@Override
 	protected void move() {
@@ -26,11 +26,8 @@ public class Cylon3 extends Cylon {
 		Mover.goToPlayer(this, 0.01f);	
 	}
 	@Override	public Animations getAnimation() {		return Animations.CYLON_BLUE;			}
-	@Override   protected int getPvWorst() {			return HP_WORST;						}
 	@Override	public void free() {					POOL.free(this);						}
 	@Override	public int getBonusValue() {			return BASE_XP;							}
-	@Override 	protected int getPvBad() {				return HP_BAD;							}
 	@Override	public int getColor() {					return BLUE;							}
-	@Override	protected int getMaxHp() {				return HP;								}
 	@Override	public int getXp() {					return XP;								}
 }

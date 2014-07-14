@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
+import elements.generic.components.HPandSpeed;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
 import elements.generic.enemies.Enemy;
@@ -23,7 +24,7 @@ public class BouleTirCote extends Enemy {
 	protected int numeroTir;
 	
 	public void init() {
-		dir.set(0, -getSpeed());
+		dir.set(0, getEnemyStats().getSpeed());
 		nextShot = 1;
 		numeroTir = 1;
 		pos.set(CSG.gameZoneHalfWidth, CSG.screenHeight);
@@ -45,14 +46,13 @@ public class BouleTirCote extends Enemy {
 		numeroTir = AbstractShot.interval(this, 6, 1, numeroTir);
 	}
 
+	@Override	public HPandSpeed getEnemyStats() {			return HPandSpeed.BALL_SIDE_SHOT;	}
+	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion4;			}
+	@Override	public Animations getAnimation() {			return Animations.BALL;				}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;					}
-	@Override	public Animations getAnimation() {			return Animations.BALL;	}
-	@Override	public float getFirerate() {				return FIRERATE;	}
-	@Override	public float getSpeed() {					return Stats.V_BOULE_TIR_COTE;	}
-	@Override	public int getXp() {						return 73;	}
-	@Override	public int getBonusValue() {				return 80;	}
-	@Override	protected int getMaxHp() {					return Stats.HP_BOULE_COTE_PETIT;	}
-	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion4;	}
-	@Override	public void free() {						POOL.free(this);	}
-	@Override	public int getExplosionCount() {			return 40;											}
+	@Override	public float getFirerate() {				return FIRERATE;					}
+	@Override	public void free() {						POOL.free(this);					}
+	@Override	public int getXp() {						return 73;							}
+	@Override	public int getBonusValue() {				return 80;							}
+	@Override	public int getExplosionCount() {			return 40;							}
 }

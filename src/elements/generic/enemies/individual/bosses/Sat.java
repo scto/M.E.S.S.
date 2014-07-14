@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
+import elements.generic.components.HPandSpeed;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.Weapon;
 
@@ -29,7 +30,6 @@ public class Sat extends Enemy {
 			X_3 = (int) ((DIMENSIONS.width / 2) - (int)AddStat.DIMENSIONS.halfWidth), X_4 = (int) (DIMENSIONS.width - X_2 - AddStat.DIMENSIONS.width), X_5 = (int) (DIMENSIONS.width - AddStat.DIMENSIONS.width), ANGLE_2 = 135, ANGLE_3 = 90, ANGLE_4 = 40, ANGLE_5 = -90, PK = 17, HP = 195, 
 			HALF_HP = HP / 2, EXPLOSION = 60, BASE_XP = 75, XP = BASE_XP;
 	public static Pool<Sat> POOL = Pools.get(Sat.class);
-	protected static final float SPEED6 = getModulatedSpeed(6, 1);
 	private int launched = 0;
 	private boolean goodShape = true;
 
@@ -39,7 +39,7 @@ public class Sat extends Enemy {
 
 	public void init() {
 		pos.set(Stats.GZW_PLUS_MARGIN, CSG.HEIGHT_ECRAN_PALLIER_3 - DIMENSIONS.halfWidth);
-		dir.x = -getSpeed();
+		dir.x = -getEnemyStats().getSpeed();
 		launched = 0;
 		goodShape = true;
 	}
@@ -123,22 +123,21 @@ public class Sat extends Enemy {
 	protected void add3() {
 		AddStat.pool.obtain().lancer(-1, 0, pos.x, pos.y + Y_1, 180);
 	}
-	
 	@Override
 	public boolean isTouched(Weapon a) {
 		if (hp < HALF_HP)
 			goodShape = false;
 		return super.isTouched(a);
 	}
-	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.bigExplosion;		}
 	@Override	protected int getMaxHp() {				return super.getPvBoss(HP);			}
+	@Override	public HPandSpeed getEnemyStats() {		return HPandSpeed.SAT;				}
 	@Override	public Animations getAnimation() {		return Animations.SAT;				}
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	public boolean isInGoodShape() {		return goodShape;					}
 	@Override	public int getExplosionCount() {		return EXPLOSION;					}
 	@Override	public void free() {					POOL.free(this);					}
 	@Override	public int getBonusValue() {			return BASE_XP;						}
-	@Override	public float getSpeed() {				return SPEED6;						}
 	@Override	public int getXp() {					return XP;							}
 
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
+import elements.generic.components.HPandSpeed;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
@@ -24,7 +25,8 @@ import elements.particular.particles.ParticuleBundles;
 public class Quad extends Enemy {
 
 	protected static final Dimensions DIMENSIONS = Dimensions.BOSS_QUAD;
-	private static final int OFFSET_W_2 = (int) (DIMENSIONS.width /6), OFFSET_W_3 = (int) ((DIMENSIONS.width /3)*2), OFFSET_OUTSIDE_W_Y = (int) (DIMENSIONS.height / 3), pvMaxPhase2 = getPvBoss(Stats.QUAD_HP) / 3 * 2, pvMinPhase2 = getPvBoss(Stats.QUAD_HP) / 3;
+	private static final int OFFSET_W_2 = (int) (DIMENSIONS.width /6), OFFSET_W_3 = (int) ((DIMENSIONS.width /3)*2), OFFSET_OUTSIDE_W_Y = (int) (DIMENSIONS.height / 3);
+	private static int pvMaxPhase2, pvMinPhase2;
 	private static final float FIRERATE = .2f * MOD_FIRERATE, FIRERATE2 = .12f * MOD_FIRERATE, FIRERATE3 = 0.07f * MOD_FIRERATE;
 	public static Pool<Quad> POOL = Pools.get(Quad.class);
 	private int shotNumber = 1, animIndex;
@@ -37,7 +39,7 @@ public class Quad extends Enemy {
 
 	public void init() {
 		pos.set(CSG.screenHalfWidth - DIMENSIONS.halfWidth, CSG.screenHeight);
-		dir.set(-getSpeed() * 4f, -getSpeed());
+		dir.set(-getEnemyStats().getSpeed() * 4f, -getEnemyStats().getSpeed());
 		animIndex = 0;
 	}
 
@@ -118,12 +120,17 @@ public class Quad extends Enemy {
 		}
 		return FIRERATE3;	
 	}
-	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
-	@Override	protected int getMaxHp() {				return super.getPvBoss(Stats.QUAD_HP);	}
-	@Override	protected Sound getExplosionSound() {	return SoundMan.bigExplosion;			}
-	@Override	public float getSpeed() {				return Stats.QUAD_SPEED;				}
+	@Override
+	protected int getMaxHp() {
+		pvMaxPhase2 = getPvBoss(getEnemyStats().getTwoThirdsHps());
+		pvMinPhase2 = getPvBoss(getEnemyStats().getOneThirdHps());
+		return super.getPvBoss(getEnemyStats().getHp());	
+	}
+	@Override	protected Sound getExplosionSound() {	return SoundMan.bigExplosion;						}
+	@Override	public HPandSpeed getEnemyStats() {		return HPandSpeed.BOSS_MINE;						}
 	@Override	public Animations getAnimation() {		return Animations.QUAD;					}
 	@Override	public void addShots(int i) {			this.shotNumber += i;					}
+	@Override	public Dimensions getDimensions() {		return DIMENSIONS;									}
 	@Override	public int getShotNumber() {			return shotNumber;						}
 	@Override	public int getAnimIndex() {				return animIndex;						}
 	@Override	public void free() {					POOL.free(this);						}

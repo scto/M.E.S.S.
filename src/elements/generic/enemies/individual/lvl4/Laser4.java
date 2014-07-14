@@ -12,7 +12,7 @@ import jeu.Stats;
 
 public class Laser4 extends Laser3 {
 	
-	private static final int HP = getModulatedPv(Stats.LASER_HP, 4), XP = getXp(BASE_XP, 4);
+	private static final int XP = getXp(BASE_XP, 4);
 	public static final Pool<Laser4> POOL = Pools.get(Laser4.class);
 	
 	
@@ -28,6 +28,5 @@ public class Laser4 extends Laser3 {
 	@Override	public float getFirerate() {				return 0.1f;				}
 	@Override	public void free() {						POOL.free(this);						}
 	@Override	public int getBonusValue() {				return BASE_XP;							}
-	@Override	protected int getMaxHp() {					return HP;								}
 	@Override	public int getXp() {						return XP;								}
 }

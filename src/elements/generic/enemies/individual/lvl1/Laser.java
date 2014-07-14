@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
+import elements.generic.components.HPandSpeed;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
@@ -22,8 +23,8 @@ public class Laser extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.LASER;
 	public static final Pool<Laser> POOL = Pools.get(Laser.class);
-	protected static final int BASE_XP = 32, HP = Stats.LASER_HP, EXPLOSION = 45, XP = getXp(BASE_XP, 1), LVL = 1;
-	protected static final float FIRERATE = 0.8f * MOD_FIRERATE, INIT_NEXT_SHOT = 1, SPEED14 = getModulatedSpeed(14, LVL), PHASE_DURATION = 12;
+	protected static final int BASE_XP = 32, EXPLOSION = 45, XP = getXp(BASE_XP, 1), LVL = 1;
+	protected static final float FIRERATE = 0.8f * MOD_FIRERATE, INIT_NEXT_SHOT = 1, PHASE_DURATION = 12;
 	protected float rotation = 0;
 	private boolean left;
 	
@@ -42,7 +43,7 @@ public class Laser extends Enemy {
 			left = false;
 		}
 		angle = dir.angle() + 90;
-		dir.scl(getSpeed());
+		dir.scl(getEnemyStats().getSpeed());
 		now = 0.5f;
 	}
 	
@@ -73,15 +74,14 @@ public class Laser extends Enemy {
 	
 	@Override	public Animations getAnimation() {		return Animations.AILE_DEPLOYEES;					}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion5;							}
+	@Override	public HPandSpeed getEnemyStats() {		return HPandSpeed.LASER;							}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;									}
 	@Override	public int getExplosionCount() {		return EXPLOSION;									}
 	@Override	public void free() {					POOL.free(this);									}
 	@Override	public float getRotation() {			return rotation;									}
 	@Override	public float getFirerate() {			return FIRERATE;									}
-	@Override	public float getSpeed() {				return SPEED14;										}
 	@Override	public int getBonusValue() {			return BASE_XP;										}
 	@Override	public void setRotation(float f) {		rotation = f;										}
 	@Override	public boolean toLeft() {				return left;										}
 	@Override	public int getXp() {					return XP;											}
-	@Override	protected int getMaxHp() {				return HP;											}
 }

@@ -3,6 +3,7 @@ package menu;
 import jeu.CSG;
 import jeu.Physic;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -31,8 +32,11 @@ public class JeuBackground {
 			Physic.collisionsTest();
 			vaisseau.shot();
 		}
-		if (Player.POS.y > Player.HEIGHT) 	vaisseau.mvtLimiteVitesse(0, -Stats.V_ARME_BOSS_QUAD);
-		else			Player.POS.y = Player.HEIGHT;
+		if (Player.POS.y > Player.HEIGHT) {
+			Player.POS.y -= EndlessMode.delta15;
+			vaisseau.routineAdds();
+		} else
+			Player.POS.y = Player.HEIGHT;
 		
 		alterner = !alterner;
 	}

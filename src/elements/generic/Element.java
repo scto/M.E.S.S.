@@ -15,7 +15,6 @@ public abstract class Element implements AnimUser {
 	
 	public final Vector2 pos = new Vector2(CSG.gameZoneHalfWidth, CSG.screenHeight), dir = new Vector2(0,-1);
 	public float now = 0, angle = 0;
-	private static final float DEFAULT_SPEED = 10 * Stats.u;
 	
 	public void reset() {
 		now = 0;
@@ -23,7 +22,6 @@ public abstract class Element implements AnimUser {
 	}
 	public abstract Dimensions getDimensions();
 	public abstract Animations getAnimation();
-	public float getSpeed() {										return DEFAULT_SPEED;			}
 	public void setAngle(float angle) {								this.angle = angle;				}
 	public float getAngle() {										return angle;					}
 	public float getSlowFactor() {									return 0.94f;					}

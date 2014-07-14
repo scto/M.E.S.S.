@@ -12,9 +12,8 @@ import elements.generic.weapons.enemies.Fireball;
 
 public class Shooter4 extends Shooter3 {
 	
-	public static final int HP = getModulatedPv(Stats.HP_QUI_TIR, LVL), DEMI_HP = HP / 2, XP = getXp(BASE_XP, LVL);
+	public static final int XP = getXp(BASE_XP, LVL);
 	public static final Pool<Shooter4> POOL = Pools.get(Shooter4.class);
-	private static final float SPEED = Shooter.SPEED * Stats.SLVL4;
 	
 	@Override
 	protected void shoot() {
@@ -24,9 +23,6 @@ public class Shooter4 extends Shooter3 {
 	}
 	
 	@Override	public int getXp() {				return XP;						}
-	@Override	protected int getMaxHp() {			return HP;						}
-	@Override	public float getSpeed() {			return SPEED;					}		 
 	@Override	public int getBonusValue() {		return BASE_XP;					}
-	@Override	protected int getDemiPv() {			return DEMI_HP;					}
 	@Override	public void free() {				POOL.free(this);				}
 }

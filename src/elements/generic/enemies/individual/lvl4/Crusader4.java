@@ -12,7 +12,7 @@ import elements.generic.enemies.individual.lvl3.Crusader3;
 public class Crusader4 extends Crusader3 {
 
 	public static final Pool<Crusader4> POOL = Pools.get(Crusader4.class);
-	private static final int LVL = 4, HP = getModulatedPv(Stats.CRUASER_HP, LVL), HALF_HP = HP / 2, XP = getXp(BASE_XP, LVL);
+	private static final int LVL = 4, XP = getXp(BASE_XP, LVL);
 	
 	@Override
 	protected void shoot() {
@@ -25,9 +25,7 @@ public class Crusader4 extends Crusader3 {
 		AbstractShot.straight(Gatling.KINDER_WEAPON, TMP_POS, TMP_DIR, Stats.U10);
 	}
 	
-	@Override	protected int getMaxHp() {				return HP;						}
 	@Override	public int getXp() {					return XP;						}
 	@Override	public int getBonusValue() {			return BASE_XP;					}
-	@Override	protected int getPallierPv() {			return HALF_HP;					}
 	@Override	public void free() {					POOL.free(this);				}
 }

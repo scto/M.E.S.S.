@@ -15,11 +15,9 @@ public class Mine extends EnemyWeapon {
 	
 	public static final Pool<Mine> POOL = Pools.get(Mine.class);
 	private final float vitesseAngulaire = (float) CSG.R.nextGaussian() * 80;
-	private static final float SPEED = 13;
 	public static final Dimensions DIMENSIONS = Dimensions.MINE;
 	public final float color = AssetMan.convertARGB(1, (CSG.R.nextFloat() /2) + 0.49f , (CSG.R.nextFloat() /2) + 0.49f, (CSG.R.nextFloat() /2) + 0.49f);
 
-	
 	@Override
 	protected void setColor(SpriteBatch batch) {
 		batch.setColor(color);
@@ -39,5 +37,4 @@ public class Mine extends EnemyWeapon {
 	}
 	@Override	public void free() {					POOL.free(this);	}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
-	@Override	public float getSpeed() {				return SPEED;	}
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 
 import elements.generic.components.Dimensions;
+import elements.generic.components.HPandSpeed;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
@@ -22,10 +23,10 @@ public class Group extends Enemy {
 	protected static final int LVL = 1;
 	protected static final Dimensions DIMENSIONS = Dimensions.GROUP;
 	public static final Pool<Group> POOL = new Pool<Group>() {		protected Group newObject() {			return new Group();		}	};
-	protected static final float FIRERATE = 0.6f * MOD_FIRERATE, INIT_NEXT_SHOT = .5f, SPEED8 = getModulatedSpeed(8, LVL);
+	protected static final float FIRERATE = 0.6f * MOD_FIRERATE, INIT_NEXT_SHOT = .5f;
 	private static final float COLOR = AssetMan.convertARGB(1, 1f, 0.5f, 0.2f);
 	protected static final int BASE_XP = 12;
-	private static final int HP = Stats.HP_CYLON, EXPLOSION = 35, XP = getXp(BASE_XP, LVL);
+	private static final int EXPLOSION = 35, XP = getXp(BASE_XP, LVL);
 	private int shotNumber = 0;
 	
 	@Override
@@ -60,7 +61,7 @@ public class Group extends Enemy {
 		pos.x = x;
 		pos.y = CSG.screenHeight;
 		dir.x = 0;
-		dir.y = -getSpeed();
+		dir.y = -getEnemyStats().getSpeed();
 	}
 
 	@Override
@@ -81,6 +82,7 @@ public class Group extends Enemy {
 	}
 	@Override	protected Sound getExplosionSound() {					return SoundMan.explosion6;		}
 	@Override	public Animations getAnimation() {						return Animations.DIABOLO;		}
+	@Override	public HPandSpeed getEnemyStats() {						return HPandSpeed.GROUP;		}
 	@Override	public Dimensions getDimensions() {						return DIMENSIONS;				}
 	@Override	public int getShotNumber() {							return shotNumber;				}
 	@Override	public int getExplosionCount() {						return EXPLOSION;				}
@@ -88,8 +90,6 @@ public class Group extends Enemy {
 	@Override	public void addShots(int i) {							shotNumber += i;				}
 	@Override	public float getFirerate() {							return FIRERATE;				}
 	@Override	public int getBonusValue() {							return BASE_XP;					}
-	@Override	public float getSpeed() {								return SPEED8;					}
-	@Override	protected int getMaxHp() {								return HP;						}
 	@Override	public int getXp() {									return XP;						}
 	@Override	public int getNumberOfShots() {							return 3;						}
 }

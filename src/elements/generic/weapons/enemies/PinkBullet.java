@@ -13,12 +13,10 @@ public class PinkBullet extends OrangeBullet {
 	public static final Pool<PinkBullet> POOL = Pools.get(PinkBullet.class);
 	public static final Dimensions DIMENSIONS = Dimensions.PINK_BULLET;
 	private static final float COLOR = AssetMan.convertARGB(1, 1, .75f, 1f);
-	private static final float SPEED = 16;
 	
 	@Override	protected void setColor(SpriteBatch batch) {		batch.setColor(COLOR);			}
 	@Override	protected void removeColor(SpriteBatch batch) {		batch.setColor(AssetMan.WHITE);	}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	public void free() {					POOL.free(this);							}
-	@Override	public float getSpeed() {				return SPEED;								}
 	
 }

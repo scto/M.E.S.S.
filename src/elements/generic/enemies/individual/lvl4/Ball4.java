@@ -12,8 +12,8 @@ import jeu.Stats;
 public class Ball4 extends Ball3 {
 	
 	public static final Pool<Ball4> POOL = Pools.get(Ball4.class);
-	private static final int HP = getModulatedPv(Stats.HP_BALL, 4), XP = getXp(BASE_XP, 4);
-	protected static final float SPEED = getModulatedSpeed(40, 4), FIRERATE = 0.8f * MOD_FIRERATE;
+	private static final int XP = getXp(BASE_XP, 4);
+	protected static final float FIRERATE = 0.8f * MOD_FIRERATE;
 	
 	@Override
 	protected void shoot() {
@@ -29,7 +29,5 @@ public class Ball4 extends Ball3 {
 	@Override	public float getFirerate() {					return FIRERATE;							}
 	@Override	public void free() {							POOL.free(this);							}
 	@Override	public int getBonusValue() {					return BASE_XP;								}
-	@Override	public float getSpeed() {						return SPEED;								}
-	@Override	protected int getMaxHp() {						return HP;									}
 	@Override	public int getXp() {							return XP;									}
 }

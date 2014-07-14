@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.Element;
 import elements.generic.components.Dimensions;
+import elements.generic.components.HPandSpeed;
 import elements.generic.weapons.Weapon;
 import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.player.PlayerWeapon;
@@ -44,6 +45,10 @@ public abstract class Enemy extends Element implements Poolable {
 		this.hp = getMaxHp();
 	}
 	
+	protected int getMaxHp() {
+		return getEnemyStats().getHp();
+	}
+
 	public static void affichageEtMouvement(SpriteBatch batch) {
 		for (final Enemy e : LIST) {
 			if (e.dead)
@@ -164,7 +169,7 @@ public abstract class Enemy extends Element implements Poolable {
 
 	@Override
 	public void reset() {
-		hp = getMaxHp();
+		hp = getEnemyStats().getHp();
 		dead = false;
 		nextShot = 0;
 		super.reset();
@@ -237,7 +242,7 @@ public abstract class Enemy extends Element implements Poolable {
 	
 	@Override
 	public float getPvPercentage() {
-		return (getMaxHp() / hp) * 100;
+		return (getEnemyStats().getHp() / hp) * 100;
 	}
 	
 	public static final PlayerWeapon bomb = getTypicalBullet(250), superBomb = getTypicalBullet(320);
@@ -262,36 +267,19 @@ public abstract class Enemy extends Element implements Poolable {
 		}
 	}
 	
-	protected static int getModulatedPv(int pv, int lvl) {
-		switch (lvl) {
-		case 3: return (int) (pv * Stats.HPLVL3);
-		case 4: return (int) (pv * Stats.HPLVL4);
-		}
-		return pv;
-	}
-	
-	protected static float getModulatedSpeed(float speed, int lvl) {
-		switch (lvl) {
-		case 3: return (int) (speed * Stats.SLVL3) * Stats.u;
-		case 4: return (int) (speed * Stats.SLVL4) * Stats.u;
-		}
-		return speed * Stats.u;
-	}
-	
 	public void setAngle(float angle) {						this.angle = angle;							}
 	public float getRotation() {							return 0;									}
 	public void addAngle(float f) {							angle += f;									}
 	public int getColor() {									return RED;									}
-	public float getSpeed() {								return 3333;								}
 	public float getAngle() {								return angle;								}
 	public boolean toLeft() {								return false;								}
 	protected Sound getExplosionSound() {					return SoundMan.explosion3;					}
 	public void setLeft(boolean b) {																	}
 	public void setRotation(float f) {																	}
 	public void init() {																				}
+	public abstract HPandSpeed getEnemyStats();
 	public abstract int getXp();
 	public abstract void free();
-	protected abstract int getMaxHp();
 	public abstract int getBonusValue();
 	public abstract int getExplosionCount();
 

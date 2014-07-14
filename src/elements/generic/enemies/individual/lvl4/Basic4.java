@@ -16,8 +16,7 @@ import elements.particular.particles.individual.PrecalculatedParticles;
 public class Basic4 extends Basic3 {
 	
 	public static final Pool<Basic4> POOL = Pools.get(Basic4.class);
-	private static final int HP = getModulatedPv(Stats.HP_DE_BASE, 4), XP = getXp(BASE_XP, 4);
-	private static final float SPEED = Basic.SPEED16 * 3.5f;
+	private static final int XP = getXp(BASE_XP, 4);
 	
 	@Override	
 	public void move() {
@@ -33,8 +32,6 @@ public class Basic4 extends Basic3 {
 	@Override	public void free() {						POOL.free(this);						}
 	@Override	public int getBonusValue() {				return BASE_XP;							}
 	@Override	public int getColor() {						return GREEN;							}
-	@Override	public float getSpeed() {					return SPEED;							}
-	@Override	protected int getMaxHp() {					return HP;								}
 	@Override	public int getXp() {						return XP;								}
 }
  

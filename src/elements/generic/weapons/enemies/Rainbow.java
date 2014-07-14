@@ -17,8 +17,6 @@ public class Rainbow extends EnemyWeapon {
 	public float color;
 	private static float roueCouleur = .9f;
 	private static boolean sens = false;
-	private static final float SPEED = 36;
-	
 	
 	@Override
 	protected void setColor(SpriteBatch batch) {
@@ -42,8 +40,7 @@ public class Rainbow extends EnemyWeapon {
 	
 	@Override	public Animations getAnimation() {			return Animations.BLUE_BALL;	}
 	@Override	public void free() {						POOL.free(this);	}
-	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
-	@Override	public float getSpeed() {					return SPEED;	}
+	@Override	public Dimensions getDimensions() {			return DIMENSIONS;					}
 
 
 }
