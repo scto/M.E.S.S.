@@ -12,7 +12,7 @@ public class LeftRight implements Pos {
 			e.pos.x = CSG.WIDTH_ZONE_MOINS_WIDTH_BORD - e.getDimensions().halfWidth;
 		}
 		e.pos.x = e.getDimensions().halfWidth + CSG.borderWidth;
-		e.pos.y = CSG.SCREEN_HEIGHT + e.getDimensions().height;
+		e.pos.y = CSG.screenHeight + e.getDimensions().height;
 	}
 
 }

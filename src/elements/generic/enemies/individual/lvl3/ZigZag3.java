@@ -14,7 +14,7 @@ public class ZigZag3 extends ZigZag {
 	public static final Pool<ZigZag3> POOL = Pools.get(ZigZag3.class);
 	public static final int LVL = 3, HP = getModulatedPv(Stats.HP_ZIGZAG, LVL), XP = getXp(BASE_XP, LVL);
 	private static final float SPEED = ZigZag.SPEED * 1.2f;
-	private static final Vector2 smokeVector = new Vector2(0, Stats.uSur2);
+	private static final Vector2 smokeVector = new Vector2(0, Stats.uDiv2);
 	
 	@Override
 	protected float getFloatFactor() {

@@ -25,7 +25,7 @@ public class ChoixDifficulte extends AbstractScreen {
 
 	private final Game game;
 	private final Array<WeaponButton> weaponButtons = new Array<WeaponButton>(6);
-	private static final float Y_WEAPON = (CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 15) - (WeaponButton.width * 2);
+	private static final float Y_WEAPON = (CSG.screenHeight - BUTTON_HEIGHT * 15) - (WeaponButton.width * 2);
 	private int etapeCode = 0, cheat = CSG.NO_CHEAT;
 
 	public ChoixDifficulte(Game game) {
@@ -38,21 +38,21 @@ public class ChoixDifficulte extends AbstractScreen {
 	public void setUpScreenElements() {
 		ajout(buttonBack);
 		// ** ** ** PIECE OF CAKE ** ** **
-		final Button lvl1 = new Button(Strings.LVL1, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 5, this, new OnClick() {
+		final Button lvl1 = new Button(Strings.LVL1, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.screenHeight - BUTTON_HEIGHT * 5, this, new OnClick() {
 			public void onClick() {
 				changeMenu(new EndlessMode(game, CSG.batch, 1, cheat));
 			}
 		}, true);
 		ajout(lvl1);
 		// ** ** ** LET'S ROCK ** ** **
-		final Button lvl2 = new Button(Strings.LVL2, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 7.5f, this, new OnClick() {
+		final Button lvl2 = new Button(Strings.LVL2, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.screenHeight - BUTTON_HEIGHT * 7.5f, this, new OnClick() {
 			public void onClick() {
 				changeMenu(new EndlessMode(game, CSG.batch, 2, cheat));
 			}
 		}, true);
 		ajout(lvl2);
 		// ** ** ** COME GET SOME ** ** **
-		final Button lvl3 = new Button(Strings.LVL3, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 10, this, new OnClick() {
+		final Button lvl3 = new Button(Strings.LVL3, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.screenHeight - BUTTON_HEIGHT * 10, this, new OnClick() {
 			public void onClick() {
 				changeMenu(new EndlessMode(game, CSG.batch, 3, cheat));
 			}
@@ -61,13 +61,13 @@ public class ChoixDifficulte extends AbstractScreen {
 		if (Gdx.app.getVersion() != 0) {
 			CSG.talkToTheWorld.showAds(true);
 		}
-		final Button lvl4 = new Button(Strings.LVL4, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 12.5f, this, new OnClick() {
+		final Button lvl4 = new Button(Strings.LVL4, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.screenHeight - BUTTON_HEIGHT * 12.5f, this, new OnClick() {
 			public void onClick() {
 				changeMenu(new EndlessMode(game, CSG.batch, 4, cheat));
 			}
 		}, true);
 		ajout(lvl4);
-		final Button chooseWeapon = new Button(Strings.CHOOSE_WEAPON, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.SCREEN_HEIGHT - BUTTON_HEIGHT * 15.5f, this, new OnClick() {
+		final Button chooseWeapon = new Button(Strings.CHOOSE_WEAPON, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, CSG.screenHeight - BUTTON_HEIGHT * 15.5f, this, new OnClick() {
 			public void onClick() {
 			}
 		}, true);

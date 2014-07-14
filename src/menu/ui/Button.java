@@ -187,7 +187,7 @@ public class Button extends AbstractButton {
 	}
 
 	public static void testClick(Button b, float xOffset) {
-		if (b != null && Physic.isPointInRect(Gdx.input.getX() + xOffset, CSG.SCREEN_HEIGHT - Gdx.input.getY(), 0, b.sprite.getY() - Stats.U, CSG.gameZoneWidth, b.sprite.getHeight() + Stats.UU)) {
+		if (b != null && Physic.isPointInRect(Gdx.input.getX() + xOffset, CSG.screenHeight - Gdx.input.getY(), 0, b.sprite.getY() - Stats.U, CSG.gameZoneWidth, b.sprite.getHeight() + Stats.U2)) {
 			if (b.click != null)
 				b.click.onClick();
 		}

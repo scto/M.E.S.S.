@@ -44,7 +44,7 @@ public class Cylon extends Enemy {
 	protected void move() {
 		TMP_POS.set(0, THRUSTER_OFFSET).rotate(angle);
 		if (EndlessMode.oneToFour > index + 1)
-			Particles.smokeMoving(pos.x + DIMENSIONS.halfWidth + TMP_POS.x, pos.y + DIMENSIONS.halfWidth + TMP_POS.y, TMP_POS.nor().scl(Stats.uSur2), getColor());
+			Particles.smokeMoving(pos.x + DIMENSIONS.halfWidth + TMP_POS.x, pos.y + DIMENSIONS.halfWidth + TMP_POS.y, TMP_POS.nor().scl(Stats.uDiv2), getColor());
 		super.move();
 	}
 	

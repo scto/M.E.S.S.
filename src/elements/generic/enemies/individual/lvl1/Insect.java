@@ -35,7 +35,7 @@ public class Insect extends Enemy {
 	
 	@Override
 	protected void move() {
-		Mover.insectMove(this, 4, 12, Stats.uSur8);
+		Mover.insectMove(this, 4, 12, Stats.uDiv8);
 	}
 
 	@Override

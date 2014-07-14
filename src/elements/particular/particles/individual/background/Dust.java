@@ -32,14 +32,14 @@ public class Dust implements Poolable {
 		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w / 2;
 		final float f = (CSG.R.nextFloat() / 2) + 0.35f;
 		color = AssetMan.convertARGB(1, f, f, f);
-		speed = (CSG.R.nextFloat() / 2) * 14 * CSG.SCREEN_HEIGHT;
+		speed = (CSG.R.nextFloat() / 2) * 14 * CSG.screenHeight;
 		h = speed / 20;
 	}
 
 	@Override
 	public void reset() {
 		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w / 2;
-		y = CSG.SCREEN_HEIGHT + w;
+		y = CSG.screenHeight + w;
 	}
 
 	public static void act(SpriteBatch batch, Array<Dust> dust) {

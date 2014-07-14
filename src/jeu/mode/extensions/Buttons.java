@@ -43,7 +43,7 @@ public class Buttons {
 		}
 		if (Gdx.input.justTouched()) {
 			if (boutonBack != null && 
-					Physic.isPointInRect(Gdx.input.getX() + EndlessMode.cam.position.x / 2, CSG.SCREEN_HEIGHT - Gdx.input.getY(),
+					Physic.isPointInRect(Gdx.input.getX() + EndlessMode.cam.position.x / 2, CSG.screenHeight - Gdx.input.getY(),
 							0, Menu.BUTTON_HEIGHT * 1.1f, CSG.gameZoneWidth, Menu.BUTTON_HEIGHT * 3)) {
 				goToMenu(game);
 				boutonBack = null;

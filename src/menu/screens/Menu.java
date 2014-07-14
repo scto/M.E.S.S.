@@ -41,17 +41,17 @@ public class Menu extends AbstractScreen {
 		temps = 0;
 		Gdx.input.setCatchBackKey(false);
 
-		ajout(new Button(PLAY, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_PLAY)), this, new OnClick() {
+		ajout(new Button(PLAY, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_PLAY)), this, new OnClick() {
 			public void onClick() {
 				changeMenu(new ChoixDifficulte(game));
 			}
 		}, true));
-		ajout(new Button(SHIP, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_SHIP)), this, new OnClick() {
+		ajout(new Button(SHIP, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_SHIP)), this, new OnClick() {
 			public void onClick() {
 				changeMenu(new MenuXP(game));
 			}
 		}, true));
-		ajout(new Button(OPTION, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_OPTION)), this, new OnClick() {
+		ajout(new Button(OPTION, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_OPTION)), this, new OnClick() {
 			public void onClick() {
 				changeMenu(new MenuOptions(game));
 			}
@@ -61,19 +61,19 @@ public class Menu extends AbstractScreen {
 //				changeMenu(new Tuto(game));
 //			}
 //		}, true));
-		highscores = new Button(HIGHSCORE, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_HIGHSCORE)), this);
+		highscores = new Button(HIGHSCORE, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_HIGHSCORE)), this);
 		ajout(highscores);
 
-		achievements = new Button(ACHIEVEMENT, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_ACHIEVEMENT)), this);
+		achievements = new Button(ACHIEVEMENT, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_ACHIEVEMENT)), this);
 		ajout(achievements);
 		
-		ajout(new Button(SUPPORT_US, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_SUPPORT)), this, new OnClick() {
+		ajout(new Button(SUPPORT_US, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_SUPPORT)), this, new OnClick() {
 			public void onClick() {
 				CSG.talkToTheWorld.buyUsABeer();
 			}
 		}, false));
 
-		ajout(new Button(EXIT, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_EXIT)), this, new OnClick() {
+		ajout(new Button(EXIT, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_EXIT)), this, new OnClick() {
 			public void onClick() {
 				Gdx.app.exit();
 			}
@@ -101,16 +101,16 @@ public class Menu extends AbstractScreen {
 		cam.update();
 		CSG.batch.setProjectionMatrix(cam.combined);
 		if (Gdx.input.isTouched()
-				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() > highscores.sprite.getY() 
-				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() < highscores.sprite.getY() + highscores.sprite.getHeight()) {
+				&& CSG.screenHeight - Gdx.input.getY() > highscores.sprite.getY() 
+				&& CSG.screenHeight - Gdx.input.getY() < highscores.sprite.getY() + highscores.sprite.getHeight()) {
 //			if (CSG.google.getSignedIn())
 				CSG.talkToTheWorld.getScores();
 //			else
 //				CSG.google.Login();
 		}
 		if (Gdx.input.isTouched() 
-				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() > achievements.sprite.getY() 
-				&& CSG.SCREEN_HEIGHT - Gdx.input.getY() < achievements.sprite.getY() + achievements.sprite.getHeight()) {
+				&& CSG.screenHeight - Gdx.input.getY() > achievements.sprite.getY() 
+				&& CSG.screenHeight - Gdx.input.getY() < achievements.sprite.getY() + achievements.sprite.getHeight()) {
 			if (CSG.talkToTheWorld.getSignedIn())
 				CSG.talkToTheWorld.getAchievements();
 			else

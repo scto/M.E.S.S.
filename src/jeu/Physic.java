@@ -17,7 +17,7 @@ public class Physic {
 	
 	public static boolean pointIn(final Sprite s) {
 		final int x = Gdx.input.getX();
-		final int y = CSG.SCREEN_HEIGHT - Gdx.input.getY();
+		final int y = CSG.screenHeight - Gdx.input.getY();
         return s.getX() <= x && s.getX() + s.getWidth() >= x && s.getY() <= y && s.getY() + s.getHeight() >= y;
 	}
 	
@@ -30,13 +30,13 @@ public class Physic {
 	
 	public static boolean isOnScreenWithTolerance(final Vector2 position, final float hauteur, final float largeur) {
 		if (position.y + hauteur < -CSG.HEIGHT_DIV10 || position.x + largeur < -Stats.WIDTH_DIV_10 ||
-				position.x > Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10  || position.y > CSG.HEIGHT_PLUS_4 + hauteur)
+				position.x > Stats.GZW_PLUS_MARGIN  || position.y > CSG.HEIGHT_PLUS_4 + hauteur)
 			return false;
 		return true;
 	}
 	
 	public static boolean isOnScreen(final float x, final float y, final float width) {
-		if (y + width < 0 || x + width < 0 || x > CSG.gameZoneWidth || y > CSG.SCREEN_HEIGHT + width)
+		if (y + width < 0 || x + width < 0 || x > CSG.gameZoneWidth || y > CSG.screenHeight + width)
 			return false;
 		return true;
 	}
@@ -59,7 +59,7 @@ public class Physic {
 
 	public static void collisionsTest() {
 		for (final Enemy enemy : Enemy.LIST) {
-			if (enemy.pos.y + CSG.CENTIEME_HEIGHT > CSG.SCREEN_HEIGHT)		continue;
+			if (enemy.pos.y + CSG.CENTIEME_HEIGHT > CSG.screenHeight)		continue;
 			if (enemy.isOnPlayer())	{
 				Player.touchedEnnemy(enemy);
 			}
@@ -234,7 +234,7 @@ public class Physic {
 
 	public static boolean isNotDisplayed(Enemy enemy) {
 		if (enemy.pos.x + enemy.getDimensions().width < 0 || enemy.pos.x > CSG.screenWidth
-				|| enemy.pos.y > CSG.SCREEN_HEIGHT || enemy.pos.y + enemy.getDimensions().height < 0)
+				|| enemy.pos.y > CSG.screenHeight || enemy.pos.y + enemy.getDimensions().height < 0)
 			return true;
 		return false;
 	}

@@ -90,7 +90,7 @@ public class WeaponButton extends AbstractButton {
 				xText = CSG.screenWidth;
 		} else {
 			if (Gdx.input.justTouched()) {
-				if (Physic.isPointInSquare(Gdx.input.getX(), CSG.SCREEN_HEIGHT - Gdx.input.getY(), x, y, width)) {
+				if (Physic.isPointInSquare(Gdx.input.getX(), CSG.screenHeight - Gdx.input.getY(), x, y, width)) {
 					CSG.profile.setArmeSelectionnee(label);
 					Player.weapon = WeaponManager.getWeaponManager(label);
 				}

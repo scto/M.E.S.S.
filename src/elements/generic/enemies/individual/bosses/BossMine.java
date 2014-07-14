@@ -31,7 +31,7 @@ public class BossMine extends Enemy {
 	private int shotInterval = 0;
 
 	public BossMine() {
-		pos.set(CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth, CSG.SCREEN_HEIGHT);
+		pos.set(CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth, CSG.screenHeight);
 	}
 	
 	public void reset() {
@@ -42,7 +42,7 @@ public class BossMine extends Enemy {
 	public void init() {
 		goodShape = true;
 		nextShot = 3f;
-		pos.set(CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth, CSG.SCREEN_HEIGHT);
+		pos.set(CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth, CSG.screenHeight);
 		dir.set(0, -getSpeed());
 	}
 	

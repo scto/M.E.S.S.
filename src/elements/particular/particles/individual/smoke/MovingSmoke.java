@@ -55,7 +55,7 @@ public class MovingSmoke implements Poolable{
 		index = 0;
 		this.colors = colors;
 		dirX = 0;
-		dirY = Stats.uSur2;
+		dirY = Stats.uDiv2;
 	}
 	
 	public void init(float x, float y, boolean rnd, float[] colors, float dirX, float dirY) {

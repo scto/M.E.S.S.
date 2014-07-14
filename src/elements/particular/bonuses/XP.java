@@ -31,14 +31,14 @@ public class XP extends Bonus implements Poolable {
 	public static final int HOMMING = 2;
 	public static final int INFLATE = 3;
 	private static final int SHOOTING_STAR = 4;
-	private static final float LIMIT_RIGHT = CSG.gameZoneWidth - WIDTH, LIMIT_LEFT = 0, LIMIT_UP = CSG.SCREEN_HEIGHT - WIDTH;
+	private static final float LIMIT_RIGHT = CSG.gameZoneWidth - WIDTH, LIMIT_LEFT = 0, LIMIT_UP = CSG.screenHeight - WIDTH;
 	public int state;
 	
 	public void init(float x, float y, int xp) {
 		x -= HALF;
 		y -= HALF;
-		x += CSG.R.nextFloat() * Stats.UUU;
-		y += CSG.R.nextFloat() * Stats.UUU;
+		x += CSG.R.nextFloat() * Stats.U3;
+		y += CSG.R.nextFloat() * Stats.U3;
 		valeur = xp;
 		pos.x = x;
 		pos.y = y;

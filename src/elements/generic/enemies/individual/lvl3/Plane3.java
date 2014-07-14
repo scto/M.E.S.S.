@@ -10,7 +10,7 @@ public class Plane3 extends Plane {
 	
 	public static final Pool<Plane3> POOL = Pools.get(Plane3.class);
 	private static final int HP = getModulatedPv(Stats.PLANE_HP, 3), DEMI_HP = HP / 2, XP = getXp(BASE_XP, 3);
-	protected static final float SPEED = Plane.SPEED19 * Stats.VNV3, HALF_SPEED = SPEED / 2, FIRERATE = 0.3f * MOD_FIRERATE;
+	protected static final float SPEED = Plane.SPEED19 * Stats.SLVL3, HALF_SPEED = SPEED / 2, FIRERATE = 0.3f * MOD_FIRERATE;
 	
 	@Override
 	public float getSpeed() {

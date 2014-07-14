@@ -79,14 +79,14 @@ public abstract class Enemy extends Element implements Poolable {
 			if ( (pos.x + getDimensions().width) < 0 && (pos.x + getDimensions().width) > -DETECT_RANGE) {
 				batch.setColor(1, 0, 0.5f, 1);
 				batch.draw(AssetMan.dust,
-						-ALERT_HALF_WIDTH, pos.y - Stats.UUU,
+						-ALERT_HALF_WIDTH, pos.y - Stats.U3,
 						// pos.x is negative
 						ALERT_WIDTH, (DETECT_RANGE + (pos.x + getDimensions().width)) + Stats.U6);
 				batch.setColor(AssetMan.WHITE);
 				// right
-			} else if (pos.x > CSG.screenWidth && pos.x < Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10) { 
+			} else if (pos.x > CSG.screenWidth && pos.x < Stats.GZW_PLUS_MARGIN) { 
 				batch.setColor(1, 0, 0.5f, 1);
-				batch.draw(AssetMan.dust, CSG.screenWidth - ALERT_HALF_WIDTH, pos.y - Stats.UUU, ALERT_WIDTH,
+				batch.draw(AssetMan.dust, CSG.screenWidth - ALERT_HALF_WIDTH, pos.y - Stats.U3, ALERT_WIDTH,
 						(DETECT_RANGE + (CSG.gameZoneWidth - pos.x)) + Stats.U6);
 				batch.setColor(AssetMan.WHITE);
 			}
@@ -132,8 +132,8 @@ public abstract class Enemy extends Element implements Poolable {
 		pos.y += (a.dir.y * tmpDeltaMulImpact);
 		if (pos.x + getDimensions().width < -Stats.WIDTH_DIV_10)
 			pos.x = Stats.WIDTH_DIV_10 - getDimensions().width;
-		if (pos.x > Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10)
-			pos.x = Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10;
+		if (pos.x > Stats.GZW_PLUS_MARGIN)
+			pos.x = Stats.GZW_PLUS_MARGIN;
 		if (pos.y > CSG.HEIGHT_PLUS_4 + getDimensions().height)
 			pos.y = CSG.HEIGHT_PLUS_4 + getDimensions().height - 1;
 		return true;
@@ -264,16 +264,16 @@ public abstract class Enemy extends Element implements Poolable {
 	
 	protected static int getModulatedPv(int pv, int lvl) {
 		switch (lvl) {
-		case 3: return (int) (pv * Stats.HPNV3);
-		case 4: return (int) (pv * Stats.HPNV4);
+		case 3: return (int) (pv * Stats.HPLVL3);
+		case 4: return (int) (pv * Stats.HPLVL4);
 		}
 		return pv;
 	}
 	
 	protected static float getModulatedSpeed(float speed, int lvl) {
 		switch (lvl) {
-		case 3: return (int) (speed * Stats.VNV3) * Stats.u;
-		case 4: return (int) (speed * Stats.VNV4) * Stats.u;
+		case 3: return (int) (speed * Stats.SLVL3) * Stats.u;
+		case 4: return (int) (speed * Stats.SLVL4) * Stats.u;
 		}
 		return speed * Stats.u;
 	}

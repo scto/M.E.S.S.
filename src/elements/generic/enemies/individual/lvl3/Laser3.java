@@ -12,7 +12,7 @@ public class Laser3 extends Laser {
 	
 	public static final Pool<Laser3> POOL = Pools.get(Laser3.class);
 	private static final int HP = getModulatedPv(Stats.LASER_HP, 3), XP = getXp(BASE_XP, 3);
-	private static final float SPEED = SPEED14 * Stats.VNV3, FIRERATE = 0.25f * MOD_FIRERATE;
+	private static final float SPEED = SPEED14 * Stats.SLVL3, FIRERATE = 0.25f * MOD_FIRERATE;
 	private int shotNumber = 0;
 	
 	@Override

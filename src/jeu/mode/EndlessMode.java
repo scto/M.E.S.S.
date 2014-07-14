@@ -55,10 +55,10 @@ public class EndlessMode implements Screen {
 	public static final int FONT_HEIGHT = CSG.HEIGHT_DIV10/3;
 	// *************************  J  A  U  G  E  *************************
 	private final TextureRegion red;
-	private static final int TIER_WIDTH_JAUGE =  CSG.screenWidth/18, HEIGHT_JAUGE = CSG.SCREEN_HEIGHT/75;
+	private static final int TIER_WIDTH_JAUGE =  CSG.screenWidth/18, HEIGHT_JAUGE = CSG.screenHeight/75;
 	// *************************  D  P  A  D  ****************************
 
-	public static final OrthographicCamera cam = new OrthographicCamera(CSG.screenWidth, CSG.SCREEN_HEIGHT);
+	public static final OrthographicCamera cam = new OrthographicCamera(CSG.screenWidth, CSG.screenHeight);
 	public static int difficulty, nbBonusStop = 0, nbBombes = 0;
 	public static float bloomOriginalIntensity = 1, delta = 0, timeStopBonus = 0, delta15 = 0, deltaDiv3, deltaDiv2, delta2, deltaU, deltaMicroU, UnPlusDelta, unPlusDelta2, unPlusDelta3, deltaPlusExplosion, delta25, delta4;
 	public static boolean effetBloom = false, xpAjout = false, drawMenu = false, konamiCode = false;
@@ -91,7 +91,7 @@ public class EndlessMode implements Screen {
 		init();
 		ship.initialiser();
 		gl = Gdx.graphics.getGL20();
-		gl.glViewport(0, 0, CSG.screenWidth, CSG.SCREEN_HEIGHT);
+		gl.glViewport(0, 0, CSG.screenWidth, CSG.screenHeight);
 		red = AssetMan.getTextureRegion("rougefonce");
 		bloom = CSG.bloom;
 		EndlessMode.cheat = cheat;
@@ -108,7 +108,7 @@ public class EndlessMode implements Screen {
 		if (Gdx.app.getVersion() != 0)
 			CSG.talkToTheWorld.showAds(false); // desactiver adds. A VIRER POUR LA RELEASE
 		// ** DEPLACEMENT ZONE DE JEU
-		cam.position.set(CSG.gameZoneWidth/2, CSG.SCREEN_HEIGHT / 2, 0);
+		cam.position.set(CSG.gameZoneWidth/2, CSG.screenHeight / 2, 0);
 		
 		CSG.reset();
         scoreSent = false;
@@ -284,7 +284,7 @@ public class EndlessMode implements Screen {
 		deltaDiv2 = delta / 2;
 		delta2 = delta * 2;
 		deltaU = delta * Stats.U;
-		deltaMicroU =  Stats.microU * delta;
+		deltaMicroU =  Stats.uDiv75 * delta;
 		UnPlusDelta = 1 + delta;
 		unPlusDelta2 = 1 + delta2;
 		unPlusDelta3 = UnPlusDelta + delta2;
@@ -463,7 +463,7 @@ public class EndlessMode implements Screen {
 		} else if (!choosen) {
 //			drawMenu = true;
 			menuX = Gdx.input.getX();
-			menuY = CSG.SCREEN_HEIGHT - Gdx.input.getY();
+			menuY = CSG.screenHeight - Gdx.input.getY();
 		}
 	}
 
@@ -479,11 +479,11 @@ public class EndlessMode implements Screen {
 			drawMenu = false;
 			
 			if (nbBonusStop > 0 &&
-					Physic.isPointInRect(Gdx.input.getX(), CSG.SCREEN_HEIGHT - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
+					Physic.isPointInRect(Gdx.input.getX(), CSG.screenHeight - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
 				willUseStopBonus = true;
 				choosen = true;
 			} else if (nbBombes > 0 &&
-					Physic.isPointInRect(Gdx.input.getX(), CSG.SCREEN_HEIGHT - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
+					Physic.isPointInRect(Gdx.input.getX(), CSG.screenHeight - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
 				Enemy.bombe();
 				nbBombes--;
 				choosen = true;

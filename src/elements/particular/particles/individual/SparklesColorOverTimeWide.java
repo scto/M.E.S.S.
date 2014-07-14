@@ -14,7 +14,7 @@ public class SparklesColorOverTimeWide implements Poolable {
 	private float x, y, angle;
 	private int index;
 	private static final float WIDTH = Stats.u * 0.75f, HALF_WIDTH = WIDTH / 2;
-	public static final float HEIGHT = Stats.UUU, HALF_HEIGHT = HEIGHT / 2;
+	public static final float HEIGHT = Stats.U3, HALF_HEIGHT = HEIGHT / 2;
 	private float[] colors;
 
 	public static final Pool<SparklesColorOverTimeWide> POOL = new Pool<SparklesColorOverTimeWide>() {

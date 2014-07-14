@@ -24,9 +24,9 @@ public abstract class EnemyWeapon extends Weapon {
 		tmpFloat = tmpV.dst(pos.x + getDimensions().halfWidth, pos.y + getDimensions().halfHeight);
 		
 		for (int i = 0; i < Player.shield; i++)
-			tmpFloat -= Stats.uSur2;
+			tmpFloat -= Stats.uDiv2;
 		
-		if (tmpFloat < getDimensions().width + Stats.UU || tmpFloat < getDimensions().height + Stats.UU) {
+		if (tmpFloat < getDimensions().width + Stats.U2 || tmpFloat < getDimensions().height + Stats.U2) {
 			if (nextGraze < EndlessMode.now) {
 				final XP xp = XP.POOL.obtain();
 				xp.init(pos.x + getDimensions().halfWidth, pos.y + getDimensions().halfHeight, 10);

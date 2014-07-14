@@ -47,14 +47,14 @@ public class Star implements Poolable {
 	@Override 
 	public void reset() {
 		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w/2;
-		y = CSG.SCREEN_HEIGHT + w;
+		y = CSG.screenHeight + w;
 	}
 
 	public static void initBackground(Array<Star> stars) {
 		while (stars.size < Particles.MAX_BACKGROUND) {
 			final Star p = Star.POOL.obtain();
 			do {
-				p.y = (float) (CSG.R.nextFloat() * CSG.SCREEN_HEIGHT);
+				p.y = (float) (CSG.R.nextFloat() * CSG.screenHeight);
 			} while (p.y <= 0);
 			stars.add(p);
 		}

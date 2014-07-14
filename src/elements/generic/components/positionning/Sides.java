@@ -16,7 +16,7 @@ public class Sides implements Pos {
 			getConst(e);
 			e.dir.rotate(45 + (CSG.R.nextFloat() * 80));
 		} else {
-			e.pos.x = Stats.GAME_ZONE_W_PLUS_WIDTH_DIV_10;
+			e.pos.x = Stats.GZW_PLUS_MARGIN;
 			getConst(e);
 			// -45 to - 125
 			e.dir.rotate(-45 - (CSG.R.nextFloat() * 80));

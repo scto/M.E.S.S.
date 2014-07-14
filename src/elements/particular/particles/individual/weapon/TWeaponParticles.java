@@ -41,8 +41,8 @@ public final class TWeaponParticles implements Poolable {
 	private static float tmpDecrease = 100;
 	public static void act(Array<TWeaponParticles> pArmeHantee, SpriteBatch batch) {
 		tmp = EndlessMode.delta * Stats.U90;
-		if (tmp < Stats.microU)
-			tmp = Stats.microU;
+		if (tmp < Stats.uDiv75)
+			tmp = Stats.uDiv75;
 		tmpDecrease = tmp / 2;
 		for (final TWeaponParticles p : pArmeHantee) {
 			batch.draw(AssetMan.tWeapon, p.x, p.y, p.halfWidth, p.halfHeight, p.w, p.h, 1, 1, p.angle);

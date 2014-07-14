@@ -36,8 +36,8 @@ public class SpaceInvaderParticle implements Poolable {
 		Particles.SPACE_INVADER.add(p);
 		p.dir.set(Stats.U50, Stats.U20).rotate(CSG.R.nextFloat()*360);
 		if (EndlessMode.triggerStop) {
-			p.x = (e.pos.x + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.x * Stats.microUSur6;
-			p.y = (e.pos.y + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.y * Stats.microUSur6;
+			p.x = (e.pos.x + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.x * Stats.uDiv450;
+			p.y = (e.pos.y + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.y * Stats.uDiv450;
 		} else {
 			p.x = (e.pos.x + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.x * EndlessMode.deltaDiv3;
 			p.y = (e.pos.y + SpaceInvaderWeapon.DIMENSIONS.halfWidth) + p.dir.y * EndlessMode.deltaDiv3;

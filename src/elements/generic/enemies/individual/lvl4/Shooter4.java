@@ -14,7 +14,7 @@ public class Shooter4 extends Shooter3 {
 	
 	public static final int HP = getModulatedPv(Stats.HP_QUI_TIR, LVL), DEMI_HP = HP / 2, XP = getXp(BASE_XP, LVL);
 	public static final Pool<Shooter4> POOL = Pools.get(Shooter4.class);
-	private static final float SPEED = Shooter.SPEED * Stats.VNV4;
+	private static final float SPEED = Shooter.SPEED * Stats.SLVL4;
 	
 	@Override
 	protected void shoot() {

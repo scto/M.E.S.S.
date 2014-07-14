@@ -26,8 +26,8 @@ public class Barre implements Poolable {
 	
 	public Barre init(float x, float y) {
 		nbr++;
-		this.y = (float) (y + CSG.R.nextGaussian() * (Stats.UUU*nbr));
-		this.x = (float) (x + CSG.R.nextGaussian() * (Stats.UUU*nbr));
+		this.y = (float) (y + CSG.R.nextGaussian() * (Stats.U3*nbr));
+		this.x = (float) (x + CSG.R.nextGaussian() * (Stats.U3*nbr));
 //		this.x = x;
 		originX = x;
 		originY = y;

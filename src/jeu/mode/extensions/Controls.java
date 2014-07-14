@@ -25,13 +25,13 @@ public class Controls {
 	private static void afficherDPAD(SpriteBatch batch, TextureRegion arrow, Camera cam) {
 		if (CSG.profile.typeControle == CSG.CONTROLE_DPAD && Gdx.input.isTouched()) {
 			// F L E C H E D R O I T E
-			batch.draw(arrow, (cam.position.x - CSG.screenHalfWidth) + Player.prevX + HALF_WIDTH_FLECHE, CSG.SCREEN_HEIGHT - (Player.prevY + HALF_HEIGHT_FLECHE), HALF_WIDTH_FLECHE, HALF_HEIGHT_FLECHE, WIDTH_FLECHE, HEIGHT_FLECHE, 1, 1, 0);
+			batch.draw(arrow, (cam.position.x - CSG.screenHalfWidth) + Player.prevX + HALF_WIDTH_FLECHE, CSG.screenHeight - (Player.prevY + HALF_HEIGHT_FLECHE), HALF_WIDTH_FLECHE, HALF_HEIGHT_FLECHE, WIDTH_FLECHE, HEIGHT_FLECHE, 1, 1, 0);
 			// F L E C H E G A U C H E
-			batch.draw(arrow, (cam.position.x - CSG.screenHalfWidth) + Player.prevX - (WIDTH_FLECHE + HALF_WIDTH_FLECHE), CSG.SCREEN_HEIGHT - (Player.prevY + HALF_HEIGHT_FLECHE), HALF_WIDTH_FLECHE, HALF_HEIGHT_FLECHE, WIDTH_FLECHE, HEIGHT_FLECHE, 1, 1, 180);
+			batch.draw(arrow, (cam.position.x - CSG.screenHalfWidth) + Player.prevX - (WIDTH_FLECHE + HALF_WIDTH_FLECHE), CSG.screenHeight - (Player.prevY + HALF_HEIGHT_FLECHE), HALF_WIDTH_FLECHE, HALF_HEIGHT_FLECHE, WIDTH_FLECHE, HEIGHT_FLECHE, 1, 1, 180);
 			// F L E C H E H A U T
-			batch.draw(arrow, (cam.position.x - CSG.screenHalfWidth) + Player.prevX - HALF_WIDTH_FLECHE, CSG.SCREEN_HEIGHT - (Player.prevY - HALF_HEIGHT_FLECHE), HALF_WIDTH_FLECHE, HALF_HEIGHT_FLECHE, WIDTH_FLECHE, HEIGHT_FLECHE, 1, 1, 90);
+			batch.draw(arrow, (cam.position.x - CSG.screenHalfWidth) + Player.prevX - HALF_WIDTH_FLECHE, CSG.screenHeight - (Player.prevY - HALF_HEIGHT_FLECHE), HALF_WIDTH_FLECHE, HALF_HEIGHT_FLECHE, WIDTH_FLECHE, HEIGHT_FLECHE, 1, 1, 90);
 			// F L E C H E B A S
-			batch.draw(arrow, (cam.position.x - CSG.screenHalfWidth) + Player.prevX - HALF_WIDTH_FLECHE, CSG.SCREEN_HEIGHT - (Player.prevY + HALF_HEIGHT_FLECHE + HEIGHT_FLECHE), HALF_WIDTH_FLECHE, HALF_HEIGHT_FLECHE, WIDTH_FLECHE, HEIGHT_FLECHE, 1, 1, 270);
+			batch.draw(arrow, (cam.position.x - CSG.screenHalfWidth) + Player.prevX - HALF_WIDTH_FLECHE, CSG.screenHeight - (Player.prevY + HALF_HEIGHT_FLECHE + HEIGHT_FLECHE), HALF_WIDTH_FLECHE, HALF_HEIGHT_FLECHE, WIDTH_FLECHE, HEIGHT_FLECHE, 1, 1, 270);
 		}
 	}
 

@@ -28,9 +28,9 @@ public final class Player {
 		DECALAGE_ADD = WIDTH + HALF_WIDTH - WIDTH_ADD,
 		DECALAGE_TIR_ADD_X_GAUCHE = (int) (-HALF_WIDTH - HALF_WIDTH_ADD + ArmeAdd.DIMENSIONS.halfWidth),
 		DECALAGE_TIR_ADD_X_DROITE = (int) (DECALAGE_ADD - HALF_WIDTH_ADD + ArmeAdd.DIMENSIONS.halfWidth),
-		LIMITE_X_GAUCHE = 0 - HALF_WIDTH, LIMITE_X_DROITE = CSG.gameZoneWidth - HALF_WIDTH, LIMITE_Y_GAUCHE = 0 - HALF_HEIGHT, LIMITE_Y_DROITE = CSG.SCREEN_HEIGHT - HALF_HEIGHT,
+		LIMITE_X_GAUCHE = 0 - HALF_WIDTH, LIMITE_X_DROITE = CSG.gameZoneWidth - HALF_WIDTH, LIMITE_Y_GAUCHE = 0 - HALF_HEIGHT, LIMITE_Y_DROITE = CSG.screenHeight - HALF_HEIGHT,
 		LEFT_ADD1 = 0x0001, LEFT_ADD2 = 0x0002, RIGHT_ADD1 = 0x0004, RIGHT_ADD2 = 0x0008;
-	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.screenWidth + CSG.SCREEN_HEIGHT) / 600;
+	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.screenWidth + CSG.screenHeight) / 600;
 	public static float xCenter = 0, yCenter = 0, nextShot = 0, nextShotAdd = 0, vitesseMax = 0, prevX, prevY, destX, destY, addX, addY, centerLeft1AddX, centerAdd1Y, centerRight1AddX, centerLeft2AddX, centerAdd2Y,
 			centerRight2AddX, vitesseFoisdelta = 0, tmpCalculDeplacement = 0, originalAccelX = 0, originalAccelY = 0, angleAdd = -90, angleAddDroite = -90, camXmoinsDemiEcran = CSG.screenHalfWidth;
 	public static WeaponManager weapon = CSG.profile.getArmeSelectionnee();
@@ -73,7 +73,7 @@ public final class Player {
 		nextShot = 0;
 		prevX = POS.x;
 		prevY = POS.y;
-		vitesseMax = (Stats.V_JOUEUR);
+		vitesseMax = (Stats.PLAYER_SPEED);
 		xCenter = POS.x + HALF_WIDTH;
 		yCenter = POS.y + HALF_HEIGHT;
 		if (CSG.profile.typeControle == CSG.CONTROLE_ACCELEROMETRE) {
@@ -127,7 +127,7 @@ public final class Player {
 	}
 
 	private int getTouchY() {
-		return CSG.SCREEN_HEIGHT - Gdx.input.getY();
+		return CSG.screenHeight - Gdx.input.getY();
 	}
 
 	private float getTouchX() {

@@ -8,7 +8,7 @@ public class Up implements Pos {
 	@Override
 	public void set(Enemy e) {
 		e.pos.x = CSG.R.nextFloat() * (CSG.gameZoneWidth - e.getDimensions().width);
-		e.pos.y = CSG.SCREEN_HEIGHT;
+		e.pos.y = CSG.screenHeight;
 	}
 
 }

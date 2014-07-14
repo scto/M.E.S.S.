@@ -32,12 +32,12 @@ public class MenuXP extends AbstractScreen{
 		ajout(buttonBack);
 		// **       B O U T O N   X P       **
 		boutonXP = new Button(CSG.profile.xpDispo + "xp", false, CSG.menuFont, BUTTON_WIDTH, SMALL_BUTTON_HEIGHT,
-				(CSG.screenWidth / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.SCREEN_HEIGHT - Menu.BUTTON_HEIGHT * 2, this, new OnClick() {
+				(CSG.screenWidth / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.screenHeight - Menu.BUTTON_HEIGHT * 2, this, new OnClick() {
 					public void onClick() {	}}, false);
 		ajout(boutonXP);
 		// ** ** ** BOUTON WEAPON ** ** **
 		ajout(new Button(OTHER_WEAP, false, CSG.menuFont, BUTTON_WIDTH, SMALL_BUTTON_HEIGHT,
-				(CSG.screenWidth / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.SCREEN_HEIGHT - Menu.BUTTON_HEIGHT * 4, this, new OnClick() {
+				(CSG.screenWidth / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.screenHeight - Menu.BUTTON_HEIGHT * 4, this, new OnClick() {
 					public void onClick() {	
 						Player.chqngeWeapon();
 						CSG.profilManager.persist();
@@ -78,7 +78,7 @@ public class MenuXP extends AbstractScreen{
 					}}, false);
 		updateTexteCadence();
 		ajout(boutonCadence);
-		Player.POS.set((CSG.screenWidth / 2) - Player.HALF_WIDTH, CSG.SCREEN_HEIGHT / 3); 
+		Player.POS.set((CSG.screenWidth / 2) - Player.HALF_WIDTH, CSG.screenHeight / 3); 
 		Player.addDrone();
 		Player.addDrone();
 		Player.addDrone();

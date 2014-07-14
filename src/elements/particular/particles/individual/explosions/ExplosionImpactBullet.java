@@ -15,7 +15,7 @@ import elements.particular.Player;
 
 public class ExplosionImpactBullet implements Poolable {
 	
-	private static final float WIDTH_SMALL = CSG.screenWidth / 80, SPEED = Stats.UU;
+	private static final float WIDTH_SMALL = CSG.screenWidth / 80, SPEED = Stats.U2;
 	private static final float MIN_WIDTH = 1;
 	private static final Pool<ExplosionImpactBullet> POOL = new Pool<ExplosionImpactBullet>(100) {
 		@Override

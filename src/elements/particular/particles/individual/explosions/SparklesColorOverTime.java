@@ -22,7 +22,7 @@ public class SparklesColorOverTime implements Poolable {
 	private int index;
 	public static final float WIDTH = Stats.uDiv4;
 	private static final float HALF_WIDTH = WIDTH / 2;
-	public static final float HEIGHT = Stats.UUU, HALF_HEIGHT = HEIGHT / 2;
+	public static final float HEIGHT = Stats.U3, HALF_HEIGHT = HEIGHT / 2;
 	private float[] colors;
 	private static final Vector2 tmpVector = new Vector2();
 

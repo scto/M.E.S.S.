@@ -9,7 +9,7 @@ public class Middle implements Pos{
 	@Override
 	public void set(Enemy e) {
 		e.pos.x = CSG.gameZoneHalfWidth - e.getDimensions().halfWidth;
-		e.pos.y = CSG.SCREEN_HEIGHT;
+		e.pos.y = CSG.screenHeight;
 	}
 
 }

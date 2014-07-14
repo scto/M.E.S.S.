@@ -30,7 +30,7 @@ public class CSG extends Game implements ApplicationListener {
 
 	// ---- champs globaux ---- Je ne trouve pas comment mettre final car Gdx n'est pas encore initialise
 	public static int screenHalfWidth = 0, screenTierWidth, gameZoneHalfWidth, halfHeight, screenWidth, gameZoneWidth, borderWidth, gameZoneWidthDiv20, gameZoneWidthDiv100, screenWidth2Thirds;
-	public static int WIDTH_ZONE_MOINS_WIDTH_BORD, WIDTH_ZONE_MOINS_WIDTH_BORD_MUL2, SCREEN_HEIGHT, DIXIEME_WIDTH, HEIGHT_DIV10, CENTIEME_HEIGHT, HEIGHT_DIV50, HEIGHT_DIV20, HEIGHT_PLUS_4, HEIGHT_DIV8;
+	public static int WIDTH_ZONE_MOINS_WIDTH_BORD, WIDTH_ZONE_MOINS_WIDTH_BORD_MUL2, screenHeight, DIXIEME_WIDTH, HEIGHT_DIV10, CENTIEME_HEIGHT, HEIGHT_DIV50, HEIGHT_DIV20, HEIGHT_PLUS_4, HEIGHT_DIV8;
 	public static int CINQUIEME_ECRAN, DEUX_CINQUIEME_ECRAN, TROIS_CINQUIEME_ECRAN, QUATRE_CINQUIEME_ECRAN, QUATR_HEIGHT;
 	public static int CINQUIEME_ZONE, DEUX_CINQUIEME_ZONE, TROIS_CINQUIEME_ZONE, QUATRE_CINQUIEME_ZONE;
 	public static float RATIO;
@@ -88,7 +88,7 @@ public class CSG extends Game implements ApplicationListener {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("PolenticalNeonRegular.ttf"));
 		FreeTypeFontParameter param = new FreeTypeFontParameter();
 		
-		float dimension = CSG.SCREEN_HEIGHT + CSG.screenWidth;
+		float dimension = CSG.screenHeight + CSG.screenWidth;
 		dimension = dimension / 900;
 		if (dimension < 1f)
 			dimension = 1f;
@@ -117,8 +117,8 @@ public class CSG extends Game implements ApplicationListener {
 		screenHalfWidth = Gdx.graphics.getWidth() / 2;
 		halfHeight = Gdx.graphics.getHeight() / 2;
 		screenWidth = Gdx.graphics.getWidth();
-		SCREEN_HEIGHT = Gdx.graphics.getHeight();
-		RATIO = screenWidth / SCREEN_HEIGHT;
+		screenHeight = Gdx.graphics.getHeight();
+		RATIO = screenWidth / screenHeight;
 		gameZoneWidth = (int) (screenWidth * 1.0f);
 		gameZoneWidthDiv20 = gameZoneWidth / 20;
 		gameZoneWidthDiv100 = gameZoneWidth / 100;
@@ -129,27 +129,27 @@ public class CSG extends Game implements ApplicationListener {
 		gameZoneHalfWidth = gameZoneWidth / 2;
 //		DEMI_CAMERA = (gameZoneWidth - screenWidth) * 2;
 		DIXIEME_WIDTH = screenWidth / 10;
-		HEIGHT_DIV10 = SCREEN_HEIGHT / 10;
-		CENTIEME_HEIGHT = SCREEN_HEIGHT / 100;
-		HEIGHT_DIV50 = SCREEN_HEIGHT / 50;
-		HEIGHT_DIV8 = SCREEN_HEIGHT / 8;
-		HEIGHT_DIV20 = SCREEN_HEIGHT / 20;
+		HEIGHT_DIV10 = screenHeight / 10;
+		CENTIEME_HEIGHT = screenHeight / 100;
+		HEIGHT_DIV50 = screenHeight / 50;
+		HEIGHT_DIV8 = screenHeight / 8;
+		HEIGHT_DIV20 = screenHeight / 20;
 		CINQUIEME_ECRAN = DIXIEME_WIDTH * 2;
 		DEUX_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 2;
 		TROIS_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 3;
 		QUATRE_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 4;
-		QUATR_HEIGHT = SCREEN_HEIGHT / 4;
+		QUATR_HEIGHT = screenHeight / 4;
 		
 		CINQUIEME_ZONE = gameZoneWidth / 5;
 		DEUX_CINQUIEME_ZONE = CINQUIEME_ZONE * 2;
 		TROIS_CINQUIEME_ZONE = CINQUIEME_ZONE * 3;
 		QUATRE_CINQUIEME_ZONE = CINQUIEME_ZONE * 4;
-		HEIGHT_PLUS_4 = SCREEN_HEIGHT + 4;
-		HEIGHT_9_10 = SCREEN_HEIGHT - HEIGHT_DIV10;
-		HEIGHT_8_10 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 2);
-		HEIGHT_7_10 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 3);
-		HEIGHT_ECRAN_PALLIER_3 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 3);
-		HEIGHT_ECRAN_PALLIER_7 = SCREEN_HEIGHT - (HEIGHT_DIV10 * 7);
+		HEIGHT_PLUS_4 = screenHeight + 4;
+		HEIGHT_9_10 = screenHeight - HEIGHT_DIV10;
+		HEIGHT_8_10 = screenHeight - (HEIGHT_DIV10 * 2);
+		HEIGHT_7_10 = screenHeight - (HEIGHT_DIV10 * 3);
+		HEIGHT_ECRAN_PALLIER_3 = screenHeight - (HEIGHT_DIV10 * 3);
+		HEIGHT_ECRAN_PALLIER_7 = screenHeight - (HEIGHT_DIV10 * 7);
 		
 		screenWidth2Thirds = (screenWidth / 2) * 3;
 	}

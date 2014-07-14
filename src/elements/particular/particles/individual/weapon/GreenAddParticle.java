@@ -39,7 +39,7 @@ public class GreenAddParticle implements Poolable {
 
 	public static void act(Array<GreenAddParticle> GreenAddParticles, SpriteBatch batch) {
 		batch.setColor(COLOR);
-		tmp = Stats.uSur2;
+		tmp = Stats.uDiv2;
 		half = tmp/2;
 		for (final GreenAddParticle p : GreenAddParticles) {
 			p.w -= tmp;

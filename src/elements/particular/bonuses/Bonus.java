@@ -128,8 +128,8 @@ public abstract class Bonus {
 	}
 
 	public void init(float x, float y) {
-		if (y > CSG.SCREEN_HEIGHT)
-			y = CSG.SCREEN_HEIGHT;
+		if (y > CSG.screenHeight)
+			y = CSG.screenHeight;
 		pos.x = x - HALF_WIDTH;
 		pos.y = y - HALF_WIDTH;
 		LIST.add(this);

@@ -3,11 +3,9 @@ package jeu;
 import java.text.DecimalFormat;
 
 public class Strings {
-//	public static final String ADVICE2 = "TRY TO CHANGE THE SENSITIVITY IN THE OPTION";
 	public static final String ADVICE3 = "USE YOUR POINTS TO UPGRADE YOUR SHIP",
 		ADVICE4 = "USE THE BOMB TO CLEAR THE PATH",
 		ADVICE5 = "USE THIS BONUS TO STOP THE TIME";
-//	public static final String ADVICE6 = "USE THIS BONUS SLOW THE TIME";
 	
 	public static final String ACH_LISTEN = "CgkIrsqv7rIVEAIQGg",
 		ACH_BOMB = "CgkIrsqv7rIVEAIQGw",
@@ -25,7 +23,6 @@ public class Strings {
 	public static final String P1 = "HELLO, HERE IS THE BORING STUFF THAT WILL TEACH YOU HOW TO PLAY... THANKS FOR PLAYING !  PAY ATTENTION TO THE BONUS THEY ARE VERY USEFUL",
 		SHIP = "Touch the screen to move your ship",
 		SHOOTHIM = "Shoot them !",
-	//	GG = "ENEMIES WILL GIVE YOU POINTS. \n USE THEM TO IMPROVE YOUR SHIP !",
 		TAKE_BONUS = "TAKE THIS BONUS",
 		USE_BONUS = "DO NOT TOUCH THE SCREEN TO MAKE THE BONUS MENU APPEAR THEN TOUCH THE BONUS YOU JUST GOT TO USE IT";
 	

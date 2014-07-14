@@ -58,7 +58,7 @@ public class Group extends Enemy {
 		now = 5;
 		LIST.add(this);
 		pos.x = x;
-		pos.y = CSG.SCREEN_HEIGHT;
+		pos.y = CSG.screenHeight;
 		dir.x = 0;
 		dir.y = -getSpeed();
 	}
@@ -66,7 +66,7 @@ public class Group extends Enemy {
 	@Override
 	public void reset() {
 		super.reset();
-		pos.y = CSG.SCREEN_HEIGHT;
+		pos.y = CSG.screenHeight;
 		nextShot = INIT_NEXT_SHOT;
 		shotNumber = 0;
 	}

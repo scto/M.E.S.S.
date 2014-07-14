@@ -32,7 +32,7 @@ public class Credits {
 	}
 
 	public void render(SpriteBatch batch, float delta) {
-		posX -= delta * Stats.UUU;
+		posX -= delta * Stats.U3;
 		CSG.menuFontSmall.draw(batch, str, posX, CSG.menuFontSmall.getBounds(str).height + 2);
 	}
 }

@@ -36,7 +36,7 @@ public class Quad extends Enemy {
 	}
 
 	public void init() {
-		pos.set(CSG.screenHalfWidth - DIMENSIONS.halfWidth, CSG.SCREEN_HEIGHT);
+		pos.set(CSG.screenHalfWidth - DIMENSIONS.halfWidth, CSG.screenHeight);
 		dir.set(-getSpeed() * 4f, -getSpeed());
 		animIndex = 0;
 	}
