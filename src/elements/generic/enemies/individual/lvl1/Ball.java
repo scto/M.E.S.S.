@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.positionning.Positionner;
 import elements.generic.components.shots.AbstractShot;
@@ -22,7 +22,6 @@ import elements.generic.weapons.player.PlayerWeapon;
 
 public class Ball extends Enemy {
 	
-	protected static final int BASE_XP = 12, LVL = 1, EXPLOSION = 35, XP = getXp(BASE_XP, 1);
 	protected static final float FIRERATE = 4f * MOD_FIRERATE, INIT_NEXT_SHOT = 3f;
 	protected static final Dimensions DIMENSIONS = Dimensions.BALL;
 	public static final Pool<Ball> POOL = Pools.get(Ball.class);
@@ -54,14 +53,11 @@ public class Ball extends Enemy {
 	
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion3;						}
 	@Override	public Animations getAnimation() {			return Animations.BALL;							}
-	@Override	public HPandSpeed getEnemyStats() {			return HPandSpeed.BALL;							}
+	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.BALL;							}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;								}
-	@Override	public int getExplosionCount() {			return EXPLOSION;								}
 	@Override	public float getFirerate() {				return FIRERATE;								}
 	@Override	public void free() {						POOL.free(this);								}
-	@Override	public int getBonusValue() {				return BASE_XP;									}
 	@Override	public int getColor() {						return BLUE;									}
-	@Override	public int getXp() {						return XP;										}
 	@Override	public boolean stillAlive(PlayerWeapon a) {
 		nextShot -= 1;
 		return super.stillAlive(a);					

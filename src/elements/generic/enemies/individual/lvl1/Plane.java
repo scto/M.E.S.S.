@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.positionning.Positionner;
 import elements.generic.components.shots.AbstractShot;
@@ -26,7 +26,6 @@ import elements.particular.particles.ParticuleBundles;
 public class Plane extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.PLANE;
-	public static final int EXPLOSION_MIN_PARTICLES = 55, BASE_XP = 45, XP = BASE_XP;
 	public static final float OFFSET_SMOKE_LEFT = (int) (DIMENSIONS.width * .48f), 
 		OFFSET_SMOKE_RIGHT = (int) (DIMENSIONS.width * .52f), OFFSET_SMOKE = (int) (DIMENSIONS.height * 0.98f), OFFSET_WEAPON_RIGHT = (int) (DIMENSIONS.width - SmallFireball.DIMENSIONS.halfWidth * 1.5f),
 		OFFSET_WEAPON_LEFT = SmallFireball.DIMENSIONS.halfWidth / 2, 
@@ -80,14 +79,11 @@ public class Plane extends Enemy {
 		return super.stillAlive(p);
 	}
 	
-	@Override	public int getExplosionCount() {		return EXPLOSION_MIN_PARTICLES;					}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion5;						}
 	@Override	public Animations getAnimation() {		return Animations.PLANE;						}
-	@Override	public HPandSpeed getEnemyStats() {		return HPandSpeed.PLANE;					 	}
+	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.PLANE;					 	}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;								}
 	@Override	public boolean isInGoodShape() {		return goodShape;								}
 	@Override 	public float getFirerate() {			return FIRERATE;								}
 	@Override	public void free() {					POOL.free(this);								}
-	@Override	public int getBonusValue() {			return BASE_XP;									}
-	@Override	public int getXp() {					return XP;										}
 }

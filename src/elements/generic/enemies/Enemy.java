@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.Element;
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.weapons.Weapon;
 import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.player.PlayerWeapon;
@@ -274,14 +274,14 @@ public abstract class Enemy extends Element implements Poolable {
 	public float getAngle() {								return angle;								}
 	public boolean toLeft() {								return false;								}
 	protected Sound getExplosionSound() {					return SoundMan.explosion3;					}
+	public int getXp() {									return getEnemyStats().getXp();				}
+	public int getExplosionCount() {						return getEnemyStats().explosion;			}
+	public int getBonusValue() {							return getEnemyStats().getBonusValue();		}
 	public void setLeft(boolean b) {																	}
 	public void setRotation(float f) {																	}
 	public void init() {																				}
-	public abstract HPandSpeed getEnemyStats();
-	public abstract int getXp();
+	public abstract EnemyStats getEnemyStats();
 	public abstract void free();
-	public abstract int getBonusValue();
-	public abstract int getExplosionCount();
 
 	public float getFirerate() {
 		return 1;

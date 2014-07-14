@@ -4,15 +4,12 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.behavior.Mover;
-import elements.generic.enemies.individual.lvl1.RoundAndRound;
 import elements.generic.enemies.individual.lvl3.RoundAndRound3;
 import jeu.CSG;
-import jeu.Stats;
 import jeu.mode.EndlessMode;
 
 public class RoundAndRound4 extends RoundAndRound3 {
 
-	private static final int LVL = 4, XP = getXp(BASE_XP, LVL);
 	private static final float FIRERATE = .2f;
 	public static final Pool<RoundAndRound4> POOL = Pools.get(RoundAndRound4.class);
 	private static float tmp;
@@ -36,6 +33,4 @@ public class RoundAndRound4 extends RoundAndRound3 {
 	}
 	@Override	public float getFirerate() {		return FIRERATE;				}
 	@Override	public void free() {				POOL.free(this);				}
-	@Override	public int getBonusValue() {		return BASE_XP;					}
-	@Override	public int getXp() {				return XP;						}
 }

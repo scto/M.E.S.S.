@@ -6,13 +6,11 @@ import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
-import elements.generic.enemies.individual.lvl1.Shooter;
 import elements.generic.enemies.individual.lvl3.Shooter3;
 import elements.generic.weapons.enemies.Fireball;
 
 public class Shooter4 extends Shooter3 {
 	
-	public static final int XP = getXp(BASE_XP, LVL);
 	public static final Pool<Shooter4> POOL = Pools.get(Shooter4.class);
 	
 	@Override
@@ -22,7 +20,5 @@ public class Shooter4 extends Shooter3 {
 		interval(-1);
 	}
 	
-	@Override	public int getXp() {				return XP;						}
-	@Override	public int getBonusValue() {		return BASE_XP;					}
 	@Override	public void free() {				POOL.free(this);				}
 }

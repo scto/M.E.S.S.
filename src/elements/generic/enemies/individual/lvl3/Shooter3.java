@@ -1,6 +1,5 @@
 package elements.generic.enemies.individual.lvl3;
 
-import jeu.Stats;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
@@ -8,7 +7,6 @@ import elements.generic.enemies.individual.lvl1.Shooter;
 
 public class Shooter3 extends Shooter {
 	
-	public static final int LVL = 3, XP = getXp(BASE_XP, LVL);
 	public static final Pool<Shooter3> POOL = Pools.get(Shooter3.class);
 	private static final float FIRERATE = Shooter.FIRERATE * 0.4f  * MOD_FIRERATE;
 	private int shotNumber = 0;
@@ -26,6 +24,4 @@ public class Shooter3 extends Shooter {
 	}
 	@Override	public void free() {				POOL.free(this);				}
 	@Override	public float getFirerate() {		return FIRERATE;				}
-	@Override	public int getBonusValue() {		return BASE_XP;					}
-	@Override	public int getXp() {				return XP;						}
 }

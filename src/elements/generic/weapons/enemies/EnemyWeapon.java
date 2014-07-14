@@ -6,8 +6,6 @@ import jeu.mode.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Pool.Poolable;
-
 import elements.generic.weapons.Weapon;
 import elements.particular.Player;
 import elements.particular.bonuses.XP;

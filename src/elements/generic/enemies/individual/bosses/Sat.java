@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.Weapon;
 
@@ -28,7 +28,7 @@ public class Sat extends Enemy {
 	public static final Dimensions DIMENSIONS = Dimensions.SAT;
 	public static final int Y_1 = (int) ((DIMENSIONS.width / 40) * 21), Y_2 = (int) ((DIMENSIONS.width / 40) * 35), Y_3 = (int) ((DIMENSIONS.width) - (int)AddStat.DIMENSIONS.width), Y_4 = (int) ((DIMENSIONS.width / 40) * 6), Y_5 = Y_1, X_2 = (int) (DIMENSIONS.width / 12),
 			X_3 = (int) ((DIMENSIONS.width / 2) - (int)AddStat.DIMENSIONS.halfWidth), X_4 = (int) (DIMENSIONS.width - X_2 - AddStat.DIMENSIONS.width), X_5 = (int) (DIMENSIONS.width - AddStat.DIMENSIONS.width), ANGLE_2 = 135, ANGLE_3 = 90, ANGLE_4 = 40, ANGLE_5 = -90, PK = 17, HP = 195, 
-			HALF_HP = HP / 2, EXPLOSION = 60, BASE_XP = 75, XP = BASE_XP;
+			HALF_HP = HP / 2;
 	public static Pool<Sat> POOL = Pools.get(Sat.class);
 	private int launched = 0;
 	private boolean goodShape = true;
@@ -131,13 +131,11 @@ public class Sat extends Enemy {
 	}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.bigExplosion;		}
 	@Override	protected int getMaxHp() {				return super.getPvBoss(HP);			}
-	@Override	public HPandSpeed getEnemyStats() {		return HPandSpeed.SAT;				}
+	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.SAT;				}
 	@Override	public Animations getAnimation() {		return Animations.SAT;				}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	public boolean isInGoodShape() {		return goodShape;					}
 	@Override	public int getExplosionCount() {		return EXPLOSION;					}
 	@Override	public void free() {					POOL.free(this);					}
-	@Override	public int getBonusValue() {			return BASE_XP;						}
-	@Override	public int getXp() {					return XP;							}
 
 }

@@ -12,7 +12,6 @@ import elements.generic.enemies.individual.lvl1.ZigZag;
 public class ZigZag3 extends ZigZag {
 
 	public static final Pool<ZigZag3> POOL = Pools.get(ZigZag3.class);
-	public static final int LVL = 3, XP = getXp(BASE_XP, LVL);
 	private static final Vector2 smokeVector = new Vector2(0, Stats.uDiv2);
 	
 	@Override
@@ -21,8 +20,6 @@ public class ZigZag3 extends ZigZag {
 	}
 	@Override	public Animations getAnimation() {			return Animations.ZIG_ZAG_BLUE;	}
 	@Override	public void free() {						POOL.free(this);				}
-	@Override	public int getBonusValue() {				return BASE_XP;					}
 	@Override	public int getColor() {						return BLUE;					}
-	@Override	public int getXp() {						return XP;						}
 	protected Vector2 getSmokeVector() {					return smokeVector;				}
 }

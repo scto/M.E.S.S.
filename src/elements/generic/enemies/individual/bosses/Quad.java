@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
@@ -127,15 +127,12 @@ public class Quad extends Enemy {
 		return super.getPvBoss(getEnemyStats().getHp());	
 	}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.bigExplosion;						}
-	@Override	public HPandSpeed getEnemyStats() {		return HPandSpeed.BOSS_MINE;						}
+	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.BOSS_MINE;						}
 	@Override	public Animations getAnimation() {		return Animations.QUAD;					}
 	@Override	public void addShots(int i) {			this.shotNumber += i;					}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;									}
 	@Override	public int getShotNumber() {			return shotNumber;						}
 	@Override	public int getAnimIndex() {				return animIndex;						}
 	@Override	public void free() {					POOL.free(this);						}
-	@Override	public int getXp() {					return 200;								}
-	@Override	public int getBonusValue() {			return 200;								}
-	@Override	public int getExplosionCount() {		return 180;								}
 }
 

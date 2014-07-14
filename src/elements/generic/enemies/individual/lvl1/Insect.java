@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.positionning.Positionner;
 import elements.generic.components.shots.AbstractShot;
@@ -20,7 +20,6 @@ import elements.generic.weapons.Weapon;
 public class Insect extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.INSECT;
-	public static final int BASE_XP = 86, EXPLOSION = 50, XP = getXp(BASE_XP, 1);
 	public static final Pool<Insect> POOL = Pools.get(Insect.class);
 	protected static final float FIRERATE = 1.5f * MOD_FIRERATE, INIT_NEXT_SHOT = 1;
 	private boolean goodShape;
@@ -49,15 +48,12 @@ public class Insect extends Enemy {
 	protected int getNumberOfShotsRandom() {				return 3;															}
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion5;											}
 	@Override	public Animations getAnimation() {			return Animations.INSECT;											}
-	@Override	public HPandSpeed getEnemyStats() {			return HPandSpeed.INSECT;											}
+	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.INSECT;											}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;													}
 	@Override	public boolean isInGoodShape() {			return goodShape;													}
-	@Override	public int getExplosionCount() {			return EXPLOSION;													}
 	@Override	public float getFirerate() {				return FIRERATE;													}
 	@Override	public void free() {						POOL.free(this);													}
-	@Override	public int getBonusValue() {				return BASE_XP;														}
 	@Override	public float getAngle() {					return angle;														}
-	@Override	public int getXp() {						return XP;															}
 	@Override
 	public boolean isTouched(Weapon a) {
 		if (hp < getEnemyStats().getHalfHp()) {

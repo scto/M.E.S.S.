@@ -1,6 +1,5 @@
 package elements.generic.enemies.individual.lvl1;
 
-import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.sprites.Animations;
@@ -9,7 +8,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Pool;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.positionning.Positionner;
 import elements.generic.enemies.Enemy;
 import elements.particular.particles.Particles;
@@ -17,8 +16,7 @@ import elements.particular.particles.Particles;
 public class Basic extends Enemy {
 	
 	public static final Dimensions DIMENSIONS = Dimensions.BASIC;
-	public static final int OFFSET_SMOKE = (int) (DIMENSIONS.height * .75f), LVL = 1;
-	protected static final int BASE_XP = 1, EXPLOSION = 25, XP = getXp(BASE_XP, 1);
+	public static final int OFFSET_SMOKE = (int) (DIMENSIONS.height * .75f);
 	public static final Pool<Basic> POOL = new Pool<Basic>(16) {		protected Basic newObject() {			return new Basic();		}	};
 	
 	@Override
@@ -38,11 +36,8 @@ public class Basic extends Enemy {
 	
 	@Override	public Animations getAnimation() {		return Animations.BASIC_ENEMY_RED;	}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion6;			}
-	@Override	public HPandSpeed getEnemyStats() {		return HPandSpeed.BASIC;			}
+	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.BASIC;			}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
-	@Override	public int getExplosionCount() {		return EXPLOSION;					}	
 	@Override	public void free() {					POOL.free(this);					}
-	@Override	public int getBonusValue() {			return BASE_XP;						}
-	@Override	public int getXp() {					return XP;							}
 
 }

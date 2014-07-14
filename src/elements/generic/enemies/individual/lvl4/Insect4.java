@@ -11,7 +11,6 @@ import jeu.Stats;
 public class Insect4 extends Insect {
 	
 	public static final Pool<Insect4> POOL = Pools.get(Insect4.class);
-	private static final int XP = getXp(BASE_XP, 4);
 	private static float tmp = 0;
 	@Override
 	protected void move() {
@@ -29,7 +28,5 @@ public class Insect4 extends Insect {
 			Mover.insectMove(this, 4, 12, Stats.uDiv8);
 	}
 
-	@Override	public int getXp() {				return XP;														}
-	@Override	public int getBonusValue() {		return BASE_XP;													}
 	@Override	public void free() {				POOL.free(this);												}
 }

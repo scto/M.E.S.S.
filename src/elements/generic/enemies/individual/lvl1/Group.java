@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
@@ -20,13 +20,10 @@ import elements.generic.weapons.enemies.Tournante;
 
 public class Group extends Enemy {
 	
-	protected static final int LVL = 1;
 	protected static final Dimensions DIMENSIONS = Dimensions.GROUP;
 	public static final Pool<Group> POOL = new Pool<Group>() {		protected Group newObject() {			return new Group();		}	};
 	protected static final float FIRERATE = 0.6f * MOD_FIRERATE, INIT_NEXT_SHOT = .5f;
 	private static final float COLOR = AssetMan.convertARGB(1, 1f, 0.5f, 0.2f);
-	protected static final int BASE_XP = 12;
-	private static final int EXPLOSION = 35, XP = getXp(BASE_XP, LVL);
 	private int shotNumber = 0;
 	
 	@Override
@@ -82,14 +79,11 @@ public class Group extends Enemy {
 	}
 	@Override	protected Sound getExplosionSound() {					return SoundMan.explosion6;		}
 	@Override	public Animations getAnimation() {						return Animations.DIABOLO;		}
-	@Override	public HPandSpeed getEnemyStats() {						return HPandSpeed.GROUP;		}
+	@Override	public EnemyStats getEnemyStats() {						return EnemyStats.GROUP;		}
 	@Override	public Dimensions getDimensions() {						return DIMENSIONS;				}
 	@Override	public int getShotNumber() {							return shotNumber;				}
-	@Override	public int getExplosionCount() {						return EXPLOSION;				}
 	@Override	public void free() {									POOL.free(this);				}
 	@Override	public void addShots(int i) {							shotNumber += i;				}
 	@Override	public float getFirerate() {							return FIRERATE;				}
-	@Override	public int getBonusValue() {							return BASE_XP;					}
-	@Override	public int getXp() {									return XP;						}
 	@Override	public int getNumberOfShots() {							return 3;						}
 }

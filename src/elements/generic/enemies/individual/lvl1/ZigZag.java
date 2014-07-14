@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.positionning.Positionner;
 import elements.generic.enemies.Enemy;
@@ -20,7 +20,6 @@ import elements.particular.particles.Particles;
 public class ZigZag extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.BASIC;
-	public static final int EXPLOSION = 40, BASE_XP = 3, XP = 1;
 	protected static final float OFFSET_SMOKE = (int) (DIMENSIONS.height * 0.8f);
 	public static final Pool<ZigZag> POOL = Pools.get(ZigZag.class);
 	private static final Vector2 smokeVector = new Vector2(0, Stats.uDiv4);
@@ -42,10 +41,7 @@ public class ZigZag extends Enemy {
 
 	@Override	public Animations getAnimation() {		return Animations.ZIG_ZAG_RED;		}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion5;			}
-	@Override	public HPandSpeed getEnemyStats() {		return HPandSpeed.ZIGZAG;			}
+	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.ZIGZAG;			}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
-	@Override	public int getExplosionCount() {		return EXPLOSION;					}
 	@Override	public void free() {					POOL.free(this);					}
-	@Override	public int getBonusValue() {			return BASE_XP;						}
-	@Override	public int getXp() {					return XP;							}
 }

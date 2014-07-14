@@ -7,12 +7,10 @@ import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
 import elements.generic.enemies.individual.lvl3.Laser3;
 import elements.generic.weapons.enemies.LaserWeapon;
-import jeu.Stats;
 
 
 public class Laser4 extends Laser3 {
 	
-	private static final int XP = getXp(BASE_XP, 4);
 	public static final Pool<Laser4> POOL = Pools.get(Laser4.class);
 	
 	
@@ -27,6 +25,4 @@ public class Laser4 extends Laser3 {
 	
 	@Override	public float getFirerate() {				return 0.1f;				}
 	@Override	public void free() {						POOL.free(this);						}
-	@Override	public int getBonusValue() {				return BASE_XP;							}
-	@Override	public int getXp() {						return XP;								}
 }

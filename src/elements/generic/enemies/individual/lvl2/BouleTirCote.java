@@ -1,7 +1,6 @@
 package elements.generic.enemies.individual.lvl2;
 
 import jeu.CSG;
-import jeu.Stats;
 import assets.SoundMan;
 import assets.sprites.Animations;
 
@@ -10,7 +9,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
 import elements.generic.enemies.Enemy;
@@ -46,13 +45,10 @@ public class BouleTirCote extends Enemy {
 		numeroTir = AbstractShot.interval(this, 6, 1, numeroTir);
 	}
 
-	@Override	public HPandSpeed getEnemyStats() {			return HPandSpeed.BALL_SIDE_SHOT;	}
+	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.BALL_SIDE_SHOT;	}
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion4;			}
 	@Override	public Animations getAnimation() {			return Animations.BALL;				}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;					}
 	@Override	public float getFirerate() {				return FIRERATE;					}
 	@Override	public void free() {						POOL.free(this);					}
-	@Override	public int getXp() {						return 73;							}
-	@Override	public int getBonusValue() {				return 80;							}
-	@Override	public int getExplosionCount() {			return 40;							}
 }

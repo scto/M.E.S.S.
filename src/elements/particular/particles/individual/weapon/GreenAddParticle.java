@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.weapons.player.ArmeAdd;
 import elements.generic.weapons.player.PlayerWeapon;
-import elements.particular.Player;
 
 public class GreenAddParticle implements Poolable {
 	

@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.positionning.Positionner;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
@@ -20,7 +20,6 @@ import elements.generic.weapons.enemies.ViciousBullet;
 public class Vicious extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.VICIOUS;
-	public static final int EXPLOSION = 50;
 	public static final float FIRERATE = 3 * MOD_FIRERATE, INIT_NEXT_SHOT = 1;
 	public static final Pool<Vicious> POOL = Pools.get(Vicious.class);
 	private int xp, hp;
@@ -44,10 +43,9 @@ public class Vicious extends Enemy {
 	}
 
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion5;											}
-	@Override	public HPandSpeed getEnemyStats() {			return HPandSpeed.VICIOUS;											}
+	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.VICIOUS;											}
 	@Override	public Animations getAnimation() {			return Animations.INSECT;											}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;													}
-	@Override	public int getExplosionCount() {			return EXPLOSION;													}
 	@Override 	public float getFirerate() {				return FIRERATE;													}
 	@Override	public void free() {						POOL.free(this);													}
 	@Override	public int getXp() {						return xp;															}

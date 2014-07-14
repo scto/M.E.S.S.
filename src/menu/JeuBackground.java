@@ -2,7 +2,6 @@ package menu;
 
 import jeu.CSG;
 import jeu.Physic;
-import jeu.Stats;
 import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

@@ -1,7 +1,6 @@
 package elements.generic.enemies.individual.lvl1;
 
 import jeu.Physic;
-import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.sprites.Animations;
@@ -11,7 +10,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.positionning.Positionner;
 import elements.generic.components.shots.AbstractShot;
@@ -22,7 +21,7 @@ import elements.generic.weapons.enemies.OrangeBullet;
 public class RoundAndRound extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.ROUND_N_ROUND;
-	public static final int BASE_XP = 21, LVL = 1, XP = getXp(BASE_XP, LVL), EXPLOSION_MIN_PARTICLES = 30, SHOTS_GAP = 5;
+	public static final int SHOTS_GAP = 5;
 	protected static final float FIRERATE = .4f * MOD_FIRERATE, INIT_NEXT_SHOT = 0;
 	private static final float OFFSET_TIR = DIMENSIONS.halfWidth - OrangeBullet.DIMENSIONS.halfWidth;
 	public static final Pool<RoundAndRound> POOL = Pools.get(RoundAndRound.class);
@@ -61,8 +60,7 @@ public class RoundAndRound extends Enemy {
 	}
 	
 	@Override	public Animations getAnimation() {				return Animations.ROUND_N_ROUND;	}
-	@Override	public HPandSpeed getEnemyStats() {				return HPandSpeed.ROUND_N_ROUND;	}
-	@Override	public int getExplosionCount() {				return EXPLOSION_MIN_PARTICLES;		}
+	@Override	public EnemyStats getEnemyStats() {				return EnemyStats.ROUND_N_ROUND;	}
 	@Override	protected Sound getExplosionSound() {			return SoundMan.explosion6;			}
 	@Override	public boolean getWay() {						return leftOfTheScreen;				}
 	@Override	public boolean toLeft() {						return leftOfTheScreen;				}
@@ -70,7 +68,5 @@ public class RoundAndRound extends Enemy {
 	@Override	public void addShots(int i) {					shotNumber += i;					}
 	@Override 	public float getFirerate() {					return FIRERATE;					}
 	@Override	public void free() {							POOL.free(this);					}
-	@Override	public int getBonusValue() {					return BASE_XP;						}
 	@Override	public int getColor() {							return GREEN;						}
-	@Override	public int getXp() {							return XP;							}
 }

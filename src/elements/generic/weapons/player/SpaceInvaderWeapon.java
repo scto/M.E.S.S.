@@ -3,16 +3,12 @@ package elements.generic.weapons.player;
 import jeu.CSG;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
-import assets.AssetMan;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.components.Dimensions;
-import elements.particular.particles.Particles;
-import elements.particular.particles.individual.PrecalculatedParticles;
 import elements.particular.particles.individual.weapon.SpaceInvaderParticle;
 
 

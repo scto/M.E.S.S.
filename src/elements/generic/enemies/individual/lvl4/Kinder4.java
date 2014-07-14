@@ -7,13 +7,11 @@ import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
 import elements.generic.enemies.individual.lvl3.Kinder3;
 import elements.generic.weapons.enemies.KinderWeapon;
-import jeu.Stats;
 
 
 public class Kinder4 extends Kinder3 {
 	
 	public static final Pool<Kinder4> POOL = Pools.get(Kinder4.class);
-	private static final int XP = getXp(BASE_XP, 4);
 	private static final float PHASE_DURATION = 22;
 	
 	@Override
@@ -29,8 +27,6 @@ public class Kinder4 extends Kinder3 {
 	}
 	
 	@Override	public void free() {					POOL.free(this);				}
-	@Override	public int getBonusValue() {			return BASE_XP;					}
-	@Override	public int getXp() {					return XP;						}
 	@Override	public float getPhaseDuration() {		return PHASE_DURATION;			}
 }
 

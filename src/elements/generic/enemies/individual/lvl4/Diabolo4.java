@@ -13,7 +13,6 @@ import jeu.Stats;
 public class Diabolo4 extends Diabolo3 {
 	
 	public static final Pool<Diabolo4> POOL = Pools.get(Diabolo4.class);
-	private static final int LVL = 4,XP = getXp(BASE_XP, LVL);
 	private static final float FIRERATE = Diabolo.FIRERATE * 0.4f * MOD_FIRERATE;
 
 	@Override
@@ -32,8 +31,6 @@ public class Diabolo4 extends Diabolo3 {
 	
 	@Override	public void free() {					POOL.free(this);					}
 	@Override 	public float getFirerate() {			return FIRERATE;					}
-	@Override	public int getBonusValue() {			return BASE_XP;						}
-	@Override	public int getXp() {					return XP;							}
 	@Override 	protected float getPhaseDuration() {	return 20;							}
 	@Override	public int getNumberOfShots() {			return 6;							}
 }

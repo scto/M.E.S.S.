@@ -7,14 +7,12 @@ import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
-import elements.generic.enemies.individual.lvl1.Plane;
 import elements.generic.enemies.individual.lvl3.Plane3;
 import elements.generic.weapons.enemies.Fireball;
 
 public class Plane4 extends Plane3 {
 	
 	public static final Pool<Plane4> POOL = Pools.get(Plane4.class);
-	private static final int XP = getXp(BASE_XP, 4);
 	private static final float FIRERATE = Plane3.FIRERATE * 0.8f * MOD_FIRERATE,  OFFSET_WEAPON_RIGHT = (int) (DIMENSIONS.width - Fireball.DIMENSIONS.halfWidth * 1.5f), OFFSET_WEAPON_LEFT = Fireball.DIMENSIONS.halfWidth / 2, OFFSET_WEAPON_Y = DIMENSIONS.halfHeight - Fireball.DIMENSIONS.height;
 	
 	@Override
@@ -28,8 +26,6 @@ public class Plane4 extends Plane3 {
 	protected void shootSingle() {
 		AbstractShot.shootDownRandom(Gatling.FIREBALL, TMP_POS, Stats.U20, 10);
 	}
-	@Override	public int getXp() {					return XP;							}
-	@Override	public int getBonusValue() {			return BASE_XP;						}
 	@Override	public void free() {					POOL.free(this);					}
 	@Override	public float getFirerate() {			return FIRERATE;					}
 }

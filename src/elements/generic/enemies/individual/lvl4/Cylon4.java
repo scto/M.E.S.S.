@@ -9,13 +9,11 @@ import elements.generic.components.behavior.Mover;
 import elements.generic.enemies.individual.lvl3.Cylon3;
 import elements.particular.particles.Particles;
 import elements.particular.particles.individual.PrecalculatedParticles;
-import jeu.Stats;
 import jeu.mode.EndlessMode;
 
 public class Cylon4 extends Cylon3 {
 	
 	public static final Pool<Cylon4> POOL = Pools.get(Cylon4.class);
-	private static final int XP = getXp(BASE_XP, 4);
 	
 	@Override
 	protected void move() {
@@ -29,7 +27,5 @@ public class Cylon4 extends Cylon3 {
 	
 	@Override	public Animations getAnimation() {		return Animations.CYLON_GREEN;					}
 	@Override	public void free() {					POOL.free(this);								}
-	@Override	public int getBonusValue() {			return BASE_XP;									}
 	@Override	public int getColor() {					return GREEN;									}
-	@Override	public int getXp() {					return XP;										}
 }

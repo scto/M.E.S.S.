@@ -1,7 +1,6 @@
 package elements.generic;
 
 import jeu.CSG;
-import jeu.Stats;
 import assets.sprites.AnimUser;
 import assets.sprites.Animations;
 

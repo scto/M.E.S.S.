@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.positionning.Positionner;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
@@ -27,7 +27,6 @@ public class Cylon extends Enemy {
 	protected static final int THRUSTER_OFFSET = (int) (DIMENSIONS.width * 0.45f), LVL = 1;
 	public static final Pool<Cylon> POOL = Pools.get(Cylon.class);
 	protected static final float FIRERATE = 3 * MOD_FIRERATE, INIT_NEXT_SHOT = 2.6f;
-	protected static final int BASE_XP = 12, EXPLOSION = 35, XP = getXp(BASE_XP, 1);
 	private int index = 0;
 
 	public void init() {
@@ -81,12 +80,9 @@ public class Cylon extends Enemy {
 	
 	@Override	public Animations getAnimation() {		return Animations.CYLON_RED;											}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion4;												}
-	@Override	public HPandSpeed getEnemyStats() {		return HPandSpeed.CYLON;												}
+	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.CYLON;												}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;														}
-	@Override	public int getExplosionCount() {		return EXPLOSION;														}
 	@Override	public float getFirerate() {			return FIRERATE;														}
 	@Override	public void free() {					POOL.free(this);														}
-	@Override	public int getBonusValue() {			return BASE_XP;															}
 	@Override	public int getAnimIndex() {				return index;															}
-	@Override	public int getXp() {					return XP;																}
 }

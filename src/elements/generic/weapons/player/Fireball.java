@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.components.Dimensions;
 import elements.particular.particles.Particles;
-import elements.particular.particles.individual.explosions.SparklesColorOverTime;
 
 /**
  * Arme de base qui fait une boule de feu

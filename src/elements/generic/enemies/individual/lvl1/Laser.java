@@ -1,7 +1,6 @@
 package elements.generic.enemies.individual.lvl1;
 
 import jeu.CSG;
-import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.sprites.Animations;
@@ -11,7 +10,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.behavior.Mover;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
@@ -23,7 +22,6 @@ public class Laser extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.LASER;
 	public static final Pool<Laser> POOL = Pools.get(Laser.class);
-	protected static final int BASE_XP = 32, EXPLOSION = 45, XP = getXp(BASE_XP, 1), LVL = 1;
 	protected static final float FIRERATE = 0.8f * MOD_FIRERATE, INIT_NEXT_SHOT = 1, PHASE_DURATION = 12;
 	protected float rotation = 0;
 	private boolean left;
@@ -50,11 +48,10 @@ public class Laser extends Enemy {
 	@Override
 	protected void move() {
 		if (now < getRotateTime()) {
-			if (left) {
+			if (left)
 				Mover.sink(this, 5f);
-			} else {
+			else
 				Mover.sink(this, -5f);
-			}
 		} else {
 			Mover.goAway(this, 0.01f);
 		}
@@ -74,14 +71,11 @@ public class Laser extends Enemy {
 	
 	@Override	public Animations getAnimation() {		return Animations.AILE_DEPLOYEES;					}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion5;							}
-	@Override	public HPandSpeed getEnemyStats() {		return HPandSpeed.LASER;							}
+	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.LASER;							}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;									}
-	@Override	public int getExplosionCount() {		return EXPLOSION;									}
 	@Override	public void free() {					POOL.free(this);									}
 	@Override	public float getRotation() {			return rotation;									}
 	@Override	public float getFirerate() {			return FIRERATE;									}
-	@Override	public int getBonusValue() {			return BASE_XP;										}
 	@Override	public void setRotation(float f) {		rotation = f;										}
 	@Override	public boolean toLeft() {				return left;										}
-	@Override	public int getXp() {					return XP;											}
 }

@@ -1,7 +1,6 @@
 package elements.generic.enemies.individual.lvl1;
 
 import jeu.Stats;
-import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.sprites.Animations;
 
@@ -10,7 +9,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
-import elements.generic.components.HPandSpeed;
+import elements.generic.components.EnemyStats;
 import elements.generic.components.positionning.Positionner;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
@@ -20,7 +19,6 @@ import elements.generic.weapons.player.PlayerWeapon;
 public class Crusader extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.CRUSADER;
-	public static final int BASE_XP = 91, EXPLOSION = 40, XP = getXp(BASE_XP, 1), LVL = 1;
 	public static final Pool<Crusader> POOL = Pools.get(Crusader.class);
 	protected static final float FIRERATE = .08f * MOD_FIRERATE, INIT_NEXT_SHOT = 4, ROTATION_BETWEEN_SHOTS = 4;
 	protected float shootingAngle;
@@ -63,16 +61,13 @@ public class Crusader extends Enemy {
 	
 	@Override	public Animations getAnimation() {			return Animations.BLUE_CRUSADER;											}
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion6;													}
-	@Override	public HPandSpeed getEnemyStats() {			return HPandSpeed.CRUSADER;													}
+	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.CRUSADER;													}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;															}
 	@Override	public int getShotNumber() {				return shotNumber;															}
 	@Override	public boolean isInGoodShape() {			return goodShape;															}
-	@Override	public int getExplosionCount() {			return EXPLOSION;															}
 	@Override	public float getFirerate() {				return FIRERATE;															}
 	@Override	public void free() {						POOL.free(this);															}
 	@Override	public void addShots(int i) {				shotNumber += i;															}
-	@Override	public int getBonusValue() {				return BASE_XP;																}
 	@Override	public int getColor() {						return BLUE;																}
-	@Override	public int getXp() {						return XP;																	}
 	@Override	public int getNumberOfShots() {				return 3;																	}
 }

@@ -4,16 +4,12 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.enemies.individual.lvl1.Plane;
-import jeu.Stats;
 
 public class Plane3 extends Plane {
 	
 	public static final Pool<Plane3> POOL = Pools.get(Plane3.class);
-	private static final int XP = getXp(BASE_XP, 3);
 	protected static final float FIRERATE = 0.3f * MOD_FIRERATE;
 	
-	@Override	public int getXp() {					return XP;						}
-	@Override	public int getBonusValue() {			return BASE_XP;					}
 	@Override	public float getFirerate() {			return FIRERATE;				}
 	@Override	public void free() {					POOL.free(this);				}
 }

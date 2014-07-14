@@ -5,12 +5,10 @@ import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.enemies.individual.lvl1.Ball;
-import jeu.Stats;
 
 public class Ball3 extends Ball {
 	
 	public static final Pool<Ball3> POOL = Pools.get(Ball3.class);
-	private static final int XP = getXp(BASE_XP, 3);
 	protected static final float FIRERATE = 0.4f * MOD_FIRERATE;
 	protected int shotNumber;
 	
@@ -28,6 +26,4 @@ public class Ball3 extends Ball {
 	
 	@Override	public float getFirerate() {					return FIRERATE;						}
 	@Override	public void free() {							POOL.free(this);						}
-	@Override	public int getBonusValue() {					return BASE_XP;							}
-	@Override	public int getXp() {							return XP;								}
 }
