@@ -2,7 +2,7 @@ package jeu.mode.extensions;
 
 import jeu.CSG;
 import jeu.Physic;
-import jeu.Profil;
+import jeu.Profile;
 import jeu.Strings;
 import jeu.mode.EndlessMode;
 import menu.screens.Menu;
@@ -19,7 +19,6 @@ import elements.particular.Player;
 
 public class Buttons {
 
-	private static final Vector2 TMP_POS = new Vector2(), TMP_DIR = new Vector2();
 	private static Button boutonBack = null, boutonUpgrade = null, boutonTwitter = null, boutonRestart = null;
 	
 	public static void init() {
@@ -43,8 +42,8 @@ public class Buttons {
 		}
 		if (Gdx.input.justTouched()) {
 			if (boutonBack != null && 
-					Physic.isPointInRect(Gdx.input.getX() + EndlessMode.cam.position.x / 2, CSG.screenHeight - Gdx.input.getY(),
-							0, Menu.BUTTON_HEIGHT * 1.1f, CSG.gameZoneWidth, Menu.BUTTON_HEIGHT * 3)) {
+					Physic.isPointInRect(Gdx.input.getX() + EndlessMode.cam.position.x / 2, CSG.height - Gdx.input.getY(),
+							0, Menu.BUTTON_HEIGHT * 1.1f, CSG.width, Menu.BUTTON_HEIGHT * 3)) {
 				goToMenu(game);
 				boutonBack = null;
 			}
@@ -57,7 +56,7 @@ public class Buttons {
 		CSG.profilManager.persist();
 		game.setScreen(new Menu(game));
 		Enemy.clear();
-		if (CSG.profile.xpDispo >= 30000) {
+		if (CSG.profile.xp >= 30000) {
 			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_30k_XP);
 		}
 	}
@@ -77,9 +76,9 @@ public class Buttons {
 		} else {
 			boutonRestart.draw(batch);
 		}
-		if (Player.weapon.nv() < Profil.LVL_MAX) {
+		if (Player.weapon.nv() < Profile.LVL_MAX) {
 			if (boutonUpgrade == null) {
-				if (CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
+				if (CSG.profile.getCoutUpArme() <= CSG.profile.xp) {
 					boutonUpgrade = new Button(Strings.UPGRADE_BUTTON, CSG.menuFont, 
 							(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width, 
 							(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).height, 
@@ -87,7 +86,7 @@ public class Buttons {
 							(int) (Menu.BUTTON_HEIGHT * 3f),
 							new OnClick() {
 						public void onClick() {
-							if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
+							if(CSG.profile.getCoutUpArme() <= CSG.profile.xp) {
 								CSG.profile.upArme();
 								CSG.profilManager.persist();
 								EndlessMode.init();
@@ -104,7 +103,7 @@ public class Buttons {
 							(int) (Menu.BUTTON_HEIGHT * 3f),
 							new OnClick() {
 						public void onClick() {
-							if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
+							if(CSG.profile.getCoutUpArme() <= CSG.profile.xp) {
 								CSG.profile.upArme();
 								CSG.profilManager.persist();
 								init();

@@ -28,17 +28,12 @@ import elements.particular.particles.Particles;
 
 public class CSG extends Game implements ApplicationListener {
 
-	// ---- champs globaux ---- Je ne trouve pas comment mettre final car Gdx n'est pas encore initialise
-	public static int screenHalfWidth = 0, screenTierWidth, gameZoneHalfWidth, halfHeight, screenWidth, gameZoneWidth, borderWidth, gameZoneWidthDiv20, gameZoneWidthDiv100, screenWidth2Thirds;
-	public static int WIDTH_ZONE_MOINS_WIDTH_BORD, WIDTH_ZONE_MOINS_WIDTH_BORD_MUL2, screenHeight, DIXIEME_WIDTH, HEIGHT_DIV10, CENTIEME_HEIGHT, HEIGHT_DIV50, HEIGHT_DIV20, HEIGHT_PLUS_4, HEIGHT_DIV8;
-	public static int CINQUIEME_ECRAN, DEUX_CINQUIEME_ECRAN, TROIS_CINQUIEME_ECRAN, QUATRE_CINQUIEME_ECRAN, QUATR_HEIGHT;
-	public static int CINQUIEME_ZONE, DEUX_CINQUIEME_ZONE, TROIS_CINQUIEME_ZONE, QUATRE_CINQUIEME_ZONE;
+	public static int halfWidth, oneThirdWidth, halfHeight, width, borderWidth, widthDiv20, widthDiv100, twoThirdsWidth, widthMinusBorder, widthMinusBorderMul2, height, widthDiv10, heightDiv10, heightDiv100, heightDiv50, heightDiv20, heightPlus4, heightDiv8,
+		widthDiv5, widthDiv5Mul2, widthDiv5Mul3, widthDiv5Mul4, heightDiv4, heightDiv10Mul9, heightDiv10Mul8, heightDiv10Mul7, heightDiv10Mul3;
 	public static float RATIO;
-	public static int HEIGHT_9_10, HEIGHT_8_10, HEIGHT_7_10, HEIGHT_ECRAN_PALLIER_3 = 0, HEIGHT_ECRAN_PALLIER_7;
 	public static final int CONTROLE_TOUCH_NON_RELATIVE = 0, CONTROLE_DPAD = 1, CONTROLE_ACCELEROMETRE = 2, CONTROLE_TOUCH_RELATIVE = 3, CONTROLE_MAX = 3;
-	// ********  A U T R E S  *********
 	public static ProfilManager profilManager;
-	public static Profil profile;
+	public static Profile profile;
 	public static BitmapFont menuFont, menuFontSmall, menuFontBlack, scoreFont;//, outlineScoreFont;
 	public static AssetMan assetMan;
 	public static SpriteBatch batch;
@@ -51,8 +46,6 @@ public class CSG extends Game implements ApplicationListener {
 	public static final Vector2 vecteurPosition = new Vector2(), tmpPos = new Vector2(), tmpDir = new Vector2(), tmp2 = new Vector2();
 	public static Vector2 vecteurCible = new Vector2();
 	public static int tmpInt;
-//	public static RayHandler rayHandler;
-//	public static World world;
 	
 	public CSG(TalkToTheWorld google) {
 		CSG.talkToTheWorld = google;
@@ -60,10 +53,6 @@ public class CSG extends Game implements ApplicationListener {
 
 	@Override
 	public void create() {
-//		world = new World(Vector2.Zero, true);
-//		rayHandler = new RayHandler(world);
-//		CSG.rayHandler.setAmbientLight(0,0,0,0.8f);
-		
 		log("Create");
 		batch = new SpriteBatch(5460);
 		assetMan = new AssetMan();
@@ -88,7 +77,7 @@ public class CSG extends Game implements ApplicationListener {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("PolenticalNeonRegular.ttf"));
 		FreeTypeFontParameter param = new FreeTypeFontParameter();
 		
-		float dimension = CSG.screenHeight + CSG.screenWidth;
+		float dimension = CSG.height + CSG.width;
 		dimension = dimension / 900;
 		if (dimension < 1f)
 			dimension = 1f;
@@ -114,44 +103,36 @@ public class CSG extends Game implements ApplicationListener {
 	}
 
 	public static void dimensions() {
-		screenHalfWidth = Gdx.graphics.getWidth() / 2;
+		halfWidth = Gdx.graphics.getWidth() / 2;
 		halfHeight = Gdx.graphics.getHeight() / 2;
-		screenWidth = Gdx.graphics.getWidth();
-		screenHeight = Gdx.graphics.getHeight();
-		RATIO = screenWidth / screenHeight;
-		gameZoneWidth = (int) (screenWidth * 1.0f);
-		gameZoneWidthDiv20 = gameZoneWidth / 20;
-		gameZoneWidthDiv100 = gameZoneWidth / 100;
-		borderWidth = screenWidth / 3;
-		screenTierWidth = screenWidth / 3;
-		WIDTH_ZONE_MOINS_WIDTH_BORD = gameZoneWidth - borderWidth;
-		WIDTH_ZONE_MOINS_WIDTH_BORD_MUL2 = gameZoneWidth - (borderWidth*2);
-		gameZoneHalfWidth = gameZoneWidth / 2;
-//		DEMI_CAMERA = (gameZoneWidth - screenWidth) * 2;
-		DIXIEME_WIDTH = screenWidth / 10;
-		HEIGHT_DIV10 = screenHeight / 10;
-		CENTIEME_HEIGHT = screenHeight / 100;
-		HEIGHT_DIV50 = screenHeight / 50;
-		HEIGHT_DIV8 = screenHeight / 8;
-		HEIGHT_DIV20 = screenHeight / 20;
-		CINQUIEME_ECRAN = DIXIEME_WIDTH * 2;
-		DEUX_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 2;
-		TROIS_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 3;
-		QUATRE_CINQUIEME_ECRAN = CINQUIEME_ECRAN * 4;
-		QUATR_HEIGHT = screenHeight / 4;
+		width = Gdx.graphics.getWidth();
+		height = Gdx.graphics.getHeight();
+		RATIO = width / height;
+		widthDiv20 = width / 20;
+		widthDiv100 = width / 100;
+		borderWidth = width / 3;
+		oneThirdWidth = width / 3;
+		widthMinusBorder = width - borderWidth;
+		widthMinusBorderMul2 = width - (borderWidth*2);
+		widthDiv10 = width / 10;
+		heightDiv10 = height / 10;
+		heightDiv100 = height / 100;
+		heightDiv50 = height / 50;
+		heightDiv8 = height / 8;
+		heightDiv20 = height / 20;
+		widthDiv5 = width / 5;
+		widthDiv5Mul2 = widthDiv5 * 2;
+		widthDiv5Mul3 = widthDiv5 * 3;
+		widthDiv5Mul4 = widthDiv5 * 4;
+		heightDiv4 = height / 4;
 		
-		CINQUIEME_ZONE = gameZoneWidth / 5;
-		DEUX_CINQUIEME_ZONE = CINQUIEME_ZONE * 2;
-		TROIS_CINQUIEME_ZONE = CINQUIEME_ZONE * 3;
-		QUATRE_CINQUIEME_ZONE = CINQUIEME_ZONE * 4;
-		HEIGHT_PLUS_4 = screenHeight + 4;
-		HEIGHT_9_10 = screenHeight - HEIGHT_DIV10;
-		HEIGHT_8_10 = screenHeight - (HEIGHT_DIV10 * 2);
-		HEIGHT_7_10 = screenHeight - (HEIGHT_DIV10 * 3);
-		HEIGHT_ECRAN_PALLIER_3 = screenHeight - (HEIGHT_DIV10 * 3);
-		HEIGHT_ECRAN_PALLIER_7 = screenHeight - (HEIGHT_DIV10 * 7);
+		heightPlus4 = height + 4;
+		heightDiv10Mul9 = height - heightDiv10;
+		heightDiv10Mul8 = height - (heightDiv10 * 2);
+		heightDiv10Mul7 = height - (heightDiv10 * 3);
+		heightDiv10Mul3 = height - (heightDiv10 * 7);
 		
-		screenWidth2Thirds = (screenWidth / 2) * 3;
+		twoThirdsWidth = (width / 2) * 3;
 	}
 	
 	public static void reset(){

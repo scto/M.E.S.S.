@@ -40,15 +40,15 @@ public abstract class AbstractScreen implements Screen {
 	protected Array<Button> buttons = new Array<Button>();
 	private Credits credits;
 	public static final String PLAY = "Play!", SHIP = "Weapon", OPTION = "Options", HIGHSCORE = "Highscores", EXIT = "Exit", BACK = "BACK", WEAPON_VOL = "WEAPON VOL  ", MOINS = "-", PLUS = "+", BRUITAGE_VOL = "EFFECTS VOL  ", MUSIQUE_VOL = "MUSIC VOL  ", INTENSITY = "INTENSITY : ", OTHER_WEAP = "Next weapon", TUTO = "Tutorial" , ACHIEVEMENT = "Achievements", SUPPORT_US = "Support us !";
-	public final static int PADDING = 11, BUTTON_WIDTH = (CSG.screenWidth / PADDING) * 9, BUTTON_HEIGHT = CSG.screenHeight / 25;
+	public final static int PADDING = 11, BUTTON_WIDTH = (CSG.width / PADDING) * 9, BUTTON_HEIGHT = CSG.height / 25;
 	public final static int BUTTON_HALF_WIDTH = BUTTON_WIDTH / 2, BUTTON_HALF_HEIGHT = BUTTON_HEIGHT / 2;
-	public final static int SMALL_BUTTON_WIDTH = (CSG.screenWidth / PADDING) * 4, SMALL_BUTTON_HEIGHT = CSG.screenHeight / 18;
-	public final static int MINI_BOUTON_WIDTH = SMALL_BUTTON_WIDTH/2, MINI_BOUTON_HEIGHT = SMALL_BUTTON_HEIGHT/2, yOffset = CSG.screenHeight/10;
-	public static OrthographicCamera cam = new OrthographicCamera(CSG.screenWidth, CSG.screenHeight);
+	public final static int SMALL_BUTTON_WIDTH = (CSG.width / PADDING) * 4, SMALL_BUTTON_HEIGHT = CSG.height / 18;
+	public final static int MINI_BOUTON_WIDTH = SMALL_BUTTON_WIDTH/2, MINI_BOUTON_HEIGHT = SMALL_BUTTON_HEIGHT/2, yOffset = CSG.height/10;
+	public static OrthographicCamera cam = new OrthographicCamera(CSG.width, CSG.height);
 	protected Button buttonBack;
 	public boolean renderBackground = true;
 	private final Array<BasicMenu> enemies = new Array<BasicMenu>();
-	private final float speed = CSG.screenHeight / 6, offset = speed/10;
+	private final float speed = CSG.height / 6, offset = speed/10;
 	private float trigger = 0;
 	
 	public AbstractScreen(final Game game) {
@@ -57,15 +57,14 @@ public abstract class AbstractScreen implements Screen {
 		credits = new Credits();
 		
 		CSG.initBloom();
-		cam.position.set(CSG.screenWidth /2, CSG.screenHeight/2, 0);
+		cam.position.set(CSG.width /2, CSG.height/2, 0);
 		
-		buttonBack = new Button(BACK, false, CSG.menuFontSmall, SMALL_BUTTON_WIDTH, SMALL_BUTTON_HEIGHT, CSG.screenWidth / PADDING, BUTTON_HEIGHT, this,
-	    		new OnClick() {
-					public void onClick() {
-						changeMenu(new Menu(game));
-						CSG.profilManager.persist();
-					}
-				}, true);
+		buttonBack = new Button(BACK, false, CSG.menuFontSmall, SMALL_BUTTON_WIDTH, SMALL_BUTTON_HEIGHT, CSG.width / PADDING, BUTTON_HEIGHT, new OnClick() {
+			public void onClick() {
+				changeMenu(new Menu(game));
+				CSG.profilManager.persist();
+			}
+		});
 		CSG.reset();
 	}
 
@@ -94,22 +93,22 @@ public abstract class AbstractScreen implements Screen {
 			CSG.batch.draw(Animations.BASIC_ENEMY_RED.anim.getTexture(e), e.pos.x, e.pos.y, e.getDimensions().halfWidth, e.getDimensions().halfHeight, e.getDimensions().width, e.getDimensions().height, 1, 1, e.dir.angle() + 90);
 			Particles.smoke(e.pos.x + BasicMenu.DIMENSIONS.halfWidth - e.dir.x/offset, e.pos.y + BasicMenu.DIMENSIONS.halfHeight - e.dir.y/offset, true, ParticuleBundles.SMOKE.colors);
 			Physic.mvt(e.dir, e.pos, e.getDimensions().height);
-			if (e.pos.x + BasicMenu.DIMENSIONS.halfWidth < CSG.DIXIEME_WIDTH * 2) {
+			if (e.pos.x + BasicMenu.DIMENSIONS.halfWidth < CSG.widthDiv10 * 2) {
 				e.desired.x = speed;
 				e.desired.y = e.dir.y;
-				e.steerScl = ((CSG.DIXIEME_WIDTH * 2) - (e.pos.x + BasicMenu.DIMENSIONS.halfWidth)) / (CSG.DIXIEME_WIDTH/3);
-			} else if (e.pos.x + BasicMenu.DIMENSIONS.halfWidth > CSG.screenWidth - CSG.DIXIEME_WIDTH * 2) {
+				e.steerScl = ((CSG.widthDiv10 * 2) - (e.pos.x + BasicMenu.DIMENSIONS.halfWidth)) / (CSG.widthDiv10/3);
+			} else if (e.pos.x + BasicMenu.DIMENSIONS.halfWidth > CSG.width - CSG.widthDiv10 * 2) {
 				e.desired.x = -speed;
 				e.desired.y = e.dir.y;
-				e.steerScl = Math.abs(((e.pos.x + BasicMenu.DIMENSIONS.halfWidth) - (CSG.screenWidth - CSG.DIXIEME_WIDTH * 2))) / (CSG.DIXIEME_WIDTH/3);
-			} else if (e.pos.y + BasicMenu.DIMENSIONS.halfHeight < CSG.HEIGHT_DIV10 * 2.5f) {
+				e.steerScl = Math.abs(((e.pos.x + BasicMenu.DIMENSIONS.halfWidth) - (CSG.width - CSG.widthDiv10 * 2))) / (CSG.widthDiv10/3);
+			} else if (e.pos.y + BasicMenu.DIMENSIONS.halfHeight < CSG.heightDiv10 * 2.5f) {
 				e.desired.x = e.dir.x;
 				e.desired.y = speed;
-				e.steerScl = ((CSG.HEIGHT_DIV10*2.5f) - (e.pos.y + BasicMenu.DIMENSIONS.halfHeight)) / (CSG.HEIGHT_DIV10/6);
-			} else if (e.pos.y + BasicMenu.DIMENSIONS.halfHeight > CSG.screenHeight - CSG.HEIGHT_DIV10*2.5f) {
+				e.steerScl = ((CSG.heightDiv10*2.5f) - (e.pos.y + BasicMenu.DIMENSIONS.halfHeight)) / (CSG.heightDiv10/6);
+			} else if (e.pos.y + BasicMenu.DIMENSIONS.halfHeight > CSG.height - CSG.heightDiv10*2.5f) {
 				e.desired.x = e.dir.x;
 				e.desired.y = -speed;
-				e.steerScl = Math.abs(((e.pos.y + BasicMenu.DIMENSIONS.halfHeight) - (CSG.screenHeight - CSG.HEIGHT_DIV10*2.5f))) / (CSG.HEIGHT_DIV10/6);
+				e.steerScl = Math.abs(((e.pos.y + BasicMenu.DIMENSIONS.halfHeight) - (CSG.height - CSG.heightDiv10*2.5f))) / (CSG.heightDiv10/6);
 			}
 			steer(e);
 		}
@@ -168,12 +167,12 @@ public abstract class AbstractScreen implements Screen {
 			break;
 		case 4:
 		case 6:
-			if (Gdx.input.justTouched() && Gdx.input.getX() < CSG.screenHalfWidth)
+			if (Gdx.input.justTouched() && Gdx.input.getX() < CSG.halfWidth)
 				etapeCode++;
 			break;
 		case 5:
 		case 7:
-			if (Gdx.input.justTouched() && Gdx.input.getX() > CSG.screenHalfWidth)
+			if (Gdx.input.justTouched() && Gdx.input.getX() > CSG.halfWidth)
 				etapeCode++;
 			break;
 		}

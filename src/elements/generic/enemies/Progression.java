@@ -13,15 +13,15 @@ public final class Progression {
 	private static float nextNormalWavesCheck = 0, nextBoss = 0, beginBossScore, graceTime = 0;
 	private static int nbEnemiesMax = 0;
 	// the minimum time between two wave activations
-	private static final float graceDelay = 2f;
+	private static final float KEEP_COOL = 2f;
 	
-	private final static Wave[] remplissage = {
+	private final static Wave[] FILLING = {
 		Wave.remplissageCylon, Wave.remplissageDeBase10, Wave.remplissageKinder, Wave.remplissageQuiTourne, Wave.group, Wave.remplissageVicous		};
-	private final static Wave[] remplissageLvl3 = {
+	private final static Wave[] FILLING3 = {
 		Wave.remplissageCylon3, Wave.remplissageDeBase310, Wave.remplissageKinder3, Wave.remplissageQuiTourne3, Wave.remplissageBouleRotation, Wave.group3, Wave.remplissageVicous		};
-	private final static Wave[] remplissageLvl4 = {
+	private final static Wave[] FILLING4 = {
 		Wave.remplissageCylon4, Wave.remplissageDeBase410, Wave.remplissageKinder4, Wave.group4, Wave.remplissageVicous		};
-	private final static Wave[] wavesLvl1 = {
+	private final static Wave[] LVL1 = {
 		Wave.lvl1_3,
 		Wave.lvl1_170,
 		Wave.lvl1_290,
@@ -38,7 +38,7 @@ public final class Progression {
 		Wave.lvl1_12000,
 		Wave.lvl1_16000
 	};
-	private final static Wave[] wavesLvl2 = {
+	private final static Wave[] LVL2 = {
 		Wave.lvl2_3,
 		Wave.lvl2_170,
 		Wave.lvl2_290,
@@ -57,7 +57,7 @@ public final class Progression {
 		Wave.lvl2_12000,
 		Wave.lvl2_16000
 	};
-	private final static Wave[] wavesLvl3 = {
+	private final static Wave[] LVL3 = {
 		Wave.lvl3_3,
 		Wave.lvl3_170,
 		Wave.lvl3_290,
@@ -75,7 +75,7 @@ public final class Progression {
 		Wave.lvl3_12000,
 		Wave.lvl3_16000
 	};
-	private final static Wave[] wavesLvl4 = {
+	private final static Wave[] LVL4 = {
 		Wave.lvl4_3,
 		Wave.lvl4_170,
 		Wave.lvl4_290,
@@ -93,7 +93,7 @@ public final class Progression {
 		Wave.lvl4_12000,
 		Wave.lvl4_16000
 	};
-	private final static Wave[] bosses = {Wave.bossMine, Wave.bossQuad	};
+	private final static Wave[] BOSSES = { Wave.bossMine, Wave.bossQuad	};
 	
 	private Progression() {
 	}
@@ -102,14 +102,14 @@ public final class Progression {
 		nextNormalWavesCheck = 0;
 		nextBoss = 90;
 
-		resetWaves(wavesLvl1);
-		resetWaves(wavesLvl2);
-		resetWaves(wavesLvl3);
-		resetWaves(wavesLvl4);
-		resetWaves(remplissage);
-		resetWaves(remplissageLvl3);
-		resetWaves(remplissageLvl4);
-		resetWaves(bosses);
+		resetWaves(LVL1);
+		resetWaves(LVL2);
+		resetWaves(LVL3);
+		resetWaves(LVL4);
+		resetWaves(FILLING);
+		resetWaves(FILLING3);
+		resetWaves(FILLING4);
+		resetWaves(BOSSES);
 		graceTime = 0;
 	}
 
@@ -131,19 +131,19 @@ public final class Progression {
 				if (bossJustPoped)
 					compensateForBossTime();
 				switch (EndlessMode.difficulty) {
-				case 1 :	checkWaves(wavesLvl1);	break;
-				case 2 :	checkWaves(wavesLvl2);	break;
-				case 3 :	checkWaves(wavesLvl3);	break;
-				case 4 :	checkWaves(wavesLvl4);	break;
+				case 1 :	checkWaves(LVL1);	break;
+				case 2 :	checkWaves(LVL2);	break;
+				case 3 :	checkWaves(LVL3);	break;
+				case 4 :	checkWaves(LVL4);	break;
 				}
 			} 
 			nextNormalWavesCheck = EndlessMode.now + 0.10f;
 		}
 		switch (EndlessMode.difficulty) {
 		case 1 :
-		case 2 :	remplissage(remplissage);		break;
-		case 3 :	remplissage(remplissageLvl3);	break;
-		case 4 :	remplissage(remplissageLvl4);	break;
+		case 2 :	remplissage(FILLING);		break;
+		case 3 :	remplissage(FILLING3);	break;
+		case 4 :	remplissage(FILLING4);	break;
 		}
 	}
 
@@ -152,7 +152,7 @@ public final class Progression {
 			if (wave.active)
 				wave.mightSpawn();
 			else if (graceTime < EndlessMode.now && wave.mightActivate())
-				graceTime = EndlessMode.now + graceDelay;
+				graceTime = EndlessMode.now + KEEP_COOL;
 		}
 	}
 
@@ -163,10 +163,10 @@ public final class Progression {
 				!bossJustPoped &&
 				graceTime < EndlessMode.now) {
 			switch (EndlessMode.difficulty) {
-			case 1 :	tmpCheck = hasAnActiveWave(wavesLvl1);		break;
-			case 2 :	tmpCheck = hasAnActiveWave(wavesLvl2);		break;
-			case 3 :	tmpCheck = hasAnActiveWave(wavesLvl3);		break;
-			case 4 :	tmpCheck = hasAnActiveWave(wavesLvl4);		break;
+			case 1 :	tmpCheck = hasAnActiveWave(LVL1);		break;
+			case 2 :	tmpCheck = hasAnActiveWave(LVL2);		break;
+			case 3 :	tmpCheck = hasAnActiveWave(LVL3);		break;
+			case 4 :	tmpCheck = hasAnActiveWave(LVL4);		break;
 			}
 			if (!tmpCheck) {
 				waves[CSG.R.nextInt(waves.length)].activate();
@@ -180,10 +180,10 @@ public final class Progression {
 	private static void compensateForBossTime() {
 		bossJustPoped = false;
 		switch(EndlessMode.difficulty) {
-		case 1:		compensateBoss(Score.score - beginBossScore, wavesLvl1);		break;
-		case 2:		compensateBoss(Score.score - beginBossScore, wavesLvl2);		break;
-		case 3:		compensateBoss(Score.score - beginBossScore, wavesLvl3);		break;
-		case 4:		compensateBoss(Score.score - beginBossScore, wavesLvl4);		break;
+		case 1:		compensateBoss(Score.score - beginBossScore, LVL1);		break;
+		case 2:		compensateBoss(Score.score - beginBossScore, LVL2);		break;
+		case 3:		compensateBoss(Score.score - beginBossScore, LVL3);		break;
+		case 4:		compensateBoss(Score.score - beginBossScore, LVL4);		break;
 		}
 	}
 
@@ -193,7 +193,7 @@ public final class Progression {
 	}
 
 	private static void spawnBoss() {
-		for (Wave w : bosses)
+		for (Wave w : BOSSES)
 			if (w.active)
 				w.mightSpawn();
 	}
@@ -209,7 +209,7 @@ public final class Progression {
 		Enemy.attackAllEnemies(Enemy.superBomb);
 		poped = false;
 		while (!poped)
-			poped = bosses[CSG.R.nextInt(bosses.length)].mightActivate();
+			poped = BOSSES[CSG.R.nextInt(BOSSES.length)].mightActivate();
 		bossJustPoped = true;
 		beginBossScore = Score.score;
 	}

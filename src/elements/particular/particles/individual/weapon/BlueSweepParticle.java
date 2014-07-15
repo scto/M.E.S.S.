@@ -20,7 +20,7 @@ public class BlueSweepParticle implements Poolable {
 			return new BlueSweepParticle();
 		}
 	};
-	private static final float WIDTH = CSG.screenWidth / 150;
+	private static final float WIDTH = CSG.width / 150;
 	private float x, y, angle;
 	private int ttl;
 	private final float color, height;

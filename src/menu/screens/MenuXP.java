@@ -4,7 +4,7 @@ import menu.JeuBackground;
 import menu.tuto.OnClick;
 import menu.ui.Button;
 import jeu.CSG;
-import jeu.Profil;
+import jeu.Profile;
 import jeu.Strings;
 import jeu.mode.EndlessMode;
 
@@ -24,30 +24,30 @@ public class MenuXP extends AbstractScreen{
 	private final Button boutonXP;
 	private final JeuBackground jeu = new JeuBackground();
 	private static int prevNvArmeDeBase = CSG.profile.lvlFireball, prevNvArmeBalayage = CSG.profile.lvlSweepWeapon, prevNvArmeHantee = CSG.profile.lvlTWeapon, prevNvArmeTrois = CSG.profile.lvlPinkWeapon,
-			prevNvArmeSun = CSG.profile.lvlSunWeapon, prevVitesse = CSG.profile.cadenceAdd, prevXp = CSG.profile.xpDispo;
+			prevNvArmeSun = CSG.profile.lvlSunWeapon, prevVitesse = CSG.profile.dronesFirerate, prevXp = CSG.profile.xp;
 
 	public MenuXP(final Game game) {
 		super(game);
 		Gdx.input.setCatchBackKey(true);
 		ajout(buttonBack);
 		// **       B O U T O N   X P       **
-		boutonXP = new Button(CSG.profile.xpDispo + "xp", false, CSG.menuFont, BUTTON_WIDTH, SMALL_BUTTON_HEIGHT,
-				(CSG.screenWidth / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.screenHeight - Menu.BUTTON_HEIGHT * 2, this, new OnClick() {
-					public void onClick() {	}}, false);
+		boutonXP = new Button(CSG.profile.xp + "xp", false, CSG.menuFont, BUTTON_WIDTH, SMALL_BUTTON_HEIGHT,
+				(CSG.width / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.height - Menu.BUTTON_HEIGHT * 2, new OnClick() {
+					public void onClick() {	}});
 		ajout(boutonXP);
 		// ** ** ** BOUTON WEAPON ** ** **
 		ajout(new Button(OTHER_WEAP, false, CSG.menuFont, BUTTON_WIDTH, SMALL_BUTTON_HEIGHT,
-				(CSG.screenWidth / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.screenHeight - Menu.BUTTON_HEIGHT * 4, this, new OnClick() {
+				(CSG.width / 2) - Menu.BUTTON_WIDTH/2, - Menu.yOffset + CSG.height - Menu.BUTTON_HEIGHT * 4, new OnClick() {
 					public void onClick() {	
 						Player.chqngeWeapon();
 						CSG.profilManager.persist();
 						updateTexteUpgrade();
-					}}, false));
+					}}));
 		// ** ** ** BOUTON UPGRADE ** **
 		boutonUpgrade = new Button("", false, CSG.menuFontSmall, SMALL_BUTTON_WIDTH, SMALL_BUTTON_HEIGHT,
-				CSG.screenWidth - (CSG.screenWidth / Menu.PADDING) - Menu.SMALL_BUTTON_WIDTH,	Menu.BUTTON_HEIGHT, this, new OnClick() {
+				CSG.width - (CSG.width / Menu.PADDING) - Menu.SMALL_BUTTON_WIDTH,	Menu.BUTTON_HEIGHT, new OnClick() {
 					public void onClick() {	
-						if(CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
+						if(CSG.profile.getCoutUpArme() <= CSG.profile.xp) {
 							save();
 							CSG.profile.upArme();
 							updateTexteUpgrade();
@@ -58,14 +58,14 @@ public class MenuXP extends AbstractScreen{
 							CSG.talkToTheWorld.buyXp();
 							System.out.println("MenuXP.MenuXP(...).new OnClick() {...}.onClick()");
 						}
-					}}, false);
+					}});
 		ajout(boutonUpgrade);
 		updateTexteUpgrade();
 		// ** ** ** BOUTON FIRERATE ** ** **
 		boutonCadence = new Button("", false, CSG.menuFontSmall, Menu.SMALL_BUTTON_WIDTH, Menu.SMALL_BUTTON_HEIGHT,
-				CSG.screenWidth - (CSG.screenWidth / Menu.PADDING) - Menu.SMALL_BUTTON_WIDTH,	Menu.BUTTON_HEIGHT * 3, this, new OnClick() {
+				CSG.width - (CSG.width / Menu.PADDING) - Menu.SMALL_BUTTON_WIDTH,	Menu.BUTTON_HEIGHT * 3, new OnClick() {
 					public void onClick() {
-						if (CSG.profile.getCoutCadenceAdd() <= CSG.profile.xpDispo){
+						if (CSG.profile.getCoutCadenceAdd() <= CSG.profile.xp){
 							save();
 							CSG.profile.upCadenceAdd();
 							CSG.profilManager.persist();
@@ -75,10 +75,10 @@ public class MenuXP extends AbstractScreen{
 						} else {
 							CSG.talkToTheWorld.buyXp();
 						}
-					}}, false);
+					}});
 		updateTexteCadence();
 		ajout(boutonCadence);
-		Player.POS.set((CSG.screenWidth / 2) - Player.HALF_WIDTH, CSG.screenHeight / 3); 
+		Player.POS.set((CSG.width / 2) - Player.HALF_WIDTH, CSG.height / 3); 
 		Player.addDrone();
 		Player.addDrone();
 		Player.addDrone();
@@ -115,10 +115,9 @@ public class MenuXP extends AbstractScreen{
 	private void ajoutUndo() {
 		if (boutonUndo == null) {
 			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_FAVORITE_SHOP);
-			boutonUndo = new Button("UNDO", false, CSG.menuFontSmall, Menu.SMALL_BUTTON_WIDTH, Menu.SMALL_BUTTON_HEIGHT, CSG.screenWidth / Menu.PADDING, Menu.BUTTON_HEIGHT * 3, this,
-			new OnClick()  {
+			boutonUndo = new Button("UNDO", false, CSG.menuFontSmall, Menu.SMALL_BUTTON_WIDTH, Menu.SMALL_BUTTON_HEIGHT, CSG.width / Menu.PADDING, Menu.BUTTON_HEIGHT * 3, new OnClick()  {
 				public void onClick() {		undo();		}
-			}, false);
+			});
 			ajout(boutonUndo);
 		} else 
 			ajout(boutonUndo);
@@ -129,12 +128,12 @@ public class MenuXP extends AbstractScreen{
 	}
 
 	private void updateTexteXp() {
-		boutonXP.setTexte(CSG.profile.xpDispo + "xp");
+		boutonXP.setTexte(CSG.profile.xp + "xp");
 	}
 
 	protected void save() {
-		prevXp = CSG.profile.xpDispo;
-		prevVitesse = CSG.profile.cadenceAdd;
+		prevXp = CSG.profile.xp;
+		prevVitesse = CSG.profile.dronesFirerate;
 		prevNvArmeDeBase = CSG.profile.lvlFireball;
 		prevNvArmeBalayage = CSG.profile.lvlSweepWeapon;
 		prevNvArmeHantee = CSG.profile.lvlTWeapon;
@@ -151,8 +150,8 @@ public class MenuXP extends AbstractScreen{
 		CSG.profile.lvlTWeapon = prevNvArmeHantee;
 		CSG.profile.lvlPinkWeapon = prevNvArmeTrois;
 		CSG.profile.lvlSunWeapon = prevNvArmeSun;
-		CSG.profile.cadenceAdd = prevVitesse;
-		CSG.profile.xpDispo = prevXp;
+		CSG.profile.dronesFirerate = prevVitesse;
+		CSG.profile.xp = prevXp;
 		updateTexteUpgrade();
 		updateTexteCadence();
 		updateTexteXp();
@@ -162,7 +161,7 @@ public class MenuXP extends AbstractScreen{
 	}
 
 	private void updateTexteUpgrade() {
-		if (CSG.profile.getArmeSelectionnee().nv() >= Profil.LVL_MAX)
+		if (CSG.profile.getArmeSelectionnee().nv() >= Profile.LVL_MAX)
 			boutonUpgrade.setTexte("LEVEL MAX");
 		else 
 			boutonUpgrade.setTexte("Weapon (" + CSG.profile.getCoutUpArme() + ")");

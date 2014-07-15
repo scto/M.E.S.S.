@@ -20,7 +20,7 @@ public class RoundAndRound4 extends RoundAndRound3 {
 			super.move();
 		else {
 			tmp = Math.min(now - 6f, 3);
-			if (pos.x + DIMENSIONS.halfWidth > CSG.gameZoneHalfWidth) {
+			if (pos.x + DIMENSIONS.halfWidth > CSG.halfWidth) {
 				tmp *= 90;
 				Mover.rotate(this, tmp);
 				angle += tmp * EndlessMode.deltaDiv2;

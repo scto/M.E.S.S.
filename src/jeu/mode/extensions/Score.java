@@ -14,7 +14,7 @@ public class Score {
 	private static float rScore, nextScore;
 	private static int multi, scoreToProcess, currentDigit;
 	public static float score = 0;
-	private static final int FONT_HEIGHT = CSG.HEIGHT_DIV10/5;
+	private static final int FONT_HEIGHT = CSG.heightDiv10/5;
 	private static final String[] STR_MULTI = {"0 :/", "X1", "X2", "X3", "X4", "X5", "X6", "X7", "X8", "X9", "X10"};
 	
 	// limits before reduicing : multi / 20
@@ -107,12 +107,12 @@ public class Score {
 		CSG.scoreFont.draw(batch, STR_MULTI[multi], Stats.U, FONT_HEIGHT + CSG.scoreFont.getBounds(STR_MULTI[multi]).height/2);
 		if (!lost) {
 			// bottom score
-			CSG.scoreFont.draw(batch, strScore, CSG.screenHalfWidth - CSG.scoreFont.getBounds(strScore).width/2, FONT_HEIGHT + CSG.scoreFont.getBounds(strScore).height/2);
+			CSG.scoreFont.draw(batch, strScore, CSG.halfWidth - CSG.scoreFont.getBounds(strScore).width/2, FONT_HEIGHT + CSG.scoreFont.getBounds(strScore).height/2);
 		}
 	}
 
 	public static void lost(boolean persist) {
-		CSG.profile.xpDispo += score;
+		CSG.profile.xp += score;
 		CSG.profilManager.persist();
 	}
 }

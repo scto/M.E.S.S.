@@ -84,7 +84,7 @@ public class Particles {
 	 * @param batch
 	 */
 	public static void background(SpriteBatch batch) {
-		batch.draw(AssetMan.background, -CSG.DIXIEME_WIDTH *2, -CSG.HEIGHT_DIV10, CSG.gameZoneWidth + CSG.DIXIEME_WIDTH*3, CSG.screenHeight + CSG.HEIGHT_DIV10);
+		batch.draw(AssetMan.background, -CSG.widthDiv10 *2, -CSG.heightDiv10, CSG.gameZoneWidth + CSG.widthDiv10*3, CSG.height + CSG.heightDiv10);
 		Star.act(batch, STAR);
 		SparklesColorOverTime.act(COLOR_OVER_TIME, batch);
 		Explosion.act(EXPLOSIONS, batch);

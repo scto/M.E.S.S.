@@ -8,12 +8,12 @@ import com.badlogic.gdx.utils.Json;
 public class ProfilManager {
 	
     private static final String PROFIL_FILE = "data/csg2.json";
-    private Profil profil;
+    private Profile profil;
     
     /**
      * Retrieves the player's profile, creating one if needed.
      */
-    public Profil retrieveProfile()
+    public Profile retrieveProfile()
     {
         FileHandle profileDataFile = Gdx.files.local(PROFIL_FILE);
 
@@ -32,15 +32,15 @@ public class ProfilManager {
 					profileAsText = Base64Coder.decodeString(profileAsText);
 				}
 				// restore the state
-				profil = json.fromJson(Profil.class, profileAsText);
+				profil = json.fromJson(Profile.class, profileAsText);
 			} else {
 				// create a new profile data file
-				profil = new Profil();
+				profil = new Profile();
 				persist(profil);
 			}
 		} catch (Exception e) {
 			// recover by creating a fresh new profile data file;
-			profil = new Profil();
+			profil = new Profile();
 			persist(profil);
 		}
 		// return the result
@@ -50,7 +50,7 @@ public class ProfilManager {
     /**
      * Persists the given profile.
      */
-	protected void persist(Profil profil) {
+	protected void persist(Profile profil) {
 		// create the handle for the profile data file
 		FileHandle profileDataFile = Gdx.files.local(PROFIL_FILE);
 		// create the JSON utility object
@@ -76,6 +76,6 @@ public class ProfilManager {
 	}
 
 	public String getXp() {
-		return profil.champXp;
+		return profil.xpDisplay;
 	}
 }

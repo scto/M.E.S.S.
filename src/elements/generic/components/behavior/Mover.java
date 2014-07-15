@@ -29,7 +29,7 @@ public abstract class Mover {
 	}
 
 	public static void ovale(Element e, float factor) {
-		e.dir.x -= ((e.pos.x + e.getDimensions().halfWidth) - CSG.screenHalfWidth) * factor;
+		e.dir.x -= ((e.pos.x + e.getDimensions().halfWidth) - CSG.halfWidth) * factor;
 		e.dir.y -= ((e.pos.y + e.getDimensions().halfHeight) - CSG.halfHeight) * factor;
 		straight(e);
 	}
@@ -54,7 +54,7 @@ public abstract class Mover {
 	}
 
 	public static void U(Enemy e) {
-		if (e.pos.y < CSG.HEIGHT_ECRAN_PALLIER_7) {
+		if (e.pos.y < CSG.heightDiv10Mul3) {
 			if (!EndlessMode.alternate) {
 				if (e.getWay())
 					e.dir.rotate(EndlessMode.delta2 * e.getEnemyStats().getSpeed());
@@ -110,7 +110,7 @@ public abstract class Mover {
 	 * @param factor
 	 */
 	public static void oscillateX(Element e, float factor) {
-		e.dir.x -= (((e.pos.x + e.getDimensions().halfWidth) - CSG.screenHalfWidth) * EndlessMode.delta) * factor;
+		e.dir.x -= (((e.pos.x + e.getDimensions().halfWidth) - CSG.halfWidth) * EndlessMode.delta) * factor;
 	}
 
 	public static void yOnly(Element e) {
@@ -124,15 +124,9 @@ public abstract class Mover {
 	}
 
 	public static void ancorX(Element e, float force) {
-		if (e.pos.x + e.getDimensions().width < CSG.gameZoneHalfWidth)
+		if (e.pos.x + e.getDimensions().width < CSG.halfWidth)
 			e.dir.x += force * EndlessMode.delta;
-		else if (e.pos.x > CSG.gameZoneHalfWidth)
+		else if (e.pos.x > CSG.halfWidth)
 			e.dir.x -= force * EndlessMode.delta;
 	}
-
-//	if (now > 4 && now < 12) {
-//		angle = dir.angle() + 90;
-//		Mover.toRight(this, - (Stats.uSur8 * ((8-now)/4) ));
-//	} else
-//		Mover.straight(this);
 }

@@ -2,7 +2,7 @@ package menu.ui;
 
 import jeu.CSG;
 import jeu.Physic;
-import jeu.Profil;
+import jeu.Profile;
 import jeu.Stats;
 import assets.AssetMan;
 import assets.sprites.AnimPlayer;
@@ -16,7 +16,7 @@ import elements.particular.Player;
 
 public class WeaponButton extends AbstractButton {
 	
-	public static final float width = CSG.screenWidth / 7, widthDiv10 = width / 10, offsetShip = (width - Player.WIDTH)/2, height = width * 1.3f, padding = (CSG.screenWidth / 7) / 7;
+	public static final float width = CSG.width / 7, widthDiv10 = width / 10, offsetShip = (width - Player.WIDTH)/2, height = width * 1.3f, padding = (CSG.width / 7) / 7;
 	public static final float heightBackground = height * 1.1f;
 	private static final float unselectedWidth = width * 0.8f, unselectedHeight = height * 0.8f;
 	private final TextureRegion tr;
@@ -49,7 +49,7 @@ public class WeaponButton extends AbstractButton {
 	}
 	
 	public void setSelected(String label) {
-		if (CSG.profile.armeSelectionnee.equals(label))
+		if (CSG.profile.selectedWeapon.equals(label))
 			selected = true;
 		else
 			selected = false;
@@ -79,7 +79,7 @@ public class WeaponButton extends AbstractButton {
 			batch.draw(tr, x + widthDiv10, y, unselectedWidth, unselectedHeight);
 		}
 		
-		if ( (num == 5 || num == 4) && CSG.profile.isAllWeaponsLvlOk(Profil.LVL_UNLOCK) == false) {
+		if ( (num == 5 || num == 4) && CSG.profile.isAllWeaponsLvlOk(Profile.LVL_UNLOCK) == false) {
 			CSG.menuFontSmall.draw(CSG.batch, "Unlock the 2 remaining weapons by getting the others at level 6 or higher ", xText, 4 + CSG.menuFontSmall.getBounds("W").height);
 			xText -= 0.3f;
 			batch.setColor(AssetMan.RED);
@@ -88,10 +88,10 @@ public class WeaponButton extends AbstractButton {
 			batch.draw(AssetMan.dust, x, y, 0, 		0, width*1.2f, 	Stats.u, 1, 1, 40);
 			batch.draw(AssetMan.dust, x, y, width, 	0, width, 		Stats.u, 1, 1, -35);
 			if (-CSG.menuFontSmall.getBounds("Unlock the 2 remaining weapons by getting the others at level 6 or higher ").width > xText)
-				xText = CSG.screenWidth;
+				xText = CSG.width;
 		} else {
 			if (Gdx.input.justTouched()) {
-				if (Physic.isPointInSquare(Gdx.input.getX(), CSG.screenHeight - Gdx.input.getY(), x, y, width)) {
+				if (Physic.isPointInSquare(Gdx.input.getX(), CSG.height - Gdx.input.getY(), x, y, width)) {
 					CSG.profile.setArmeSelectionnee(label);
 					Player.weapon = WeaponManager.getWeaponManager(label);
 				}

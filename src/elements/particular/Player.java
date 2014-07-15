@@ -27,11 +27,11 @@ public final class Player {
 		DECALAGE_ADD = WIDTH + HALF_WIDTH - WIDTH_ADD,
 		DECALAGE_TIR_ADD_X_GAUCHE = (int) (-HALF_WIDTH - HALF_WIDTH_ADD + ArmeAdd.DIMENSIONS.halfWidth),
 		DECALAGE_TIR_ADD_X_DROITE = (int) (DECALAGE_ADD - HALF_WIDTH_ADD + ArmeAdd.DIMENSIONS.halfWidth),
-		LIMITE_X_GAUCHE = 0 - HALF_WIDTH, LIMITE_X_DROITE = CSG.gameZoneWidth - HALF_WIDTH, LIMITE_Y_GAUCHE = 0 - HALF_HEIGHT, LIMITE_Y_DROITE = CSG.screenHeight - HALF_HEIGHT,
+		LIMITE_X_GAUCHE = 0 - HALF_WIDTH, LIMITE_X_DROITE = CSG.width - HALF_WIDTH, LIMITE_Y_GAUCHE = 0 - HALF_HEIGHT, LIMITE_Y_DROITE = CSG.height - HALF_HEIGHT,
 		LEFT_ADD1 = 0x0001, LEFT_ADD2 = 0x0002, RIGHT_ADD1 = 0x0004, RIGHT_ADD2 = 0x0008;
-	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.screenWidth + CSG.screenHeight) / 600;
+	private static final float DEGRE_PRECISION_DEPLACEMENT = (CSG.width + CSG.height) / 600;
 	public static float xCenter = 0, yCenter = 0, nextShot = 0, nextShotAdd = 0, prevX, prevY, destX, destY, addX, addY, centerLeft1AddX, centerAdd1Y, centerRight1AddX, centerLeft2AddX, centerAdd2Y,
-			centerRight2AddX, vitesseFoisdelta = 0, tmpCalculDeplacement = 0, originalAccelX = 0, originalAccelY = 0, angleAdd = -90, angleAddDroite = -90, camXmoinsDemiEcran = CSG.screenHalfWidth;
+			centerRight2AddX, vitesseFoisdelta = 0, tmpCalculDeplacement = 0, originalAccelX = 0, originalAccelY = 0, angleAdd = -90, angleAddDroite = -90, camXmoinsDemiEcran = CSG.halfWidth;
 	public static WeaponManager weapon = CSG.profile.getArmeSelectionnee();
 	private static final OvaleParticuleGenerator bouclierParticules = new OvaleParticuleGenerator(HEIGHT * 2);
 	private static boolean shieldHS = false;
@@ -66,14 +66,14 @@ public final class Player {
 	 * Positionne mais ne reset ni adds ni shield
 	 */
 	public void reInit() {
-		POS.x = CSG.gameZoneHalfWidth - HALF_WIDTH;
+		POS.x = CSG.halfWidth - HALF_WIDTH;
 		POS.y = HEIGHT * 3;
 		nextShot = 0;
 		prevX = POS.x;
 		prevY = POS.y;
 		xCenter = POS.x + HALF_WIDTH;
 		yCenter = POS.y + HALF_HEIGHT;
-		if (CSG.profile.typeControle == CSG.CONTROLE_ACCELEROMETRE) {
+		if (CSG.profile.controls == CSG.CONTROLE_ACCELEROMETRE) {
 			originalAccelX = Gdx.input.getAccelerometerX();
 			originalAccelY = Gdx.input.getAccelerometerY();
 		}
@@ -124,14 +124,14 @@ public final class Player {
 	}
 
 	private int getTouchY() {
-		return CSG.screenHeight - Gdx.input.getY();
+		return CSG.height - Gdx.input.getY();
 	}
 
 	private float getTouchX() {
 		return(Gdx.input.getX() - HALF_WIDTH);
 	}
 	
-	private float clicX = 0, clicY = 0, originalClicX = CSG.gameZoneHalfWidth, originalClicY = CSG.halfHeight, wantedMvtX, wantedMvtY, chronoDroit;
+	private float clicX = 0, clicY = 0, originalClicX = CSG.halfWidth, originalClicY = CSG.halfHeight, wantedMvtX, wantedMvtY, chronoDroit;
 
 	public void mouvements() {
 		xCenter = POS.x + HALF_WIDTH;
@@ -223,10 +223,10 @@ public final class Player {
 		if (POS.y < LIMITE_Y_GAUCHE) 		POS.y = LIMITE_Y_GAUCHE;
 		else if (POS.y > LIMITE_Y_DROITE)	POS.y = LIMITE_Y_DROITE;
 		
-		if (EndlessMode.getCam().position.x > CSG.gameZoneWidth - CSG.screenHalfWidth)
-			EndlessMode.getCam().position.x = CSG.gameZoneWidth - CSG.screenHalfWidth;
-		if (EndlessMode.getCam().position.x < CSG.screenHalfWidth)
-			EndlessMode.getCam().position.x = CSG.screenHalfWidth;
+		if (EndlessMode.getCam().position.x > CSG.width - CSG.halfWidth)
+			EndlessMode.getCam().position.x = CSG.width - CSG.halfWidth;
+		if (EndlessMode.getCam().position.x < CSG.halfWidth)
+			EndlessMode.getCam().position.x = CSG.halfWidth;
 		
 //		light.setPosition(xCenter, POS.y);
 //		light.setDistance(1);
@@ -245,25 +245,25 @@ public final class Player {
 			if (leftDrone) {
 				addShotNbr = addShotNbr | LEFT_ADD1;
 				ArmeAdd.add(addX - HALF_WIDTH, addY - HALF_HEIGHT, angleAdd, 0);
-				if (CSG.profile.cadenceAdd > 3)
+				if (CSG.profile.dronesFirerate > 3)
 					ArmeAdd.add(addX - HALF_WIDTH, addY - HALF_HEIGHT, angleAdd, 10);
 			}
 			if (rightDrone) {
 				addShotNbr = addShotNbr | RIGHT_ADD1;
 				ArmeAdd.add(addX + DECALAGE_ADD, addY - HALF_HEIGHT, angleAddDroite, 0);
-				if (CSG.profile.cadenceAdd > 3)
+				if (CSG.profile.dronesFirerate > 3)
 					ArmeAdd.add(addX + DECALAGE_ADD, addY - HALF_HEIGHT, angleAddDroite, -10);
 			}
 			if (leftDrone2) {
 				addShotNbr = addShotNbr | LEFT_ADD2;
 				ArmeAdd.add(addX - WIDTH, addY - HEIGHT, angleAdd, 0);
-				if (CSG.profile.cadenceAdd > 6)
+				if (CSG.profile.dronesFirerate > 6)
 					ArmeAdd.add(addX - WIDTH, addY - HEIGHT, angleAdd, 10);
 			}
 			if (rightDrone2) {
 				addShotNbr = addShotNbr | RIGHT_ADD2;
 				ArmeAdd.add(addX + DECALAGE_ADD + HALF_WIDTH, addY - HEIGHT, angleAddDroite, 0);
-				if (CSG.profile.cadenceAdd > 6)
+				if (CSG.profile.dronesFirerate > 6)
 					ArmeAdd.add(addX + DECALAGE_ADD + HALF_WIDTH, addY - HEIGHT, angleAddDroite, -10);
 			}
 			nextShotAdd = EndlessMode.now + ArmeAdd.FIRERATETIR;

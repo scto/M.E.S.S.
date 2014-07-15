@@ -8,20 +8,20 @@ import elements.generic.components.enemies.Merlin;
 import elements.generic.enemies.individual.bosses.Sat;
 
 public class SpawnEnemyPosition {
-	public static final Vector2 middle = new Vector2(CSG.gameZoneHalfWidth, CSG.screenHeight),
-	_05sur10 = new Vector2(CSG.gameZoneWidth * 0.05f, CSG.screenHeight),
-	_1sur10 = new Vector2(CSG.gameZoneWidth * 0.1f, CSG.screenHeight),
-	_2sur10 = new Vector2(CSG.gameZoneWidth * 0.2f, CSG.screenHeight),
-	_3sur10 = new Vector2(CSG.gameZoneWidth * 0.3f, CSG.screenHeight),
-	_4sur10 = new Vector2(CSG.gameZoneWidth * 0.4f, CSG.screenHeight),
-	_5sur10 = new Vector2(CSG.gameZoneWidth * 0.5f, CSG.screenHeight),
-	_6sur10 = new Vector2(CSG.gameZoneWidth * 0.6f, CSG.screenHeight),
-	_7sur10 = new Vector2(CSG.gameZoneWidth * 0.7f, CSG.screenHeight),
-	_8sur10 = new Vector2(CSG.gameZoneWidth * 0.8f, CSG.screenHeight),
-	_9sur10 = new Vector2(CSG.gameZoneWidth * 0.9f, CSG.screenHeight),
-	_95sur10 = new Vector2(CSG.gameZoneWidth * 0.95f, CSG.screenHeight);
-	private static final Vector2 _bossSatUp = new Vector2((CSG.gameZoneWidth-1)+Sat.DIMENSIONS.halfWidth, CSG.screenHeight * 0.7f);
-	private static final Vector2 _bossSatDown = new Vector2((CSG.gameZoneWidth-1)+Sat.DIMENSIONS.halfWidth, CSG.screenHeight * 0.35f);
+	public static final Vector2 middle = new Vector2(CSG.halfWidth, CSG.height),
+	_05sur10 = new Vector2(CSG.halfWidth * 0.05f, CSG.height),
+	_1sur10 = new Vector2(CSG.halfWidth * 0.1f, CSG.height),
+	_2sur10 = new Vector2(CSG.halfWidth * 0.2f, CSG.height),
+	_3sur10 = new Vector2(CSG.halfWidth * 0.3f, CSG.height),
+	_4sur10 = new Vector2(CSG.halfWidth * 0.4f, CSG.height),
+	_5sur10 = new Vector2(CSG.halfWidth * 0.5f, CSG.height),
+	_6sur10 = new Vector2(CSG.halfWidth * 0.6f, CSG.height),
+	_7sur10 = new Vector2(CSG.halfWidth * 0.7f, CSG.height),
+	_8sur10 = new Vector2(CSG.halfWidth * 0.8f, CSG.height),
+	_9sur10 = new Vector2(CSG.halfWidth * 0.9f, CSG.height),
+	_95sur10 = new Vector2(CSG.halfWidth * 0.95f, CSG.height);
+	private static final Vector2 _bossSatUp = new Vector2((CSG.halfWidth-1)+Sat.DIMENSIONS.halfWidth, CSG.height * 0.7f);
+	private static final Vector2 _bossSatDown = new Vector2((CSG.halfWidth-1)+Sat.DIMENSIONS.halfWidth, CSG.height * 0.35f);
 	
 	private static final Vector2 pauseVec[] = {};
 	private static final Vector2[] _1random = {null};

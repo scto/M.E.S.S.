@@ -13,7 +13,7 @@ public abstract class PlayerWeapon extends Weapon {
 	protected static int color = 1;
 	protected static final Random R = new Random();
 	protected static final int FORCE = 7;
-	protected static final float MINWIDTH = CSG.screenWidth / 20, UPDATEWIDTH = CSG.screenWidth / 200;
+	protected static final float MINWIDTH = CSG.width / 20, UPDATEWIDTH = CSG.width / 200;
 	public static final float[] COLORS = {
 		AssetMan.convertARGB(1, 0, 84f  / 255f, 173f  / 255f),
 		AssetMan.convertARGB(1, 0, 162f / 255f, 240f / 255f),

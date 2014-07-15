@@ -40,6 +40,6 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 	public void init(float x, float y) {
 		pos.set(x, y);
 		PLAYER_LIST.add(this);
-		dir.set(0, Stats.V_ARME_SPACE_INVADER + (CSG.profile.lvlSpaceInvader * CSG.HEIGHT_DIV20));
+		dir.set(0, Stats.V_ARME_SPACE_INVADER + (CSG.profile.lvlSpaceInvader * CSG.heightDiv20));
 	}
 }

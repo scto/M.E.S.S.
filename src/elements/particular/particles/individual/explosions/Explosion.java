@@ -20,7 +20,7 @@ import elements.particular.particles.Particles;
 
 public class Explosion implements Poolable {
 	
-	private static final float WIDTH = CSG.screenWidth / 50;
+	private static final float WIDTH = CSG.width / 50;
 	private static final float MIN_WIDTH = 1;
 	private static final Pool<Explosion> POOL_STANDARD = new Pool<Explosion>(100) {
 		@Override

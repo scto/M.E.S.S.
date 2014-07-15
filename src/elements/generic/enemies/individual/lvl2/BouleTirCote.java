@@ -26,8 +26,8 @@ public class BouleTirCote extends Enemy {
 		dir.set(0, getEnemyStats().getSpeed());
 		nextShot = 1;
 		numeroTir = 1;
-		pos.set(CSG.gameZoneHalfWidth, CSG.screenHeight);
-		angle = CSG.gameZoneHalfWidth - (pos.x + DIMENSIONS.width*2);
+		pos.set(CSG.halfWidth, CSG.height);
+		angle = CSG.halfWidth - (pos.x + DIMENSIONS.width*2);
 		angle /= 4;
 		dir.rotate(angle);
 		angle += 180;

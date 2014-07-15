@@ -12,7 +12,7 @@ import elements.generic.components.behavior.Mover;
 
 public abstract class Element implements AnimUser {
 	
-	public final Vector2 pos = new Vector2(CSG.gameZoneHalfWidth, CSG.screenHeight), dir = new Vector2(0,-1);
+	public final Vector2 pos = new Vector2(CSG.halfWidth, CSG.height), dir = new Vector2(0,-1);
 	public float now = 0, angle = 0;
 	
 	public void reset() {

@@ -13,7 +13,7 @@ import elements.particular.particles.Particles;
 
 public class Star implements Poolable {
 	
-	private static final int WIDTH = CSG.screenWidth/130, MINWIDTH = (int) (WIDTH / 2.5f);
+	private static final int WIDTH = CSG.width/130, MINWIDTH = (int) (WIDTH / 2.5f);
 	private static final Pool<Star> POOL = new Pool<Star>(Particles.MAX_BACKGROUND) {
 		@Override
 		protected Star newObject() {
@@ -28,7 +28,7 @@ public class Star implements Poolable {
 		while (tmp < MINWIDTH)
 			tmp = Math.abs((float) (CSG.R.nextFloat() * WIDTH));
 		w = tmp;
-		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w/2;
+		x = (CSG.R.nextFloat() * CSG.width + w) - w/2;
 		final float f = CSG.R.nextFloat();
 		if (f > .99f) {
 			color = AssetMan.WHITE;
@@ -46,15 +46,15 @@ public class Star implements Poolable {
 
 	@Override 
 	public void reset() {
-		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w/2;
-		y = CSG.screenHeight + w;
+		x = (CSG.R.nextFloat() * CSG.width + w) - w/2;
+		y = CSG.height + w;
 	}
 
 	public static void initBackground(Array<Star> stars) {
 		while (stars.size < Particles.MAX_BACKGROUND) {
 			final Star p = Star.POOL.obtain();
 			do {
-				p.y = (float) (CSG.R.nextFloat() * CSG.screenHeight);
+				p.y = (float) (CSG.R.nextFloat() * CSG.height);
 			} while (p.y <= 0);
 			stars.add(p);
 		}

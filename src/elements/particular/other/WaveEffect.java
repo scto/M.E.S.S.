@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 public class WaveEffect implements Poolable {
 
-	private static final float MAX = CSG.screenHeight * 2;
+	private static final float MAX = CSG.height * 2;
 	private static final Array<WaveEffect> waves = new Array<WaveEffect>();
 	private float color, originX, originY, width, halfwidth;
 	private static final Pool<WaveEffect> POOL = new Pool<WaveEffect>() {

@@ -46,9 +46,9 @@ public class Group extends Enemy {
 		Group e = POOL.obtain();
 		Group f = POOL.obtain();
 		Group g = POOL.obtain();
-		e.init(CSG.gameZoneWidth - DIMENSIONS.width);
-		f.init(CSG.gameZoneWidth - DIMENSIONS.width * 2.1f);
-		g.init(CSG.gameZoneWidth - DIMENSIONS.width * 3.2f);
+		e.init(CSG.halfWidth - DIMENSIONS.width);
+		f.init(CSG.halfWidth - DIMENSIONS.width * 2.1f);
+		g.init(CSG.halfWidth - DIMENSIONS.width * 3.2f);
 		return e;
 	}
 	
@@ -56,7 +56,7 @@ public class Group extends Enemy {
 		now = 5;
 		LIST.add(this);
 		pos.x = x;
-		pos.y = CSG.screenHeight;
+		pos.y = CSG.height;
 		dir.x = 0;
 		dir.y = -getEnemyStats().getSpeed();
 	}
@@ -64,7 +64,7 @@ public class Group extends Enemy {
 	@Override
 	public void reset() {
 		super.reset();
-		pos.y = CSG.screenHeight;
+		pos.y = CSG.height;
 		nextShot = INIT_NEXT_SHOT;
 		shotNumber = 0;
 	}

@@ -79,7 +79,7 @@ public class DesktopTests {
 //		if (Gdx.input.isKeyPressed(Keys.N))		Merlin.CRUSADER.incantation.invoke();
 //		if (Gdx.input.isKeyPressed(Keys.N))		Merlin.CRUSADER3.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.N))		Merlin.CRUSADER4.incantation.invoke();
-		if (Gdx.input.isKeyPressed(Keys.B))		Shield.POOL.obtain().init(CSG.R.nextFloat() * CSG.gameZoneWidth, 200);
+		if (Gdx.input.isKeyPressed(Keys.B))		Shield.POOL.obtain().init(CSG.R.nextFloat() * CSG.width, 200);
 		
 		
 		if (Gdx.input.isKeyPressed(Keys.F1))	EndlessMode.invicibility = true;

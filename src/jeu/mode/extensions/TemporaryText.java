@@ -29,7 +29,7 @@ public class TemporaryText {
 	public static void displayString(SpriteBatch batch, String s, float alpha) {
 //		CSG.menuFontBlack.drawMultiLine(batch, s, ((CSG.screenWidth / 2) - CSG.menuFontBlack.getMultiLineBounds(s).width / 2) + 3, CSG.HEIGHT_8_10 - 3);
 		CSG.menuFontSmall.setColor(.32f, .52f, 0.99f, alpha);
-		CSG.menuFontSmall.drawMultiLine(batch, s, (CSG.screenWidth / 2) - CSG.menuFontSmall.getMultiLineBounds(s).width / 2, CSG.HEIGHT_8_10);
+		CSG.menuFontSmall.drawMultiLine(batch, s, (CSG.width / 2) - CSG.menuFontSmall.getMultiLineBounds(s).width / 2, CSG.heightDiv10Mul8);
 	}
 
 	public void reset() {

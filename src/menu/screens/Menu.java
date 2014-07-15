@@ -41,49 +41,49 @@ public class Menu extends AbstractScreen {
 		temps = 0;
 		Gdx.input.setCatchBackKey(false);
 
-		ajout(new Button(PLAY, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_PLAY)), this, new OnClick() {
+		ajout(new Button(PLAY, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.width / PADDING, (int) (CSG.height - (CSG.heightDiv10 * LIGNE_PLAY)), new OnClick() {
 			public void onClick() {
 				changeMenu(new ChoixDifficulte(game));
 			}
-		}, true));
-		ajout(new Button(SHIP, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_SHIP)), this, new OnClick() {
+		}));
+		ajout(new Button(SHIP, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.width / PADDING, (int) (CSG.height - (CSG.heightDiv10 * LIGNE_SHIP)), new OnClick() {
 			public void onClick() {
 				changeMenu(new MenuXP(game));
 			}
-		}, true));
-		ajout(new Button(OPTION, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_OPTION)), this, new OnClick() {
+		}));
+		ajout(new Button(OPTION, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.width / PADDING, (int) (CSG.height - (CSG.heightDiv10 * LIGNE_OPTION)), new OnClick() {
 			public void onClick() {
 				changeMenu(new MenuOptions(game));
 			}
-		}, true));
+		}));
 //		ajout(new Bouton(TUTO, false, CSG.menuFont, WIDTH_BOUTON, HEIGHT_BOUTON, CSG.screenWidth / PADDING, (int) (CSG.SCREEN_HEIGHT - (CSG.HEIGHT_DIV10 * LIGNE_TUTO)), this, new OnClick() {
 //			public void onClick() {
 //				changeMenu(new Tuto(game));
 //			}
 //		}, true));
-		highscores = new Button(HIGHSCORE, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_HIGHSCORE)), this);
+		highscores = new Button(HIGHSCORE, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.width / PADDING, (int) (CSG.height - (CSG.heightDiv10 * LIGNE_HIGHSCORE)));
 		ajout(highscores);
 
-		achievements = new Button(ACHIEVEMENT, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_ACHIEVEMENT)), this);
+		achievements = new Button(ACHIEVEMENT, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.width / PADDING, (int) (CSG.height - (CSG.heightDiv10 * LIGNE_ACHIEVEMENT)));
 		ajout(achievements);
 		
-		ajout(new Button(SUPPORT_US, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_SUPPORT)), this, new OnClick() {
+		ajout(new Button(SUPPORT_US, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.width / PADDING, (int) (CSG.height - (CSG.heightDiv10 * LIGNE_SUPPORT)), new OnClick() {
 			public void onClick() {
 				CSG.talkToTheWorld.buyUsABeer();
 			}
-		}, false));
+		}));
 
-		ajout(new Button(EXIT, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.screenWidth / PADDING, (int) (CSG.screenHeight - (CSG.HEIGHT_DIV10 * LIGNE_EXIT)), this, new OnClick() {
+		ajout(new Button(EXIT, false, CSG.menuFont, BUTTON_WIDTH, BUTTON_HEIGHT, CSG.width / PADDING, (int) (CSG.height - (CSG.heightDiv10 * LIGNE_EXIT)), new OnClick() {
 			public void onClick() {
 				Gdx.app.exit();
 			}
-		}, true));
+		}));
 		
-		ajout(new Button(Strings.TWITTER, false, CSG.menuFontSmall, MINI_BOUTON_WIDTH, MINI_BOUTON_HEIGHT / 2, (int) (CSG.screenWidth - ((CSG.menuFontSmall.getBounds(Strings.TWITTER).width * 2)) - PADDING * 3), (int) (4 + CSG.menuFont.getBounds("T").height*2), this, new OnClick() {
+		ajout(new Button(Strings.TWITTER, false, CSG.menuFontSmall, MINI_BOUTON_WIDTH, MINI_BOUTON_HEIGHT / 2, (int) (CSG.width - ((CSG.menuFontSmall.getBounds(Strings.TWITTER).width * 2)) - PADDING * 3), (int) (4 + CSG.menuFont.getBounds("T").height*2), new OnClick() {
 			public void onClick() {
 				CSG.talkToTheWorld.followTwitter();
 			}
-		}, false));
+		}));
 		
 		if (Gdx.app.getVersion() != 0)
 			CSG.talkToTheWorld.showAds(true);
@@ -101,16 +101,16 @@ public class Menu extends AbstractScreen {
 		cam.update();
 		CSG.batch.setProjectionMatrix(cam.combined);
 		if (Gdx.input.isTouched()
-				&& CSG.screenHeight - Gdx.input.getY() > highscores.sprite.getY() 
-				&& CSG.screenHeight - Gdx.input.getY() < highscores.sprite.getY() + highscores.sprite.getHeight()) {
+				&& CSG.height - Gdx.input.getY() > highscores.sprite.getY() 
+				&& CSG.height - Gdx.input.getY() < highscores.sprite.getY() + highscores.sprite.getHeight()) {
 //			if (CSG.google.getSignedIn())
 				CSG.talkToTheWorld.getScores();
 //			else
 //				CSG.google.Login();
 		}
 		if (Gdx.input.isTouched() 
-				&& CSG.screenHeight - Gdx.input.getY() > achievements.sprite.getY() 
-				&& CSG.screenHeight - Gdx.input.getY() < achievements.sprite.getY() + achievements.sprite.getHeight()) {
+				&& CSG.height - Gdx.input.getY() > achievements.sprite.getY() 
+				&& CSG.height - Gdx.input.getY() < achievements.sprite.getY() + achievements.sprite.getHeight()) {
 			if (CSG.talkToTheWorld.getSignedIn())
 				CSG.talkToTheWorld.getAchievements();
 			else
@@ -120,8 +120,8 @@ public class Menu extends AbstractScreen {
 		etapeCode = detectiopnKonamiCode(etapeCode);
 		if (etapeCode == 8) {
 			SoundMan.playBruitage(SoundMan.bigExplosion);
-			if (CSG.profile.xpDispo < 55000)
-				CSG.profile.xpDispo = 55000;
+			if (CSG.profile.xp < 55000)
+				CSG.profile.xp = 55000;
 			CSG.profilManager.persist();
 			etapeCode++;
 //			CSG.assetMan.reload(true);

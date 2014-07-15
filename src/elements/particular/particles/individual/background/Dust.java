@@ -13,7 +13,7 @@ import elements.particular.particles.Particles;
 
 public class Dust implements Poolable {
 
-	private static final int WIDTH = CSG.screenWidth / 260, MINWIDTH = (int) (WIDTH / 2.5f);
+	private static final int WIDTH = CSG.width / 260, MINWIDTH = (int) (WIDTH / 2.5f);
 	private static final Pool<Dust> POOL = new Pool<Dust>(10) {
 		@Override
 		protected Dust newObject() {
@@ -29,17 +29,17 @@ public class Dust implements Poolable {
 		while (tmp < MINWIDTH)
 			tmp = Math.abs((float) (CSG.R.nextFloat() * WIDTH));
 		w = tmp;
-		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w / 2;
+		x = (CSG.R.nextFloat() * CSG.width + w) - w / 2;
 		final float f = (CSG.R.nextFloat() / 2) + 0.35f;
 		color = AssetMan.convertARGB(1, f, f, f);
-		speed = (CSG.R.nextFloat() / 2) * 14 * CSG.screenHeight;
+		speed = (CSG.R.nextFloat() / 2) * 14 * CSG.height;
 		h = speed / 20;
 	}
 
 	@Override
 	public void reset() {
-		x = (CSG.R.nextFloat() * CSG.gameZoneWidth + w) - w / 2;
-		y = CSG.screenHeight + w;
+		x = (CSG.R.nextFloat() * CSG.width + w) - w / 2;
+		y = CSG.height + w;
 	}
 
 	public static void act(SpriteBatch batch, Array<Dust> dust) {

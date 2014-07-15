@@ -17,26 +17,26 @@ public class Physic {
 	
 	public static boolean pointIn(final Sprite s) {
 		final int x = Gdx.input.getX();
-		final int y = CSG.screenHeight - Gdx.input.getY();
+		final int y = CSG.height - Gdx.input.getY();
         return s.getX() <= x && s.getX() + s.getWidth() >= x && s.getY() <= y && s.getY() + s.getHeight() >= y;
 	}
 	
 	public static boolean isOnScreen(final Vector2 position, final float hauteur, final float largeur) {
-		if (position.y + hauteur < -CSG.HEIGHT_DIV10 || position.x + largeur < 0 ||
-				position.x > CSG.gameZoneWidth  || position.y > CSG.HEIGHT_PLUS_4 + hauteur)
+		if (position.y + hauteur < -CSG.heightDiv10 || position.x + largeur < 0 ||
+				position.x > CSG.width  || position.y > CSG.heightPlus4 + hauteur)
 			return false;
 		return true;
 	}
 	
 	public static boolean isOnScreenWithTolerance(final Vector2 position, final float hauteur, final float largeur) {
-		if (position.y + hauteur < -CSG.HEIGHT_DIV10 || position.x + largeur < -Stats.WIDTH_DIV_10 ||
-				position.x > Stats.GZW_PLUS_MARGIN  || position.y > CSG.HEIGHT_PLUS_4 + hauteur)
+		if (position.y + hauteur < -CSG.heightDiv10 || position.x + largeur < -Stats.WIDTH_DIV_10 ||
+				position.x > Stats.GZW_PLUS_MARGIN  || position.y > CSG.heightPlus4 + hauteur)
 			return false;
 		return true;
 	}
 	
 	public static boolean isOnScreen(final float x, final float y, final float width) {
-		if (y + width < 0 || x + width < 0 || x > CSG.gameZoneWidth || y > CSG.screenHeight + width)
+		if (y + width < 0 || x + width < 0 || x > CSG.width || y > CSG.height + width)
 			return false;
 		return true;
 	}
@@ -45,7 +45,7 @@ public class Physic {
 	 * @return way
 	 */
 	public static boolean goToZigZagCentre(final Vector2 pos, final Vector2 dir, final int halfWidth, boolean way, final float amplitude, final float height, final int width){
-		if (pos.x + halfWidth < CSG.gameZoneHalfWidth)
+		if (pos.x + halfWidth < CSG.halfWidth)
 			way = false;
 		else
 			way = true;
@@ -59,25 +59,11 @@ public class Physic {
 
 	public static void collisionsTest() {
 		for (final Enemy enemy : Enemy.LIST) {
-			if (enemy.pos.y + CSG.CENTIEME_HEIGHT > CSG.screenHeight)		continue;
-			if (enemy.isOnPlayer())	{
+			if (enemy.pos.y + CSG.heightDiv100 > CSG.height)		continue;
+			if (enemy.isOnPlayer())
 				Player.touchedEnnemy(enemy);
-			}
-
 			collisionPlayerWeaponToEnemy(enemy, Weapon.PLAYER_LIST);
 			collisionPlayerWeaponToEnemy(enemy, Weapon.ADDS);
-//			collisionEnemyWeaponToEnemy(enemy, Weapons.BOSSES_LIST);
-		}
-	}
-	
-	private static void collisionEnemyWeaponToEnemy(final Enemy enemy, Array<EnemyWeapon> playerList) {
-		for (final EnemyWeapon a : playerList) {
-			if (!enemy.dead && enemy.isTouched(a)) {
-				if (enemy.stillAliveEnemyWeapon(a)) {
-					a.free();
-					playerList.removeValue(a, true);
-				}
-			}
 		}
 	}
 
@@ -128,7 +114,6 @@ public class Physic {
 		return dir.angle();
 	}
 	
-	private static float tmp = 0;
 	public static void mvtToPlayer(final Vector2 dir, final Vector2 pos, final float maxSpeed, final float width, final float halfWidth, float rotation) {
 		DESIRED.x = pos.x - Player.xCenter;
 		DESIRED.y = pos.y - Player.yCenter;
@@ -188,58 +173,48 @@ public class Physic {
 	}
 	
 	public static void mvtNoCheck(final Vector2 pos, final Vector2 dir) {
-		pos.x += dir.x * EndlessMode.delta;
-		pos.y += dir.y * EndlessMode.delta;
+		pos.add(dir.x * EndlessMode.delta, dir.y * EndlessMode.delta);
 	}
 	
 	public static boolean mvt(final Vector2 dir, final Vector2 pos, final float width) {
-		pos.x += dir.x * EndlessMode.delta;
-		pos.y += dir.y * EndlessMode.delta;
+		pos.add(dir.x * EndlessMode.delta, dir.y * EndlessMode.delta);
 		return isOnScreen(pos, width, width);
 	}
 	
 	public static boolean mvt(final float height, final float width, final Vector2 dir, final Vector2 pos) {
-		pos.x += dir.x * EndlessMode.delta;
-		pos.y += dir.y * EndlessMode.delta;
+		pos.add(dir.x * EndlessMode.delta, dir.y * EndlessMode.delta);
 		return isOnScreen(pos, width, height);
 	}
 	
 	public static float mvtOmbrelle(final Enemy e, final Vector2 dir) {
-		dir.x = -((CSG.gameZoneHalfWidth - Player.xCenter) - (CSG.gameZoneHalfWidth - e.pos.x - e.getDimensions().halfWidth));
+		dir.x = -((CSG.halfWidth - Player.xCenter) - (CSG.halfWidth - e.pos.x - e.getDimensions().halfWidth));
 		dir.y /= 1 + EndlessMode.delta;
 		Physic.mvtNoCheck(e.pos, dir);
 		return getAngleWithPlayer(e.pos, e.getDimensions().halfWidth, e.getDimensions().halfHeight);
 	}
 	
-	private static final Vector2 tmpPos = new Vector2();
 	
 	public static float getAngleWithPlayer(final Vector2 pos, final float halfWidth, final float halfHeight) {
-		tmpPos.x = Player.xCenter;
-		tmpPos.y = Player.yCenter;
-		return tmpPos.sub(pos.x + halfWidth, pos.y + halfHeight).angle();
+		CSG.tmpPos.set(Player.xCenter, Player.yCenter);
+		return CSG.tmpPos.sub(pos.x + halfWidth, pos.y + halfHeight).angle();
 	}
 
 	public static float distanceFromPlayer(final Vector2 pos) {
-		tmpPos.x = pos.x - Player.xCenter;
-		tmpPos.y = pos.y - Player.yCenter;
-		return tmpPos.len();
+		return CSG.tmpPos.set(pos.x - Player.xCenter, pos.y - Player.yCenter).len();
 	}
 
 	public static void stayOnScreen(Vector2 pos, float width) {
 		if (pos.x < 0)
 			pos.x += EndlessMode.delta15;
-		else if (pos.x + width > CSG.gameZoneWidth)
+		else if (pos.x + width > CSG.width)
 			pos.x -= EndlessMode.delta15;
 	}
 
 	public static boolean isNotDisplayed(Enemy enemy) {
-		if (enemy.pos.x + enemy.getDimensions().width < 0 || enemy.pos.x > CSG.screenWidth
-				|| enemy.pos.y > CSG.screenHeight || enemy.pos.y + enemy.getDimensions().height < 0)
-			return true;
-		return false;
+		return enemy.pos.x + enemy.getDimensions().width < 0 || enemy.pos.x > CSG.width || enemy.pos.y > CSG.height || enemy.pos.y + enemy.getDimensions().height < 0;
 	}
 
 	public static boolean isLeft(Vector2 pos, float halfWidth) {
-		return (pos.x + halfWidth < CSG.gameZoneHalfWidth); 
+		return (pos.x + halfWidth < CSG.halfWidth); 
 	}
 }

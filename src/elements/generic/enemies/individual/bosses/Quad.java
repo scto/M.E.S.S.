@@ -38,7 +38,7 @@ public class Quad extends Enemy {
 	}
 
 	public void init() {
-		pos.set(CSG.screenHalfWidth - DIMENSIONS.halfWidth, CSG.screenHeight);
+		pos.set(CSG.halfWidth - DIMENSIONS.halfWidth, CSG.height);
 		dir.set(-getEnemyStats().getSpeed() * 4f, -getEnemyStats().getSpeed());
 		animIndex = 0;
 	}
@@ -51,7 +51,7 @@ public class Quad extends Enemy {
 	
 	@Override
 	protected void move() {
-		Mover.ancorY(this, CSG.HEIGHT_8_10);
+		Mover.ancorY(this, CSG.heightDiv10Mul8);
 		Mover.oscillateX(this, 20);
 		Mover.ball(this, 1);
 	}

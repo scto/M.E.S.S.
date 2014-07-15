@@ -14,7 +14,7 @@ import elements.generic.enemies.Enemy;
 
 public class TimeParticle implements Poolable {
 
-	private static final float WIDTH = CSG.screenWidth / 55, HALF_WIDTH = WIDTH / 2;
+	private static final float WIDTH = CSG.width / 55, HALF_WIDTH = WIDTH / 2;
 	public static final Pool<TimeParticle> POOL = new Pool<TimeParticle>() {
 		@Override
 		protected TimeParticle newObject() {

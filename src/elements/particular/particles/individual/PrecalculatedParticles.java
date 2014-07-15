@@ -81,7 +81,7 @@ public class PrecalculatedParticles {
 	}
 
 	private static float[] initDirY(float[] widths2) {
-		float alpha = CSG.screenHeight / 50;
+		float alpha = CSG.height / 50;
 		Array<Float> tmp = new Array<Float>();
 		while (alpha > 0) {
 			tmp.add(alpha);

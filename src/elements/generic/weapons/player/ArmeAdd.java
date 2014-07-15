@@ -29,7 +29,7 @@ public class ArmeAdd extends PlayerWeapon {
 	public static float FIRERATETIR;
 	public static final Pool<ArmeAdd> POOL = Pools.get(ArmeAdd.class);
 	
-	public static void determinerCadenceTir() {	FIRERATETIR = 1.6f / CSG.profile.cadenceAdd;	}
+	public static void determinerCadenceTir() {	FIRERATETIR = 1.6f / CSG.profile.dronesFirerate;	}
 	private float angle;
 	private static final Vector2 OFFSET = new Vector2();
 	

@@ -28,12 +28,12 @@ public class Laser extends Enemy {
 	
 	public void init() {
 		if (CSG.R.nextBoolean())
-			pos.set((CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth) - DIMENSIONS.width, CSG.screenHeight);
+			pos.set((CSG.halfWidth - DIMENSIONS.halfWidth) - DIMENSIONS.width, CSG.height);
 		else
-			pos.set((CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth) + DIMENSIONS.width, CSG.screenHeight);
+			pos.set((CSG.halfWidth - DIMENSIONS.halfWidth) + DIMENSIONS.width, CSG.height);
 		nextShot = 1f;
 		
-		if (pos.x + DIMENSIONS.halfWidth > CSG.gameZoneHalfWidth) {
+		if (pos.x + DIMENSIONS.halfWidth > CSG.halfWidth) {
 			left = true;
 			dir.set(-1, -1);
 		} else {

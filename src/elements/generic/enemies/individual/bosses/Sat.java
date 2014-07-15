@@ -38,7 +38,7 @@ public class Sat extends Enemy {
 	}
 
 	public void init() {
-		pos.set(Stats.GZW_PLUS_MARGIN, CSG.HEIGHT_ECRAN_PALLIER_3 - DIMENSIONS.halfWidth);
+		pos.set(Stats.GZW_PLUS_MARGIN, CSG.heightDiv10Mul3 - DIMENSIONS.halfWidth);
 		dir.x = -getEnemyStats().getSpeed();
 		launched = 0;
 		goodShape = true;
@@ -48,7 +48,7 @@ public class Sat extends Enemy {
 	protected void move() {
 		switch (launched) {
 		case 0:
-			if (pos.x < CSG.WIDTH_ZONE_MOINS_WIDTH_BORD - DIMENSIONS.halfWidth) {
+			if (pos.x < CSG.widthMinusBorder - DIMENSIONS.halfWidth) {
 				add3();
 				if (EndlessMode.difficulty > 1) {
 					add1();
@@ -58,7 +58,7 @@ public class Sat extends Enemy {
 			}
 			break;
 		case 1:
-			if (pos.x < CSG.WIDTH_ZONE_MOINS_WIDTH_BORD - DIMENSIONS.width) {
+			if (pos.x < CSG.widthMinusBorder - DIMENSIONS.width) {
 				add1();
 				add3();
 				add5();
@@ -70,18 +70,18 @@ public class Sat extends Enemy {
 			}
 			break;
 		case 2:
-			if (pos.x < CSG.WIDTH_ZONE_MOINS_WIDTH_BORD - (DIMENSIONS.width + DIMENSIONS.halfWidth)) {
+			if (pos.x < CSG.widthMinusBorder - (DIMENSIONS.width + DIMENSIONS.halfWidth)) {
 				all();
 				launched++;
 			}
 			break;
 		case 3:
-			if (pos.x < CSG.WIDTH_ZONE_MOINS_WIDTH_BORD - DIMENSIONS.halfWidth) {
+			if (pos.x < CSG.widthMinusBorder - DIMENSIONS.halfWidth) {
 				all();
 				launched++;
 			}
 		case 4:
-			if (pos.x < CSG.WIDTH_ZONE_MOINS_WIDTH_BORD - DIMENSIONS.width) {
+			if (pos.x < CSG.widthMinusBorder - DIMENSIONS.width) {
 				all();
 				launched++;
 			}

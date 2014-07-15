@@ -23,7 +23,7 @@ public class TWeapon extends PlayerWeapon implements Poolable{
 	private static boolean alterner = false;
 	public float angle;
 
-	private static final float LIMITE = (CSG.screenHeight / 4) / Stats.V_ARME_HANTEE;
+	private static final float LIMITE = (CSG.height / 4) / Stats.V_ARME_HANTEE;
 
 	public void init(float posX, float posY) {
 		pos.set(posX, posY);

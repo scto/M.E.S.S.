@@ -31,7 +31,7 @@ public class Cylon extends Enemy {
 
 	public void init() {
 		Positionner.UP_WIDE.set(this);
-		if (pos.x + DIMENSIONS.halfWidth < CSG.screenHalfWidth)
+		if (pos.x + DIMENSIONS.halfWidth < CSG.halfWidth)
 			dir.set(0.26f * getEnemyStats().getSpeed(), -0.83f * getEnemyStats().getSpeed());
 		else
 			dir.set(-0.26f * getEnemyStats().getSpeed(), -0.83f * getEnemyStats().getSpeed());

@@ -50,14 +50,14 @@ public class EndlessMode implements Screen {
 	private static Player ship;
 	public static float now = 0;
 	
-	public static final int X_CHRONO = CSG.DIXIEME_WIDTH/2 - CSG.screenHalfWidth;
-	public static final int FONT_HEIGHT = CSG.HEIGHT_DIV10/3;
+	public static final int X_CHRONO = CSG.widthDiv10/2 - CSG.halfWidth;
+	public static final int FONT_HEIGHT = CSG.heightDiv10/3;
 	// *************************  J  A  U  G  E  *************************
 	private final TextureRegion red;
-	private static final int TIER_WIDTH_JAUGE =  CSG.screenWidth/18, HEIGHT_JAUGE = CSG.screenHeight/75;
+	private static final int TIER_WIDTH_JAUGE =  CSG.width/18, HEIGHT_JAUGE = CSG.height/75;
 	// *************************  D  P  A  D  ****************************
 
-	public static final OrthographicCamera cam = new OrthographicCamera(CSG.screenWidth, CSG.screenHeight);
+	public static final OrthographicCamera cam = new OrthographicCamera(CSG.width, CSG.height);
 	public static int difficulty, nbBonusStop = 0, nbBombes = 0;
 	public static float bloomOriginalIntensity = 1, delta = 0, timeStopBonus = 0, delta15 = 0, deltaDiv3, deltaDiv2, delta2, deltaU, deltaMicroU, UnPlusDelta, unPlusDelta2, unPlusDelta3, deltaPlusExplosion, delta25, delta4;
 	public static boolean effetBloom = false, xpAjout = false, drawMenu = false, konamiCode = false;
@@ -90,7 +90,7 @@ public class EndlessMode implements Screen {
 		init();
 		ship.initialiser();
 		gl = Gdx.graphics.getGL20();
-		gl.glViewport(0, 0, CSG.screenWidth, CSG.screenHeight);
+		gl.glViewport(0, 0, CSG.width, CSG.height);
 		red = AssetMan.getTextureRegion("rougefonce");
 		bloom = CSG.bloom;
 		EndlessMode.cheat = cheat;
@@ -107,7 +107,7 @@ public class EndlessMode implements Screen {
 		if (Gdx.app.getVersion() != 0)
 			CSG.talkToTheWorld.showAds(false); // desactiver adds. A VIRER POUR LA RELEASE
 		// ** DEPLACEMENT ZONE DE JEU
-		cam.position.set(CSG.gameZoneWidth/2, CSG.screenHeight / 2, 0);
+		cam.position.set(CSG.halfWidth, CSG.height / 2, 0);
 		
 		CSG.reset();
         scoreSent = false;
@@ -138,7 +138,7 @@ public class EndlessMode implements Screen {
 //		started = false;
 		transition.reset();
 		Weapon.resetAll();
-		Player.POS.set(CSG.gameZoneHalfWidth - Player.HALF_WIDTH, Player.HEIGHT * 7);
+		Player.POS.set(CSG.halfWidth - Player.HALF_WIDTH, Player.HEIGHT * 7);
 		started = false;
 	}
 
@@ -181,7 +181,7 @@ public class EndlessMode implements Screen {
 		if (!pause && !freeze) {
 			if (delta < 1) { 
 				EndlessMode.delta = delta;
-				if ( (drawMenu || choosen) && CSG.profile.typeControle != CSG.CONTROLE_ACCELEROMETRE)
+				if ( (drawMenu || choosen) && CSG.profile.controls != CSG.CONTROLE_ACCELEROMETRE)
 					EndlessMode.delta = delta / 7;
 				if (CSG.profile.isFirstTime()) 
 					tuto.act(batch);
@@ -345,12 +345,12 @@ public class EndlessMode implements Screen {
 			width = CSG.menuFont.getBounds(Score.strScore).width;
 		}
 		batch.setColor(AssetMan.BLACK);
-		batch.draw(AssetMan.dust, 0, CSG.halfHeight - CSG.menuFont.getBounds(Score.strScore).height*2, CSG.screenWidth, CSG.menuFont.getBounds(Score.strScore).height * 6);
+		batch.draw(AssetMan.dust, 0, CSG.halfHeight - CSG.menuFont.getBounds(Score.strScore).height*2, CSG.width, CSG.menuFont.getBounds(Score.strScore).height * 6);
 		batch.setColor(AssetMan.WHITE);
-		CSG.menuFont.draw(batch, Strings.DEAD, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - (CSG.menuFont.getBounds(Strings.DEAD).width)/2)),
+		CSG.menuFont.draw(batch, Strings.DEAD, ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - (CSG.menuFont.getBounds(Strings.DEAD).width)/2)),
 				CSG.halfHeight + CSG.menuFontSmall.getBounds(Strings.DEAD).height * 3);
 		
-		CSG.menuFont.draw(batch, Score.strScore, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - (CSG.menuFont.getBounds(Score.strScore).width)/2)),
+		CSG.menuFont.draw(batch, Score.strScore, ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - (CSG.menuFont.getBounds(Score.strScore).width)/2)),
 				CSG.halfHeight);
 		
 		
@@ -387,9 +387,9 @@ public class EndlessMode implements Screen {
 			case 0:
 			}
 			switch(nbBombes) {
-			case 3:	batch.draw(AssetMan.bomb, CSG.screenHalfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 3 + Bonus.HALF_WIDTH * 3, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
-			case 2:	batch.draw(AssetMan.bomb, CSG.screenHalfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 2 + Bonus.HALF_WIDTH * 2, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
-			case 1:	batch.draw(AssetMan.bomb, CSG.screenHalfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 1 + Bonus.HALF_WIDTH * 1, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
+			case 3:	batch.draw(AssetMan.bomb, CSG.halfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 3 + Bonus.HALF_WIDTH * 3, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
+			case 2:	batch.draw(AssetMan.bomb, CSG.halfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 2 + Bonus.HALF_WIDTH * 2, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
+			case 1:	batch.draw(AssetMan.bomb, CSG.halfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 1 + Bonus.HALF_WIDTH * 1, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
 			case 0:
 			}
 		}
@@ -450,16 +450,16 @@ public class EndlessMode implements Screen {
 	private static void pasTouche() {
 		Buttons.removeBack();
 		if (drawMenu && CSG.profile.manualBonus)	{
-			if (nbBonusStop > 0 && !triggerStop) batch.draw(AssetMan.stopBonus,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
-			else batch.draw(AssetMan.stopBonusGrey,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
+			if (nbBonusStop > 0 && !triggerStop) batch.draw(AssetMan.stopBonus,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
+			else batch.draw(AssetMan.stopBonusGrey,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			
-			if (nbBombes > 0) batch.draw(AssetMan.bomb, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
-			else batch.draw(AssetMan.bombGrey, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.screenHalfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
+			if (nbBombes > 0) batch.draw(AssetMan.bomb, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
+			else batch.draw(AssetMan.bombGrey, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
 			
 		} else if (!choosen) {
 //			drawMenu = true;
 			menuX = Gdx.input.getX();
-			menuY = CSG.screenHeight - Gdx.input.getY();
+			menuY = CSG.height - Gdx.input.getY();
 		}
 	}
 
@@ -475,11 +475,11 @@ public class EndlessMode implements Screen {
 			drawMenu = false;
 			
 			if (nbBonusStop > 0 &&
-					Physic.isPointInRect(Gdx.input.getX(), CSG.screenHeight - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
+					Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
 				willUseStopBonus = true;
 				choosen = true;
 			} else if (nbBombes > 0 &&
-					Physic.isPointInRect(Gdx.input.getX(), CSG.screenHeight - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
+					Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
 				Enemy.bombe();
 				nbBombes--;
 				choosen = true;
@@ -518,15 +518,15 @@ public class EndlessMode implements Screen {
 	}
 	
 	private void afficherConseil(String s, TextureRegion tr, SpriteBatch batch) {
-		CSG.menuFontSmall.draw(batch, s, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - CSG.menuFontSmall.getBounds(s).width/2)),	
+		CSG.menuFontSmall.draw(batch, s, ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - CSG.menuFontSmall.getBounds(s).width/2)),	
 				CSG.halfHeight * 1.5f - CSG.menuFontSmall.getBounds(s).height * 4);
-		batch.draw(tr, ((cam.position.x-CSG.screenHalfWidth) + CSG.screenHalfWidth) - Bonus.DISPLAY_WIDTH/2 ,
+		batch.draw(tr, ((cam.position.x-CSG.halfWidth) + CSG.halfWidth) - Bonus.DISPLAY_WIDTH/2 ,
 				CSG.halfHeight * 1.5f,
 				Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 	}
 
 	private void afficherConseil(String s) {
-		CSG.menuFontSmall.draw(batch, s, ((cam.position.x-CSG.screenHalfWidth)) + ((CSG.screenHalfWidth - CSG.menuFontSmall.getBounds(s).width/2)),	CSG.halfHeight - CSG.menuFontSmall.getBounds(s).height * 4);
+		CSG.menuFontSmall.draw(batch, s, ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - CSG.menuFontSmall.getBounds(s).width/2)),	CSG.halfHeight - CSG.menuFontSmall.getBounds(s).height * 4);
 	}
 
 	public static void lost() {

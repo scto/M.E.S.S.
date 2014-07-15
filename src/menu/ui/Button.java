@@ -4,8 +4,6 @@ import jeu.CSG;
 import jeu.Physic;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
-import menu.screens.AbstractScreen;
-import menu.screens.Menu;
 import menu.tuto.OnClick;
 import assets.AssetMan;
 
@@ -21,27 +19,23 @@ public class Button extends AbstractButton {
 	private BitmapFont font;
 	private String texte;
 	private boolean clicked = false;
-	private AbstractScreen parent;
 	public Sprite sprite;
 	public OnClick click;
-	private boolean faitBouger = false;
 	private float clickTime = 0, height, width;
 	private final float originalWidth, originalHeight;
 	
 
-	public Button(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, float f, AbstractScreen parent, OnClick click, boolean faitBouger) {
+	public Button(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, float f, OnClick click) {
 		sprite = new Sprite();
 		sprite.setBounds(srcX, f, srcWidth, srcHeight);
 		this.originalHeight = srcHeight;
 		this.originalWidth = srcWidth;
-		init(s, font, parent, srcX, f);
+		init(s, font, srcX, f);
 		this.click = click;
-		this.faitBouger = faitBouger;
 	}
 
-	private void init(String s, BitmapFont font, AbstractScreen parent, float x, float y) {
+	private void init(String s, BitmapFont font, float x, float y) {
 		this.font = font;
-		this.parent = parent;
 		texte = s;
 		updateBorders(font, x, y, originalWidth, originalHeight);
 	}
@@ -72,22 +66,21 @@ public class Button extends AbstractButton {
 		this.y = y;
 	}
 	
-	public Button(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, Menu parent, OnClick click, boolean faitBouger) {
+	public Button(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, OnClick click) {
 		sprite = new Sprite();
 		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
 		this.click = click;
-		this.faitBouger = faitBouger;
 		this.originalHeight = srcHeight;
 		this.originalWidth = srcWidth;
-		init(s, font, parent, srcX, srcY);
+		init(s, font, srcX, srcY);
 	}
 	
-	public Button(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, AbstractScreen parent) {
+	public Button(String s, boolean panneau, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY) {
 		sprite = new Sprite();
 		sprite.setBounds(srcX, srcY, srcWidth, srcHeight);
 		this.originalHeight = srcHeight;
 		this.originalWidth = srcWidth;
-		init(s, font, parent, srcX, srcY);
+		init(s, font, srcX, srcY);
 	}
 
 	public Button(String s, BitmapFont font, int srcWidth, int srcHeight, int srcX, int srcY, OnClick onClick) {
@@ -96,7 +89,7 @@ public class Button extends AbstractButton {
 		click = onClick;
 		this.originalHeight = srcHeight;
 		this.originalWidth = srcWidth;
-		init(s, font, null, srcX, srcY);
+		init(s, font, srcX, srcY);
 	}
 
 	public void setClick(OnClick click) {
@@ -130,13 +123,6 @@ public class Button extends AbstractButton {
 	}
 
 	private static final Vector2 tmpTouched = new Vector2();
-	private void clicked(int x, int y) {
-		clicked = true;
-		tmpTouched.x = x;
-		tmpTouched.y = y;
-		for (Barre b : barres)
-			b.explode(tmpTouched);
-	}
 
 	private float getY() {
 		return sprite.getY() + font.getBounds(texte).height + sprite.getHeight()/2 - font.getBounds(texte).height/2;
@@ -148,7 +134,6 @@ public class Button extends AbstractButton {
 
 	private void drawBackground(SpriteBatch batch) {
 		batch.setColor(AssetMan.BLACK);
-//		batch.draw(AssetMan.debris, sprite.getX(), sprite.getY() - ParticlePanneau.WIDTH, sprite.getWidth(), sprite.getHeight() + ParticlePanneau.DOUBLE_WIDTH);
 		batch.draw(AssetMan.debris, x, y, width + PADDING_BARRE, height);
 		batch.setColor(AssetMan.WHITE);
 	}
@@ -187,7 +172,7 @@ public class Button extends AbstractButton {
 	}
 
 	public static void testClick(Button b, float xOffset) {
-		if (b != null && Physic.isPointInRect(Gdx.input.getX() + xOffset, CSG.screenHeight - Gdx.input.getY(), 0, b.sprite.getY() - Stats.U, CSG.gameZoneWidth, b.sprite.getHeight() + Stats.U2)) {
+		if (b != null && Physic.isPointInRect(Gdx.input.getX() + xOffset, CSG.height - Gdx.input.getY(), 0, b.sprite.getY() - Stats.U, CSG.halfWidth, b.sprite.getHeight() + Stats.U2)) {
 			if (b.click != null)
 				b.click.onClick();
 		}

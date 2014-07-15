@@ -32,7 +32,7 @@ public class BossMine extends Enemy {
 	private int shotInterval = 0;
 
 	public BossMine() {
-		pos.set(CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth, CSG.screenHeight);
+		pos.set(CSG.halfWidth - DIMENSIONS.halfWidth, CSG.height);
 	}
 	
 	public void reset() {
@@ -43,16 +43,16 @@ public class BossMine extends Enemy {
 	public void init() {
 		goodShape = true;
 		nextShot = 3f;
-		pos.set(CSG.gameZoneHalfWidth - DIMENSIONS.halfWidth, CSG.screenHeight);
+		pos.set(CSG.halfWidth - DIMENSIONS.halfWidth, CSG.height);
 		dir.set(0, -getEnemyStats().getSpeed());
 	}
 	
 	@Override
 	protected void move() {
 		if (isInGoodShape())
-			Mover.ancorY(this, CSG.HEIGHT_8_10);
+			Mover.ancorY(this, CSG.heightDiv10Mul8);
 		else 
-			Mover.ancorY(this, CSG.HEIGHT_7_10);
+			Mover.ancorY(this, CSG.heightDiv10Mul7);
 		Mover.ancorX(this, 50);
 		Mover.ball(this, 1.1f);
 		if (!isInGoodShape()) {

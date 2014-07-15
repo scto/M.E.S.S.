@@ -29,9 +29,9 @@ public class Diabolo extends Enemy {
 	public void init() {
 		Positionner.UP_WIDE.set(this);
 		if (CSG.R.nextBoolean())
-			pos.set(CSG.gameZoneHalfWidth - Stats.U10, CSG.screenHeight);
+			pos.set(CSG.halfWidth - Stats.U10, CSG.height);
 		else
-			pos.set(CSG.gameZoneHalfWidth + Stats.U10, CSG.screenHeight);
+			pos.set(CSG.halfWidth + Stats.U10, CSG.height);
 		dir.set(-getEnemyStats().getSpeed() / 5, -getEnemyStats().getSpeed());
 		nextShot = INIT_NEXT_SHOT;
 		index = 0;

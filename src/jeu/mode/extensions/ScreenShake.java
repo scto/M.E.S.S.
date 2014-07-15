@@ -41,7 +41,7 @@ public class ScreenShake {
 			if (chronoShake <= SHAKE_MIN) {
 				shake = false;
 				EndlessMode.cam.position.y = CSG.halfHeight;
-				EndlessMode.cam.position.x = CSG.screenHalfWidth;
+				EndlessMode.cam.position.x = CSG.halfWidth;
 			} else {
 				chronoShake /= 1.01f + EndlessMode.delta2;
 				if (CSG.profile.screenshake == false)

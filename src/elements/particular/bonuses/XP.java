@@ -31,7 +31,7 @@ public class XP extends Bonus implements Poolable {
 	public static final int HOMMING = 2;
 	public static final int INFLATE = 3;
 	private static final int SHOOTING_STAR = 4;
-	private static final float LIMIT_RIGHT = CSG.gameZoneWidth - WIDTH, LIMIT_LEFT = 0, LIMIT_UP = CSG.screenHeight - WIDTH;
+	private static final float LIMIT_RIGHT = CSG.width - WIDTH, LIMIT_LEFT = 0, LIMIT_UP = CSG.height - WIDTH;
 	public int state;
 	
 	public void init(float x, float y, int xp) {
@@ -99,7 +99,7 @@ public class XP extends Bonus implements Poolable {
 //					if (xp.inflate >= xp.width * 2) {
 						xp.color = AssetMan.setAlpha(xp.color, 0.3f);
 						xp.state = SHOOTING_STAR;
-						xp.direction.x = CSG.screenHalfWidth - xp.pos.x;
+						xp.direction.x = CSG.halfWidth - xp.pos.x;
 						xp.direction.y = -xp.pos.y;
 						xp.direction.nor();
 						xp.direction.scl(Stats.U12);
@@ -124,7 +124,7 @@ public class XP extends Bonus implements Poolable {
 					break;
 				case SHOOTING_STAR:
 					drawAndMove(batch, xp, -xp.angle);
-					if (Math.abs(CSG.screenHalfWidth - xp.pos.x) < Stats.U && xp.pos.y < CSG.HEIGHT_DIV20) {
+					if (Math.abs(CSG.halfWidth - xp.pos.x) < Stats.U && xp.pos.y < CSG.heightDiv20) {
 						taken(xp);
 					}
 					break;

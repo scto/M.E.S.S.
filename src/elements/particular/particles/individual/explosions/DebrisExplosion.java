@@ -19,8 +19,8 @@ import elements.particular.bonuses.Bomb;
 
 public class DebrisExplosion implements Poolable {
 	
-	private static final float WIDTH_BOMB = CSG.screenWidth / 2;
-	private static final float WIDTH_SMALL = CSG.screenWidth / 15;
+	private static final float WIDTH_BOMB = CSG.width / 2;
+	private static final float WIDTH_SMALL = CSG.width / 15;
 	private static final float MIN_WIDTH = Stats.u / 10;
 	
 	private static final Pool<DebrisExplosion> POOL = new Pool<DebrisExplosion>(100) {
