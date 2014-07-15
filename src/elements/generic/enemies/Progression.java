@@ -16,82 +16,81 @@ public final class Progression {
 	private static final float KEEP_COOL = 2f;
 	
 	private final static Wave[] FILLING = {
-		Wave.remplissageCylon, Wave.remplissageDeBase10, Wave.remplissageKinder, Wave.remplissageQuiTourne, Wave.group, Wave.remplissageVicous		};
+		Wave.CYLONS, Wave.BASICS10, Wave.KINDER, Wave.BASICS_N_DIABOLO, Wave.GROUP, Wave.VICIOUS		};
 	private final static Wave[] FILLING3 = {
-		Wave.remplissageCylon3, Wave.remplissageDeBase310, Wave.remplissageKinder3, Wave.remplissageQuiTourne3, Wave.remplissageBouleRotation, Wave.group3, Wave.remplissageVicous		};
+		Wave.CYLON3, Wave.BASICS10_LVL3, Wave.KINDER3, Wave.BASICS_N_DIABOLO3, Wave.ROTATION_BALL, Wave.GROUP3, Wave.VICIOUS		};
 	private final static Wave[] FILLING4 = {
-		Wave.remplissageCylon4, Wave.remplissageDeBase410, Wave.remplissageKinder4, Wave.group4, Wave.remplissageVicous		};
+		Wave.CYLON4, Wave.BASICS10_LVL4, Wave.KINDER4, Wave.GROUP4, Wave.VICIOUS		};
 	private final static Wave[] LVL1 = {
-		Wave.lvl1_3,
-		Wave.lvl1_170,
-		Wave.lvl1_290,
-		Wave.lvl1_385,
-		Wave.lvl1_445,
-		Wave.lvl1_527,
-		Wave.lvl1_627,
-		Wave.lvl1_1055,
-		Wave.lvl1_1225,
-		Wave.lvl1_1310,
-		Wave.lvl1_2163,
-		Wave.lvl1_4000,
-		Wave.lvl1_8000,
-		Wave.lvl1_12000,
-		Wave.lvl1_16000
+		Wave.LVL1_3,
+		Wave.LVL1_170,
+		Wave.LVL1_290,
+		Wave.LVL1_385,
+		Wave.LVL1_445,
+		Wave.LVL1_527,
+		Wave.LVL1_627,
+		Wave.LVL1_1055,
+		Wave.LVL1_1225,
+		Wave.LVL1_1310,
+		Wave.LVL1_2163,
+		Wave.LVL1_4000,
+		Wave.LVL1_8000,
+		Wave.LVL1_12000,
+		Wave.LVL1_16000
 	};
 	private final static Wave[] LVL2 = {
-		Wave.lvl2_3,
-		Wave.lvl2_170,
-		Wave.lvl2_290,
-		Wave.remplissageVicous,
-		Wave.lvl2_385,
-		Wave.lvl2_445,
-		Wave.lvl2_527,
-		Wave.lvl2_627,
-		Wave.lvl2_1055,
-		Wave.lvl2_1225,
-		Wave.lvl2_1310,
-		Wave.lvl2_2163,
-		Wave.lvl2_3000,
-		Wave.lvl2_4000,
-		Wave.lvl2_8000,
-		Wave.lvl2_12000,
-		Wave.lvl2_16000
+		Wave.LVL2_3,
+		Wave.LVL2_170,
+		Wave.LVL2_290,
+		Wave.LVL2_385,
+		Wave.LVL2_445,
+		Wave.LVL2_527,
+		Wave.LVL2_627,
+		Wave.LVL2_1055,
+		Wave.LVL2_1225,
+		Wave.LVL2_1310,
+		Wave.LVL2_2163,
+		Wave.LVL2_3000,
+		Wave.LVL2_4000,
+		Wave.LVL2_8000,
+		Wave.LVL2_12000,
+		Wave.LVL2_16000
 	};
 	private final static Wave[] LVL3 = {
-		Wave.lvl3_3,
-		Wave.lvl3_170,
-		Wave.lvl3_290,
-		Wave.lvl3_385,
-		Wave.lvl3_445,
-		Wave.lvl3_527,
-		Wave.lvl3_627,
-		Wave.lvl3_1055,
-		Wave.lvl3_1225,
-		Wave.lvl3_1310,
-		Wave.lvl3_2163,
-		Wave.lvl3_3000,
-		Wave.lvl3_4000,
-		Wave.lvl3_8000,
-		Wave.lvl3_12000,
-		Wave.lvl3_16000
+		Wave.LVL3_3,
+		Wave.LVL3_170,
+		Wave.LVL3_290,
+		Wave.LVL3_385,
+		Wave.LVL3_445,
+		Wave.LVL3_527,
+		Wave.LVL3_627,
+		Wave.LVL3_1055,
+		Wave.LVL3_1225,
+		Wave.LVL3_1310,
+		Wave.LVL3_2163,
+		Wave.LVL3_3000,
+		Wave.LVL3_4000,
+		Wave.LVL3_8000,
+		Wave.LVL3_12000,
+		Wave.LVL3_16000
 	};
 	private final static Wave[] LVL4 = {
-		Wave.lvl4_3,
-		Wave.lvl4_170,
-		Wave.lvl4_290,
-		Wave.lvl4_385,
-		Wave.lvl4_445,
-		Wave.lvl4_527,
-		Wave.lvl4_627,
-		Wave.lvl4_1055,
-		Wave.lvl4_1225,
-		Wave.lvl4_1310,
-		Wave.lvl4_2163,
-		Wave.lvl4_3000,
-		Wave.lvl4_4000,
-		Wave.lvl4_8000,
-		Wave.lvl4_12000,
-		Wave.lvl4_16000
+		Wave.LVL4_3,
+		Wave.LVL4_170,
+		Wave.LVL4_290,
+		Wave.LVL4_385,
+		Wave.LVL4_445,
+		Wave.LVL4_527,
+		Wave.LVL4_627,
+		Wave.LVL4_1055,
+		Wave.LVL4_1225,
+		Wave.LVL4_1310,
+		Wave.LVL4_2163,
+		Wave.LVL4_3000,
+		Wave.LVL4_4000,
+		Wave.LVL4_8000,
+		Wave.LVL4_12000,
+		Wave.LVL4_16000
 	};
 	private final static Wave[] BOSSES = { Wave.bossMine, Wave.bossQuad	};
 	

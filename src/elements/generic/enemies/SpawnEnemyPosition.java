@@ -97,7 +97,7 @@ public class SpawnEnemyPosition {
 	private static final Merlin[] _1toupie4 = {Merlin.ROUND_N_ROUND4};
 	private static final Merlin[] _1quiTourne3 = {Merlin.DIABOLO3};
 	private static final Merlin[] _1quiTourne4 = {Merlin.DIABOLO4};
-	private static final Merlin[] _1quiTourne = {Merlin.DIABOLO};
+	private static final Merlin[] _1DIABOLO = {Merlin.DIABOLO};
 	private static final Merlin[] _1kinder3 = {Merlin.KINDER3};
 	private static final Merlin[] _1kinder4 = {Merlin.KINDER4};
 	private static final Merlin[] _1kinder = {Merlin.KINDER};
@@ -265,7 +265,7 @@ public class SpawnEnemyPosition {
 								quiTir2_2_8 = new SpawnEnemyPosition(_2quiTir2, _2_8),
 								quiTir23_2_8 = new SpawnEnemyPosition(_2quiTir23, _2_8),
 								quiTir24_2_8 = new SpawnEnemyPosition(_2quiTir24, _2_8);
-	private static final SpawnEnemyPosition 	quiTourneMid = new SpawnEnemyPosition(_1quiTourne, _1middle),
+	private static final SpawnEnemyPosition 	quiTourneMid = new SpawnEnemyPosition(_1DIABOLO, _1middle),
 								quiTourne3Mid = new SpawnEnemyPosition(_1quiTourne3, _1middle),
 								quiTourne4Mid = new SpawnEnemyPosition(_1quiTourne4, _1middle);
 	private static final SpawnEnemyPosition 	laserMid = new SpawnEnemyPosition(_1laser, _1middle),

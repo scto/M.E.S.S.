@@ -105,7 +105,7 @@ public class DesktopTests {
 		}
 		if (Gdx.input.isKeyPressed(Keys.F5)) Score.score++;
 		if (wave)
-			runWave(Wave.lvl3_3);
+			runWave(Wave.LVL3_3);
 	}
 
 	private static void runWave(Wave wave) {
