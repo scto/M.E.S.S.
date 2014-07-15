@@ -20,7 +20,7 @@ public class TWeaponManager extends WeaponManager {
 		posY = Player.POS.y + Player.HEIGHT;
 		if (EndlessMode.alternate)
 			SoundMan.playBulletSound(SOUND);
-		switch (CSG.profile.NvArmeHantee) {
+		switch (CSG.profile.lvlTWeapon) {
 		case 1:			nv1();			break;
 		case 2:			nv2();			break;
 		case 4:			nv4();			break;
@@ -81,10 +81,10 @@ public class TWeaponManager extends WeaponManager {
 	}
 
 	@Override	public String getLabel() {				return TWeapon.LABEL;				}
-	@Override	public int nv() {						return CSG.profile.NvArmeHantee;	}
+	@Override	public int nv() {						return CSG.profile.lvlTWeapon;	}
 	@Override
 	protected float getCadenceTir() {
-		if (CSG.profile.NvArmeHantee == 8)
+		if (CSG.profile.lvlTWeapon == 8)
 			return TWeapon.FIRERATETIRLVL8;
 		return TWeapon.FIRERATETIR;		
 	}

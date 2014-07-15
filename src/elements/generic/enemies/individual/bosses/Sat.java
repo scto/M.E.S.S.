@@ -135,7 +135,6 @@ public class Sat extends Enemy {
 	@Override	public Animations getAnimation() {		return Animations.SAT;				}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	@Override	public boolean isInGoodShape() {		return goodShape;					}
-	@Override	public int getExplosionCount() {		return EXPLOSION;					}
 	@Override	public void free() {					POOL.free(this);					}
 
 }

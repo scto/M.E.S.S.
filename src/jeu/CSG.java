@@ -174,7 +174,7 @@ public class CSG extends Game implements ApplicationListener {
 		if (CSG.profile.bloom) {
 			try {
 				bloom = new Bloom();
-				bloom.setBloomIntesity(CSG.profile.intensiteBloom);
+				bloom.setBloomIntesity(CSG.profile.bloomIntensity);
 			} catch (Exception e) {
 				e.printStackTrace();
 				CSG.profile.bloom = false;

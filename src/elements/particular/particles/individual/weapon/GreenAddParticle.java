@@ -28,25 +28,25 @@ public class GreenAddParticle implements Poolable {
 	@Override
 	public void reset() {}
 
-	public static void add(ArmeAdd wp, Array<GreenAddParticle> GreenAddParticles) {
+	public static void add(ArmeAdd wp, Array<GreenAddParticle> particles) {
 		final GreenAddParticle p = POOL.obtain();
 		p.x = wp.pos.x;
 		p.y = wp.pos.y;
 		p.w = WIDTH;
-		GreenAddParticles.add(p);
+		particles.add(p);
 	}
 
-	public static void act(Array<GreenAddParticle> GreenAddParticles, SpriteBatch batch) {
+	public static void act(Array<GreenAddParticle> particles, SpriteBatch batch) {
 		batch.setColor(COLOR);
 		tmp = Stats.uDiv2;
 		half = tmp/2;
-		for (final GreenAddParticle p : GreenAddParticles) {
+		for (final GreenAddParticle p : particles) {
 			p.w -= tmp;
 			p.x += half;
 			p.y += half;
 			batch.draw(AssetMan.dust, p.x, p.y, p.w, p.w);
 			if (p.w < Stats.u) {
-				GreenAddParticles.removeValue(p, true);
+				particles.removeValue(p, true);
 				POOL.free(p);
 			}
 		}

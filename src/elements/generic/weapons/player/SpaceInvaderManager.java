@@ -32,7 +32,7 @@ public class SpaceInvaderManager extends WeaponManager {
 
 	@Override	public String getLabel() {				return SpaceInvaderWeapon.LABEL;			}
 	@Override	protected float getCadenceTir() {		return SpaceInvaderWeapon.FIRERATETIR;		}
-	@Override	public int nv() {						return CSG.profile.NvSpaceInvadersWeapon;	}
+	@Override	public int nv() {						return CSG.profile.lvlSpaceInvader;	}
 
 	@Override
 	public Color playerColor() {

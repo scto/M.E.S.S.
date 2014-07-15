@@ -34,28 +34,28 @@ public class Profil implements Serializable{
 	private static final String STR_MANUAL_BONUS = "particules", STR_INTENSITE_BLOOM = "intensitebloom", BFG = "bfg", STR_ARME_SUN = "pointculture", STR_SPACE_INVADER_WEAPON = "spaceInvader", STR_SCREENSHAKE = "screens";
 	private static final float STEP_VOL = .1f;
 	// -- -- initialisation des champs
-	public int cadenceAdd = 1, typeControle = CSG.CONTROLE_TOUCH_RELATIVE, NvArmeDeBase = 2, NvArmeBalayage = 2, lvlPinkWeapon = 2, NvArmeHantee = 2, NvArmeSun = 2, NvSpaceInvadersWeapon = 2;
+	public int cadenceAdd = 1, typeControle = CSG.CONTROLE_TOUCH_RELATIVE, lvlFireball = 2, lvlSweepWeapon = 2, lvlPinkWeapon = 2, lvlTWeapon = 2, lvlSunWeapon = 2, lvlSpaceInvader = 2;
 	public int xpDispo;
-	public float weaponVolume = 0.5f, musicVolume = 0.5f, effectsVolume = 0.5f, intensiteBloom = 2.1f, sensitivity = 1.5f;
+	public float weaponVolume = 0.5f, musicVolume = 0.5f, effectsVolume = 0.5f, bloomIntensity = 2.1f, sensitivity = 1.5f;
 	public String armeSelectionnee;
 	public boolean bloom, manualBonus, bfg, screenshake;
 	// -- -- string d'affichage
 	public String champXp = " XP : " + xpDispo;
 	private static boolean premiereFois = false;
-	public static final int NV_ARME_MAX = 8;
-	public static final int NV_MIN_SUN = 6;
+	public static final int LVL_MAX = 8;
+	public static final int LVL_UNLOCK = 6;
 	
 	/**
 	 * Valeurs par defaut si pas de profil
 	 */
 	public Profil() {
-		NvArmeBalayage = 1;
-		NvArmeDeBase = 1;
+		lvlSweepWeapon = 1;
+		lvlFireball = 1;
 		lvlPinkWeapon = 1;
-		NvArmeHantee = 1;
-		NvArmeSun = 1;
+		lvlTWeapon = 1;
+		lvlSunWeapon = 1;
 		cadenceAdd = 1;
-		NvSpaceInvadersWeapon = 1;
+		lvlSpaceInvader = 1;
 		xpDispo = (int) (200 * CSG.mulSCORE);
 		effectsVolume = 1;
 		weaponVolume = effectsVolume / 3;
@@ -63,7 +63,7 @@ public class Profil implements Serializable{
 		bloom = true; // Provoque dans de rares cas des bugs d'affichages
 		armeSelectionnee = Fireball.LABEL;
 		typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
-		intensiteBloom = 2.4f;
+		bloomIntensity = 2.4f;
 		premiereFois = true;
 		manualBonus = false;
 		sensitivity = 1.5f;
@@ -76,12 +76,12 @@ public class Profil implements Serializable{
 	 */
 	@Override
 	public void write(Json json) {
-		json.writeValue(STR_SPACE_INVADER_WEAPON, NvSpaceInvadersWeapon);
-		json.writeValue(STR_ARME_SUN, NvArmeSun);
-		json.writeValue(STR_ARME_BALAYAGE_NV, NvArmeBalayage);
-		json.writeValue(STR_ARME_DE_BASE_NV, NvArmeDeBase);
+		json.writeValue(STR_SPACE_INVADER_WEAPON, lvlSpaceInvader);
+		json.writeValue(STR_ARME_SUN, lvlSunWeapon);
+		json.writeValue(STR_ARME_BALAYAGE_NV, lvlSweepWeapon);
+		json.writeValue(STR_ARME_DE_BASE_NV, lvlFireball);
 		json.writeValue(STR_ARME_TROIS_NV, lvlPinkWeapon);
-		json.writeValue(STR_ARME_HANTEE_NV, NvArmeHantee);
+		json.writeValue(STR_ARME_HANTEE_NV, lvlTWeapon);
 		json.writeValue(STR_FIRERATE_ADD, cadenceAdd);
 		json.writeValue(strXP, xpDispo);
 		json.writeValue(STR_ARME_SELECT, armeSelectionnee);
@@ -93,7 +93,7 @@ public class Profil implements Serializable{
 		json.writeValue(STR_BLOOM, bloom);
 		json.writeValue(STR_MANUAL_BONUS, manualBonus);
 		json.writeValue(STR_SCREENSHAKE, screenshake);
-		json.writeValue(STR_INTENSITE_BLOOM, intensiteBloom);
+		json.writeValue(STR_INTENSITE_BLOOM, bloomIntensity);
 		json.writeValue(BFG, bfg);
 	}
 
@@ -107,9 +107,9 @@ public class Profil implements Serializable{
 		xpDispo = Math.abs(xpDispo);
 		cadenceAdd = json.readValue(STR_FIRERATE_ADD, Integer.class, jsonData).shortValue();
 		lvlPinkWeapon = json.readValue(STR_ARME_TROIS_NV, Integer.class, jsonData).shortValue();
-		NvArmeHantee = json.readValue(STR_ARME_HANTEE_NV, Integer.class, jsonData).shortValue();
-		NvArmeDeBase = json.readValue(STR_ARME_DE_BASE_NV, Integer.class, jsonData).shortValue();
-		NvArmeBalayage = json.readValue(STR_ARME_BALAYAGE_NV, Integer.class, jsonData).shortValue();
+		lvlTWeapon = json.readValue(STR_ARME_HANTEE_NV, Integer.class, jsonData).shortValue();
+		lvlFireball = json.readValue(STR_ARME_DE_BASE_NV, Integer.class, jsonData).shortValue();
+		lvlSweepWeapon = json.readValue(STR_ARME_BALAYAGE_NV, Integer.class, jsonData).shortValue();
 		armeSelectionnee = json.readValue(STR_ARME_SELECT, String.class, jsonData);
 		sensitivity = json.readValue(STR_VOLUME_ARME, Float.class, jsonData);
 		effectsVolume = json.readValue(STR_VOLUME_BRUITAGES, Float.class, jsonData);
@@ -119,17 +119,17 @@ public class Profil implements Serializable{
 		typeControle = json.readValue(STR_TYPE_CONTROLE, Integer.class, jsonData).shortValue();
 		bloom = json.readValue(STR_BLOOM, Boolean.class, jsonData);
 		manualBonus = json.readValue(STR_MANUAL_BONUS, Boolean.class, jsonData);
-		intensiteBloom = json.readValue(STR_INTENSITE_BLOOM, Float.class, jsonData);
+		bloomIntensity = json.readValue(STR_INTENSITE_BLOOM, Float.class, jsonData);
 		if (sensitivity < 1f)
 			sensitivity = 1f;
 		if (json.readValue(BFG, Boolean.class, jsonData) != null)
 			bfg = json.readValue(BFG, Boolean.class, jsonData);
 		else
 			bfg = false;
-		if (json.readValue(STR_ARME_SUN, Integer.class, jsonData) != null) 	NvArmeSun = json.readValue(STR_ARME_SUN, Integer.class, jsonData).shortValue();
-		else 																NvArmeSun = 1;
-		if (json.readValue(STR_SPACE_INVADER_WEAPON, Integer.class, jsonData) != null) 	NvSpaceInvadersWeapon = json.readValue(STR_SPACE_INVADER_WEAPON, Integer.class, jsonData).shortValue();
-		else 																			NvSpaceInvadersWeapon = 1;
+		if (json.readValue(STR_ARME_SUN, Integer.class, jsonData) != null) 	lvlSunWeapon = json.readValue(STR_ARME_SUN, Integer.class, jsonData).shortValue();
+		else 																lvlSunWeapon = 1;
+		if (json.readValue(STR_SPACE_INVADER_WEAPON, Integer.class, jsonData) != null) 	lvlSpaceInvader = json.readValue(STR_SPACE_INVADER_WEAPON, Integer.class, jsonData).shortValue();
+		else 																			lvlSpaceInvader = 1;
 		typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
 		if (json.readValue(STR_SCREENSHAKE, Boolean.class, jsonData) != null)
 			screenshake = json.readValue(STR_SCREENSHAKE, Boolean.class, jsonData);
@@ -160,63 +160,50 @@ public class Profil implements Serializable{
 		return convertArme(armeSelectionnee);
 	}
 
-	/**
-	 * decremente l'xp du coup de l'amelioration et augmente le niveau de l'arme selectionnee.
-	 */
 	public void upArme() {
-		if (armeSelectionnee.equals(BlueSweepWeapon.LABEL) && NvArmeBalayage < NV_ARME_MAX) {
+		lvlSweepWeapon = tryUpdateWeapon(BlueSweepWeapon.LABEL, lvlSweepWeapon);
+		lvlFireball = tryUpdateWeapon(Fireball.LABEL, lvlFireball);
+		lvlTWeapon = tryUpdateWeapon(TWeapon.LABEL, lvlTWeapon);
+		lvlPinkWeapon = tryUpdateWeapon(PinkWeapon.LABEL, lvlPinkWeapon);
+		lvlSunWeapon = tryUpdateWeapon(SunWeapon.LABEL, lvlSunWeapon);
+		lvlSpaceInvader = tryUpdateWeapon(SpaceInvaderWeapon.LABEL, lvlSpaceInvader);
+	}
+
+	protected int tryUpdateWeapon(String label, int lvl) {
+		if (armeSelectionnee.equals(label) && lvl < LVL_MAX) {
 			xpDispo -= getCoutUpArme();
-			NvArmeBalayage++;
 			champXp = "XP : " + xpDispo;
-		} else if (armeSelectionnee.equals(Fireball.LABEL) && NvArmeDeBase < NV_ARME_MAX) {
-			xpDispo -= getCoutUpArme();
-			NvArmeDeBase++;
-			champXp = "XP : " + xpDispo;
-		} else if (armeSelectionnee.equals(TWeapon.LABEL) && NvArmeHantee < NV_ARME_MAX) {
-			xpDispo -= getCoutUpArme();
-			NvArmeHantee++;
-			champXp = "XP : " + xpDispo;
-		} else if (armeSelectionnee.equals(PinkWeapon.LABEL) && lvlPinkWeapon < NV_ARME_MAX) {
-			xpDispo -= getCoutUpArme();
-			lvlPinkWeapon++;
-			champXp = "XP : " + xpDispo;
-		} else if (armeSelectionnee.equals(SunWeapon.LABEL) && NvArmeSun < NV_ARME_MAX) {
-			xpDispo -= getCoutUpArme();
-			NvArmeSun++;
-			champXp = "XP : " + xpDispo;
-		} else if (armeSelectionnee.equals(SpaceInvaderWeapon.LABEL) && NvSpaceInvadersWeapon < NV_ARME_MAX) {
-			xpDispo -= getCoutUpArme();
-			NvSpaceInvadersWeapon++;
-			champXp = "XP : " + xpDispo;
+			return ++lvl;
 		}
-		checkAchievementWeapons();
+		return lvl;
 	}
 
 	private void checkAchievementWeapons() {
-		if (areWeaponsLvl6())
-			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_LVL6);
-		if (areWeaponsUnlocked())
-			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_UNLOCK_SUN);
-		if (NvArmeBalayage >= 8 || NvArmeDeBase >= 8 || NvArmeHantee >= 8 || NvArmeSun >= 8 || lvlPinkWeapon >= 8 || NvSpaceInvadersWeapon >= 8)
+		if (isOneWeaponsLvlOk(LVL_MAX))
 			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_LVL8);
+		else if (isOneWeaponsLvlOk(LVL_UNLOCK)) {
+			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_LVL6);
+			if (isAllWeaponsLvlOk(LVL_UNLOCK))
+				CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_UNLOCK_SUN);
+		}
 	}
 
-	public boolean areWeaponsUnlocked() {
-		return NvArmeBalayage >= NV_MIN_SUN && NvArmeDeBase >= NV_MIN_SUN && NvArmeHantee >= NV_MIN_SUN && lvlPinkWeapon >= NV_MIN_SUN;
+	public boolean isAllWeaponsLvlOk(int min) {
+		return lvlSweepWeapon >= min && lvlFireball >= min && lvlTWeapon >= min && lvlSunWeapon >= min && lvlPinkWeapon >= min && lvlSpaceInvader >= min;
 	}
-
-	public boolean areWeaponsLvl6() {
-		return NvArmeBalayage >= 6 || NvArmeDeBase >= 6 || NvArmeHantee >= 6 || NvArmeSun >= 6 || lvlPinkWeapon >= 6 || NvSpaceInvadersWeapon >= 6;
+	
+	public boolean isOneWeaponsLvlOk(int min) {
+		return lvlSweepWeapon >= min || lvlFireball >= min || lvlTWeapon >= min || lvlSunWeapon >= min || lvlPinkWeapon >= min || lvlSpaceInvader >= min;
 	}
 	
 	public int getCoutUpArme() {
 		int nv = 1;
-		if (BlueSweepWeapon.LABEL.equals(armeSelectionnee))				nv = NvArmeBalayage;
-		else if (Fireball.LABEL.equals(armeSelectionnee))				nv = NvArmeDeBase;
-		else if (TWeapon.LABEL.equals(armeSelectionnee))				nv = NvArmeHantee;
+		if (BlueSweepWeapon.LABEL.equals(armeSelectionnee))				nv = lvlSweepWeapon;
+		else if (Fireball.LABEL.equals(armeSelectionnee))				nv = lvlFireball;
+		else if (TWeapon.LABEL.equals(armeSelectionnee))				nv = lvlTWeapon;
 		else if (PinkWeapon.LABEL.equals(armeSelectionnee))				nv = lvlPinkWeapon;
-		else if (SunWeapon.LABEL.equals(armeSelectionnee))				nv = NvArmeSun;
-		else if (SpaceInvaderWeapon.LABEL.equals(armeSelectionnee))		nv = NvSpaceInvadersWeapon;
+		else if (SunWeapon.LABEL.equals(armeSelectionnee))				nv = lvlSunWeapon;
+		else if (SpaceInvaderWeapon.LABEL.equals(armeSelectionnee))		nv = lvlSpaceInvader;
 		return (int) (((nv+nv) * nv * nv * 120) * CSG.mulSCORE);
 	}
 
@@ -242,28 +229,6 @@ public class Profil implements Serializable{
 		if (SpaceInvaderWeapon.LABEL.equals(arme))		return new SpaceInvaderManager();
 		return new TWeaponManager();
 	}
-
-//	public String getNomControle() {
-//		switch (typeControle) {
-////		case CSG.CONTROLE_DPAD:					return "D-Pad";
-//		case CSG.CONTROLE_DPAD:					return "Relative Touch";
-////		case CSG.CONTROLE_TOUCH_NON_RELATIVE:	return "Touch";
-////		case CSG.CONTROLE_TOUCH_NON_RELATIVE:	return "Relative Touch";
-////		case CSG.CONTROLE_ACCELEROMETRE:		return "Accelerometer";
-////		case CSG.CONTROLE_TOUCH_RELATIVE: 		return "Relative Touch";
-//		}
-//		return "Oups ! 404";
-//	}
-
-//	public void chgControle() {
-//		typeControle++;
-////		if (CSG.CONTROLE_MAX < typeControle)
-////			typeControle = 1;
-//		if (typeControle != CSG.CONTROLE_TOUCH_RELATIVE)
-//			typeControle = CSG.CONTROLE_TOUCH_RELATIVE;
-//		else
-//			typeControle = CSG.CONTROLE_ACCELEROMETRE;
-//	}
 
 	/**
 	 * Diminue et persiste
@@ -315,13 +280,13 @@ public class Profil implements Serializable{
 			sensitivity = 1f;
 	}
 	public void upBloom() {
-		intensiteBloom += .2f;
+		bloomIntensity += .2f;
 	}
 	
 	public void downBloom() {
-		intensiteBloom -= .2f;
-		if (intensiteBloom < .4f)
-			intensiteBloom = .4f;
+		bloomIntensity -= .2f;
+		if (bloomIntensity < .4f)
+			bloomIntensity = .4f;
 	}
 
 	public String getSensitivityString() {
@@ -329,7 +294,7 @@ public class Profil implements Serializable{
 	}
 	
 	public String getBloomString() {
-		return Strings.DF.format(intensiteBloom);
+		return Strings.DF.format(bloomIntensity);
 	}
 
 	public boolean isFirstTime() {

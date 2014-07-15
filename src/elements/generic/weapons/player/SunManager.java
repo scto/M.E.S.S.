@@ -18,13 +18,13 @@ public class SunManager extends WeaponManager {
 		if (EndlessMode.alternate)
 			SoundMan.playBulletSound(SoundMan.shotRocket);
 		SunWeapon.init(VECTOR.rotate(8));
-		for (int i = 1; i < CSG.profile.NvArmeSun; i++)
-			SunWeapon.init(VECTOR.rotate(ROTATIONS[CSG.profile.NvArmeSun - 2]));
+		for (int i = 1; i < CSG.profile.lvlSunWeapon; i++)
+			SunWeapon.init(VECTOR.rotate(ROTATIONS[CSG.profile.lvlSunWeapon - 2]));
 	}
 
 	@Override	public String getLabel() {				return SunWeapon.LABEL;				}
 	@Override	protected float getCadenceTir() {		return SunWeapon.FIRERATETIR;		}
-	@Override	public int nv() {						return CSG.profile.NvArmeSun;		}
+	@Override	public int nv() {						return CSG.profile.lvlSunWeapon;		}
 
 	@Override
 	public Color playerColor() {

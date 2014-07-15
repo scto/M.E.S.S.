@@ -114,7 +114,7 @@ public class Menu extends AbstractScreen {
 			if (CSG.talkToTheWorld.getSignedIn())
 				CSG.talkToTheWorld.getAchievements();
 			else
-				CSG.talkToTheWorld.Login();
+				CSG.talkToTheWorld.login();
 		}
 		temps += delta;
 		etapeCode = detectiopnKonamiCode(etapeCode);

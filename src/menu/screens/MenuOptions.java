@@ -147,7 +147,7 @@ public class MenuOptions extends AbstractScreen {
 
 	private void majBloom() {
 		if (CSG.profile.bloom) {
-			CSG.bloom.setBloomIntesity(CSG.profile.intensiteBloom);
+			CSG.bloom.setBloomIntesity(CSG.profile.bloomIntensity);
 			CSG.profilManager.persist();
 		}
 	}

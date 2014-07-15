@@ -23,8 +23,8 @@ public class MenuXP extends AbstractScreen{
 	private Button boutonUpgrade, boutonCadence, boutonUndo;
 	private final Button boutonXP;
 	private final JeuBackground jeu = new JeuBackground();
-	private static int prevNvArmeDeBase = CSG.profile.NvArmeDeBase, prevNvArmeBalayage = CSG.profile.NvArmeBalayage, prevNvArmeHantee = CSG.profile.NvArmeHantee, prevNvArmeTrois = CSG.profile.lvlPinkWeapon,
-			prevNvArmeSun = CSG.profile.NvArmeSun, prevVitesse = CSG.profile.cadenceAdd, prevXp = CSG.profile.xpDispo;
+	private static int prevNvArmeDeBase = CSG.profile.lvlFireball, prevNvArmeBalayage = CSG.profile.lvlSweepWeapon, prevNvArmeHantee = CSG.profile.lvlTWeapon, prevNvArmeTrois = CSG.profile.lvlPinkWeapon,
+			prevNvArmeSun = CSG.profile.lvlSunWeapon, prevVitesse = CSG.profile.cadenceAdd, prevXp = CSG.profile.xpDispo;
 
 	public MenuXP(final Game game) {
 		super(game);
@@ -135,22 +135,22 @@ public class MenuXP extends AbstractScreen{
 	protected void save() {
 		prevXp = CSG.profile.xpDispo;
 		prevVitesse = CSG.profile.cadenceAdd;
-		prevNvArmeDeBase = CSG.profile.NvArmeDeBase;
-		prevNvArmeBalayage = CSG.profile.NvArmeBalayage;
-		prevNvArmeHantee = CSG.profile.NvArmeHantee;
+		prevNvArmeDeBase = CSG.profile.lvlFireball;
+		prevNvArmeBalayage = CSG.profile.lvlSweepWeapon;
+		prevNvArmeHantee = CSG.profile.lvlTWeapon;
 		prevNvArmeTrois = CSG.profile.lvlPinkWeapon;
-		prevNvArmeSun = CSG.profile.NvArmeSun;
+		prevNvArmeSun = CSG.profile.lvlSunWeapon;
 		updateTexteXp();
 		updateTexteCadence();
 		updateTexteUpgrade();
 	}
 
 	protected void undo() {
-		CSG.profile.NvArmeBalayage = prevNvArmeBalayage;
-		CSG.profile.NvArmeDeBase = prevNvArmeDeBase;
-		CSG.profile.NvArmeHantee = prevNvArmeHantee;
+		CSG.profile.lvlSweepWeapon = prevNvArmeBalayage;
+		CSG.profile.lvlFireball = prevNvArmeDeBase;
+		CSG.profile.lvlTWeapon = prevNvArmeHantee;
 		CSG.profile.lvlPinkWeapon = prevNvArmeTrois;
-		CSG.profile.NvArmeSun = prevNvArmeSun;
+		CSG.profile.lvlSunWeapon = prevNvArmeSun;
 		CSG.profile.cadenceAdd = prevVitesse;
 		CSG.profile.xpDispo = prevXp;
 		updateTexteUpgrade();
@@ -162,7 +162,7 @@ public class MenuXP extends AbstractScreen{
 	}
 
 	private void updateTexteUpgrade() {
-		if (CSG.profile.getArmeSelectionnee().nv() >= Profil.NV_ARME_MAX)
+		if (CSG.profile.getArmeSelectionnee().nv() >= Profil.LVL_MAX)
 			boutonUpgrade.setTexte("LEVEL MAX");
 		else 
 			boutonUpgrade.setTexte("Weapon (" + CSG.profile.getCoutUpArme() + ")");

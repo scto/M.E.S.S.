@@ -2,8 +2,8 @@ package jeu;
 
 public interface TalkToTheWorld {
 
-	void Login();
-    void LogOut();
+	void login();
+    void logOut();
    
     /**
      * get if client is signed in to Google+

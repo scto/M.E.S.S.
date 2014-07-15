@@ -19,7 +19,7 @@ public class FireballManager extends WeaponManager {
 		posY = Player.POS.y + Player.HEIGHT;
 		if (EndlessMode.alternate)
 			SoundMan.playBulletSound(SOUND);
-		switch (CSG.profile.NvArmeDeBase) {
+		switch (CSG.profile.lvlFireball) {
 		case 1:			nv1(posX, posY);		break;
 		case 2:			nv2(posX, posY);		break;
 		case 3:			nv3(posX, posY);		break;
@@ -94,7 +94,7 @@ public class FireballManager extends WeaponManager {
 	
 	@Override	public String getLabel() {					return Fireball.LABEL;				}
 	@Override	protected float getCadenceTir() {			return Fireball.FIRERATETIR;		}
-	@Override	public int nv() {							return CSG.profile.NvArmeDeBase;	}
+	@Override	public int nv() {							return CSG.profile.lvlFireball;	}
 
 	@Override
 	public Color playerColor() {

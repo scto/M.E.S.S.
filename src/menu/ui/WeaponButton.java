@@ -2,6 +2,7 @@ package menu.ui;
 
 import jeu.CSG;
 import jeu.Physic;
+import jeu.Profil;
 import jeu.Stats;
 import assets.AssetMan;
 import assets.sprites.AnimPlayer;
@@ -78,7 +79,7 @@ public class WeaponButton extends AbstractButton {
 			batch.draw(tr, x + widthDiv10, y, unselectedWidth, unselectedHeight);
 		}
 		
-		if ( (num == 5 || num == 4) && CSG.profile.areWeaponsUnlocked() == false) {
+		if ( (num == 5 || num == 4) && CSG.profile.isAllWeaponsLvlOk(Profil.LVL_UNLOCK) == false) {
 			CSG.menuFontSmall.draw(CSG.batch, "Unlock the 2 remaining weapons by getting the others at level 6 or higher ", xText, 4 + CSG.menuFontSmall.getBounds("W").height);
 			xText -= 0.3f;
 			batch.setColor(AssetMan.RED);

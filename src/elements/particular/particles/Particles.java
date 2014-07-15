@@ -110,51 +110,6 @@ public class Particles {
 		Dust.act(batch, DUST);
 		DebrisExplosion.act(WHITE_SPARKLES_NOT_MOVING, batch);
 		TimeParticle.act(TIME, batch);
-//		tests();
-	}
-
-	private static void tests() {
-		thruster = compare(THRUSTER, thruster);
-		pinkWeapon = compare(PINK_WEAPON, pinkWeapon);
-		add = compare(ADD, add);
-		explosion = compare(EXPLOSIONS, explosion);
-		explosionsImpact = compare(EXPLOSION_IMPACT_BULLET, explosionsImpact);
-		tWeapon = compare(T_WEAPON, tWeapon);
-		spaceInv = compare(SPACE_INVADER, spaceInv);
-		fireball = compare(FIREBALL, fireball);
-		sunWeapon = compare(SUN_WEAPON, sunWeapon);
-		ghost = compare(GHOSTS, ghost);
-		smoke = compare(SMOKE, smoke);
-		movingSmoke = compare(MOVING_SMOKE, movingSmoke);
-		blueSmoke = compare(BLUESMOKE, blueSmoke);
-		explosionImpactBullet = compare(EXPLOSION_IMPACT_BULLET, explosionImpactBullet);
-		System.out.println("------------------------------");
-		System.out.println("- debris                " + debris);
-		System.out.println("- thruster              " + thruster);
-		System.out.println("- pinkWeapon            " + pinkWeapon);
-		System.out.println("- explosionsGreen       " + explosionsGreen);
-		System.out.println("- add                   " + add);
-		System.out.println("- explosionBleu         " + explosionBleu);
-		System.out.println("- explosion             " + explosion);
-		System.out.println("- explosionsImpact      " + explosionsImpact);
-		System.out.println("- shield                " + shield);
-		System.out.println("- tWeapon               " + tWeapon);
-		System.out.println("- spaceInv              " + spaceInv);
-		System.out.println("- fireball              " + fireball);
-		System.out.println("- blueSweep             " + blueSweep);
-		System.out.println("- sunWeapon             " + sunWeapon);
-		System.out.println("- ghost                 " + ghost);
-		System.out.println("- smoke                 " + smoke);
-		System.out.println("- movingSmoke           " + movingSmoke);
-		System.out.println("- blueSmoke             " + blueSmoke);
-		System.out.println("- sparkles              " + sparkles);
-		System.out.println("- explosionImpactBullet " + explosionImpactBullet);
-	}
-	
-	private static int compare(Array<?> array, int i) {
-		if (array.size > i)
-			return array.size;
-		return i;
 	}
 
 	public static void drawImpacts(SpriteBatch batch) {

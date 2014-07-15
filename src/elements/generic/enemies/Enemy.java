@@ -281,7 +281,7 @@ public abstract class Enemy extends Element implements Poolable {
 	public void setRotation(float f) {																	}
 	public void init() {																				}
 	public abstract EnemyStats getEnemyStats();
-	public abstract void free();
+	protected abstract void free();
 
 	public float getFirerate() {
 		return 1;

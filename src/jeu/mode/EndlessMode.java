@@ -99,7 +99,7 @@ public class EndlessMode implements Screen {
 	public static void init() {
 //		batch.setShader(originalShader);
 		if (CSG.bloom != null && CSG.profile.bloom) {
-			bloom.setBloomIntesity(CSG.profile.intensiteBloom);
+			bloom.setBloomIntesity(CSG.profile.bloomIntensity);
 		} else {
 			CSG.profile.bloom = false;
 		}
@@ -304,7 +304,7 @@ public class EndlessMode implements Screen {
 
 	private void bloomActive() {
 		if (triggerStop) {
-			bloom.setBloomIntesity(CSG.profile.intensiteBloom + (timeStopBonus*2));
+			bloom.setBloomIntesity(CSG.profile.bloomIntensity + (timeStopBonus*2));
 		} else {
 			ScreenShake.bloomEffect();
 		}
@@ -382,14 +382,11 @@ public class EndlessMode implements Screen {
 		if (CSG.profile.manualBonus) {
 			// ****  A F F I C H E R   S T O P  ****
 			switch(nbBonusStop) {
-			default :
-//			case 3:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO + Bonus.WIDTH * 2 + Bonus.HALF_WIDTH * 2, HEIGHT_POLICE * 2, Bonus.WIDTH, Bonus.WIDTH);
 			case 2:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO + Bonus.WIDTH + Bonus.HALF_WIDTH, FONT_HEIGHT * 2, Bonus.WIDTH, Bonus.WIDTH);
 			case 1:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO, FONT_HEIGHT * 2, Bonus.WIDTH, Bonus.WIDTH);
 			case 0:
 			}
 			switch(nbBombes) {
-			default :
 			case 3:	batch.draw(AssetMan.bomb, CSG.screenHalfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 3 + Bonus.HALF_WIDTH * 3, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
 			case 2:	batch.draw(AssetMan.bomb, CSG.screenHalfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 2 + Bonus.HALF_WIDTH * 2, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
 			case 1:	batch.draw(AssetMan.bomb, CSG.screenHalfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 1 + Bonus.HALF_WIDTH * 1, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);

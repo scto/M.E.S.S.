@@ -49,32 +49,32 @@ public abstract class Weapon extends Element implements Poolable {
 		}
 	}
 
-	private static void act(SpriteBatch batch, Array<EnemyWeapon> LIST) {
-		for (final EnemyWeapon eWeapon : LIST) {
+	private static void act(SpriteBatch batch, Array<EnemyWeapon> weapons) {
+		for (final EnemyWeapon eWeapon : weapons) {
 			
 			eWeapon.now += EndlessMode.delta;
 			eWeapon.displayOnScreen(batch);
 			if (testCollision) {
 				if (eWeapon.testCollisionVaisseau() && !EndlessMode.aPerdu()) {
-					removeEnemyWeapon(eWeapon, LIST);
+					removeEnemyWeapon(eWeapon, weapons);
 					continue;
 				}
 			} else if (eWeapon.testCollsionAdds()) {
-				removeEnemyWeapon(eWeapon, LIST);
+				removeEnemyWeapon(eWeapon, weapons);
 				continue;
 			}
 			eWeapon.move();
 			if (!Physic.isOnScreen(eWeapon.pos, eWeapon.getDimensions().height, eWeapon.getDimensions().width))
-				removeEnemyWeapon(eWeapon, LIST);
+				removeEnemyWeapon(eWeapon, weapons);
 		}
 		if (shieldHs) {
-			for (final EnemyWeapon w : LIST) {
+			for (final EnemyWeapon w : weapons) {
 				Particles.popOutWeapon(w);
 				Bonus.addXp(XP_WITH_SHIELD, w.pos.x + w.getDimensions().halfWidth, w.pos.y + w.getDimensions().halfHeight);
 				w.free();
 			}
 			shieldHs = false;
-			LIST.clear();
+			weapons.clear();
 		}
 	}
 	

@@ -23,7 +23,7 @@ public abstract class WeaponManager {
 		if (arme.getLabel() == BlueSweepWeapon.LABEL) 	return new FireballManager();
 		if (arme.getLabel() == TWeapon.LABEL) 			return new BlueSweepWeaponManager();
 		if (arme.getLabel() == PinkWeapon.LABEL) 		{
-			if (CSG.profile.NvArmeBalayage >= Profil.NV_MIN_SUN && CSG.profile.NvArmeDeBase >= Profil.NV_MIN_SUN && CSG.profile.NvArmeHantee >= Profil.NV_MIN_SUN && CSG.profile.lvlPinkWeapon >= Profil.NV_MIN_SUN) {
+			if (CSG.profile.lvlSweepWeapon >= Profil.LVL_UNLOCK && CSG.profile.lvlFireball >= Profil.LVL_UNLOCK && CSG.profile.lvlTWeapon >= Profil.LVL_UNLOCK && CSG.profile.lvlPinkWeapon >= Profil.LVL_UNLOCK) {
 				return new SunManager();
 			} else {
 				return new TWeaponManager();

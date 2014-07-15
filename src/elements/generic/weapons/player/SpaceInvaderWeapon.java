@@ -33,13 +33,13 @@ public class SpaceInvaderWeapon extends PlayerWeapon implements Poolable {
 		return TMP_RECT;
 	}
 	@Override	public void free() {					POOL.free(this);														}
-	@Override	public int getPower() {					return (int) ((50f * (CSG.profile.NvSpaceInvadersWeapon/3f)) + 50f);	}
+	@Override	public int getPower() {					return (int) ((50f * (CSG.profile.lvlSpaceInvader/3f)) + 50f);	}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
 	public static Object getLabel() {					return LABEL;															}
 
 	public void init(float x, float y) {
 		pos.set(x, y);
 		PLAYER_LIST.add(this);
-		dir.set(0, Stats.V_ARME_SPACE_INVADER + (CSG.profile.NvSpaceInvadersWeapon * CSG.HEIGHT_DIV20));
+		dir.set(0, Stats.V_ARME_SPACE_INVADER + (CSG.profile.lvlSpaceInvader * CSG.HEIGHT_DIV20));
 	}
 }

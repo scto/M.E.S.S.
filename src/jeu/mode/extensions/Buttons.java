@@ -77,7 +77,7 @@ public class Buttons {
 		} else {
 			boutonRestart.draw(batch);
 		}
-		if (Player.weapon.nv() < Profil.NV_ARME_MAX) {
+		if (Player.weapon.nv() < Profil.LVL_MAX) {
 			if (boutonUpgrade == null) {
 				if (CSG.profile.getCoutUpArme() <= CSG.profile.xpDispo) {
 					boutonUpgrade = new Button(Strings.UPGRADE_BUTTON, CSG.menuFont, 

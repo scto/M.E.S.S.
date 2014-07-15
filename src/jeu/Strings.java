@@ -48,14 +48,12 @@ public class Strings {
 	
 	public static final DecimalFormat DF = initDf();
 
-
-
 	private static DecimalFormat initDf() {
-		DecimalFormat DF = new DecimalFormat();
-		DF.setMaximumFractionDigits(1);
-		DF.setMinimumFractionDigits(1);	
-		DF.setDecimalSeparatorAlwaysShown(true);
-		return DF;
+		DecimalFormat df = new DecimalFormat();
+		df.setMaximumFractionDigits(1);
+		df.setMinimumFractionDigits(1);	
+		df.setDecimalSeparatorAlwaysShown(true);
+		return df;
 	}
 	
 }

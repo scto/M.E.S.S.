@@ -69,11 +69,11 @@ public class ScreenShake {
 	public static void bloomEffect() {
 		if (!shake) {
 			if (!bloomSet) {
-				EndlessMode.bloom.setBloomIntesity(CSG.profile.intensiteBloom);
+				EndlessMode.bloom.setBloomIntesity(CSG.profile.bloomIntensity);
 				bloomSet = true;
 			}
 		} else {
-			tmp = CSG.profile.intensiteBloom + (chronoShake);
+			tmp = CSG.profile.bloomIntensity + (chronoShake);
 			if (tmp > MAX_BLOOM)
 				tmp = MAX_BLOOM;
 			EndlessMode.bloom.setBloomIntesity(tmp);

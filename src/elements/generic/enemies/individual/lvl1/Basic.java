@@ -38,6 +38,6 @@ public class Basic extends Enemy {
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion6;			}
 	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.BASIC;			}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}
-	@Override	public void free() {					POOL.free(this);					}
+	@Override	protected void free() {					POOL.free(this);					}
 
 }

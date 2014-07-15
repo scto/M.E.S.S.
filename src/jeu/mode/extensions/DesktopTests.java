@@ -25,43 +25,17 @@ public class DesktopTests {
 	private static float nextActivation = 0;
 
 	public static void debug() {
-	//	CSG.profil.NvArmeBalayage = 1;
-	//	CSG.profil.NvArmeDeBase = 1;
-	//	CSG.profil.NvArmeHantee = 1;
-	//	CSG.profil.NvArmeTrois = 1;
-//		if (Gdx.input.justTouched()) {
-//			Merlin.DE_BASE.incantation.invoke().setPosition(new Vector2(200, 400));;
-//		}
-//		System.out.println("====================================");
-//		for (Enemy e : Enemy.LIST) {
-//			System.out.println(e + "\t" + e.getPosition());
-//		}
-//		System.out.println("====================================");
-		
 		if (EndlessMode.oneToFour != 2)
 			return;
-		if (Gdx.input.isKeyPressed(Keys.PAGE_DOWN))	{
-			EndlessMode.cam.translate(0, 0, 1);
-			EndlessMode.cam();
-			SoundMan.playBruitage(SoundMan.bonusTaken);
-		}
-		// POC
-		if (Gdx.input.isKeyPressed(Keys.A)) {
-//			LeftToRightCurve d = LeftToRightCurve.POOL.obtain();
-			Basic3 d = Basic3.POOL.obtain();
-			CSG.tmpPos.x = Stats.U;
-			CSG.tmpPos.y = CSG.halfHeight;
-			d.setPosition(CSG.tmpPos);
-		}
 		
 		if (Gdx.input.isKeyPressed(Keys.END))	Merlin.GROUP.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.END))	Merlin.GROUP3.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.END))	Merlin.GROUP4.incantation.invoke();
-		if (Gdx.input.isKeyPressed(Keys.Z)) 		Merlin.DE_BASE.incantation.invoke();
-		if (Gdx.input.isKeyPressed(Keys.Z)) 		Merlin.DE_BASE3.incantation.invoke();
-		if (Gdx.input.isKeyPressed(Keys.Z)) 		Merlin.DE_BASE4.incantation.invoke();
-//		if (Gdx.input.isKeyPressed(Keys.E))		Merlin.INSECT.incantation.invoke();
-//		if (Gdx.input.isKeyPressed(Keys.E))		Merlin.INSECT3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Z)) 	Merlin.DE_BASE.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Z)) 	Merlin.DE_BASE3.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.Z)) 	Merlin.DE_BASE4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.E))		Merlin.INSECT.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.E))		Merlin.INSECT3.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.E))		Merlin.INSECT4.incantation.invoke();
 //		if (Gdx.input.isKeyPressed(Keys.R))		EndlessMode.addBonusStop();
 		if (Gdx.input.isKeyPressed(Keys.R))		Merlin.VICIOUS.incantation.invoke();
