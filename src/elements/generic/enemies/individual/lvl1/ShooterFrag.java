@@ -18,7 +18,7 @@ import elements.generic.weapons.enemies.FragWeapon;
 public class ShooterFrag extends Shooter {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.SHOOTER_FRAG;
-	protected static final float COLOR = AssetMan.convertARGB(1, 1, 1, .7f), xOffset = DIMENSIONS.halfWidth - FragWeapon.DIMENSIONS.halfWidth, FIRERATE = 1.9f * MOD_FIRERATE;
+	protected static final float COLOR = AssetMan.convertARGB(1, 1, 1, .7f), xOffset = DIMENSIONS.halfWidth - FragWeapon.DIMENSIONS.halfWidth;
 	public static final Pool<ShooterFrag> POOL = Pools.get(ShooterFrag.class);
 
 	@Override
@@ -39,6 +39,5 @@ public class ShooterFrag extends Shooter {
 	
 	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.SHOOTER_FRAG;					}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;								}
-	@Override 	public float getFirerate() {				return FIRERATE;								}
 	@Override	public void free() {						POOL.free(this);								}
 }

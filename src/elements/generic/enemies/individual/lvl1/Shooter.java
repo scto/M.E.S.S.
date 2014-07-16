@@ -22,7 +22,7 @@ import elements.generic.weapons.player.PlayerWeapon;
 public class Shooter extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.SHOOTER;
-	protected static final float xOffset = DIMENSIONS.halfWidth - Fireball.DIMENSIONS.halfWidth/1.5f, FIRERATE = 1.2f * MOD_FIRERATE, INIT_NEXT_SHOT = 1.5f;
+	protected static final float xOffset = DIMENSIONS.halfWidth - Fireball.DIMENSIONS.halfWidth/1.5f, INIT_NEXT_SHOT = 1.5f;
 	public static final Pool<Shooter> POOL = Pools.get(Shooter.class);
 	private boolean goodShape = true;
 	
@@ -62,7 +62,6 @@ public class Shooter extends Enemy {
 	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.SHOOTER;				}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;						}
 	@Override	public boolean isInGoodShape() {			return goodShape;						}
-	@Override 	public float getFirerate() {				return FIRERATE;						}
 	@Override	public void free() {						POOL.free(this);						}
 	@Override	public int getColor() {						return BLUE;							}
 	protected float getDerive() {							return getEnemyStats().getSpeed() / 4;	}

@@ -20,7 +20,7 @@ import elements.generic.weapons.player.TWeaponManager;
 import elements.generic.weapons.player.WeaponManager;
 import elements.particular.particles.individual.weapon.GreenAddParticle;
 
-public class Profile implements Serializable{
+public class Profil implements Serializable{
 	
 	// -- KEYS
 	private static final String STR_FIRERATE_ADD = "vitesse", STR_ARME_SELECT = "kjhuk", STR_ARME_DE_BASE_NV = "adbnv",
@@ -42,7 +42,7 @@ public class Profile implements Serializable{
 	/**
 	 * Valeurs par defaut si pas de profil
 	 */
-	public Profile() {
+	public Profil() {
 		lvlSweepWeapon = 1;
 		lvlFireball = 1;
 		lvlPinkWeapon = 1;

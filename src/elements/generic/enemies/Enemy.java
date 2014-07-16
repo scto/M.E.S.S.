@@ -276,6 +276,7 @@ public abstract class Enemy extends Element implements Poolable {
 	protected Sound getExplosionSound() {					return SoundMan.explosion3;					}
 	public int getXp() {									return getEnemyStats().getXp();				}
 	public int getExplosionCount() {						return getEnemyStats().explosion;			}
+	public float getFirerate() {							return getEnemyStats().getFirerate();		}
 	public int getBonusValue() {							return getEnemyStats().getBonusValue();		}
 	public void setLeft(boolean b) {																	}
 	public void setRotation(float f) {																	}
@@ -283,9 +284,6 @@ public abstract class Enemy extends Element implements Poolable {
 	public abstract EnemyStats getEnemyStats();
 	protected abstract void free();
 
-	public float getFirerate() {
-		return 1;
-	}
 
 	public int getShotNumber() {
 		return 0;

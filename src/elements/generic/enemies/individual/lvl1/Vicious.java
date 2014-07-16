@@ -20,7 +20,7 @@ import elements.generic.weapons.enemies.ViciousBullet;
 public class Vicious extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.VICIOUS;
-	public static final float FIRERATE = 3 * MOD_FIRERATE, INIT_NEXT_SHOT = 1;
+	public static final float INIT_NEXT_SHOT = 1;
 	public static final Pool<Vicious> POOL = Pools.get(Vicious.class);
 	private int xp, hp;
 	
@@ -46,7 +46,6 @@ public class Vicious extends Enemy {
 	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.VICIOUS;											}
 	@Override	public Animations getAnimation() {			return Animations.INSECT;											}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;													}
-	@Override 	public float getFirerate() {				return FIRERATE;													}
 	@Override	public void free() {						POOL.free(this);													}
 	@Override	public int getXp() {						return xp;															}
 	@Override	public int getBonusValue() {				return xp;															}

@@ -22,7 +22,7 @@ import elements.generic.weapons.player.PlayerWeapon;
 
 public class Ball extends Enemy {
 	
-	protected static final float FIRERATE = 4f * MOD_FIRERATE, INIT_NEXT_SHOT = 3f;
+	protected static final float INIT_NEXT_SHOT = 3f;
 	protected static final Dimensions DIMENSIONS = Dimensions.BALL;
 	public static final Pool<Ball> POOL = Pools.get(Ball.class);
 	
@@ -55,7 +55,6 @@ public class Ball extends Enemy {
 	@Override	public Animations getAnimation() {			return Animations.BALL;							}
 	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.BALL;							}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;								}
-	@Override	public float getFirerate() {				return FIRERATE;								}
 	@Override	public void free() {						POOL.free(this);								}
 	@Override	public int getColor() {						return BLUE;									}
 	@Override	public boolean stillAlive(PlayerWeapon a) {

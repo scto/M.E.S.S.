@@ -21,7 +21,7 @@ public class Insect extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.INSECT;
 	public static final Pool<Insect> POOL = Pools.get(Insect.class);
-	protected static final float FIRERATE = 1.5f * MOD_FIRERATE, INIT_NEXT_SHOT = 1;
+	protected static final float INIT_NEXT_SHOT = 1;
 	private boolean goodShape;
 	
 	public void init() {
@@ -51,7 +51,6 @@ public class Insect extends Enemy {
 	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.INSECT;											}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;													}
 	@Override	public boolean isInGoodShape() {			return goodShape;													}
-	@Override	public float getFirerate() {				return FIRERATE;													}
 	@Override	public void free() {						POOL.free(this);													}
 	@Override	public float getAngle() {					return angle;														}
 	@Override

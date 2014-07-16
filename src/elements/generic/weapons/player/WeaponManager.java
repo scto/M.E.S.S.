@@ -3,7 +3,7 @@ package elements.generic.weapons.player;
 import com.badlogic.gdx.graphics.Color;
 
 import jeu.CSG;
-import jeu.Profile;
+import jeu.Profil;
 import jeu.mode.EndlessMode;
 import elements.generic.weapons.Weapon;
 
@@ -23,7 +23,7 @@ public abstract class WeaponManager {
 		if (arme.getLabel() == BlueSweepWeapon.LABEL) 	return new FireballManager();
 		if (arme.getLabel() == TWeapon.LABEL) 			return new BlueSweepWeaponManager();
 		if (arme.getLabel() == PinkWeapon.LABEL) 		{
-			if (CSG.profile.lvlSweepWeapon >= Profile.LVL_UNLOCK && CSG.profile.lvlFireball >= Profile.LVL_UNLOCK && CSG.profile.lvlTWeapon >= Profile.LVL_UNLOCK && CSG.profile.lvlPinkWeapon >= Profile.LVL_UNLOCK) {
+			if (CSG.profile.lvlSweepWeapon >= Profil.LVL_UNLOCK && CSG.profile.lvlFireball >= Profil.LVL_UNLOCK && CSG.profile.lvlTWeapon >= Profil.LVL_UNLOCK && CSG.profile.lvlPinkWeapon >= Profil.LVL_UNLOCK) {
 				return new SunManager();
 			} else {
 				return new TWeaponManager();

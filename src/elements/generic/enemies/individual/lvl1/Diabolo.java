@@ -22,7 +22,7 @@ public class Diabolo extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.DIABOLO;
 	public static final int PHASE_DURATION = 15;
-	protected static final float WIDTH2 = DIMENSIONS.width * 2, FIRERATE = .25f * MOD_FIRERATE, INIT_NEXT_SHOT = 3;
+	protected static final float WIDTH2 = DIMENSIONS.width * 2, INIT_NEXT_SHOT = 3;
 	public static final Pool<Diabolo> POOL = Pools.get(Diabolo.class);
 	private int shotNumber, index;
 
@@ -71,6 +71,5 @@ public class Diabolo extends Enemy {
 	@Override	public int getShotNumber() {			return shotNumber;								}
 	@Override	public void addShots(int i) {			shotNumber += i;								}
 	@Override	public void free() {					POOL.free(this);								}
-	@Override 	public float getFirerate() {			return FIRERATE;								}
 	@Override	public int getNumberOfShots() {			return 2;										}
 }

@@ -1,4 +1,4 @@
-package elements.generic.enemies;
+package jeu.level;
 
 import jeu.CSG;
 

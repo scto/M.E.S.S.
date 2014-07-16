@@ -20,7 +20,7 @@ public class Crusader extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.CRUSADER;
 	public static final Pool<Crusader> POOL = Pools.get(Crusader.class);
-	protected static final float FIRERATE = .08f * MOD_FIRERATE, INIT_NEXT_SHOT = 4, ROTATION_BETWEEN_SHOTS = 4;
+	protected static final float INIT_NEXT_SHOT = 4, ROTATION_BETWEEN_SHOTS = 4;
 	protected float shootingAngle;
 	protected int shotNumber = 3;
 	private boolean goodShape = true;
@@ -65,7 +65,6 @@ public class Crusader extends Enemy {
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;															}
 	@Override	public int getShotNumber() {				return shotNumber;															}
 	@Override	public boolean isInGoodShape() {			return goodShape;															}
-	@Override	public float getFirerate() {				return FIRERATE;															}
 	@Override	public void free() {						POOL.free(this);															}
 	@Override	public void addShots(int i) {				shotNumber += i;															}
 	@Override	public int getColor() {						return BLUE;																}

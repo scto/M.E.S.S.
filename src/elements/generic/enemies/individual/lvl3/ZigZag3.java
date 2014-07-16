@@ -14,12 +14,9 @@ public class ZigZag3 extends ZigZag {
 	public static final Pool<ZigZag3> POOL = Pools.get(ZigZag3.class);
 	private static final Vector2 smokeVector = new Vector2(0, Stats.uDiv2);
 	
-	@Override
-	protected float getFloatFactor() {
-		return 1.5f;
-	}
 	@Override	public Animations getAnimation() {			return Animations.ZIG_ZAG_BLUE;	}
 	@Override	public void free() {						POOL.free(this);				}
 	@Override	public int getColor() {						return BLUE;					}
+	@Override	protected float getFloatFactor() {			return 1.5f;					}
 	protected Vector2 getSmokeVector() {					return smokeVector;				}
 }

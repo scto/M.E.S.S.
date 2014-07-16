@@ -11,9 +11,7 @@ public class Group3 extends Group {
 			return new Group3();
 		}
 	};
-	private static final float FIRERATE = Group.FIRERATE * 0.9f * MOD_FIRERATE;
 	
-	@Override	public float getFirerate() {							return FIRERATE;			}
 	@Override	public void free() {									POOL.free(this);			}
 	@Override	public int getNumberOfShots() {							return 4;					}
 }

@@ -2,6 +2,7 @@ package elements.generic.enemies.individual.bosses;
 
 import jeu.CSG;
 import jeu.Stats;
+import jeu.level.Progression;
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.sprites.Animations;
@@ -16,7 +17,6 @@ import elements.generic.components.behavior.Mover;
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
 import elements.generic.enemies.Enemy;
-import elements.generic.enemies.Progression;
 import elements.generic.weapons.enemies.Rainbow;
 import elements.generic.weapons.enemies.Mine;
 import elements.generic.weapons.player.PlayerWeapon;

@@ -23,6 +23,5 @@ public class Laser4 extends Laser3 {
 		interval();
 	}
 	
-	@Override	public float getFirerate() {				return 0.1f;				}
 	@Override	public void free() {						POOL.free(this);						}
 }

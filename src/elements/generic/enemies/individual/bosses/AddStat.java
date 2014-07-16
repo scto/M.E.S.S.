@@ -18,7 +18,7 @@ import elements.generic.weapons.enemies.CyanBullet;
 public class AddStat extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.ADD_SAT;
-	static final float OFFSET_TIR = DIMENSIONS.halfWidth - CyanBullet.DIMENSIONS.halfWidth, FIRERATE = 1.7f, INIT_NEXT_SHOT = 0;
+	static final float OFFSET_TIR = DIMENSIONS.halfWidth - CyanBullet.DIMENSIONS.halfWidth, INIT_NEXT_SHOT = 0;
 	public static Pool<AddStat> pool = Pools.get(AddStat.class);
 
 	@Override
@@ -52,10 +52,9 @@ public class AddStat extends Enemy {
 	}
 
 	@Override	public Animations getAnimation() {			return Animations.AILE_DEPLOYEES;	}
-	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion2;		}
+	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion2;			}
 	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.ADD_SAT;			}
-	@Override	public void free() {						pool.free(this);				}
-	@Override	public float getFirerate() {				return FIRERATE;				}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;					}
+	@Override	public void free() {						pool.free(this);					}
 	
 }

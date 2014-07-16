@@ -18,7 +18,7 @@ import elements.generic.weapons.enemies.OrangeBullet;
 public class BouleTirCote extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.BALL_SIDE_SHOOT;
-	private static final float FIRERATE = .62f * MOD_FIRERATE, OFFSET = DIMENSIONS.halfWidth - OrangeBullet.DIMENSIONS.halfWidth;
+	private static final float OFFSET = DIMENSIONS.halfWidth - OrangeBullet.DIMENSIONS.halfWidth;
 	public static final Pool<BouleTirCote> POOL = Pools.get(BouleTirCote.class);
 	protected int numeroTir;
 	
@@ -49,6 +49,5 @@ public class BouleTirCote extends Enemy {
 	@Override	protected Sound getExplosionSound() {		return SoundMan.explosion4;			}
 	@Override	public Animations getAnimation() {			return Animations.BALL;				}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;					}
-	@Override	public float getFirerate() {				return FIRERATE;					}
 	@Override	public void free() {						POOL.free(this);					}
 }

@@ -29,7 +29,7 @@ public class Plane extends Enemy {
 	public static final float OFFSET_SMOKE_LEFT = (int) (DIMENSIONS.width * .48f), 
 		OFFSET_SMOKE_RIGHT = (int) (DIMENSIONS.width * .52f), OFFSET_SMOKE = (int) (DIMENSIONS.height * 0.98f), OFFSET_WEAPON_RIGHT = (int) (DIMENSIONS.width - SmallFireball.DIMENSIONS.halfWidth * 1.5f),
 		OFFSET_WEAPON_LEFT = SmallFireball.DIMENSIONS.halfWidth / 2, 
-		OFFSET_WEAPON_Y = DIMENSIONS.halfHeight - SmallFireball.DIMENSIONS.height, FIRERATE = 0.8f * MOD_FIRERATE, INIT_NEXT_SHOT = 1f;
+		OFFSET_WEAPON_Y = DIMENSIONS.halfHeight - SmallFireball.DIMENSIONS.height, INIT_NEXT_SHOT = 1f;
 	public static final Pool<Plane> POOL = Pools.get(Plane.class);
 	private boolean goodShape = true;
 	private int shotNumber = 0;
@@ -50,7 +50,7 @@ public class Plane extends Enemy {
 		} else {
 			shootSingle();
 		}
-		shotNumber = AbstractShot.interval(this, 3, FIRERATE, shotNumber);
+		shotNumber = AbstractShot.interval(this, 3, getFirerate(), shotNumber);
 	}
 
 	protected void shootSingle() {
@@ -84,6 +84,5 @@ public class Plane extends Enemy {
 	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.PLANE;					 	}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;								}
 	@Override	public boolean isInGoodShape() {		return goodShape;								}
-	@Override 	public float getFirerate() {			return FIRERATE;								}
 	@Override	public void free() {					POOL.free(this);								}
 }

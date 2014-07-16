@@ -12,7 +12,7 @@ import elements.generic.weapons.enemies.KinderWeapon;
 public class Kinder3 extends Kinder {
 	
 	public static final Pool<Kinder3> POOL = Pools.get(Kinder3.class);
-	private static final float PHASE_DURATION = 20, FIRERATE = 0.14f * MOD_FIRERATE;
+	private static final float PHASE_DURATION = 20;
 	private boolean alternateShot = false;
 	
 	@Override
@@ -33,7 +33,6 @@ public class Kinder3 extends Kinder {
 			interval(-3);
 		}
 	}
-	@Override	public float getFirerate() {		return FIRERATE;				}
 	@Override	public void free() {				POOL.free(this);				}
 	@Override   public float getPhaseDuration() {	return PHASE_DURATION;			}
 }

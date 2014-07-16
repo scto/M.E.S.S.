@@ -26,7 +26,7 @@ public class Cylon extends Enemy {
 	protected static final Dimensions DIMENSIONS = Dimensions.CYLON;
 	protected static final int THRUSTER_OFFSET = (int) (DIMENSIONS.width * 0.45f), LVL = 1;
 	public static final Pool<Cylon> POOL = Pools.get(Cylon.class);
-	protected static final float FIRERATE = 3 * MOD_FIRERATE, INIT_NEXT_SHOT = 2.6f;
+	protected static final float INIT_NEXT_SHOT = 2.6f;
 	private int index = 0;
 
 	public void init() {
@@ -82,7 +82,6 @@ public class Cylon extends Enemy {
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion4;												}
 	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.CYLON;												}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;														}
-	@Override	public float getFirerate() {			return FIRERATE;														}
 	@Override	public void free() {					POOL.free(this);														}
 	@Override	public int getAnimIndex() {				return index;															}
 }

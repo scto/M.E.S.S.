@@ -22,7 +22,7 @@ public class Laser extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.LASER;
 	public static final Pool<Laser> POOL = Pools.get(Laser.class);
-	protected static final float FIRERATE = 0.8f * MOD_FIRERATE, INIT_NEXT_SHOT = 1, PHASE_DURATION = 12;
+	protected static final float INIT_NEXT_SHOT = 1, PHASE_DURATION = 12;
 	protected float rotation = 0;
 	private boolean left;
 	
@@ -75,7 +75,6 @@ public class Laser extends Enemy {
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;									}
 	@Override	public void free() {					POOL.free(this);									}
 	@Override	public float getRotation() {			return rotation;									}
-	@Override	public float getFirerate() {			return FIRERATE;									}
 	@Override	public void setRotation(float f) {		rotation = f;										}
 	@Override	public boolean toLeft() {				return left;										}
 }

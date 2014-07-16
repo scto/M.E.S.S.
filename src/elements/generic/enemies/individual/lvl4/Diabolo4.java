@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.shots.AbstractShot;
 import elements.generic.components.shots.Gatling;
-import elements.generic.enemies.individual.lvl1.Diabolo;
 import elements.generic.enemies.individual.lvl3.Diabolo3;
 import elements.generic.weapons.enemies.OrangeBullet;
 import jeu.Stats;
@@ -13,7 +12,6 @@ import jeu.Stats;
 public class Diabolo4 extends Diabolo3 {
 	
 	public static final Pool<Diabolo4> POOL = Pools.get(Diabolo4.class);
-	private static final float FIRERATE = Diabolo.FIRERATE * 0.4f * MOD_FIRERATE;
 
 	@Override
 	protected void shoot() {
@@ -30,7 +28,6 @@ public class Diabolo4 extends Diabolo3 {
 	}
 	
 	@Override	public void free() {					POOL.free(this);					}
-	@Override 	public float getFirerate() {			return FIRERATE;					}
 	@Override 	protected float getPhaseDuration() {	return 20;							}
 	@Override	public int getNumberOfShots() {			return 6;							}
 }

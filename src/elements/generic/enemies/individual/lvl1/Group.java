@@ -22,7 +22,7 @@ public class Group extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.GROUP;
 	public static final Pool<Group> POOL = new Pool<Group>() {		protected Group newObject() {			return new Group();		}	};
-	protected static final float FIRERATE = 0.6f * MOD_FIRERATE, INIT_NEXT_SHOT = .5f;
+	protected static final float INIT_NEXT_SHOT = .5f;
 	private static final float COLOR = AssetMan.convertARGB(1, 1f, 0.5f, 0.2f);
 	private int shotNumber = 0;
 	
@@ -84,6 +84,5 @@ public class Group extends Enemy {
 	@Override	public int getShotNumber() {							return shotNumber;				}
 	@Override	public void free() {									POOL.free(this);				}
 	@Override	public void addShots(int i) {							shotNumber += i;				}
-	@Override	public float getFirerate() {							return FIRERATE;				}
 	@Override	public int getNumberOfShots() {							return 3;						}
 }

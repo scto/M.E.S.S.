@@ -4,6 +4,7 @@ import jeu.CSG;
 import jeu.Physic;
 import jeu.Stats;
 import jeu.Strings;
+import jeu.level.Progression;
 import jeu.mode.extensions.Buttons;
 import jeu.mode.extensions.DesktopTests;
 import jeu.mode.extensions.Score;
@@ -28,7 +29,6 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
 import elements.generic.enemies.Enemy;
-import elements.generic.enemies.Progression;
 import elements.generic.weapons.Weapon;
 import elements.particular.Player;
 import elements.particular.bonuses.Bonus;

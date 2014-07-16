@@ -9,7 +9,6 @@ import elements.generic.enemies.individual.lvl1.Ball;
 public class Ball3 extends Ball {
 	
 	public static final Pool<Ball3> POOL = Pools.get(Ball3.class);
-	protected static final float FIRERATE = 0.4f * MOD_FIRERATE;
 	protected int shotNumber;
 	
 	@Override
@@ -24,6 +23,5 @@ public class Ball3 extends Ball {
 		shotNumber = AbstractShot.interval(this, 3, 2, shotNumber);
 	}
 	
-	@Override	public float getFirerate() {					return FIRERATE;						}
 	@Override	public void free() {							POOL.free(this);						}
 }

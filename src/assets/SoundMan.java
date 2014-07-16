@@ -12,25 +12,18 @@ public final class SoundMan {
 	private static final float MIN = 0.1f;
 	private static float originalVolume, changedVolume, gap;
 	private static final int SOUNDS_PER_FRAME = 8;
-//	private static final AudioDevice audio = initAudio();
 
 	private SoundMan() {
 	}
 
-//	private static AudioDevice initAudio() {
-//		return Gdx.audio.newAudioDevice(44, true);
-//	}
-
 	public static void playBulletSound(Sound s) {
-		if (CSG.profile.weaponVolume > MIN) {
+		if (CSG.profile.weaponVolume > MIN)
 			s.play(CSG.profile.weaponVolume);
-		}
 	}
 
 	public static void playBruitage(Sound s) {
-		if (CSG.profile.effectsVolume > MIN) {
+		if (CSG.profile.effectsVolume > MIN)
 			s.play(CSG.profile.effectsVolume);
-		}
 	}
 
 	public synchronized static void playMusic() {
@@ -64,9 +57,8 @@ public final class SoundMan {
 
 	public static void transitionUp(float f) {
 		try {
-			if (outsideNorm != null && outsideNorm.isPlaying()) {
+			if (outsideNorm != null && outsideNorm.isPlaying())
 				outsideNorm.setVolume(changedVolume + (gap * f));
-			}
 		} catch (Exception e) {
 
 		}
@@ -82,10 +74,5 @@ public final class SoundMan {
 			}
 		}
 	}
-	
-	public static void generate(float t) {
-//		audio.writeSamples(samples, offset, numSamples);
-	}
-	
 	
 }

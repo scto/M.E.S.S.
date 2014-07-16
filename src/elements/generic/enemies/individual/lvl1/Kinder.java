@@ -20,7 +20,7 @@ import elements.generic.weapons.enemies.KinderWeapon;
 public class Kinder extends Enemy {
 
 	protected static final Dimensions DIMENSIONS = Dimensions.KINDER;
-	protected static final float FIRERATE = 0.45f * MOD_FIRERATE, INIT_NEXT_SHOT = Animations.KINDER_TIME_OPEN, PHASE_DURATION = 12;
+	protected static final float INIT_NEXT_SHOT = Animations.KINDER_TIME_OPEN, PHASE_DURATION = 12;
 	public static final Pool<Kinder> POOL = Pools.get(Kinder.class);
 	protected int index, shotNumber = 0;
 	
@@ -68,7 +68,6 @@ public class Kinder extends Enemy {
 	@Override	public EnemyStats getEnemyStats() {			return EnemyStats.KINDER;						}
 	@Override	public Animations getAnimation() {			return Animations.KINDER;						}
 	@Override	public Dimensions getDimensions() {			return DIMENSIONS;								}
-	@Override	public float getFirerate() {				return FIRERATE;								}
 	@Override	public void free() {						POOL.free(this);								}
 }
 

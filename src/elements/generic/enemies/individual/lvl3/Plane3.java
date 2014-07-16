@@ -8,8 +8,6 @@ import elements.generic.enemies.individual.lvl1.Plane;
 public class Plane3 extends Plane {
 	
 	public static final Pool<Plane3> POOL = Pools.get(Plane3.class);
-	protected static final float FIRERATE = 0.3f * MOD_FIRERATE;
 	
-	@Override	public float getFirerate() {			return FIRERATE;				}
 	@Override	public void free() {					POOL.free(this);				}
 }

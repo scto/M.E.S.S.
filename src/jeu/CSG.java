@@ -2,6 +2,7 @@ package jeu;
 
 import java.util.Random;
 
+import jeu.level.SpawnEnemyPosition;
 import jeu.mode.EndlessMode;
 import menu.screens.Loading;
 import shaders.Bloom;
@@ -20,7 +21,6 @@ import com.badlogic.gdx.utils.Array;
 
 import elements.generic.components.enemies.Merlin;
 import elements.generic.enemies.Enemy;
-import elements.generic.enemies.SpawnEnemyPosition;
 import elements.generic.weapons.Weapon;
 import elements.particular.bonuses.Bonus;
 import elements.particular.particles.Particles;
@@ -32,7 +32,7 @@ public class CSG extends Game implements ApplicationListener {
 	public static float RATIO;
 	public static final int CONTROLE_TOUCH_NON_RELATIVE = 0, CONTROLE_DPAD = 1, CONTROLE_ACCELEROMETRE = 2, CONTROLE_TOUCH_RELATIVE = 3, CONTROLE_MAX = 3;
 	public static ProfilManager profilManager;
-	public static Profile profile;
+	public static Profil profile;
 	public static BitmapFont menuFont, menuFontSmall, menuFontBlack, scoreFont;//, outlineScoreFont;
 	public static AssetMan assetMan;
 	public static SpriteBatch batch;

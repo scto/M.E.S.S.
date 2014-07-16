@@ -10,7 +10,6 @@ import elements.generic.enemies.individual.lvl1.Laser;
 public class Laser3 extends Laser {
 	
 	public static final Pool<Laser3> POOL = Pools.get(Laser3.class);
-	private static final float FIRERATE = 0.25f * MOD_FIRERATE;
 	private int shotNumber = 0;
 	
 	@Override
@@ -23,7 +22,6 @@ public class Laser3 extends Laser {
 		shotNumber = AbstractShot.interval(this, 2, 1, shotNumber);
 	}
 	
-	@Override	public float getFirerate() {			return FIRERATE;							}
 	@Override	public void free() {					POOL.free(this);							}
 	@Override	protected float getRotateTime() {		return 16.2f;									}
 	

@@ -2,7 +2,7 @@ package jeu.mode.extensions;
 
 import jeu.CSG;
 import jeu.Physic;
-import jeu.Profile;
+import jeu.Profil;
 import jeu.Strings;
 import jeu.mode.EndlessMode;
 import menu.screens.Menu;
@@ -69,7 +69,7 @@ public class Buttons {
 		} else {
 			boutonRestart.draw(batch);
 		}
-		if (Player.weapon.nv() < Profile.LVL_MAX) {
+		if (Player.weapon.nv() < Profil.LVL_MAX) {
 			if (boutonUpgrade == null) {
 				if (CSG.profile.getCoutUpArme() <= CSG.profile.xp) {
 					boutonUpgrade = new Button(Strings.UPGRADE_BUTTON, CSG.menuFont, 

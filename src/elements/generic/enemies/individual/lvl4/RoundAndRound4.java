@@ -10,7 +10,6 @@ import jeu.mode.EndlessMode;
 
 public class RoundAndRound4 extends RoundAndRound3 {
 
-	private static final float FIRERATE = .2f;
 	public static final Pool<RoundAndRound4> POOL = Pools.get(RoundAndRound4.class);
 	private static float tmp;
 	
@@ -31,6 +30,5 @@ public class RoundAndRound4 extends RoundAndRound3 {
 			}
 		}
 	}
-	@Override	public float getFirerate() {		return FIRERATE;				}
 	@Override	public void free() {				POOL.free(this);				}
 }

@@ -4,7 +4,7 @@ import menu.JeuBackground;
 import menu.tuto.OnClick;
 import menu.ui.Button;
 import jeu.CSG;
-import jeu.Profile;
+import jeu.Profil;
 import jeu.Strings;
 import jeu.mode.EndlessMode;
 
@@ -161,7 +161,7 @@ public class MenuXP extends AbstractScreen{
 	}
 
 	private void updateTexteUpgrade() {
-		if (CSG.profile.getArmeSelectionnee().nv() >= Profile.LVL_MAX)
+		if (CSG.profile.getArmeSelectionnee().nv() >= Profil.LVL_MAX)
 			boutonUpgrade.setTexte("LEVEL MAX");
 		else 
 			boutonUpgrade.setTexte("Weapon (" + CSG.profile.getCoutUpArme() + ")");

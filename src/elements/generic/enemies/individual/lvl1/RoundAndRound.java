@@ -22,7 +22,7 @@ public class RoundAndRound extends Enemy {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.ROUND_N_ROUND;
 	public static final int SHOTS_GAP = 5;
-	protected static final float FIRERATE = .4f * MOD_FIRERATE, INIT_NEXT_SHOT = 0;
+	protected static final float INIT_NEXT_SHOT = 0;
 	private static final float OFFSET_TIR = DIMENSIONS.halfWidth - OrangeBullet.DIMENSIONS.halfWidth;
 	public static final Pool<RoundAndRound> POOL = Pools.get(RoundAndRound.class);
 	private boolean shootRight = true, leftOfTheScreen;
@@ -66,7 +66,6 @@ public class RoundAndRound extends Enemy {
 	@Override	public boolean toLeft() {						return leftOfTheScreen;				}
 	@Override	public Dimensions getDimensions() {				return DIMENSIONS;					}
 	@Override	public void addShots(int i) {					shotNumber += i;					}
-	@Override 	public float getFirerate() {					return FIRERATE;					}
 	@Override	public void free() {							POOL.free(this);					}
 	@Override	public int getColor() {							return GREEN;						}
 }

@@ -1,5 +1,6 @@
-package elements.generic.enemies;
+package jeu.level;
 
+import elements.generic.enemies.Enemy;
 import jeu.CSG;
 import jeu.mode.EndlessMode;
 import jeu.mode.extensions.Score;
