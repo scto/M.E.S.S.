@@ -8,10 +8,10 @@ public class LeftRight implements Pos {
 
 	@Override
 	public void set(Enemy e) {
-		if (CSG.R.nextBoolean()) {
+		if (CSG.R.nextBoolean())
 			e.pos.x = CSG.widthMinusBorder - e.getDimensions().halfWidth;
-		}
-		e.pos.x = e.getDimensions().halfWidth + CSG.borderWidth;
+		else
+			e.pos.x = e.getDimensions().halfWidth + CSG.borderWidth;
 		e.pos.y = CSG.height + e.getDimensions().height;
 	}
 

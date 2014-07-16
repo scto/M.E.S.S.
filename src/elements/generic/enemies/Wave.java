@@ -47,7 +47,7 @@ public class Wave {
 							wave14 = (int) (10000 * CSG.mulSCORE),
 							wave15 = (int) (13000 * CSG.mulSCORE);
 	
-	public static final Wave LVL1_3 = new Wave(		waveS3, 		ECART, 					false, 		SpawnEnemyPosition.lvl1_170, 			.25f, 	true,  800);
+	public static final Wave LVL1_3 = new Wave(			waveS3, 		ECART, 					false, 		SpawnEnemyPosition.lvl1_170, 			.25f, 	true,  800);
 	public static final Wave LVL1_170 = new Wave(		waveS173, 		ECART, 					false, 		SpawnEnemyPosition.lvl1_120, 			.25f, 	true,  wave7);
 	public static final Wave LVL1_290 =	new Wave(		wave3, 		(int) (ECART * 1.5f), 		false, 		SpawnEnemyPosition.lvl1_94, 			.25f, 	true,  wave7);
 	public static final Wave LVL1_385 = new Wave(		wave4, 		(int) (ECART * 1.5f), 		false, 		SpawnEnemyPosition.lvl1_60, 			.25f, 	true,  1250);
@@ -124,8 +124,7 @@ public class Wave {
 	public static final Wave LVL4_4000 = new Wave(		(int) (wave12*lvl4modif), 		(int) (ECART*lvl4modif),	false, SpawnEnemyPosition.lvl4_insecte, 		.25f*lvl4modif, 	true,  8000);
 	public static final Wave LVL4_8000 = new Wave(		(int) (wave13*lvl4modif), 		(int) (ECART*lvl4modif),	false, SpawnEnemyPosition.lvl4_insecte2, 	.25f*lvl4modif, 	true,  Progression.MAX);
 	public static final Wave LVL4_12000 = new Wave(		(int) (wave14*lvl4modif), 		(int) (ECART*lvl4modif), 	false, SpawnEnemyPosition.lvl4_500, 			.25f*lvl4modif, 	true,  Progression.MAX);
-	public static final Wave lvl4_16000 = new Wave(		(int) (wave15*lvl4modif), 		(int) (ECART * 1.4f), 		false, SpawnEnemyPosition.satUpnDown, 		.25f*lvl4modif, 	true,  Progression.MAX);
-//	public static final Wave lvl1_170 = new Wave(			170, 		700, 	false, Phase.lvl1_120, 			.25f, 	true,  1000);
+	public static final Wave LVL4_16000 = new Wave(		(int) (wave15*lvl4modif), 		(int) (ECART * 1.4f), 		false, SpawnEnemyPosition.satUpnDown, 		.25f*lvl4modif, 	true,  Progression.MAX);
 
 	public int nextActivation;
 	public final int espaceActivation;
@@ -161,7 +160,6 @@ public class Wave {
 		this.maxScore = maxScore;
 		this.scoreMin = scoreMin;
 		this.lignes = convert(phases);
-		System.out.println("Number of lines : " + lignes.length);
 		initCptPhase();
 	}
 
@@ -184,7 +182,7 @@ public class Wave {
 		if (nextSpawn < EndlessMode.now) {
 			for (int i = 0; i < lignes[cptPhase].merlin.length; i++) {
 				final Enemy inv = lignes[cptPhase].merlin[i].incantation.invoke();
-				if (lignes[cptPhase].positions[i] != null)
+				if (lignes[cptPhase].positions[i] != null) 
 					inv.setPosition(lignes[cptPhase].positions[i]);
 			}
 			

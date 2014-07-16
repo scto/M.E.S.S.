@@ -16,7 +16,7 @@ public class Sides implements Pos {
 			getConst(e);
 			e.dir.rotate(45 + (CSG.R.nextFloat() * 80));
 		} else {
-			e.pos.x = Stats.GZW_PLUS_MARGIN;
+			e.pos.x = Stats.WIDTH_PLUS_MARGIN;
 			getConst(e);
 			// -45 to - 125
 			e.dir.rotate(-45 - (CSG.R.nextFloat() * 80));
@@ -26,7 +26,6 @@ public class Sides implements Pos {
 	}
 
 	private void getConst(Enemy e) {
-		e.dir.x = 0;
-		e.dir.y = -e.getEnemyStats().getSpeed();
+		e.dir.set(0, -e.getEnemyStats().getSpeed());
 	}
 }

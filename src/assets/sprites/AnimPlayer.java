@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import elements.particular.particles.Particles;
 
-public class AnimPlayer{
+public class AnimPlayer {
 	
 	private static float timeRight, timeLeft;
 	public static final TextureRegion[] TEXTURES = initAnimation();

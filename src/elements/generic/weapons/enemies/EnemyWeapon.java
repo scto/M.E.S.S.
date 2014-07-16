@@ -15,7 +15,7 @@ public abstract class EnemyWeapon extends Weapon {
 	private static float tmpFloat;
 	public static float nextGraze = 0;
 	private static final Vector2 tmpV = new Vector2();
-	protected static final float ALTERNATE_COLOR = AssetMan.convertARGB(1, 0.8f, 0.7f, 08f), KINDER_WEAPON_COLOR = AssetMan.convertARGB(1, 1f, 1f, 0.3f);
+	protected static final float ALTERNATE_COLOR = AssetMan.convertARGB(1, 0.8f, 0.7f, 08f), KINDER_WEAPON_COLOR = AssetMan.convertARGB(1, 1f, 0.5f, 0.7f);
 	
 	public boolean testCollisionVaisseau() {
 		tmpV.set(Player.xCenter, Player.yCenter);

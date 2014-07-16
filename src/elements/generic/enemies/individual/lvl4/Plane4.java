@@ -19,7 +19,7 @@ public class Plane4 extends Plane3 {
 	protected void shootDouble() {
 		TMP_POS.set(pos.x - OFFSET_WEAPON_LEFT, pos.y + OFFSET_WEAPON_Y);
 		AbstractShot.shootDownRandom(Gatling.FIREBALL, TMP_POS, Stats.U20, 10);
-		TMP_POS.set(pos.y + OFFSET_WEAPON_Y, pos.x + OFFSET_WEAPON_RIGHT);
+		TMP_POS.x = pos.x + OFFSET_WEAPON_RIGHT;
 		AbstractShot.shootDownRandom(Gatling.FIREBALL, TMP_POS, Stats.U20, 10);
 	}
 	@Override

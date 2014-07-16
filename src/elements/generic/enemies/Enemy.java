@@ -89,7 +89,7 @@ public abstract class Enemy extends Element implements Poolable {
 						ALERT_WIDTH, (DETECT_RANGE + (pos.x + getDimensions().width)) + Stats.U6);
 				batch.setColor(AssetMan.WHITE);
 				// right
-			} else if (pos.x > CSG.width && pos.x < Stats.GZW_PLUS_MARGIN) { 
+			} else if (pos.x > CSG.width && pos.x < Stats.WIDTH_PLUS_MARGIN) { 
 				batch.setColor(1, 0, 0.5f, 1);
 				batch.draw(AssetMan.dust, CSG.width - ALERT_HALF_WIDTH, pos.y - Stats.U3, ALERT_WIDTH,
 						(DETECT_RANGE + (CSG.halfWidth - pos.x)) + Stats.U6);
@@ -137,8 +137,8 @@ public abstract class Enemy extends Element implements Poolable {
 		pos.y += (a.dir.y * tmpDeltaMulImpact);
 		if (pos.x + getDimensions().width < -Stats.WIDTH_DIV_10)
 			pos.x = Stats.WIDTH_DIV_10 - getDimensions().width;
-		if (pos.x > Stats.GZW_PLUS_MARGIN)
-			pos.x = Stats.GZW_PLUS_MARGIN;
+		if (pos.x > Stats.WIDTH_PLUS_MARGIN)
+			pos.x = Stats.WIDTH_PLUS_MARGIN;
 		if (pos.y > CSG.heightPlus4 + getDimensions().height)
 			pos.y = CSG.heightPlus4 + getDimensions().height - 1;
 		return true;

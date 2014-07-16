@@ -38,7 +38,7 @@ public class Sat extends Enemy {
 	}
 
 	public void init() {
-		pos.set(Stats.GZW_PLUS_MARGIN, CSG.heightDiv10Mul3 - DIMENSIONS.halfWidth);
+		pos.set(Stats.WIDTH_PLUS_MARGIN, CSG.heightDiv10Mul3 - DIMENSIONS.halfWidth);
 		dir.x = -getEnemyStats().getSpeed();
 		launched = 0;
 		goodShape = true;
@@ -90,9 +90,6 @@ public class Sat extends Enemy {
 		super.move();
 	}
 
-	/**
-	 * 
-	 */
 	protected void all() {
 		add1();
 		add2();
@@ -101,9 +98,6 @@ public class Sat extends Enemy {
 		add5();
 	}
 
-	/**
-	 * 
-	 */
 	protected void add5() {
 		AddStat.pool.obtain().lancer(0, -1, pos.x + X_3, pos.y, ANGLE_5);
 	}

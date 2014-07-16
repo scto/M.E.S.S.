@@ -3,6 +3,7 @@ package menu;
 import jeu.CSG;
 import jeu.Physic;
 import jeu.mode.EndlessMode;
+import assets.sprites.AnimPlayer;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -32,7 +33,8 @@ public class JeuBackground {
 			vaisseau.shot();
 		}
 		if (Player.POS.y > Player.HEIGHT) {
-			Player.POS.y -= EndlessMode.delta15;
+			Player.POS.y -= EndlessMode.delta25 * 4;
+			AnimPlayer.state = 2;
 			vaisseau.routineAdds();
 		} else
 			Player.POS.y = Player.HEIGHT;

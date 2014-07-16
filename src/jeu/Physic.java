@@ -29,8 +29,7 @@ public class Physic {
 	}
 	
 	public static boolean isOnScreenWithTolerance(final Vector2 position, final float hauteur, final float largeur) {
-		if (position.y + hauteur < -CSG.heightDiv10 || position.x + largeur < -Stats.WIDTH_DIV_10 ||
-				position.x > Stats.GZW_PLUS_MARGIN  || position.y > CSG.heightPlus4 + hauteur)
+		if (position.y + hauteur < -CSG.heightDiv10 || position.x + largeur < -Stats.WIDTH_DIV_10 || position.x > Stats.WIDTH_PLUS_MARGIN  || position.y > CSG.heightPlus4 + hauteur)
 			return false;
 		return true;
 	}

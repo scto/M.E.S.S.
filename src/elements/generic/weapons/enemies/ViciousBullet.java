@@ -2,6 +2,7 @@ package elements.generic.weapons.enemies;
 
 import jeu.Physic;
 import jeu.Stats;
+import jeu.mode.EndlessMode;
 import assets.AssetMan;
 import assets.sprites.Animations;
 
@@ -30,6 +31,7 @@ public class ViciousBullet extends EnemyWeapon implements InvocableWeapon{
 				phase2 = true;
 			}
 		} 
+		angle += EndlessMode.delta25 * (Math.abs(dir.x) + Math.abs(dir.y));
 		super.move();
 	}
 	
@@ -50,10 +52,8 @@ public class ViciousBullet extends EnemyWeapon implements InvocableWeapon{
 	}
 	@Override
 	public void init(Vector2 position, Vector2 direction) {
-		this.pos.x = position.x;
-		this.pos.y = position.y;
-		this.dir.x = direction.x * 2;
-		this.dir.y = direction.y * 2;
+		this.pos.set(position);
+		this.dir.set(direction.x * 2, direction.y * 2);
 		ENEMIES_LIST.add(this);
 	}
 	

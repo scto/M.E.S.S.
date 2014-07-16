@@ -30,6 +30,7 @@ public class Shooter extends Enemy {
 		Positionner.UP_WIDE.set(this);
 		nextShot = 2f;
 		dir.set(0, -getEnemyStats().getSpeed());
+		goodShape = true;
 	}
 	
 	@Override

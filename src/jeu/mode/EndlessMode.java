@@ -58,10 +58,9 @@ public class EndlessMode implements Screen {
 	// *************************  D  P  A  D  ****************************
 
 	public static final OrthographicCamera cam = new OrthographicCamera(CSG.width, CSG.height);
-	public static int difficulty, nbBonusStop = 0, nbBombes = 0;
+	public static int difficulty = 1, freezeBonus = 0, bombs = 0;
 	public static float bloomOriginalIntensity = 1, delta = 0, timeStopBonus = 0, delta15 = 0, deltaDiv3, deltaDiv2, delta2, deltaU, deltaMicroU, UnPlusDelta, unPlusDelta2, unPlusDelta3, deltaPlusExplosion, delta25, delta4;
-	public static boolean effetBloom = false, xpAjout = false, drawMenu = false, konamiCode = false;
-	private static boolean choosen = false, willUseStopBonus = false;
+	public static boolean effetBloom = false, xpAjout = false, konamiCode = false;
 	private static int menuX = 0, menuY = 0;
 	private int advice = 0;
 //	private static ShaderProgram shaderMort = ShaderMort.init(), originalShader;
@@ -120,12 +119,11 @@ public class EndlessMode implements Screen {
         now = 0;
         timeSinceLost = 0;
         Enemy.clear();
-        Gdx.graphics.setVSync(false);
         SoundMan.playMusic();
 		timeStopBonus = 0;
-		nbBonusStop = 0;
+		freezeBonus = 0;
 		triggerStop = false;
-		nbBombes = 0;
+		bombs = 0;
 		Buttons.init();
 		Weapon.clear();
 		Progression.reset();
@@ -181,7 +179,7 @@ public class EndlessMode implements Screen {
 		if (!pause && !freeze) {
 			if (delta < 1) { 
 				EndlessMode.delta = delta;
-				if ( (drawMenu || choosen) && CSG.profile.controls != CSG.CONTROLE_ACCELEROMETRE)
+				if (!Gdx.input.isTouched())
 					EndlessMode.delta = delta / 7;
 				if (CSG.profile.isFirstTime()) 
 					tuto.act(batch);
@@ -221,7 +219,6 @@ public class EndlessMode implements Screen {
 			affichagePerdu();
 			Buttons.backButton(batch, game);
 			if (Gdx.input.justTouched()) {
-				drawMenu = false;
 				pause = false;
 				justTouched = now;
 			}
@@ -240,8 +237,6 @@ public class EndlessMode implements Screen {
 		batch.end();
 		if (CSG.profile.bloom)
 			bloom.render();
-		
-//		CSG.rayHandler.updateAndRender();
 		
 		now += EndlessMode.delta;
 		ScreenShake.act();
@@ -272,12 +267,8 @@ public class EndlessMode implements Screen {
 
 	public static void majDeltas(boolean touched) {
 		deltaPlusExplosion = EndlessMode.delta + explosions;
-		if (!touched) {
+		if (!touched)
 			delta /= 5;
-			drawMenu = true;
-		} else {
-			drawMenu = false;
-		}
 		delta15 = delta * 15;
 		deltaDiv3 = delta / 3;
 		deltaDiv2 = delta / 2;
@@ -297,7 +288,7 @@ public class EndlessMode implements Screen {
 		if (timeStopBonus < 0) {
 			triggerStop = false;
 			transition.activate(20);
-			if (--nbBonusStop > 0)
+			if (freezeBonus > 0)
 				timeStopBonus += STOP;
 		}
 	}
@@ -380,13 +371,14 @@ public class EndlessMode implements Screen {
 	private void ui() {
 		Score.draw(batch, lost);
 		if (CSG.profile.manualBonus) {
-			// ****  A F F I C H E R   S T O P  ****
-			switch(nbBonusStop) {
+			System.out.println(" nb stop : " + freezeBonus);
+			System.out.println(" nb bomb : " + bombs);
+			switch(freezeBonus) {
 			case 2:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO + Bonus.WIDTH + Bonus.HALF_WIDTH, FONT_HEIGHT * 2, Bonus.WIDTH, Bonus.WIDTH);
 			case 1:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO, FONT_HEIGHT * 2, Bonus.WIDTH, Bonus.WIDTH);
 			case 0:
 			}
-			switch(nbBombes) {
+			switch(bombs) {
 			case 3:	batch.draw(AssetMan.bomb, CSG.halfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 3 + Bonus.HALF_WIDTH * 3, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
 			case 2:	batch.draw(AssetMan.bomb, CSG.halfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 2 + Bonus.HALF_WIDTH * 2, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
 			case 1:	batch.draw(AssetMan.bomb, CSG.halfWidth + cam.position.x + X_CHRONO + Bonus.WIDTH * 1 + Bonus.HALF_WIDTH * 1, Bonus.HALF_WIDTH, Bonus.WIDTH, Bonus.WIDTH);
@@ -431,35 +423,23 @@ public class EndlessMode implements Screen {
 	}
 
 	public static void mouvement() {
-//		Controls.act(ship);
 		if (Gdx.input.justTouched())
 			justeTouche();
-		else {
-			if (Gdx.input.isTouched()) {
-				if (!choosen &&	willUseStopBonus) {
-					activateStop();
-					willUseStopBonus = false;
-				}
-			} else {
-				pasTouche();
-			}
-		}
-
+		else if (Gdx.input.isTouched()) {
+			menuX = Gdx.input.getX();
+			menuY = CSG.height - Gdx.input.getY();
+		} else 
+			pasTouche();
 	}
 
 	private static void pasTouche() {
 		Buttons.removeBack();
-		if (drawMenu && CSG.profile.manualBonus)	{
-			if (nbBonusStop > 0 && !triggerStop) batch.draw(AssetMan.stopBonus,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
+		if (CSG.profile.manualBonus)	{
+			if (freezeBonus > 0 && !triggerStop) batch.draw(AssetMan.stopBonus,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			else batch.draw(AssetMan.stopBonusGrey,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			
-			if (nbBombes > 0) batch.draw(AssetMan.bomb, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
+			if (bombs > 0) batch.draw(AssetMan.bomb, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
 			else batch.draw(AssetMan.bombGrey, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
-			
-		} else if (!choosen) {
-//			drawMenu = true;
-			menuX = Gdx.input.getX();
-			menuY = CSG.height - Gdx.input.getY();
 		}
 	}
 
@@ -471,21 +451,12 @@ public class EndlessMode implements Screen {
 	}
 
 	private static void justeTouche() {
-		if (drawMenu) { // ---- SELECTION
-			drawMenu = false;
-			
-			if (nbBonusStop > 0 &&
-					Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
-				willUseStopBonus = true;
-				choosen = true;
-			} else if (nbBombes > 0 &&
-					Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
-				Enemy.bombe();
-				nbBombes--;
-				choosen = true;
-			}
-		} else { 		// ---- REPRISE JEU
-			choosen = false;
+		if (freezeBonus > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
+			activateStop();
+			freezeBonus--;
+		} else if (bombs > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
+			Enemy.bombe();
+			bombs--;
 		}
 	}
 
@@ -502,8 +473,9 @@ public class EndlessMode implements Screen {
 
 	public static void addBonusStop() {
 		if (CSG.profile.manualBonus) {
-			nbBonusStop++;
-			if (nbBonusStop > 2) {
+			freezeBonus++;
+			if (freezeBonus > 2) {
+				freezeBonus = 2;
 				activateStop();
 			}
 		} else {
@@ -513,7 +485,7 @@ public class EndlessMode implements Screen {
 	}
 
 	public static void ajoutBombe() {
-		if (CSG.profile.manualBonus && nbBombes < 3)	nbBombes++;
+		if (CSG.profile.manualBonus && bombs < 3)	bombs++;
 		else 											Enemy.bombe();
 	}
 	
@@ -543,10 +515,7 @@ public class EndlessMode implements Screen {
 	
 	public static void reset() {
 		Particles.clear();
-		drawMenu = false;
-		choosen = false;
 		ship = new Player();
-		willUseStopBonus = false;
 		menuX = (int) Player.POS.x;
 		menuY = (int) Player.POS.y;
 		triggerStop = false;

@@ -15,7 +15,7 @@ public enum EnemyStats {
 	
 	BASIC(
 			8,
-			9, Stats.MULTI_SPEED[1], Stats.MULTI_SPEED[2], Stats.MULTI_SPEED[3] * 2,
+			9, Stats.MULTI_SPEED[1], Stats.MULTI_SPEED[2] * 2, Stats.MULTI_SPEED[3] * 2,
 			1,
 			25),
 	GROUP(
@@ -157,34 +157,34 @@ public enum EnemyStats {
 	}
 
 	public float getSpeed() {
-		return speeds[EndlessMode.difficulty];
+		return speeds[EndlessMode.difficulty-1];
 	}
 
 	public int getHalfHp() {
-		return halfHps[EndlessMode.difficulty];
+		return halfHps[EndlessMode.difficulty-1];
 	}
 
 	public int getTwoThirdsHps() {
-		return twoThirdsHps[EndlessMode.difficulty];
+		return twoThirdsHps[EndlessMode.difficulty-1];
 	}
 	
 	public int getOneThirdHps() {
-		return oneThirdHps[EndlessMode.difficulty];
+		return oneThirdHps[EndlessMode.difficulty-1];
 	}
 
 	public int getHp() {
-		return hps[EndlessMode.difficulty];
+		return hps[EndlessMode.difficulty-1];
 	}
 
 	public float getHalfSpeed() {
-		return halfSpeeds[EndlessMode.difficulty];
+		return halfSpeeds[EndlessMode.difficulty-1];
 	}
 
 	public int getXp() {
-		return xp[EndlessMode.difficulty];
+		return xp[EndlessMode.difficulty-1];
 	}
 
 	public int getBonusValue() {
-		return bonusValue[EndlessMode.difficulty];
+		return bonusValue[EndlessMode.difficulty-1];
 	}
 }

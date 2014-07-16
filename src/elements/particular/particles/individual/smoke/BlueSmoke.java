@@ -12,18 +12,17 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 public class BlueSmoke implements Poolable{
 	
-	private float x, y;//, alpha, width;
+	private float x, y;
 	private int index;
 	private static final float INITIAL_WIDTH = ((Stats.U * 8) / 3), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
-	private static final float[] colors = initAlphas();
-	private static final float[] widths = initWidths();
-	private static final float[] halfWidths = CSG.getDifferences(widths);
+	private static final float[] colors = initAlphas(), widths = initWidths(), halfWidths = CSG.getDifferences(widths);
 	public static final Pool<BlueSmoke> POOL = new Pool<BlueSmoke>() {
 		@Override
 		protected BlueSmoke newObject() {
 			return new BlueSmoke();
 		}
 	};
+	
 	public static void act(Array<BlueSmoke> smoke, SpriteBatch batch) {
 		for (BlueSmoke s : smoke) {
 			batch.setColor(colors[s.index]);

@@ -9,17 +9,17 @@ import elements.generic.enemies.individual.bosses.Sat;
 
 public class SpawnEnemyPosition {
 	public static final Vector2 middle = new Vector2(CSG.halfWidth, CSG.height),
-	_05sur10 = new Vector2(CSG.halfWidth * 0.05f, CSG.height),
-	_1sur10 = new Vector2(CSG.halfWidth * 0.1f, CSG.height),
-	_2sur10 = new Vector2(CSG.halfWidth * 0.2f, CSG.height),
-	_3sur10 = new Vector2(CSG.halfWidth * 0.3f, CSG.height),
-	_4sur10 = new Vector2(CSG.halfWidth * 0.4f, CSG.height),
-	_5sur10 = new Vector2(CSG.halfWidth * 0.5f, CSG.height),
-	_6sur10 = new Vector2(CSG.halfWidth * 0.6f, CSG.height),
-	_7sur10 = new Vector2(CSG.halfWidth * 0.7f, CSG.height),
-	_8sur10 = new Vector2(CSG.halfWidth * 0.8f, CSG.height),
-	_9sur10 = new Vector2(CSG.halfWidth * 0.9f, CSG.height),
-	_95sur10 = new Vector2(CSG.halfWidth * 0.95f, CSG.height);
+	_05sur10 = new Vector2(CSG.width * 0.05f, CSG.height),
+	_1sur10 = new Vector2(CSG.width * 0.1f, CSG.height),
+	_2sur10 = new Vector2(CSG.width * 0.2f, CSG.height),
+	_3sur10 = new Vector2(CSG.width * 0.3f, CSG.height),
+	_4sur10 = new Vector2(CSG.width * 0.4f, CSG.height),
+	_5sur10 = new Vector2(CSG.width * 0.5f, CSG.height),
+	_6sur10 = new Vector2(CSG.width * 0.6f, CSG.height),
+	_7sur10 = new Vector2(CSG.width * 0.7f, CSG.height),
+	_8sur10 = new Vector2(CSG.width * 0.8f, CSG.height),
+	_9sur10 = new Vector2(CSG.width * 0.9f, CSG.height),
+	_95sur10 = new Vector2(CSG.width * 0.95f, CSG.height);
 	private static final Vector2 _bossSatUp = new Vector2((CSG.halfWidth-1)+Sat.DIMENSIONS.halfWidth, CSG.height * 0.7f);
 	private static final Vector2 _bossSatDown = new Vector2((CSG.halfWidth-1)+Sat.DIMENSIONS.halfWidth, CSG.height * 0.35f);
 	
@@ -43,7 +43,6 @@ public class SpawnEnemyPosition {
 	private static final Vector2[] _8 = {_8sur10};
 	private static final Vector2[] _9 = {_9sur10};
 	private static final Vector2[] _4_5_6 = {_4sur10, _5sur10, _6sur10};
-	private static final Vector2[] _3_5_7 = {_3sur10, _5sur10, _7sur10};
 	private static final Vector2[] _4_6 = {_4sur10, _6sur10};
 	private static final Vector2[] _3_7 = {_3sur10, _7sur10};
 	private static final Vector2[] _2_8 = {_2sur10, _8sur10};
@@ -123,12 +122,10 @@ public class SpawnEnemyPosition {
 	private static final Merlin[] _1quiTir24 = {Merlin.SHOOTER_FRAG4};
 	private static final Merlin[] _2quiTir2 = {Merlin.SHOOTER_FRAG, Merlin.SHOOTER_FRAG};
 	private static final Merlin[] _2quiTir23 = {Merlin.SHOOTER_FRAG3, Merlin.SHOOTER_FRAG3};
-	private static final Merlin[] _2quiTir24 = {Merlin.SHOOTER_FRAG4, Merlin.SHOOTER_FRAG4};
 	
 	private static final Merlin[] _2porteRaisin3 = {Merlin.CRUSADER3, Merlin.CRUSADER3};
 	private static final Merlin[] _2porteRaisin4 = {Merlin.CRUSADER4, Merlin.CRUSADER4};
 	private static final Merlin[] _2porteRaisin = {Merlin.CRUSADER, Merlin.CRUSADER};
-	private static final Merlin[] _3porteRaisin = {Merlin.CRUSADER, Merlin.CRUSADER, Merlin.CRUSADER};
 	private static final Merlin[] _1insecte = {Merlin.INSECT};
 	private static final Merlin[] _1insecte3 = {Merlin.INSECT3};
 	private static final Merlin[] _1insecte4 = {Merlin.INSECT4};
@@ -151,8 +148,6 @@ public class SpawnEnemyPosition {
 								deBase3_2_8 = new SpawnEnemyPosition(_2deBase3, _2_8), 
 								deBase3_1_9 = new SpawnEnemyPosition(_2deBase3, _1_9),
 								deBase3_4_5_7 = new SpawnEnemyPosition(_3deBase3, _4_5_6),
-								deBase3_3_4_6_7 = new SpawnEnemyPosition(_4deBase3, _3_4_6_7),
-								deBase3_2_3_7_8 = new SpawnEnemyPosition(_4deBase3, _2_3_7_8),
 								deBase3_1_2_8_9 = new SpawnEnemyPosition(_4deBase3, _1_2_8_9),
 								deBase4_1_3_5_7_9 = new SpawnEnemyPosition(_5deBase4, _1_3_5_7_9),
 								deBase4Centre = new SpawnEnemyPosition(_1deBase4, _1middle),
@@ -167,7 +162,6 @@ public class SpawnEnemyPosition {
 								boule3Rnd = new SpawnEnemyPosition(_1boule3, _1random),
 								boule4Rnd = new SpawnEnemyPosition(_1boule4, _1random),
 								bouleMid = new SpawnEnemyPosition(_1boule, _1middle),
-								boule3Mid = new SpawnEnemyPosition(_1boule3, _1middle),
 								boule4Mid = new SpawnEnemyPosition(_1boule4, _1middle),
 								boule1_9 = new SpawnEnemyPosition(_2boules, _1_9),
 								boule31_9 = new SpawnEnemyPosition(_2boules3, _1_9),
@@ -195,26 +189,20 @@ public class SpawnEnemyPosition {
 								zigZag32_8 = new SpawnEnemyPosition(_2zigZag3, _2_8),
 								zigZag42_8 = new SpawnEnemyPosition(_2zigZag4, _2_8),
 								zigZag1sur10 = new SpawnEnemyPosition(_1zigZag, _1),
-								zigZag31sur10 = new SpawnEnemyPosition(_1zigZag3, _1),
 								zigZag41sur10 = new SpawnEnemyPosition(_1zigZag4, _1),
 								zigZag2sur10 = new SpawnEnemyPosition(_1zigZag, _2),
-								zigZag32sur10 = new SpawnEnemyPosition(_1zigZag3, _2),
 								zigZag42sur10 = new SpawnEnemyPosition(_1zigZag4, _2),
 								zigZag3sur10 = new SpawnEnemyPosition(_1zigZag, _3),
-								zigZag33sur10 = new SpawnEnemyPosition(_1zigZag3, _3),
 								zigZag43sur10 = new SpawnEnemyPosition(_1zigZag4, _3),
 								zigZag4sur10 = new SpawnEnemyPosition(_1zigZag, _4),
 								zigZag5sur10 = new SpawnEnemyPosition(_1zigZag, _5),
 								zigZag6sur10 = new SpawnEnemyPosition(_1zigZag, _6),
 								zigZag7sur10 = new SpawnEnemyPosition(_1zigZag, _7),
-								zigZag37sur10 = new SpawnEnemyPosition(_1zigZag3, _7),
 								zigZag47sur10 = new SpawnEnemyPosition(_1zigZag4, _7),
 								zigZag8sur10 = new SpawnEnemyPosition(_1zigZag, _8),
-								zigZag38sur10 = new SpawnEnemyPosition(_1zigZag3, _8),
 								zigZag48sur10 = new SpawnEnemyPosition(_1zigZag4, _8),
 								zigZag9sur10 = new SpawnEnemyPosition(_1zigZag, _9),
-								zigZag49sur10 = new SpawnEnemyPosition(_1zigZag4, _9),
-								zigZag39sur10 = new SpawnEnemyPosition(_1zigZag3, _9);
+								zigZag49sur10 = new SpawnEnemyPosition(_1zigZag4, _9);
 	private static final SpawnEnemyPosition 	quiTirRnd = new SpawnEnemyPosition(_1quiTir, _1random),
 								quiTir3Rnd = new SpawnEnemyPosition(_1quiTir3, _1random),
 								quiTir4Rnd = new SpawnEnemyPosition(_1quiTir4, _1random),
@@ -263,16 +251,14 @@ public class SpawnEnemyPosition {
 								quiTir24Mid = new SpawnEnemyPosition(_1quiTir24, _1middle),
 								quiTir2Mid = new SpawnEnemyPosition(_1quiTir2, _1middle),
 								quiTir2_2_8 = new SpawnEnemyPosition(_2quiTir2, _2_8),
-								quiTir23_2_8 = new SpawnEnemyPosition(_2quiTir23, _2_8),
-								quiTir24_2_8 = new SpawnEnemyPosition(_2quiTir24, _2_8);
+								quiTir23_2_8 = new SpawnEnemyPosition(_2quiTir23, _2_8);
 	private static final SpawnEnemyPosition 	quiTourneMid = new SpawnEnemyPosition(_1DIABOLO, _1middle),
 								quiTourne3Mid = new SpawnEnemyPosition(_1quiTourne3, _1middle),
 								quiTourne4Mid = new SpawnEnemyPosition(_1quiTourne4, _1middle);
 	private static final SpawnEnemyPosition 	laserMid = new SpawnEnemyPosition(_1laser, _1middle),
 								laser3Mid = new SpawnEnemyPosition(_1laser3, _1middle),
 								laser4Mid = new SpawnEnemyPosition(_1laser4, _1middle);
-	private static final SpawnEnemyPosition 	porteRaisin_3_5_7 = new SpawnEnemyPosition(_3porteRaisin, _3_5_7),
-								porteRaisin_2_8 = new SpawnEnemyPosition(_2porteRaisin, _2_8),
+	private static final SpawnEnemyPosition porteRaisin_2_8 = new SpawnEnemyPosition(_2porteRaisin, _2_8),
 								porteRaisin3_2_8 = new SpawnEnemyPosition(_2porteRaisin3, _2_8),
 								porteRaisin4_2_8 = new SpawnEnemyPosition(_2porteRaisin4, _2_8);
 	private static final SpawnEnemyPosition 	kinderRnd = new SpawnEnemyPosition(_1kinder, _1random),

@@ -127,7 +127,7 @@ public class Quad extends Enemy {
 		return super.getPvBoss(getEnemyStats().getHp());	
 	}
 	@Override	protected Sound getExplosionSound() {	return SoundMan.bigExplosion;						}
-	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.BOSS_MINE;						}
+	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.BOSS_QUAD;						}
 	@Override	public Animations getAnimation() {		return Animations.QUAD;					}
 	@Override	public void addShots(int i) {			this.shotNumber += i;					}
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;									}
