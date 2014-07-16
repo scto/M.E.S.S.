@@ -127,4 +127,21 @@ public abstract class Mover {
 		else if (e.pos.x > CSG.halfWidth)
 			e.dir.x -= force * EndlessMode.delta;
 	}
+
+	public static float tmp;
+	public static void orbitPlayer(Enemy e, float min) {
+		CSG.tmpPos.set(Player.xCenter - (e.pos.x + e.getDimensions().halfWidth), Player.yCenter - (e.pos.y - e.getDimensions().halfHeight));
+		CSG.tmpDir.set(CSG.tmpPos);
+		tmp = CSG.tmpPos.len();
+		
+		// GET CLOSER
+		if (tmp > min) {
+			CSG.tmpPos.scl(0.99f);
+		// GO AWAY
+		} else {
+			CSG.tmpPos.scl(1.01f);
+		}
+		CSG.tmpPos.rotate(EndlessMode.delta15);
+		
+	}
 }

@@ -13,6 +13,8 @@ public class Ball4 extends Ball3 {
 	
 	public static final Pool<Ball4> POOL = Pools.get(Ball4.class);
 	
+	
+	
 	@Override
 	protected void shoot() {
 		TMP_POS.x = (pos.x + DIMENSIONS.halfWidth - PinkBullet.DIMENSIONS.halfWidth);
