@@ -117,6 +117,7 @@ public class Sat extends Enemy {
 	protected void add3() {
 		AddStat.pool.obtain().lancer(-1, 0, pos.x, pos.y + Y_1, 180);
 	}
+	
 	@Override
 	public boolean isTouched(Weapon a) {
 		if (hp < HALF_HP)

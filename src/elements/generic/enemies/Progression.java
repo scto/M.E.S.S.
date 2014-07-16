@@ -16,11 +16,11 @@ public final class Progression {
 	private static final float KEEP_COOL = 2f;
 	
 	private final static Wave[] FILLING = {
-		Wave.CYLONS, Wave.BASICS10, Wave.KINDER, Wave.BASICS_N_DIABOLO, Wave.GROUP, Wave.VICIOUS		};
+		Wave.CYLON_OR_BALL1, Wave.BASICS10, Wave.KINDER, Wave.BASICS_N_DIABOLO, Wave.GROUP, Wave.VICIOUS		};
 	private final static Wave[] FILLING3 = {
-		Wave.CYLON3, Wave.BASICS10_LVL3, Wave.KINDER3, Wave.BASICS_N_DIABOLO3, Wave.ROTATION_BALL, Wave.GROUP3, Wave.VICIOUS		};
+		Wave.CYLON_OR_BALL_LVL3, Wave.BASICS10_LVL3, Wave.KINDER3, Wave.BASICS_N_DIABOLO3, Wave.ROTATION_BALL, Wave.GROUP3, Wave.VICIOUS		};
 	private final static Wave[] FILLING4 = {
-		Wave.CYLON4, Wave.BASICS10_LVL4, Wave.KINDER4, Wave.GROUP4, Wave.VICIOUS		};
+		Wave.CYLON_OR_BALL_LVL4, Wave.BASICS10_LVL4, Wave.KINDER4, Wave.GROUP4, Wave.VICIOUS		};
 	private final static Wave[] LVL1 = {
 		Wave.LVL1_3,
 		Wave.LVL1_170,
@@ -92,7 +92,7 @@ public final class Progression {
 		Wave.LVL4_12000,
 		Wave.LVL4_16000
 	};
-	private final static Wave[] BOSSES = { Wave.bossMine, Wave.bossQuad	};
+	private final static Wave[] BOSSES = { Wave.MINE, Wave.QUAD	};
 	
 	private Progression() {
 	}

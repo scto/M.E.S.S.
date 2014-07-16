@@ -176,7 +176,7 @@ public class SpawnEnemyPosition {
 								_toupie3Rnd = new SpawnEnemyPosition(_1toupie3, _1random),
 								_toupie4Rnd = new SpawnEnemyPosition(_1toupie4, _1random),
 								_toupie8 = new SpawnEnemyPosition(_1toupie, _8);
-	private static final SpawnEnemyPosition 	zigZagRnd = new SpawnEnemyPosition(_1zigZag, _9),
+	private static final SpawnEnemyPosition 
 								zigZag3Rnd = new SpawnEnemyPosition(_1zigZag3, _1random),
 								zigZag4Rnd = new SpawnEnemyPosition(_1zigZag4, _1random),
 								zigZagRight = new SpawnEnemyPosition(_1zigZag, _9),
@@ -553,23 +553,23 @@ public class SpawnEnemyPosition {
 	public static final SpawnEnemyPosition[] lvl1_insecte2 = {insecte_3, pause, pause, pause, pause, insecte_7};
 	public static final SpawnEnemyPosition[] lvl3_insecte2 = {insecte3Rnd, pause, pause, pause, pause, insecte3Right};
 	public static final SpawnEnemyPosition[] lvl4_insecte2 = {insecte4Rnd, pause, pause, pause, pause, insecte4Right};
-	public static final SpawnEnemyPosition[] lvl1_kinder = {	kinderRnd, pause, kinderRnd	};
-	public static final SpawnEnemyPosition[] lvl3_kinder = {	kinder3Rnd, pause, kinder3Rnd	};
+	public static final SpawnEnemyPosition[] KINDER_LVL4 = {	kinderRnd, pause, kinderRnd	};
+	public static final SpawnEnemyPosition[] KINDER_LVL3 = {	kinder3Rnd, pause, kinder3Rnd	};
 	public static final SpawnEnemyPosition[] lvl4_kinder = {	kinder4Rnd, pause, kinder4Rnd	};
-	public static final SpawnEnemyPosition[] lvl1_remplissage = { cylonRnd, bouleRnd	};
-	public static final SpawnEnemyPosition[] lvl3_remplissage = { cylon3Rnd, boule3Rnd	};
-	public static final SpawnEnemyPosition[] lvl4_remplissage = { cylon4Rnd, boule4Rnd	};
-	public static final SpawnEnemyPosition[] lvl1_deBase_1_to_10 = {	deBase_1_3_5_7_9 };
-	public static final SpawnEnemyPosition[] lvl3_deBase_1_to_10 = {	deBase3_1_3_5_7_9 };
-	public static final SpawnEnemyPosition[] lvl4_deBase_1_to_10 = {	deBase4_1_3_5_7_9 };
+	public static final SpawnEnemyPosition[] CYLON_OR_BALL_LVL1 = { cylonRnd, bouleRnd	};
+	public static final SpawnEnemyPosition[] CYLON_OR_BALL_LVL3 = { cylon3Rnd, boule3Rnd	};
+	public static final SpawnEnemyPosition[] CYLON_OR_BALL_LVL4 = { cylon4Rnd, boule4Rnd	};
+	public static final SpawnEnemyPosition[] BASICS_LVL1 = {	deBase_1_3_5_7_9 };
+	public static final SpawnEnemyPosition[] BASICS_LVL3 = {	deBase3_1_3_5_7_9 };
+	public static final SpawnEnemyPosition[] BASICS_LVL4 = {	deBase4_1_3_5_7_9 };
 	public static final SpawnEnemyPosition[] lvl1_bossQuad = {bossQuad};
 	public static final SpawnEnemyPosition[] lvl1_bossMine = {bossMine};
 	public static final SpawnEnemyPosition[] satUpnDown = {satDown, pause, pause, pause, pause, satUp};
-	public static final SpawnEnemyPosition[] lvl1_remplissageQuiTourne = {
+	public static final SpawnEnemyPosition[] BASICS_AND_DIABOLO_LVL1 = {
 		deBase_2_8, pause, deBase_1_9, pause, pause, pause,
 		quiTourneMid
 	};
-	public static final SpawnEnemyPosition[] lvl3_remplissageQuiTourne = {
+	public static final SpawnEnemyPosition[] BASICS_AND_DIABOLO_LVL3 = {
 		deBase3_2_8, pause, deBase3_1_9, pause, pause, pause,
 		quiTourne3Mid
 	};
@@ -577,11 +577,11 @@ public class SpawnEnemyPosition {
 		deBase4_2_8, pause, deBase4_1_9, pause, pause, pause,
 		quiTourne4Mid
 	};
-	public static final SpawnEnemyPosition[] remplissageBouleRotation = {bouleRotationRnd};
-	public static final SpawnEnemyPosition[] vicous = {vicousRnd, pause, pause, pause, vicousRnd};
-	public static final SpawnEnemyPosition[] lvl1_group = {group};
-	public static final SpawnEnemyPosition[] lvl3_group = {group3};
-	public static final SpawnEnemyPosition[] lvl4_group = {group4};
+	public static final SpawnEnemyPosition[] ROTATION_BALL = {bouleRotationRnd};
+	public static final SpawnEnemyPosition[] VICIOUS = {vicousRnd, pause, pause, pause, vicousRnd};
+	public static final SpawnEnemyPosition[] GROUP_LVL1 = {group};
+	public static final SpawnEnemyPosition[] GROUP_LVL3 = {group3};
+	public static final SpawnEnemyPosition[] GROUP_LVL4 = {group4};
 	public final Merlin[] merlin;
 	public final Vector2[] positions;
 	
