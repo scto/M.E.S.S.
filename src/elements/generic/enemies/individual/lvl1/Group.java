@@ -46,9 +46,9 @@ public class Group extends Enemy {
 		Group e = POOL.obtain();
 		Group f = POOL.obtain();
 		Group g = POOL.obtain();
-		e.init(CSG.width - DIMENSIONS.width);
-		f.init(CSG.width - DIMENSIONS.width * 2.1f);
-		g.init(CSG.width - DIMENSIONS.width * 3.2f);
+		e.init(CSG.width - e.getDimensions().width);
+		f.init(CSG.width - e.getDimensions().width * 2.1f);
+		g.init(CSG.width - e.getDimensions().width * 3.2f);
 		return e;
 	}
 	

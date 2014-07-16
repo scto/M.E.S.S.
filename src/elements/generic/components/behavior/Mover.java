@@ -54,13 +54,11 @@ public abstract class Mover {
 	}
 
 	public static void U(Enemy e) {
-		if (e.pos.y < CSG.heightDiv10Mul3) {
-			if (!EndlessMode.alternate) {
-				if (e.getWay())
-					e.dir.rotate(EndlessMode.delta2 * e.getEnemyStats().getSpeed());
-				else
-					e.dir.rotate(EndlessMode.delta2 * -e.getEnemyStats().getSpeed());
-			}
+		if (e.pos.y < CSG.heightDiv10Mul3 && !EndlessMode.alternate) {
+			if (e.getWay())
+				e.dir.rotate(EndlessMode.delta2 * e.getEnemyStats().getSpeed());
+			else
+				e.dir.rotate(EndlessMode.delta2 * -e.getEnemyStats().getSpeed());
 		}
 		straight(e);
 	}

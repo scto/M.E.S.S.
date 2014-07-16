@@ -63,19 +63,15 @@ public class WeaponButton extends AbstractButton {
 	public void draw(SpriteBatch batch) {
 		batch.setColor(AssetMan.BLACK);
 		batch.draw(AssetMan.backgroundButton, x, y, width, heightBackground);
-//		batch.draw(AssetMan.backgroundButton, num * width, y, width, heightBackground);
 		for (Barre b : barres)
 			b.draw(batch);
 		
 		if (selected) {
 			batch.setColor(AssetMan.WHITE);
-//			batch.draw(tr, num * width, y, width, width);
-//			batch.draw(AnimPlayer.tr[2], (num * width) + offsetShip, y - Player.HEIGHT, Player.WIDTH, Player.HEIGHT);
 			batch.draw(tr, x, y, width, height);
 			batch.draw(AnimPlayer.TEXTURES[2], x + offsetShip, y - Player.HEIGHT, Player.WIDTH, Player.HEIGHT);
 		} else {
 			batch.setColor(AssetMan.ALPHA70);
-//			batch.draw(tr, (num * width) + widthDiv10, y, unselectedWidth, unselectedWidth);
 			batch.draw(tr, x + widthDiv10, y, unselectedWidth, unselectedHeight);
 		}
 		
@@ -83,18 +79,14 @@ public class WeaponButton extends AbstractButton {
 			CSG.menuFontSmall.draw(CSG.batch, "Unlock the 2 remaining weapons by getting the others at level 6 or higher ", xText, 4 + CSG.menuFontSmall.getBounds("W").height);
 			xText -= 0.3f;
 			batch.setColor(AssetMan.RED);
-//			batch.draw(AssetMan.dust, (num * width), y, 0, 		0, width*1.2f, 	Stats.u, 1, 1, 40);
-//			batch.draw(AssetMan.dust, (num * width), y, width, 	0, width, 		Stats.u, 1, 1, -35);
 			batch.draw(AssetMan.dust, x, y, 0, 		0, width*1.2f, 	Stats.u, 1, 1, 40);
 			batch.draw(AssetMan.dust, x, y, width, 	0, width, 		Stats.u, 1, 1, -35);
 			if (-CSG.menuFontSmall.getBounds("Unlock the 2 remaining weapons by getting the others at level 6 or higher ").width > xText)
 				xText = CSG.width;
 		} else {
-			if (Gdx.input.justTouched()) {
-				if (Physic.isPointInSquare(Gdx.input.getX(), CSG.height - Gdx.input.getY(), x, y, width)) {
-					CSG.profile.setArmeSelectionnee(label);
-					Player.weapon = WeaponManager.getWeaponManager(label);
-				}
+			if (Gdx.input.justTouched() && Physic.isPointInSquare(Gdx.input.getX(), CSG.height - Gdx.input.getY(), x, y, width)) {
+				CSG.profile.setArmeSelectionnee(label);
+				Player.weapon = WeaponManager.getWeaponManager(label);
 			}
 		}
 		batch.setColor(AssetMan.WHITE);

@@ -39,26 +39,21 @@ public class Buttons {
 					public void onClick() {
 					}
 			});
-		}
-		if (Gdx.input.justTouched()) {
-			if (boutonBack != null && 
-					Physic.isPointInRect(Gdx.input.getX() + EndlessMode.cam.position.x / 2, CSG.height - Gdx.input.getY(),
-							0, Menu.BUTTON_HEIGHT * 1.1f, CSG.width, Menu.BUTTON_HEIGHT * 3)) {
+		} else {
+			boutonBack.draw(batch);
+			if (Gdx.input.justTouched() && Physic.isPointInRect(Gdx.input.getX() + EndlessMode.cam.position.x / 2, CSG.height - Gdx.input.getY(), 0, Menu.BUTTON_HEIGHT * 1.1f, CSG.width, Menu.BUTTON_HEIGHT * 3)) {
 				goToMenu(game);
 				boutonBack = null;
 			}
 		}
-		if (boutonBack != null)
-			boutonBack.draw(batch);
 	}
 	
 	public static void goToMenu(Game game) {
 		CSG.profilManager.persist();
 		game.setScreen(new Menu(game));
 		Enemy.clear();
-		if (CSG.profile.xp >= 30000) {
+		if (CSG.profile.xp >= 30000)
 			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_30k_XP);
-		}
 	}
 
 	public static void initAndDrawButtons(SpriteBatch batch) {

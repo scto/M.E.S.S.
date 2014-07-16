@@ -37,9 +37,8 @@ public final class Player {
 	public static final Vector2 POS = new Vector2();
 	public static boolean leftDrone = false, rightDrone = false, leftDrone2 = false, rightDrone2 = false, alterner = true;
 	public static int shield = 0;
-	public static float alphaShield = .5f, tpsBouclierHs = 0;
+	public static float tpsBouclierHs = 0;
 	private float shotTime = 0;
-	private boolean sensAlpha = true;
 	private int addShotNbr = 0;
 	
 	public Player() {
@@ -103,23 +102,13 @@ public final class Player {
 	private void shield() {
 		if (shield > 0) {
 			bouclierParticules.add(xCenter , yCenter - Stats.u);
-			colorShield();
 		} else if (shieldHS) {
-			colorShield();
 			tpsBouclierHs += EndlessMode.delta;
 			if (tpsBouclierHs > 1f)
 				shieldHS = false;
 			bouclierParticules.grow(EndlessMode.unPlusDelta3);
 			bouclierParticules.add(xCenter , yCenter - Stats.u);
 		}
-	}
-
-	private void colorShield() {
-		if (alphaShield > .95f) sensAlpha = false;
-		if (alphaShield < .55f) sensAlpha = true;
-		
-		if (sensAlpha) alphaShield += EndlessMode.delta15;
-		else alphaShield -= EndlessMode.delta15;
 	}
 
 	private int getTouchY() {

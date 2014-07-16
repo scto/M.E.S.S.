@@ -67,14 +67,11 @@ public class Physic {
 	}
 
 	private static void collisionPlayerWeaponToEnemy(final Enemy enemy, Array<PlayerWeapon> playerList) {
-		for (final PlayerWeapon a : playerList) {
-			if (!enemy.dead && enemy.isTouched(a)) {
-				if (enemy.stillAlive(a)) {
-					a.free();
-					playerList.removeValue(a, true);
-				}
+		for (final PlayerWeapon a : playerList) 
+			if (!enemy.dead && enemy.isTouched(a) && enemy.stillAlive(a)) {
+				a.free();
+				playerList.removeValue(a, true);
 			}
-		}
 	}
 
 	public static boolean isPointInRect(final float x, final float y, final float rectX, final float rectY, final float rectWidth, final float rectHeight) {
