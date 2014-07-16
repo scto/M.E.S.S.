@@ -32,7 +32,7 @@ public class Profile implements Serializable{
 	public int dronesFirerate = 1, controls = CSG.CONTROLE_TOUCH_RELATIVE, lvlFireball = 1, lvlSweepWeapon = 1, lvlPinkWeapon = 1, lvlTWeapon = 1, lvlSunWeapon = 1, lvlSpaceInvader = 1, xp;
 	public float weaponVolume = 0.5f, musicVolume = 0.5f, effectsVolume = 0.5f, bloomIntensity = 2.1f, sensitivity = 1.5f;
 	public String selectedWeapon;
-	public boolean bloom, manualBonus, bfg, screenshake;
+	public boolean manualBonus, bfg, screenshake;
 	// -- -- string d'affichage
 	public String xpDisplay = " XP : " + xp;
 	private static boolean firstTime = false;
@@ -54,7 +54,6 @@ public class Profile implements Serializable{
 		effectsVolume = 1;
 		weaponVolume = effectsVolume / 3;
 		musicVolume = 1;
-		bloom = true; // Provoque dans de rares cas des bugs d'affichages
 		selectedWeapon = Fireball.LABEL;
 		controls = CSG.CONTROLE_TOUCH_RELATIVE;
 		bloomIntensity = 2.4f;
@@ -84,7 +83,6 @@ public class Profile implements Serializable{
 		json.writeValue(STR_VOLUME_BRUITAGES, effectsVolume);
 		json.writeValue(STR_VOLUME_MUSIQUE, musicVolume);
 		json.writeValue(STR_TYPE_CONTROLE, controls);
-		json.writeValue(STR_BLOOM, bloom);
 		json.writeValue(STR_MANUAL_BONUS, manualBonus);
 		json.writeValue(STR_SCREENSHAKE, screenshake);
 		json.writeValue(STR_INTENSITE_BLOOM, bloomIntensity);
@@ -107,7 +105,6 @@ public class Profile implements Serializable{
 		weaponVolume = effectsVolume / 3;
 		xpDisplay = "XP : " + xp;
 		controls = json.readValue(STR_TYPE_CONTROLE, Integer.class, jsonData).shortValue();
-		bloom = json.readValue(STR_BLOOM, Boolean.class, jsonData);
 		manualBonus = json.readValue(STR_MANUAL_BONUS, Boolean.class, jsonData);
 		bloomIntensity = json.readValue(STR_INTENSITE_BLOOM, Float.class, jsonData);
 		if (sensitivity < 1f)

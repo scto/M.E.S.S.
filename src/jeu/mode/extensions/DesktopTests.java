@@ -1,17 +1,13 @@
 package jeu.mode.extensions;
 
 import jeu.CSG;
-import jeu.Stats;
 import jeu.mode.EndlessMode;
-import assets.SoundMan;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
 import elements.generic.components.enemies.Merlin;
 import elements.generic.enemies.Enemy;
 import elements.generic.enemies.Wave;
-import elements.generic.enemies.individual.lvl3.Basic3;
 import elements.particular.Player;
 import elements.particular.bonuses.Bonus;
 import elements.particular.bonuses.Shield;

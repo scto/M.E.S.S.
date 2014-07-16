@@ -28,14 +28,12 @@ public class Barre implements Poolable {
 		nbr++;
 		this.y = (float) (y + CSG.R.nextGaussian() * (Stats.U3*nbr));
 		this.x = (float) (x + CSG.R.nextGaussian() * (Stats.U3*nbr));
-//		this.x = x;
 		originX = x;
 		originY = y;
 		b = (CSG.R.nextFloat() / 2) + .499f;
 		sens = true;
 		speed.x = 0;
 		speed.y = 0;
-//		angle = 0;
 		return this;
 	}
 	

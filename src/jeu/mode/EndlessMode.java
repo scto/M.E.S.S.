@@ -97,11 +97,10 @@ public class EndlessMode implements Screen {
 
 	public static void init() {
 //		batch.setShader(originalShader);
-		if (CSG.bloom != null && CSG.profile.bloom) {
+		if (CSG.bloom != null)
 			bloom.setBloomIntesity(CSG.profile.bloomIntensity);
-		} else {
-			CSG.profile.bloom = false;
-		}
+		else
+			bloom = new Bloom();
 		ship.reInit(); // Pour remettre les positions mais garder shield et adds
 		if (Gdx.app.getVersion() != 0)
 			CSG.talkToTheWorld.showAds(false); // desactiver adds. A VIRER POUR LA RELEASE
@@ -165,10 +164,7 @@ public class EndlessMode implements Screen {
 			DesktopTests.debug();
 		cam();
 		
-		if (CSG.profile.bloom)
-			bloomActive();
-		else
-			gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  //+10% de perfs !!. Si pas de bloom il faut le mettre
+		bloomActive();
 		
 		explosions = 0;
 		
@@ -196,8 +192,7 @@ public class EndlessMode implements Screen {
 				} else {
 //					batch.setShader(shaderMort);
 					if (lost && !scoreSent && !konamiCode){
-						if (CSG.profile.bloom)
-							bloom.setBloomIntesity(-1f);
+						bloom.setBloomIntesity(-1f);
 						final int monScore = Score.getRoundScore();
 						switch (difficulty) {
 						case 1:		CSG.talkToTheWorld.submitScore("CgkIrsqv7rIVEAIQKQ", monScore );	break;
@@ -228,15 +223,9 @@ public class EndlessMode implements Screen {
 			stopActivated();
 		if (CSG.profile.isFirstTime()) 
 			tuto.act(batch);
-//		if (!started) {
-//			getReady.act(batch, true);
-//			if (Gdx.input.isTouched())
-//				started = true;
-//		}
 		Particles.foreground(batch);
 		batch.end();
-		if (CSG.profile.bloom)
-			bloom.render();
+		bloom.render();
 		
 		now += EndlessMode.delta;
 		ScreenShake.act();

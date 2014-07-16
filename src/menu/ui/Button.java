@@ -105,12 +105,10 @@ public class Button extends AbstractButton {
 			b.draw(batch);
 		}
 		
-		if (Gdx.input.justTouched()) {
-			if (Physic.pointIn(sprite)) {
-				impulse(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-				if (click != null)
-					click.onClick();
-			}
+		if (Gdx.input.justTouched() && Physic.pointIn(sprite)) {
+			impulse(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+			if (click != null)
+				click.onClick();
 		}
 		act();
 	}
@@ -172,9 +170,7 @@ public class Button extends AbstractButton {
 	}
 
 	public static void testClick(Button b, float xOffset) {
-		if (b != null && Physic.isPointInRect(Gdx.input.getX() + xOffset, CSG.height - Gdx.input.getY(), 0, b.sprite.getY() - Stats.U, CSG.halfWidth, b.sprite.getHeight() + Stats.U2)) {
-			if (b.click != null)
-				b.click.onClick();
-		}
+		if (b != null && Physic.isPointInRect(Gdx.input.getX() + xOffset, CSG.height - Gdx.input.getY(), 0, b.sprite.getY() - Stats.U, CSG.halfWidth, b.sprite.getHeight() + Stats.U2) && b.click != null) 
+			b.click.onClick();
 	}
 }

@@ -128,8 +128,7 @@ public final class AssetMan implements AssetErrorListener {
 
 	public void reload() {
 		MAN.clear();
-		if (CSG.profile.bloom)
-			CSG.bloom.resume();
+		CSG.bloom.resume();
 		atlas = null;
 		load();
 		while (!fini()){

@@ -10,7 +10,6 @@ import assets.AssetMan;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -152,31 +151,24 @@ public class CSG extends Game implements ApplicationListener {
 	public static boolean alternateGraphics = false;
 	
 	public static void initBloom() {
-		if (CSG.profile.bloom) {
-			try {
-				bloom = new Bloom();
-				bloom.setBloomIntesity(CSG.profile.bloomIntensity);
-			} catch (Exception e) {
-				e.printStackTrace();
-				CSG.profile.bloom = false;
-			}
-		} 
+		try {
+			bloom = new Bloom();
+			bloom.setBloomIntesity(CSG.profile.bloomIntensity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void begin(float delta) {
 		EndlessMode.delta = delta;
 		EndlessMode.majDeltas(true);
 		EndlessMode.now += delta;
-		if (CSG.profile.bloom)
-			bloom.capture();
-		else
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		bloom.capture();
 	}
 
 	public static void end() {
 		batch.end();
-		if (CSG.profile.bloom)
-			bloom.render();
+		bloom.render();
 	}
 	
 	public static float[] convert(Array<Float> tmp) {

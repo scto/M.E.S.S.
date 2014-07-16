@@ -4,17 +4,17 @@ import com.badlogic.gdx.utils.Array;
 
 public class Phase {
 	
-	private final Array<Action> actions = new Array<Action>();
+	private final Array<OnClick> actions = new Array<OnClick>();
 
-	public Phase(Action... actions) {
+	public Phase(OnClick... actions) {
 		super();
-		for (Action a : actions)
+		for (OnClick a : actions)
 			this.actions.add(a);
 	}
 	
 	public void act() {
-		for (Action a : actions)
-			a.action();
+		for (OnClick a : actions)
+			a.onClick();
 	}
 	
 }

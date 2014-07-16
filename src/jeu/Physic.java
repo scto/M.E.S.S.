@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.Array;
 
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.Weapon;
-import elements.generic.weapons.enemies.EnemyWeapon;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.Player;
 

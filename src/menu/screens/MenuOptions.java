@@ -71,8 +71,7 @@ public class MenuOptions extends AbstractScreen {
 
 		// ****************************** B L O O M ************************************************************
 		String bloomTxt = "BLOOM OFF";
-		if (CSG.profile.bloom)
-			bloomTxt = "BLOOM ON";
+		bloomTxt = "BLOOM ON";
 		final Button bloom = new Button(bloomTxt, true, CSG.menuFontSmall, SMALL_BUTTON_WIDTH, SMALL_BUTTON_HEIGHT, (CSG.width / 2) - Menu.SMALL_BUTTON_WIDTH / 2, -Menu.yOffset + CSG.height - Menu.BUTTON_HEIGHT * LINE4);
 		ajout(bloom);
 
@@ -85,7 +84,6 @@ public class MenuOptions extends AbstractScreen {
 		}));
 		ajout(new Button(PLUS, false, CSG.menuFont, MINI_BOUTON_WIDTH, MINI_BOUTON_HEIGHT, CSG.width - (CSG.width / Menu.PADDING) - Menu.MINI_BOUTON_WIDTH, -Menu.yOffset + CSG.height - Menu.BUTTON_HEIGHT * LINE4 + Menu.MINI_BOUTON_HEIGHT / 2, new OnClick() {
 			public void onClick() {
-				CSG.profile.bloom = true;
 				CSG.initBloom();
 				CSG.profile.upBloom();
 				majBloom();
@@ -146,9 +144,7 @@ public class MenuOptions extends AbstractScreen {
 	}
 
 	private void majBloom() {
-		if (CSG.profile.bloom) {
-			CSG.bloom.setBloomIntesity(CSG.profile.bloomIntensity);
-			CSG.profilManager.persist();
-		}
+		CSG.bloom.setBloomIntesity(CSG.profile.bloomIntensity);
+		CSG.profilManager.persist();
 	}
 }

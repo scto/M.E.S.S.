@@ -3,14 +3,6 @@ package elements.generic.components;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
 
-import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pools;
-
-import elements.generic.Element;
-import elements.generic.enemies.Enemy;
-import elements.generic.enemies.individual.lvl1.Basic;
-import elements.generic.enemies.individual.lvl1.Insect;
-
 public enum EnemyStats {
 	
 	BASIC(

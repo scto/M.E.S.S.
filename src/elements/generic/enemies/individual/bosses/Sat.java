@@ -38,7 +38,8 @@ public class Sat extends Enemy {
 	}
 
 	public void init() {
-		pos.set(Stats.WIDTH_PLUS_MARGIN, CSG.heightDiv10Mul3 - DIMENSIONS.halfWidth);
+		pos.set(Stats.WIDTH_PLUS_MARGIN + DIMENSIONS.width,
+				CSG.heightDiv10Mul3 - DIMENSIONS.halfWidth);
 		dir.x = -getEnemyStats().getSpeed();
 		launched = 0;
 		goodShape = true;

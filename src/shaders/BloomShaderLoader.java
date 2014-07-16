@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 public final class BloomShaderLoader implements Serializable {
 
-	static final public ShaderProgram createShader(String vertexName,
+	static public ShaderProgram createShader(String vertexName,
 			String fragmentName) {
 
 		String vertexShader = Gdx.files.internal(
