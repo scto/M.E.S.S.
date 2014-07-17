@@ -73,6 +73,7 @@ public class DesktopTests {
 //		if (Gdx.input.isKeyPressed(Keys.V))		Merlin.LASER.incantation.invoke();
 //		if (Gdx.input.isKeyPressed(Keys.V))		Merlin.LASER3.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.V))		Merlin.LASER4.incantation.invoke();
+		if (Gdx.input.isKeyPressed(Keys.B))		Merlin.BOSS_SAT.incantation.invoke();
 //		if (Gdx.input.isKeyPressed(Keys.N))		Merlin.CRUSADER.incantation.invoke();
 //		if (Gdx.input.isKeyPressed(Keys.N))		Merlin.CRUSADER3.incantation.invoke();
 		if (Gdx.input.isKeyPressed(Keys.N))		Merlin.CRUSADER4.incantation.invoke();

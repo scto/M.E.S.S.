@@ -185,7 +185,6 @@ public class Particles {
 	}
 
 	public static void ajoutAdd(ArmeAdd a) {
-		
 		GreenAddParticle.add(a, ADD);
 	}
 
@@ -217,12 +216,16 @@ public class Particles {
 	}
 
 	private static void addSmokeMoving(float x, float y, Vector2 dir, int color, final MovingSmoke s) {
-		switch (color) {
-		case Enemy.BLUE:	s.init(x, y, PrecalculatedParticles.colorsBlue, dir);	break;
-		case Enemy.GREEN:	s.init(x, y, PrecalculatedParticles.colorsYellowToGreen, dir);	break;
-		default:			s.init(x, y, PrecalculatedParticles.colorsRed, dir);	break;
-		}
+		s.init(x, y, convertColor(color), dir);
 		MOVING_SMOKE.add(s);
+	}
+
+	public static float[] convertColor(int color) {
+		switch (color) {
+		case Enemy.BLUE:	return PrecalculatedParticles.colorsBlue;
+		case Enemy.GREEN:	return PrecalculatedParticles.colorsYellowToGreen;
+		default:			return PrecalculatedParticles.colorsRed;
+		}
 	}
 	
 	public static void smokeMoving(float x, float y, boolean rnd, int color) {
@@ -230,11 +233,7 @@ public class Particles {
 	}
 
 	private static void addSmokeMoving(float x, float y, boolean rnd, int color, final MovingSmoke s) {
-		switch (color) {
-		case Enemy.BLUE:	s.init(x, y, rnd, PrecalculatedParticles.colorsBlue);	break;
-		case Enemy.GREEN:	s.init(x, y, rnd, PrecalculatedParticles.colorsYellowToGreen);	break;
-		default:			s.init(x, y, rnd, PrecalculatedParticles.colorsRed);	break;
-		}
+		s.init(x, y, rnd, convertColor(color));
 		MOVING_SMOKE.add(s);
 	}
 	
@@ -243,11 +242,7 @@ public class Particles {
 	}
 
 	private static void addMovingSmoke(float x, float y, boolean rnd, int color, Vector2 dir, final MovingSmoke s) {
-		switch (color) {
-		case Enemy.BLUE:	s.init(x, y, rnd, PrecalculatedParticles.colorsBlue, dir);	break;
-		case Enemy.GREEN:	s.init(x, y, rnd, PrecalculatedParticles.colorsYellowToGreen, dir);	break;
-		default:			s.init(x, y, rnd, PrecalculatedParticles.colorsRed, dir);	break;
-		}
+		s.init(x, y, rnd, convertColor(color), dir);
 		MOVING_SMOKE.add(s);
 	}
 
@@ -309,6 +304,19 @@ public class Particles {
 	public static void shot(float x, float y, float angle) {
 		for (int i = 0; i < 2; i++)
 			SparklesColorOverTime.add(x, y, angle + (float)CSG.R.nextGaussian() * 25, PrecalculatedParticles.colorsOverTimeMuzzle, (Stats.U50 + (Stats.U270 * CSG.R.nextFloat())) * 0.75f );
+	}
+
+	private static float tmpOffsetX, tmpOffsetY;
+	public static void enemyHit(Enemy e, float[] colors) {
+		for (int i = 0; i < 5; i++) {
+			do {
+				tmpOffsetX = (float) (CSG.R.nextGaussian() * e.getDimensions().quartWidth);
+			} while (Math.abs(tmpOffsetX) > e.getDimensions().halfWidth);
+			do {
+				tmpOffsetY = (float) (CSG.R.nextGaussian() * e.getDimensions().quartHeight);
+			} while (Math.abs(tmpOffsetY) > e.getDimensions().halfHeight);
+			Particles.smoke(e.pos.x + e.getDimensions().halfWidth + tmpOffsetX, e.pos.y + e.getDimensions().halfHeight + tmpOffsetY, false, colors);
+		}
 	}
 	
 }

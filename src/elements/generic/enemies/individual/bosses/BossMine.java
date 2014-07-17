@@ -36,7 +36,6 @@ public class BossMine extends Enemy {
 	}
 	
 	public void reset() {
-		init();
 		super.reset();
 	}
 
@@ -55,8 +54,8 @@ public class BossMine extends Enemy {
 			Mover.ancorY(this, CSG.heightDiv10Mul7);
 		Mover.ancorX(this, 50);
 		Mover.ball(this, 1.1f);
-		if (!isInGoodShape()) {
-			angle += EndlessMode.delta * 90;
+		if (!isInGoodShape() && angle != 180) {
+			angle += EndlessMode.delta * (180 - angle);
 		}
 	}
 	

@@ -53,10 +53,4 @@ public class Smoke implements Poolable{
 		smoke.clear();
 	}
 
-	public void init(float x, float y, float[] colors) {
-		this.x = x - PrecalculatedParticles.INITIAL_HALF_WIDTH;
-		this.y = y - PrecalculatedParticles.INITIAL_HALF_WIDTH;
-		index = 0;
-		this.colors = colors;
-	}
 }

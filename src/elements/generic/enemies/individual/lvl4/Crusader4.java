@@ -20,7 +20,7 @@ public class Crusader4 extends Crusader3 {
 		AbstractShot.straight(Gatling.KINDER_WEAPON, TMP_POS, TMP_DIR, Stats.U10);
 		
 		TMP_DIR.x = -TMP_DIR.x;
-		TMP_POS.x -= DIMENSIONS.quartWidth;
+		TMP_POS.x -= DIMENSIONS.threeQuarterWidth;
 		AbstractShot.straight(Gatling.KINDER_WEAPON, TMP_POS, TMP_DIR, Stats.U10);
 	}
 	

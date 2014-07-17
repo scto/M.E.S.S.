@@ -16,7 +16,7 @@ public class Credits {
 											END;
 	private final static String PATCHNOTE = 
 "                                                    "
-+ "PATCHNOTE 0.933 :  Better performances, the bug in the manual bonus is fixed " + 
++ "PATCHNOTE 0.933 :  Better performances, the bug in the manual bonus is fixed, better visual feedback when you hit an enemy " + 
 									 		END;
 	private final String str;
 	

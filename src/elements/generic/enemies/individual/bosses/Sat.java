@@ -1,7 +1,6 @@
 package elements.generic.enemies.individual.bosses;
 
 import jeu.CSG;
-import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
 import assets.sprites.Animations;
@@ -14,7 +13,6 @@ import elements.generic.components.Dimensions;
 import elements.generic.components.EnemyStats;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.Weapon;
-
 
 public class Sat extends Enemy {
 	
@@ -38,9 +36,9 @@ public class Sat extends Enemy {
 	}
 
 	public void init() {
-		pos.set(Stats.WIDTH_PLUS_MARGIN + DIMENSIONS.width,
-				CSG.heightDiv10Mul3 - DIMENSIONS.halfWidth);
+		pos.set(CSG.width, CSG.heightDiv10Mul3 - DIMENSIONS.halfWidth);
 		dir.x = -getEnemyStats().getSpeed();
+		dir.y = 0;
 		launched = 0;
 		goodShape = true;
 	}

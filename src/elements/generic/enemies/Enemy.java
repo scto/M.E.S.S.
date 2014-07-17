@@ -27,6 +27,7 @@ import elements.particular.Player;
 import elements.particular.bonuses.Bonus;
 import elements.particular.other.WaveEffect;
 import elements.particular.particles.Particles;
+import elements.particular.particles.ParticuleBundles;
 import elements.particular.particles.individual.PrecalculatedParticles;
 
 public abstract class Enemy extends Element implements Poolable {
@@ -126,6 +127,17 @@ public abstract class Enemy extends Element implements Poolable {
 	 * @return return true si vivant.
 	 */
 	public boolean stillAlive(PlayerWeapon a) {
+		switch (getColor()) {
+		case GREEN:
+			Particles.enemyHit(this, PrecalculatedParticles.RANDDOM_GREENS);
+			break;
+		case BLUE:
+			Particles.enemyHit(this, PrecalculatedParticles.RANDDOM_BLUES);
+			break;
+		default:
+			Particles.enemyHit(this, PrecalculatedParticles.RANDDOM_REDS);
+			break;
+		}
 		Particles.addPartEnemyTouched(a, this);
 		tmpDeltaMulImpact = EndlessMode.delta * Stats.IMPACT;
 		hp -= a.getPower();
@@ -169,7 +181,7 @@ public abstract class Enemy extends Element implements Poolable {
 
 	@Override
 	public void reset() {
-		hp = getEnemyStats().getHp();
+		hp = getMaxHp();
 		dead = false;
 		nextShot = 0;
 		super.reset();
@@ -242,7 +254,7 @@ public abstract class Enemy extends Element implements Poolable {
 	
 	@Override
 	public float getPvPercentage() {
-		return (getEnemyStats().getHp() / hp) * 100;
+		return (getMaxHp() / hp) * 100;
 	}
 	
 	public static final PlayerWeapon bomb = getTypicalBullet(250), superBomb = getTypicalBullet(320);

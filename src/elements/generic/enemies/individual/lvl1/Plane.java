@@ -1,6 +1,5 @@
 package elements.generic.enemies.individual.lvl1;
 
-import jeu.CSG;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.SoundMan;
@@ -20,8 +19,6 @@ import elements.generic.enemies.Enemy;
 import elements.generic.weapons.enemies.SmallFireball;
 import elements.generic.weapons.player.PlayerWeapon;
 import elements.particular.particles.Particles;
-import elements.particular.particles.ParticuleBundles;
-
 
 public class Plane extends Enemy {
 	
@@ -73,12 +70,10 @@ public class Plane extends Enemy {
 		if (hp-p.getPower() < getEnemyStats().getHalfHp()) {
 			goodShape = false;
 			dir.y = -getEnemyStats().getHalfSpeed();
-			for (int i = 0; i < 10; i++) 
-				Particles.smoke(pos.x + DIMENSIONS.quartWidth + (CSG.R.nextFloat() * DIMENSIONS.halfWidth), pos.y + CSG.R.nextFloat() * DIMENSIONS.height, false, ParticuleBundles.SMOKE.colors);
 		}
 		return super.stillAlive(p);
 	}
-	
+
 	@Override	protected Sound getExplosionSound() {	return SoundMan.explosion5;						}
 	@Override	public Animations getAnimation() {		return Animations.PLANE;						}
 	@Override	public EnemyStats getEnemyStats() {		return EnemyStats.PLANE;					 	}

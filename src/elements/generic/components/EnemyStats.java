@@ -126,7 +126,7 @@ public enum EnemyStats {
 	public float[] speeds = {0, 0, 0, 0}, halfSpeeds = {0, 0, 0, 0}, firerates = {0, 0, 0, 0};
 	
 	private EnemyStats(int hp, float speed, int xp, int explosion, float firerate) {
-		this(hp, xp, explosion);
+		this(hp, speed, xp, explosion);
 		firerates[0] = firerate;
 		firerates[1] = firerate;
 		firerates[2] = firerate * 0.95f;
@@ -134,7 +134,7 @@ public enum EnemyStats {
 	}
 	
 	private EnemyStats(int hp, float speed, int xp, int explosion, float firerate, float firerateMul2, float firerateMul3, float firerateMul4) {
-		this(hp, xp, explosion);
+		this(hp, speed, xp, explosion);
 		firerates[0] = firerate;
 		firerates[1] = firerate * firerateMul2;
 		firerates[2] = firerate * firerateMul3;

@@ -26,7 +26,6 @@ public class Insect extends Enemy {
 	
 	public void init() {
 		nextShot = INIT_NEXT_SHOT;
-		
 		dir.set(0, -getEnemyStats().getSpeed()).rotate(-20);
 		Positionner.MIDDLE.set(this);
 		goodShape = true;

@@ -320,10 +320,6 @@ public class EndlessMode implements Screen {
 				case 5:		afficherConseil(Strings.ADVICE5, AssetMan.stopBonus, batch);	break;
 			}
 		}
-		float width = CSG.menuFont.getBounds(Score.strScore).width;
-		if (width < CSG.menuFont.getBounds(Score.strScore).width) {
-			width = CSG.menuFont.getBounds(Score.strScore).width;
-		}
 		batch.setColor(AssetMan.BLACK);
 		batch.draw(AssetMan.dust, 0, CSG.halfHeight - CSG.menuFont.getBounds(Score.strScore).height*2, CSG.width, CSG.menuFont.getBounds(Score.strScore).height * 6);
 		batch.setColor(AssetMan.WHITE);
@@ -332,7 +328,6 @@ public class EndlessMode implements Screen {
 		
 		CSG.menuFont.draw(batch, Score.strScore, ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - (CSG.menuFont.getBounds(Score.strScore).width)/2)),
 				CSG.halfHeight);
-		
 		
 		Buttons.drawUpgradeAndTwitter(batch);
 	}
@@ -360,8 +355,6 @@ public class EndlessMode implements Screen {
 	private void ui() {
 		Score.draw(batch, lost);
 		if (CSG.profile.manualBonus) {
-			System.out.println(" nb stop : " + freezeBonus);
-			System.out.println(" nb bomb : " + bombs);
 			switch(freezeBonus) {
 			case 2:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO + Bonus.WIDTH + Bonus.HALF_WIDTH, FONT_HEIGHT * 2, Bonus.WIDTH, Bonus.WIDTH);
 			case 1:	batch.draw(AssetMan.stopBonus, cam.position.x + X_CHRONO, FONT_HEIGHT * 2, Bonus.WIDTH, Bonus.WIDTH);
@@ -440,7 +433,7 @@ public class EndlessMode implements Screen {
 	}
 
 	private static void justeTouche() {
-		if (freezeBonus > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
+		if (freezeBonus > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH * 2) - Player.HALF_WIDTH, menuY - Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH * 3, Bonus.DISPLAY_WIDTH * 3)) {
 			activateStop();
 			freezeBonus--;
 		} else if (bombs > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {

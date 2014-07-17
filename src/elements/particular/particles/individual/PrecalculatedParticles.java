@@ -23,7 +23,7 @@ public class PrecalculatedParticles {
 	public static final float[] halfWidths = CSG.getDifferences(widths);
 	public static final float[] dirY = initDirY(widths);
 	// not evolving
-	public static final float[] RANDDOM_REDS = getColors(20, Painters.RED), RANDDOM_BLUES = getColors(20, Painters.BLUE), RANDDOM_GREENS = getColors(20, Painters.GREEN);
+	public static final float[] RANDDOM_REDS = getColors(colorsRed.length, Painters.RED), RANDDOM_BLUES = getColors(colorsRed.length, Painters.BLUE), RANDDOM_GREENS = getColors(colorsRed.length, Painters.GREEN);
 	
 	private static float[] getColors(int nb, Painters painter) {
 		float tmp[] = new float[nb];
