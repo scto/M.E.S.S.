@@ -19,7 +19,7 @@ public class FragmentedMeteorite extends EnemyWeapon implements Poolable{
 	public void init(final float x, final float y, Vector2 dir) {		
 		this.dir.x = dir.x;
 		this.dir.y = dir.y;
-		this.dir.scl(Stats.U * ((CSG.R.nextFloat()/2)+.5f) );
+		this.dir.scl(Stats.U4 * ((CSG.R.nextFloat()/2)+.5f) );
 		pos.x = x;
 		pos.y = y;
 		ENEMIES_LIST.add(this);

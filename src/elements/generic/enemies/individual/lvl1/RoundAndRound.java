@@ -53,7 +53,7 @@ public class RoundAndRound extends Enemy {
 	}
 	
 	@Override	
-	protected void move() {							
+	protected void move() {
 		Mover.U(this);
 		if (!EndlessMode.alternate)
 			angle = dir.angle() + 90;

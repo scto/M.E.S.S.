@@ -46,7 +46,7 @@ public class MovingSmoke implements Poolable{
 	@Override
 	public void reset() {}
 	
-	public void init(float x, float y, boolean rnd, float[] colors) {
+	public MovingSmoke init(float x, float y, boolean rnd, float[] colors) {
 		if (rnd)
 			this.x = (x - PrecalculatedParticles.INITIAL_HALF_WIDTH) + ((CSG.R.nextFloat() - .5f) * PrecalculatedParticles.INITIAL_HALF_WIDTH);
 		else
@@ -56,9 +56,10 @@ public class MovingSmoke implements Poolable{
 		this.colors = colors;
 		dirX = 0;
 		dirY = Stats.uDiv2;
+		return this;
 	}
 	
-	public void init(float x, float y, boolean rnd, float[] colors, float dirX, float dirY) {
+	public MovingSmoke init(float x, float y, boolean rnd, float[] colors, float dirX, float dirY) {
 		if (rnd)
 			this.x = (x - PrecalculatedParticles.INITIAL_HALF_WIDTH) + ((CSG.R.nextFloat() - .5f) * PrecalculatedParticles.INITIAL_HALF_WIDTH);
 		else
@@ -68,8 +69,10 @@ public class MovingSmoke implements Poolable{
 		this.colors = colors;
 		this.dirX = dirX;
 		this.dirY = dirY;
+		return this;
 	}
-	public void init(float x, float y, boolean rnd, float[] colors, Vector2 dir) {
+	
+	public MovingSmoke init(float x, float y, boolean rnd, float[] colors, Vector2 dir) {
 		if (rnd)
 			this.x = (x - PrecalculatedParticles.INITIAL_HALF_WIDTH) + ((CSG.R.nextFloat() - .5f) * PrecalculatedParticles.INITIAL_HALF_WIDTH);
 		else
@@ -79,18 +82,21 @@ public class MovingSmoke implements Poolable{
 		this.colors = colors;
 		dirX = dir.x;
 		dirY = dir.y;
+		return this;
 	}
+	
 	public static void clear(Array<MovingSmoke> smoke) {
 		POOL.freeAll(smoke);
 		smoke.clear();
 	}
 
-	public void init(float x, float y, float[] colors, Vector2 dir) {
+	public MovingSmoke init(float x, float y, float[] colors, Vector2 dir) {
 		this.x = x - PrecalculatedParticles.INITIAL_HALF_WIDTH;
 		this.y = y - PrecalculatedParticles.INITIAL_HALF_WIDTH;
 		index = 0;
 		this.colors = colors;
 		dirX = dir.x;
 		dirY = dir.y;
+		return this;
 	}
 }

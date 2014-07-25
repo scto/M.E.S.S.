@@ -70,7 +70,7 @@ public enum EnemyStats {
 			0.55f, 	0.9f, 	0.4f, 	0.35f),
 	BOSS_QUAD(
 			510,
-			15,
+			10,
 			200,
 			200),
 	CRUSADER(

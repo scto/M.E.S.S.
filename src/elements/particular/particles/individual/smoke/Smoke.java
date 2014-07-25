@@ -38,7 +38,7 @@ public class Smoke implements Poolable{
 	@Override
 	public void reset() {}
 	
-	public void init(float x, float y, boolean rnd, float[] colors) {
+	public Smoke init(float x, float y, boolean rnd, float[] colors) {
 		if (rnd)
 			this.x = (x - PrecalculatedParticles.INITIAL_HALF_WIDTH) + ((CSG.R.nextFloat() - .5f) * PrecalculatedParticles.INITIAL_HALF_WIDTH);
 		else
@@ -46,6 +46,7 @@ public class Smoke implements Poolable{
 		this.y = y - PrecalculatedParticles.INITIAL_HALF_WIDTH;
 		index = 0;
 		this.colors = colors;
+		return this;
 	}
 	
 	public static void clear(Array<Smoke> smoke) {

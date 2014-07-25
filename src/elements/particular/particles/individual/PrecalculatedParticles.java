@@ -11,7 +11,7 @@ import jeu.Stats;
 
 public class PrecalculatedParticles {
 
-	public static final float INITIAL_WIDTH = (Stats.U), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
+	public static final float INITIAL_WIDTH = (Stats.u), INITIAL_HALF_WIDTH = INITIAL_WIDTH / 2;
 	private static final float stepSparkles = 0.095f;
 	public static final float[] colorsRed = initAlphasRed(stepSparkles, 0, true), colorsBlue = initAlphasBlue(stepSparkles, 0, true), colorsYellowToGreen = initAlphasYellowToGreen(stepSparkles, 0, true);
 	public static final float[] colorsThruster = initAlphasThruster(stepSparkles, 0, true);

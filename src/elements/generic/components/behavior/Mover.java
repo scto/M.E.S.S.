@@ -144,4 +144,5 @@ public abstract class Mover {
 		CSG.tmpPos.rotate(EndlessMode.delta15);
 		
 	}
+
 }

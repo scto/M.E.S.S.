@@ -20,8 +20,8 @@ public class SpawnEnemyPosition {
 	_8sur10 = new Vector2(CSG.width * 0.8f, CSG.height),
 	_9sur10 = new Vector2(CSG.width * 0.9f, CSG.height),
 	_95sur10 = new Vector2(CSG.width * 0.95f, CSG.height);
-	private static final Vector2 _bossSatUp = new Vector2((CSG.halfWidth-1)+Sat.DIMENSIONS.halfWidth, CSG.height * 0.7f);
-	private static final Vector2 _bossSatDown = new Vector2((CSG.halfWidth-1)+Sat.DIMENSIONS.halfWidth, CSG.height * 0.35f);
+	private static final Vector2 _bossSatUp = new Vector2((CSG.width-1)+Sat.DIMENSIONS.halfWidth, CSG.height * 0.7f);
+	private static final Vector2 _bossSatDown = new Vector2((CSG.width-1)+Sat.DIMENSIONS.halfWidth, CSG.height * 0.35f);
 	
 	private static final Vector2 pauseVec[] = {};
 	private static final Vector2[] _1random = {null};

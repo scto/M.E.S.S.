@@ -27,7 +27,6 @@ import elements.particular.Player;
 import elements.particular.bonuses.Bonus;
 import elements.particular.other.WaveEffect;
 import elements.particular.particles.Particles;
-import elements.particular.particles.ParticuleBundles;
 import elements.particular.particles.individual.PrecalculatedParticles;
 
 public abstract class Enemy extends Element implements Poolable {

@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.NumberUtils;
 public final class AssetMan implements AssetErrorListener {
 
 	public static TextureRegion add, addShip, bomb, bombGrey, shield, stopBonus, stopBonusGrey, dust, debris, background, player, backgroundButton, shootingStar;
-	public static TextureRegion iconDefaultW, iconTW, iconFireballW, iconSpreadW, iconSunW, iconSpaceInvW, tWeapon, star, effect, addBullet, addShipShot, xp;
+	public static TextureRegion iconDefaultW, iconTW, iconFireballW, iconSpreadW, iconSunW, iconSpaceInvW, tWeapon, star, effect, addBullet, addShipShot, xp, planet;
 	public final static AssetManager MAN = new AssetManager();
 	private TextureAtlas atlas;
 	public final static float WHITE = convertARGB(1, 1, 1, 1), ALPHA40 = convertARGB(.4f, 1, 1, 1), BLACK = convertARGB(1, 0, 0, 0), ALPHA70 = convertARGB(.70f, 1, 1, 1), RED = convertARGB(1, 1, 0, 0),
@@ -87,6 +87,7 @@ public final class AssetMan implements AssetErrorListener {
 		player = getTextureRegion("player");
 		debris = getTextureRegion("debris");
 		effect = getTextureRegion("effect");
+		planet = getTextureRegion("planet2");
 		dust = getTextureRegion("rondblanc");
 		shield = getTextureRegion("bouclier");
 		tWeapon = getTextureRegion("bluebullet");

@@ -19,7 +19,7 @@ public class PinkWeapon extends PlayerWeapon implements Poolable {
 		pos.set(x, y);
 		dir.set(dirX, dirY).scl(Stats.SPEED_PINK_WEAPON);
 		PLAYER_LIST.add(this);
-		Particles.shot(pos.x - Stats.U, pos.y, dir.angle());
+		Particles.shotSparkles(pos.x - Stats.U, pos.y, dir.angle());
 	}
 
 	@Override	public void free() {								POOL.free(this);									}

@@ -420,8 +420,9 @@ public class EndlessMode implements Screen {
 			if (freezeBonus > 0 && !triggerStop) batch.draw(AssetMan.stopBonus,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			else batch.draw(AssetMan.stopBonusGrey,(menuX - Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 			
-			if (bombs > 0) batch.draw(AssetMan.bomb, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
-			else batch.draw(AssetMan.bombGrey, (menuX + Bonus.DISPLAY_WIDTH) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
+			if (bombs > 0) batch.draw(AssetMan.bomb, (menuX + Bonus.DISPLAY_WIDTH * 1.5f) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
+			else batch.draw(AssetMan.bombGrey, (menuX + Bonus.DISPLAY_WIDTH * 1.5f) + (cam.position.x-CSG.halfWidth) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH,Bonus.DISPLAY_WIDTH);
+			
 		}
 	}
 
@@ -433,10 +434,10 @@ public class EndlessMode implements Screen {
 	}
 
 	private static void justeTouche() {
-		if (freezeBonus > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH * 2) - Player.HALF_WIDTH, menuY - Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH * 3, Bonus.DISPLAY_WIDTH * 3)) {
+		if (freezeBonus > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX - Bonus.DISPLAY_WIDTH * 1.5f) - Player.HALF_WIDTH, menuY - Bonus.DISPLAY_WIDTH * 0.5f, Bonus.DISPLAY_WIDTH * 2, Bonus.DISPLAY_WIDTH * 2)) {
 			activateStop();
 			freezeBonus--;
-		} else if (bombs > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH)) {
+		} else if (bombs > 0 && Physic.isPointInRect(Gdx.input.getX(), CSG.height - Gdx.input.getY(), (menuX + Bonus.DISPLAY_WIDTH) - Player.HALF_WIDTH, menuY - Bonus.DISPLAY_WIDTH * 0.5f, Bonus.DISPLAY_WIDTH * 2, Bonus.DISPLAY_WIDTH * 2)) {
 			Enemy.bombe();
 			bombs--;
 		}

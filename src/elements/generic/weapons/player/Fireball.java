@@ -34,7 +34,7 @@ public class Fireball extends PlayerWeapon implements Poolable{
 	public void init(float posX, float posY) {
 		pos.set(posX, posY);
 		PLAYER_LIST.add(this);
-		Particles.shot(pos.x - Stats.u, pos.y + DIMENSIONS.halfHeight, 90);
+		Particles.shotSparkles(pos.x - Stats.u, pos.y + DIMENSIONS.halfHeight, 90);
 	}
 
 	@Override	public void displayOnScreen(SpriteBatch batch) {
