@@ -1,0 +1,796 @@
+
+textures.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+planet
+  rotate: false
+  xy: 1, 509
+  size: 512, 514
+  orig: 512, 514
+  offset: 0, 0
+  index: -1
+spacefield
+  rotate: false
+  xy: 1, 128
+  size: 512, 379
+  orig: 512, 379
+  offset: 0, 0
+  index: -1
+bossmine
+  rotate: false
+  xy: 515, 816
+  size: 45, 207
+  orig: 45, 207
+  offset: 0, 0
+  index: -1
+bossminecasse
+  rotate: false
+  xy: 515, 607
+  size: 45, 207
+  orig: 45, 207
+  offset: 0, 0
+  index: -1
+default80
+  rotate: false
+  xy: 1, 6
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+bossquad1
+  rotate: false
+  xy: 562, 970
+  size: 137, 53
+  orig: 137, 53
+  offset: 0, 0
+  index: -1
+bossquad2
+  rotate: false
+  xy: 123, 73
+  size: 137, 53
+  orig: 137, 53
+  offset: 0, 0
+  index: -1
+bossquad3
+  rotate: false
+  xy: 562, 915
+  size: 137, 53
+  orig: 137, 53
+  offset: 0, 0
+  index: -1
+fireball80
+  rotate: false
+  xy: 701, 943
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+secretsun80
+  rotate: false
+  xy: 562, 833
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+spaceinv80
+  rotate: false
+  xy: 783, 943
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+spread80
+  rotate: false
+  xy: 562, 751
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+tweapon80
+  rotate: false
+  xy: 865, 943
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+insecte
+  rotate: false
+  xy: 123, 25
+  size: 85, 46
+  orig: 85, 46
+  offset: 0, 0
+  index: -1
+insectecasse
+  rotate: false
+  xy: 262, 80
+  size: 85, 46
+  orig: 85, 46
+  offset: 0, 0
+  index: -1
+smoke
+  rotate: false
+  xy: 562, 685
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+portenef1
+  rotate: false
+  xy: 947, 968
+  size: 68, 55
+  orig: 68, 55
+  offset: 0, 0
+  index: -1
+portenef2
+  rotate: false
+  xy: 562, 628
+  size: 68, 55
+  orig: 68, 55
+  offset: 0, 0
+  index: -1
+addbullet
+  rotate: false
+  xy: 515, 536
+  size: 42, 69
+  orig: 42, 69
+  offset: 0, 0
+  index: -1
+avion
+  rotate: false
+  xy: 644, 861
+  size: 45, 52
+  orig: 45, 52
+  offset: 0, 0
+  index: -1
+avioncasse
+  rotate: false
+  xy: 644, 807
+  size: 45, 52
+  orig: 45, 52
+  offset: 0, 0
+  index: -1
+fusee
+  rotate: false
+  xy: 515, 480
+  size: 25, 54
+  orig: 25, 54
+  offset: 0, 0
+  index: -1
+fuseeamochee
+  rotate: false
+  xy: 644, 751
+  size: 25, 54
+  orig: 25, 54
+  offset: 0, 0
+  index: -1
+effect
+  rotate: false
+  xy: 210, 32
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+add
+  rotate: false
+  xy: 349, 91
+  size: 34, 35
+  orig: 34, 35
+  offset: 0, 0
+  index: -1
+porteraisin1
+  rotate: false
+  xy: 628, 707
+  size: 25, 42
+  orig: 25, 42
+  offset: 0, 0
+  index: -1
+porteraisin2
+  rotate: false
+  xy: 515, 436
+  size: 25, 42
+  orig: 25, 42
+  offset: 0, 0
+  index: -1
+bombe
+  rotate: false
+  xy: 385, 93
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1
+bombegris
+  rotate: false
+  xy: 419, 93
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1
+bouclier
+  rotate: false
+  xy: 453, 93
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1
+joueur1
+  rotate: false
+  xy: 515, 399
+  size: 28, 35
+  orig: 28, 35
+  offset: 0, 0
+  index: -1
+joueur2
+  rotate: false
+  xy: 515, 362
+  size: 28, 35
+  orig: 28, 35
+  offset: 0, 0
+  index: -1
+joueur3
+  rotate: false
+  xy: 515, 325
+  size: 28, 35
+  orig: 28, 35
+  offset: 0, 0
+  index: -1
+joueur4
+  rotate: false
+  xy: 515, 288
+  size: 28, 35
+  orig: 28, 35
+  offset: 0, 0
+  index: -1
+joueur5
+  rotate: false
+  xy: 515, 251
+  size: 28, 35
+  orig: 28, 35
+  offset: 0, 0
+  index: -1
+kinder1
+  rotate: false
+  xy: 515, 216
+  size: 30, 33
+  orig: 30, 33
+  offset: 0, 0
+  index: -1
+kinder2
+  rotate: false
+  xy: 515, 181
+  size: 30, 33
+  orig: 30, 33
+  offset: 0, 0
+  index: -1
+kinder3
+  rotate: false
+  xy: 515, 146
+  size: 30, 33
+  orig: 30, 33
+  offset: 0, 0
+  index: -1
+fireball
+  rotate: false
+  xy: 671, 766
+  size: 18, 39
+  orig: 18, 39
+  offset: 0, 0
+  index: -1
+rondblanc
+  rotate: false
+  xy: 701, 911
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+basicenemyblue
+  rotate: false
+  xy: 123, 1
+  size: 17, 22
+  orig: 17, 22
+  offset: 0, 0
+  index: -1
+basicenemygreen
+  rotate: false
+  xy: 142, 1
+  size: 17, 22
+  orig: 17, 22
+  offset: 0, 0
+  index: -1
+basicenemyred
+  rotate: false
+  xy: 161, 1
+  size: 17, 22
+  orig: 17, 22
+  offset: 0, 0
+  index: -1
+ennemizigzagblue1
+  rotate: false
+  xy: 487, 100
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+ennemizigzagblue5
+  rotate: false
+  xy: 515, 118
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+ennemizigzaggreen1
+  rotate: false
+  xy: 733, 915
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+ennemizigzaggreen5
+  rotate: false
+  xy: 761, 915
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+ennemizigzagred1
+  rotate: false
+  xy: 789, 915
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+ennemizigzagred5
+  rotate: false
+  xy: 817, 915
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+mine2
+  rotate: false
+  xy: 845, 917
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+mine3
+  rotate: false
+  xy: 871, 917
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+mine1
+  rotate: false
+  xy: 947, 943
+  size: 24, 23
+  orig: 24, 23
+  offset: 0, 0
+  index: -1
+bomb
+  rotate: false
+  xy: 180, 1
+  size: 11, 22
+  orig: 11, 22
+  offset: 0, 0
+  index: -1
+meteorite1
+  rotate: false
+  xy: 897, 918
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+meteorite2
+  rotate: false
+  xy: 973, 943
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+meteorite3
+  rotate: false
+  xy: 922, 918
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+meteorite4
+  rotate: false
+  xy: 947, 918
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+backgroundbutton
+  rotate: false
+  xy: 628, 685
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+cylon1
+  rotate: false
+  xy: 972, 917
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+ennemizigzagblue3
+  rotate: false
+  xy: 632, 656
+  size: 21, 27
+  orig: 21, 27
+  offset: 0, 0
+  index: -1
+ennemizigzaggreen3
+  rotate: false
+  xy: 632, 627
+  size: 21, 27
+  orig: 21, 27
+  offset: 0, 0
+  index: -1
+ennemizigzagred3
+  rotate: false
+  xy: 542, 507
+  size: 21, 27
+  orig: 21, 27
+  offset: 0, 0
+  index: -1
+cylon1blue
+  rotate: false
+  xy: 542, 481
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+cylon1green
+  rotate: false
+  xy: 542, 455
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+cylon2
+  rotate: false
+  xy: 998, 942
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+cylon2blue
+  rotate: false
+  xy: 995, 916
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+cylon2green
+  rotate: false
+  xy: 562, 602
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+cylon3
+  rotate: false
+  xy: 585, 602
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+cylon3blue
+  rotate: false
+  xy: 608, 602
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+cylon3green
+  rotate: false
+  xy: 631, 601
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+ennemizigzagblue2
+  rotate: false
+  xy: 655, 723
+  size: 17, 26
+  orig: 17, 26
+  offset: 0, 0
+  index: -1
+ennemizigzagblue4
+  rotate: false
+  xy: 559, 574
+  size: 17, 26
+  orig: 17, 26
+  offset: 0, 0
+  index: -1
+ennemizigzaggreen2
+  rotate: false
+  xy: 559, 546
+  size: 17, 26
+  orig: 17, 26
+  offset: 0, 0
+  index: -1
+ennemizigzaggreen4
+  rotate: false
+  xy: 578, 574
+  size: 17, 26
+  orig: 17, 26
+  offset: 0, 0
+  index: -1
+ennemizigzagred2
+  rotate: false
+  xy: 578, 546
+  size: 17, 26
+  orig: 17, 26
+  offset: 0, 0
+  index: -1
+ennemizigzagred4
+  rotate: false
+  xy: 597, 574
+  size: 17, 26
+  orig: 17, 26
+  offset: 0, 0
+  index: -1
+addvaisseau
+  rotate: false
+  xy: 616, 575
+  size: 13, 25
+  orig: 13, 25
+  offset: 0, 0
+  index: -1
+ennemiailesdeployees1
+  rotate: false
+  xy: 631, 578
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+addvaisseaushot
+  rotate: false
+  xy: 597, 547
+  size: 13, 25
+  orig: 13, 25
+  offset: 0, 0
+  index: -1
+ennemiboulebleubanderouge1
+  rotate: false
+  xy: 542, 436
+  size: 18, 17
+  orig: 18, 17
+  offset: 0, 0
+  index: -1
+ennemiailesdeployees2
+  rotate: false
+  xy: 515, 95
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+bonusetoile
+  rotate: false
+  xy: 193, 2
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1
+bonusetoilegris
+  rotate: false
+  xy: 545, 413
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1
+ennemiailesdeployees3
+  rotate: false
+  xy: 545, 390
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+ennemitourne1
+  rotate: false
+  xy: 545, 367
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+ennemitourne2
+  rotate: false
+  xy: 545, 344
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+ennemitourne3
+  rotate: false
+  xy: 545, 321
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+ennemitourne4
+  rotate: false
+  xy: 545, 298
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+ennemitourne5
+  rotate: false
+  xy: 545, 275
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+ennemitourne6
+  rotate: false
+  xy: 545, 252
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+ennemitourne7
+  rotate: false
+  xy: 547, 229
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+ennemitourne8
+  rotate: false
+  xy: 547, 206
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+boulebleu1
+  rotate: false
+  xy: 547, 184
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+boulebleu2
+  rotate: false
+  xy: 547, 162
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+bouleverte1
+  rotate: false
+  xy: 547, 140
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+bouleverte2
+  rotate: false
+  xy: 543, 118
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+ennemiboulebleubanderouge2
+  rotate: false
+  xy: 538, 99
+  size: 18, 17
+  orig: 18, 17
+  offset: 0, 0
+  index: -1
+ennemiboulebleubanderouge3
+  rotate: false
+  xy: 655, 704
+  size: 18, 17
+  orig: 18, 17
+  offset: 0, 0
+  index: -1
+ennemirotation1
+  rotate: false
+  xy: 251, 52
+  size: 15, 19
+  orig: 15, 19
+  offset: 0, 0
+  index: -1
+ennemirotation2
+  rotate: false
+  xy: 251, 31
+  size: 15, 19
+  orig: 15, 19
+  offset: 0, 0
+  index: -1
+ennemirotation3
+  rotate: false
+  xy: 268, 59
+  size: 15, 19
+  orig: 15, 19
+  offset: 0, 0
+  index: -1
+ennemirotation4
+  rotate: false
+  xy: 268, 38
+  size: 15, 19
+  orig: 15, 19
+  offset: 0, 0
+  index: -1
+ennemirotation5
+  rotate: false
+  xy: 285, 59
+  size: 15, 19
+  orig: 15, 19
+  offset: 0, 0
+  index: -1
+ennemirotation6
+  rotate: false
+  xy: 285, 38
+  size: 15, 19
+  orig: 15, 19
+  offset: 0, 0
+  index: -1
+ennemirotation7
+  rotate: false
+  xy: 302, 59
+  size: 15, 19
+  orig: 15, 19
+  offset: 0, 0
+  index: -1
+ennemirotation8
+  rotate: false
+  xy: 302, 38
+  size: 15, 19
+  orig: 15, 19
+  offset: 0, 0
+  index: -1
+etoilefilante
+  rotate: false
+  xy: 319, 62
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+bluebullet
+  rotate: false
+  xy: 319, 46
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+xp
+  rotate: false
+  xy: 671, 754
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+star
+  rotate: false
+  xy: 349, 82
+  size: 7, 7
+  orig: 7, 7
+  offset: 0, 0
+  index: -1
+debris
+  rotate: false
+  xy: 543, 142
+  size: 2, 2
+  orig: 2, 2
+  offset: 0, 0
+  index: -1
+noir
+  rotate: false
+  xy: 559, 604
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+rougefonce
+  rotate: false
+  xy: 671, 751
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
