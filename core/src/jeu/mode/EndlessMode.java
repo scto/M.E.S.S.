@@ -292,14 +292,15 @@ public class EndlessMode implements Screen {
 			}
 		}
 		batch.setColor(AssetMan.BLACK);
-		batch.draw(AssetMan.dust, 0, CSG.halfHeight - CSG.menuFont.getBounds(Score.strScore).height*2, CSG.screenWidth, CSG.menuFont.getBounds(Score.strScore).height * 6);
+		batch.draw(AssetMan.dust, 0, CSG.halfHeight - CSG.fontsDimensions.getHeight(CSG.menuFont, Score.strScore) * 2, CSG.screenWidth, CSG.fontsDimensions.getHeight(CSG.menuFont, Score.strScore) * 6);
 		batch.setColor(AssetMan.WHITE);
-		CSG.menuFont.draw(batch, Strings.DEAD, ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - (CSG.menuFont.getBounds(Strings.DEAD).width)/2)),
-				CSG.halfHeight + CSG.menuFontSmall.getBounds(Strings.DEAD).height * 3);
-		
-		CSG.menuFont.draw(batch, Score.strScore, ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - (CSG.menuFont.getBounds(Score.strScore).width)/2)),
+		CSG.menuFont.draw(batch, Strings.DEAD,
+				((cam.position.x - CSG.halfWidth)) + ((CSG.halfWidth - (CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.DEAD)) / 2)),
+				CSG.halfHeight + CSG.fontsDimensions.getHeight(CSG.menuFontSmall, Strings.DEAD) * 3);
+
+		CSG.menuFont.draw(batch, Score.strScore, ((cam.position.x - CSG.halfWidth)) + ((CSG.halfWidth - (CSG.fontsDimensions.getWidth(CSG.menuFont, Score.strScore).width) / 2)),
 				CSG.halfHeight);
-		
+
 		Buttons.drawUpgradeAndTwitter(batch);
 	}
 

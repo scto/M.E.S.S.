@@ -2,6 +2,9 @@ package jeu;
 
 import java.util.Random;
 
+import ToBeSorted.FontsDimensions;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import jeu.level.SpawnEnemyPosition;
 import jeu.mode.EndlessMode;
 import menu.screens.Loading;
@@ -45,6 +48,7 @@ public class CSG extends Game implements ApplicationListener {
 	public static final Vector2 vecteurPosition = new Vector2(), tmpPos = new Vector2(), tmpDir = new Vector2(), tmp2 = new Vector2();
 	public static Vector2 vecteurCible = new Vector2();
 	public static int tmpInt;
+	public static FontsDimensions fontsDimensions;
 	
 	public CSG(TalkToTheWorld google) {
 		CSG.talkToTheWorld = google;
@@ -66,6 +70,7 @@ public class CSG extends Game implements ApplicationListener {
 		// ***** Une fois que toutes les variables globales sont chargees on lance le loading pour charger les assets
 		final Loading loading = new Loading(this);
 		setScreen(loading);
+		fontsDimensions = new FontsDimensions();
 	}
 
 	public static void log(String s ) {
@@ -84,8 +89,7 @@ public class CSG extends Game implements ApplicationListener {
 		menuFontBlack = setFont((int) (25 * dimension),			dimension, generator, param, AssetMan.BLACK);
 		originalScoreFontScale = dimension * 0.75f;
 		scoreFont = setFont((int) (13 * dimension), 			dimension, generator, param, AssetMan.convertARGB(1, 0, 0, 1));
-		scoreFont.setScale(0.5f);
-		
+
 		menuFontSmall = setFont((int) (12 * dimension), 		dimension, generator, param, AssetMan.convertARGB(1, .32f, .52f, 0.99f));
 		menuFont = setFont((int) (23 * dimension), 		dimension, generator, param, AssetMan.convertARGB(1, .32f, .52f, 0.99f));
 		
@@ -93,10 +97,10 @@ public class CSG extends Game implements ApplicationListener {
 	}
 
 	private static BitmapFont setFont(int size, float dimension, FreeTypeFontGenerator generator, FreeTypeFontParameter param, float color) {
-		BitmapFont font = new BitmapFont();
 		param.size = size;
-		font = generator.generateFont(param);
-		font.setColor(color);
+		BitmapFont font = generator.generateFont(param);
+
+		font.setColor(new Color());
 		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		return font;
 	}
@@ -226,4 +230,5 @@ public class CSG extends Game implements ApplicationListener {
 			tmp.add(array[i]*2);
 		return CSG.convert(tmp);
 	}
+
 }
