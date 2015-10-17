@@ -55,7 +55,7 @@ public class AnimPlayer {
 	}
 
 	public static void straight() {				// Si besoin : on remettrait l'orientation du background a 0 ici
-		if (state == 2) return; 					// on est deja  droit
+		if (state == 2) return; 					// on est deja droit
 
 		if (timeRight > 0) {					// on allait a droite avant
 			state = 1;

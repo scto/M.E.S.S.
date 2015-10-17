@@ -82,7 +82,9 @@ public class Menu extends AbstractScreen {
 			}
 		}));
 		
-		ajout(new Button(Strings.TWITTER, CSG.menuFontSmall, MINI_BOUTON_WIDTH, MINI_BOUTON_HEIGHT / 2, (int) (CSG.screenWidth - ((CSG.menuFontSmall.getBounds(Strings.TWITTER).width * 2)) - PADDING * 3), (int) (4 + CSG.menuFont.getBounds("T").height*2), new OnClick() {
+		ajout(new Button(Strings.TWITTER, CSG.menuFontSmall, MINI_BOUTON_WIDTH, MINI_BOUTON_HEIGHT / 2,
+                (int) (CSG.screenWidth - (CSG.fontsDimensions.getWidth(CSG.menuFontSmall, Strings.TWITTER) * 2) - PADDING * 3),
+                (int) (4 + CSG.fontsDimensions.getHeight(CSG.menuFontSmall, "T") * 2), new OnClick() {
 			public void onClick() {
 				CSG.talkToTheWorld.followTwitter();
 			}

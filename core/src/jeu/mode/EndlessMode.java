@@ -298,7 +298,7 @@ public class EndlessMode implements Screen {
 				((cam.position.x - CSG.halfWidth)) + ((CSG.halfWidth - (CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.DEAD)) / 2)),
 				CSG.halfHeight + CSG.fontsDimensions.getHeight(CSG.menuFontSmall, Strings.DEAD) * 3);
 
-		CSG.menuFont.draw(batch, Score.strScore, ((cam.position.x - CSG.halfWidth)) + ((CSG.halfWidth - (CSG.fontsDimensions.getWidth(CSG.menuFont, Score.strScore).width) / 2)),
+		CSG.menuFont.draw(batch, Score.strScore, ((cam.position.x - CSG.halfWidth)) + ((CSG.halfWidth - (CSG.fontsDimensions.getWidth(CSG.menuFont, Score.strScore)) / 2)),
 				CSG.halfHeight);
 
 		Buttons.drawUpgradeAndTwitter(batch);
@@ -438,13 +438,15 @@ public class EndlessMode implements Screen {
 	}
 	
 	private void displayAdvice(String s, TextureRegion tr, SpriteBatch batch) {
-		CSG.menuFontSmall.draw(batch, s, ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - CSG.menuFontSmall.getBounds(s).width/2)),	
-				CSG.halfHeight * 1.5f - CSG.menuFontSmall.getBounds(s).height * 4);
+		CSG.menuFontSmall.draw(batch, s, ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - CSG.fontsDimensions.getWidth(CSG.menuFontSmall, s) / 2)),
+				CSG.halfHeight * 1.5f - CSG.fontsDimensions.getHeight(CSG.menuFontSmall, s) * 4);
 		batch.draw(tr, ((cam.position.x-CSG.halfWidth) + CSG.halfWidth) - Bonus.DISPLAY_WIDTH/2, CSG.halfHeight * 1.5f, Bonus.DISPLAY_WIDTH, Bonus.DISPLAY_WIDTH);
 	}
 
 	private void displayAdvice(String s) {
-		CSG.menuFontSmall.draw(batch, s, ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - CSG.menuFontSmall.getBounds(s).width/2)),	CSG.halfHeight - CSG.menuFontSmall.getBounds(s).height * 4);
+		CSG.menuFontSmall.draw(batch, s,
+                ((cam.position.x-CSG.halfWidth)) + ((CSG.halfWidth - CSG.fontsDimensions.getWidth(CSG.menuFontSmall, s) / 2)),
+                CSG.halfHeight - CSG.fontsDimensions.getHeight(CSG.menuFontSmall, s) * 4);
 	}
 
 	public static void lost() {

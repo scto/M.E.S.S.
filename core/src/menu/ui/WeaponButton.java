@@ -72,12 +72,12 @@ public class WeaponButton extends AbstractButton {
 		}
 		
 		if ( (num == 5 || num == 4) && CSG.profile.isAllWeaponsLvlOk(Profil.LVL_UNLOCK) == false) {
-			CSG.menuFontSmall.draw(CSG.batch, "Unlock the 2 remaining weapons by getting the others at level 6 or higher ", xText, 4 + CSG.menuFontSmall.getBounds("W").height);
+			CSG.menuFontSmall.draw(CSG.batch, "Unlock the 2 remaining weapons by getting the others at level 6 or higher ", xText, 4 + CSG.fontsDimensions.getHeight(CSG.menuFontSmall, "W"));
 			xText -= 0.3f;
 			batch.setColor(AssetMan.RED);
 			batch.draw(AssetMan.dust, x, y, 0, 		0, width*1.2f, 	Stats.u, 1, 1, 40);
 			batch.draw(AssetMan.dust, x, y, width, 	0, width, 		Stats.u, 1, 1, -35);
-			if (-CSG.menuFontSmall.getBounds("Unlock the 2 remaining weapons by getting the others at level 6 or higher ").width > xText)
+			if (-CSG.fontsDimensions.getWidth(CSG.menuFontSmall, "Unlock the 2 remaining weapons by getting the others at level 6 or higher ") > xText)
 				xText = CSG.screenWidth;
 		} else {
 			if (Gdx.input.justTouched() && Physic.isPointInSquare(Gdx.input.getX(), CSG.height - Gdx.input.getY(), x, y, width)) {

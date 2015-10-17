@@ -16,7 +16,7 @@ public class Transition {
 	private boolean movementTransition = false;
 	
 	private void transitionVersMouvement() {
-		// On ne décremente le chrono de ralentissement que quand on est au facteur de ralentissement max
+		// On ne decremente le chrono de ralentissement que quand on est au facteur de ralentissement max
 		if (facteurTransition > 1) {
 			facteurTransition -= stepTransition;
 			SoundMan.transitionUp(((TRANSITION_BEGIN - facteurTransition)/20));

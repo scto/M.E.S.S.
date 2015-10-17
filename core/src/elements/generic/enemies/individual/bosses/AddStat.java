@@ -38,7 +38,7 @@ public class AddStat extends Enemy {
 	
 	@Override
 	protected void move() {
-		if (now > Animations.ailesDeployees.animationDuration)
+		if (now > Animations.ailesDeployees.getAnimationDuration())
 			Mover.goToPlayer(this, 0.1f);
 		else
 			super.move();

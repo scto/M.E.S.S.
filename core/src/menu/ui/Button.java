@@ -44,8 +44,8 @@ public class Button extends AbstractButton {
 	}
 
 	private void updateBorders(BitmapFont font, float x, float y, float originalWidth, float originalHeight) {
-		height = font.getBounds(texte).height;
-		width = font.getBounds(texte).width;
+		height = CSG.fontsDimensions.getHeight(font, texte);
+		width = CSG.fontsDimensions.getWidth(font, texte);
 		y = ((y + (originalHeight/2)) - (height/2)) - PADDING_BARRE;
 		x = ((x + (originalWidth/2)) - (width/2)) - PADDING_BARRE;
 		width += PADDING_BARRE * 2;
@@ -97,11 +97,11 @@ public class Button extends AbstractButton {
 	private static final Vector2 tmpTouched = new Vector2();
 
 	private float getY() {
-		return sprite.getY() + font.getBounds(texte).height + sprite.getHeight()/2 - font.getBounds(texte).height/2;
+		return sprite.getY() + CSG.fontsDimensions.getHeight(font, texte) + sprite.getHeight()/2 - CSG.fontsDimensions.getHeight(font, texte) / 2;
 	}
 
 	private float getX() {
-		return (sprite.getX() + (sprite.getWidth()/2)) - font.getBounds(texte).width/2;
+		return (sprite.getX() + (sprite.getWidth()/2)) - CSG.fontsDimensions.getWidth(font, texte) / 2;
 	}
 
 	private void drawBackground(SpriteBatch batch) {
@@ -120,26 +120,9 @@ public class Button extends AbstractButton {
 	public void setTexte(String texte) {
 		// center
 		this.texte = texte;
-		width = font.getBounds(texte).width;
+		width = CSG.fontsDimensions.getWidth(font, texte);
 		width += PADDING_BARRE * 2;
 		setBarres(getX() - PADDING_BARRE, y);
-	}
-	
-	public BitmapFont font() {
-		return font;
-	}
-
-	public void camMoveY(float y) {
-		sprite.setY(sprite.getY()+y);
-	}
-	
-	public void camMoveX(float x) {
-		sprite.setY(sprite.getY()+x);
-	}
-
-	public void camZoom(float f) {
-		sprite.scale(f);
-		font.scale(f);
 	}
 
 	public static void testClick(Button b, float xOffset) {

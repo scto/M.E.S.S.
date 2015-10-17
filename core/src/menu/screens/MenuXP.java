@@ -85,7 +85,7 @@ public class MenuXP extends AbstractScreen{
 		for (int i = 0; i < buttons.size; i++) 
 			if (buttons.get(i) != null)
 				buttons.get(i).draw(CSG.batch);
-		CSG.menuFontSmall.draw(CSG.batch, "Weapon level : " + CSG.profile.getArmeSelectionnee().nv(), 4, 4 + CSG.menuFontSmall.getBounds("W").height);
+		CSG.menuFontSmall.draw(CSG.batch, "Weapon level : " + CSG.profile.getArmeSelectionnee().nv(), 4, 4 + CSG.fontsDimensions.getHeight(CSG.menuFontSmall, "W"));
 		CSG.end();
 		EndlessMode.majDeltas(true);
 		EndlessMode.alternate = !EndlessMode.alternate;

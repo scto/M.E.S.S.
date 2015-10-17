@@ -15,12 +15,11 @@ public class FontsDimensions {
         layout = new GlyphLayout();
     }
 
-    public float getWidth(BitmapFont menuFont, CharSeq strScore) {
+    public float getWidth(BitmapFont menuFont, CharSequence strScore) {
         layout.setText(menuFont, strScore);
         return layout.width;
     }
-
-    public float getHeight(BitmapFont menuFont, CharSeq strScore) {
+    public float getHeight(BitmapFont menuFont, CharSequence strScore) {
         layout.setText(menuFont, strScore);
         return layout.height;
     }

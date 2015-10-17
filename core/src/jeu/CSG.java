@@ -193,27 +193,8 @@ public class CSG extends Game implements ApplicationListener {
 		return CSG.convert(tmp);
 	}
 
-	public static Merlin[] convert(Array<Merlin> enemies) {
-		Merlin[] array2 = new Merlin[enemies.size];
-	    int i=0;
-	    for (Merlin f : enemies) {
-	        array2[i] = f;
-	        i++;
-	    }
-		return array2;
-	}
 
-	public static Vector2[] convert(Array<Vector2> positions) {
-		Vector2[] array2 = new Vector2[positions.size];
-	    int i=0;
-	    for (Vector2 f : positions) {
-	        array2[i] = f;
-	        i++;
-	    }
-		return array2;
-	}
-
-	public static SpawnEnemyPosition[] convert(Array<SpawnEnemyPosition> spawns) {
+	public static SpawnEnemyPosition[] ArrayConv(Array<SpawnEnemyPosition> spawns) {
 		SpawnEnemyPosition[] array2 = new SpawnEnemyPosition[spawns.size];
 	    int i=0;
 	    for (SpawnEnemyPosition f : spawns) {

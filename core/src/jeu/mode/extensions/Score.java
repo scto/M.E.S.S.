@@ -73,7 +73,7 @@ public class Score {
 		} else {
 			CSG.scoreFont.setColor(0, rScore, 1, 1);
 		}
-		CSG.scoreFont.setScale(CSG.originalScoreFontScale + rScore/2);
+		//CSG.scoreFont.setScale(CSG.originalScoreFontScale + rScore/2);
 	}
 
 	private static void updateStringScore() {
@@ -104,10 +104,12 @@ public class Score {
 	}
 
 	public static void draw(SpriteBatch batch, boolean lost) {
-		CSG.scoreFont.draw(batch, STR_MULTI[multi], Stats.U, FONT_HEIGHT + CSG.scoreFont.getBounds(STR_MULTI[multi]).height/2);
+		CSG.scoreFont.draw(batch, STR_MULTI[multi], Stats.U, FONT_HEIGHT + CSG.fontsDimensions.getHeight(CSG.scoreFont, STR_MULTI[multi]) /2);
 		if (!lost) {
 			// bottom score
-			CSG.scoreFont.draw(batch, strScore, CSG.halfWidth - CSG.scoreFont.getBounds(strScore).width/2, FONT_HEIGHT + CSG.scoreFont.getBounds(strScore).height/2);
+			CSG.scoreFont.draw(batch, strScore,
+                    CSG.halfWidth - CSG.fontsDimensions.getWidth(CSG.scoreFont, strScore) / 2,
+                    FONT_HEIGHT + CSG.fontsDimensions.getHeight(CSG.scoreFont, strScore) / 2);
 		}
 	}
 

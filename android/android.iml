@@ -83,14 +83,14 @@
     <orderEntry type="library" exported="" name="overlap2d-runtime-libgdx-0.1.0" level="project" />
     <orderEntry type="library" exported="" name="gdx-controllers-android-1.7.0" level="project" />
     <orderEntry type="library" exported="" name="vis-runtime-0.2.1" level="project" />
-    <orderEntry type="library" exported="" name="vis-ui-0.8.1" level="project" />
     <orderEntry type="library" exported="" name="gdx-controllers-1.7.0" level="project" />
+    <orderEntry type="library" exported="" name="vis-ui-0.8.1" level="project" />
     <orderEntry type="library" exported="" name="libgdx-utils-box2d-0.13.1" level="project" />
     <orderEntry type="library" exported="" name="artemis-odb-0.10.2" level="project" />
     <orderEntry type="library" exported="" name="gdx-backend-android-1.7.0" level="project" />
-    <orderEntry type="library" exported="" name="gdx-1.7.0" level="project" />
-    <orderEntry type="library" exported="" name="box2dlights-1.4" level="project" />
     <orderEntry type="library" exported="" name="gdx-freetype-1.7.0" level="project" />
+    <orderEntry type="library" exported="" name="box2dlights-1.4" level="project" />
+    <orderEntry type="library" exported="" name="gdx-1.7.0" level="project" />
     <orderEntry type="library" exported="" name="libgdx-utils-0.13.1" level="project" />
     <orderEntry type="library" exported="" name="gdx-box2d-1.7.0" level="project" />
     <orderEntry type="library" exported="" name="ashley-1.6.0" level="project" />

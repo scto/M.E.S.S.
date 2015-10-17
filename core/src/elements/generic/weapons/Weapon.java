@@ -26,7 +26,7 @@ public abstract class Weapon extends Element implements Poolable {
 	public static void drawAndMove(SpriteBatch batch) {
 		playerWeapons(batch);
 		testCollision = !testCollision;
-		// Attention que si y'a une collision on skip le reste de la liste. D'où l'effet bizarre quand on est invicible
+		// Attention que si y'a une collision on skip le reste de la liste. D'ou l'effet bizarre quand on est invicible
 		act(batch, ENEMIES_LIST);
 		act(batch, BOSSES_LIST);
     }

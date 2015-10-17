@@ -29,9 +29,9 @@ public class Buttons {
 	public static void backButton(SpriteBatch batch, final Game game) {
 		if (boutonBack == null) {
 			boutonBack = new Button(Strings.BACK, CSG.menuFont, 
-					(int) CSG.menuFont.getBounds(Strings.BACK).width, 
-					(int) CSG.menuFont.getBounds(Strings.BACK).height, 
-					(int) ((EndlessMode.cam.position.x) - CSG.menuFont.getBounds(Strings.BACK).width / 2),
+					(int) CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.BACK),
+					(int) CSG.fontsDimensions.getHeight(CSG.menuFont, Strings.BACK),
+					(int) ((EndlessMode.cam.position.x) - CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.BACK) / 2),
 					Menu.BUTTON_HEIGHT * 3,
 					new OnClick() {
 					public void onClick() {
@@ -59,9 +59,9 @@ public class Buttons {
 	public static void initAndDrawButtons(SpriteBatch batch) {
 		if (boutonRestart == null) {
 			boutonRestart = new Button(Strings.RESTART_BUTTON, CSG.menuFont, 
-					(int) CSG.menuFont.getBounds(Strings.RESTART_BUTTON).width, 
-					(int) CSG.menuFont.getBounds(Strings.RESTART_BUTTON).height, 
-					(int) ((EndlessMode.cam.position.x) - CSG.menuFont.getBounds(Strings.RESTART_BUTTON).width / 2),
+					(int) CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.BACK),
+					(int) CSG.fontsDimensions.getHeight(CSG.menuFont, Strings.BACK),
+					(int) ((EndlessMode.cam.position.x) - CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.BACK) / 2),
 					Menu.BUTTON_HEIGHT,
 					new OnClick() {
 					public void onClick() {
@@ -75,9 +75,9 @@ public class Buttons {
 			if (boutonUpgrade == null) {
 				if (CSG.profile.getCoutUpArme() <= CSG.profile.xp) {
 					boutonUpgrade = new Button(Strings.UPGRADE_BUTTON, CSG.menuFont, 
-							(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width, 
-							(int) CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).height, 
-							(int) ((EndlessMode.cam.position.x) - CSG.menuFont.getBounds(Strings.UPGRADE_BUTTON).width / 2),
+							(int) CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.UPGRADE_BUTTON),
+							(int) CSG.fontsDimensions.getHeight(CSG.menuFont, Strings.UPGRADE_BUTTON),
+							(int) ((EndlessMode.cam.position.x) - CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.UPGRADE_BUTTON) / 2),
 							(int) (Menu.BUTTON_HEIGHT * 3f),
 							new OnClick() {
 						public void onClick() {
@@ -92,9 +92,9 @@ public class Buttons {
 					});
 				} else {
 					boutonUpgrade = new Button(Strings.BUY_XP_BUTTON, CSG.menuFont, 
-							(int) CSG.menuFont.getBounds(Strings.BUY_XP_BUTTON).width, 
-							(int) CSG.menuFont.getBounds(Strings.BUY_XP_BUTTON).height, 
-							(int) ((EndlessMode.cam.position.x) - CSG.menuFont.getBounds(Strings.BUY_XP_BUTTON).width / 2),
+							(int) CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.BUY_XP_BUTTON),
+							(int) CSG.fontsDimensions.getHeight(CSG.menuFont, Strings.BUY_XP_BUTTON),
+							(int) ((EndlessMode.cam.position.x) - CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.BUY_XP_BUTTON) / 2),
 							(int) (Menu.BUTTON_HEIGHT * 3f),
 							new OnClick() {
 						public void onClick() {
@@ -115,9 +115,9 @@ public class Buttons {
 		if (Score.score > 50000) {
 			if (boutonTwitter == null) {
 				boutonTwitter = new Button(Strings.BRAG_TWITTER, CSG.menuFont, 
-						(int) CSG.menuFont.getBounds(Strings.BRAG_TWITTER).width, 
-						(int) CSG.menuFont.getBounds(Strings.BRAG_TWITTER).height, 
-						(int) ((EndlessMode.cam.position.x) - CSG.menuFont.getBounds(Strings.BRAG_TWITTER).width / 2),
+						(int) CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.BRAG_TWITTER),
+						(int) CSG.fontsDimensions.getHeight(CSG.menuFont, Strings.BRAG_TWITTER),
+						(int) ((EndlessMode.cam.position.x) - CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.BRAG_TWITTER) / 2),
 						Menu.BUTTON_HEIGHT * 5,
 						new OnClick() {
 						public void onClick() {

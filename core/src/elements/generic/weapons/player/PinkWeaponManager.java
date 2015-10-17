@@ -25,17 +25,17 @@ public class PinkWeaponManager extends WeaponManager {
 		alternate = !alternate;
 		if (EndlessMode.alternate)
 			SoundMan.playBulletSound(SOUND);
-		// 5°
+		// 5
 		if (alternate)			PinkWeapon.POOL.obtain().init(posX, posY, -0.08715574f, 0.9961947f);
 		else					PinkWeapon.POOL.obtain().init(posX, posY, 0.08715574f, 0.9961947f);
 		switch (CSG.profile.lvlPinkWeapon) {
 		case 8:			shoot(-0.70710677f, -0.70710677f);
 		case 7:			shoot(0.70710677f, 0.70710677f);
-		case 6:			shoot(0.9848077f, 0.17364822f); 			// 80°
-		case 5:			shoot(0.9961947f, 0.087155804f);			// 85°
-		case 4:			shoot(1, 0);								// 90°
-		case 3:			shoot(0.25881904f, 0.9659258f);				// 15°
-		case 2:			shoot(0.17364818f, 0.9848077f);				// 10°
+		case 6:			shoot(0.9848077f, 0.17364822f); 			// 80
+		case 5:			shoot(0.9961947f, 0.087155804f);			// 85
+		case 4:			shoot(1, 0);								// 90
+		case 3:			shoot(0.25881904f, 0.9659258f);				// 15
+		case 2:			shoot(0.17364818f, 0.9848077f);				// 10
 		}
 	}
 
