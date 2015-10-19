@@ -22,14 +22,11 @@ public class Menu extends AbstractScreen {
 	private static final float 	LIGNE_PLAY = 1.9f, 
 								LIGNE_SHIP = LIGNE_PLAY + ECART, 
 								LIGNE_OPTION = LIGNE_SHIP + ECART, 
-//								LIGNE_TUTO = LIGNE_OPTION + ECART, 
-								LIGNE_HIGHSCORE = LIGNE_OPTION + ECART, 
+								LIGNE_HIGHSCORE = LIGNE_OPTION + ECART,
 								LIGNE_ACHIEVEMENT = LIGNE_HIGHSCORE + ECART, 
 								LIGNE_SUPPORT = LIGNE_ACHIEVEMENT + ECART,
 								LIGNE_OTHER_GAMES = LIGNE_SUPPORT + ECART,
 								LIGNE_EXIT = LIGNE_SUPPORT + ECART * 3f;
-//	private final Skin skin;
-//    private final Stage stage;
 
 	public Menu(Game game) {
 		super(game);

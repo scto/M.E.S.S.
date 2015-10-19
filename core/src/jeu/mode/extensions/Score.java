@@ -90,9 +90,6 @@ public class Score {
 		processDigit(1, 8);
 	}
 
-	/**
-	 * 
-	 */
 	protected static void processDigit(int digitFactor, int digitPlace) {
 		currentDigit = scoreToProcess / digitFactor;
 		strScore.charSet(digitPlace, currentDigit);

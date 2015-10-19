@@ -73,7 +73,7 @@ public class Button extends AbstractButton {
 
 	public void draw(SpriteBatch batch) {
 		drawBackground(batch);
-		
+
 		font.draw(batch, texte, getX(),	getY());
 		
 		for (Barre b : barres)
