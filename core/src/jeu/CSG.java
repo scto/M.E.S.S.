@@ -3,6 +3,7 @@ package jeu;
 import java.util.Random;
 
 import ToBeSorted.FontsDimensions;
+import ToBeSorted.ShaderToys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.NumberUtils;
@@ -50,6 +51,7 @@ public class CSG extends Game implements ApplicationListener {
 	public static Vector2 vecteurCible = new Vector2();
 	public static int tmpInt;
 	public static FontsDimensions fontsDimensions;
+    public static final ShaderToys SHADER = new ShaderToys();
 	
 	public CSG(TalkToTheWorld google) {
 		CSG.talkToTheWorld = google;

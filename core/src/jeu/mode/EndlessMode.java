@@ -60,7 +60,9 @@ public class EndlessMode implements Screen {
 	public static final float STOP = 3;
 	private Tutorial tuto = new Tutorial();
 	public static Transition transition = new Transition();
-	public static final ShaderProgram greyscale = AssetMan.getShader("greyscale.glsl"), original = SpriteBatch.createDefaultShader(), timeStop = AssetMan.getShader("timestop.glsl"), touched = AssetMan.getShader("touched.glsl");
+	public static final ShaderProgram greyscale = CSG.SHADER.getShader("greyscale.glsl"),
+            original = SpriteBatch.createDefaultShader(),
+            timeStop = CSG.SHADER.getShader("timestop.glsl"), touched = CSG.SHADER.getShader("touched.glsl");
 
 	public EndlessMode(Game game, SpriteBatch batch, int level, int cheat) {
 		Gdx.input.setCatchBackKey(true);

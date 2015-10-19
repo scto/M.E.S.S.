@@ -22,17 +22,7 @@ public final class AssetMan implements AssetErrorListener {
 	public static TextureRegion iconDefaultW, iconTW, iconFireballW, iconSpreadW, iconSunW, iconSpaceInvW, tWeapon, star, effect, addBullet, addShipShot, xp, planet;
 	public final static AssetManager MAN = new AssetManager();
 	private TextureAtlas atlas;
-	public final static float WHITE = convertARGB(1, 1, 1, 1), ALPHA40 = convertARGB(.4f, 1, 1, 1), BLACK = convertARGB(1, 0, 0, 0), ALPHA70 = convertARGB(.70f, 1, 1, 1), RED = convertARGB(1, 1, 0, 0),
-			CYAN00 = convertARGB(1, 0, 0.0f, 1),
-			CYAN10 = convertARGB(1, 0, 0.1f, 1),
-			CYAN20 = convertARGB(1, 0, 0.2f, 1),
-			CYAN30 = convertARGB(1, 0, 0.3f, 1),
-			CYAN40 = convertARGB(1, 0, 0.4f, 1),
-			CYAN50 = convertARGB(1, 0, 0.5f, 1),
-			CYAN60 = convertARGB(1, 0, 0.6f, 1),
-			CYAN70 = convertARGB(1, 0, 0.7f, 1),
-			CYAN80 = convertARGB(1, 0, 0.8f, 1),
-			CYAN90 = convertARGB(1, 0, 0.9f, 1),
+	public final static float WHITE = convertARGB(1, 1, 1, 1), BLACK = convertARGB(1, 0, 0, 0), ALPHA70 = convertARGB(.70f, 1, 1, 1), RED = convertARGB(1, 1, 0, 0),
 			GREEN = convertARGB(1, 0, 1, 0);
 	private static final String ATLAS = "atlas/textures.atlas";
 	
@@ -195,29 +185,13 @@ public final class AssetMan implements AssetErrorListener {
 		SoundMan.explosion6 = MAN.get("sons/explosionkinder.wav", Sound.class);
 		
 		SoundMan.xp = MAN.get("sons/xp.wav", Sound.class);
-		
 
 		SoundMan.outsideNorm = MAN.get("sons/OutsideNorm.ogg", Music.class);
-	}
-
-	public static void resume() {
-		loadTextureRegions();
-		loadSounds();
-		loadMusics();
-		while (!CSG.assetMan.fini() ) {
-		}
 	}
 
 	@Override
 	public void error(AssetDescriptor asset, Throwable throwable) {
 		System.out.println("Probleme pour asset " + asset + " -------- " + throwable.getMessage());
-	}
-
-	public static ShaderProgram getShader(String fragment) {
-		ShaderProgram shaderProgram = new ShaderProgram(Gdx.files.internal("vertex.glsl").readString(), Gdx.files.internal(fragment).readString());
-		if (!shaderProgram.isCompiled())
-			System.out.println(shaderProgram.getLog());
-		return shaderProgram;
 	}
 
 }
