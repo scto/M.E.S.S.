@@ -1,5 +1,6 @@
 package assets;
 
+import behind.SoundMan;
 import jeu.CSG;
 import assets.sprites.AnimPlayer;
 import assets.sprites.Animations;
@@ -13,8 +14,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.utils.NumberUtils;
 
 public final class AssetMan implements AssetErrorListener {
 
@@ -22,8 +21,7 @@ public final class AssetMan implements AssetErrorListener {
 	public static TextureRegion iconDefaultW, iconTW, iconFireballW, iconSpreadW, iconSunW, iconSpaceInvW, tWeapon, star, effect, addBullet, addShipShot, xp, planet;
 	public final static AssetManager MAN = new AssetManager();
 	private TextureAtlas atlas;
-	public final static float WHITE = convertARGB(1, 1, 1, 1), BLACK = convertARGB(1, 0, 0, 0), ALPHA70 = convertARGB(.70f, 1, 1, 1), RED = convertARGB(1, 1, 0, 0),
-			GREEN = convertARGB(1, 0, 1, 0);
+
 	private static final String ATLAS = "atlas/textures.atlas";
 	
 	public AssetMan() {
@@ -130,47 +128,7 @@ public final class AssetMan implements AssetErrorListener {
 		}
 		loadPartie2();
 	}
-	
-	private static final short MAX = 255, A = 24, R = 16, G = 8;
-	public static float convertARGB(float a, float r, float g, float b) {
-		return NumberUtils.intToFloatColor(((int)(MAX * a) << A) | ((int)(MAX * b) << R) | ((int)(MAX * g) << G) | ((int)(MAX * r)));
-	}
-	
-	public static Float convertARGB(float a, float all) {
-		return NumberUtils.intToFloatColor(((int)(MAX * a) << A) | ((int)(MAX * all) << R) | ((int)(MAX * all) << G) | ((int)(MAX * all)));
-	}
-	
-	public static int tmpInt;
-	public static float setAlpha(float color, float alpha) {
-		tmpInt = NumberUtils.floatToIntColor(color);
-		return convertARGB(alpha, (tmpInt & 0xff) / 255f, ((tmpInt >>> 8) & 0xff) / 255f, ((tmpInt >>> 16) & 0xff) / 255f);
-	}
-	public static float setBlue(float color, float blue) {
-		tmpInt = NumberUtils.floatToIntColor(color);
-		return convertARGB((tmpInt & 0xff) / 255f, (tmpInt & 0xff) / 255f, ((tmpInt >>> 8) & 0xff) / 255f, blue);
-	}
 
-	public static void unload() {
-		try {
-			MAN.dispose();
-			if (SoundMan.bigExplosion != null)			SoundMan.bigExplosion.dispose();
-			if (SoundMan.explosion1 != null)			SoundMan.explosion1.dispose();
-			if (SoundMan.explosion2 != null)			SoundMan.explosion2.dispose();
-			if (SoundMan.explosion3 != null)			SoundMan.explosion3.dispose();
-			if (SoundMan.explosion4 != null)			SoundMan.explosion4.dispose();
-			if (SoundMan.explosion5 != null)			SoundMan.explosion5.dispose();
-			if (SoundMan.explosion6 != null)			SoundMan.explosion6.dispose();
-			if (SoundMan.shotRocket != null)				SoundMan.shotRocket.dispose();
-			if (SoundMan.bonusTaken != null)			SoundMan.bonusTaken.dispose();
-			if (SoundMan.sunWeapon != null)				SoundMan.sunWeapon.dispose();
-			if (SoundMan.outsideNorm != null)			SoundMan.outsideNorm.dispose();
-			CSG.menuFont.dispose();
-			CSG.menuFontSmall.dispose();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	private void setSounds() {
 		SoundMan.explosion2 = MAN.get("sons/explosionpetittetechercheuse.wav", Sound.class);
 		SoundMan.explosion1 = MAN.get("sons/162792__timgormly__8-bit-explosion1.wav", Sound.class);

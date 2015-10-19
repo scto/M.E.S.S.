@@ -70,7 +70,7 @@ public class MovingSmoke implements Poolable{
 				POOL.free(s);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 	
 	@Override

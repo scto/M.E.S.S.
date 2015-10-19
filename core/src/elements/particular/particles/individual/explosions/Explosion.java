@@ -4,7 +4,7 @@ import jeu.CSG;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.AssetMan;
-import assets.SoundMan;
+import behind.SoundMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -110,7 +110,7 @@ public class Explosion implements Poolable {
 				}
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<Explosion> explosions) {

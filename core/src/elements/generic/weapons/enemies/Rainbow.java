@@ -1,6 +1,5 @@
 package elements.generic.weapons.enemies;
 
-import assets.AssetMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +8,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import elements.generic.components.Dimensions;
+import jeu.CSG;
 
 public class Rainbow extends EnemyWeapon {
 	
@@ -25,7 +25,7 @@ public class Rainbow extends EnemyWeapon {
 	
 	@Override
 	protected void removeColor(SpriteBatch batch) {
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 	
 	public void init(Vector2 position, float modifVitesse, Vector2 direction, boolean boss) {
@@ -35,7 +35,7 @@ public class Rainbow extends EnemyWeapon {
 		
 		if (roueCouleur > 0.98f)			sens = false;
 		else if (roueCouleur < 0.40f)		sens = true;
-		color = AssetMan.convertARGB(1, roueCouleur, 1 - roueCouleur, 1);
+		color = CSG.gm.palette().convertARGB(1, roueCouleur, 1 - roueCouleur, 1);
 	}
 	
 	@Override	public Animations getAnimation() {			return Animations.BLUE_BALL;	}

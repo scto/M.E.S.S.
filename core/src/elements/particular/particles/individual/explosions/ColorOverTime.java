@@ -118,7 +118,7 @@ public class ColorOverTime implements Poolable {
 				batch.draw(AssetMan.dust, e.x, e.y, e.bundle.widths[e.index], e.bundle.widths[e.index]);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 	/**
 	 * Will blow the particles away from the player 

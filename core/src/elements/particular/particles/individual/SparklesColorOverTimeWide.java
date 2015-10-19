@@ -1,5 +1,6 @@
 package elements.particular.particles.individual;
 
+import jeu.CSG;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
 import assets.AssetMan;
@@ -44,7 +45,7 @@ public class SparklesColorOverTimeWide implements Poolable {
 				batch.draw(AssetMan.dust, e.x, e.y, HALF_HEIGHT, HALF_WIDTH, HEIGHT, WIDTH, 1f, 1f, e.angle);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 	
 	public static void clear(Array<SparklesColorOverTimeWide> explosions) {

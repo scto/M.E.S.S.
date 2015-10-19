@@ -12,9 +12,9 @@ import jeu.mode.extensions.Score;
 import jeu.mode.extensions.ScreenShake;
 import jeu.mode.extensions.Transition;
 import jeu.mode.extensions.Tutorial;
-import shaders.Bloom;
+import behind.shaders.Bloom;
 import assets.AssetMan;
-import assets.SoundMan;
+import behind.SoundMan;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -293,9 +293,9 @@ public class EndlessMode implements Screen {
 				case 5:		displayAdvice(Strings.ADVICE5, AssetMan.stopBonus, batch);		break;
 			}
 		}
-		batch.setColor(AssetMan.BLACK);
+		batch.setColor(CSG.gm.palette().black);
 		batch.draw(AssetMan.dust, 0, CSG.halfHeight - CSG.fontsDimensions.getHeight(CSG.menuFont, Score.strScore) * 2, CSG.screenWidth, CSG.fontsDimensions.getHeight(CSG.menuFont, Score.strScore) * 6);
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 		CSG.menuFont.draw(batch, Strings.DEAD,
 				((cam.position.x - CSG.halfWidth)) + ((CSG.halfWidth - (CSG.fontsDimensions.getWidth(CSG.menuFont, Strings.DEAD)) / 2)),
 				CSG.halfHeight + CSG.fontsDimensions.getHeight(CSG.menuFontSmall, Strings.DEAD) * 3);
@@ -402,7 +402,7 @@ public class EndlessMode implements Screen {
 		SoundMan.halfVolume();
 		triggerStop = true;
 		Particles.addChronoGenerator();
-		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.GREEN);
+		WaveEffect.add(Player.xCenter, Player.yCenter, CSG.gm.palette().green);
 	}
 
 	private static void justeTouche() {

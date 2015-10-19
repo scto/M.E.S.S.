@@ -92,7 +92,7 @@ public class Particles {
 		batch.draw(AssetMan.background, -CSG.widthDiv10 *2, -CSG.heightDiv10, CSG.screenWidth + CSG.widthDiv10*3, CSG.height + CSG.heightDiv10);
 		batch.setColor(1, 1, 1, (1-Math.abs(alphaBg)) / 2);
 		batch.draw(AssetMan.background, -CSG.widthDiv10 *2, -CSG.heightDiv10, CSG.screenWidth + CSG.widthDiv10*3, CSG.height + CSG.heightDiv10);
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 		Star.act(batch, STAR);
 		SparklesColorOverTime.act(COLOR_OVER_TIME, batch);
 		Explosion.act(EXPLOSIONS, batch);

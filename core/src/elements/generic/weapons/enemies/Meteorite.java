@@ -2,7 +2,7 @@ package elements.generic.weapons.enemies;
 
 import jeu.CSG;
 import jeu.mode.EndlessMode;
-import assets.SoundMan;
+import behind.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.math.Vector2;

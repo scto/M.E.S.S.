@@ -64,7 +64,7 @@ public class ThrusterParticle implements Poolable {
 				batch.draw(AssetMan.dust, f.x, f.y, WIDTH, WIDTH);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<ThrusterParticle> flammes) {

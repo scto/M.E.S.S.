@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.weapons.player.Fireball;
 import elements.particular.particles.individual.PrecalculatedParticles;
+import jeu.CSG;
 
 public class FireballParticle implements Poolable {
 	
@@ -43,7 +44,7 @@ public class FireballParticle implements Poolable {
 				POOL.free(p);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<FireballParticle> fireballs) {

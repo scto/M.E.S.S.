@@ -6,7 +6,7 @@ import jeu.Stats;
 import jeu.mode.EndlessMode;
 import jeu.mode.extensions.Score;
 import assets.AssetMan;
-import assets.SoundMan;
+import behind.SoundMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -52,7 +52,7 @@ public class XP extends Bonus implements Poolable {
 	}
 	
 	private float getColor(float xp) {
-		return AssetMan.convertARGB(1, 0.2f, 0.5f + (xp / XPMINN), 1);
+		return CSG.gm.palette().convertARGB(1, 0.2f, 0.5f + (xp / XPMINN), 1);
 	}
 
 	private void limites() {
@@ -97,7 +97,7 @@ public class XP extends Bonus implements Poolable {
 					drawMultipleTimes(batch, xp, xp.angle);
 					if (xp.inflate >= WIDTH_INF) {
 //					if (xp.inflate >= xp.width * 2) {
-						xp.color = AssetMan.setAlpha(xp.color, 0.3f);
+						xp.color = CSG.gm.palette().setAlpha(xp.color, 0.3f);
 						xp.state = SHOOTING_STAR;
 						xp.direction.x = CSG.halfWidth - xp.pos.x;
 						xp.direction.y = -xp.pos.y;
@@ -135,7 +135,7 @@ public class XP extends Bonus implements Poolable {
 //				POOL.free(xp);
 //			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	private static void taken(XP xp) {

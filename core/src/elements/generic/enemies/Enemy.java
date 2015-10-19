@@ -8,7 +8,7 @@ import jeu.mode.EndlessMode;
 import jeu.mode.extensions.ScreenShake;
 import jeu.mode.extensions.Transition;
 import assets.AssetMan;
-import assets.SoundMan;
+import behind.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
@@ -79,12 +79,12 @@ public abstract class Enemy extends Element implements Poolable {
 				// left
 				batch.setColor(1, 0, 0.5f, 1);
 				batch.draw(AssetMan.dust, -ALERT_HALF_WIDTH, pos.y - Stats.U3, ALERT_WIDTH, (DETECT_RANGE + (pos.x + getDimensions().width)) + Stats.U6);
-				batch.setColor(AssetMan.WHITE);
+				batch.setColor(CSG.gm.palette().white);
 			} else if (pos.x > CSG.screenWidth && pos.x < Stats.WIDTH_PLUS_MARGIN) { 
 				// right
 				batch.setColor(1, 0, 0.5f, 1);
 				batch.draw(AssetMan.dust, CSG.screenWidth - ALERT_HALF_WIDTH, pos.y - Stats.U3, ALERT_WIDTH, (DETECT_RANGE + (CSG.halfWidth - pos.x)) + Stats.U6);
-				batch.setColor(AssetMan.WHITE);
+				batch.setColor(CSG.gm.palette().white);
 			}
 		}
 	}
@@ -149,8 +149,8 @@ public abstract class Enemy extends Element implements Poolable {
 		EndlessMode.transition.activate(10, Transition.BOMB);
 		if (LIST.size >= 15)
 			CSG.talkToTheWorld.unlockAchievementGPGS(Strings.ACH_15_ENEMY);
-		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.convertARGB(1, 1f, 	(CSG.R.nextFloat() + .8f) / 1.6f, 	CSG.R.nextFloat()/8));
-		WaveEffect.add(Player.xCenter, Player.yCenter, AssetMan.convertARGB(1, 1f, 	(CSG.R.nextFloat() + .8f) / 1.6f, 	CSG.R.nextFloat()/8));
+		WaveEffect.add(Player.xCenter, Player.yCenter, CSG.gm.palette().convertARGB(1, 1f, (CSG.R.nextFloat() + .8f) / 1.6f, CSG.R.nextFloat() / 8));
+		WaveEffect.add(Player.xCenter, Player.yCenter, CSG.gm.palette().convertARGB(1, 1f, (CSG.R.nextFloat() + .8f) / 1.6f, CSG.R.nextFloat() / 8));
 		attackAllEnemies(bomb);
 	}
 

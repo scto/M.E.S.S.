@@ -1,6 +1,6 @@
 package elements.generic.weapons.player;
 
-import assets.SoundMan;
+import behind.SoundMan;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;

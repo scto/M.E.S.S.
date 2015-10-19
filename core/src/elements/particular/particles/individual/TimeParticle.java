@@ -22,7 +22,7 @@ public class TimeParticle implements Poolable {
 		}
 	};
 	private float x, y, time;
-	private final float color = AssetMan.convertARGB(1, 0, 1, CSG.R.nextFloat());
+	private final float color = CSG.gm.palette().convertARGB(1, 0, 1, CSG.R.nextFloat());
 
 	public TimeParticle init(Element e) {
 		x = (e.pos.x + e.getDimensions().halfWidth) - HALF_WIDTH;
@@ -43,7 +43,7 @@ public class TimeParticle implements Poolable {
 				POOL.free(t);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<TimeParticle> time) {

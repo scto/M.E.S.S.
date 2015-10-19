@@ -20,7 +20,7 @@ public class ParticleUiElement {
 	private static final Random r = new Random();
 	
 	public ParticleUiElement() {
-		color = AssetMan.convertARGB(1, rand.nextFloat(), rand.nextFloat(), 1);
+		color = CSG.gm.palette().convertARGB(1, rand.nextFloat(), rand.nextFloat(), 1);
 	}
 	
 	public void init(float x, float y, boolean selected) {
@@ -28,9 +28,9 @@ public class ParticleUiElement {
 		posY = y;
 		largeur = LARGEUR;
 		if (selected)
-			color = AssetMan.convertARGB(1, 1, rand.nextFloat(), 1);
+			color = CSG.gm.palette().convertARGB(1, 1, rand.nextFloat(), 1);
 		else
-			color = AssetMan.convertARGB(1, rand.nextFloat(), rand.nextFloat(), 1);
+			color = CSG.gm.palette().convertARGB(1, rand.nextFloat(), rand.nextFloat(), 1);
 	}
 
 	public void display(SpriteBatch batch) {

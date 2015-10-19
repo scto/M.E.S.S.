@@ -26,7 +26,7 @@ public class ParticlePanneau {
 	};
 	
 	public ParticlePanneau() {
-		color = AssetMan.convertARGB(1, rand.nextFloat()/8, (rand.nextFloat()+1)/3, 1);
+		color = CSG.gm.palette().convertARGB(1, rand.nextFloat()/8, (rand.nextFloat()+1)/3, 1);
 	}
 	
 	public void init(Vector2 posParticule, Vector2 baseDirection) {

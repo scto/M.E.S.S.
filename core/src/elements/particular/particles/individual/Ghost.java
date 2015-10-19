@@ -1,6 +1,5 @@
 package elements.particular.particles.individual;
 
-import assets.AssetMan;
 import assets.sprites.AnimPlayer;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +8,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.particular.Player;
+import jeu.CSG;
 
 public class Ghost implements Poolable {
 
@@ -31,7 +31,7 @@ public class Ghost implements Poolable {
 				POOL.free(ghost);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	@Override

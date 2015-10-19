@@ -1,310 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="000f0d48-6e2b-49e0-8215-24e17cae074c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/outputFileStates.bin" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/Gradle___trinity_html___html_1_0_war.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/Gradle___trinity_html___html_1_0_war__exploded_.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/Gradle___trinity_html___html_draft_1_0_war.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/Gradle___trinity_html___html_draft_1_0_war__exploded_.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/artemis_odb_0_10_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/ashley_1_6_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/ashley_1_6_0_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/box2dlights_1_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/box2dlights_1_4_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_1_7_0_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_ai_1_6_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_ai_1_6_0_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_backend_android_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_backend_gwt_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_backend_gwt_1_7_0_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_backend_headless_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_backend_lwjgl_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_backend_robovm_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_box2d_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_box2d_1_7_0_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_box2d_gwt_1_7_0_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_box2d_platform_1_7_0_natives_desktop.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_box2d_platform_1_7_0_natives_ios.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_controllers_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_controllers_1_7_0_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_controllers_android_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_controllers_desktop_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_controllers_gwt_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_controllers_gwt_1_7_0_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_controllers_platform_1_7_0_natives_desktop.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_freetype_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_freetype_platform_1_7_0_natives_desktop.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_freetype_platform_1_7_0_natives_ios.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_platform_1_7_0_natives_desktop.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_platform_1_7_0_natives_ios.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gdx_tools_1_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gwt_servlet_2_6_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gwt_user_2_6_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jinput_2_0_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jinput_platform_2_0_5_natives_linux.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jinput_platform_2_0_5_natives_osx.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jinput_platform_2_0_5_natives_windows.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jlayer_1_0_1_gdx.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jorbis_0_0_17.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/json_20090211.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jutils_1_0_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/libgdx_utils_0_13_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/libgdx_utils_0_13_1_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/libgdx_utils_box2d_0_13_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/libgdx_utils_box2d_0_13_1_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_2_9_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_platform_2_9_2_natives_linux.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_platform_2_9_2_natives_osx.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_platform_2_9_2_natives_windows.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_util_2_9_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/overlap2d_runtime_libgdx_0_1_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/robovm_cocoatouch_1_8_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/robovm_objc_1_8_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/robovm_rt_1_8_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/validation_api_1_0_0_GA.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/validation_api_1_0_0_GA_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/vis_runtime_0_2_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/vis_runtime_0_2_1_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/vis_ui_0_8_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/vis_ui_0_8_1_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.dropbox" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_10.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_all_1_8_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/alpha_bloom.fragment.glsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/alpha_gaussian.fragment.glsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/alpha_treshold.fragment.glsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/bloom.fragment.glsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/blurspace.vertex.glsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/box2dlights-1.3-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/gaussian.fragment.glsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/gdx-box2d.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/gdx-freetype-natives.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/gdx-freetype.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/gdx-sources.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/gdx.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jackson-mapper-asl-1.8.5.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/maskedtreshold.fragment.glsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/screenspace.vertex.glsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/treshold.fragment.glsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sonar-project.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CheapestShootingGame.gwt.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/AssetMan.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/SoundMan.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/sprites/AnimPlayer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/sprites/AnimUser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/sprites/Animated.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/assets/sprites/Animations.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/PatternHorizontalPositionnable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/Element.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/Dimensions.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/EnemyStats.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/behavior/Mover.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/enemies/Merlin.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/enemies/Summoner.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/positionning/LeftRight.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/positionning/Middle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/positionning/Pos.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/positionning/Positionner.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/positionning/Sides.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/positionning/Up.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/positionning/UpWide.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/shots/AbstractShot.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/shots/Canon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/components/shots/Gatling.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/Enemy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/bosses/AddStat.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/bosses/BossMine.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/bosses/Quad.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/bosses/Sat.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Ball.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Basic.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Crusader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Cylon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Diabolo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Group.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Insect.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Kinder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Laser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Orbital.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Plane.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/RoundAndRound.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Shooter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/ShooterFrag.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/Vicious.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl1/ZigZag.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl2/BouleTirCote.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl2/BouleTirCoteRotation.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Ball3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Basic3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Crusader3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Cylon3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Diabolo3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Group3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Insect3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Kinder3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Laser3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Plane3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/RoundAndRound3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/Shooter3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/ShooterFrag3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl3/ZigZag3.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Ball4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Basic4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Crusader4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Cylon4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Diabolo4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Group4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Insect4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Kinder4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Laser4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Plane4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/RoundAndRound4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/Shooter4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/ShooterFrag4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/enemies/individual/lvl4/ZigZag4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/Weapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/CyanBullet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/EnemyWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/Fireball.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/FragWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/FragmentedMeteorite.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/InsectWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/InvocableWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/KinderWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/LaserWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/Meteorite.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/Mine.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/OrangeBullet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/PinkBullet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/Rainbow.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/SmallFireball.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/Tournante.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/enemies/ViciousBullet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/ArmeAdd.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/BlueSweepWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/BlueSweepWeaponManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/Fireball.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/FireballManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/PinkWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/PinkWeaponManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/PlayerWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/SpaceInvaderManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/SpaceInvaderWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/SunManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/SunWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/TWeapon.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/TWeaponManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/generic/weapons/player/WeaponManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/Player.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/bonuses/Bomb.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/bonuses/Bonus.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/bonuses/BonusTimeMvt.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/bonuses/Drone.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/bonuses/Shield.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/bonuses/TimeStop.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/bonuses/XP.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/other/WaveEffect.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/ColorGenerator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/OvaleParticuleGenerator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/Painters.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/Particles.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/ParticuleBundles.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/Ghost.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/PrecalculatedParticles.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/SparklesColorOverTimeWide.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/TimeParticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/background/Dust.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/background/Star.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/explosions/ColorOverTime.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/explosions/DebrisExplosion.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/explosions/Explosion.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/explosions/ExplosionImpactBullet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/explosions/SparklesColorOverTime.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/smoke/MovingSmoke.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/smoke/Smoke.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/trhuster/ThrusterParticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/weapon/BlueSweepParticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/weapon/FireballParticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/weapon/GreenAddParticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/weapon/PinkParticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/weapon/SpaceInvaderParticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/weapon/SunParticle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/elements/particular/particles/individual/weapon/TWeaponParticles.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/CSG.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/CharSeq.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/Client.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/Physic.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/Profil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/ProfilManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/Stats.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/Strings.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/TalkToTheWorld.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/level/Progression.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/level/SpawnEnemyPosition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/level/Wave.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/mode/EndlessMode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/mode/extensions/Buttons.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/mode/extensions/DesktopTests.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/mode/extensions/Score.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/mode/extensions/ScreenShake.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/mode/extensions/TemporaryText.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/mode/extensions/Transition.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/jeu/mode/extensions/Tutorial.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/BasicMenu.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/Credits.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/JeuBackground.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/screens/AbstractScreen.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/screens/ChoixDifficulte.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/screens/Loading.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/screens/Menu.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/screens/MenuOptions.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/screens/MenuXP.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/tuto/OnClick.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/tuto/Phase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/tuto/Tutorial.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/ui/AbstractButton.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/ui/Barre.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/ui/Button.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/menu/ui/WeaponButton.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/shaders/Bloom.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/shaders/BloomShaderLoader.java" afterPath="" />
+    <list default="true" id="000f0d48-6e2b-49e0-8215-24e17cae074c" name="Default" comment="Shader toy">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/behind/Gm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/behind/Gps.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/ToBeSorted/FontsDimensions.java" afterPath="$PROJECT_DIR$/core/src/behind/FontsDimensions.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/ToBeSorted/Palette.java" afterPath="$PROJECT_DIR$/core/src/behind/graphics/Palette.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/ToBeSorted/ShaderToys.java" afterPath="$PROJECT_DIR$/core/src/behind/shaders/ShaderToys.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/assets/SoundMan.java" afterPath="$PROJECT_DIR$/core/src/behind/SoundMan.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/shaders/Bloom.java" afterPath="$PROJECT_DIR$/core/src/behind/shaders/Bloom.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/shaders/BloomShaderLoader.java" afterPath="$PROJECT_DIR$/core/src/behind/shaders/BloomShaderLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/AddStat.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/AddStat.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/assets/sprites/AnimPlayer.java" afterPath="$PROJECT_DIR$/core/src/assets/sprites/AnimPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/assets/sprites/Animations.java" afterPath="$PROJECT_DIR$/core/src/assets/sprites/Animations.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/ArmeAdd.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/ArmeAdd.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/assets/AssetMan.java" afterPath="$PROJECT_DIR$/core/src/assets/AssetMan.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Ball.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Ball.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/menu/ui/Barre.java" afterPath="$PROJECT_DIR$/core/src/menu/ui/Barre.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Basic.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Basic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/BlueSweepParticle.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/BlueSweepParticle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/BlueSweepWeaponManager.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/BlueSweepWeaponManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/bonuses/Bonus.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/bonuses/Bonus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/BossMine.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/BossMine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl2/BouleTirCote.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl2/BouleTirCote.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/menu/ui/Button.java" afterPath="$PROJECT_DIR$/core/src/menu/ui/Button.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/jeu/mode/extensions/Buttons.java" afterPath="$PROJECT_DIR$/core/src/jeu/mode/extensions/Buttons.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/jeu/CSG.java" afterPath="$PROJECT_DIR$/core/src/jeu/CSG.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/menu/Credits.java" afterPath="$PROJECT_DIR$/core/src/menu/Credits.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/menu/screens/ChoixDifficulte.java" afterPath="$PROJECT_DIR$/core/src/menu/screens/ChoixDifficulte.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/ColorOverTime.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/ColorOverTime.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Crusader.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Crusader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/CyanBullet.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/CyanBullet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Cylon.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Cylon.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/DebrisExplosion.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/DebrisExplosion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/desktop/src/be/julien/trinity/desktop/DesktopLauncher.java" afterPath="$PROJECT_DIR$/desktop/src/be/julien/trinity/desktop/DesktopLauncher.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Diabolo.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Diabolo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/background/Dust.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/background/Dust.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/jeu/mode/EndlessMode.java" afterPath="$PROJECT_DIR$/core/src/jeu/mode/EndlessMode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/ToBeSorted/FontsDimensions.java" afterPath="$PROJECT_DIR$/core/src/ToBeSorted/FontsDimensions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/menu/screens/Loading.java" afterPath="$PROJECT_DIR$/core/src/menu/screens/Loading.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/Enemy.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/Enemy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/EnemyWeapon.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/EnemyWeapon.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/Explosion.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/Explosion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/ExplosionImpactBullet.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/ExplosionImpactBullet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/FireballManager.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/FireballManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/FireballParticle.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/FireballParticle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/Ghost.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/Ghost.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/GreenAddParticle.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/GreenAddParticle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Group.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Group.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Insect.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Insect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Kinder.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Kinder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Laser.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Laser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/menu/screens/Menu.java" afterPath="$PROJECT_DIR$/core/src/menu/screens/Menu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/menu/screens/MenuXP.java" afterPath="$PROJECT_DIR$/core/src/menu/screens/MenuXP.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/menu/screens/MenuOptions.java" afterPath="$PROJECT_DIR$/core/src/menu/screens/MenuOptions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/Meteor.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/Meteor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/Meteorite.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/Meteorite.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/Mine.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/Mine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/smoke/MovingSmoke.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/smoke/MovingSmoke.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Orbital.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Orbital.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/Painters.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/Painters.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/ParticlePanneau.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/ParticlePanneau.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/ParticleUiElement.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/ParticleUiElement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/Particles.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/Particles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/PinkBullet.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/PinkBullet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/PinkParticle.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/PinkParticle.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/PinkWeaponManager.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/PinkWeaponManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/jeu/mode/extensions/Score.java" afterPath="$PROJECT_DIR$/core/src/jeu/mode/extensions/Score.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/jeu/mode/extensions/TemporaryText.java" afterPath="$PROJECT_DIR$/core/src/jeu/mode/extensions/TemporaryText.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Plane.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Plane.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/Player.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/Player.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/PlayerWeapon.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/PlayerWeapon.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/PrecalculatedParticles.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/PrecalculatedParticles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/Quad.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/Quad.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/Rainbow.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/Rainbow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/RoundAndRound.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/RoundAndRound.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/Sat.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/Sat.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Shooter.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Shooter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/ShooterFrag.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/ShooterFrag.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/smoke/Smoke.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/smoke/Smoke.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/SpaceInvaderManager.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/SpaceInvaderManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/SpaceInvaderParticle.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/SpaceInvaderParticle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/SparklesColorOverTime.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/SparklesColorOverTime.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/SparklesColorOverTimeWide.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/SparklesColorOverTimeWide.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/background/Star.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/background/Star.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/StaticSmoke.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/StaticSmoke.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/SunManager.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/SunManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/SunParticle.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/SunParticle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/SunWeapon.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/SunWeapon.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/TWeaponManager.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/player/TWeaponManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/trhuster/ThrusterParticle.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/trhuster/ThrusterParticle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/TimeParticle.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/particles/individual/TimeParticle.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/jeu/mode/extensions/Transition.java" afterPath="$PROJECT_DIR$/core/src/jeu/mode/extensions/Transition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/Weapon.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/Weapon.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Vicious.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Vicious.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/ViciousBullet.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/ViciousBullet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/other/WaveEffect.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/other/WaveEffect.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/menu/ui/WeaponButton.java" afterPath="$PROJECT_DIR$/core/src/menu/ui/WeaponButton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android/android.iml" afterPath="$PROJECT_DIR$/android/android.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/particular/bonuses/XP.java" afterPath="$PROJECT_DIR$/core/src/elements/particular/bonuses/XP.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/ZigZag.java" afterPath="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/ZigZag.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="trinity.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -333,111 +124,165 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MenuXP.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/menu/screens/MenuXP.java">
+      <file leaf-file-name="Palette.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/behind/graphics/Palette.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="87" column="162" selection-start-line="87" selection-start-column="162" selection-end-line="87" selection-end-column="162" />
+              <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Loading.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/menu/screens/Loading.java">
+      <file leaf-file-name="BloomShaderLoader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/behind/shaders/BloomShaderLoader.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="175" selection-start-line="36" selection-start-column="175" selection-end-line="36" selection-end-column="175" />
+              <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeaponButton.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/menu/ui/WeaponButton.java">
+      <file leaf-file-name="Bloom.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/behind/shaders/Bloom.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="74" column="173" selection-start-line="74" selection-start-column="173" selection-end-line="74" selection-end-column="173" />
+              <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/menu/screens/Menu.java">
+      <file leaf-file-name="SoundMan.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/behind/SoundMan.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="86" column="56" selection-start-line="86" selection-start-column="56" selection-end-line="86" selection-end-column="56" />
+              <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AnimUser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/assets/sprites/AnimUser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AnimPlayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/assets/sprites/AnimPlayer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Animations.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/assets/sprites/Animations.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
               <folding>
-                <element signature="e#3404#3495#0" expanded="true" />
-                <element signature="e#3494#3495#0" expanded="true" />
+                <element signature="e#282#440#0" expanded="true" />
+                <element signature="e#439#440#0" expanded="true" />
+                <element signature="e#460#619#0" expanded="true" />
+                <element signature="e#618#619#0" expanded="true" />
+                <element signature="e#640#800#0" expanded="true" />
+                <element signature="e#809#948#0" expanded="true" />
+                <element signature="e#947#948#0" expanded="true" />
+                <element signature="e#965#1091#0" expanded="true" />
+                <element signature="e#1090#1091#0" expanded="true" />
+                <element signature="e#1102#1243#0" expanded="true" />
+                <element signature="e#1242#1243#0" expanded="true" />
+                <element signature="e#1255#1366#0" expanded="true" />
+                <element signature="e#1365#1366#0" expanded="true" />
+                <element signature="e#1373#1508#0" expanded="true" />
+                <element signature="e#1507#1508#0" expanded="true" />
+                <element signature="e#1518#1638#0" expanded="true" />
+                <element signature="e#1637#1638#0" expanded="true" />
+                <element signature="e#1648#1789#0" expanded="true" />
+                <element signature="e#1788#1789#0" expanded="true" />
+                <element signature="e#1800#1924#0" expanded="true" />
+                <element signature="e#1923#1924#0" expanded="true" />
+                <element signature="e#1943#2039#0" expanded="true" />
+                <element signature="e#2038#2039#0" expanded="true" />
+                <element signature="e#2060#2158#0" expanded="true" />
+                <element signature="e#2157#2158#0" expanded="true" />
+                <element signature="e#2178#2275#0" expanded="true" />
+                <element signature="e#2274#2275#0" expanded="true" />
+                <element signature="e#2293#2421#0" expanded="true" />
+                <element signature="e#2420#2421#0" expanded="true" />
+                <element signature="e#2434#2543#0" expanded="true" />
+                <element signature="e#2542#2543#0" expanded="true" />
+                <element signature="e#2558#2669#0" expanded="true" />
+                <element signature="e#2668#2669#0" expanded="true" />
+                <element signature="e#2683#2793#0" expanded="true" />
+                <element signature="e#2792#2793#0" expanded="true" />
+                <element signature="e#2801#2910#0" expanded="true" />
+                <element signature="e#2909#2910#0" expanded="true" />
+                <element signature="e#2923#3068#0" expanded="true" />
+                <element signature="e#3067#3068#0" expanded="true" />
+                <element signature="e#3081#3202#0" expanded="true" />
+                <element signature="e#3201#3202#0" expanded="true" />
+                <element signature="e#3215#3338#0" expanded="true" />
+                <element signature="e#3337#3338#0" expanded="true" />
+                <element signature="e#3356#3452#0" expanded="true" />
+                <element signature="e#3451#3452#0" expanded="true" />
+                <element signature="e#3460#3577#0" expanded="true" />
+                <element signature="e#3576#3577#0" expanded="true" />
+                <element signature="e#3585#3702#0" expanded="true" />
+                <element signature="e#3701#3702#0" expanded="true" />
+                <element signature="e#3714#3805#0" expanded="true" />
+                <element signature="e#3804#3805#0" expanded="true" />
+                <element signature="e#3822#3978#0" expanded="true" />
+                <element signature="e#3977#3978#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Credits.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/menu/Credits.java">
+      <file leaf-file-name="Gps.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/behind/Gps.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="102" selection-start-line="34" selection-start-column="102" selection-end-line="34" selection-end-column="102" />
+              <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Score.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/jeu/mode/extensions/Score.java">
+      <file leaf-file-name="Gm.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/behind/Gm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="75" column="10" selection-start-line="75" selection-start-column="10" selection-end-line="75" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Button.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/menu/ui/Button.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="47" column="57" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
+            <state vertical-scroll-proportion="0.26919243">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
-                <element signature="e#3000#3001#0" expanded="true" />
-                <element signature="e#3101#3102#0" expanded="true" />
+                <element signature="e#231#232#0" expanded="true" />
+                <element signature="e#261#262#0" expanded="true" />
+                <element signature="e#285#286#0" expanded="true" />
+                <element signature="e#311#312#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TemporaryText.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/src/jeu/mode/extensions/TemporaryText.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6545454">
-              <caret line="31" column="115" selection-start-line="31" selection-start-column="115" selection-end-line="31" selection-end-column="115" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GlyphLayout.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.7.0/21b2ce6c57a95b31f341bb416489791fc96ed2bf/gdx-1.7.0-sources.jar!/com/badlogic/gdx/graphics/g2d/GlyphLayout.java">
+      <file leaf-file-name="AssetMan.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/assets/AssetMan.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="61" column="52" selection-start-line="61" selection-start-column="40" selection-end-line="61" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FontsDimensions.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/ToBeSorted/FontsDimensions.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+              <caret line="19" column="35" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="35" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#283#284#0" expanded="true" />
-                <element signature="e#325#326#0" expanded="true" />
+                <element signature="e#1247#1248#0" expanded="true" />
+                <element signature="e#1299#1300#0" expanded="true" />
+                <element signature="e#2023#2024#0" expanded="true" />
+                <element signature="e#2049#2050#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -3580,25 +3425,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/desktop/src/be/julien/trinity/desktop/DesktopLauncher.java" />
-        <option value="$PROJECT_DIR$/core/src/FontsDimensions.java" />
-        <option value="$PROJECT_DIR$/core/src/elements/generic/weapons/player/PinkWeaponManager.java" />
-        <option value="$PROJECT_DIR$/core/src/elements/generic/weapons/Weapon.java" />
-        <option value="$PROJECT_DIR$/core/src/assets/sprites/AnimPlayer.java" />
-        <option value="$PROJECT_DIR$/core/src/jeu/mode/extensions/Transition.java" />
-        <option value="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/AddStat.java" />
-        <option value="$PROJECT_DIR$/core/src/jeu/CSG.java" />
-        <option value="$PROJECT_DIR$/core/src/jeu/mode/extensions/Buttons.java" />
-        <option value="$PROJECT_DIR$/core/src/jeu/mode/EndlessMode.java" />
-        <option value="$PROJECT_DIR$/core/src/ToBeSorted/FontsDimensions.java" />
-        <option value="$PROJECT_DIR$/core/src/menu/screens/MenuXP.java" />
-        <option value="$PROJECT_DIR$/core/src/menu/screens/Loading.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/Mine.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/Rainbow.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/PrecalculatedParticles.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/PinkBullet.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/ViciousBullet.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/CyanBullet.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/weapons/player/ArmeAdd.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/weapons/player/SunWeapon.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/enemies/Enemy.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/ShooterFrag.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Group.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/Meteor.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/Player.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/Painters.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/Particles.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/background/Dust.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/background/Star.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/Explosion.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/ColorOverTime.java" />
         <option value="$PROJECT_DIR$/core/src/menu/ui/WeaponButton.java" />
-        <option value="$PROJECT_DIR$/core/src/menu/screens/Menu.java" />
-        <option value="$PROJECT_DIR$/core/src/menu/Credits.java" />
-        <option value="$PROJECT_DIR$/core/src/jeu/mode/extensions/Score.java" />
+        <option value="$PROJECT_DIR$/core/src/menu/ui/Barre.java" />
         <option value="$PROJECT_DIR$/core/src/menu/ui/Button.java" />
-        <option value="$PROJECT_DIR$/core/src/jeu/mode/extensions/TemporaryText.java" />
+        <option value="$PROJECT_DIR$/core/src/jeu/mode/EndlessMode.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/other/WaveEffect.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/ParticleUiElement.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/bonuses/XP.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/bonuses/Bonus.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/TimeParticle.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/SpaceInvaderParticle.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/BlueSweepParticle.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/PinkParticle.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/SunParticle.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/smoke/MovingSmoke.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/smoke/Smoke.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/Ghost.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/trhuster/ThrusterParticle.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/FireballParticle.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/GreenAddParticle.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/SparklesColorOverTimeWide.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/SparklesColorOverTime.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/ExplosionImpactBullet.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/DebrisExplosion.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/StaticSmoke.java" />
+        <option value="$PROJECT_DIR$/core/src/elements/particular/particles/ParticlePanneau.java" />
+        <option value="$PROJECT_DIR$/core/src/ToBeSorted/Palette.java" />
+        <option value="$PROJECT_DIR$/core/src/assets/AssetMan.java" />
+        <option value="$PROJECT_DIR$/core/src/behind/shaders/Bloom.java" />
+        <option value="$PROJECT_DIR$/core/src/behind/SoundMan.java" />
+        <option value="$PROJECT_DIR$/core/src/behind/Gps.java" />
+        <option value="$PROJECT_DIR$/core/src/assets/sprites/Animations.java" />
+        <option value="$PROJECT_DIR$/core/src/behind/Gm.java" />
       </list>
     </option>
   </component>
@@ -3645,6 +3522,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3749,13 +3627,138 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ToBeSorted" />
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trinity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trinity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="generic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trinity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trinity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="elements" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="generic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="weapons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trinity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trinity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="behind" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trinity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trinity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trinity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trinity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sprites" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -3777,8 +3780,10 @@
     <property name="restartRequiresConfirmation" value="true" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="FullScreen" value="false" />
+    <property name="extract.method.default.visibility" value="private" />
   </component>
   <component name="RunManager" selected="Application.DesktopLauncher">
     <configuration default="false" name="DesktopLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -4138,7 +4143,9 @@
       <updated>1444761753338</updated>
       <workItem from="1444761755195" duration="1802000" />
       <workItem from="1444935783376" duration="4886000" />
-      <workItem from="1445080936928" duration="2215000" />
+      <workItem from="1445080936928" duration="2531000" />
+      <workItem from="1445083479677" duration="6000" />
+      <workItem from="1445278269760" duration="7147000" />
     </task>
     <task id="LOCAL-00001" summary="FontsDimensions">
       <created>1444940661823</created>
@@ -4146,11 +4153,35 @@
       <option name="project" value="LOCAL" />
       <updated>1444940661823</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="No more compile errors">
+      <created>1445083174422</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1445083174422</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fonts with correct color">
+      <created>1445281964715</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1445281964715</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Shader toy">
+      <created>1445283020244</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1445283020244</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Palette">
+      <created>1445284617652</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1445284617652</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8903000" />
+    <option name="totallyTimeSpent" value="16372000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1680" y="0" width="1920" height="1200" extended-state="6" />
@@ -4160,7 +4191,6 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -4170,224 +4200,182 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.4448463" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="0" y="147" width="1680" height="1022" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="SonarQube" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15364583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15364583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.068716094" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="FontsDimensions" />
-    <option name="LAST_COMMIT_MESSAGE" value="FontsDimensions" />
+    <MESSAGE value="No more compile errors" />
+    <MESSAGE value="Fonts with correct color" />
+    <MESSAGE value="Shader toy" />
+    <MESSAGE value="Palette" />
+    <option name="LAST_COMMIT_MESSAGE" value="Palette" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/desktop/src/be/julien/trinity/desktop/DesktopLauncher.java">
+    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/weapons/player/ArmeAdd.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
+          <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/menu/screens/MenuXP.java">
+    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/weapons/player/SunWeapon.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="87" column="119" selection-start-line="87" selection-start-column="119" selection-end-line="87" selection-end-column="119" />
+          <caret line="33" column="39" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/jeu/CSG.java">
+    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/enemies/Enemy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="72" column="48" selection-start-line="72" selection-start-column="48" selection-end-line="72" selection-end-column="48" />
+          <caret line="158" column="16" selection-start-line="158" selection-start-column="16" selection-end-line="158" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ToBeSorted/FontsDimensions.java">
+    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/ShooterFrag.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/enemies/individual/lvl1/Group.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39481556">
+          <caret line="41" column="39" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/ViciousBullet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14356929">
+          <caret line="20" column="54" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#283#284#0" expanded="true" />
-            <element signature="e#325#326#0" expanded="true" />
+            <element signature="e#1215#1216#0" expanded="true" />
+            <element signature="e#1260#1261#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.7.0/21b2ce6c57a95b31f341bb416489791fc96ed2bf/gdx-1.7.0-sources.jar!/com/badlogic/gdx/graphics/g2d/GlyphLayout.java">
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/PrecalculatedParticles.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="14" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/jeu/mode/EndlessMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="298" column="59" selection-start-line="298" selection-start-column="59" selection-end-line="298" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/desktop/src/be/julien/trinity/desktop/DesktopLauncher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/menu/screens/MenuXP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="87" column="119" selection-start-line="87" selection-start-column="119" selection-end-line="87" selection-end-column="119" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/jeu/CSG.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/desktop/src/be/julien/trinity/desktop/DesktopLauncher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/weapons/player/PinkWeaponManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="73" selection-start-line="37" selection-start-column="73" selection-end-line="37" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/weapons/Weapon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="80" selection-start-line="28" selection-start-column="80" selection-end-line="28" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/assets/sprites/AnimPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="66" selection-start-line="57" selection-start-column="66" selection-end-line="57" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/jeu/mode/extensions/Transition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/assets/sprites/Animations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="161" column="70" selection-start-line="161" selection-start-column="70" selection-end-line="161" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/AddStat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="66" selection-start-line="40" selection-start-column="66" selection-end-line="40" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/jeu/CSG.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/jeu/mode/EndlessMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="448" column="63" selection-start-line="448" selection-start-column="63" selection-end-line="448" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/jeu/mode/extensions/Buttons.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="53" selection-start-line="31" selection-start-column="53" selection-end-line="31" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.7.0/21b2ce6c57a95b31f341bb416489791fc96ed2bf/gdx-1.7.0-sources.jar!/com/badlogic/gdx/graphics/g2d/GlyphLayout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="52" selection-start-line="61" selection-start-column="40" selection-end-line="61" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/ToBeSorted/FontsDimensions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.035892323">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#283#284#0" expanded="true" />
-            <element signature="e#325#326#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/menu/screens/MenuXP.java">
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/ColorOverTime.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="87" column="162" selection-start-line="87" selection-start-column="162" selection-end-line="87" selection-end-column="162" />
+        <state vertical-scroll-proportion="1.8125623">
+          <caret line="120" column="39" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/menu/screens/Loading.java">
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/Explosion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="175" selection-start-line="36" selection-start-column="175" selection-end-line="36" selection-end-column="175" />
+        <state vertical-scroll-proportion="1.668993">
+          <caret line="112" column="39" selection-start-line="112" selection-start-column="39" selection-end-line="112" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/background/Star.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7308076">
+          <caret line="82" column="39" selection-start-line="82" selection-start-column="39" selection-end-line="82" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/background/Dust.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9870389">
+          <caret line="66" column="39" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/Particles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.333001">
+          <caret line="94" column="39" selection-start-line="94" selection-start-column="39" selection-end-line="94" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/Painters.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34097707">
+          <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+          <folding>
+            <element signature="e#110#270#0" expanded="false" />
+            <element signature="e#269#270#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6560319">
+          <caret line="114" column="39" selection-start-line="114" selection-start-column="39" selection-end-line="114" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/enemies/individual/bosses/Meteor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34097707">
+          <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/generic/weapons/enemies/EnemyWeapon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.736842">
+          <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -4395,34 +4383,23 @@
     <entry file="file://$PROJECT_DIR$/core/src/menu/ui/WeaponButton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="74" column="173" selection-start-line="74" selection-start-column="173" selection-end-line="74" selection-end-column="173" />
+          <caret line="87" column="39" selection-start-line="87" selection-start-column="39" selection-end-line="87" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/menu/screens/Menu.java">
+    <entry file="file://$PROJECT_DIR$/core/src/menu/ui/Barre.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="86" column="56" selection-start-line="86" selection-start-column="56" selection-end-line="86" selection-end-column="56" />
-          <folding>
-            <element signature="e#3404#3495#0" expanded="true" />
-            <element signature="e#3494#3495#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/menu/Credits.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="102" selection-start-line="34" selection-start-column="102" selection-end-line="34" selection-end-column="102" />
+          <caret line="54" column="39" selection-start-line="54" selection-start-column="39" selection-end-line="54" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/jeu/mode/extensions/Score.java">
+    <entry file="file://$PROJECT_DIR$/core/src/jeu/mode/EndlessMode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="75" column="10" selection-start-line="75" selection-start-column="10" selection-end-line="75" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.36889333">
+          <caret line="297" column="39" selection-start-line="297" selection-start-column="39" selection-end-line="297" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -4430,19 +4407,323 @@
     <entry file="file://$PROJECT_DIR$/core/src/menu/ui/Button.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="57" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
+          <caret line="107" column="39" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/other/WaveEffect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="39" selection-start-line="44" selection-start-column="39" selection-end-line="44" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/ParticleUiElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="36" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/bonuses/XP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="151" column="47" selection-start-line="151" selection-start-column="47" selection-end-line="151" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/bonuses/Bonus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="62" selection-start-line="32" selection-start-column="62" selection-end-line="32" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/TimeParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/SpaceInvaderParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="64" column="39" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/BlueSweepParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="39" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/PinkParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="39" selection-start-line="58" selection-start-column="39" selection-end-line="58" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/SunParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="49" column="39" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/smoke/MovingSmoke.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="72" column="39" selection-start-line="72" selection-start-column="39" selection-end-line="72" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/smoke/Smoke.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="39" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/SparklesColorOverTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="126" column="39" selection-start-line="126" selection-start-column="39" selection-end-line="126" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/DebrisExplosion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="82" column="22" selection-start-line="82" selection-start-column="22" selection-end-line="82" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/ParticlePanneau.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43070787">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
-            <element signature="e#3000#3001#0" expanded="true" />
-            <element signature="e#3101#3102#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#885#886#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/jeu/mode/extensions/TemporaryText.java">
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/StaticSmoke.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6545454">
-          <caret line="31" column="115" selection-start-line="31" selection-start-column="115" selection-end-line="31" selection-end-column="115" />
+        <state vertical-scroll-proportion="0.51545364">
+          <caret line="41" column="39" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/explosions/ExplosionImpactBullet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1485543">
+          <caret line="77" column="39" selection-start-line="77" selection-start-column="39" selection-end-line="77" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/SparklesColorOverTimeWide.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/trhuster/ThrusterParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.91525424">
+          <caret line="66" column="39" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/FireballParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.62811565">
+          <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/Ghost.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/elements/particular/particles/individual/weapon/GreenAddParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/assets/AssetMan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="35" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="35" />
+          <folding>
+            <element signature="e#1247#1248#0" expanded="true" />
+            <element signature="e#1299#1300#0" expanded="true" />
+            <element signature="e#2023#2024#0" expanded="true" />
+            <element signature="e#2049#2050#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/behind/graphics/Palette.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/behind/shaders/BloomShaderLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/behind/shaders/Bloom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/behind/SoundMan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/assets/sprites/AnimUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/assets/sprites/AnimPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/assets/sprites/Animations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
+          <folding>
+            <element signature="e#282#440#0" expanded="true" />
+            <element signature="e#439#440#0" expanded="true" />
+            <element signature="e#460#619#0" expanded="true" />
+            <element signature="e#618#619#0" expanded="true" />
+            <element signature="e#640#800#0" expanded="true" />
+            <element signature="e#809#948#0" expanded="true" />
+            <element signature="e#947#948#0" expanded="true" />
+            <element signature="e#965#1091#0" expanded="true" />
+            <element signature="e#1090#1091#0" expanded="true" />
+            <element signature="e#1102#1243#0" expanded="true" />
+            <element signature="e#1242#1243#0" expanded="true" />
+            <element signature="e#1255#1366#0" expanded="true" />
+            <element signature="e#1365#1366#0" expanded="true" />
+            <element signature="e#1373#1508#0" expanded="true" />
+            <element signature="e#1507#1508#0" expanded="true" />
+            <element signature="e#1518#1638#0" expanded="true" />
+            <element signature="e#1637#1638#0" expanded="true" />
+            <element signature="e#1648#1789#0" expanded="true" />
+            <element signature="e#1788#1789#0" expanded="true" />
+            <element signature="e#1800#1924#0" expanded="true" />
+            <element signature="e#1923#1924#0" expanded="true" />
+            <element signature="e#1943#2039#0" expanded="true" />
+            <element signature="e#2038#2039#0" expanded="true" />
+            <element signature="e#2060#2158#0" expanded="true" />
+            <element signature="e#2157#2158#0" expanded="true" />
+            <element signature="e#2178#2275#0" expanded="true" />
+            <element signature="e#2274#2275#0" expanded="true" />
+            <element signature="e#2293#2421#0" expanded="true" />
+            <element signature="e#2420#2421#0" expanded="true" />
+            <element signature="e#2434#2543#0" expanded="true" />
+            <element signature="e#2542#2543#0" expanded="true" />
+            <element signature="e#2558#2669#0" expanded="true" />
+            <element signature="e#2668#2669#0" expanded="true" />
+            <element signature="e#2683#2793#0" expanded="true" />
+            <element signature="e#2792#2793#0" expanded="true" />
+            <element signature="e#2801#2910#0" expanded="true" />
+            <element signature="e#2909#2910#0" expanded="true" />
+            <element signature="e#2923#3068#0" expanded="true" />
+            <element signature="e#3067#3068#0" expanded="true" />
+            <element signature="e#3081#3202#0" expanded="true" />
+            <element signature="e#3201#3202#0" expanded="true" />
+            <element signature="e#3215#3338#0" expanded="true" />
+            <element signature="e#3337#3338#0" expanded="true" />
+            <element signature="e#3356#3452#0" expanded="true" />
+            <element signature="e#3451#3452#0" expanded="true" />
+            <element signature="e#3460#3577#0" expanded="true" />
+            <element signature="e#3576#3577#0" expanded="true" />
+            <element signature="e#3585#3702#0" expanded="true" />
+            <element signature="e#3701#3702#0" expanded="true" />
+            <element signature="e#3714#3805#0" expanded="true" />
+            <element signature="e#3804#3805#0" expanded="true" />
+            <element signature="e#3822#3978#0" expanded="true" />
+            <element signature="e#3977#3978#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/behind/Gps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/behind/Gm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26919243">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="e#231#232#0" expanded="true" />
+            <element signature="e#261#262#0" expanded="true" />
+            <element signature="e#285#286#0" expanded="true" />
+            <element signature="e#311#312#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

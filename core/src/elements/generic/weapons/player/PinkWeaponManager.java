@@ -2,7 +2,7 @@ package elements.generic.weapons.player;
 
 import jeu.CSG;
 import jeu.mode.EndlessMode;
-import assets.SoundMan;
+import behind.SoundMan;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;

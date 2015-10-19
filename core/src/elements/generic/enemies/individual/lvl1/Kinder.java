@@ -1,6 +1,6 @@
 package elements.generic.enemies.individual.lvl1;
 
-import assets.SoundMan;
+import behind.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;

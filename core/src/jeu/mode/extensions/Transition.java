@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 
 import jeu.CSG;
 import jeu.mode.EndlessMode;
-import assets.SoundMan;
+import behind.SoundMan;
 
 public class Transition {
 	

@@ -39,7 +39,7 @@ public class StaticSmoke implements Poolable {
 				POOL.free(s);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public StaticSmoke init(float x, float y, float width) {

@@ -2,7 +2,6 @@ package elements.particular.particles.individual.weapon;
 
 import jeu.CSG;
 import jeu.Stats;
-import jeu.mode.EndlessMode;
 import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 import elements.generic.weapons.Weapon;
-import elements.particular.particles.StaticSmoke;
 import elements.particular.particles.individual.PrecalculatedParticles;
 
 public final class PinkParticle implements Poolable {
@@ -56,7 +54,7 @@ public final class PinkParticle implements Poolable {
 				POOL.free(p);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<PinkParticle> particulesLaser) {

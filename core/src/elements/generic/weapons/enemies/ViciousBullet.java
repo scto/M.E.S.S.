@@ -1,9 +1,9 @@
 package elements.generic.weapons.enemies;
 
+import jeu.CSG;
 import jeu.Physic;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
-import assets.AssetMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,7 +17,7 @@ public class ViciousBullet extends EnemyWeapon implements InvocableWeapon{
 	
 	public static final Dimensions DIMENSIONS = Dimensions.VICIOUS_BULLET;
 	public static final Pool<ViciousBullet> POOL = Pools.get(ViciousBullet.class);
-	public static final float COLOR = AssetMan.convertARGB(1, 1, .5f, 1f);
+	public static final float COLOR = CSG.gm.palette().convertARGB(1, 1, .5f, 1f);
 	private static final float SLOW = 0.96f; 
 	private boolean phase2 = false;
 	
@@ -42,7 +42,7 @@ public class ViciousBullet extends EnemyWeapon implements InvocableWeapon{
 	
 	@Override
 	protected void removeColor(SpriteBatch batch) {
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 	
 	@Override

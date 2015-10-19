@@ -2,7 +2,7 @@ package elements.generic.weapons.player;
 
 import com.badlogic.gdx.graphics.Color;
 
-import assets.SoundMan;
+import behind.SoundMan;
 import elements.generic.weapons.Weapon;
 import elements.particular.Player;
 import jeu.CSG;

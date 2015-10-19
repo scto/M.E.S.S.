@@ -7,7 +7,7 @@ import menu.tuto.OnClick;
 import menu.ui.Button;
 import menu.ui.WeaponButton;
 import assets.AssetMan;
-import assets.SoundMan;
+import behind.SoundMan;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

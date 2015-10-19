@@ -1,7 +1,7 @@
 package elements.generic.enemies.individual.lvl2;
 
 import jeu.CSG;
-import assets.SoundMan;
+import behind.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;

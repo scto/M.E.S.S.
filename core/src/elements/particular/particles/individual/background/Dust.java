@@ -31,7 +31,7 @@ public class Dust implements Poolable {
 		w = tmp;
 		x = (CSG.R.nextFloat() * CSG.screenWidth + w) - w / 2;
 		final float f = (CSG.R.nextFloat() / 2) + 0.35f;
-		color = AssetMan.convertARGB(1, f, f, f);
+		color = CSG.gm.palette().convertARGB(1, f, f, f);
 		speed = (CSG.R.nextFloat() / 2) * 14 * CSG.height;
 		h = speed / 20;
 	}
@@ -64,7 +64,7 @@ public class Dust implements Poolable {
 				}
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<Dust> stars) {

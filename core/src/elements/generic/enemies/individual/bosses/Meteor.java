@@ -30,7 +30,7 @@ public class Meteor extends Enemy {
 	protected void displayOnScreen(SpriteBatch batch) {
 		angle += angularSpeed * EndlessMode.delta;
 		batch.draw(AssetMan.planet, pos.x, pos.y, DIMENSIONS.halfWidth, DIMENSIONS.halfWidth, DIMENSIONS.width, DIMENSIONS.width, 1, 1, angle);
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 		if (EndlessMode.alternate)
 			ColorOverTime.add(Particles.EXPLOSION_COLOR_OVER_TIME, this, 10, ParticuleBundles.SMOKE);
 	};

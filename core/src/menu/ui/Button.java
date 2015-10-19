@@ -105,9 +105,9 @@ public class Button extends AbstractButton {
 	}
 
 	private void drawBackground(SpriteBatch batch) {
-		batch.setColor(AssetMan.BLACK);
+		batch.setColor(CSG.gm.palette().black);
 		batch.draw(AssetMan.debris, x, y, width + PADDING_BARRE, height);
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public void act() {

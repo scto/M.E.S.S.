@@ -4,8 +4,7 @@ import jeu.CSG;
 import jeu.Physic;
 import jeu.Stats;
 import jeu.mode.EndlessMode;
-import assets.AssetMan;
-import assets.SoundMan;
+import behind.SoundMan;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -30,7 +29,7 @@ public abstract class Bonus {
 	protected static int cptBonus = 1, tmpXp;
 	public static final int XPMINN = 10, XPMIN2 = XPMINN * 2;
 	private static float tmp, tmpY;
-	private static final float TRANSPARENCE = AssetMan.convertARGB(0.45f, .8f, 1, 1);
+	private static final float TRANSPARENCE = CSG.gm.palette().convertARGB(0.45f, .8f, 1, 1);
 	private float timeTaken;
 	
 	/**
@@ -49,7 +48,7 @@ public abstract class Bonus {
 			}
 		}
 		XP.act(XP_LIST, batch);
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 		for (final Bonus b : LIST) {
 			b.drawMeMoveMe(batch);
 			b.detectPris();

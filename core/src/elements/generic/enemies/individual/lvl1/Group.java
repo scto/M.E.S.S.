@@ -2,8 +2,7 @@ package elements.generic.enemies.individual.lvl1;
 
 import jeu.CSG;
 import jeu.Stats;
-import assets.AssetMan;
-import assets.SoundMan;
+import behind.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;
@@ -23,7 +22,7 @@ public class Group extends Enemy {
 	protected static final Dimensions DIMENSIONS = Dimensions.GROUP;
 	public static final Pool<Group> POOL = new Pool<Group>() {		protected Group newObject() {			return new Group();		}	};
 	protected static final float INIT_NEXT_SHOT = .5f;
-	private static final float COLOR = AssetMan.convertARGB(1, 1f, 0.5f, 0.2f);
+	private static final float COLOR = CSG.gm.palette().convertARGB(1, 1f, 0.5f, 0.2f);
 	private int shotNumber = 0;
 	
 	@Override
@@ -39,7 +38,7 @@ public class Group extends Enemy {
 	
 	@Override
 	protected void removeColor(SpriteBatch batch) {
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static Group initAll() {

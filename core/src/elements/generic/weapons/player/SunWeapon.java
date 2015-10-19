@@ -2,7 +2,6 @@ package elements.generic.weapons.player;
 
 import jeu.CSG;
 import jeu.Stats;
-import assets.AssetMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,7 +30,7 @@ public class SunWeapon extends PlayerWeapon implements Poolable {
 	public void displayOnScreen(SpriteBatch batch) {	
 		batch.setColor(color);
 		batch.draw(Animations.BLUE_BALL.anim.getTexture(this), pos.x, pos.y, DIMENSIONS.width, DIMENSIONS.height);
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 	
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;												}

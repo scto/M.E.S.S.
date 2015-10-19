@@ -47,7 +47,7 @@ public class SunParticle implements Poolable {
 				POOL.free(p);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<SunParticle> particles) {

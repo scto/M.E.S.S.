@@ -4,7 +4,7 @@ import jeu.CSG;
 import jeu.Strings;
 import menu.tuto.OnClick;
 import menu.ui.Button;
-import assets.SoundMan;
+import behind.SoundMan;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

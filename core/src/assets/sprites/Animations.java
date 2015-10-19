@@ -1,5 +1,6 @@
 package assets.sprites;
 
+import behind.Gps;
 import jeu.CSG;
 import assets.AssetMan;
 
@@ -11,39 +12,17 @@ public enum Animations {
 
 	ZIG_ZAG_RED(new Animated() {
 		public TextureRegion getTexture(AnimUser u) {
-			if (u.getPosition().x < CSG.widthDiv5)
-				return zigZagRed[0];
-			if (u.getPosition().x < CSG.widthDiv5Mul2)
-				return zigZagRed[1];
-			if (u.getPosition().x < CSG.widthDiv5Mul3)
-				return zigZagRed[2];
-			if (u.getPosition().x < CSG.widthDiv5Mul4)
-				return zigZagRed[3];
-			return zigZagRed[4];
+            return zigZagRed[CSG.gm.gps().locateVertical5Portions(u.getPosition().x)];
 		}
-	}), ZIG_ZAG_BLUE(new Animated() {
+	}),
+    ZIG_ZAG_BLUE(new Animated() {
 		public TextureRegion getTexture(AnimUser u) {
-			if (u.getPosition().x < CSG.widthDiv5)
-				return zigZagBlue[0];
-			if (u.getPosition().x < CSG.widthDiv5Mul2)
-				return zigZagBlue[1];
-			if (u.getPosition().x < CSG.widthDiv5Mul3)
-				return zigZagBlue[2];
-			if (u.getPosition().x < CSG.widthDiv5Mul4)
-				return zigZagBlue[3];
-			return zigZagBlue[4];
+            return zigZagBlue[CSG.gm.gps().locateVertical5Portions(u.getPosition().x)];
 		}
-	}), ZIG_ZAG_GREEN(new Animated() {
+	}),
+    ZIG_ZAG_GREEN(new Animated() {
 		public TextureRegion getTexture(AnimUser u) {
-			if (u.getPosition().x < CSG.widthDiv5)
-				return zigZagGreen[0];
-			if (u.getPosition().x < CSG.widthDiv5Mul2)
-				return zigZagGreen[1];
-			if (u.getPosition().x < CSG.widthDiv5Mul3)
-				return zigZagGreen[2];
-			if (u.getPosition().x < CSG.widthDiv5Mul4)
-				return zigZagGreen[3];
-			return zigZagGreen[4];
+            return zigZagGreen[CSG.gm.gps().locateVertical5Portions(u.getPosition().x)];
 		}
 	}), PLANE(new Animated() {
 		public TextureRegion getTexture(AnimUser u) {

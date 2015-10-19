@@ -45,7 +45,7 @@ public class ArmeAdd extends PlayerWeapon {
 	protected void displayOnScreen(SpriteBatch batch) {
 		batch.setColor(GreenAddParticle.COLOR);
 		batch.draw(AssetMan.addBullet, pos.x, pos.y, DIMENSIONS.halfWidth, DIMENSIONS.halfHeight, DIMENSIONS.width, DIMENSIONS.height, 1, 1, angle);
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 	
 	@Override	public Dimensions getDimensions() {		return DIMENSIONS;					}

@@ -5,7 +5,7 @@ import jeu.Stats;
 import jeu.mode.EndlessMode;
 import jeu.mode.extensions.Transition;
 import assets.AssetMan;
-import assets.SoundMan;
+import behind.SoundMan;
 import assets.sprites.AnimPlayer;
 
 import com.badlogic.gdx.Gdx;
@@ -94,7 +94,7 @@ public final class Player {
 		batch.setColor(PrecalculatedParticles.colorsOverTimeCyanToGreen[0]);
 		batch.draw(AssetMan.dust, x - Stats.U, y - Stats.u * 3, Stats.U2, Stats.U6);
 		
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 		batch.draw(AnimPlayer.getTexture(), POS.x, POS.y, WIDTH, HEIGHT);
 		shield();
 		if (leftDrone) 	batch.draw(AssetMan.addShip, addX - HALF_WIDTH, 					addY - HALF_HEIGHT, 	HALF_WIDTH_ADD, HEIGHT_DIV8, WIDTH_ADD, HEIGHT_DIV4, 1, 1, angleAdd, 		false);
@@ -112,7 +112,7 @@ public final class Player {
 				addShotNbr = 0x0000;
 		}
 		elements.particular.particles.Smoke.draw(batch);
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	private void shield() {

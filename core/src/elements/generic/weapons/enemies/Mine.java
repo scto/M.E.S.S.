@@ -2,7 +2,6 @@ package elements.generic.weapons.enemies;
 
 import jeu.CSG;
 import jeu.mode.EndlessMode;
-import assets.AssetMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,7 +15,7 @@ public class Mine extends EnemyWeapon {
 	public static final Pool<Mine> POOL = Pools.get(Mine.class);
 	private final float vitesseAngulaire = (float) CSG.R.nextGaussian() * 80;
 	public static final Dimensions DIMENSIONS = Dimensions.MINE;
-	public final float color = AssetMan.convertARGB(1, (CSG.R.nextFloat() /2) + 0.49f , (CSG.R.nextFloat() /2) + 0.49f, (CSG.R.nextFloat() /2) + 0.49f);
+	public final float color = CSG.gm.palette().convertARGB(1, (CSG.R.nextFloat() / 2) + 0.49f, (CSG.R.nextFloat() / 2) + 0.49f, (CSG.R.nextFloat() / 2) + 0.49f);
 
 	@Override
 	protected void setColor(SpriteBatch batch) {
@@ -24,7 +23,7 @@ public class Mine extends EnemyWeapon {
 	}
 	@Override
 	protected void removeColor(SpriteBatch batch) {
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 	@Override
 	public Animations getAnimation() {

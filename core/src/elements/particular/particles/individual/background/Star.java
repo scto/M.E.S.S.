@@ -31,14 +31,14 @@ public class Star implements Poolable {
 		x = (CSG.R.nextFloat() * CSG.screenWidth + w) - w/2;
 		final float f = CSG.R.nextFloat();
 		if (f > .99f) {
-			color = AssetMan.WHITE;
+			color = CSG.gm.palette().white;
 		} else {
 			if (f > .9f)
-				color = AssetMan.convertARGB(1, 1, .7f+ CSG.R.nextFloat() / 4, 1);
+				color = CSG.gm.palette().convertARGB(1, 1, .7f + CSG.R.nextFloat() / 4, 1);
 			else if (f > .7f) {
-				color = AssetMan.convertARGB(1, .5f, .5f+ CSG.R.nextFloat() / 4, 1);
+				color = CSG.gm.palette().convertARGB(1, .5f, .5f + CSG.R.nextFloat() / 4, 1);
 			} else {
-				color = AssetMan.WHITE;
+				color = CSG.gm.palette().white;
 			}
 		}
 		speed = (w * w) * 0.5f;
@@ -80,7 +80,7 @@ public class Star implements Poolable {
 				}
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<Star> stars) {

@@ -2,15 +2,15 @@ package jeu;
 
 import java.util.Random;
 
-import ToBeSorted.FontsDimensions;
-import ToBeSorted.ShaderToys;
+import behind.FontsDimensions;
+import behind.Gm;
+import behind.shaders.ShaderToys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.NumberUtils;
 import jeu.level.SpawnEnemyPosition;
 import jeu.mode.EndlessMode;
 import menu.screens.Loading;
-import shaders.Bloom;
+import behind.shaders.Bloom;
 import assets.AssetMan;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -24,7 +24,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import elements.generic.components.enemies.Merlin;
 import elements.generic.enemies.Enemy;
 import elements.generic.weapons.Weapon;
 import elements.particular.bonuses.Bonus;
@@ -50,6 +49,7 @@ public class CSG extends Game implements ApplicationListener {
 	public static final Vector2 vecteurPosition = new Vector2(), tmpPos = new Vector2(), tmpDir = new Vector2(), tmp2 = new Vector2();
 	public static Vector2 vecteurCible = new Vector2();
 	public static int tmpInt;
+    public static final Gm gm = new Gm();
 	public static FontsDimensions fontsDimensions;
     public static final ShaderToys SHADER = new ShaderToys();
 	
@@ -89,12 +89,12 @@ public class CSG extends Game implements ApplicationListener {
 		if (dimension < 1f)
 			dimension = 1f;
 		
-		menuFontBlack = setFont((int) (25 * dimension),			dimension, generator, param, AssetMan.BLACK);
+		menuFontBlack = setFont((int) (25 * dimension),			dimension, generator, param, gm.palette().black);
 		originalScoreFontScale = dimension * 0.75f;
-		scoreFont = setFont((int) (13 * dimension), 			dimension, generator, param, AssetMan.convertARGB(1, 0, 0, 1));
+		scoreFont = setFont((int) (13 * dimension), 			dimension, generator, param, gm.palette().convertARGB(1, 0, 0, 1));
 
-		menuFontSmall = setFont((int) (12 * dimension), 		dimension, generator, param, AssetMan.convertARGB(.32f, .52f, 0.99f, 1));
-		menuFont = setFont((int) (23 * dimension), 		        dimension, generator, param, AssetMan.convertARGB(.32f, .52f, 0.99f, 1));
+		menuFontSmall = setFont((int) (12 * dimension), 		dimension, generator, param, gm.palette().convertARGB(.32f, .52f, 0.99f, 1));
+		menuFont = setFont((int) (23 * dimension), 		        dimension, generator, param, gm.palette().convertARGB(.32f, .52f, 0.99f, 1));
 		
 		generator.dispose(); // don't forget to dispose to avoid memory leaks!
 	}

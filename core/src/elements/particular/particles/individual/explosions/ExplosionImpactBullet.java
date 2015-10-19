@@ -75,7 +75,7 @@ public class ExplosionImpactBullet implements Poolable {
 				batch.setColor(p.color);
 				batch.draw(AssetMan.dust, p.x, p.y, p.width, p.width);
 			}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<ExplosionImpactBullet> explosions) {

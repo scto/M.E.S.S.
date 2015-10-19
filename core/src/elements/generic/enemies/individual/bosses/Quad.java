@@ -4,7 +4,7 @@ import jeu.CSG;
 import jeu.Stats;
 import jeu.level.Progression;
 import jeu.mode.EndlessMode;
-import assets.SoundMan;
+import behind.SoundMan;
 import assets.sprites.Animations;
 
 import com.badlogic.gdx.audio.Sound;

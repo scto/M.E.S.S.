@@ -57,24 +57,24 @@ public class WeaponButton extends AbstractButton {
 	 * @return 
 	 */
 	public void draw(SpriteBatch batch) {
-		batch.setColor(AssetMan.BLACK);
+		batch.setColor(CSG.gm.palette().black);
 		batch.draw(AssetMan.backgroundButton, x, y, width, heightBackground);
 		for (Barre b : barres)
 			b.draw(batch);
 		
 		if (selected) {
-			batch.setColor(AssetMan.WHITE);
+			batch.setColor(CSG.gm.palette().white);
 			batch.draw(tr, x, y, width, height);
 			batch.draw(AnimPlayer.TEXTURES[2], x + offsetShip, y - Player.HEIGHT, Player.WIDTH, Player.HEIGHT);
 		} else {
-			batch.setColor(AssetMan.ALPHA70);
+			batch.setColor(CSG.gm.palette().alpha70);
 			batch.draw(tr, x + widthDiv10, y, unselectedWidth, unselectedHeight);
 		}
 		
 		if ( (num == 5 || num == 4) && CSG.profile.isAllWeaponsLvlOk(Profil.LVL_UNLOCK) == false) {
 			CSG.menuFontSmall.draw(CSG.batch, "Unlock the 2 remaining weapons by getting the others at level 6 or higher ", xText, 4 + CSG.fontsDimensions.getHeight(CSG.menuFontSmall, "W"));
 			xText -= 0.3f;
-			batch.setColor(AssetMan.RED);
+			batch.setColor(CSG.gm.palette().red);
 			batch.draw(AssetMan.dust, x, y, 0, 		0, width*1.2f, 	Stats.u, 1, 1, 40);
 			batch.draw(AssetMan.dust, x, y, width, 	0, width, 		Stats.u, 1, 1, -35);
 			if (-CSG.fontsDimensions.getWidth(CSG.menuFontSmall, "Unlock the 2 remaining weapons by getting the others at level 6 or higher ") > xText)
@@ -85,7 +85,7 @@ public class WeaponButton extends AbstractButton {
 				Player.weapon = WeaponManager.getWeaponManager(label);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 		
 		setSelected(label);
 	}

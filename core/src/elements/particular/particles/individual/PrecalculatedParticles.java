@@ -1,7 +1,5 @@
 package elements.particular.particles.individual;
 
-import assets.AssetMan;
-
 import com.badlogic.gdx.utils.Array;
 
 import elements.generic.weapons.player.Fireball;
@@ -103,7 +101,7 @@ public class PrecalculatedParticles {
 		final float step = 0.95f / nbFrames;
 		Array<Float> tmp = new Array<Float>();
 		while (cpt < nbFrames) {
-			tmp.add(AssetMan.convertARGB(1, b, g / div, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, b, g / div, 1));
 			g -= step;
 			cpt++;
 		}
@@ -114,12 +112,12 @@ public class PrecalculatedParticles {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
 		if (white) {
-			tmp.add(AssetMan.convertARGB(1, 0.95f, 1, 1));
-			tmp.add(AssetMan.convertARGB(1, 0.55f, 1, 1));
-			tmp.add(AssetMan.convertARGB(1, 0.25f, 1, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, 0.95f, 1, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, 0.55f, 1, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, 0.25f, 1, 1));
 		}
 		while (alpha > min) {
-			tmp.add(AssetMan.convertARGB(alpha, 0.25f, 1, alpha));
+			tmp.add(CSG.gm.palette().convertARGB(alpha, 0.25f, 1, alpha));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);
@@ -129,12 +127,12 @@ public class PrecalculatedParticles {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
 		if (white) {
-			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.95f));
-			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.55f));
-			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.25f));
+			tmp.add(CSG.gm.palette().convertARGB(1, 1, 1, 0.95f));
+			tmp.add(CSG.gm.palette().convertARGB(1, 1, 1, 0.55f));
+			tmp.add(CSG.gm.palette().convertARGB(1, 1, 1, 0.25f));
 		}
 		while (alpha > min) {
-			tmp.add(AssetMan.convertARGB(alpha, Math.min(1, alpha*2), 1, 0.25f));
+			tmp.add(CSG.gm.palette().convertARGB(alpha, Math.min(1, alpha * 2), 1, 0.25f));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);
@@ -144,13 +142,13 @@ public class PrecalculatedParticles {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
 		if (white) {
-			tmp.add(AssetMan.convertARGB(1, 0.95f, 1, 1));
-			tmp.add(AssetMan.convertARGB(1, 0.50f, 1, 1));
-			tmp.add(AssetMan.convertARGB(1, 0.25f, 1, 1));
-			tmp.add(AssetMan.convertARGB(1, 0.12f, 1, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, 0.95f, 1, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, 0.50f, 1, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, 0.25f, 1, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, 0.12f, 1, 1));
 		}
 		while (alpha > min) {
-			tmp.add(AssetMan.convertARGB(alpha, 0.12f,  1 + alpha/2, 1));
+			tmp.add(CSG.gm.palette().convertARGB(alpha, 0.12f, 1 + alpha/2, 1));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);
@@ -160,12 +158,12 @@ public class PrecalculatedParticles {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
 		if (white) {
-			tmp.add(AssetMan.convertARGB(1, 0.95f, 1, 1));
-			tmp.add(AssetMan.convertARGB(1, 0.50f, 1, 1));
-			tmp.add(AssetMan.convertARGB(1, 0.25f, 1, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, 0.95f, 1, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, 0.50f, 1, 1));
+			tmp.add(CSG.gm.palette().convertARGB(1, 0.25f, 1, 1));
 		}
 		while (alpha > min) {
-			tmp.add(AssetMan.convertARGB(alpha, 0.25f, Math.min(1, alpha*2), 1));
+			tmp.add(CSG.gm.palette().convertARGB(alpha, 0.25f, Math.min(1, alpha*2), 1));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);
@@ -175,12 +173,12 @@ public class PrecalculatedParticles {
 		float alpha = 1;
 		Array<Float> tmp = new Array<Float>();
 		if (white) {
-			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.95f));
-			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.50f));
-			tmp.add(AssetMan.convertARGB(1, 1, 1, 0.25f));
+			tmp.add(CSG.gm.palette().convertARGB(1, 1, 1, 0.95f));
+			tmp.add(CSG.gm.palette().convertARGB(1, 1, 1, 0.50f));
+			tmp.add(CSG.gm.palette().convertARGB(1, 1, 1, 0.25f));
 		}
 		while (alpha > min) {
-			tmp.add(AssetMan.convertARGB(alpha, 1, Math.min(1, alpha*2), 0.05f));
+			tmp.add(CSG.gm.palette().convertARGB(alpha, 1, Math.min(1, alpha * 2), 0.05f));
 			alpha -= step;
 		}
 		return CSG.convert(tmp);

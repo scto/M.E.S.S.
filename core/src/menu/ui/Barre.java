@@ -52,7 +52,7 @@ public class Barre implements Poolable {
 			b -= 0.008f;
 		batch.setColor(0,1-b,b,1);
 		batch.draw(AssetMan.debris, x, y, width/2, HEIGHT / 2, width, HEIGHT, 1, 1, angle);
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 		x += speed.x * EndlessMode.delta;
 		y += speed.y * EndlessMode.delta;
 		speed.scl(0.97f);

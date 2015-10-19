@@ -42,7 +42,7 @@ public class WaveEffect implements Poolable {
 				waves.removeValue(w, false);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	@Override

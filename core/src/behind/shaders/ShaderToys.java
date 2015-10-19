@@ -1,4 +1,4 @@
-package ToBeSorted;
+package behind.shaders;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;

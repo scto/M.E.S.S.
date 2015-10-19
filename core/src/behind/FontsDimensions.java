@@ -1,8 +1,7 @@
-package ToBeSorted;
+package behind;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import jeu.CharSeq;
 
 /**
  * Created by julien on 15/10/15.

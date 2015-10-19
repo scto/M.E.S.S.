@@ -1,7 +1,7 @@
 package elements.generic.enemies.individual.lvl1;
 
+import jeu.CSG;
 import jeu.Stats;
-import assets.AssetMan;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,7 +18,7 @@ import elements.generic.weapons.enemies.FragWeapon;
 public class ShooterFrag extends Shooter {
 	
 	protected static final Dimensions DIMENSIONS = Dimensions.SHOOTER_FRAG;
-	protected static final float COLOR = AssetMan.convertARGB(1, 1, 1, .7f), xOffset = DIMENSIONS.halfWidth - FragWeapon.DIMENSIONS.halfWidth;
+	protected static final float COLOR = CSG.gm.palette().convertARGB(1, 1, 1, .7f), xOffset = DIMENSIONS.halfWidth - FragWeapon.DIMENSIONS.halfWidth;
 	public static final Pool<ShooterFrag> POOL = Pools.get(ShooterFrag.class);
 
 	@Override
@@ -28,7 +28,7 @@ public class ShooterFrag extends Shooter {
 	
 	@Override
 	protected void removeColor(SpriteBatch batch) {
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 	
 	@Override

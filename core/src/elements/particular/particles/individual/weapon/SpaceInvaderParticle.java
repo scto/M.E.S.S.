@@ -62,7 +62,7 @@ public class SpaceInvaderParticle implements Poolable {
 				explosions.removeValue(p, true);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<SpaceInvaderParticle> explosions) {

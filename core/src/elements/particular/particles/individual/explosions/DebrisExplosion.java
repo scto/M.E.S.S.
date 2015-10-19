@@ -36,7 +36,7 @@ public class DebrisExplosion implements Poolable {
 	
 	public DebrisExplosion() {
 		final float tmp = ((CSG.R.nextFloat()/3f) * 2f) + 0.15f;
-		color = AssetMan.convertARGB(1, tmp, tmp, tmp);
+		color = CSG.gm.palette().convertARGB(1, tmp, tmp, tmp);
 	}
 	
 	@Override
@@ -99,7 +99,7 @@ public class DebrisExplosion implements Poolable {
 				batch.draw(AssetMan.dust, p.x, p.y, 0, 0, p.width, p.height, 1, 1, p.angle);
 			}
 		}
-		batch.setColor(AssetMan.WHITE);
+		batch.setColor(CSG.gm.palette().white);
 	}
 
 	public static void clear(Array<DebrisExplosion> explosions) {
