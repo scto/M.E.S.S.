@@ -1,4 +1,6 @@
 ## AI - Entity
 
-       *register*
-Entity ----------> AI
+      
+Entity >> *register* >> AI
+Entity << **get state** << AI
+Entity << **send command** << AI
