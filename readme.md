@@ -15,6 +15,7 @@ Entity << *send request* << AI
 Is charged to make an entity shoot. Handling the angle of the shot.
 
 Entity >> *register* >> Canonnier
+
 Entity >> *set weapon* >> Canonier
 
 Entity << *send order* << Canonnier
