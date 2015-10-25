@@ -24,6 +24,7 @@ It has to pay which pattern it will use, then which enemy it will spawn. The amo
 + Is a place and orientation where the enemy appear.
 + Defined which enemy (maybe enemy type to make it easier ??) can appear
 
+# To be ironed out
 
 ## AI
 
