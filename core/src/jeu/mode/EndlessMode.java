@@ -5,7 +5,6 @@ import jeu.CSG;
 import jeu.Physic;
 import jeu.Stats;
 import jeu.Strings;
-import jeu.level.Progression;
 import jeu.mode.extensions.Buttons;
 import jeu.mode.extensions.DesktopTests;
 import jeu.mode.extensions.Score;
@@ -99,7 +98,6 @@ public class EndlessMode implements Screen {
         Weapon.clear();
         Buttons.init();
         transition.reset();
-        Progression.reset();
         SoundMan.playMusic();
 		triggerStop = false;
 		cam.position.z = 1;
@@ -361,7 +359,7 @@ public class EndlessMode implements Screen {
 		if (!lost) {
 			mouvement();
 			if (alternate) {
-				if (invoque)			Progression.invoqueBaseOnScore();
+				if (invoque)				CSG.gm.orchestrator.invoke(Score.score);
 				if (!triggerStop)		Physic.collisionsTest();
 				Score.act(now, lost, triggerStop);
  			}

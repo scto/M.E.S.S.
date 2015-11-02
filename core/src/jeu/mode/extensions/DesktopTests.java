@@ -1,7 +1,6 @@
 package jeu.mode.extensions;
 
 import jeu.CSG;
-import jeu.level.Wave;
 import jeu.mode.EndlessMode;
 
 import com.badlogic.gdx.Gdx;
@@ -103,17 +102,7 @@ public class DesktopTests {
 			CSG.profile.bfg = true;
 		}
 		if (Gdx.input.isKeyPressed(Keys.F5)) Score.score++;
-		if (wave)
-			runWave(Wave.LVL3_3);
 	}
 
-	private static void runWave(Wave wave) {
-		if (wave.active)
-			wave.mightSpawn();
-		else if (nextActivation < EndlessMode.now) { 
-			wave.activate();
-			nextActivation = EndlessMode.now + 15;
-		}
-	}
 
 }

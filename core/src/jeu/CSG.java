@@ -7,7 +7,6 @@ import behind.Gm;
 import behind.shaders.ShaderToys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.NumberUtils;
-import jeu.level.SpawnEnemyPosition;
 import jeu.mode.EndlessMode;
 import menu.screens.Loading;
 import behind.shaders.Bloom;
@@ -193,16 +192,6 @@ public class CSG extends Game implements ApplicationListener {
 		for (int i = 1; i < array.length; i++)
 			tmp.add( (array[i]-array[i-1])/2);
 		return CSG.convert(tmp);
-	}
-
-	public static SpawnEnemyPosition[] ArrayConv(Array<SpawnEnemyPosition> spawns) {
-		SpawnEnemyPosition[] array2 = new SpawnEnemyPosition[spawns.size];
-	    int i=0;
-	    for (SpawnEnemyPosition f : spawns) {
-	        array2[i] = f;
-	        i++;
-	    }
-		return array2;
 	}
 
 	public static float[] getDouble(float[] array) {

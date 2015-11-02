@@ -2,7 +2,6 @@ package elements.generic.enemies.individual.bosses;
 
 import jeu.CSG;
 import jeu.Stats;
-import jeu.level.Progression;
 import jeu.mode.EndlessMode;
 import behind.SoundMan;
 import assets.sprites.Animations;
@@ -108,7 +107,7 @@ public class Quad extends Enemy {
 
 
 	public void die() {
-		Progression.bossDied();
+		//Progression.bossDied();
 		super.die();
 	}
 
