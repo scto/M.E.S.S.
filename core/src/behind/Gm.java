@@ -1,5 +1,6 @@
 package behind;
 
+import Orchestrator.Orchestrator;
 import behind.graphics.Palette;
 
 /**
@@ -7,14 +8,16 @@ import behind.graphics.Palette;
  */
 public class Gm {
 
-    private final Palette palette = new Palette();
-    private final Gps gps = new Gps();
+  private final Palette palette = new Palette();
+  private final Gps gps = new Gps();
+  public final Orchestrator orchestrator = new Orchestrator();
+  public final Rand rand = new Rand();
 
-    public Palette palette() {
-        return palette;
-    }
+  public Palette palette() {
+    return palette;
+  }
 
-    public Gps gps() {
-        return gps;
-    }
+  public Gps gps() {
+    return gps;
+  }
 }
