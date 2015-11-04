@@ -1,18 +1,21 @@
 package elements.generic.enemies;
 
 import com.badlogic.gdx.utils.Pool;
+import elements.generic.enemies.Enemy;
 import elements.generic.enemies.individual.lvl1.Ball;
 import elements.generic.enemies.individual.lvl1.Basic;
 import elements.generic.enemies.individual.lvl3.Ball3;
+import elements.generic.enemies.individual.lvl3.Basic3;
+import elements.generic.enemies.individual.lvl4.Basic4;
 
 /**
  * Created by julien on 11/2/15.
  */
 public enum EnemyType {
 
-  BASIC(Basic.POOL, Ball.POOL, Ball3.POOL);
+  BASIC(Basic.POOL, Basic3.POOL, Basic4.POOL);
 
-  Pool<? extends Enemy>[] enemies;
+  public Pool<? extends Enemy>[] enemies;
   int cost;
 
   EnemyType(Pool<? extends Enemy>... enemies) {

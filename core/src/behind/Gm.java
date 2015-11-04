@@ -1,6 +1,6 @@
 package behind;
 
-import Orchestrator.Orchestrator;
+import behind.levelbuilder.Orchestrator;
 import behind.graphics.Palette;
 
 /**

@@ -1,12 +1,9 @@
-package Orchestrator;
-
-import java.util.ArrayList;
-import java.util.List;
+package behind.levelbuilder;
 
 /**
  * Created by julien on 10/25/15.
  */
-public class Wave {
+public class EnemyPattern {
 
   /*
   X------------------X
@@ -27,13 +24,13 @@ public class Wave {
   private static final Nest[][] D18 = {{Nest.T18}};
   private static final Nest[][] D20 = {{Nest.T20}};
 
-  public static final Wave[] WAVES = getWaves();
-  public static final Wave[] DEFAULT_WAVES = {new Wave(D0), new Wave(D2), new Wave(D4), new Wave(D6), new Wave(D8), new Wave(D10), new Wave(D12), new Wave(D14), new Wave(D16), new Wave(D18), new Wave(D20)};
+  public static final EnemyPattern[] ENEMY_PATTERNs = {new EnemyPattern(A)};
+  public static final EnemyPattern[] DEFAULT_ENEMY_PATTERNs = {new EnemyPattern(D0), new EnemyPattern(D2), new EnemyPattern(D4), new EnemyPattern(D6), new EnemyPattern(D8), new EnemyPattern(D10), new EnemyPattern(D12), new EnemyPattern(D14), new EnemyPattern(D16), new EnemyPattern(D18), new EnemyPattern(D20)};
 
   public final int cost;
   public final Nest[][] nest;
 
-  public Wave(Nest[][] nest) {
+  public EnemyPattern(Nest[][] nest) {
     this.cost = getCost(nest);
     this.nest = nest;
   }
@@ -46,12 +43,6 @@ public class Wave {
       }
     }
     return cost;
-  }
-
-  public static Wave[] getWaves() {
-    List<Wave> list = new ArrayList<Wave>();
-    list.add(new Wave(A));
-    return (Wave[]) list.toArray();
   }
 
 }
